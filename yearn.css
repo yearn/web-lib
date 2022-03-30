@@ -1,0 +1,348 @@
+
+:root {
+	--color-background: 244 247 251;
+	--color-background-variant: 224 234 255;
+	--color-surface: 255 255 255;
+	--color-surface-variant: 249 251 253;
+	--color-primary: 6 87 249;
+	--color-primary-variant: 0 74 223;
+	--color-secondary: 224 234 255;
+	--color-secondary-variant: 198 215 249;
+	--color-disabled: 206 213 227;
+	--color-dark: 20 20 20;
+	--color-alert-warning-primary: 255 138 0;
+	--color-alert-warning-secondary: 255 249 217;
+	--color-alert-warning-secondary-variant: 255 247 205;
+	--color-alert-error-primary: 231 0 125;
+	--color-alert-error-secondary: 255 220 239;
+	--color-alert-critical-primary: 255 0 0;
+	--color-alert-critical-secondary: 255 223 223;
+	--color-icons-primary: 206 213 227;
+	--color-icons-variant: 71 85 112;
+	--color-typo-primary: 0 23 70;
+	--color-typo-primary-variant: 6 87 249;
+	--color-typo-secondary: 127 141 169;
+	--color-typo-secondary-variant: 71 85 112;
+	--color-typo-off: 206 213 227;
+	--color-button-filled-primary: 6 87 249;
+	--color-button-filled-variant: 0 74 223;
+	--color-button-filled-text: 255 255 255;
+	--color-button-outlined-primary: 255 255 255;
+	--color-button-outlined-variant: 224 234 255;
+	--color-button-outlined-text: 6 87 249;
+	--color-button-disabled-primary: 244 247 251;
+	--color-button-disabled-text: 206 213 227;
+}
+
+:root [data-theme="dark"] {
+	--color-background: 20 20 20;
+	--color-background-variant: 39 39 39;
+	--color-surface: 0 0 0;
+	--color-surface-variant: 25 25 25;
+	--color-primary: 255 255 255;
+	--color-primary-variant: 255 255 255;
+	--color-secondary: 39 39 39;
+	--color-secondary-variant: 32 32 32;
+	--color-disabled: 168 168 168;
+	--color-dark: 20 20 20;
+	--color-alert-warning-primary: 255 138 0;
+	--color-alert-warning-secondary: 255 249 217;
+	--color-alert-warning-secondary-variant: 255 247 205;
+	--color-alert-error-primary: 231 0 125;
+	--color-alert-error-secondary: 255 220 239;
+	--color-alert-critical-primary: 255 0 0;
+	--color-alert-critical-secondary: 255 223 223;
+	--color-icons-primary: 168 168 168;
+	--color-icons-variant: 255 255 255;
+	--color-typo-primary: 255 255 255;
+	--color-typo-primary-variant: 255 255 255;
+	--color-typo-secondary: 168 168 168;
+	--color-typo-secondary-variant: 168 168 168;
+	--color-typo-off: 168 168 168;
+	--color-button-filled-primary: 6 87 249;
+	--color-button-filled-variant: 0 74 223;
+	--color-button-filled-text: 255 255 255;
+	--color-button-outlined-primary: 255 255 255;
+	--color-button-outlined-variant: 39 39 39;
+	--color-button-outlined-text: 255 255 255;
+	--color-button-disabled-primary: 20 20 20;
+	--color-button-disabled-text: 168 168 168;
+}
+
+* {
+	scroll-behavior: smooth;
+	font-family: Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+html {
+	margin-left: calc(100vw - 100%);
+}
+
+#__next {
+	width: 100%;
+	height: 100%;
+}
+
+::placeholder, :-ms-input-placeholder, ::-ms-input-placeholder,
+::-ms-input-placeholder, :-ms-input-placeholder, ::-ms-input-placeholder,
+:-ms-input-placeholder, :-ms-input-placeholder, ::-ms-input-placeholder {
+	--tw-text-opacity: 1;
+	color: rgb(var(--color-typo-off) / var(--tw-text-opacity));
+}
+
+.scrollbar-none {
+	-ms-overflow-style: none;/* IE and Edge */
+	scrollbar-width: none;/* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+	display: none;
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** List of extended style to handle Yearn default themes
+**************************************************************************/
+/* Buttons - Filled and outline variants */
+button {
+	cursor: pointer;
+	padding-left: 0.75rem/* 12px */;
+	padding-right: 0.75rem/* 12px */;
+	height: 2rem/* 32px */;
+	border-radius: 0.5rem/* 8px */;
+	font-size: 16px;
+	line-height: 24px;
+	text-align: center;
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+button:disabled {
+	cursor: not-allowed;
+}
+.button-light {
+	--tw-bg-opacity: 1;
+	--tw-text-opacity: 1;
+	color: rgb(var(--color-primary) / var(--tw-text-opacity));
+	background-color: rgb(var(--color-button-outlined-variant) / var(--tw-bg-opacity));
+}
+.button-light:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(var(--color-secondary-variant) / var(--tw-bg-opacity));
+}
+.button-filled {
+	--tw-bg-opacity: 1;
+	--tw-text-opacity: 1;
+	color: rgb(var(--color-button-filled-text) / var(--tw-text-opacity));
+	background-color: rgb(var(--color-primary) / var(--tw-bg-opacity));
+	font-weight: 700;
+}
+.button-filled:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(var(--color-primary-variant) / var(--tw-bg-opacity));
+}
+.button-filled:disabled {
+	--tw-bg-opacity: 1;
+	--tw-text-opacity: 1;
+	background-color: rgb(var(--color-button-disabled-primary) / var(--tw-bg-opacity));
+	color: rgb(var(--color-button-disabled-text) / var(--tw-text-opacity));
+}
+.button-filled:disabled:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(var(--color-button-disabled-primary) / var(--tw-bg-opacity));
+}
+.button-outline {
+	--tw-text-opacity: 1;
+	--tw-border-opacity: 1;
+	color: rgb(var(--color-primary) / var(--tw-text-opacity));
+	border-width: 1px;
+	border-color: rgb(var(--color-primary) / var(--tw-border-opacity));
+	background-color: transparent;
+}
+.button-outline:hover {
+	--tw-bg-opacity: 1;
+	background-color: rgb(var(--color-button-outlined-variant) / var(--tw-bg-opacity));
+}
+.button-outline:disabled {
+	--tw-text-opacity: 1;
+	border-width: 1px;
+	color: rgb(var(--color-button-disabled-text) / var(--tw-text-opacity));
+	border-color: rgb(var(--color-button-disabled-text) / 0);
+}
+
+/* External Links - use with yearn meta descriptions link for example */
+.link {
+	--tw-text-opacity: 1;
+	cursor: pointer;
+	text-decoration: underline;
+	color: rgb(var(--color-primary) / var(--tw-text-opacity));
+	transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+.link:hover {
+	--tw-text-opacity: 1;
+	color: rgb(var(--color-primary-variant) / var(--tw-text-opacity));
+}
+
+/* Description list component - used to style the component */
+.inline-dl {
+	display: flex;
+	flex-direction: column;
+}
+.inline-dl > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+.inline-dl > span {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.inline-dl > span > dt {
+	--tw-text-opacity: 1;
+	margin-right: 2rem;
+	width: 41.666667%; /* 5/12 */
+	text-align: left;
+	color: rgb(var(--color-typo-secondary-variant) / var(--tw-text-opacity));
+}
+.inline-dl > span > dd {
+	--tw-numeric-spacing: tabular-nums;
+	--tw-text-opacity: 1;
+	text-align: left;
+	font-weight: 700;
+	font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+	color: rgb(var(--color-typo-primary) / var(--tw-text-opacity));
+}
+
+/* Grid/Table - Used to fake a table without the impossible customizations */
+.grid-row {
+	display: grid;
+	grid-template-columns: repeat(22, minmax(0, 1fr));
+	width: max-content;
+	padding-top: 0.75rem/* 12px */;
+	padding-bottom: 0.75rem/* 12px */;
+	height: 4rem/* 64px */;
+	border-radius: 0.125rem/* 2px */;
+	position: relative;
+	margin-bottom: 0.125rem/* 2px */;
+}
+@media (min-width: 768px) {
+	.grid-row {
+		width: 100%;
+	}
+}
+
+.row-1,
+.row-2,
+.row-3,
+.row-4,
+.row-5,
+.row-6,
+.row-8 {
+	display: flex;
+	flex-direction: row;
+}
+.row-1 {grid-column: span 1 / span 1;}
+.row-2 {grid-column: span 2 / span 2;}
+.row-3 {grid-column: span 3 / span 3;}
+.row-4 {grid-column: span 4 / span 4;}
+.row-5 {grid-column: span 5 / span 5;}
+.row-6 {grid-column: span 6 / span 6;}
+.row-8 {grid-column: span 8 / span 8;}
+.cell-end {
+	--tw-text-opacity: 1;
+	--tw-numeric-spacing: tabular-nums;
+	font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+	text-align: right;
+	justify-content: flex-end;
+	color: rgb(var(--color-typo-primary) / var(--tw-text-opacity));
+}
+
+.cell-start {
+	--tw-text-opacity: 1;
+	--tw-numeric-spacing: tabular-nums;
+	font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+	text-align: left;
+	justify-content: flex-start;
+	color: rgb(var(--color-typo-primary) / var(--tw-text-opacity));
+}
+
+/* Typo - Some basic typo stuff */
+h1 {
+	--tw-text-opacity: 1;
+	font-size: 24px;
+	line-height: 32px;
+	font-weight: 700;
+	color: rgb(var(--color-primary) / var(--tw-text-opacity));
+}
+
+h4 {
+	--tw-text-opacity: 1;
+	font-size: 20px;
+	line-height: 32px;
+	font-weight: 700;
+	color: rgb(var(--color-primary) / var(--tw-text-opacity));
+}
+
+/* Some extra */
+.flex-center {
+	justify-content: center;
+	align-items: center;
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** NsProgress is used to display the loading indicator. All of theses
+** styles are required to make it visible
+**************************************************************************/
+.nprogress-custom-parent {
+	overflow: hidden;
+	position: relative;
+}
+
+.nprogress-custom-parent #nprogress .bar,
+.nprogress-custom-parent #nprogress .spinner {
+	position: absolute;
+}
+
+#nprogress {
+	pointer-events: none;
+}
+
+#nprogress .bar {
+	--tw-bg-opacity: 1;
+	background-color: rgb(var(--color-primary) / var(--tw-bg-opacity));
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	z-index: 1031;
+}
+
+#nprogress .spinner {
+	display: block;
+	position: fixed;
+	top: 16px;
+	right: 16px;
+	z-index: 1031;
+}
+
+#nprogress .spinner-icon {
+	--tw-border-opacity: 1;
+	width: 16px;
+	height: 16px;
+	box-sizing: border-box;
+	border-width: 2px;
+	border-color: transparent;
+	border-top-color: rgb(var(--color-primary) / var(--tw-border-opacity));
+	border-left-color: rgb(var(--color-primary) / var(--tw-border-opacity));
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
