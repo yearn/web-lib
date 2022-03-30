@@ -1,6 +1,6 @@
 {
 	"name": "@majorfi/web-lib",
-	"version": "0.0.68",
+	"version": "0.0.69",
 	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
 	"main": "dist/index.cjs",
 	"typings": "dist/index.d.ts",
@@ -9,12 +9,16 @@
 		"dist",
 		"style.css",
 		"build.css",
-		"tailwind.plugin.cjs"
+		"default.css",
+		"tailwind.plugin.cjs",
+		"postcss.config.cjs",
+		"tailwind.config.cjs"
 	],
 	"exports": {
 		".": "./dist/index.js",
 		"./style.css": "./style.css",
 		"./build.css": "./build.css",
+		"./default.css": "./default.css",
 		"./tailwind.config": "./tailwind.plugin.cjs",
 		"./components": "./dist/components/index.js",
 		"./contexts": "./dist/contexts/index.js",
@@ -40,7 +44,7 @@
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
 	},
-	"source": "lib/index.tsx",
+	"source": "src/index.tsx",
 	"dependencies": {
 		"@headlessui/react": "^1.5.0",
 		"@tailwindcss/forms": "^0.5.0",
@@ -83,7 +87,6 @@
 		"@types/react-dom": "^17.0.14",
 		"@typescript-eslint/eslint-plugin": "^5.17.0",
 		"@typescript-eslint/parser": "^5.17.0",
-		"babel-loader": "^8.2.4",
 		"dayjs": "^1.11.0",
 		"dotenv-webpack": "^7.1.0",
 		"esbuild": "^0.14.29",
@@ -95,7 +98,6 @@
 		"eslint-plugin-react-hooks": "^4.4.0",
 		"eslint-plugin-tailwindcss": "^3.5.0",
 		"fast-glob": "^3.2.11",
-		"ts-loader": "^9.2.8",
 		"typescript": "^4.6.3"
 	}
 }
