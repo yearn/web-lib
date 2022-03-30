@@ -1,14 +1,12 @@
 {
 	"name": "@majorfi/web-lib",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"private": false,
 	"sideEffects": false,
 	"type": "module",
-	"source": "src/index.js",
+	"source": "src/index.tsx",
 	"exports": {
-		"components/AddressWithActions": "./dist/components/AddressWithActions.js",
-		"components/AlertBox": "./dist/components/AlertBox.js",
-		"components/Card": "./dist/components/Card.js"
+		"components/Card": "./dist/components/Card.modern.js"
 	},
 	"scripts": {
 		"dev": "next",
@@ -19,7 +17,7 @@
 		"analyze": "ANALYZE=true next build",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-		"build": "rm -rf dist && microbundle components/Card* --sourcemap false"
+		"build": "rm -rf dist && microbundle components/Card.tsx --sourcemap false"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0",
