@@ -1,10 +1,13 @@
 {
 	"name": "@majorfi/web-lib",
-	"version": "0.0.16",
+	"version": "0.0.17",
 	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
 	"main": "dist/index.cjs",
 	"typings": "dist/index.d.ts",
 	"module": "dist/web-lib.esm.js",
+	"files": [
+		"dist"
+	],
 	"exports": {
 		"import": "./dist/web-lib.esm.js",
 		"require": "./dist/index.cjs",
@@ -59,8 +62,8 @@
 		"dayjs": "^1.11.0",
 		"nprogress": "^0.2.0",
 		"postcss": "^8.4.12",
-		"react": "^18.0.0",
-		"react-dom": "^18.0.0",
+		"react": "^16 || ^17 || ^18",
+		"react-dom": "^16 || ^17 || ^18",
 		"sass": "^1.49.9",
 		"sharp": "^0.30.3",
 		"tailwindcss": "^3.0.23"
