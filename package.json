@@ -1,6 +1,6 @@
 {
 	"name": "@majorfi/web-lib",
-	"version": "0.0.50",
+	"version": "0.0.51",
 	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
 	"main": "dist/index.cjs",
 	"typings": "dist/index.d.ts",
@@ -11,7 +11,8 @@
 	],
 	"exports": {
 		".": "./dist/index.js",
-		"./style.css": "./dist/style.css"
+		"./dist/style.css": "./dist/style.css",
+		"./dist/components": "./dist/components/index.js"
 	},
 	"type": "module",
 	"sideEffects": false,
