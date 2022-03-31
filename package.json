@@ -1,6 +1,6 @@
 {
 	"name": "@majorfi/web-lib",
-	"version": "0.0.89",
+	"version": "0.0.90",
 	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
 	"main": "dist/index.cjs",
 	"typings": "dist/index.d.ts",
@@ -38,7 +38,7 @@
 	},
 	"scripts": {
 		"prepublishOnly": "./build.sh --external:react --external:react-dom --platform=node",
-		"build": "npx tailwindcss -c ./src/tailwind.config.cjs -o build.css -m && ./build.sh --external:react --external:react-dom && paste build.css yearn.css > style.css",
+		"build": "npx tailwindcss -c ./tailwind.config.cjs -o build.css -m && ./build.sh --external:react --external:react-dom && paste build.css yearn.css > style.css",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
 	},
