@@ -12,11 +12,15 @@ export type TDescriptionList = {
 
 function DescriptionList({options, className, ...props}: TDescriptionList): ReactElement {
 	return (
-		<dl className={`inline-dl ${className}`} {...props}>
+		<dl className={`flex flex-col space-y-4 ${className}`} {...props}>
 			{options.map((option): ReactElement => (
-				<span key={option.title}>
-					<dt>{option.title}</dt>
-					<dd>{option.details}</dd>
+				<span className={'flex flex-row items-center'} key={option.title}>
+					<dt className={'mr-8 w-5/12 text-left text-typo-secondary-variant'}>
+						{option.title}
+					</dt>
+					<dd className={'font-bold tabular-nums text-left text-typo-primary'}>
+						{option.details}
+					</dd>
 				</span>
 			))}
 		</dl>
