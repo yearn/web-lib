@@ -3,12 +3,9 @@ import	IconAlertWarning		from	'../icons/IconAlertWarning';
 import	IconAlertError			from	'../icons/IconAlertError';
 import	IconAlertCritical		from	'../icons/IconAlertCritical';
 
-export type TAlert = {
-	level: 'warning' | 'error' | 'critical',
-	message: string
-}
-
-type 		TAlertBox = {alerts: TAlert[], level: 'error' | 'warning' | 'critical'}
+type		TAlertLevels = 'none' | 'warning' | 'error' | 'critical';
+type		TAlert = {level: TAlertLevels, message: string}
+type 		TAlertBox = {alerts: TAlert[], level: TAlertLevels}
 function	AlertBox({alerts, level = 'warning'}: TAlertBox): ReactElement | null {
 	if (alerts.length === 0) {
 		return null;

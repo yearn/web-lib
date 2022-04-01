@@ -6,12 +6,12 @@ export type TStatisticCard = {
 	label: string;
 	value: string;
 	backgroundColor?: string;
-	cols?: {mobile: number, desktop: number}
 } & React.ComponentPropsWithoutRef<'div'>;
-function StatisticCardBase({label, value, cols = {mobile: 2, desktop: 1}, ...props}: TStatisticCard): ReactElement {
+function StatisticCardBase({label, value, ...props}: TStatisticCard): ReactElement {
+	const	className = props.className || 'col-span-12 md:col-span-4';
 	return (
 		<Card
-			className={`flex flex-col col-span-${cols.mobile} md:col-span-${cols.desktop}`}
+			className={`flex flex-col ${className}`}
 			isNarrow
 			{...props}>
 			<div className={'mb-2 text-sm text-typo-secondary'}>
@@ -24,10 +24,10 @@ function StatisticCardBase({label, value, cols = {mobile: 2, desktop: 1}, ...pro
 	);
 }
 
-type		TWrapper = {children: ReactElement[], cols?: {mobile: number, desktop: number}}
-function	Wrapper({children, cols = {mobile: 2, desktop: 3}}: TWrapper): ReactElement {
+type		TWrapper = {children: ReactElement[]}
+function	Wrapper({children}: TWrapper): ReactElement {
 	return (
-		<div className={`grid gap-4 grid-cols-${cols.mobile} md:grid-cols-${cols.desktop}`}>
+		<div className={`grid gap-4 grid-cols-12`}>
 			{children}
 		</div>
 	);

@@ -2,7 +2,7 @@ import {ReactElement} from 'react';
 
 export type TCard = {
 	className?: string;
-	backgroundColor?: string;
+	variant?: 'surface' | 'background';
 	isNarrow?: boolean;
 	hasNoPadding?: boolean;
 	onClick?: React.MouseEventHandler;
@@ -12,6 +12,21 @@ export type TCard = {
 export type TCardList = {
 	className?: string;
 	children?: React.ReactNode;
+};
+
+type RowRendererParams = {
+	index: number,
+	isScrolling: boolean,
+	isVisible: boolean,
+	key: string,
+	parent: Object,
+	style: Object,
+};
+export type TCardVirtualizedList = {
+	elements: any[];
+	listHeight?: number;
+	rowHeight: number;
+	rowRenderer: (params: RowRendererParams) => ReactElement;
 };
 
 export type TCardDetailSummary = {
@@ -32,7 +47,7 @@ export type TCardWithTabs = {
 export type TCardDetail = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	summary?: TCardDetailSummary | ReactElement | ((p: unknown) => ReactElement | TCardDetailSummary) | any;
-	backgroundColor?: string;
+	variant?: 'surface' | 'background';
 	isSticky?: boolean;
 	children?: React.ReactNode;
 } & React.ComponentPropsWithoutRef<'div'>;
