@@ -9,26 +9,6 @@ export type TCard = {
 	children?: React.ReactNode;
 } & React.ComponentPropsWithoutRef<'section'>;
 
-export type TCardList = {
-	className?: string;
-	children?: React.ReactNode;
-};
-
-type RowRendererParams = {
-	index: number,
-	isScrolling: boolean,
-	isVisible: boolean,
-	key: string,
-	parent: Object,
-	style: Object,
-};
-export type TCardVirtualizedList = {
-	elements: any[];
-	listHeight?: number;
-	rowHeight: number;
-	rowRenderer: (params: RowRendererParams) => ReactElement;
-};
-
 export type TCardDetailSummary = {
 	startChildren?: React.ReactNode;
 	endChildren?: React.ReactNode;

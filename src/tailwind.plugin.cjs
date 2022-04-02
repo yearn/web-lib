@@ -1,5 +1,6 @@
 const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme');
+const {colors, paddings} = require('./tailwind.theme.cjs');
 
 function withOpacityValue(variable) {
 	return ({opacityValue}) => {
@@ -69,6 +70,11 @@ module.exports = {
 			gridTemplateColumns: {
 				'22': 'repeat(22, minmax(0, 1fr))'
 			},
+			spacing: {
+				'none': 'var(--padding-none)',
+				'narrow': 'var(--padding-narrow)',
+				'wide': 'var(--padding-wide)'
+			},
 			width: {
 				30: '7.5rem',
 				33: '8.25rem',
@@ -93,6 +99,9 @@ module.exports = {
 				'lg': ['20px', '32px'],
 				'xl': ['24px', '32px'],
 				'4xl': ['40px', '56px']
+			},
+			transitionProperty: {
+				'max-height': 'max-height'
 			}
 		}
 	},
@@ -103,72 +112,8 @@ module.exports = {
 		plugin(function ({ addBase, addComponents, addUtilities, theme }) {
 			addBase({
 				':root': {
-					'--color-background': '244 247 251',
-					'--color-background-variant': '224 234 255',
-					'--color-surface': '255 255 255',
-					'--color-surface-variant': '249 251 253',
-					'--color-primary': '6 87 249',
-					'--color-primary-variant': '0 74 223',
-					'--color-secondary': '224 234 255',
-					'--color-secondary-variant': '198 215 249',
-					'--color-disabled': '206 213 227',
-					'--color-dark': '20 20 20',
-					'--color-alert-warning-primary': '255 138 0',
-					'--color-alert-warning-secondary': '255 249 217',
-					'--color-alert-warning-secondary-variant': '255 247 205',
-					'--color-alert-error-primary': '231 0 125',
-					'--color-alert-error-secondary': '255 220 239',
-					'--color-alert-critical-primary': '255 0 0',
-					'--color-alert-critical-secondary': '255 223 223',
-					'--color-icons-primary': '206 213 227',
-					'--color-icons-variant': '71 85 112',
-					'--color-typo-primary': '0 23 70',
-					'--color-typo-primary-variant': '6 87 249',
-					'--color-typo-secondary': '127 141 169',
-					'--color-typo-secondary-variant': '71 85 112',
-					'--color-typo-off': '206 213 227',
-					'--color-button-filled-primary': '6 87 249',
-					'--color-button-filled-variant': '0 74 223',
-					'--color-button-filled-text': '255 255 255',
-					'--color-button-outlined-primary': '255 255 255',
-					'--color-button-outlined-variant': '224 234 255',
-					'--color-button-outlined-text': '6 87 249',
-					'--color-button-disabled-primary': '244 247 251',
-					'--color-button-disabled-text': '206 213 227',
-					'& [data-theme="dark"]': {
-						'--color-background': '20 20 20',
-						'--color-background-variant': '39 39 39',
-						'--color-surface': '0 0 0',
-						'--color-surface-variant': '25 25 25',
-						'--color-primary': '255 255 255',
-						'--color-primary-variant': '255 255 255',
-						'--color-secondary': '39 39 39',
-						'--color-secondary-variant': '32 32 32',
-						'--color-disabled': '168 168 168',
-						'--color-dark': '20 20 20',
-						'--color-alert-warning-primary': '255 138 0',
-						'--color-alert-warning-secondary': '255 249 217',
-						'--color-alert-warning-secondary-variant': '255 247 205',
-						'--color-alert-error-primary': '231 0 125',
-						'--color-alert-error-secondary': '255 220 239',
-						'--color-alert-critical-primary': '255 0 0',
-						'--color-alert-critical-secondary': '255 223 223',
-						'--color-icons-primary': '168 168 168',
-						'--color-icons-variant': '255 255 255',
-						'--color-typo-primary': '255 255 255',
-						'--color-typo-primary-variant': '255 255 255',
-						'--color-typo-secondary': '168 168 168',
-						'--color-typo-secondary-variant': '168 168 168',
-						'--color-typo-off': '168 168 168',
-						'--color-button-filled-primary': '6 87 249',
-						'--color-button-filled-variant': '0 74 223',
-						'--color-button-filled-text': '255 255 255',
-						'--color-button-outlined-primary': '255 255 255',
-						'--color-button-outlined-variant': '39 39 39',
-						'--color-button-outlined-text': '255 255 255',
-						'--color-button-disabled-primary': '20 20 20',
-						'--color-button-disabled-text': '168 168 168',
-					}
+					...colors,
+					...paddings
 				},
 				'html': {
 					marginLeft: 'calc(100vw - 100%)'
@@ -231,6 +176,21 @@ module.exports = {
 						color: theme('colors.primary-variant')
 					}
 				},
+				'.button': {
+					cursor: theme('cursor.pointer'),
+					paddingLeft: theme('spacing.3'),
+					paddingRight: theme('spacing.3'),
+					height: theme('height.8'),
+					borderRadius: theme('borderRadius.lg'),
+					fontSize: theme('fontSize.base'),
+					lineHeight: theme('lineHeight.base'),
+					transitionProperty: 'color, background-color, border-color, text-decoration-color, fill, stroke',
+					transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+					transitionDuration: '150ms',
+					'&:disabled': {
+						cursor: theme('cursor.not-allowed'),
+					}
+				},
 				'.button-filled': {
 					color: theme('colors.button-filled-text'),
 					backgroundColor: theme('colors.primary'),
@@ -266,8 +226,17 @@ module.exports = {
 			})
 			addUtilities({
 				'.flex-center': {
+					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center'
+				},
+				'.flex-row': {
+					display: 'flex',
+					flexDirection: 'row',
+				},
+				'.flex-col': {
+					display: 'flex',
+					flexDirection: 'col',
 				},
 				'.cell-end': {
 					justifyContent: 'flex-end',

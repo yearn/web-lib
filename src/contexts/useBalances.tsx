@@ -70,5 +70,5 @@ export const BalancesContextApp: React.FC = ({children}): ReactElement => {
 	);
 };
 
-export const useBowswap = (): TBalancesContext => React.useContext(BalancesContext);
-export default useBowswap;
+export const useBalance = (): TBalancesContext => React.useContext(BalancesContext);
+export default useBalance;

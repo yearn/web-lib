@@ -1,42 +1,7 @@
 import React, {ReactElement} from 'react';
 import {Disclosure, Transition, Tab} from '@headlessui/react';
-import {List, AutoSizer} from 'react-virtualized';
-import FlipMove from 'react-flip-move';
 import IconChevron from '../icons/IconChevron';
 import * as CardTypes from './Card.d';
-
-function	CardList({children, className}: CardTypes.TCardList): ReactElement {
-	return (
-		<FlipMove
-			duration={300}
-			maintainContainerHeight
-			easing={'ease-in-out'}
-			enterAnimation={'fade'}
-			className={className}
-			leaveAnimation={'fade'}>
-			{children}
-		</FlipMove>
-	);
-}
-
-function	CardVirtualizedList({elements, listHeight, rowHeight, rowRenderer}: CardTypes.TCardVirtualizedList): ReactElement {
-	return (
-		<div className={'flex h-full'}>
-			<div className={'flex-1'}>
-				<AutoSizer>
-					{({width, height}: {width: number, height: number}): ReactElement => {
-						return <List
-							width={width}
-							height={listHeight || height}
-							rowHeight={rowHeight}
-							rowCount={elements.length}
-							rowRenderer={rowRenderer} />;
-					}}
-				</AutoSizer>
-			</div>
-		</div>
-	);
-}
 
 function	CardDetailsSummary({startChildren, endChildren, ...props}: CardTypes.TCardDetailSummary): ReactElement{
 	return (
@@ -46,7 +11,7 @@ function	CardDetailsSummary({startChildren, endChildren, ...props}: CardTypes.TC
 			</div>
 			<div className={'flex flex-row items-center mt-4 w-full md:mt-0'}>
 				{endChildren}
-				<div className='ml-auto'>
+				<div className={'ml-auto'}>
 					<IconChevron
 						className={`w-6 h-6 text-primary transition-transform ${props.open ? '-rotate-90' : '-rotate-180'}`} />
 				</div>
@@ -91,7 +56,7 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 						<Tab
 							key={option.label}
 							as={'div'}
-							className={({selected}): string => `flex w-full h-20 border-b-2 flex-center cursor-pointer ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
+							className={({selected}): string => `w-full h-20 border-b-2 flex-center cursor-pointer ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
 							<p className={'text-lg text-center'}>{option.label}</p>
 						</Tab>
 					))}
@@ -119,7 +84,7 @@ function	CardBase({
 }: CardTypes.TCard): ReactElement {
 	return (
 		<section
-			className={`${className ?? ''} ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg ${hasNoPadding ? 'p-0' : isNarrow ? 'p-2 md:p-4' : 'p-4 md:p-6'} transition-all ${onClick ? `cursor-pointer hover:bg-surface-variant shadow-lg` : ''}`}
+			className={`${className ?? ''} ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg ${hasNoPadding ? 'p-0' : isNarrow ? 'p-2 md:p-4' : 'p-4 md:p-6'} transition-all ${onClick ? 'cursor-pointer hover:bg-surface-variant shadow-lg' : ''}`}
 			{...props}>
 			{children}
 		</section>
@@ -127,8 +92,6 @@ function	CardBase({
 }
 
 export const Card = Object.assign(CardBase, {
-	List: CardList,
-	VirtualizedList: CardVirtualizedList,
 	Detail: Object.assign(CardDetails, {Summary: CardDetailsSummary}),
 	Tabs: CardWithTabs
 });

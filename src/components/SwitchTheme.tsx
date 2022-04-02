@@ -17,9 +17,6 @@ function	SwitchTheme({theme, switchTheme, ...props}: TSwitchTheme): ReactElement
 
 	return (
 		<div {...props} className={`hidden flex-row items-center md:flex space-x-2 ${props.className ?? ''}`}>
-			<div>
-				<p className={'mr-2 text-primary'}>{['light', 'light-initial'].includes(currentTheme) ? 'Light theme' : 'Dark theme'}</p>
-			</div>
 			<IconThemeLight
 				aria-label={'Switch to light theme'}
 				onClick={switchTheme}

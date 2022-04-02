@@ -27,7 +27,7 @@ function StatisticCardBase({label, value, ...props}: TStatisticCard): ReactEleme
 type		TWrapper = {children: ReactElement[]}
 function	Wrapper({children}: TWrapper): ReactElement {
 	return (
-		<div className={`grid gap-4 grid-cols-12`}>
+		<div className={'grid grid-cols-12 gap-4'}>
 			{children}
 		</div>
 	);

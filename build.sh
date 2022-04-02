@@ -44,6 +44,9 @@ wait
 # Rewrite ESM imports 😤
 $rewriteImports "$DST" '/**/*.js'
 
+cp "$SRC/tailwind.plugin.cjs" "$DST/tailwind.plugin.cjs"
+cp "$SRC/tailwind.theme.cjs" "$DST/tailwind.theme.cjs"
+
 # Remove test related files
 rm -rf `$resolver "$DST" '/**/*.{test,__mocks__,}.*'`
 rm -rf `$resolver "$DST" '/**/test-utils/*'`
