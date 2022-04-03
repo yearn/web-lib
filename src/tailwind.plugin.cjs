@@ -1,4 +1,6 @@
-const plugin = require('tailwindcss/plugin')
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
+const plugin = require('tailwindcss/plugin');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const {colors, paddings} = require('./tailwind.theme.cjs');
 
@@ -109,7 +111,7 @@ module.exports = {
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),
 		require('@tailwindcss/line-clamp'),
-		plugin(function ({ addBase, addComponents, addUtilities, theme }) {
+		plugin(function ({addBase, addComponents, addUtilities, theme}) {
 			addBase({
 				':root': {
 					...colors,
@@ -117,13 +119,13 @@ module.exports = {
 				},
 				'html': {
 					marginLeft: 'calc(100vw - 100%)'
-			  	},
+				},
 				'h1': {
 					fontSize: theme('fontSize.xl'),
 					fontWeight: theme('fontWeight.bold'),
 					color: theme('colors.primary')
-			  	},
-			  	'h4': {
+				},
+				'h4': {
 					fontSize: theme('fontSize.lg'),
 					fontWeight: theme('fontWeight.bold'),
 					color: theme('colors.typo-primary')
@@ -140,7 +142,7 @@ module.exports = {
 					transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
 					transitionDuration: '150ms',
 					'&:disabled': {
-						cursor: theme('cursor.not-allowed'),
+						cursor: theme('cursor.not-allowed')
 					}
 				},
 				'input': {
@@ -153,7 +155,7 @@ module.exports = {
 						color: theme('colors.typo-off')
 					}
 				}
-			})
+			});
 			addComponents({
 				'#__next': {
 					width: theme('width.full'),
@@ -163,7 +165,7 @@ module.exports = {
 					display: 'flex',
 					flexDirection: 'column',
 					padding: theme('spacing.6'),
-					boxShadow: theme('boxShadow.xl'),
+					boxShadow: theme('boxShadow.xl')
 				},
 				'.link': {
 					color: theme('colors.primary'),
@@ -188,7 +190,7 @@ module.exports = {
 					transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
 					transitionDuration: '150ms',
 					'&:disabled': {
-						cursor: theme('cursor.not-allowed'),
+						cursor: theme('cursor.not-allowed')
 					}
 				},
 				'.button-filled': {
@@ -216,14 +218,14 @@ module.exports = {
 					borderColor: theme('colors.primary'),
 					backgroundColor: 'transparent',
 					'&:hover': {
-						backgroundColor: theme('colors.button-outlined-variant'),
+						backgroundColor: theme('colors.button-outlined-variant')
 					},
 					'&:disabled': {
 						color: theme('colors.button-disabled-text'),
 						backgroundColor: theme('colors.button-disabled-text')
 					}
 				}
-			})
+			});
 			addUtilities({
 				'.flex-center': {
 					display: 'flex',
@@ -232,11 +234,11 @@ module.exports = {
 				},
 				'.flex-row': {
 					display: 'flex',
-					flexDirection: 'row',
+					flexDirection: 'row'
 				},
 				'.flex-col': {
 					display: 'flex',
-					flexDirection: 'col',
+					flexDirection: 'col'
 				},
 				'.cell-end': {
 					justifyContent: 'flex-end',
@@ -255,7 +257,7 @@ module.exports = {
 						display: 'none'
 					}
 				}
-			})
+			});
 		})
 	]
-}
+};

@@ -4,7 +4,6 @@ import {AlertBox} from './AlertBox';
 import {AlertBanner} from './AlertBanner';
 import {DescriptionList} from './DescriptionList';
 import {Dropdown} from './Dropdown';
-import {Header} from './Header';
 import {Modal} from './Modal';
 import {ModalLogin} from './ModalLogin';
 import {ModalMenu} from './ModalMenu';
@@ -23,7 +22,6 @@ export {
 	AlertBanner,
 	DescriptionList,
 	Dropdown,
-	Header,
 	Modal,
 	ModalLogin,
 	ModalMenu,

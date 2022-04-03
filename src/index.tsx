@@ -22,7 +22,6 @@ export * from './components/AlertBox';
 export * from './components/AlertBanner';
 export * from './components/DescriptionList';
 export * from './components/Dropdown';
-export * from './components/Header';
 export * from './components/Modal';
 export * from './components/ModalLogin';
 export * from './components/ModalMenu';
@@ -35,5 +34,6 @@ export * from './components/TxHashWithActions';
 export * from './components/Button';
 
 export * from './layouts/Navbar';
+export * from './layouts/Header';
 export * from './layouts/List';
 export * from './layouts/Autosizer';

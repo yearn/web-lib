@@ -1,14 +1,15 @@
 import	React, {createContext, ReactElement}	from	'react';
-import	{Toaster}								from	'react-hot-toast';
+import	toast, {Toaster}						from	'react-hot-toast';
 import	{useLocalStorage}						from	'../hooks/useLocalStorage';
 import	{useClientEffect}						from	'../hooks/useClientEffect';
 
 type	TUIContext = {
 	theme: string,
-	switchTheme: () => void
+	switchTheme: () => void,
+	toast: unknown
 }
 
-const	UI = createContext<TUIContext>({theme: 'light', switchTheme: (): void => undefined});
+const	UI = createContext<TUIContext>({theme: 'light', switchTheme: (): void => undefined, toast});
 export const UIContextApp: React.FC = ({children}): ReactElement => {
 	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'light-initial');
 	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
@@ -41,7 +42,7 @@ export const UIContextApp: React.FC = ({children}): ReactElement => {
 	}, [theme]);
 
 	return (
-		<UI.Provider value={{theme, switchTheme}}>
+		<UI.Provider value={{theme, switchTheme, toast}}>
 			<Toaster
 				position={'bottom-right'}
 				toastOptions={{className: 'text-sm text-typo-primary', style: {borderRadius: '0.5rem'}}} />

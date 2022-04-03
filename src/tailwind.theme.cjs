@@ -63,9 +63,9 @@ const colors = {
 		'--color-button-outlined-variant': '39 39 39',
 		'--color-button-outlined-text': '255 255 255',
 		'--color-button-disabled-primary': '20 20 20',
-		'--color-button-disabled-text': '168 168 168',
+		'--color-button-disabled-text': '168 168 168'
 	}
-}
+};
 
 //Not implemented yet
 const paddings = {
@@ -76,8 +76,8 @@ const paddings = {
 	'--padding-normal': '1rem', //16px | p-4
 	'--padding-wide': '1.5rem', //24px | p-6
 	'--padding-wider': '2rem', //32px | p-8
-	'--padding-widest': '3rem', //48px | p-12
-}
+	'--padding-widest': '3rem' //48px | p-12
+};
 
 
 module.exports = {colors, paddings};

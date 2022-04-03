@@ -1,7 +1,7 @@
 import	React, {ReactElement}				from	'react';
 import	useWeb3								from	'../contexts/useWeb3';
-import	{Card}								from	'./Card';
-import	{Dropdown, TDropdownOption}			from	'./Dropdown';
+import	{Card}								from	'../components/Card';
+import	{Dropdown, TDropdownOption}			from	'../components/Dropdown';
 import	IconNetworkEthereum					from	'../icons/IconNetworkEthereum';
 import	IconNetworkFantom					from	'../icons/IconNetworkFantom';
 import	IconNetworkArbitrum					from	'../icons/IconNetworkArbitrum';
