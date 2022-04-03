@@ -1,7 +1,8 @@
 import	{ethers}		from	'ethers';
 import	toast			from	'react-hot-toast';
 
-export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I' //cf: https://github.com/ethers-io/ethers.js/discussions/1429
+//cf: https://github.com/ethers-io/ethers.js/discussions/1429
+export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
