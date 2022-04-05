@@ -1,46 +1,90 @@
-import	React, {ReactElement, useRef}	from	'react';
-import	{Dialog, Transition}			from	'@headlessui/react';
-import	IconSocialTwitter				from	'../icons/IconSocialTwitter';
-import	IconSocialGithub				from	'../icons/IconSocialGithub';
-import	IconSocialDiscord				from	'../icons/IconSocialDiscord';
-import	IconSocialMedium				from	'../icons/IconSocialMedium';
-import	IconCross						from	'../icons/IconCross';
+import	React, {ReactElement, useRef}				from	'react';
+import	{Dialog, Transition}						from	'@headlessui/react';
+import	{SwitchTheme}								from	'../components/SwitchTheme';
+import	{useUI}										from	'../contexts/useUI';
+import	{TNavbarOption, TModalMenu, TMobileMenu}	from	'./ModalMenu.d';
+import	IconSocialTwitter							from	'../icons/IconSocialTwitter';
+import	IconSocialGithub							from	'../icons/IconSocialGithub';
+import	IconSocialDiscord							from	'../icons/IconSocialDiscord';
+import	IconSocialMedium							from	'../icons/IconSocialMedium';
+import	IconCross									from	'../icons/IconCross';
 
-function	Menu(): ReactElement {
+function	MobileMenuItem({option}: {option: TNavbarOption}): ReactElement {
+	return (
+		<div className={'pb-6 text-dark-blue-1 link'}>
+			{option.label}
+		</div>
+	);
+}
+
+function	Menu({options, wrapper, set_selected}: TMobileMenu): ReactElement {
+	const	{theme, switchTheme} = useUI();
+
 	return (
 		<div className={'flex flex-col justify-between pt-20 h-screen'}>
-			<div className={'flex flex-col pt-2'}>
-				<a href={'https://docs.yearn.finance'} target={'_blank'} className={'pb-6 text-dark-blue-1 link'} rel={'noreferrer'}>
-					{'Documentation'}
-				</a>
-				<a href={'https://gov.yearn.finance/'} target={'_blank'} className={'pb-6 text-dark-blue-1 link'} rel={'noreferrer'}>
-					{'Governance forum'}
-				</a>
-				<a href={'https://github.com/yearn/yearn-security/blob/master/SECURITY.md'} target={'_blank'} className={'text-dark-blue-1 link'} rel={'noreferrer'}>
-					{'Report a vulnerability'}
-				</a>
-			</div>
+			<nav className={'flex flex-col pt-2'}>
+				{options.map((option): ReactElement  => {
+					if (wrapper) {
+						return (
+							<div key={option.route}>
+								{React.cloneElement(
+									wrapper,
+									{href: option.route},
+									<a><MobileMenuItem option={option} /></a>
+								)}
+							</div>
+						);
+					}
+					return (
+						<div
+							key={option.route}
+							onClick={(): void => set_selected(option.route)}>
+							<MobileMenuItem option={option} />
+						</div>
+					);
+				})}
+			</nav>
 
 			<div className={'pb-6 mt-auto'}>
-				<p className={'pb-6 text-dark-blue-1'}>
-					{'Data provided by '}
-					<a href={'https://www.yfistats.com/'} target={'_blank'} rel={'noreferrer'} className={'text-yearn-blue'}>
-						{'yfistats'}
-					</a>
-				</p>
-
 				<div className={'flex flex-row justify-center items-center space-x-4'}>
-					<div className={'transition-colors cursor-pointer text-gray-blue-1 hover:text-gray-blue-2'}>
-						<a href={'https://twitter.com/iearnfinance'} target={'_blank'} rel={'noreferrer'}><IconSocialTwitter /></a>
+					<div className={'transition-colors text-typo-secondary'}>
+						<a
+							href={'https://twitter.com/iearnfinance'}
+							target={'_blank'}
+							rel={'noreferrer'}>
+							<span className={'sr-only'}>{'Twitter'}</span>
+							<IconSocialTwitter />
+						</a>
 					</div>
-					<div className={'transition-colors cursor-pointer text-gray-blue-1 hover:text-gray-blue-2'}>
-						<a href={process.env.PROJECT_GITHUB_URL} target={'_blank'} rel={'noreferrer'}><IconSocialGithub /></a>
+					<div className={'transition-colors text-typo-secondary'}>
+						<a
+							href={process.env.PROJECT_GITHUB_URL}
+							target={'_blank'}
+							rel={'noreferrer'}>
+							<span className={'sr-only'}>{'Github'}</span>
+							<IconSocialGithub />
+						</a>
 					</div>
-					<div className={'transition-colors cursor-pointer text-gray-blue-1 hover:text-gray-blue-2'}>
-						<a href={'https://discord.yearn.finance/'} target={'_blank'} rel={'noreferrer'}><IconSocialDiscord /></a>
+					<div className={'transition-colors text-typo-secondary'}>
+						<a
+							href={'https://discord.yearn.finance/'}
+							target={'_blank'}
+							rel={'noreferrer'}>
+							<span className={'sr-only'}>{'Discord'}</span>
+							<IconSocialDiscord />
+						</a>
 					</div>
-					<div className={'transition-colors cursor-pointer text-gray-blue-1 hover:text-gray-blue-2'}>
-						<a href={'https://medium.com/iearn'} target={'_blank'} rel={'noreferrer'}><IconSocialMedium /></a>
+					<div className={'transition-colors text-typo-secondary'}>
+						<a
+							href={'https://medium.com/iearn'}
+							target={'_blank'}
+							rel={'noreferrer'}>
+							<span className={'sr-only'}>{'Medium'}</span>
+							<IconSocialMedium />
+						</a>
+					</div>
+					<div>
+						<SwitchTheme theme={theme} switchTheme={switchTheme} />
 					</div>
 				</div>
 			</div>
@@ -48,8 +92,7 @@ function	Menu(): ReactElement {
 	);
 }
 
-type		TModalMenu = {isOpen: boolean, set_isOpen: React.Dispatch<React.SetStateAction<boolean>>}
-function	ModalMenu({isOpen, set_isOpen}: TModalMenu): ReactElement {
+function	ModalMenu({isOpen, set_isOpen, options, set_selected, wrapper}: TModalMenu): ReactElement {
 	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
@@ -86,7 +129,7 @@ function	ModalMenu({isOpen, set_isOpen}: TModalMenu): ReactElement {
 								onClick={(): void => set_isOpen(false)}>
 								<IconCross />
 							</div>
-							<Menu />
+							<Menu options={options} set_selected={set_selected} wrapper={wrapper} />
 						</div>
 					</Transition.Child>
 				</div>

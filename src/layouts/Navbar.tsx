@@ -39,12 +39,11 @@ function	Navbar({
 				style={{height: 'calc(100vh - 4.50rem)'}}>
 				<a href={'/'}>
 					<div className={'flex flex-row items-center cursor-pointer'}>
+						<span className={'sr-only'}>{'Home'}</span>
 						<div className={title ? 'mr-4' : ''}>
 							{React.cloneElement(logo)}
 						</div>
-						<h1 className={'lowercase'}>
-							{title}
-						</h1>
+						{title ? <h1 className={'lowercase'}>{title}</h1> : null}
 					</div>
 				</a>
 				<nav className={'flex flex-col mt-12 space-y-4'}>
@@ -76,12 +75,11 @@ function	Navbar({
 				className={'flex flex-row justify-between items-center p-4 border-b md:hidden bg-surface border-background-variant'}>
 				<a href={'/'}>
 					<div className={'flex flex-row items-center cursor-pointer'}>
+						<span className={'sr-only'}>{'Home'}</span>
 						<div className={title ? 'mr-4' : ''}>
 							{React.cloneElement(logo, {className: `h-8 ${logo.props.className}`})}
 						</div>
-						<h1 className={'lowercase'}>
-							{title}
-						</h1>
+						{title ? <h1 className={'lowercase'}>{title}</h1> : null}
 					</div>
 				</a>
 				<div
@@ -89,7 +87,12 @@ function	Navbar({
 					className={'p-1 -m-1'}>
 					<IconHamburger className={'w-8 h-8 text-typo-primary'} />
 				</div>
-				<ModalMenu isOpen={hasOpenMenu} set_isOpen={set_hasOpenMenu} />
+				<ModalMenu
+					isOpen={hasOpenMenu}
+					set_isOpen={set_hasOpenMenu}
+					set_selected={set_selected}
+					options={options}
+					wrapper={wrapper} />
 			</div>
 		</aside>
 	);

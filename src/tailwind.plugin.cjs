@@ -74,20 +74,16 @@ module.exports = {
 			},
 			spacing: {
 				'none': 'var(--padding-none)',
-				'narrow': 'var(--padding-narrow)',
-				'wide': 'var(--padding-wide)'
+				'tightest': 'var(--padding-tightest)',
+				'tighter': 'var(--padding-tighter)',
+				'tight': 'var(--padding-tight)',
+				'normal': 'var(--padding-normal)',
+				'wide': 'var(--padding-wide)',
+				'wider': 'var(--padding-wider)',
+				'widest': 'var(--padding-widest)'
 			},
 			width: {
-				30: '7.5rem',
-				33: '8.25rem',
-				38: '9.5rem',
-				42: '10.5rem',
-				50: '12.5rem',
-				55: '13.75rem'
-			},
-			height: {
-				22: '5.5rem',
-				30: '7.5rem'
+				'inherit': 'inherit'
 			},
 			maxWidth: {
 				'xl': '552px',
@@ -231,14 +227,6 @@ module.exports = {
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center'
-				},
-				'.flex-row': {
-					display: 'flex',
-					flexDirection: 'row'
-				},
-				'.flex-col': {
-					display: 'flex',
-					flexDirection: 'col'
 				},
 				'.cell-end': {
 					justifyContent: 'flex-end',

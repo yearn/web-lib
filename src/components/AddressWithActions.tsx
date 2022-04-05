@@ -30,6 +30,7 @@ function	AddressWithActions({
 				target={'_blank'}
 				rel={'noreferrer'}
 				className={'cursor-alias'}>
+				<span className={'sr-only'}>{'Link to explorer'}</span>
 				<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
 			</a>
 		</span>

@@ -27,7 +27,7 @@ function	ListAnimated({children, className}: ListTypes.TList): ReactElement {
 
 function	ListVirtualized({elements, listHeight, rowHeight, rowRenderer}: ListTypes.TListVirtualized): ReactElement {
 	return (
-		<div className={'flex h-full'}>
+		<div className={'flex w-full h-full'}>
 			<div className={'flex-1'}>
 				<AutoSizer>
 					{({width, height}: {width: number, height: number}): ReactElement => {
