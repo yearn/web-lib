@@ -50,7 +50,7 @@ export function	amount(amount: number, decimals = 2): string {
 	let		locale = 'fr-FR';
 	if (typeof(navigator) !== 'undefined')
 		locale = navigator.language || 'fr-FR';
-	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits: 0, maximumFractionDigits: decimals}).format(amount));
+	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits: decimals, maximumFractionDigits: decimals}).format(amount));
 }
 
 export function	currency(amount: number, decimals = 2): string {

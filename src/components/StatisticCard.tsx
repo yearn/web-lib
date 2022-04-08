@@ -5,7 +5,7 @@ export type TStatisticCard = {
 	onClick?: React.MouseEventHandler;
 	label: string;
 	value: string;
-	backgroundColor?: string;
+	variant?: 'surface' | 'background',
 } & React.ComponentPropsWithoutRef<'div'>;
 function StatisticCardBase({label, value, ...props}: TStatisticCard): ReactElement {
 	const	className = props.className || 'col-span-12 md:col-span-4';

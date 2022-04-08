@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply scroll-smooth font-roboto
+}
+
+input::placeholder {
+	@apply italic;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px rgb(var(--color-background) / 0) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+/* 🔵 - Yearn Finance ******************************************************
+** NsProgress is used to display the loading indicator. All of theses
+** styles are required to make it visible
+**************************************************************************/
+.nprogress-custom-parent {@apply overflow-hidden relative}
+.nprogress-custom-parent #nprogress .spinner {@apply absolute}
+.nprogress-custom-parent #nprogress .bar {@apply absolute}
+#nprogress {@apply pointer-events-none}
+#nprogress .bar {@apply bg-primary fixed top-0 left-0 w-full h-1 z-[1031]}
+#nprogress .spinner {@apply block fixed z-[1031] top-4 right-4}
+#nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-primary border-l-primary rounded-[50%] animate-spin}
+
