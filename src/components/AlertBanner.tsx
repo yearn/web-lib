@@ -54,7 +54,7 @@ function	AlertBanner({id, title, children, level = 'info', maxHeight = 'max-h-[3
 	return (
 		<div
 			className={`transition-max-height overflow-hidden duration-600 ${isVisible ? maxHeight : 'max-h-0'}`}>
-			<div className={`flex relative flex-col p-6 mb-4 rounded-lg border-2 ${alertClassName} ${hasSlide ? 'pb-8' : 'pb-6'}`}>
+			<div className={`alertBanner--wrapper flex relative flex-col p-6 rounded-lg border-2 ${alertClassName} ${hasSlide ? 'pb-8' : 'pb-6'}`}>
 				<div className={'absolute top-4 right-4'}>
 					<IconCross className={'w-6 h-6 cursor-pointer'} onClick={(): void => set_isVisible(false)} />
 				</div>

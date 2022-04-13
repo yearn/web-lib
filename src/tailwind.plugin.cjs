@@ -119,6 +119,9 @@ module.exports = {
 				'html': {
 					marginLeft: 'calc(100vw - 100%)'
 				},
+				'body': {
+					color: theme('colors.typo-primary')
+				},
 				'h1': {
 					fontSize: theme('fontSize.xl'),
 					fontWeight: theme('fontWeight.bold'),
