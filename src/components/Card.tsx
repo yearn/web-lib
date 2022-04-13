@@ -20,7 +20,7 @@ function	CardDetailsSummary({startChildren, endChildren, ...props}: CardTypes.TC
 	);
 }
 
-function	CardDetails({summary, variant = 'background', isSticky = true, children}: CardTypes.TCardDetail): ReactElement {
+function	CardDetails({summary, variant = 'surface', isSticky = true, children}: CardTypes.TCardDetail): ReactElement {
 	return (
 		<Disclosure>
 			{({open}): ReactElement => (
@@ -59,7 +59,7 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 						<Tab
 							key={option.label}
 							as={'div'}
-							className={({selected}): string => `w-full h-20 border-b-2 flex-center cursor-pointer ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
+							className={({selected}): string => `w-full h-20 border-b-2 flex-center cursor-pointer rounded-t-lg ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
 							<p className={'text-lg text-center'}>{option.label}</p>
 						</Tab>
 					))}

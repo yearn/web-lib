@@ -16,7 +16,7 @@ export type TCardDetailSummary = {
 
 export type TCardWithTabsOption = {
 	label: string;
-	children?: ReactElement;
+	children: ReactElement;
 }
   
 export type TCardWithTabs = {
