@@ -12,7 +12,7 @@ function StatisticCardBase({label, value, ...props}: TStatisticCard): ReactEleme
 	return (
 		<Card
 			className={`flex flex-col ${className}`}
-			isNarrow
+			padding={'narrow'}
 			{...props}>
 			<div className={'mb-2 text-sm text-typo-secondary'}>
 				{label}

@@ -3,8 +3,7 @@ import {ReactElement} from 'react';
 export type TCard = {
 	className?: string;
 	variant?: 'surface' | 'background';
-	isNarrow?: boolean;
-	hasNoPadding?: boolean;
+	padding?: 'none' | 'narrow' | 'regular';
 	onClick?: React.MouseEventHandler;
 	children?: React.ReactNode;
 } & React.ComponentPropsWithoutRef<'section'>;

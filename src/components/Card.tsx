@@ -51,7 +51,10 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 	return (
 		<div>
 			<Tab.Group>
-				<Tab.List as={Card} className={'flex flex-row w-full rounded-b-none'} hasNoPadding>
+				<Tab.List
+					as={Card}
+					className={'flex flex-row w-full rounded-b-none'}
+					padding={'none'}>
 					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
 						<Tab
 							key={option.label}
@@ -76,15 +79,14 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 function	CardBase({
 	children,
 	onClick,
-	isNarrow,
-	hasNoPadding,
+	padding = 'regular',
 	variant = 'surface',
 	className,
 	...props
 }: CardTypes.TCard): ReactElement {
 	return (
 		<section
-			className={`${className ?? ''} ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg ${hasNoPadding ? 'p-0' : isNarrow ? 'p-2 md:p-4' : 'p-4 md:p-6'} transition-all ${onClick ? 'cursor-pointer hover:bg-surface-variant shadow-lg' : ''}`}
+			className={`${className ?? ''} ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg ${padding === 'none' ? 'p-0' : padding === 'narrow' ? 'p-2 md:p-4' : 'p-4 md:p-6'} transition-all ${onClick ? 'cursor-pointer hover:bg-surface-variant shadow-lg' : ''}`}
 			{...props}>
 			{children}
 		</section>

@@ -19,7 +19,7 @@ function	SearchBox({
 	ariaLabel = 'Search'
 }: TSearchBox): ReactElement {
 	return (
-		<Card hasNoPadding>
+		<Card padding={'none'}>
 			<form
 				name={'search'}
 				onSubmit={(e): void => {
