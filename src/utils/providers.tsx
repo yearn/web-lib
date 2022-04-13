@@ -30,7 +30,11 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 **************************************************************************/
 export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.providers.Web3Provider {
 	if (chain === 1) {
-		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
+		if (process.env.RPC_URL_MAINNET)
+			return new ethers.providers.JsonRpcProvider(process.env.RPC_URL_MAINNET);
+		if (process.env.ALCHEMY_KEY)
+			return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
+		return new ethers.providers.JsonRpcProvider('https://rpc.flashbots.net');
 	} else if (chain === 56) {
 		return new ethers.providers.JsonRpcProvider('https://bscrpc.com');
 	} else if (chain === 100) {
@@ -38,12 +42,16 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 	} else if (chain === 137) {
 		return new ethers.providers.JsonRpcProvider('https://polygon-rpc.com');
 	} else if (chain === 250) {
+		if (process.env.RPC_URL_FANTOM)
+			return new ethers.providers.JsonRpcProvider(process.env.RPC_URL_FANTOM);
 		return new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
 	} else if (chain === 1337) {
 		return new ethers.providers.JsonRpcProvider('http://localhost:8545');
 	} else if (chain === 31337) {
 		return new ethers.providers.JsonRpcProvider('http://localhost:8545');
 	} else if (chain === 42161) {
+		if (process.env.RPC_URL_ARBITRUM)
+			return new ethers.providers.JsonRpcProvider(process.env.RPC_URL_ARBITRUM);
 		return new ethers.providers.JsonRpcProvider('https://arbitrum.public-rpc.com');
 	}
 	return (new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY));

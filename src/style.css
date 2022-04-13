@@ -2,13 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-	@apply scroll-smooth font-roboto
-}
+* {@apply scroll-smooth font-roboto}
 
-input::placeholder {
-	@apply italic;
-}
+input::placeholder {@apply italic;}
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
@@ -20,6 +16,10 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px rgb(var(--color-background) / 0) inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+p, b, i, h2, h3, h4, h5, h6 {
+	@apply text-typo-primary;
 }
 
 

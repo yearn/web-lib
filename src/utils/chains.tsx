@@ -109,7 +109,7 @@ const CHAINS = {
 			'chainId': '0xA4B1',
 			'blockExplorerUrls': ['https://arbiscan.io'],
 			'chainName': 'Arbitrum One',
-			'rpcUrls': ['https://arb1.arbitrum.io/rpc'],
+			'rpcUrls': ['https://arbitrum.public-rpc.com'],
 			'nativeCurrency': {
 				'name': 'AETH',
 				'symbol': 'AETH',
