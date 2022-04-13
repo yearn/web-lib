@@ -67,18 +67,19 @@ export const Web3ContextApp: React.FC = ({children}): ReactElement => {
 			console.error('Not initialized');
 			return;
 		}
-		if (Number(newChainID) === 1) {
-			library
-				.send('wallet_switchEthereumChain', [{chainId: '0x1'}])
-				.catch((): void => set_hasDisableAutoChainChange(true));
-		} else {
-			if (newChainID in CHAINS) {
-				const chainSwap = CHAINS[newChainID as keyof typeof CHAINS].chain_swap;
+		if (process.env.USE_WALLET) {
+			if (Number(newChainID) === 1) {
 				library
-					.send('wallet_addEthereumChain', [chainSwap, account])
-					.catch((error: ErrorInfo): void => console.error(error));
+					.send('wallet_switchEthereumChain', [{chainId: '0x1'}])
+					.catch((): void => set_hasDisableAutoChainChange(true));
+			} else {
+				if (newChainID in CHAINS) {
+					const chainSwap = CHAINS[newChainID as keyof typeof CHAINS].chain_swap;
+					library
+						.send('wallet_addEthereumChain', [chainSwap, account])
+						.catch((error: ErrorInfo): void => console.error(error));
+				}
 			}
-
 		}
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, library, account]);
 
@@ -98,6 +99,9 @@ export const Web3ContextApp: React.FC = ({children}): ReactElement => {
 	**	or changeChain).
 	**************************************************************************/
 	const connect = React.useCallback(async (_providerType: number): Promise<void> => {
+		if (!process.env.USE_WALLET) {
+			return;
+		}
 		if (_providerType === walletType.METAMASK) {
 			if (isActive) {
 				deactivate();

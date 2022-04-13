@@ -50,22 +50,25 @@ module.exports = {
 			'icons-primary': withOpacityValue('--color-icons-primary'),
 			'icons-variant': withOpacityValue('--color-icons-variant'),
 		
-			'logo-background': withOpacityValue('--color-logo-background'),
-			'logo-fill': withOpacityValue('--color-logo-fill'),
-		
 			'typo-primary': withOpacityValue('--color-typo-primary'),
 			'typo-primary-variant': withOpacityValue('--color-typo-primary-variant'),
 			'typo-secondary': withOpacityValue('--color-typo-secondary'),
 			'typo-secondary-variant': withOpacityValue('--color-typo-secondary-variant'),
 			'typo-off': withOpacityValue('--color-typo-off'),
 		
+			// Button filled
 			'button-filled-primary': withOpacityValue('--color-button-filled-primary'),
 			'button-filled-variant': withOpacityValue('--color-button-filled-variant'),
 			'button-filled-text': withOpacityValue('--color-button-filled-text'),
+
+			// Button outlined
 			'button-outlined-primary': withOpacityValue('--color-button-outlined-primary'),
 			'button-outlined-variant': withOpacityValue('--color-button-outlined-variant'),
 			'button-outlined-text': withOpacityValue('--color-button-outlined-text'),
+
+			// Button disabled
 			'button-disabled-primary': withOpacityValue('--color-button-disabled-primary'),
+			'button-disabled-variant': withOpacityValue('--color-button-disabled-primary'),
 			'button-disabled-text': withOpacityValue('--color-button-disabled-text')
 		},
 		extend: {

@@ -37,8 +37,6 @@ export const BalancesContextApp: React.FC = ({children}): ReactElement => {
 	**	be able to use it in the dAPP
 	**********************************************************************************************/
 	const retrieveBalances = React.useCallback(async (): Promise<void> => {
-		const	address = '0x3ddfa8ec3052539b6c9549f12cea2c295cff5296';
-
 		if (isActive && address && provider) {
 			const	ethcallProvider = await newEthCallProvider(provider);
 			const	multiCalls = [];
@@ -53,7 +51,8 @@ export const BalancesContextApp: React.FC = ({children}): ReactElement => {
 			const	_balancesOf: {[address: string]: string} = {};
 			let	rIndex = 0;
 			for (const token of tokensForChain) {
-				_balancesOf[token[0]] = formatUnits(callResult[rIndex++] || 0, token[1] || 18);
+				const value = callResult[rIndex++];
+				_balancesOf[token[0]] = formatUnits(value || 0, token[1] || 18);
 			}
 			set_balancesOf(_balancesOf);
 		}
