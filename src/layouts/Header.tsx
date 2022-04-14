@@ -29,7 +29,7 @@ function	Header({children}: THeader): ReactElement {
 							defaultOption={options[0]}
 							options={options}
 							selected={options.find((e): boolean => e.value === Number(chainID)) || options[0]}
-							set_selected={(option: TDropdownOption): void => onSwitchChain(option.value as number, true)} />
+							onSelect={(option: TDropdownOption): void => onSwitchChain(option.value as number, true)} />
 					</div>
 					{process.env.USE_WALLET ? (
 						<button

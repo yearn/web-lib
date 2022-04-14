@@ -16,6 +16,17 @@ function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement
 	);
 }
 
+function	NavbarMenuSubItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
+	return (
+		<div className={'group flex flex-row items-center'}>
+			<div className={'py-1 mr-4 w-6 h-6 cursor-pointer'} />
+			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
+				{option.label}
+			</p>
+		</div>
+	);
+}
+
 function	Navbar({
 	options,
 	logo,
@@ -50,20 +61,37 @@ function	Navbar({
 					{options.map((option): ReactElement  => {
 						if (wrapper) {
 							return (
-								<div key={option.route}>
+								<div key={option.route} className={'space-y-2'}>
 									{React.cloneElement(
 										wrapper,
 										{href: option.route},
 										<a><NavbarMenuItem option={option} selected={selected} /></a>
 									)}
+									{(option.options || [])?.map((subOption): ReactElement => (
+										<div key={subOption.route}>
+											{React.cloneElement(
+												wrapper,
+												{href: subOption.route},
+												<a><NavbarMenuSubItem option={subOption} selected={selected} /></a>
+											)}
+										</div>
+									))}
 								</div>
 							);
 						}
 						return (
 							<div
 								key={option.route}
-								onClick={(): void => set_selected(option.route)}>
+								onClick={(): void => set_selected(option.route)}
+								className={'space-y-2'}>
 								<NavbarMenuItem option={option} selected={selected} />
+								{(option.options || [])?.map((subOption): ReactElement => (
+									<div
+										key={subOption.route}
+										onClick={(): void => set_selected(subOption.route)}>
+										<NavbarMenuSubItem option={subOption} selected={selected} />
+									</div>
+								))}
 							</div>
 						);
 					})}

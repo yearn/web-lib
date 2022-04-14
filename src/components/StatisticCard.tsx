@@ -2,7 +2,6 @@ import	React, {ReactElement} from 'react';
 import	{Card} from './Card';
 
 export type TStatisticCard = {
-	onClick?: React.MouseEventHandler;
 	label: string;
 	value: string;
 	variant?: 'surface' | 'background',

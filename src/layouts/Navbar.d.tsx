@@ -5,6 +5,7 @@ export type TNavbarOption = {
 	values: string | string[];
 	label: string;
 	icon: ReactElement;
+	options: TNavbarOption[];
 }
   
 export type TNavbar = {

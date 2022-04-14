@@ -4,15 +4,15 @@ import	{Switch as HeadlessSwitch}	from	'@headlessui/react';
 
 export type TSwitch = {
 	isEnabled: boolean;
-	set_isEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+	onSwitch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Switch({isEnabled, set_isEnabled}: TSwitch): ReactElement {
+function Switch({isEnabled, onSwitch}: TSwitch): ReactElement {
 	return (
 		<div>
 			<HeadlessSwitch
 				checked={isEnabled}
-				onChange={set_isEnabled}
+				onChange={onSwitch}
 				className={`${isEnabled ? 'bg-secondary-variant' : 'bg-surface'}
 				relative flex h-6 w-[42px] border border-primary rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center`}
 			>

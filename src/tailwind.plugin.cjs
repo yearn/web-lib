@@ -197,14 +197,17 @@ module.exports = {
 				},
 				'.button-filled': {
 					color: theme('colors.button-filled-text'),
-					backgroundColor: theme('colors.primary'),
-					fontWeight: theme('font.bold'),
+					backgroundColor: theme('colors.button-filled-primary'),
+					fontWeight: theme('fontWeight.bold'),
 					'&:hover': {
-						backgroundColor: theme('colors.primary-variant')
+						backgroundColor: theme('colors.button-filled-variant')
 					},
 					'&:disabled': {
 						backgroundColor: theme('colors.button-disabled-primary'),
-						color: theme('colors.button-disabled-text')
+						color: theme('colors.button-disabled-text'),
+						'&:hover': {
+							backgroundColor: theme('colors.button-disabled-primary')
+						}
 					}
 				},
 				'.button-light': {
@@ -212,6 +215,13 @@ module.exports = {
 					backgroundColor: theme('colors.button-outlined-variant'),
 					'&:hover': {
 						backgroundColor: theme('colors.secondary-variant')
+					},
+					'&:disabled': {
+						backgroundColor: theme('colors.button-disabled-primary'),
+						color: theme('colors.button-disabled-text'),
+						'&:hover': {
+							backgroundColor: theme('colors.button-disabled-primary')
+						}
 					}
 				},
 				'.button-outline': {
@@ -224,7 +234,10 @@ module.exports = {
 					},
 					'&:disabled': {
 						color: theme('colors.button-disabled-text'),
-						backgroundColor: theme('colors.button-disabled-text')
+						borderColor: theme('colors.button-disabled-text'),
+						'&:hover': {
+							backgroundColor: 'transparent'
+						}
 					}
 				}
 			});
