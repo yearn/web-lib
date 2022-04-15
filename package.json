@@ -25,9 +25,6 @@
 	},
 	"type": "module",
 	"sideEffects": false,
-	"engines": {
-		"node": ">=10"
-	},
 	"repository": "git://github.com/yearn/web-lib.git",
 	"publishConfig": {
 		"registry":"https://npm.pkg.github.com",
@@ -37,7 +34,8 @@
 		"prepublishOnly": "./build.sh --external:react --external:react-dom --platform=node",
 		"build": "./build.sh --external:react --external:react-dom --platform=node",
 		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
+		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+		"docbuild": "./build.sh --external:react --external:react-dom --platform=node && (cd ./documentation && yarn build)"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.5.0",
