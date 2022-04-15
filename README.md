@@ -6,7 +6,7 @@ We are using React + Tailwindcss + ethersjs for the web3 package, and some conte
 ## How to install
 Run the following command:
 ```
-yarn add @majorfi/web-lib
+yarn add @yearn/web-lib
 ```
 
 Your project will also need `React`, `React-Dom` and `TailwindCss`
@@ -20,7 +20,6 @@ You will need to generate a [Github Personal Access Token](https://docs.github.c
 ```
 registry=https://registry.npmjs.org/
 @yearn:registry=https://npm.pkg.github.com
-@majorfi:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=YOUR_ACCESS_TOKEN
 ```
 This will link all repo named `@yearn` you will install to the correct Yearn organization
@@ -32,11 +31,11 @@ With TS config, you should add some paths to be sure to correctly link the web l
 ```ts
 	"baseUrl": ".",
 	"paths": {
-		"@majorfi/web-lib/components": ["./node_modules/@majorfi/web-lib/dist/components/index.js"],
-		"@majorfi/web-lib/contexts": ["./node_modules/@majorfi/web-lib/dist/contexts/index.js"],
-		"@majorfi/web-lib/hooks": ["./node_modules/@majorfi/web-lib/dist/hooks/index.js"],
-		"@majorfi/web-lib/icons": ["./node_modules/@majorfi/web-lib/dist/icons/index.js"],
-		"@majorfi/web-lib/utils": ["./node_modules/@majorfi/web-lib/dist/utils/index.js"],
+		"@yearn/web-lib/components": ["./node_modules/@yearn/web-lib/dist/components/index.js"],
+		"@yearn/web-lib/contexts": ["./node_modules/@yearn/web-lib/dist/contexts/index.js"],
+		"@yearn/web-lib/hooks": ["./node_modules/@yearn/web-lib/dist/hooks/index.js"],
+		"@yearn/web-lib/icons": ["./node_modules/@yearn/web-lib/dist/icons/index.js"],
+		"@yearn/web-lib/utils": ["./node_modules/@yearn/web-lib/dist/utils/index.js"],
 	},
 ```
 
@@ -44,7 +43,7 @@ With TS config, you should add some paths to be sure to correctly link the web l
 Create a default `style.css` file in your project root, and add that in it:
 ```scss
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
-@import '@majorfi/web-lib/dist/style.css';
+@import '@yearn/web-lib/dist/style.css';
 ```
 
 Then, setup your `tailwind.config.js` file to enable detection of your style and prod optimization:
@@ -52,7 +51,7 @@ Then, setup your `tailwind.config.js` file to enable detection of your style and
 const {join} = require('path');
 module.exports = {
 	presets: [
-		require('@majorfi/web-lib/tailwind.plugin')
+		require('@yearn/web-lib/tailwind.plugin')
 	],
 	content: [
 		join(__dirname, 'pages', '**', '*.{js,jsx,ts,tsx}'),
@@ -61,11 +60,11 @@ module.exports = {
 		join(__dirname, 'components', 'strategies', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', 'vaults', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', '**', '*.{js,jsx,ts,tsx}'),
-		join(__dirname, 'node_modules', '@majorfi', 'web-lib', 'dist', 'layouts', '**', '*.js'),
-		join(__dirname, 'node_modules', '@majorfi', 'web-lib', 'dist', 'components', '**', '*.js'),
-		join(__dirname, 'node_modules', '@majorfi', 'web-lib', 'dist', 'contexts', '**', '*.js'),
-		join(__dirname, 'node_modules', '@majorfi', 'web-lib', 'dist', 'icons', '**', '*.js'),
-		join(__dirname, 'node_modules', '@majorfi', 'web-lib', 'dist', 'utils', '**', '*.js')
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'layouts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'components', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'contexts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'icons', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'utils', '**', '*.js')
 	],
 	.....
 };
@@ -99,7 +98,7 @@ RPC_URL: {
 ## How to use
 Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
 ```tsx
-import	{WithYearn}		from	'@majorfi/web-lib';
+import	{WithYearn}		from	'@yearn/web-lib';
 
 function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
@@ -122,19 +121,19 @@ This repository is organised in subpackages:
 > Sections, aka a large part of the UI, can be put in here but should be prefixed with `Section` to be easy to recognise.
 > Group of components for the same usage could be wrapped in a subfolder.
 ```tsx
-import {Card, SearchBox, Switch, ...} from '@majorfi/web-lib/components';
+import {Card, SearchBox, Switch, ...} from '@yearn/web-lib/components';
 ```
 
 #### Layouts
 > The layouts folder is used to build the layout of the app. Layout have kind of the same objectif as components but are focused on the display of big section and parts of the UI.
 ```tsx
-import {List, Header, Navbar, ...} from '@majorfi/web-lib/layouts';
+import {List, Header, Navbar, ...} from '@yearn/web-lib/layouts';
 ```
 
 #### Icons
 > The icons folder is used to build the icons of the app. Icons are SVG files transformed in JSX/TSX components. They accept any props by default and the default fill color is set to `currentColor` to enable fill personalization
 ```tsx
-import {Cross, AlertWarning, ...} from '@majorfi/web-lib/icons';
+import {Cross, AlertWarning, ...} from '@yearn/web-lib/icons';
 ```
 
 #### Contexts
@@ -142,20 +141,20 @@ import {Cross, AlertWarning, ...} from '@majorfi/web-lib/icons';
 > Contexts are a way to store share state across your app. A contexts is defined for one specific reason and it's best to keep the contexts for one use case: it's best to have one for the web3 management and one for the theme than on big mix.
 > This is where the most of the logic will be done. We need to fetch some balances we will use in multiple places? Context! We need to get the account and web3 provider? Context!
 ```tsx
-import {useUI, useWeb3, ...} from '@majorfi/web-lib/contexts';
+import {useUI, useWeb3, ...} from '@yearn/web-lib/contexts';
 ```
 
 #### Hooks
 > Hooks are a bunch of state-management style helper designed to work with react and to perform some specific stuff out of the box. This can be something like `useLocalStorage`, `useIndexDB`, `useWindowInFocus`, etc.
 > They should be independant from the app logic and should handle one specific case, not related to what the app is doing
 ```tsx
-import {useClientEffect, useLocalStorage, ...} from '@majorfi/web-lib/hooks';
+import {useClientEffect, useLocalStorage, ...} from '@yearn/web-lib/hooks';
 ```
 
 #### Utils
 > The utils are just some basics helpers or logic we will used across our app. This can be some ABIs, this can be a function to sum an array of object, some reducer, etc.
 ```tsx
-import {toAddress, format, parseMarkdown, ...} from '@majorfi/web-lib/utils';
+import {toAddress, format, parseMarkdown, ...} from '@yearn/web-lib/utils';
 ```
 
 ## Pull request and review Conventions
