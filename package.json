@@ -34,8 +34,7 @@
 		"prepublishOnly": "./build.sh --external:react --external:react-dom --platform=node",
 		"build": "./build.sh --external:react --external:react-dom --platform=node",
 		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
-		"docbuild": "./build.sh --external:react --external:react-dom --platform=node && (cd ./documentation && yarn build)"
+		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.5.0",
