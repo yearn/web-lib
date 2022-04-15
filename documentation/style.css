@@ -1,0 +1,97 @@
+/* This will load Tailwindcss + all the overwrite from Yearn lib */
+@import '@yearn/web-lib/dist/style.css';
+@font-face {
+    font-family: 'Menlo Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Menlo Regular'), url('/Menlo-Regular.woff') format('woff');
+}
+
+
+/* 🔵 - Yearn Finance ******************************************************
+** Shorthand for some group of style used across the application
+**************************************************************************/
+.flex-row-center {@apply flex flex-row items-center;}
+.flex-row-start {@apply flex flex-row items-start;}
+.flex-col-start {@apply flex flex-col items-start;}
+.flex-col-full {@apply flex flex-col w-full h-full;}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Theses styles are used for the documentation
+**************************************************************************/
+.button-variant {
+	@apply flex w-8 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant;
+}
+.button-variant[aria-selected="true"] {
+	@apply flex w-8 h-8 font-bold rounded-lg bg-surface flex-center text-primary;
+}
+.button-variant-label {
+	@apply flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant;
+}
+.button-variant-label[aria-selected="true"] {
+	@apply flex px-2 h-8 font-bold rounded-lg bg-surface flex-center text-primary;
+}
+
+.square-gradient-default {
+	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-48 min-h-[12rem];
+	background-image: linear-gradient(to right bottom, #0546c7, #1753d4, #235fe1, #2e6ced, #3879fa);
+}
+.square-gradient-alt {
+	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-48 min-h-[12rem];
+	background-image: radial-gradient(circle, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee);
+}
+[data-theme*=dark] .square-gradient-alt {
+	background-image: radial-gradient(circle, #253d56, #1e344a, #172c3f, #112434, #0b1c29);
+}
+
+.box-gradient-default {
+	@apply flex relative justify-center items-center p-4 w-full min-h-0 md:min-h-[20rem] rounded-lg transition-colors;
+	background-image: linear-gradient(to right bottom, #0546c7, #1753d4, #235fe1, #2e6ced, #3879fa);
+}
+.box-gradient-alt {
+	@apply flex relative justify-center items-center p-4 w-full min-h-0 md:min-h-[20rem] rounded-lg transition-colors;
+	background-image: radial-gradient(circle, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee);
+}
+[data-theme*=dark] .box-gradient-alt {
+	background-image: radial-gradient(circle, #253d56, #1e344a, #172c3f, #112434, #0b1c29);
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Overwrite for the feedbackfin component
+**************************************************************************/
+:root {
+	--feedbackfin-primary-color: #FFFFFF;
+	--feedbackfin-bg-color: rgb(6, 87, 249);
+}
+[data-theme*=dark] {
+	--feedbackfin-primary-color: #FFFFFF;
+	--feedbackfin-bg-color: #000000;
+}
+#feedbackfin__container {@apply rounded-lg shadow-xl -mt-2;}
+#feedbackfin__title {@apply text-white text-2xl font-bold;}
+#feedbackfin__branding {@apply opacity-0 h-0;}
+#feedbackfin__submit {@apply button button-light}
+#feedbackfin__container :focus,
+#feedbackfin__container :focus-visible,
+#feedbackfin__message:focus,
+.feedbackfin__radio:focus+.feedbackfin__radio-label {
+	@apply outline-none shadow-none ring-0;
+}
+#feedbackfin__message:focus {@apply border-white/50}
+#feedbackfin__submit {@apply border border-white/50}
+#feedbackfin__submit:active,
+#feedbackfin__submit:focus-visible,
+#feedbackfin__submit:hover {
+	@apply bg-secondary-variant;
+}
+
+
+/* 🔵 - Yearn Finance ******************************************************
+** Prism
+**************************************************************************/
+.prism-code {
+	@apply p-4 rounded-lg my-4 overflow-x-scroll;
+}
+.token {
+	font-family: 'Menlo Regular', monospace;
+}
