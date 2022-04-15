@@ -20,7 +20,13 @@ import IconThemeDark from './IconThemeDark';
 import IconThemeLight from './IconThemeLight';
 import IconWalletMetamask from './IconWalletMetamask';
 import IconWalletWalletConnect from './IconWalletWalletConnect';
-
+import IconCheckmark from './IconCheckmark';
+import IconAddToMetamask from './IconAddToMetamask';
+import IconHome from './IconHome';
+import IconLabs from './IconLabs';
+import IconSettings from './IconSettings';
+import IconVault from './IconVault';
+import IconWallet from './IconWallet';
 
 export {
 	IconAlertCritical as AlertCritical,
@@ -44,5 +50,12 @@ export {
 	IconThemeDark as ThemeDark,
 	IconThemeLight as ThemeLight,
 	IconWalletMetamask as WalletMetamask,
-	IconWalletWalletConnect as WalletWalletConnect
+	IconWalletWalletConnect as WalletWalletConnect,
+	IconCheckmark as Checkmark,
+	IconAddToMetamask as AddToMetamask,
+	IconHome as Home,
+	IconLabs as Labs,
+	IconSettings as Settings,
+	IconVault as Vault,
+	IconWallet as Wallet
 };

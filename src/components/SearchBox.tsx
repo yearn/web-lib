@@ -7,7 +7,6 @@ type 		TSearchBox = {
 	onChange: (s: string) => void
 	onSearch?: (s: string) => void
 	isNarrow?: boolean,
-	backgroundColor?: string,
 	ariaLabel?: string
 }
 function	SearchBox({
@@ -15,7 +14,6 @@ function	SearchBox({
 	onChange,
 	onSearch,
 	isNarrow,
-	backgroundColor = 'transparent',
 	ariaLabel = 'Search'
 }: TSearchBox): ReactElement {
 	return (
@@ -29,7 +27,7 @@ function	SearchBox({
 				}}>
 				<label
 					aria-label={ariaLabel}
-					className={`flex flex-row items-center w-full ${isNarrow ? 'h-10 p-2' : 'h-14 p-4'} text-typo-secondary rounded-lg border-2 border-surface focus-within:border-primary transition-colors ${backgroundColor}`}>
+					className={`flex flex-row items-center w-full ${isNarrow ? 'h-10 p-2' : 'h-14 p-4'} text-typo-secondary rounded-lg border-2 border-surface focus-within:border-primary transition-colors bg-transparent`}>
 					<span className={'sr-only'}>{ariaLabel}</span>
 					<IconSearch className={isNarrow ? 'w-4 h-4 mr-2' : 'w-6 h-6 mr-4'} />
 					<input

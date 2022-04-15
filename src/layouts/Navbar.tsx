@@ -7,7 +7,7 @@ function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement
 	return (
 		<div className={'group flex flex-row items-center'}>
 			<div className={`mr-4 transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
-				{React.cloneElement(option.icon, {className: 'w-6 h-6'})}
+				{React.cloneElement(option.icon, {className: 'w-6 min-w-[1.5rem] h-6'})}
 			</div>
 			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
 				{option.label}
@@ -19,7 +19,7 @@ function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement
 function	NavbarMenuSubItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
-			<div className={'py-1 mr-4 w-6 h-6 cursor-pointer'} />
+			<div className={'py-1 mr-4 w-6 min-w-[1.5rem] h-6 cursor-pointer'} />
 			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
 				{option.label}
 			</p>
@@ -42,7 +42,7 @@ function	Navbar({
 	return (
 		<aside
 			aria-label={'aside-navigation'}
-			className={'relative top-0 pt-0 w-auto min-w-full md:sticky md:pt-9 md:w-40 md:min-w-[10rem]'}
+			className={'relative top-0 pt-0 w-auto min-w-full md:sticky md:pt-9 md:w-full md:min-w-[10rem]'}
 			{...props}>
 			<div
 				aria-label={'dektop-navigation'}
@@ -57,7 +57,7 @@ function	Navbar({
 						{title ? <h1 className={'lowercase'}>{title}</h1> : null}
 					</div>
 				</a>
-				<nav className={'flex flex-col mt-12 space-y-4'}>
+				<nav className={'flex overflow-y-scroll flex-col mt-12 space-y-4 max-h-[75vh]'}>
 					{options.map((option): ReactElement  => {
 						if (wrapper) {
 							return (

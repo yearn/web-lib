@@ -30,7 +30,7 @@ export function toENS(address: string | undefined, format?: boolean, size?: numb
 	}
 	const	_address = toAddress(address);
 	const	knownENS = process.env.KNOWN_ENS as unknown as {[key: string]: string};
-	if (knownENS[_address]) {
+	if (knownENS?.[_address]) {
 		return knownENS[_address];
 	}
 	if (format) {
@@ -45,7 +45,13 @@ export function isZeroAddress(address: string | undefined): boolean {
 
 export function truncateHex(address: string | undefined, size: number): string {
 	if (address !== undefined) {
+		if (size === 0) {
+			return address;
+		}
 		return `${address.slice(0, size)}...${address.slice(-size)}`;
+	}
+	if (size === 0) {
+		return ethers.constants.AddressZero;
 	}
 	return '0x000...0000';
 }
@@ -83,8 +89,8 @@ export function	copyToClipboard(value: string, toastMessage = 'Copied to clipboa
 export function slugify(text: string): string {
 	return text.toString().toLowerCase()
 		.replace(/\s+/g, '-')           // Replace spaces with -
-		.replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-		.replace(/\-\-+/g, '-')         // Replace multiple - with single -
+		.replace(/[^\w-]+/g, '')        // Remove all non-word chars
+		.replace(/--+/g, '-')           // Replace multiple - with single -
 		.replace(/^-+/, '')             // Trim - from start of text
 		.replace(/-+$/, '');            // Trim - from end of text
 }

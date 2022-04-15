@@ -6,16 +6,20 @@ import	IconCopy						from	'../icons/IconCopy';
 export type	TTxHashWithActions = {
 	txHash: string,
 	explorer: string,
+	truncate?: number,
+	wrapperClassName?: string
 	className?: string
 };
 function	TxHashWithActions({
 	txHash,
 	explorer = 'https://etherscan.io',
+	truncate = 5,
+	wrapperClassName,
 	className = 'font-mono font-bold text-left text-typo-primary'
 }: TTxHashWithActions): ReactElement {
 	return (
-		<span className={'flex flex-row items-center'}>
-			<p className={className}>{truncateHex(txHash, 5)}</p>
+		<span className={`flex flex-row items-center ${wrapperClassName}`}>
+			<p className={className}>{truncateHex(txHash, truncate)}</p>
 			<div
 				onClick={(): void => copyToClipboard(txHash)}
 				className={'px-4 cursor-copy'}>
