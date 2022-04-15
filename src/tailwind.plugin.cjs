@@ -44,9 +44,11 @@ module.exports = {
 			'alert-warning-secondary-variant': withOpacityValue('--color-alert-warning-secondary-variant'),
 			'alert-error-primary': withOpacityValue('--color-alert-error-primary'),
 			'alert-error-secondary': withOpacityValue('--color-alert-error-secondary'),
+			'alert-error-secondary-variant': withOpacityValue('--color-alert-error-secondary-variant'),
 			'alert-critical-primary': withOpacityValue('--color-alert-critical-primary'),
 			'alert-critical-secondary': withOpacityValue('--color-alert-critical-secondary'),
-		
+			'alert-critical-secondary-variant': withOpacityValue('--color-alert-critical-secondary-variant'),
+
 			'icons-primary': withOpacityValue('--color-icons-primary'),
 			'icons-variant': withOpacityValue('--color-icons-variant'),
 		
