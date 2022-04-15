@@ -972,7 +972,7 @@
     "@web3-react/types" "^6.0.7"
     tiny-invariant "^1.0.6"
 
-"@yearn/web-lib@./..":
+"@yearn/web-lib@file:..":
   version "0.1.0"
   dependencies:
     "@headlessui/react" "^1.5.0"
