@@ -3,7 +3,7 @@ import	Head								from	'next/head';
 import	Link								from	'next/link';
 import	{AppProps}							from	'next/app';
 import	{DefaultSeo}						from	'next-seo';
-import	{Header, Navbar, NavbarTypes}		from	'@yearn/web-lib/layouts';
+import	{Header, Navbar}					from	'@yearn/web-lib/layouts';
 import	{WithYearn, usePrices, useBalances}	from	'@yearn/web-lib/contexts';
 import	{format}							from	'@yearn/web-lib/utils';
 import	{AlertError, Hamburger, Home}		from	'@yearn/web-lib/icons';
@@ -102,7 +102,7 @@ function	AppHeader(): ReactElement {
 
 function	AppWrapper(props: AppProps): ReactElement {
 	const	{Component, pageProps, router} = props;
-	const	navbarMenuOptions: NavbarTypes.TNavbarOption[] = [
+	const	navbarMenuOptions = [
 		{
 			route: '/',
 			values: ['/'],

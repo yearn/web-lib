@@ -33,11 +33,12 @@ With TS config, you should add some paths to be sure to correctly link the web l
 ```ts
 	"baseUrl": ".",
 	"paths": {
-		"@yearn/web-lib/components": ["./node_modules/@yearn/web-lib/dist/components/index.js"],
-		"@yearn/web-lib/contexts": ["./node_modules/@yearn/web-lib/dist/contexts/index.js"],
-		"@yearn/web-lib/hooks": ["./node_modules/@yearn/web-lib/dist/hooks/index.js"],
-		"@yearn/web-lib/icons": ["./node_modules/@yearn/web-lib/dist/icons/index.js"],
-		"@yearn/web-lib/utils": ["./node_modules/@yearn/web-lib/dist/utils/index.js"],
+		"@yearn/web-lib/components": ["./node_modules/@yearn/web-lib/dist/components"],
+		"@yearn/web-lib/layouts": ["./node_modules/@yearn/web-lib/dist/layouts"],
+		"@yearn/web-lib/contexts": ["./node_modules/@yearn/web-lib/dist/contexts"],
+		"@yearn/web-lib/hooks": ["./node_modules/@yearn/web-lib/dist/hooks"],
+		"@yearn/web-lib/icons": ["./node_modules/@yearn/web-lib/dist/icons"],
+		"@yearn/web-lib/utils": ["./node_modules/@yearn/web-lib/dist/utils"],
 	},
 ```
 
@@ -81,26 +82,35 @@ WEBSITE_NAME: 'My awesome yWeb3 app',
 WEBSITE_TITLE: 'My awesome yWeb3 app',
 WEBSITE_DESCRIPTION: 'Welcome to my awesome Yearn Web3 app. This is a super description that will be used for the SEO stuffs',
 PROJECT_GITHUB_URL: 'https://github.com/me/yweb3-awesome',
+
+USE_WALLET: true,
 USE_PRICES: false,
 USE_PRICE_TRI_CRYPTO: false,
-CG_IDS: [
-	'yearn-finance'
-],
-TOKENS: [
-	['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]
-],
+USE_FEEDBACKS: true,
+
+CG_IDS: ['yearn-finance'],
+TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],
 RPC_URL: {
 	1: process.env.RPC_URL_MAINNET,
 	250: process.env.RPC_URL_FANTOM || 'https://rpc.ftm.tools',
 	42161: process.env.RPC_URL_ARBITRUM || 'https://arbitrum.public-rpc.com'
-}
+},
+
+# Only if feedbacks is true
+FEEBACKS_TYPE: 'github',
+LINEAR_OAUTH_TOKEN: process.env.LINEAR_OAUTH_TOKEN,
+LINEAR_TEAM_ID: process.env.LINEAR_TEAM_ID,
+LINEAR_PROJECT_NAME: process.env.LINEAR_PROJECT_NAME,
+GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN,
+GITHUB_PROJECT_OWNER: process.env.GITHUB_PROJECT_OWNER,
+GITHUB_PROJECT_REPO: process.env.GITHUB_PROJECT_REPO
 ```
 
 
 ## How to use
 Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
 ```tsx
-import	{WithYearn}		from	'@yearn/web-lib';
+import	{WithYearn}		from	'@yearn/web-lib/contexts';
 
 function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
