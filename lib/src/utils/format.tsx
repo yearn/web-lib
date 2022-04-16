@@ -2,11 +2,9 @@ import	{ethers}		from	'ethers';
 import	dayjs			from	'dayjs';
 import	relativeTime	from	'dayjs/plugin/relativeTime.js';
 import	dayjsDuration	from	'dayjs/plugin/duration.js';
-// const	relativeTime = require('dayjs/plugin/relativeTime')
 
 dayjs.extend(relativeTime);
 dayjs.extend(dayjsDuration);
-// dayjs.extend(require('dayjs/plugin/duration').default);
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions

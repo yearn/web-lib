@@ -1,0 +1,81 @@
+{
+	"name": "@yearn/web-lib",
+	"version": "0.1.0",
+	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
+	"main": "dist/index.cjs",
+	"typings": "dist/index.d.ts",
+	"module": "dist/web-lib.esm.js",
+	"source": "src/index.tsx",
+	"files": [
+		"dist",
+		"postcss.config.cjs",
+		"tailwind.config.cjs",
+		"style.css"
+	],
+	"exports": {
+		".": "./dist/index.js",
+		"./style.css": "./dist/style.css",
+		"./tailwind.plugin": "./dist/tailwind.plugin.cjs",
+		"./layouts": "./dist/layouts/index.js",
+		"./components": "./dist/components/index.js",
+		"./contexts": "./dist/contexts/index.js",
+		"./hooks": "./dist/hooks/index.js",
+		"./icons": "./dist/icons/index.js",
+		"./utils": "./dist/utils/index.js"
+	},
+	"type": "module",
+	"sideEffects": false,
+	"repository": "git://github.com/yearn/web-lib.git",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com",
+		"access": "public"
+	},
+	"scripts": {
+		"prepublishOnly": "./build.sh --external:react --external:react-dom --platform=node",
+		"build": "./build.sh --external:react --external:react-dom --platform=node",
+		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
+	},
+	"dependencies": {
+		"@headlessui/react": "^1.5.0",
+		"@tailwindcss/forms": "^0.5.0",
+		"@tailwindcss/line-clamp": "^0.3.1",
+		"@tailwindcss/typography": "^0.5.2",
+		"@web3-react/core": "^6.1.9",
+		"@web3-react/injected-connector": "^6.0.7",
+		"@web3-react/network-connector": "^6.2.9",
+		"@web3-react/types": "^6.0.7",
+		"@web3-react/walletconnect-connector": "^6.2.13",
+		"dayjs": "^1.11.0",
+		"ethcall": "^4.5.2",
+		"ethers": "^5.6.2",
+		"nprogress": "^0.2.0",
+		"react-flip-move": "^3.0.4",
+		"react-hot-toast": "^2.2.0",
+		"react-virtualized": "^9.22.3"
+	},
+	"peerDependencies": {
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"tailwindcss": "^3.0.23"
+	},
+	"devDependencies": {
+		"@types/node": "^17.0.23",
+		"@types/react": "^17.0.43",
+		"@types/react-dom": "^17.0.14",
+		"@typescript-eslint/eslint-plugin": "^5.17.0",
+		"@typescript-eslint/parser": "^5.17.0",
+		"dotenv-webpack": "^7.1.0",
+		"esbuild": "^0.14.29",
+		"eslint": "^8.12.0",
+		"eslint-config-next": "^12.1.2",
+		"eslint-import-resolver-typescript": "^2.7.0",
+		"eslint-plugin-import": "^2.25.4",
+		"eslint-plugin-react": "^7.29.4",
+		"eslint-plugin-react-hooks": "^4.4.0",
+		"eslint-plugin-tailwindcss": "^3.5.0",
+		"events": "^3.3.0",
+		"fast-glob": "^3.2.11",
+		"typescript": "^4.6.3"
+	}
+}

@@ -1,5 +1,5 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, AlertBanner}		from	'@yearn/web-lib/components';
+import	{Card, AlertBanner}			from	'@yearn/web-lib/components';
 
 function	ColorBox({color, name}: {color: string, name: string}): ReactElement {
 	return (

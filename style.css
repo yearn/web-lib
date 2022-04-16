@@ -1,5 +1,5 @@
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
-@import '@yearn/web-lib/dist/style.css';
+@import './lib/src/style.css';
 @font-face {
     font-family: 'Menlo Regular';
     font-style: normal;
