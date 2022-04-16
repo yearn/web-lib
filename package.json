@@ -11,7 +11,8 @@
 		"export": "tsc && next build && next export",
 		"analyze": "cross-env ANALYZE=true next build",
 		"lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-pattern lib",
-		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+		"publish-minor": "(cd lib && yarn publish --minor --access public --message $1)"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.5.0",
