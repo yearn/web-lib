@@ -26,7 +26,7 @@ const Button = React.forwardRef(({
 			{...props as React.ComponentPropsWithoutRef<'button'>}
 			className={`${buttonClassName} ${props.className}`}
 			onClick={(event: ButtonTypes.TMouseEvent): void => {
-				if (props.stopPropagation) {
+				if (props.shouldStopPropagation) {
 					event.stopPropagation();
 				}
 				if (props.onClick) {

@@ -6,7 +6,7 @@ export type	TButton = {
 	children: ReactElement | string,
 	as?: 'a' | 'button',
 	variant?: TButtonVariant,
-	stopPropagation?: boolean
+	shouldStopPropagation?: boolean
 } & React.ComponentPropsWithoutRef<'button' | 'a'>
 
 export type TMouseEvent = React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLAnchorElement>;
