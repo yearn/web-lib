@@ -154,6 +154,16 @@ function	DocumentationAlertBanner(): ReactElement {
 							description: 'Special variable to use as className. In pure CSS, it is impossible to correctly animate height, we need to animate max-height. This allow us to customize the max-height and have a correct transition on banner close.'
 						},
 						{
+							title: 'canClose?',
+							type: 'boolean',
+							description: 'Can the banner be closed? Default is set to true. If false, the banner will alwasy render and the cross will be hidden.'
+						},
+						{
+							title: 'onClose?',
+							type: 'function',
+							description: 'Action to perform onClose. By default, this is handled by the component itself.'
+						},
+						{
 							title: 'children',
 							type: 'ReactElement | ReactElement[]',
 							description: 'Worth a mention: can be a single ReactElement or an array of ReactElement. If it is an array, this will enable the multi-page banner.'

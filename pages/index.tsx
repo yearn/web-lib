@@ -101,6 +101,7 @@ function	Index(): ReactElement {
 					id={'color-system'}
 					title={'Color system'}
 					level={'info'}
+					canClose={false}
 					maxHeight={'max-h-[600px] md:max-h-[300px]'}>
 					<div>
 						<p className={'text-primary'}>{'With this color system, we are trying to mimic some material standard conventions, with the use of `primary`, `secondary`, `variant`, `background`, `surface`, etc. Naming if far from perfect yet, but it\'s a Work In Progress'}</p>

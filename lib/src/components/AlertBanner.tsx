@@ -9,9 +9,19 @@ type		TAlertBanner = {
 	title: string,
 	level: TAlertLevels,
 	children: ReactElement | ReactElement[],
+	canClose?: boolean,
+	onClose: () => void,
 	maxHeight?: string
 }
-function	AlertBanner({id, title, children, level = 'info', maxHeight = 'max-h-[300px]'}: TAlertBanner): ReactElement {
+function	AlertBanner({
+	id,
+	title,
+	children,
+	level = 'info',
+	maxHeight = 'max-h-[300px]',
+	canClose = true,
+	onClose
+}: TAlertBanner): ReactElement {
 	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
 	const	[isVisible, set_isVisible] = React.useState(true);
 	const	[currentSlide, set_currentSlide] = React.useState(0);
@@ -27,6 +37,14 @@ function	AlertBanner({id, title, children, level = 'info', maxHeight = 'max-h-[3
 			setTimeout((): void => set_shouldRender(false), 650);
 		}
 	}, [isVisible]);
+
+	function	onTryToClose(): void {
+		if (onClose) {
+			onClose();
+		} else {
+			set_isVisible(false);
+		}
+	}
 
 	function	renderPreviousChevron(): ReactElement {
 		if (currentSlide === 0)
@@ -48,16 +66,20 @@ function	AlertBanner({id, title, children, level = 'info', maxHeight = 'max-h-[3
 		);
 	}
 
-	if (!shouldRender) {
+	if (!shouldRender && canClose) {
 		return <div />;
 	}
 	return (
 		<div
 			className={`transition-max-height overflow-hidden duration-600 ${isVisible ? maxHeight : 'max-h-0'}`}>
 			<div className={`alertBanner--wrapper flex relative flex-col p-6 rounded-lg border-2 ${alertClassName} ${hasSlide ? 'pb-8' : 'pb-6'}`}>
-				<div className={'absolute top-4 right-4'}>
-					<IconCross className={'w-6 h-6 cursor-pointer'} onClick={(): void => set_isVisible(false)} />
-				</div>
+				{canClose ? (
+					<div className={'absolute top-4 right-4'}>
+						<IconCross
+							className={'w-6 h-6 cursor-pointer'}
+							onClick={onTryToClose} />
+					</div>
+				) : null}
 				<h4 className={'mb-6 text-inherit'}>{title}</h4>
 				{hasSlide ? (children as ReactElement[])[currentSlide] : children}
 				{hasSlide ? <div className={'flex absolute right-4 bottom-2 flex-row items-center space-x-2'}>
