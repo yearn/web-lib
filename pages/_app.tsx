@@ -1,6 +1,7 @@
 import	React, {ReactElement}				from	'react';
 import	Head								from	'next/head';
 import	Link								from	'next/link';
+import	Script								from	'next/script';
 import	{AppProps}							from	'next/app';
 import	{DefaultSeo}						from	'next-seo';
 import	{Header, Navbar}					from	'@yearn/web-lib/layouts';
@@ -36,10 +37,6 @@ function	AppHead(): ReactElement {
 				<meta name={'robots'} content={'index,nofollow'} />
 				<meta name={'googlebot'} content={'index,nofollow'} />
 				<meta charSet={'utf-8'} />
-
-				<script src={'/feedback.source.js'} defer />
-				<script src={'/feedback.js'} defer />
-				<script src={'/prism.js'} />
 			</Head>
 			<DefaultSeo
 				title={process.env.WEBSITE_NAME}
@@ -70,12 +67,42 @@ function	AppHead(): ReactElement {
 	);
 }
 
-function	AppWrapper(props: AppProps): ReactElement {
+function	AppHeader(): ReactElement {
 	const	[shouldDisplayPrice, set_shouldDisplayPrice] = React.useState(true);
-	const	{Component, pageProps, router} = props;
+	const	[tokenPrice, set_tokenPrice] = React.useState(0);
 	const	{prices} = usePrices();
 	const	{balancesOf} = useBalances();
 
+	React.useEffect((): void => {
+		set_tokenPrice(format.amount(prices?.['yearn-finance']?.usd || 0, 2));
+	}, [prices]);
+
+	return (
+		<Header>
+			<div className={'justify-between pr-4 w-full flex-row-center'}>
+				<h1>{process.env.WEBSITE_TITLE}</h1>
+				<div className={'hidden flex-row items-center space-x-6 md:flex'}>
+					<div
+						className={'cursor-pointer'}
+						onClick={(): void => set_shouldDisplayPrice(!shouldDisplayPrice)}>
+						{shouldDisplayPrice ? (
+							<p className={'text-typo-primary-variant'}>
+								{`YFI $ ${tokenPrice}`}
+							</p>
+						) : (
+							<p className={'text-typo-primary-variant'}>
+								{`Balance: ${format.amount(balancesOf?.[YFI_ADDRESS] || 0, 6)} YFI`}
+							</p>
+						)}
+					</div>
+				</div>
+			</div>
+		</Header>
+	);
+}
+
+function	AppWrapper(props: AppProps): ReactElement {
+	const	{Component, pageProps, router} = props;
 	const	navbarMenuOptions = [
 		{
 			route: '/',
@@ -140,26 +167,7 @@ function	AppWrapper(props: AppProps): ReactElement {
 					</div>
 				</div>
 				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh] md:col-span-10'}>
-					<Header>
-						<div className={'justify-between pr-4 w-full flex-row-center'}>
-							<h1>{process.env.WEBSITE_TITLE}</h1>
-							<div className={'hidden flex-row items-center space-x-6 md:flex'}>
-								<div
-									className={'cursor-pointer'}
-									onClick={(): void => set_shouldDisplayPrice(!shouldDisplayPrice)}>
-									{shouldDisplayPrice ? (
-										<p className={'text-typo-primary-variant'}>
-											{`YFI $ ${format.amount(prices?.['yearn-finance']?.usd || 0, 2)}`}
-										</p>
-									) : (
-										<p className={'text-typo-primary-variant'}>
-											{`Balance: ${format.amount(balancesOf?.[YFI_ADDRESS] || 0, 6)} YFI`}
-										</p>
-									)}
-								</div>
-							</div>
-						</div>
-					</Header>
+					<AppHeader />
 					<Component
 						key={router.route}
 						router={props.router}

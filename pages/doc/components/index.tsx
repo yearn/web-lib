@@ -159,7 +159,7 @@ function	Element({children, title, version, description, href, background}: TEle
 					{description}
 				</p>
 				<div className={'flex justify-end items-end pt-6 mt-auto'}>
-					<Link href={href}>
+					<Link href={href} passHref>
 						<Button variant={'outlined'} className={'h-10'} as={'a'}>
 							{'Access documentation'}
 						</Button>

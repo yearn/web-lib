@@ -1,12 +1,12 @@
 import	React, {ReactElement}	from	'react';
 import	* as ButtonTypes		from	'./Button.d';
 
-function	Button({
+const Button = React.forwardRef(({
 	children,
 	variant = 'filled',
 	as = 'button',
 	...props
-}: ButtonTypes.TButton): ReactElement {
+}: ButtonTypes.TButton, _): ReactElement => {
 	const	filledClassName = 'button-filled';
 	const	outlinedClassName = 'button-outline';
 	const	lightClassName = 'button-light';
@@ -36,6 +36,6 @@ function	Button({
 			{children}
 		</button>
 	);
-}
+});
 
 export {Button};
