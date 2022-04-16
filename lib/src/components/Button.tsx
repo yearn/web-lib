@@ -1,5 +1,5 @@
 import	React, {ReactElement}	from	'react';
-import	* as ButtonTypes		from	'./Button.d';
+import type * as ButtonTypes	from	'./Button.d';
 
 const Button = React.forwardRef(({
 	children,

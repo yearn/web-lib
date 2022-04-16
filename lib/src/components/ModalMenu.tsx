@@ -2,14 +2,14 @@ import	React, {ReactElement, useRef}				from	'react';
 import	{Dialog, Transition}						from	'@headlessui/react';
 import	{SwitchTheme}								from	'../components/SwitchTheme';
 import	{useUI}										from	'../contexts/useUI';
-import	{TNavbarOption, TModalMenu, TMobileMenu}	from	'./ModalMenu.d';
 import	IconSocialTwitter							from	'../icons/IconSocialTwitter';
 import	IconSocialGithub							from	'../icons/IconSocialGithub';
 import	IconSocialDiscord							from	'../icons/IconSocialDiscord';
 import	IconSocialMedium							from	'../icons/IconSocialMedium';
 import	IconCross									from	'../icons/IconCross';
+import type * as ModalMenuTypes						from	'./ModalMenu.d';
 
-function	MobileMenuItem({option}: {option: TNavbarOption}): ReactElement {
+function	MobileMenuItem({option}: {option: ModalMenuTypes.TNavbarOption}): ReactElement {
 	return (
 		<div className={'pb-6 text-dark-blue-1 link'}>
 			{option.label}
@@ -17,7 +17,7 @@ function	MobileMenuItem({option}: {option: TNavbarOption}): ReactElement {
 	);
 }
 
-function	Menu({options, wrapper, set_selected}: TMobileMenu): ReactElement {
+function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): ReactElement {
 	const	{theme, switchTheme} = useUI();
 
 	return (
@@ -92,7 +92,7 @@ function	Menu({options, wrapper, set_selected}: TMobileMenu): ReactElement {
 	);
 }
 
-function	ModalMenu({isOpen, set_isOpen, options, set_selected, wrapper}: TModalMenu): ReactElement {
+function	ModalMenu({isOpen, set_isOpen, options, set_selected, wrapper}: ModalMenuTypes.TModalMenu): ReactElement {
 	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (

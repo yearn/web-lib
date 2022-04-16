@@ -19,7 +19,7 @@ export type TListTokens = [
 type	TBalanceElement = {[address: string]: string}
 type	TBalancesContext = {balancesOf: TBalanceElement}
 const	BalancesContext = createContext<TBalancesContext>({balancesOf: {}});
-export const BalancesContextApp: React.FC = ({children}): ReactElement => {
+export const BalancesContextApp = ({children}: {children: ReactElement}): ReactElement => {
 	const	{isActive, provider, chainID, address, isDisconnected} = useWeb3();
 	const	[balancesOf, set_balancesOf] = useLocalStorage('balances', {}) as [TBalanceElement, (balancesOf: TBalanceElement) => void];
 

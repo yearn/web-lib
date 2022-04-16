@@ -100,7 +100,6 @@ function	Index(): ReactElement {
 				<AlertBanner
 					id={'color-system'}
 					title={'Color system'}
-					level={'info'}
 					canClose={false}
 					maxHeight={'max-h-[600px] md:max-h-[300px]'}>
 					<div>

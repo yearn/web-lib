@@ -175,7 +175,6 @@ function	Documentation(): ReactElement {
 		<>
 			<AlertBanner
 				id={'yComponents'}
-				level={'info'}
 				title={'The yComponents'}
 				canClose={false}
 				maxHeight={'max-height-[350px] md:max-height-[250px]'}>

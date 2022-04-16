@@ -1,9 +1,9 @@
-import	React, {createContext}		from	'react';
-import	{ethers}					from	'ethers';
-import	axios						from	'axios';
-import	useLocalStorage				from	'../hooks/useLocalStorage';
-import	{units as formatUnits}		from	'../utils/format';
-import	{getProvider}				from	'../utils/providers';
+import	React, {ReactElement, createContext}	from	'react';
+import	{ethers}								from	'ethers';
+import	axios									from	'axios';
+import	useLocalStorage							from	'../hooks/useLocalStorage';
+import	{units as formatUnits}					from	'../utils/format';
+import	{getProvider}							from	'../utils/providers';
 
 async function	getTriCryptoPrice(provider: ethers.providers.Provider): Promise<string> {
 	const	TRI_CRYPTO_LP_TOKEN_ADDR = '0xcA3d75aC011BF5aD07a98d02f18225F9bD9A6BDF';
@@ -30,7 +30,7 @@ type TPriceElement = {
 type TPricesContext = {prices: TPriceElement}
 
 const	PricesContext = createContext<TPricesContext>({prices: {}});
-export const PricesContextApp: React.FC = ({children}): React.ReactElement => {
+export const PricesContextApp = ({children}: {children: ReactElement}): React.ReactElement => {
 	const	[prices, set_prices] = useLocalStorage('prices', {}) as [TPriceElement, (prices: TPriceElement) => void];
 	const	[nonce, set_nonce] = React.useState(0);
 

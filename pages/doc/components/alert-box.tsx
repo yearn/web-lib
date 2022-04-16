@@ -1,8 +1,8 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, AlertBox}			from	'@yearn/web-lib/components';
-import	VariantSelectors			from	'components/documentation/VariantSelectors';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
+import	React, {ReactElement}			from	'react';
+import	{Card, AlertBox, AlertTypes}	from	'@yearn/web-lib/components';
+import	VariantSelectors				from	'components/documentation/VariantSelectors';
+import	ComponentAPI					from	'components/documentation/ComponentAPI';
+import	Highlight						from	'components/documentation/Highlight';
 
 const code = `
 import	React		from	'react';
@@ -47,7 +47,7 @@ function	DocumentationAlertBox(): ReactElement {
 					<div className={'box-gradient-default'}>
 						<div className={'w-3/4'}>
 							<AlertBox
-								level={variantType[variant]}
+								level={variantType[variant] as AlertTypes.TAlertLevels}
 								alerts={[
 									'This is my alert number 1',
 									'And this is the second one',

@@ -1,13 +1,17 @@
-import	React, {ReactElement}	from	'react';
-import	IconHamburger			from	'../icons/IconHamburger';
-import	{ModalMenu}				from	'../components/ModalMenu';
-import	* as NavbarTypes		from	'./Navbar.d';
+import React, { ReactElement } from 'react';
+import { ModalMenu } from '../components/ModalMenu';
+import IconHamburger from '../icons/IconHamburger';
+import type * as NavbarTypes from './Navbar.d';
 
 function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
 			<div className={`mr-4 transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
-				{React.cloneElement(option.icon, {className: 'w-6 min-w-[1.5rem] h-6'})}
+				{option.icon ? (
+					React.cloneElement(option.icon, {className: 'w-6 min-w-[1.5rem] h-6'})
+				) : (
+					<div className={'py-1 mr-4 w-6 min-w-[1.5rem] h-6 cursor-pointer'} />
+				)}
 			</div>
 			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
 				{option.label}

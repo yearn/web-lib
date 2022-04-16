@@ -1,5 +1,6 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, AddressWithActions}		from	'@yearn/web-lib/components';
+import	{Card, AddressWithActions}	from	'@yearn/web-lib/components';
+import	{toAddress}					from	'@yearn/web-lib/utils';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 
@@ -24,7 +25,7 @@ export function	AddressActionComponent(): ReactElement {
 		<div className={'w-4/5'}>
 			<Card>
 				<AddressWithActions
-					address={'0x16388463d60FFE0661Cf7F1f31a7D658aC790ff7'}
+					address={toAddress('0x16388463d60FFE0661Cf7F1f31a7D658aC790ff7')}
 					explorer={'https://etherscan.io'}
 					truncate={5}
 					className={'font-mono text-sm text-typo-secondary'} />

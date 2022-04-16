@@ -2,10 +2,12 @@ import	React, {ReactElement}	from	'react';
 import	IconAlertWarning		from	'../icons/IconAlertWarning';
 import	IconAlertError			from	'../icons/IconAlertError';
 import	IconAlertCritical		from	'../icons/IconAlertCritical';
+import type * as AlertTypes		from	'./Alert.d';
 
-type		TAlertLevels = 'none' | 'info' | 'warning' | 'error' | 'critical';
-type 		TAlertBox = {alerts: string[], level: TAlertLevels}
-function	AlertBox({alerts, level = 'warning'}: TAlertBox): ReactElement | null {
+function	AlertBox({
+	alerts,
+	level = 'warning'
+}: AlertTypes.TAlertBox): ReactElement | null {
 	const	infoClassName = 'text-primary bg-secondary';
 	const	warningClassName = 'text-alert-warning-primary bg-alert-warning-secondary';
 	const	errorClassName = 'text-alert-error-primary bg-alert-error-secondary';

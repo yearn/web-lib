@@ -4,8 +4,8 @@ export type TNavbarOption = {
 	route: string;
 	values: string | string[];
 	label: string;
-	icon: ReactElement;
-	options: TNavbarOption[];
+	icon?: ReactElement;
+	options?: TNavbarOption[];
 }
   
 export type TNavbar = {

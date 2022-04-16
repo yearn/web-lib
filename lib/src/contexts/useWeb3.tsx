@@ -12,6 +12,7 @@ import	performBatchedUpdates					from	'../utils/performBatchedUpdates';
 import	{getProvider}							from	'../utils/providers';
 import	{toAddress}								from	'../utils/utils';
 import	CHAINS									from	'../utils/chains';
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, TRUSTWALLET: 2, COINBASE: 3, FORTMATIC: 4, PORTIS: 5};
 
@@ -39,7 +40,7 @@ const defaultState = {
 };
 
 const Web3Context = createContext<TWeb3Context>(defaultState);
-export const Web3ContextApp: React.FC = ({children}): ReactElement => {
+export const Web3ContextApp = ({children}: {children: ReactElement}): ReactElement => {
 	const	web3 = useWeb3React();
 	const   {activate, active: isActive, library, account, chainId, deactivate} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];

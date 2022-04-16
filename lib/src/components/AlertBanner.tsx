@@ -2,17 +2,8 @@ import	React, {ReactElement}	from	'react';
 import	IconCross				from	'../icons/IconCross';
 import	IconChevron				from	'../icons/IconChevron';
 import	useLocalStorage			from	'../hooks/useLocalStorage';
+import type * as AlertTypes		from	'./Alert.d';
 
-type		TAlertLevels = 'none' | 'info' | 'warning' | 'error' | 'critical';
-type		TAlertBanner = {
-	id: string,
-	title: string,
-	level: TAlertLevels,
-	children: ReactElement | ReactElement[],
-	canClose?: boolean,
-	onClose: () => void,
-	maxHeight?: string
-}
 function	AlertBanner({
 	id,
 	title,
@@ -21,7 +12,7 @@ function	AlertBanner({
 	maxHeight = 'max-h-[300px]',
 	canClose = true,
 	onClose
-}: TAlertBanner): ReactElement {
+}: AlertTypes.TAlertBanner): ReactElement {
 	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
 	const	[isVisible, set_isVisible] = React.useState(true);
 	const	[currentSlide, set_currentSlide] = React.useState(0);

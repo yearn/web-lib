@@ -1,10 +1,9 @@
 import	React, {ReactElement}				from	'react';
 import	Head								from	'next/head';
 import	Link								from	'next/link';
-import	Script								from	'next/script';
 import	{AppProps}							from	'next/app';
 import	{DefaultSeo}						from	'next-seo';
-import	{Header, Navbar}					from	'@yearn/web-lib/layouts';
+import	{Header, Navbar, NavbarTypes}		from	'@yearn/web-lib/layouts';
 import	{WithYearn, usePrices, useBalances}	from	'@yearn/web-lib/contexts';
 import	{format}							from	'@yearn/web-lib/utils';
 import	{AlertError, Hamburger, Home}		from	'@yearn/web-lib/icons';
@@ -69,12 +68,12 @@ function	AppHead(): ReactElement {
 
 function	AppHeader(): ReactElement {
 	const	[shouldDisplayPrice, set_shouldDisplayPrice] = React.useState(true);
-	const	[tokenPrice, set_tokenPrice] = React.useState(0);
+	const	[tokenPrice, set_tokenPrice] = React.useState('0');
 	const	{prices} = usePrices();
 	const	{balancesOf} = useBalances();
 
 	React.useEffect((): void => {
-		set_tokenPrice(format.amount(prices?.['yearn-finance']?.usd || 0, 2));
+		set_tokenPrice(format.amount(Number(prices?.['yearn-finance']?.usd || 0), 2));
 	}, [prices]);
 
 	return (
@@ -91,7 +90,7 @@ function	AppHeader(): ReactElement {
 							</p>
 						) : (
 							<p className={'text-typo-primary-variant'}>
-								{`Balance: ${format.amount(balancesOf?.[YFI_ADDRESS] || 0, 6)} YFI`}
+								{`Balance: ${format.amount(Number(balancesOf?.[YFI_ADDRESS] || 0), 6)} YFI`}
 							</p>
 						)}
 					</div>
@@ -103,7 +102,7 @@ function	AppHeader(): ReactElement {
 
 function	AppWrapper(props: AppProps): ReactElement {
 	const	{Component, pageProps, router} = props;
-	const	navbarMenuOptions = [
+	const	navbarMenuOptions: NavbarTypes.TNavbarOption[] = [
 		{
 			route: '/',
 			values: ['/'],

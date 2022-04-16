@@ -9,3 +9,8 @@ export {
 	List,
 	Autosizer
 };
+
+import type * as ListTypes from './List.d';
+import type * as NavbarTypes from './Navbar.d';
+import type * as AutosizerTypes from './Autosizer.d';
+export type {ListTypes, NavbarTypes, AutosizerTypes};

@@ -1,5 +1,5 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, Button}				from	'@yearn/web-lib/components';
+import	{Card, Button, ButtonTypes}	from	'@yearn/web-lib/components';
 import	VariantSelectors			from	'components/documentation/VariantSelectors';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
@@ -36,7 +36,7 @@ export function	ButtonsComponent(): ReactElement {
 function	DocumentationButton(): ReactElement {
 	const	[isDisabled, set_isDisabled] = React.useState(false);
 	const	[variant, set_variant] = React.useState(0);
-	const	variantType = ['outlined', 'filled', 'light'];
+	const	variantType: ButtonTypes.TButtonVariant[] = ['outlined', 'filled', 'light'];
 
 	return (
 		<section aria-label={'some default section'}>

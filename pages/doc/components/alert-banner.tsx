@@ -1,8 +1,8 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, AlertBanner}			from	'@yearn/web-lib/components';
-import	VariantSelectors			from	'components/documentation/VariantSelectors';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
+import	React, {ReactElement}			from	'react';
+import	{Card, AlertBanner, AlertTypes}	from	'@yearn/web-lib/components';
+import	VariantSelectors				from	'components/documentation/VariantSelectors';
+import	ComponentAPI					from	'components/documentation/ComponentAPI';
+import	Highlight						from	'components/documentation/Highlight';
 
 const code = `
 import	React			from	'react';
@@ -13,7 +13,6 @@ export default function	App(): React.ReactElement {
 		<AlertBanner
 			id={'someID'}
 			title={'Spend your time wisely'}
-			level={'info'}
 			maxHeight={'max-h-[600px] md:max-h-[300px]'}>
 			<div>
 				<p>{'Yearn Vaults are a way to use technology to help manage your holdings. You choose the strategy that best suits you, deposit into that vault, and Yearn tech helps maximize yield through shifting capital, auto-compounding, and rebalancing.'}</p>
@@ -37,7 +36,6 @@ export function	AlertBannerComponent(): ReactElement {
 					key={`someID-info${refresher}`}
 					id={'someID-info'}
 					title={'Spend your time wisely'}
-					level={'info'}
 					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 					<div>
 						<p>{'Yearn Vaults are a way to use technology to help manage your holdings.'}</p>
@@ -90,7 +88,7 @@ function	VariantLevel(): ReactElement {
 				key={`someID-${variantType[variant]}${refresher}`}
 				id={`someID-${variantType[variant]}`}
 				title={`Spend your time wisely (${variantType[variant]})`}
-				level={variantType[variant]}
+				level={variantType[variant] as AlertTypes.TAlertLevels}
 				maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 				<div>
 					<p>{'Yearn Vaults are a way to use technology to help manage your holdings. You choose the strategy that best suits you, deposit into that vault, and Yearn tech helps maximize yield through shifting capital, auto-compounding, and rebalancing.'}</p>

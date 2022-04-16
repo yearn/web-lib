@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 import {List as VirtualizedList, AutoSizer} from 'react-virtualized';
 import FlipMove from 'react-flip-move';
-import * as ListTypes from './List.d';
+import type * as ListTypes from './List.d';
 
 function	ListBase({children, className}: ListTypes.TList): ReactElement {
 	return (

@@ -33,3 +33,8 @@ export {
 	TxHashWithActions,
 	Button
 };
+
+import type * as ModalMenuTypes from './ModalMenu.d';
+import type * as AlertTypes from './Alert.d';
+import type * as ButtonTypes from './Button.d';
+export type {AlertTypes, ButtonTypes, ModalMenuTypes};

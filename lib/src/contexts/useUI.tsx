@@ -10,7 +10,7 @@ type	TUIContext = {
 }
 
 const	UI = createContext<TUIContext>({theme: 'light', switchTheme: (): void => undefined, toast});
-export const UIContextApp: React.FC = ({children}): ReactElement => {
+export const UIContextApp = ({children}: {children: ReactElement}): ReactElement => {
 	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'light-initial');
 	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
 

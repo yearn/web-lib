@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import {AutoSizer as VirtualizedAutoSizer} from 'react-virtualized';
-import * as AutoSizerTypes from './Autosizer.d';
+import type * as AutoSizerTypes from './Autosizer.d';
 
 function	Autosizer({children}: AutoSizerTypes.TAutosizer): ReactElement {
 	return (
