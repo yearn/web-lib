@@ -1,6 +1,6 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, AlertBanner}			from	'@yearn/web-lib/components';
-
+import	Link						from	'next/link';
+import	{Card, AlertBanner, Button}	from	'@yearn/web-lib/components';
 import	{CardComponent}				from	'pages/doc/components/cards';
 import	{CardTabsComponent}			from	'pages/doc/components/cards-tabs';
 import	{CardDetailsComponent}		from	'pages/doc/components/cards-details';
@@ -16,8 +16,6 @@ import	{HashActionComponent}		from	'pages/doc/components/txhash-with-actions';
 import	{AlertBannerComponent}		from	'pages/doc/components/alert-banner';
 import	{AlertBoxComponent}			from	'pages/doc/components/alert-box';
 import	{ModalComponent}			from	'pages/doc/components/modal';
-import {Button} from '@yearn/web-lib';
-import Link from 'next/link';
 
 const		ElementListCards = [
 	{
