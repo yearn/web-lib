@@ -64,7 +64,7 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 						</Tab>
 					))}
 				</Tab.List>
-				<Tab.Panels as={Card} className={'grid grid-cols-2 gap-x-4 w-full rounded-t-none'}>
+				<Tab.Panels as={Card} className={'w-full rounded-t-none'}>
 					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
 						<Tab.Panel key={option.label} as={React.Fragment}>
 							{option.children}

@@ -5,6 +5,7 @@ const Button = React.forwardRef(({
 	children,
 	variant = 'filled',
 	as = 'button',
+	shouldStopPropagation = false,
 	...props
 }: ButtonTypes.TButton, _): ReactElement => {
 	const	filledClassName = 'button-filled';
@@ -26,7 +27,7 @@ const Button = React.forwardRef(({
 			{...props as React.ComponentPropsWithoutRef<'button'>}
 			className={`${buttonClassName} ${props.className}`}
 			onClick={(event: ButtonTypes.TMouseEvent): void => {
-				if (props.shouldStopPropagation) {
+				if (shouldStopPropagation) {
 					event.stopPropagation();
 				}
 				if (props.onClick) {

@@ -37,6 +37,7 @@ module.exports = ({
 		USE_PRICES: true,
 		USE_PRICE_TRI_CRYPTO: false,
 		USE_FEEDBACKS: true,
+		USE_NETWORKS: true,
 		CG_IDS: ['yearn-finance'],
 		TOKENS: [
 			['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]

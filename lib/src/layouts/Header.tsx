@@ -24,13 +24,15 @@ function	Header({children}: THeader): ReactElement {
 					{children}
 				</div>
 				<div className={'flex flex-row items-center space-x-4'}>
-					<div className={'hidden flex-row items-center space-x-4 md:flex'}>
-						<Dropdown
-							defaultOption={options[0]}
-							options={options}
-							selected={options.find((e): boolean => e.value === Number(chainID)) || options[0]}
-							onSelect={(option: TDropdownOption): void => onSwitchChain(option.value as number, true)} />
-					</div>
+					{process.env.USE_NETWORKS ? (
+						<div className={'hidden flex-row items-center space-x-4 md:flex'}>
+							<Dropdown
+								defaultOption={options[0]}
+								options={options}
+								selected={options.find((e): boolean => e.value === Number(chainID)) || options[0]}
+								onSelect={(option: TDropdownOption): void => onSwitchChain(option.value as number, true)} />
+						</div>
+					) : null}
 					{process.env.USE_WALLET ? (
 						<button
 							onClick={(): void => {
