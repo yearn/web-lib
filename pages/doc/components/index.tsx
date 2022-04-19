@@ -75,7 +75,7 @@ const		ElementListForms = [
 		version: '0.1.0',
 		href: '/doc/components/switch-theme',
 		description: 'A custom switch component to alternate between light theme (default) and dark theme.',
-		background: 'alt',
+		// background: 'alt',
 		children: <SwitchThemeComponent />
 	}
 ];

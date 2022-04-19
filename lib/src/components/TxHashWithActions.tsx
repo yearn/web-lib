@@ -20,16 +20,18 @@ function	TxHashWithActions({
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
 			<p className={className}>{truncateHex(txHash, truncate)}</p>
-			<div
-				onClick={(): void => copyToClipboard(txHash)}
-				className={'px-4 cursor-copy'}>
-				<IconCopy className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
+			<div className='mx-2 md:mx-2'>
+				<button
+					onClick={(): void => copyToClipboard(txHash)}
+					className={'cursor-copy w-8 h-8 justify-center items-center flex p-0 rounded-lg'}>
+					<IconCopy className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
+				</button>
 			</div>
 			<a
 				href={`${explorer}/tx/${txHash}`}
 				target={'_blank'}
 				rel={'noreferrer'}
-				className={'cursor-alias'}>
+				className={'cursor-copy w-8 h-8 justify-center items-center flex p-0 rounded-lg'}>
 				<span className={'sr-only'}>{'Link to explorer'}</span>
 				<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
 			</a>

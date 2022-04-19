@@ -13,6 +13,7 @@ function Switch({isEnabled, onSwitch}: TSwitch): ReactElement {
 			<HeadlessSwitch
 				checked={isEnabled}
 				onChange={onSwitch}
+				onKeyDown={({keyCode}: {keyCode: number}) => keyCode === 13 ? onSwitch(s => !s) : null}
 				className={`${isEnabled ? 'bg-secondary-variant' : 'bg-surface'}
 				relative flex h-6 w-[42px] border border-primary rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center`}
 			>

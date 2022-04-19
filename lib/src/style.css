@@ -29,3 +29,9 @@ select:-webkit-autofill:focus {
 #nprogress .bar {@apply bg-primary fixed top-0 left-0 w-full h-1 z-[1031]}
 #nprogress .spinner {@apply block fixed z-[1031] top-4 right-4}
 #nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-primary border-l-primary rounded-[50%] animate-spin}
+
+:focus {
+	@apply outline-2 outline-primary outline-offset-2;
+}
+
+/* 24 - 72px - 24 */

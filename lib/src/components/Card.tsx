@@ -24,8 +24,12 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 	return (
 		<Disclosure>
 			{({open}): ReactElement => (
-				<div className={`overflow-hidden w-full cursor-pointer ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg p-0`}>
-					<Disclosure.Button as={'div'} className={`rounded-lg transition-colors ${variant === 'background' ? 'bg-background' : 'bg-surface'} ${open ? '' : 'hover:bg-surface-variant'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
+				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg p-0`}>
+					<Disclosure.Button
+						as={'div'}
+						role="button"
+						tabIndex={0}
+						className={`w-full h-full justify-between rounded-lg text-justify transition-colors ${variant === 'background' ? 'bg-background' : 'bg-surface'} ${open ? '' : 'hover:bg-surface-variant'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
 						{summary}
 					</Disclosure.Button>
 					<Transition
@@ -37,7 +41,9 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 						leave={'transition ease-out origin-top'}
 						leaveFrom={'transform scale-y-100 opacity-100 origin-top'}
 						leaveTo={'transform scale-y-0 opacity-0 origin-top'}>
-						<Disclosure.Panel static className={`px-6 pb-6 w-full ${variant === 'background' ? 'bg-background' : 'bg-surface'}`}>
+						<Disclosure.Panel
+							static
+							className={`px-6 pb-6 w-full rounded-b-lg ${variant === 'background' ? 'bg-background' : 'bg-surface'}`}>
 							{children}
 						</Disclosure.Panel>
 					</Transition>
@@ -64,10 +70,12 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 						</Tab>
 					))}
 				</Tab.List>
-				<Tab.Panels as={Card} className={'w-full rounded-t-none'}>
+				<Tab.Panels className={'w-full rounded-t-none'}>
 					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
 						<Tab.Panel key={option.label} as={React.Fragment}>
+							<Card className={'rounded-t-none'}>
 							{option.children}
+							</Card>
 						</Tab.Panel>
 					))}
 				</Tab.Panels>
