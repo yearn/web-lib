@@ -2,10 +2,6 @@
 	"compilerOptions": {
 		"rootDirs": ["./src"],
 		"baseUrl": ".",
-		"paths": {
-			"@web-lib": ["src"],
-			"*": ["src/*", "node_modules/*"]
-		},
 		"target": "ESNext",
 		"module": "ESNext",
 		"lib": ["es6", "es7", "ESNext", "dom", "dom.iterable"],
@@ -40,6 +36,6 @@
 		"importHelpers": true,
 		"outDir": "dist",
 	},
-	"exclude": ["node_modules", "library/dist", "documentation"],
+	"exclude": ["node_modules", "library/dist"],
 	"include": ["src", "postcss.config.cjs", "tailwind.config.js", "tailwind.config.cjs"]
 }
