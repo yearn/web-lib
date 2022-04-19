@@ -13,9 +13,30 @@ const	options: TDropdownOption[] = [
 	{icon: <IconNetworkArbitrum />, label: 'Arbitrum', value: 42161}
 ];
 
-type		THeader = {children: ReactElement}
-function	Header({children}: THeader): ReactElement {
+type		THeader = {
+	shouldUseWallets?: boolean,
+	shouldUseNetworks?: boolean,
+	children: ReactElement
+}
+function	Header({
+	shouldUseWallets = process.env.USE_WALLET as unknown as boolean,
+	shouldUseNetworks = process.env.USE_NETWORKS as unknown as boolean,
+	children
+}: THeader): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
+	const	[walletIdentity, set_walletIdentity] = React.useState('Connect wallet');
+
+	React.useEffect(() => {
+		if (!isActive) {
+			set_walletIdentity('Connect wallet');
+		} else if (ens) {
+			set_walletIdentity(ens);
+		} else if (address) {
+			set_walletIdentity(truncateHex(address, 4));
+		} else {
+			set_walletIdentity('Connect wallet');
+		}
+	}, [ens, address, isActive])
 
 	return (
 		<header className={'z-30 py-4 mx-auto w-full max-w-6xl'}>
@@ -24,7 +45,7 @@ function	Header({children}: THeader): ReactElement {
 					{children}
 				</div>
 				<div className={'flex flex-row items-center space-x-4'}>
-					{process.env.USE_NETWORKS ? (
+					{shouldUseNetworks ? (
 						<div className={'hidden flex-row items-center space-x-4 md:flex'}>
 							<Dropdown
 								defaultOption={options[0]}
@@ -33,7 +54,7 @@ function	Header({children}: THeader): ReactElement {
 								onSelect={(option: TDropdownOption): void => onSwitchChain(option.value as number, true)} />
 						</div>
 					) : null}
-					{process.env.USE_WALLET ? (
+					{shouldUseWallets ? (
 						<button
 							onClick={(): void => {
 								if (isActive)
@@ -42,7 +63,7 @@ function	Header({children}: THeader): ReactElement {
 									openLoginModal();
 							}}
 							className={'truncate button-light'}>
-							{!isActive ? 'Connect wallet' : ens ? ens : truncateHex(address || '', 4)}
+							{walletIdentity}
 						</button>
 					) : null}
 				</div>

@@ -8,10 +8,11 @@ type	TUIContext = {
 	switchTheme: () => void,
 	toast: unknown
 }
-
-const	UI = createContext<TUIContext>({theme: 'light', switchTheme: (): void => undefined, toast});
+type	TPossibleThemes = 'dark' | 'light';
+const	UI = createContext<TUIContext>({theme: '', switchTheme: (): void => undefined, toast});
 export const UIContextApp = ({children}: {children: ReactElement}): ReactElement => {
-	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'light-initial');
+	const	userPrefersColorScheme = React.useRef<TPossibleThemes>();
+	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', '');
 	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
 
 	const switchTheme = React.useCallback((): void => {
@@ -19,20 +20,43 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [theme]);
 
+	function	listenToThemeChange(event: MediaQueryListEvent) {
+		userPrefersColorScheme.current = event.matches ? 'dark' : 'light';
+	}
+
 	useClientEffect((): void => {
 		set_theme(themeFromLs as string);
 	}, [themeFromLs]);
 
-	useClientEffect((): void => {
-		if (theme !== 'light-initial') {
-			const lightModeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-			if (lightModeMediaQuery.matches)
-				set_theme('light');
+	/* 🔵 - Yearn Finance ******************************************************
+	** Once we are on the user's device, detect the user's preferes color
+	** scheme and set the theme variable to it. This will allow us to have a 
+	** better control on the theme switch
+	**************************************************************************/
+	useClientEffect(() => {
+		const lightModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		lightModeMediaQuery.addEventListener('change', listenToThemeChange)
+		if (lightModeMediaQuery.matches) {
+			userPrefersColorScheme.current = 'dark';
+			set_theme('dark');
+		} else {
+			userPrefersColorScheme.current = 'light';
+			set_theme('light');
 		}
+		return () => lightModeMediaQuery.removeEventListener('change', listenToThemeChange);
 	}, []);
 
+	/* 🔵 - Yearn Finance ******************************************************
+	** If the theme changes, we will update our document body to add the
+	** data-theme property. This property can be used to add more theme than
+	** the regular light/dark pair.
+	** if the selected theme matches the user's preference, clear this value.
+	**************************************************************************/
 	useClientEffect((): void => {
-		if (theme === 'light') {
+		if (theme === userPrefersColorScheme.current) {
+			document.body.dataset.theme = '';
+			document.body.removeAttribute('data-theme')
+		} else if (theme === 'light') {
 			document.body.dataset.theme = 'light';
 			set_themeFromLs('light');
 		} else if (theme === 'dark' || theme === 'dark-initial') {

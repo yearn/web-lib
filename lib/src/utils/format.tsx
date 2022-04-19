@@ -44,11 +44,13 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`);
 }
 
-export function	amount(amount: number, decimals = 2): string {
+export function	amount(amount: number, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
 	let		locale = 'fr-FR';
 	if (typeof(navigator) !== 'undefined')
 		locale = navigator.language || 'fr-FR';
-	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits: decimals, maximumFractionDigits: decimals}).format(amount));
+	if (maximumFractionDigits < minimumFractionDigits)
+		maximumFractionDigits = minimumFractionDigits;
+	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount));
 }
 
 export function	currency(amount: number, decimals = 2): string {
