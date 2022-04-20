@@ -1,6 +1,6 @@
 import	React, {ReactElement}	from	'react';
 import	{Button}				from	'./Button';
-import	{Cross}					from	'../icons';
+import	IconCross				from	'../icons/IconCross';
 
 function	BannerEventAmsterdam(): ReactElement {
 	const	[isClosed, set_isClosed] = React.useState(false);
@@ -16,7 +16,7 @@ function	BannerEventAmsterdam(): ReactElement {
 				<button
 					onClick={() => set_isClosed(true)}
 					className={'absolute top-4 right-4 z-50'}>
-					<Cross className={'w-6 h-6 cursor-pointer'} />
+					<IconCross className={'w-6 h-6 cursor-pointer'} />
 				</button>
 				<div className={'p-4 md:p-6 mr-2 w-full'}>
 					<h4 className={'mb-6 text-typo-primary-variant'}>{'Take the blue pill, and follow the bunny.'}</h4>
