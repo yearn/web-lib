@@ -1,5 +1,5 @@
-import	React, {ReactElement}					from	'react';
-import	{Card, Button, BannerEventAmsterdam}	from	'@yearn/web-lib/components';
+import	React, {ReactElement}			from	'react';
+import	{Card, BannerEventAmsterdam}	from	'@yearn/web-lib/components';
 
 function	ColorBox({color, name}: {color: string, name: string}): ReactElement {
 	return (
