@@ -95,3 +95,7 @@
 .token {
 	font-family: 'Menlo Regular', monospace;
 }
+
+.image-align-middle > span {
+	vertical-align: middle;
+}
