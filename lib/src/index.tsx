@@ -32,6 +32,7 @@ export * from './components/Switch';
 export * from './components/SwitchTheme';
 export * from './components/TxHashWithActions';
 export * from './components/Button';
+export * from './components/BannerEventAmsterdam';
 
 export * from './layouts/Navbar';
 export * from './layouts/Header';
