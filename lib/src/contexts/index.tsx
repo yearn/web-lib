@@ -11,3 +11,6 @@ export {
 	useWeb3,
 	WithYearn
 };
+
+import type * as useBalanceTypes from './useBalances.d';
+export type {useBalanceTypes};
