@@ -16,10 +16,12 @@ const	ERC20ABI = [
 const	BalancesContext = createContext<useBalanceTypes.TBalancesContext>({
 	balancesOf: {},
 	rawBalancesOf: {},
-	retrieveBalances: () => null
+	nonce: 0,
+	retrieveBalances: async () => undefined
 });
 export const BalancesContextApp = ({children}: {children: ReactElement}): ReactElement => {
 	const	{isActive, provider, chainID, address, isDisconnected} = useWeb3();
+	const	nonce = React.useRef(0);
 	const	[rawBalancesOf, set_rawBalancesOf] = useLocalStorage('rawBalances', {}) as [useBalanceTypes.TBalanceElement, (balancesOf: useBalanceTypes.TBalanceElement) => void];
 	const	[balancesOf, set_balancesOf] = useLocalStorage('balances', {}) as [useBalanceTypes.TBalanceElement, (balancesOf: useBalanceTypes.TBalanceElement) => void];
 
@@ -61,6 +63,7 @@ export const BalancesContextApp = ({children}: {children: ReactElement}): ReactE
 			performBatchedUpdates((): void => {
 				set_balancesOf(_balancesOf);
 				set_rawBalancesOf(_rawBalancesOf);
+				nonce.current++;
 			});
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,6 +79,7 @@ export const BalancesContextApp = ({children}: {children: ReactElement}): ReactE
 				balancesOf,
 				rawBalancesOf,
 				retrieveBalances,
+				nonce: nonce.current
 			}}>
 			{children}
 		</BalancesContext.Provider>

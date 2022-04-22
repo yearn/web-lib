@@ -13,5 +13,6 @@ export type	TBalanceElement = {
 export type	TBalancesContext = {
 	balancesOf: TBalanceElement,
 	rawBalancesOf: TBalanceElement,
-	retrieveBalances: (tokensForChain: TListTokens[]) => void
+	nonce: number,
+	retrieveBalances: (tokensForChain: TListTokens[]) => Promise<void>
 }
