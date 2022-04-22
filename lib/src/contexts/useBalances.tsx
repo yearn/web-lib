@@ -4,7 +4,9 @@ import	{ethers}								from	'ethers';
 import	useWeb3									from	'./useWeb3';
 import	useLocalStorage							from	'../hooks/useLocalStorage';
 import	{units as formatUnits}					from	'../utils/format';
+import	{toAddress}								from	'../utils/utils';
 import	{newEthCallProvider}					from	'../utils/providers';
+import	performBatchedUpdates					from	'../utils/performBatchedUpdates';
 import type * as useBalanceTypes				from	'./useBalances.d';
 
 const	ERC20ABI = [
@@ -13,18 +15,24 @@ const	ERC20ABI = [
 
 const	BalancesContext = createContext<useBalanceTypes.TBalancesContext>({
 	balancesOf: {},
+	rawBalancesOf: {},
 	retrieveBalances: () => null
 });
 export const BalancesContextApp = ({children}: {children: ReactElement}): ReactElement => {
 	const	{isActive, provider, chainID, address, isDisconnected} = useWeb3();
+	const	[rawBalancesOf, set_rawBalancesOf] = useLocalStorage('rawBalances', {}) as [useBalanceTypes.TBalanceElement, (balancesOf: useBalanceTypes.TBalanceElement) => void];
 	const	[balancesOf, set_balancesOf] = useLocalStorage('balances', {}) as [useBalanceTypes.TBalanceElement, (balancesOf: useBalanceTypes.TBalanceElement) => void];
 
 	/* 💙 - Yearn Finance *************************************************************************
 	**	On disconnect, clear balances.
 	**********************************************************************************************/
 	React.useEffect((): void => {
-		if (isDisconnected)
-			set_balancesOf({});
+		if (isDisconnected) {
+			performBatchedUpdates((): void => {
+				set_balancesOf({});
+				set_rawBalancesOf({});
+			});
+		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDisconnected]);
 
@@ -34,6 +42,7 @@ export const BalancesContextApp = ({children}: {children: ReactElement}): ReactE
 	**********************************************************************************************/
 	const retrieveBalances = React.useCallback(async (tokensForChain: useBalanceTypes.TListTokens[]): Promise<void> => {
 		const	_balancesOf = balancesOf;
+		const	_rawBalancesOf = rawBalancesOf;
 		if (isActive && address && provider && tokensForChain?.length > 0) {
 			const	ethcallProvider = await newEthCallProvider(provider);
 			const	multiCalls = [];
@@ -46,9 +55,13 @@ export const BalancesContextApp = ({children}: {children: ReactElement}): ReactE
 			let	rIndex = 0;
 			for (const token of tokensForChain) {
 				const value = callResult[rIndex++];
-				_balancesOf[token[0]] = formatUnits(value || 0, token[1] || 18);
+				_balancesOf[toAddress(token[0])] = formatUnits(value || 0, token[1] || 18);
+				_rawBalancesOf[toAddress(token[0])] = value || ethers.BigNumber.from(0);
 			}
-			set_balancesOf(_balancesOf);
+			performBatchedUpdates((): void => {
+				set_balancesOf(_balancesOf);
+				set_rawBalancesOf(_rawBalancesOf);
+			});
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isActive, address, chainID, provider]);
@@ -61,6 +74,7 @@ export const BalancesContextApp = ({children}: {children: ReactElement}): ReactE
 		<BalancesContext.Provider
 			value={{
 				balancesOf,
+				rawBalancesOf,
 				retrieveBalances,
 			}}>
 			{children}

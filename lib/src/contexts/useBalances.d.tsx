@@ -1,3 +1,5 @@
+import {ethers} from 'ethers';
+
 export type TListTokens = [
 	address: string,
 	decimals: number,
@@ -5,10 +7,11 @@ export type TListTokens = [
 ]
 
 export type	TBalanceElement = {
-	[address: string]: string
+	[address: string]: string | ethers.BigNumber
 }
 
 export type	TBalancesContext = {
 	balancesOf: TBalanceElement,
+	rawBalancesOf: TBalanceElement,
 	retrieveBalances: (tokensForChain: TListTokens[]) => void
 }
