@@ -1,29 +1,27 @@
 import	React, {ReactElement}			from	'react';
-import	{Card, AlertBanner, AlertTypes}	from	'@yearn/web-lib/components';
+import	{Card, Banner, Button}	from	'@yearn/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 
-const code = `
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn/web-lib/components';
+const code = `<Banner
+key={\`someID-info\${refresher}\`}
+id={'someID-info'}
+title={'Welcome to banner'}
+maxHeight={'max-h-[600px] md:max-h-[600px] banner--wrapper'}
+primaryButton={<Button>Primary CTA</Button>}
+secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}
+>
+<div>
+	<p>{\`This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page. Banners should be shown one by one. This component has controls. There is a cross mark in the top right corner to close one banner. There are arrows in the bottom right corner to switch between banners.\`}</p>
+	<p>{\`Also the banner can have CTA as one or two buttons to provide some usefull links.\`}</p>
+	<p>{\`The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.\`}</p>
+	<br />
+	<p>{\`Have a nice day.\`}</p>
+</div>
+</Banner>`.trim();
 
-export default function	App(): React.ReactElement {
-	return (
-		<AlertBanner
-			id={'someID'}
-			title={'Spend your time wisely'}
-			maxHeight={'max-h-[600px] md:max-h-[300px]'}>
-			<div>
-				<p>{'Yearn Vaults are a way to use technology to help manage your holdings. You choose the strategy that best suits you, deposit into that vault, and Yearn tech helps maximize yield through shifting capital, auto-compounding, and rebalancing.'}</p>
-				<p className={'block mt-4'}>{'Custody, and responsibility, for your holdings remains yours.'}</p>
-				<p className={'block mt-4'}>{'You can withdraw anytime.'}</p>
-			</div>
-		</AlertBanner>
-	);
-}`.trim();
-
-export function	AlertBannerComponent(): ReactElement {
+export function	BannerComponentDefault(): ReactElement {
 	const	[refresher, set_refresher] = React.useState(0);
 	const	resetStorage = (): void => {
 		window.localStorage.setItem('someID-info', JSON.stringify(true));
@@ -32,16 +30,24 @@ export function	AlertBannerComponent(): ReactElement {
 	return (
 		<div className={'relative w-full flex-center'}>
 			<div className={'z-10'}>
-				<AlertBanner
+				<Banner
 					key={`someID-info${refresher}`}
 					id={'someID-info'}
-					title={'Spend your time wisely'}
-					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
+					title={'Welcome to banner'}
+					maxHeight={'max-h-[600px] md:max-h-[600px] banner--wrapper'}
+					primaryButton={<Button>Primary CTA</Button>}
+					secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}
+					>
 					<div>
-						<p>{'Yearn Vaults are a way to use technology to help manage your holdings.'}</p>
+						<p>{`This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page. Banners should be shown one by one. This component has controls. There is a cross mark in the top right corner to close one banner. There are arrows in the bottom right corner to switch between banners.`}</p>
+						<p>{`Also the banner can have CTA as one or two buttons to provide some usefull links.`}</p>
+						<p>{`The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.`}</p>
+						<br />
+						<p>{`Have a nice day.`}</p>
 					</div>
-				</AlertBanner>
+				</Banner>
 			</div>
+			{/* below is the reset button to reopen the banner after closing it*/}
 			<div className={'absolute z-0'}>
 				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
 			</div>
@@ -49,77 +55,165 @@ export function	AlertBannerComponent(): ReactElement {
 	);
 }
 
-function	VariantLevel(): ReactElement {
-	const	[variant, set_variant] = React.useState(0);
+export function	BannerComponentBackground(): ReactElement {
 	const	[refresher, set_refresher] = React.useState(0);
-	const	variantType = ['info', 'warning', 'error', 'critical', 'multi'];
 	const	resetStorage = (): void => {
-		window.localStorage.setItem(`someID-${variantType[variant]}`, JSON.stringify(true));
+		window.localStorage.setItem('someID-info', JSON.stringify(true));
 		setTimeout((): void => set_refresher(refresher + 1), 100);
 	};
-
-	function	renderAlertBanner(): ReactElement {
-		if (variant === 4) {
-			return (
-				<AlertBanner
-					key={`someID-multi${refresher}`}
-					id={'someID-multi'}
-					title={'Spend your time wisely (multi)'}
-					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
-					<div>
-						<p>{'Yearn Vaults are a way to use technology to help manage your holdings. You choose the strategy that best suits you, deposit into that vault, and Yearn tech helps maximize yield through shifting capital, auto-compounding, and rebalancing.'}</p>
-						<p className={'block mt-4'}>{'Custody, and responsibility, for your holdings remains yours.'}</p>
-						<p className={'block mt-4'}>{'You can withdraw anytime.'}</p>
-					</div>
-					<div>
-						<p>{'And we may have a lot of pages!'}</p>
-						<p className={'block mt-4'}>{'Quia et autem officiis. Nemo ut commodi accusamus qui. Quo sit eum amet aut dolore. Quo consectetur enim voluptatem repudiandae provident et.'}</p>
-						<p className={'block mt-4'}>{'Ut est velit dolor ut. Laudantium cum et enim consequatur rem. Architecto sed ducimus dolores et in neque et.'}</p>
-					</div>
-					<div>
-						<p>{'Exercitationem ab sed dolor dolorum omnis. Qui laudantium voluptatem possimus excepturi aliquid vel necessitatibus et. Iste similique illum cumque mollitia aut voluptatibus quia nam. Nemo atque vel vero est. Perspiciatis officiis veritatis animi libero.'}</p>
-						<p className={'block mt-4'}>{'Quis repellendus est pariatur est eos et autem qui. '}</p>
-					</div>
-				</AlertBanner>
-			);
-		}
-		return (
-			<AlertBanner
-				key={`someID-${variantType[variant]}${refresher}`}
-				id={`someID-${variantType[variant]}`}
-				title={`Spend your time wisely (${variantType[variant]})`}
-				level={variantType[variant] as AlertTypes.TAlertLevels}
-				maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
-				<div>
-					<p>{'Yearn Vaults are a way to use technology to help manage your holdings. You choose the strategy that best suits you, deposit into that vault, and Yearn tech helps maximize yield through shifting capital, auto-compounding, and rebalancing.'}</p>
-					<p className={'block mt-4'}>{'Custody, and responsibility, for your holdings remains yours.'}</p>
-					<p className={'block mt-4'}>{'You can withdraw anytime.'}</p>
-				</div>
-			</AlertBanner>
-		);
-	}
-
 	return (
-		<div className={'box-gradient-default'}>
-			<div className={'w-3/4'}>
-				{renderAlertBanner()}
+		<div className={'relative w-full flex-center'}>
+			<div className={'z-10'}>
+				<Banner
+					key={`someID-info${refresher}`}
+					id={'someID-info'}
+					title={'Welcome to banner 4'}
+					variant={'background'}
+					maxHeight={'max-h-[600px] md:max-h-[600px] banner--wrapper'}
+					primaryButton={<Button variant='light' className='bg-surface font-bold'>Primary CTA</Button>}
+					secondaryButton={<Button variant='outlined' className='border-surface text-surface'>Secondary CTA</Button>}
+					image={'https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}
+					>
+					<div>
+						<p>{`This is a second image banner component. It has an image as a background with a slight black gradient on it to have a contrast with text. Use this type of banner if the image is not a primay content and could be just an accompagnement. Please be careful with the contrast. The text should be readable. The color of the text and controls can be changed according to image color to have a contrast. Also be sure that the image you use doesn’t have many details and is not very motley - again - to have a contrast.`}</p>
+						<br />
+						<p>{`Have a nice day.`}</p>
+					</div>
+				</Banner>
 			</div>
-			<VariantSelectors
-				selected={variantType[variant]}
-				variants={variantType}
-				onChange={(n: number): void => set_variant(n)} />
-			<div className={'absolute right-4 bottom-4'}>
+			{/* below is the reset button to reopen the banner after closing it*/}
+			<div className={'absolute z-0'}>
 				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
 			</div>
 		</div>
 	);
 }
 
-function	DocumentationAlertBanner(): ReactElement {
+export function	BannerComponentSplit(): ReactElement {
+	const	[refresher, set_refresher] = React.useState(0);
+	const	resetStorage = (): void => {
+		window.localStorage.setItem('someID-info', JSON.stringify(true));
+		setTimeout((): void => set_refresher(refresher + 1), 100);
+	};
+	return (
+		<div className={'relative w-full flex-center'}>
+			<div className={'z-10'}>
+				<Banner
+					key={`someID-info${refresher}`}
+					id={'someID-info'}
+					title={'Welcome to banner 3'}
+					variant={'split'}
+					maxHeight={'max-h-[600px] md:max-h-[600px] banner--wrapper'}
+					primaryButton={<Button>Primary CTA</Button>}
+					secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}
+					image={'https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}
+					>
+					<div>
+						<p>{`This is a image banner component. It has an image on the right side that fills the half of the banner. The hight of the banner should adapt according to image and/or text hight.`}</p>
+						<br />
+						<p>{`Margin rules are the same as for regular banner`}</p>
+						<br />
+						<p>{`Have a nice day.`}</p>
+					</div>
+				</Banner>
+			</div>
+			{/* below is the reset button to reopen the banner after closing it*/}
+			<div className={'absolute z-0'}>
+				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
+			</div>
+		</div>
+	);
+}
+
+export function	BannerComponentImage(): ReactElement {
+	const	[refresher, set_refresher] = React.useState(0);
+	const	resetStorage = (): void => {
+		window.localStorage.setItem('someID-info', JSON.stringify(true));
+		setTimeout((): void => set_refresher(refresher + 1), 100);
+	};
+	return (
+		<div className={'relative w-full flex-center'}>
+			<div className={'z-10'}>
+				<Banner
+					key={`someID-info${refresher}`}
+					id={'someID-info'}
+					title={'Banner number TWO'}
+					variant={'image'}
+					maxHeight={'max-h-[600px] md:max-h-[600px] banner--wrapper'}
+					image={'https://s3-alpha-sig.figma.com/img/51a1/2fe5/7e3ce66410a263a2c114465d9983e44c?Expires=1652054400&Signature=M75j71LEDL-7A95sBpXcuAXLZ~H06v0GyWZgZEfuA~-aX4Ouc3V6brvl-B0-WL5rU8-mDRGaIk2TnYx-FnZN-NYg5vMCT1FT~ehpUA~XN5emO~zPY~7N-AJbhIPxEX9OI137ysqsQs72~RuBPoNfyJRaGY92SFPBV~ity3xcI-~evMzP3h3UDUU~VctTGlbDIl7wSXOr~S1PTesgClzh-9nVBxyVrTB2eUW~-L6wK765CwfLJHjw8rWjKO8D336O9dJ0mU7vQShq2rr6tgS0EA~evYLMf-3JWl5cBKea6GGALcqebJIlGC6PxkSwQ27SVe0mtr8zZXX8~WwOpdRzvg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}
+					>
+					<div>
+						<p>{`With only image with the`}</p>
+						<p>{`optional text on itself`}</p>
+					</div>
+				</Banner>
+			</div>
+			{/* below is the reset button to reopen the banner after closing it*/}
+			<div className={'absolute z-0'}>
+				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
+			</div>
+		</div>
+	);
+}
+
+type variants = 'default' | 'image' | 'split' | 'background';
+
+function	VariantLevel(): ReactElement {
+	const	[variant, set_variant] = React.useState(0);
+	const	[refresher, set_refresher] = React.useState(0);
+	const	variantType = ['default', 'image', 'split', 'background'];
+	// const	resetStorage = (): void => {
+	// 	window.localStorage.setItem(`someID-${variantType[variant] as variants}`, JSON.stringify(true));
+	// 	setTimeout((): void => set_refresher(refresher + 1), 100);
+	// };
+
+	function	renderBanner(): ReactElement {
+		if (variantType[variant] === 'default') {
+			return (
+				<BannerComponentDefault/>
+			);
+		}
+		if (variantType[variant] === 'split') {
+			return (
+				<BannerComponentSplit/>
+			);
+		}
+		if (variantType[variant] === 'image') {
+			return (
+				<BannerComponentImage/>
+			);
+		}
+		if (variantType[variant] === 'background') {
+			return (
+				<BannerComponentBackground/>
+			);
+		}
+		return (
+			<BannerComponentDefault/>
+		);
+	}
+
+	return (
+		<div className={'box-gradient-default'}>
+			<div className={'w-5/6'}>
+				{renderBanner()}
+			</div>
+			<VariantSelectors
+				selected={variantType[variant]}
+				variants={variantType}
+				onChange={(n: number): void => set_variant(n)} />
+			{/* <div className={'absolute right-4 bottom-4'}>
+				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
+			</div> */}
+		</div>
+	);
+}
+
+function	DocumentationBanner(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'AlertBanner'}</h1>
+				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Banner'}</h1>
 				<section aria-label={'code-part'}>
 					<VariantLevel />
 					<Highlight code={code} />
@@ -134,17 +228,42 @@ function	DocumentationAlertBanner(): ReactElement {
 						elements={[{
 							title: 'id',
 							type: 'string',
-							description: 'Unique string to identify the alert in the local storage'
+							description: 'Unique string to identify the banner in the local storage'
 						},
 						{
-							title: 'level',
-							type: 'info | warning | error | critical',
-							description: 'Indicate the type of banner to display, aka mostly the colors. Default is set to info'
+							title: 'variant',
+							type: 'default | image | split | background',
+							description: 'Indicate the type of banner to display'
 						},
 						{
-							title: 'title',
+							title: 'title?',
 							type: 'string',
-							description: 'Title to use for this banner. The title is a h4 title.'
+							description: 'Title displayed on the top of the banner. Not used with image variant'
+						},
+						{
+							title: 'image?',
+							type: 'string',
+							description: 'Image URL displayed at banner. Not used with default variant'
+						},
+						{
+							title: 'children?',
+							type: 'string',
+							description: 'Text displayed. Not used with image variant.'
+						},
+						{
+							title: 'primaryButton?',
+							type: 'ReactElement',
+							description: 'Button to display as primary action. Not used with image variant.'
+						},
+						{
+							title: 'secondaryButton?',
+							type: 'ReactElement',
+							description: 'Button to display as secondary action. Not used with image variant.'
+						},
+						{
+							title: 'onClick?',
+							type: 'string',
+							description: 'Action to trigger when clicked and using the image variant.'
 						},
 						{
 							title: 'maxHeight?',
@@ -154,7 +273,7 @@ function	DocumentationAlertBanner(): ReactElement {
 						{
 							title: 'canClose?',
 							type: 'boolean',
-							description: 'Can the banner be closed? Default is set to true. If false, the banner will alwasy render and the cross will be hidden.'
+							description: 'Can the banner be closed? Default is set to true. If false, the banner will always render and the cross will be hidden.'
 						},
 						{
 							title: 'onClose?',
@@ -172,4 +291,4 @@ function	DocumentationAlertBanner(): ReactElement {
 	);
 }
 
-export default DocumentationAlertBanner;
+export default DocumentationBanner;
