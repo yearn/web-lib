@@ -49,7 +49,7 @@ function	SplitVariant({image}: {image: string}) {
 function	BackgroundVariant({image}: {image: string}) {
 	return (
 		<div className={'absolute inset-0 w-full h-full -ml-1 -z-10 img-gradient'} style={{minWidth: 'calc(100% + 8px)'}}>
-			<img src={image} className={'relative object-cover w-full h-full'} />
+			<img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
 		</div>
 	)
 }
