@@ -70,7 +70,7 @@ function	DefaultVariant({variant, title, children, primaryButton, secondaryButto
 function	ImageVariant({image}: {image: string}) {
 	return (
 		<div className={'w-full h-full -ml-1'} style={{minWidth: 'calc(100% + 8px)'}}>
-			<img src={image} className={'relative object-cover w-full h-full'} />
+			<img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
 		</div>
 	)
 }
