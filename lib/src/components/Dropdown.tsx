@@ -40,9 +40,11 @@ function Dropdown({options, defaultOption, selected, onSelect}: TDropdownProps):
 							leaveTo={'transform scale-95 opacity-0'}>
 							<Menu.Items className={'flex overflow-y-scroll absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 rounded-lg border-0 bg-background-variant'}>
 								{options.map((option): ReactElement => (
-									<Menu.Item key={option.value} onClick={(): void => onSelect(option)}>
+									<Menu.Item key={option.value}>
 										{({active}): ReactElement => (
-											<div className={`flex flex-row items-center text-primary cursor-pointer py-1 pr-4 pl-3 transition-colors ${active ? 'bg-secondary-variant' : ''}`}>
+											<div
+												onClick={(): void => onSelect(option)}
+												className={`flex flex-row items-center text-primary cursor-pointer py-1 pr-4 pl-3 transition-colors ${active ? 'bg-secondary-variant' : ''}`}>
 												{option.icon ? React.cloneElement(option.icon, {className: 'w-5 h-5 mr-2 min-w-[24px]'}) : null}
 												<p>{option.label}</p>
 											</div>
