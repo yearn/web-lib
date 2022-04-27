@@ -16,6 +16,7 @@ import {TxHashWithActions} from './TxHashWithActions';
 import {Button} from './Button';
 import {BannerEventAmsterdam} from './BannerEventAmsterdam';
 import {Banner} from './Banner';
+import {BannerPagination} from './BannerPagination';
 
 export {
 	Card,
@@ -36,6 +37,7 @@ export {
 	Button,	
 	BannerEventAmsterdam,
 	Banner,
+	BannerPagination,
 };
 
 import type * as ModalMenuTypes from './ModalMenu.d';
