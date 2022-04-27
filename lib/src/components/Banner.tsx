@@ -9,12 +9,70 @@ type TBanner = {
 	image?: string,
 	primaryButton?: ReactElement,
 	secondaryButton?: ReactElement,
-	children: ReactElement | ReactElement[],
+	children?: ReactElement | ReactElement[],
 	canClose?: boolean,
 	onClose?: () => void,
 	onClick?: () => void,
-	maxHeight?: string,
 	variant?: 'default' | 'image' | 'split' | 'background'
+}
+type TDefaultVariant = {
+	title?: string,
+	primaryButton?: ReactElement,
+	secondaryButton?: ReactElement,
+	children?: ReactElement | ReactElement[],
+	variant?: 'default' | 'image' | 'split' | 'background'
+}
+
+function	SplitVariant({image}: {image: string}) {
+	return (
+		<div className={'w-full md:w-1/2 relative'}>
+			<div
+				className={'flex md:hidden overflow-hidden relative -mx-1 -mt-1 w-full h-full rounded-xl border-x-2 border-b-2 border-primary max-h-48'}
+				style={{width: 'calc(100% + 8px)'}}>
+				<div className={'rounded-lg image-align-middle'}>
+					<img src={image} className={'w-full h-full object-cover'} loading={'eager'} />
+				</div>
+			</div>
+			<div
+				className={'hidden md:flex overflow-hidden -my-1 -ml-1 w-full h-full rounded-xl border-y-2 border-l-2 border-primary absolute'}
+				style={{height: 'calc(100% + 8px)', width: 'calc(100% + 8px)'}}>
+				<div
+					style={{minWidth: 'calc(100% + 8px)'}}
+					className={'rounded-lg image-align-middle w-full h-full -ml-1'}>
+					<img src={image} className={'w-full h-full object-cover'} loading={'eager'} />
+				</div>
+			</div>
+		</div>
+	)
+}
+
+function	BackgroundVariant({image}: {image: string}) {
+	return (
+		<div className={'absolute inset-0 w-full h-full -ml-1 -z-10 img-gradient'} style={{minWidth: 'calc(100% + 8px)'}}>
+			<img src={image} className={'relative object-cover w-full h-full'} />
+		</div>
+	)
+}
+
+function	DefaultVariant({variant, title, children, primaryButton, secondaryButton}: TDefaultVariant) {
+	return (
+		<div className={`p-4 md:p-6 flex-col ${variant === 'split' && 'w-full md:w-1/2'}`}>
+			<h4 className={'mb-4 md:mb-6 text-inherit'}>{title}</h4>
+			<div className={'mb-4 md:mb-6 text-inherit'}>{children}</div>
+			<div className={'flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4'}>
+				{primaryButton}
+				{secondaryButton}
+			</div>
+		</div>
+	)
+}
+
+function	ImageVariant({image}: {image: string}) {
+	return (
+		<div className={'w-full h-full -ml-1'} style={{minWidth: 'calc(100% + 8px)'}}>
+			<img src={image} className={'relative object-cover w-full h-full'} />
+		</div>
+	)
 }
 
 function	Banner({
@@ -25,18 +83,16 @@ function	Banner({
 	secondaryButton,
 	image,
 	variant = 'default',
-	maxHeight = 'max-h-[300px]',
 	canClose = true,
 	onClose
 }: TBanner): ReactElement {
+	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
 	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
 	const	[isVisible, set_isVisible] = React.useState(true);
+	const	[contentHeight, set_contentHeight] = React.useState(330);
 	const	defaultClassName = 'text-primary bg-secondary border-primary';
-	const	imageClassName = 'text-surface border-primary';
-
-	// interpolating url in the string explodes everything and I don't know why, url should be ${image} (and image url is correct) but compiler complains
-	const	backgroundClassName = `text-surface bg-no-repeat bg-cover bg-center border-primary bg-[url('https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA')]`;
-	
+	const	backgroundClassName = 'text-surface bg-no-repeat bg-cover bg-center border-primary';
+	const	imageClassName = 'text-surface border-primary bg-no-repeat bg-cover bg-center';
 	const	bannerClassName = variant === 'image' ? imageClassName : variant === 'background' ? backgroundClassName : defaultClassName;
 
 	React.useEffect((): void => {
@@ -44,6 +100,14 @@ function	Banner({
 			setTimeout((): void => set_shouldRender(false), 650);
 		}
 	}, [isVisible]);
+
+	React.useEffect((): void => {
+		if (contentRef.current) {
+			//get height of dom
+			set_contentHeight((contentRef.current.clientHeight) + 4);
+
+		}
+	}, [contentRef])
 
 	function	onTryToClose(): void {
 		if (onClose) {
@@ -58,33 +122,31 @@ function	Banner({
 	}
 	return (
 		<div
-			className={`transition-max-height overflow-hidden duration-600 ${isVisible ? maxHeight : 'max-h-0'}`}>
-			<div className={`Banner--wrapper flex relative rounded-lg border-2 overflow-hidden ${bannerClassName} ${variant === 'image' && "bg-no-repeat bg-cover bg-center bg-[url('https://s3-alpha-sig.figma.com/img/51a1/2fe5/7e3ce66410a263a2c114465d9983e44c?Expires=1652054400&Signature=M75j71LEDL-7A95sBpXcuAXLZ~H06v0GyWZgZEfuA~-aX4Ouc3V6brvl-B0-WL5rU8-mDRGaIk2TnYx-FnZN-NYg5vMCT1FT~ehpUA~XN5emO~zPY~7N-AJbhIPxEX9OI137ysqsQs72~RuBPoNfyJRaGY92SFPBV~ity3xcI-~evMzP3h3UDUU~VctTGlbDIl7wSXOr~S1PTesgClzh-9nVBxyVrTB2eUW~-L6wK765CwfLJHjw8rWjKO8D336O9dJ0mU7vQShq2rr6tgS0EA~evYLMf-3JWl5cBKea6GGALcqebJIlGC6PxkSwQ27SVe0mtr8zZXX8~WwOpdRzvg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA')]"}`}>
-				<div className={`p-6 flex-col ${variant === 'split' && 'w-1/2'}`}>
-					{canClose ? (
-						<button onClick={onTryToClose} className={'absolute top-4 right-4'}>
-							<IconCross className={'w-6 h-6 cursor-pointer'} />
-						</button>
-					) : null}
-					{variant === 'image'
-						? <pre className={'mb-6 text-inherit text-4xl'}>{title}</pre>
-						: <h4 className={'mb-6 text-inherit'}>{title}</h4>
-					}
+			className={'transition-max-height overflow-hidden duration-600'}
+			style={{maxHeight: isVisible ? contentHeight : 0}}>
+			<div
+				ref={contentRef as never}
+				className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${bannerClassName}`}>
 
-					{variant === 'image'
-						? <pre className={'mb-6 text-inherit text-2xl'}>{children}</pre>
-						: <div className={'mb-6 text-inherit'}>{children}</div>
-					}
-					
-					<div className={'flex'}>
-						<div className={'mr-4'}>{primaryButton}</div>
-						{secondaryButton}
-					</div>
-				</div>
-				{variant === 'split' &&
-					<div className={`flex-col w-1/2 bg-no-repeat bg-cover bg-center bg-[url('https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA')]`}>
-					</div>
+				{canClose ? (
+					<button onClick={onTryToClose} className={'absolute top-4 right-4'}>
+						<IconCross className={'w-6 h-6 cursor-pointer'} />
+					</button>
+				) : null}
+
+				{variant === 'image' ? (
+					<ImageVariant image={image as string} />
+				) : (
+					<DefaultVariant
+							variant={variant}
+							title={title}
+							children={children}
+							primaryButton={primaryButton}
+							secondaryButton={secondaryButton} />
+					)
 				}
+				{variant === 'split' ? <SplitVariant image={image as string} /> : null}
+				{variant === 'background' ? <BackgroundVariant image={image as string} /> : null}
 			</div>
 		</div>
 	);
