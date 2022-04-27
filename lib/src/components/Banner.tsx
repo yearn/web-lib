@@ -12,7 +12,7 @@ type TBanner = {
 	children?: ReactElement | ReactElement[],
 	canClose?: boolean,
 	onClose?: () => void,
-	onClick?: () => void,
+	onClick?: React.MouseEventHandler
 	variant?: 'default' | 'image' | 'split' | 'background'
 }
 type TDefaultVariant = {
@@ -67,9 +67,9 @@ function	DefaultVariant({variant, title, children, primaryButton, secondaryButto
 	)
 }
 
-function	ImageVariant({image}: {image: string}) {
+function	ImageVariant({image, onClick}: {image: string, onClick?: React.MouseEventHandler}) {
 	return (
-		<div className={'w-full h-full -ml-1'} style={{minWidth: 'calc(100% + 8px)'}}>
+		<div className={'w-full h-full -ml-1 cursor-pointer'} style={{minWidth: 'calc(100% + 8px)'}} onClick={onClick}>
 			<img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
 		</div>
 	)
@@ -84,7 +84,8 @@ function	Banner({
 	image,
 	variant = 'default',
 	canClose = true,
-	onClose
+	onClose,
+	onClick,
 }: TBanner): ReactElement {
 	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
 	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
@@ -128,14 +129,10 @@ function	Banner({
 				ref={contentRef as never}
 				className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${bannerClassName}`}>
 
-				{canClose ? (
-					<button onClick={onTryToClose} className={'absolute top-4 right-4'}>
-						<IconCross className={'w-6 h-6 cursor-pointer'} />
-					</button>
-				) : null}
+
 
 				{variant === 'image' ? (
-					<ImageVariant image={image as string} />
+					<ImageVariant image={image as string} onClick={onClick} />
 				) : (
 					<DefaultVariant
 							variant={variant}
@@ -147,6 +144,12 @@ function	Banner({
 				}
 				{variant === 'split' ? <SplitVariant image={image as string} /> : null}
 				{variant === 'background' ? <BackgroundVariant image={image as string} /> : null}
+
+				{canClose ? (
+					<button onClick={onTryToClose} className={'absolute top-4 right-4'}>
+						<IconCross className={`w-6 h-6 cursor-pointer ${variant === 'split' && 'text-surface'}`} />
+					</button>
+				) : null}
 			</div>
 		</div>
 	);
