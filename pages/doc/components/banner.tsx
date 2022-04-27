@@ -196,8 +196,8 @@ function	DocumentationBanner(): ReactElement {
 
 				<section aria-label={'description-part'} className={'mt-6'}>
 					<h4 className={'mb-1'}>{'Description'}</h4>
-					<p className={'mb-2'}>{'The Alert Banner component is used to display some notice. A few levels are available, info, warning, error and critical and multiple pages could be used.'}</p>
-					<p className={'mb-4'}>{'Note: the component uses the localStorage to save the user choice, aka once dismissed, the alert with the provided id will no longer be displayed.'}</p>
+					<p className={'mb-2'}>{'The Banner component is used to display some notice. There are 4 variations with image options.'}</p>
+					<p className={'mb-4'}>{'Note: the component uses the localStorage to save the user choice, aka once dismissed, the banner with the provided id will no longer be displayed.'}</p>
 
 					<ComponentAPI
 						elements={[{
