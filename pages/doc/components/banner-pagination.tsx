@@ -167,11 +167,23 @@ function	DocumentationBanner(): ReactElement {
 					<p className={'mb-2'}>{'The BannerPagination component allows you to scroll many banners in the same space.'}</p>
 
 					<ComponentAPI
-						elements={[{
+						elements={[
+						{
 							title: 'children',
 							type: 'ReactElement | ReactElement[]',
 							description: 'Add one or more banners as children. Pagination is automatically added.'
-						}]} />
+						},
+						{
+							title: 'paginationStyle',
+							type: 'string',
+							description: 'Styling classes to apply to pagination elements',
+						},
+						{
+							title: 'onClose',
+							type: 'function',
+							description: 'Function called when banner is closed',
+						}
+						]} />
 				</section>
 			</Card>
 		</section>
