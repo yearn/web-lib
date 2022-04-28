@@ -1,10 +1,9 @@
 import	React, {ReactElement}			from	'react';
-import	{Card, Banner, Button, BannerPagination}	from	'@yearn/web-lib/components';
-import	VariantSelectors				from	'components/documentation/VariantSelectors';
+import	{Card, Banner, Button}			from	'@yearn/web-lib/components';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 
-const code = ``.trim();
+const code = ''.trim();
 
 export function	BannerComponentDefault(): ReactElement {
 	const	[refresher, set_refresher] = React.useState(0);
@@ -121,7 +120,7 @@ export function	BannerComponentImage(): ReactElement {
 					variant={'image'}
 					image={'/goblin-town.jpg'}
 					onClick={console.log}
-					/>
+				/>
 			</div>
 			{/* below is the reset button to reopen the banner after closing it*/}
 			<div className={'absolute z-0'}>
@@ -131,18 +130,17 @@ export function	BannerComponentImage(): ReactElement {
 	);
 }
 
-type TVariants = 'default' | 'image' | 'split' | 'background';
 
 function	VariantLevel(): ReactElement {
-
-
 	function	renderBanner(): ReactElement {
-		return (<BannerPagination>
-			<BannerComponentDefault />
-			<BannerComponentImage />
-			<BannerComponentSplit />
-			<BannerComponentBackground />
-		</BannerPagination>);
+		return (
+			<Banner.WithControls>
+				<BannerComponentDefault />
+				<BannerComponentImage />
+				<BannerComponentSplit />
+				<BannerComponentBackground />
+			</Banner.WithControls>
+		);
 	}
 
 	return (
@@ -172,7 +170,7 @@ function	DocumentationBanner(): ReactElement {
 						elements={[{
 							title: 'children',
 							type: 'ReactElement | ReactElement[]',
-							description: 'Add one or more banners as children. Pagination is automatically added.',
+							description: 'Add one or more banners as children. Pagination is automatically added.'
 						}]} />
 				</section>
 			</Card>

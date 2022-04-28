@@ -1,7 +1,6 @@
 import	React, {ReactElement}	from	'react';
+import	IconChevron				from	'../icons/IconChevron';
 import	IconCross				from	'../icons/IconCross';
-import	useLocalStorage			from	'../hooks/useLocalStorage';
-
 
 type TBanner = {
 	id: string,
@@ -14,6 +13,7 @@ type TBanner = {
 	onClose?: () => void,
 	onClick?: React.MouseEventHandler
 	variant?: 'default' | 'image' | 'split' | 'background'
+	height?: string | number
 }
 type TDefaultVariant = {
 	title?: string,
@@ -67,72 +67,38 @@ function	DefaultVariant({variant, title, children, primaryButton, secondaryButto
 	)
 }
 
-function	ImageVariant({image, onClick}: {image: string, onClick?: React.MouseEventHandler}) {
+function	ImageVariant({image, height, onClick}: {height: string | number, image: string, onClick?: React.MouseEventHandler}) {
 	return (
 		<div className={'w-full h-full -ml-1 cursor-pointer'} style={{minWidth: 'calc(100% + 8px)'}} onClick={onClick}>
-			<img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
+			<img src={image} height={height} className={'relative object-cover w-full'} loading={'eager'} />
 		</div>
 	)
 }
 
-function	Banner({
-	id,
+function	BannerBase({
 	title,
 	children,
 	primaryButton,
 	secondaryButton,
 	image,
 	variant = 'default',
-	canClose = true,
-	onClose,
 	onClick,
+	height = 350
 }: TBanner): ReactElement {
 	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
-	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
-	const	[isVisible, set_isVisible] = React.useState(true);
-	const	[contentHeight, set_contentHeight] = React.useState(330);
 	const	defaultClassName = 'text-primary bg-secondary border-primary';
 	const	backgroundClassName = 'text-surface bg-no-repeat bg-cover bg-center border-primary';
 	const	imageClassName = 'text-surface border-primary bg-no-repeat bg-cover bg-center';
 	const	bannerClassName = variant === 'image' ? imageClassName : variant === 'background' ? backgroundClassName : defaultClassName;
 
-	React.useEffect((): void => {
-		if (!isVisible) {
-			setTimeout((): void => set_shouldRender(false), 650);
-		}
-	}, [isVisible]);
-
-	React.useEffect((): void => {
-		if (contentRef.current) {
-			//get height of dom
-			set_contentHeight((contentRef.current.clientHeight) + 4);
-
-		}
-	}, [contentRef])
-
-	function	onTryToClose(): void {
-		if (onClose) {
-			onClose();
-		} else {
-			set_isVisible(false);
-		}
-	}
-
-	if (!shouldRender && canClose) {
-		return <div />;
-	}
 	return (
-		<div
-			className={'transition-max-height overflow-hidden duration-600'}
-			style={{maxHeight: isVisible ? contentHeight : 0}}>
+		<div className={'transition-max-height overflow-hidden duration-600 h-full'}>
 			<div
 				ref={contentRef as never}
 				className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${bannerClassName}`}>
 
-
-
 				{variant === 'image' ? (
-					<ImageVariant image={image as string} onClick={onClick} />
+					<ImageVariant image={image as string} onClick={onClick} height={height} />
 				) : (
 					<DefaultVariant
 							variant={variant}
@@ -144,15 +110,67 @@ function	Banner({
 				}
 				{variant === 'split' ? <SplitVariant image={image as string} /> : null}
 				{variant === 'background' ? <BackgroundVariant image={image as string} /> : null}
-
-				{canClose ? (
-					<button onClick={onTryToClose} className={'absolute top-4 right-4'}>
-						<IconCross className={`w-6 h-6 cursor-pointer ${variant === 'split' && 'text-surface'}`} />
-					</button>
-				) : null}
 			</div>
 		</div>
 	);
 }
 
-export {Banner};
+
+export type	TBannerPagination = {
+	children: ReactElement[],
+	canClose?: boolean,
+	onClose?: () => void
+}
+
+function	BannerControlable({children, onClose, canClose = true}: TBannerPagination): ReactElement {
+	const	[currentSlide, set_currentSlide] = React.useState(0);
+	const	[isVisible, set_isVisible] = React.useState(true);
+
+	function	onTryToClose(): void {
+		if (onClose) {
+			onClose();
+		} else {
+			set_isVisible(false);
+		}
+	}
+
+	function	renderPreviousChevron(): ReactElement {
+		if (currentSlide === 0)
+			return (<IconChevron className={'w-4 h-4 opacity-50 cursor-not-allowed'} />);
+		return (
+			<IconChevron
+				className={'w-4 h-4 cursor-pointer'}
+				onClick={(): void => set_currentSlide(currentSlide - 1)} />
+		);
+	}
+
+	function	renderNextChevron(): ReactElement {
+		if (currentSlide === (children as ReactElement[]).length - 1)
+			return (<IconChevron className={'w-4 h-4 opacity-50 rotate-180 cursor-not-allowed'} />);
+		return (
+			<IconChevron
+				className={'w-4 h-4 rotate-180 cursor-pointer'}
+				onClick={(): void => set_currentSlide(currentSlide + 1)} />
+		);
+	}
+
+	return (
+		<div className='relative'>
+			{canClose ? <button onClick={onTryToClose} className={'absolute top-4 right-4 z-50'}>
+				<IconCross className={'w-6 h-6 cursor-pointer'} />
+			</button> : null}
+
+			{children[currentSlide]}
+			
+			{children.length > 1 ? <div className={'flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50'}>
+				{renderPreviousChevron()}
+				<p className={'text-sm tabular-nums'}>{`${currentSlide + 1}/${(children as ReactElement[]).length}`}</p>
+				{renderNextChevron()}
+			</div> : null}
+		</div>
+	);
+}
+
+export const Banner = Object.assign(BannerBase, {
+	WithControls: BannerControlable
+});
