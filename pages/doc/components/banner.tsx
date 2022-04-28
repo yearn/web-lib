@@ -134,8 +134,7 @@ export function	BannerComponentImage(): ReactElement {
 					id={'someID-info'}
 					variant={'image'}
 					image={'/goblin-town.jpg'}
-					onClick={console.log}
-					/>
+					onClick={console.log} />
 			</div>
 			{/* below is the reset button to reopen the banner after closing it*/}
 			<div className={'absolute z-0'}>

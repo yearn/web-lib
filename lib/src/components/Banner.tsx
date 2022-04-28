@@ -1,7 +1,7 @@
 import	React, {ReactElement}	from	'react';
 import	IconCross				from	'../icons/IconCross';
 import	useLocalStorage			from	'../hooks/useLocalStorage';
-
+import	useClientEffect			from	'../hooks/useClientEffect';
 
 type TBanner = {
 	id: string,
@@ -90,7 +90,7 @@ function	Banner({
 	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
 	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
 	const	[isVisible, set_isVisible] = React.useState(true);
-	const	[contentHeight, set_contentHeight] = React.useState(330);
+	const	[contentHeight, set_contentHeight] = React.useState<string | number>('100%');
 	const	defaultClassName = 'text-primary bg-secondary border-primary';
 	const	backgroundClassName = 'text-surface bg-no-repeat bg-cover bg-center border-primary';
 	const	imageClassName = 'text-surface border-primary bg-no-repeat bg-cover bg-center';
@@ -102,10 +102,15 @@ function	Banner({
 		}
 	}, [isVisible]);
 
-	React.useEffect((): void => {
+	useClientEffect((): void => {
 		if (contentRef.current) {
-			//get height of dom
-			set_contentHeight((contentRef.current.clientHeight) + 4);
+			if (contentRef.current.clientHeight > 0)
+				set_contentHeight((contentRef.current.clientHeight) + 4);
+			else
+				setTimeout(() => {
+					if (contentRef.current && contentRef.current.clientHeight > 0)
+						set_contentHeight((contentRef?.current.clientHeight || 0) + 4);
+				}, 100);
 
 		}
 	}, [contentRef])
