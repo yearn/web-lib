@@ -125,10 +125,11 @@ function	BannerBase({
 export type	TBannerPagination = {
 	children: ReactElement[],
 	canClose?: boolean,
+	paginationStyle?: string,
 	onClose?: () => void
 }
 
-function	BannerControlable({children, onClose, canClose = true}: TBannerPagination): ReactElement {
+function	BannerControlable({children, onClose, canClose = true, paginationStyle}: TBannerPagination): ReactElement {
 	const	[currentSlide, set_currentSlide] = React.useState(0);
 	const	[isVisible, set_isVisible] = React.useState(true);
 
@@ -161,14 +162,14 @@ function	BannerControlable({children, onClose, canClose = true}: TBannerPaginati
 	}
 
 	return (
-		<div className='relative'>
+		<div className={`relative ${isVisible ? '' : 'hidden'}`}>
 			{canClose ? <button onClick={onTryToClose} className={'absolute top-4 right-4 z-50'}>
-				<IconCross className={'w-6 h-6 cursor-pointer'} />
+				<IconCross className={`w-6 h-6 cursor-pointer ${paginationStyle ? paginationStyle : 'text-primary'}`} />
 			</button> : null}
 
 			{children[currentSlide]}
 			
-			{children.length > 1 ? <div className={'flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50'}>
+			{children.length > 1 ? <div className={`flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50 ${paginationStyle ? paginationStyle : 'text-primary'}`}>
 				{renderPreviousChevron()}
 				<p className={'text-sm tabular-nums'}>{`${currentSlide + 1}/${(children as ReactElement[]).length}`}</p>
 				{renderNextChevron()}
