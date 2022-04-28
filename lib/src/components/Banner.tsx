@@ -5,7 +5,7 @@ import	IconCross				from	'../icons/IconCross';
 type TBanner = {
 	id: string,
 	title?: string,
-	image?: string,
+	image?: string | ReactElement,
 	primaryButton?: ReactElement,
 	secondaryButton?: ReactElement,
 	children?: ReactElement | ReactElement[],
@@ -46,10 +46,13 @@ function	SplitVariant({image}: {image: string}) {
 	)
 }
 
-function	BackgroundVariant({image}: {image: string}) {
+function	BackgroundVariant({image}: {image: string | ReactElement}) {
 	return (
 		<div className={'absolute inset-0 w-full h-full -ml-1 -z-10 img-gradient'} style={{minWidth: 'calc(100% + 8px)'}}>
-			<img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
+			{typeof image === 'string'
+				? <img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
+				: image
+			}
 		</div>
 	)
 }
@@ -67,10 +70,13 @@ function	DefaultVariant({variant, title, children, primaryButton, secondaryButto
 	)
 }
 
-function	ImageVariant({image, height, onClick}: {height: string | number, image: string, onClick?: React.MouseEventHandler}) {
+function	ImageVariant({image, height, onClick}: {height: string | number, image: string | ReactElement, onClick?: React.MouseEventHandler}) {
 	return (
 		<div className={'w-full h-full -ml-1 cursor-pointer'} style={{minWidth: 'calc(100% + 8px)'}} onClick={onClick}>
-			<img src={image} height={height} className={'relative object-cover w-full'} loading={'eager'} />
+			{typeof image === 'string'
+				? <img src={image} height={height} className={'relative object-cover w-full'} loading={'eager'} />
+				: image
+			}
 		</div>
 	)
 }
