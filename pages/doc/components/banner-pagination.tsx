@@ -1,5 +1,5 @@
 import	React, {ReactElement}			from	'react';
-import	{Card, Banner, Button}	from	'@yearn/web-lib/components';
+import	{Card, Banner, Button, BannerPagination}	from	'@yearn/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
