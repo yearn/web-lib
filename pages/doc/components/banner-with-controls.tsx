@@ -17,14 +17,16 @@ const code = `
 
 export function	BannerWithControlsComponent(): ReactElement {
 	return (
-		<Banner.WithControls>
-			<Banner title={'Welcome to banner'}>
-				<div>{'Have a nice day.'}</div>
-			</Banner>
-			<Banner title={'A nice day'}>
-				<div>{'You too.'}</div>
-			</Banner>
-		</Banner.WithControls>
+		<div className={'w-full'}>
+			<Banner.WithControls>
+				<Banner title={'Welcome to banner'}>
+					<div>{'Have a nice day.'}</div>
+				</Banner>
+				<Banner title={'A nice day'}>
+					<div>{'You too.'}</div>
+				</Banner>
+			</Banner.WithControls>
+		</div>
 	);
 }
 

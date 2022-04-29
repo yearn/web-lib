@@ -104,7 +104,6 @@ function	BannerBase({
 	return (
 		<div
 			ref={contentRef as never}
-			style={{height: withControls ? 'calc(100% + 30px)' : '100%'}}
 			className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${withControls && variant !== 'image' ? 'pb-8 md:pb-0' : ''} ${bannerClassName}`}>
 
 			{variant === 'image' ? (
