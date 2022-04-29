@@ -32,16 +32,25 @@ function	BannerEventAmsterdam(): ReactElement {
 					<div
 						className={'flex md:hidden overflow-hidden relative -mx-1 -mt-1 w-full h-full rounded-xl border-x-2 border-b-2 border-primary'}
 						style={{width: 'calc(100% + 6px)'}}>
-						<div className={'rounded-lg image-align-middle'}>
-							<img src={'https://web.ycorpo.com/mommy-bunny.jpg'} height={248} width={512} loading={'eager'} />
+						<div className={'rounded-lg image-align-middle w-full h-60'}>
+							<img
+								className={'object-cover h-full w-full'}
+								src={'https://web.ycorpo.com/mommy-bunny.jpg'}
+								height={248}
+								width={512}
+								loading={'eager'} />
 						</div>
 					</div>
 					<div
 						className={'hidden md:flex overflow-hidden relative -my-1 ml-1 w-full h-full rounded-xl border-y-2 border-l-2 border-primary'}
 						style={{height: 'calc(100% + 6px)'}}>
-						<div
-							className={'h-[248px] rounded-lg image-align-middle'}>
-							<img src={'https://web.ycorpo.com/mommy-bunny.jpg'} height={248} width={512} loading={'eager'} />
+						<div className={'h-[248px] rounded-lg image-align-middle min-h-full'}>
+							<img
+								className={'object-cover h-full'}
+								src={'https://web.ycorpo.com/mommy-bunny.jpg'}
+								height={248}
+								width={512}
+								loading={'eager'} />
 						</div>
 					</div>
 				</div>
