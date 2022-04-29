@@ -33,7 +33,7 @@
 }
 
 .square-gradient-default {
-	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-48 min-h-[12rem];
+	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-[150%] md:h-48  min-h-[12rem];
 	background-image: linear-gradient(to right bottom, #0546c7, #1753d4, #235fe1, #2e6ced, #3879fa);
 }
 .square-gradient-alt {

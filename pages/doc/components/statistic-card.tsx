@@ -25,7 +25,7 @@ export default function	App(): React.ReactElement {
 
 export function	StatsCardComponent(): ReactElement {
 	return (
-		<div className={'w-4/5'}>
+		<div className={'w-full md:w-4/5'}>
 			<StatisticCard.Wrapper>
 				<StatisticCard
 					className={'col-span-6'}

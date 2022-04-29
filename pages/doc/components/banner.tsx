@@ -5,155 +5,100 @@ import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 
 const code = `<Banner
-id={'someID-info'}
-title={'Welcome to banner'}
-maxHeight={'max-h-[600px] md:max-h-[600px] banner--wrapper'}
-primaryButton={<Button>Primary CTA</Button>}
-secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}
->
-<div>
-	<p>{\`This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page. Banners should be shown one by one. This component has controls. There is a cross mark in the top right corner to close one banner. There are arrows in the bottom right corner to switch between banners.\`}</p>
-	<p>{\`Also the banner can have CTA as one or two buttons to provide some usefull links.\`}</p>
-	<p>{\`The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.\`}</p>
-	<br />
-	<p>{\`Have a nice day.\`}</p>
-</div>
+	title={'Welcome to banner'}
+	primaryButton={<Button>Primary CTA</Button>}
+	secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}>
+	<div>
+		<p>{\`This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page. Banners should be shown one by one. This component has controls. There is a cross mark in the top right corner to close one banner. There are arrows in the bottom right corner to switch between banners.\`}</p>
+		<p>{\`Also the banner can have CTA as one or two buttons to provide some usefull links.\`}</p>
+		<p>{\`The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.\`}</p>
+		<br />
+		<p>{\`Have a nice day.\`}</p>
+	</div>
 </Banner>`.trim();
 
-export function	BannerComponentDefault(): ReactElement {
-	const	[refresher, set_refresher] = React.useState(0);
-	const	resetStorage = (): void => {
-		window.localStorage.setItem('someID-info', JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
+export function BannerComponent(): ReactElement {
 	return (
-		<div className={'relative w-full flex-center'}>
-			<div className={'z-10'}>
-				<Banner
-					key={`someID-info${refresher}`}
-					id={'someID-info'}
-					title={'Welcome to banner'}
-					primaryButton={<Button>{'Primary CTA'}</Button>}
-					secondaryButton={<Button variant={'outlined'}>{'Secondary CTA'}</Button>}>
-					<div>
-						<p>{'This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page. Banners should be shown one by one. This component has controls. There is a cross mark in the top right corner to close one banner. There are arrows in the bottom right corner to switch between banners.'}</p>
-						<p>{'Also the banner can have CTA as one or two buttons to provide some usefull links.'}</p>
-						<p>{'The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.'}</p>
-						<br />
-						<p>{'Have a nice day.'}</p>
-					</div>
-				</Banner>
-			</div>
-			{/* below is the reset button to reopen the banner after closing it*/}
-			<div className={'absolute z-0'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
-			</div>
+		<div className={'w-full scale-75'}>
+			<Banner
+				title={'Welcome to banner 3'}
+				variant={'split'}
+				primaryButton={<Button>{'Primary CTA'}</Button>}
+				image={'/mommy-bunny.jpg'}>
+				<div>
+					<p>{'Have a nice day.'}</p>
+				</div>
+			</Banner>
 		</div>
 	);
 }
 
-export function	BannerComponentBackground(): ReactElement {
-	const	[refresher, set_refresher] = React.useState(0);
-	const	resetStorage = (): void => {
-		window.localStorage.setItem('someID-info', JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
+function	BannerComponentDefault(): ReactElement {
 	return (
-		<div className={'relative w-full flex-center'}>
-			<div className={'z-10'}>
-				<Banner
-					key={`someID-info${refresher}`}
-					id={'someID-info'}
-					title={'Welcome to banner 4'}
-					variant={'background'}
-					primaryButton={<Button variant={'light'} className={'font-bold bg-surface'}>{'Primary CTA'}</Button>}
-					secondaryButton={<Button variant={'outlined'} className={'border-surface text-surface'}>{'Secondary CTA'}</Button>}
-					image={<img src={'https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'} className={'relative object-cover w-full h-full'} loading={'eager'} />}
-				>
-					<div>
-						<p>{'This is a second image banner component. It has an image as a background with a slight black gradient on it to have a contrast with text. Use this type of banner if the image is not a primay content and could be just an accompagnement. Please be careful with the contrast. The text should be readable. The color of the text and controls can be changed according to image color to have a contrast. Also be sure that the image you use doesn’t have many details and is not very motley - again - to have a contrast.'}</p>
-						<br />
-						<p>{'Have a nice day.'}</p>
-					</div>
-				</Banner>
+		<Banner
+			title={'Welcome to banner'}
+			primaryButton={<Button>{'Primary CTA'}</Button>}
+			secondaryButton={<Button variant={'outlined'}>{'Secondary CTA'}</Button>}>
+			<div>
+				<p>{'This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page. Banners should be shown one by one. This component has controls. There is a cross mark in the top right corner to close one banner. There are arrows in the bottom right corner to switch between banners.'}</p>
+				<p>{'Also the banner can have CTA as one or two buttons to provide some usefull links.'}</p>
+				<p>{'The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.'}</p>
+				<br />
+				<p>{'Have a nice day.'}</p>
 			</div>
-			{/* below is the reset button to reopen the banner after closing it*/}
-			<div className={'absolute z-0'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
-			</div>
-		</div>
+		</Banner>
 	);
 }
 
-export function	BannerComponentSplit(): ReactElement {
-	const	[refresher, set_refresher] = React.useState(0);
-	const	resetStorage = (): void => {
-		window.localStorage.setItem('someID-info', JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
+function	BannerComponentBackground(): ReactElement {
 	return (
-		<div className={'relative w-full flex-center'}>
-			<div className={'z-10'}>
-				<Banner
-					key={`someID-info${refresher}`}
-					id={'someID-info'}
-					title={'Welcome to banner 3'}
-					variant={'split'}
-					primaryButton={<Button>{'Primary CTA'}</Button>}
-					secondaryButton={<Button variant={'outlined'}>{'Secondary CTA'}</Button>}
-					image={'https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}
-				>
-					<div>
-						<p>{'This is a image banner component. It has an image on the right side that fills the half of the banner. The hight of the banner should adapt according to image and/or text hight.'}</p>
-						<br />
-						<p>{'Margin rules are the same as for regular banner'}</p>
-						<br />
-						<p>{'Have a nice day.'}</p>
-					</div>
-				</Banner>
+		<Banner
+			className={'text-white'}
+			title={'Welcome to banner 4'}
+			variant={'background'}
+			primaryButton={<Button>{'Primary CTA'}</Button>}
+			secondaryButton={<Button variant={'light'}>{'Secondary CTA'}</Button>}
+			image={<img src={'https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'} className={'object-cover relative w-full h-full'} loading={'eager'} />}>
+			<div>
+				<p>{'This is a second image banner component. It has an image as a background with a slight black gradient on it to have a contrast with text. Use this type of banner if the image is not a primay content and could be just an accompagnement. Please be careful with the contrast. The text should be readable. The color of the text and controls can be changed according to image color to have a contrast. Also be sure that the image you use doesn’t have many details and is not very motley - again - to have a contrast.'}</p>
+				<br />
+				<p>{'Have a nice day.'}</p>
 			</div>
-			{/* below is the reset button to reopen the banner after closing it*/}
-			<div className={'absolute z-0'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
-			</div>
-		</div>
+		</Banner>
 	);
 }
 
-export function	BannerComponentImage(): ReactElement {
-	const	[refresher, set_refresher] = React.useState(0);
-	const	resetStorage = (): void => {
-		window.localStorage.setItem('someID-info', JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
+function	BannerComponentSplit(): ReactElement {
 	return (
-		<div className={'relative w-full flex-center'}>
-			<div className={'z-10'}>
-				<Banner
-					key={`someID-info${refresher}`}
-					id={'someID-info'}
-					variant={'image'}
-					image={'/goblin-town.jpg'}
-					onClick={console.log} />
+		<Banner
+			title={'Welcome to banner 3'}
+			variant={'split'}
+			primaryButton={<Button>{'Primary CTA'}</Button>}
+			secondaryButton={<Button variant={'outlined'}>{'Secondary CTA'}</Button>}
+			image={'https://s3-alpha-sig.figma.com/img/b829/4b75/53c36559b3a9d6b32c7dce0d538df530?Expires=1652054400&Signature=Yj4zLkEg3Du4T9nw8NVyqk-ytYa130MIlG79ZuFqYMyNLHW1wTI3OuQ~FTBbkzRRfNQmOOLSDz09j3YJH-RxUJv1ihvXxDn2Ln5tsJwGzWQl2ngxhcFNjhabyj3Dd8EQeB-qv6FMD1IhvnbgfbzVOv4i8sY4iQhpS00CJLebj~gr1enEmgUffFSeb0xrYbW5z~vGD7MJu2hMx9tjIu0bkOGrjzE4BribeVgi4ZOrs8bP9RNo7X4IjDC1Z8~dJ3mBBEIYgb2fuxJA54oybxWffzyhPVyTPMov6L1jaz6v6zZ5LIW~-JihfkfXCOp~zdYv4FV0ZFh8AQWf~gRNFZUqRQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}>
+			<div>
+				<p>{'This is a image banner component. It has an image on the right side that fills the half of the banner. The hight of the banner should adapt according to image and/or text hight.'}</p>
+				<br />
+				<p>{'Margin rules are the same as for regular banner'}</p>
+				<br />
+				<p>{'Have a nice day.'}</p>
 			</div>
-			{/* below is the reset button to reopen the banner after closing it*/}
-			<div className={'absolute z-0'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
-			</div>
-		</div>
+		</Banner>
 	);
 }
 
-type TVariants = 'default' | 'image' | 'split' | 'background';
+function	BannerComponentImage(): ReactElement {
+	return (
+		<Banner
+			variant={'image'}
+			image={'/goblin-town.jpg'}
+			onClick={console.log} />
+	);
+}
 
 function	VariantLevel(): ReactElement {
 	const	[variant, set_variant] = React.useState(0);
-	const	[refresher, set_refresher] = React.useState(0);
 	const	variantType = ['default', 'image', 'split', 'background'];
-	const	resetStorage = (): void => {
-		window.localStorage.setItem(`someID-${variantType[variant] as TVariants}`, JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
 
 	function	renderBanner(): ReactElement {
 		if (variantType[variant] === 'default')
@@ -176,9 +121,6 @@ function	VariantLevel(): ReactElement {
 				selected={variantType[variant]}
 				variants={variantType}
 				onChange={(n: number): void => set_variant(n)} />
-			<div className={'absolute right-4 bottom-4'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
-			</div>
 		</div>
 	);
 }
@@ -200,11 +142,6 @@ function	DocumentationBanner(): ReactElement {
 
 					<ComponentAPI
 						elements={[{
-							title: 'id',
-							type: 'string',
-							description: 'Unique string to identify the banner in the local storage'
-						},
-						{
 							title: 'variant',
 							type: 'default | image | split | background',
 							description: 'Indicate the type of banner to display'
@@ -217,7 +154,7 @@ function	DocumentationBanner(): ReactElement {
 						{
 							title: 'image?',
 							type: 'string | ReactElement',
-							description: `Image displayed at banner. If  its an URL then it applies default image styling. If it's an <img /> component the default image styiling is overrided. Not used with default variant. `
+							description: 'Image displayed at banner. If  its an URL then it applies default image styling. If it\'s an <img /> component the default image styiling is overrided. Not used with default variant.'
 						},
 						{
 							title: 'children?',
@@ -253,6 +190,10 @@ function	DocumentationBanner(): ReactElement {
 							title: 'children',
 							type: 'ReactElement | ReactElement[]',
 							description: 'Worth a mention: can be a single ReactElement or an array of ReactElement. If it is an array, this will enable the multi-page banner.'
+						}, {
+							title: 'className',
+							type: 'string',
+							description: 'Custom className to provide to alter the style of the Banner.'
 						}]} />
 				</section>
 			</Card>

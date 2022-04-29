@@ -3,7 +3,6 @@ import	IconChevron				from	'../icons/IconChevron';
 import	IconCross				from	'../icons/IconCross';
 
 type TBanner = {
-	id: string,
 	title?: string,
 	image?: string | ReactElement,
 	primaryButton?: ReactElement,
@@ -13,7 +12,9 @@ type TBanner = {
 	onClose?: () => void,
 	onClick?: React.MouseEventHandler
 	variant?: 'default' | 'image' | 'split' | 'background'
-	height?: string | number
+	height?: string | number,
+	className?: string,
+	withControls?: boolean
 }
 type TDefaultVariant = {
 	title?: string,
@@ -89,34 +90,35 @@ function	BannerBase({
 	image,
 	variant = 'default',
 	onClick,
-	height = 350
+	height = 350,
+	className = '',
+	withControls = false
 }: TBanner): ReactElement {
 	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
 	const	defaultClassName = 'text-primary bg-secondary border-primary';
-	const	backgroundClassName = 'text-surface bg-no-repeat bg-cover bg-center border-primary';
-	const	imageClassName = 'text-surface border-primary bg-no-repeat bg-cover bg-center';
-	const	bannerClassName = variant === 'image' ? imageClassName : variant === 'background' ? backgroundClassName : defaultClassName;
+	const	backgroundClassName = 'bg-no-repeat bg-cover bg-center border-primary';
+	const	imageClassName = 'border-primary bg-no-repeat bg-cover bg-center';
+	const	bannerClassName = `${variant === 'image' ? imageClassName : variant === 'background' ? backgroundClassName : defaultClassName} ${className || ''}`;
 
 	return (
-		<div className={'transition-max-height overflow-hidden duration-600 h-full'}>
-			<div
-				ref={contentRef as never}
-				className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${bannerClassName}`}>
+		<div
+			ref={contentRef as never}
+			style={{height: withControls ? 'calc(100% + 30px)' : '100%'}}
+			className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${withControls && variant !== 'image' ? 'pb-8 md:pb-0' : ''} ${bannerClassName}`}>
 
-				{variant === 'image' ? (
-					<ImageVariant image={image as string} onClick={onClick} height={height} />
-				) : (
-					<DefaultVariant
-							variant={variant}
-							title={title}
-							children={children}
-							primaryButton={primaryButton}
-							secondaryButton={secondaryButton} />
-					)
-				}
-				{variant === 'split' ? <SplitVariant image={image as string} /> : null}
-				{variant === 'background' ? <BackgroundVariant image={image as string} /> : null}
-			</div>
+			{variant === 'image' ? (
+				<ImageVariant image={image as string} onClick={onClick} height={height} />
+			) : (
+				<DefaultVariant
+						variant={variant}
+						title={title}
+						children={children}
+						primaryButton={primaryButton}
+						secondaryButton={secondaryButton} />
+				)
+			}
+			{variant === 'split' ? <SplitVariant image={image as string} /> : null}
+			{variant === 'background' ? <BackgroundVariant image={image as string} /> : null}
 		</div>
 	);
 }
@@ -167,7 +169,7 @@ function	BannerControlable({children, onClose, canClose = true, paginationStyle}
 				<IconCross className={`w-6 h-6 cursor-pointer ${paginationStyle ? paginationStyle : 'text-primary'}`} />
 			</button> : null}
 
-			{children[currentSlide]}
+			{React.cloneElement(children[currentSlide], {withControls: true})}
 			
 			{children.length > 1 ? <div className={`flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50 ${paginationStyle ? paginationStyle : 'text-primary'}`}>
 				{renderPreviousChevron()}
