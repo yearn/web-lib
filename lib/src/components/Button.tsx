@@ -15,10 +15,10 @@ const Button = React.forwardRef(({
 
 	if (as === 'a') {
 		return (
-			<a
-				{...props as React.ComponentPropsWithoutRef<'a'>}
-				className={`button flex-center ${buttonClassName} ${props.className}`}>
-				{children}
+			<a {...props as React.ComponentPropsWithoutRef<'a'>}>
+				<button className={`button flex-center ${buttonClassName} ${props.className}`}>
+					{children}
+				</button>
 			</a>
 		);	
 	}

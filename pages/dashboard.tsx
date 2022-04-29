@@ -48,10 +48,10 @@ function SortableItem({item, onRemove, id}: {item: TAppList, onRemove: (s: strin
 		}
 	}, []);
 
-	
+
 	return (
 		<div
-			className={'group relative col-span-1 cursor-default feature'}
+			className={'group relative cursor-default feature'}
 			id={item.title}
 			key={item.title}
 			ref={set_nodeRef}

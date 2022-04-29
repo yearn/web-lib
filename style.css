@@ -124,10 +124,11 @@
 	--x-px: calc(var(--x) * 1px);
 	--y-px: calc(var(--y) * 1px);
 	--opacity: var(--opacity);
-	@apply w-full h-full rounded-lg overflow-hidden;
+	@apply w-full h-full rounded-lg overflow-hidden col-span-1;
+
 	&:before,
 	&:after {
-		@apply pointer-events-none block absolute inset-0 top-0 left-0 w-full h-full;
+		@apply pointer-events-none block absolute inset-0 top-0 left-0 w-full h-full z-[1];
 		content: "";
 		z-index: -1;
 		opacity: var(--opacity);
