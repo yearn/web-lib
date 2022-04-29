@@ -27,6 +27,8 @@ import IconLabs from './IconLabs';
 import IconSettings from './IconSettings';
 import IconVault from './IconVault';
 import IconWallet from './IconWallet';
+import IconGrip from './IconGrip';
+import IconDashboard from './IconDashboard';
 
 export {
 	IconAlertCritical as AlertCritical,
@@ -57,5 +59,7 @@ export {
 	IconLabs as Labs,
 	IconSettings as Settings,
 	IconVault as Vault,
-	IconWallet as Wallet
+	IconWallet as Wallet,
+	IconGrip as Grip,
+	IconDashboard as Dashboard,
 };

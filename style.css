@@ -99,3 +99,50 @@
 .image-align-middle > span {
 	vertical-align: middle;
 }
+
+
+
+.feature,
+.feature:before,
+.feature:after {
+
+}
+
+
+.features {
+  @apply grid grid-cols-3 gap-4 w-full h-full;
+}
+
+:root {
+	--feature-primary-color: rgba(6, 87, 249, 0.15);
+}
+[data-theme*=dark] {
+	--feature-primary-color: rgba(198, 215, 249, 0.3);
+}
+
+.feature {
+	--x-px: calc(var(--x) * 1px);
+	--y-px: calc(var(--y) * 1px);
+	--opacity: var(--opacity);
+	@apply w-full h-full rounded-lg overflow-hidden;
+	&:before,
+	&:after {
+		@apply pointer-events-none block absolute inset-0 top-0 left-0 w-full h-full;
+		content: "";
+		z-index: -1;
+		opacity: var(--opacity);
+		background: radial-gradient(
+			800px circle at var(--x-px) var(--y-px),
+			var(--feature-primary-color),
+			transparent 40%
+		);
+		transition: opacity 0.4s ease;
+	}
+	&:before {
+		@apply pointer-events-none z-[1];
+	}
+}
+
+.feature-content {
+	@apply text-typo-primary rounded-lg bg-surface p-4 md:p-6 h-full flex flex-col z-10;
+}

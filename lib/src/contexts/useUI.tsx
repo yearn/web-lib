@@ -34,16 +34,20 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	** better control on the theme switch
 	**************************************************************************/
 	useClientEffect(() => {
-		const lightModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		lightModeMediaQuery.addEventListener('change', listenToThemeChange)
-		if (lightModeMediaQuery.matches) {
-			userPrefersColorScheme.current = 'dark';
-			set_theme('dark');
+		const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		darkModeMediaQuery.addEventListener('change', listenToThemeChange)
+		if (darkModeMediaQuery.matches) {
+			if (themeFromLs === 'dark') {
+				userPrefersColorScheme.current = 'dark';
+				set_theme('dark');
+			}
 		} else {
-			userPrefersColorScheme.current = 'light';
-			set_theme('light');
+			if (themeFromLs === 'light') {
+				userPrefersColorScheme.current = 'light';
+				set_theme('light');
+			}
 		}
-		return () => lightModeMediaQuery.removeEventListener('change', listenToThemeChange);
+		return () => darkModeMediaQuery.removeEventListener('change', listenToThemeChange);
 	}, []);
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -54,8 +58,8 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	**************************************************************************/
 	useClientEffect((): void => {
 		if (theme === userPrefersColorScheme.current) {
-			document.body.dataset.theme = '';
-			document.body.removeAttribute('data-theme')
+			document.body.dataset.theme = theme;
+			set_themeFromLs(theme);
 		} else if (theme === 'light') {
 			document.body.dataset.theme = 'light';
 			set_themeFromLs('light');

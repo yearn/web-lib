@@ -1,15 +1,15 @@
-import	React, {ReactElement}				from	'react';
-import	Head								from	'next/head';
-import	Link								from	'next/link';
-import	{AppProps}							from	'next/app';
-import	{DefaultSeo}						from	'next-seo';
-import	{Header, Navbar}					from	'@yearn/web-lib/layouts';
-import	{WithYearn, usePrices, useBalances}	from	'@yearn/web-lib/contexts';
-import	{format}							from	'@yearn/web-lib/utils';
-import	{AlertError, Hamburger, Home}		from	'@yearn/web-lib/icons';
-import	Footer								from	'components/StandardFooter';
-import	IconYearn							from	'components/icons/IconYearn';
-import	IconHealthcheck						from	'components/icons/IconHealthcheck';
+import	React, {ReactElement}						from	'react';
+import	Head										from	'next/head';
+import	Link										from	'next/link';
+import	{AppProps}									from	'next/app';
+import	{DefaultSeo}								from	'next-seo';
+import	{Header, Navbar}							from	'@yearn/web-lib/layouts';
+import	{WithYearn, usePrices, useBalances}			from	'@yearn/web-lib/contexts';
+import	{format}									from	'@yearn/web-lib/utils';
+import	{AlertError, Hamburger, Home, Dashboard}	from	'@yearn/web-lib/icons';
+import	Footer										from	'components/StandardFooter';
+import	IconYearn									from	'components/icons/IconYearn';
+import	IconHealthcheck								from	'components/icons/IconHealthcheck';
 
 import	'../style.css';
 
@@ -108,6 +108,12 @@ function	AppWrapper(props: AppProps): ReactElement {
 			values: ['/'],
 			label: 'Home',
 			icon: <Home  />
+		},
+		{
+			route: '/dashboard',
+			values: ['/dashboard'],
+			label: 'App Dashboard',
+			icon: <Dashboard  />
 		},
 		{
 			route: '/doc/components',

@@ -60,6 +60,7 @@ module.exports = {
 			'allowConciseArrowFunctionExpressionsStartingWithVoid': false,
 			'allowedNames': []
 		}],
+		
 		'@typescript-eslint/naming-convention': ['error',
 			{'selector': 'default', 'format': ['camelCase']},
 			{'selector': 'function', 'format': ['camelCase', 'PascalCase']},

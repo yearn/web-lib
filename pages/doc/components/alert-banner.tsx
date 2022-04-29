@@ -101,7 +101,7 @@ function	VariantLevel(): ReactElement {
 
 	return (
 		<div className={'box-gradient-default'}>
-			<div className={'w-3/4'}>
+			<div className={'w-3/4 scale-75'}>
 				{renderAlertBanner()}
 			</div>
 			<VariantSelectors
