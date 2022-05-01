@@ -30,6 +30,7 @@ export * from './components/SearchBox';
 export * from './components/StatisticCard';
 export * from './components/Switch';
 export * from './components/SwitchTheme';
+export * from './components/TokenCard';
 export * from './components/TxHashWithActions';
 export * from './components/Button';
 export * from './components/BannerEventAmsterdam';
