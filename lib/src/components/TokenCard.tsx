@@ -12,13 +12,15 @@ function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: TTo
 	const	cardClassname = className || 'col-span-12 sm:col-span-6';
 	return (
 		<Card
-			className={`${onClick ? 'cursor-pointer hover:bg-surface-variant' : ''} ${cardClassname}`}
+			className={cardClassname}
 			padding={'none'}
-			{...props}
-		>	
-			<div className={'flex p-2 md:p-4'} onClick={onClick}>
+			{...props}>	
+			<button
+				className={`flex p-2 md:p-4 w-full h-full ${onClick ? 'hover:bg-surface-variant' : 'cursor-default'}`}
+				onClick={onClick}
+				tabIndex={onClick ? 0 : -1}>
 				<img src={imgSrc} className={'select-none my-auto mr-4 w-16 h-16'} />
-				<div className={'flex-col overflow-hidden'}>
+				<div className={'flex-col overflow-hidden text-left'}>
 					<div className={'mb-2 text-sm text-typo-secondary truncate'}>
 						{label}
 					</div>
@@ -29,7 +31,7 @@ function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: TTo
 				{onClick && <div className={'flex justify-center items-center ml-auto'}>
 					<IconChevron className={'w-6 h-6 rotate-180 cursor-pointer'} />
 				</div>}
-			</div>
+			</button>
 		</Card>
 	);
 }
