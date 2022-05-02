@@ -2,6 +2,7 @@ import	React, {ReactElement}		from	'react';
 import	{Card, TxHashWithActions}	from	'@yearn/web-lib/components';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React						from	'react';
@@ -21,7 +22,7 @@ export default function	App(): React.ReactElement {
 
 export function	HashActionComponent(): ReactElement {
 	return (
-		<div className={'w-4/5'}>
+		<div className={'w-full md:w-4/5'}>
 			<Card>
 				<TxHashWithActions
 					txHash={'0x56aa0161072a6dd2661adf6fbebd0cbc6f538f9ad2306cc4cbe5afa06268b2f2'}
@@ -38,9 +39,9 @@ function	DocumentationTxHashWithAction(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'TxHashWithActions'}</h1>				
-				<div className={'box-gradient-default'}>
+				<CodeExample>
 					<HashActionComponent />
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

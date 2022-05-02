@@ -3,6 +3,7 @@ import	{Card, Button, ButtonTypes}	from	'@yearn/web-lib/components';
 import	VariantSelectors			from	'components/documentation/VariantSelectors';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React		from	'react';
@@ -42,7 +43,7 @@ function	DocumentationButton(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Button'}</h1>
-				<div className={variant > 1 ? 'box-gradient-default' : 'box-gradient-alt'}>
+				<CodeExample>
 					<Button
 						variant={variantType[variant]}
 						onClick={(): void => console.log('Do something')}
@@ -62,7 +63,7 @@ function	DocumentationButton(): ReactElement {
 							{'Disable'}
 						</div>
 					</div>
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

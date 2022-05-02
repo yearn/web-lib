@@ -2,6 +2,7 @@ import	React, {ReactElement}		from	'react';
 import	{Card, StatisticCard}		from	'@yearn/web-lib/components';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React			from	'react';
@@ -25,7 +26,7 @@ export default function	App(): React.ReactElement {
 
 export function	StatsCardComponent(): ReactElement {
 	return (
-		<div className={'w-4/5'}>
+		<div className={'w-full md:w-4/5'}>
 			<StatisticCard.Wrapper>
 				<StatisticCard
 					className={'col-span-6'}
@@ -45,7 +46,7 @@ function	DocumentationStatCard(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'StatisticCard'}</h1>				
-				<div className={'box-gradient-default'}>
+				<CodeExample>
 					<div className={'w-3/4'}>
 						<StatisticCard.Wrapper>
 							<StatisticCard
@@ -59,7 +60,7 @@ function	DocumentationStatCard(): ReactElement {
 								value={'42%'} />
 						</StatisticCard.Wrapper>
 					</div>
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

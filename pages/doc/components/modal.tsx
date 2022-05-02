@@ -2,6 +2,7 @@ import	React, {ReactElement}		from	'react';
 import	{Card, Button, Modal}		from	'@yearn/web-lib/components';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React					from	'react';
@@ -57,9 +58,9 @@ function	DocumentationModal(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Modal'}</h1>
-				<div className={'box-gradient-alt'}>
+				<CodeExample>
 					<ModalComponent />
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

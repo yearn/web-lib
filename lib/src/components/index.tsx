@@ -15,6 +15,7 @@ import {SwitchTheme} from './SwitchTheme';
 import {TxHashWithActions} from './TxHashWithActions';
 import {Button} from './Button';
 import {BannerEventAmsterdam} from './BannerEventAmsterdam';
+import {Banner} from './Banner';
 
 export {
 	Card,
@@ -32,8 +33,9 @@ export {
 	Switch,
 	SwitchTheme,
 	TxHashWithActions,
-	Button,
-	BannerEventAmsterdam
+	Button,	
+	BannerEventAmsterdam,
+	Banner,
 };
 
 import type * as ModalMenuTypes from './ModalMenu.d';

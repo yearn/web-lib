@@ -1,8 +1,9 @@
 import	React, {ReactElement}		from	'react';
-import	{Card}				from	'@yearn/web-lib/components';
+import	{Card}						from	'@yearn/web-lib/components';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	{Table}						from	'components/Table';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React		from	'react';
@@ -18,7 +19,7 @@ export default function	App(): React.ReactElement {
 	);
 }`.trim();
 
-export function	SwitchComponent(): ReactElement {
+export function	TableComponent(): ReactElement {
 	return (
 		<Table />
 	);
@@ -29,9 +30,9 @@ function	DocumentationTable(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Switch'}</h1>
-				<div className={'box-gradient-default'}>
-					<SwitchComponent />
-				</div>
+				<CodeExample>
+					<TableComponent />
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>
