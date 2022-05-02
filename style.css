@@ -33,9 +33,9 @@
 }
 
 .square-gradient-default {
-	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-48 min-h-[12rem];
-	background-image: linear-gradient(to right bottom, #0546c7, #1753d4, #235fe1, #2e6ced, #3879fa);
+	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-48 min-h-[12rem] overflow-hidden;
 }
+
 .square-gradient-alt {
 	@apply flex relative justify-center items-center p-4 w-full rounded-t-lg transition-colors h-48 min-h-[12rem];
 	background-image: radial-gradient(circle, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee);
@@ -112,30 +112,7 @@
 	--feature-primary-color: rgba(198, 215, 249, 0.3);
 }
 
-.feature {
-	--x-px: calc(var(--x) * 1px);
-	--y-px: calc(var(--y) * 1px);
-	--opacity: var(--opacity);
-	@apply w-full h-full rounded-lg col-span-1;
-
-	&:before,
-	&:after {
-		@apply pointer-events-none block absolute inset-0 top-0 left-0 w-full h-full z-[1];
-		content: "";
-		z-index: -1;
-		opacity: var(--opacity);
-		background: radial-gradient(
-			800px circle at var(--x-px) var(--y-px),
-			var(--feature-primary-color),
-			transparent 40%
-		);
-		transition: opacity 0.4s ease;
-	}
-	&:before {
-		@apply pointer-events-none z-[1];
-	}
-}
 
 .feature-content {
-	@apply text-typo-primary rounded-lg bg-surface h-full flex flex-col z-10 shadow-none hover:shadow-md transition-shadow cursor-pointer;
+	@apply text-typo-primary rounded-lg bg-surface h-full flex flex-col z-10 shadow-none hover:shadow-md transition-shadow duration-700 animate-weight-normal cursor-pointer;
 }

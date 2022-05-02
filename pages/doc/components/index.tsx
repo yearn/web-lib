@@ -1,6 +1,7 @@
 import	React, {ReactElement}		from	'react';
 import	Link						from	'next/link';
 import	{Card, AlertBanner, Button}	from	'@yearn/web-lib/components';
+import	{RadialBackground}			from	'components/RadialBackground';
 import	{CardComponent}				from	'pages/doc/components/cards';
 import	{CardTabsComponent}			from	'pages/doc/components/cards-tabs';
 import	{CardDetailsComponent}		from	'pages/doc/components/cards-details';
@@ -30,7 +31,7 @@ const		ElementListCards = [
 		version: '0.1.0',
 		href: '/doc/components/cards-tabs',
 		description: 'The Card.Tabs is a variant of Card that will display the Card with some available Tabs.',
-		children: <CardTabsComponent />
+		children: <div />//<CardTabsComponent />
 	},
 	{
 		title: 'Card.Detail',
@@ -75,7 +76,6 @@ const		ElementListForms = [
 		version: '0.1.0',
 		href: '/doc/components/switch-theme',
 		description: 'A custom switch component to alternate between light theme (default) and dark theme.',
-		// background: 'alt',
 		children: <SwitchThemeComponent />
 	}
 ];
@@ -142,13 +142,13 @@ type		TElement = {
 	version: string,
 	description: string,
 	href: string,
-	background?: string
 }
-function	Element({children, title, version, description, href, background}: TElement): ReactElement {
+function	Element({children, title, version, description, href}: TElement): ReactElement {
 	return (
-		<Card padding={'none'} className={'flex flex-col h-full'}>
-			<div className={`flex flex-col h-full ${background === 'alt' ? 'square-gradient-alt' : 'square-gradient-default'}`}>
+		<Card padding={'none'} className={'flex flex-col h-full shadow-none hover:shadow-md transition-shadow duration-700 animate-weight-normal'}>
+			<div className={'flex flex-col h-full square-gradient-default'}>
 				{children}
+				<RadialBackground />
 			</div>
 			<div className={'flex flex-col p-4 w-full h-full'}>
 				<span className={'flex flex-row justify-between items-center'}>

@@ -20,45 +20,15 @@ function SortableItem({item, onRemove, id, animateLayoutChanges}: {item: TAppLis
 		'--opacity': 0
 	};
 
-	// useClientEffect((): void => {
-	// 	const featuresEl = document.getElementById(item.title);
-	// 	// const featureEls = document.querySelectorAll('.feature');
-	// 	if (featuresEl) {
-	// 		const	cleanup = (): void => {
-	// 			featuresEl.removeEventListener('pointermove', pointermove);
-	// 			featuresEl.removeEventListener('pointerleave', pointerleave);
-	// 		};
-
-	// 		const	pointermove = (ev: any): void => {
-	// 			const rect = featuresEl.getBoundingClientRect();
-	// 			if (featuresEl?.style) {
-	// 				featuresEl.style.setProperty('--opacity', '0.7');
-	// 				featuresEl.style.setProperty('--x', (ev.clientX - rect.left).toString());
-	// 				featuresEl.style.setProperty('--y', (ev.clientY - rect.top).toString());
-	// 			}
-	// 		};
-
-	// 		const	pointerleave = (): void => {
-	// 			if (featuresEl?.style) {
-	// 				featuresEl.style.setProperty('--opacity', '0');
-	// 			}
-	// 		};
-
-	// 		featuresEl.addEventListener('pointermove', pointermove);
-	// 		featuresEl.addEventListener('pointerleave', pointerleave);
-	// 		return cleanup as any;
-	// 	}
-	// }, []);
-
 	return (
 		<div
-			className={'group relative cursor-default feature'}
+			className={'group relative col-span-1 w-full h-full rounded-lg cursor-default'}
 			id={item.title}
 			key={item.title}
 			ref={set_nodeRef}
 			style={style}
 			{...attributes}>
-			<div className={'feature-content'}>
+			<div id={`child_${item.title}`} className={'feature-content'}>
 				<div className={'flex justify-between p-4 space-x-4 w-full h-16'}>
 					<div className={'flex justify-center items-center space-x-2'}>
 						<div className={'w-6 min-w-[24px] h-6 rounded-full bg-secondary-variant'}>
