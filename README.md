@@ -5,6 +5,11 @@ We are using React + Tailwindcss + ethersjs for the web3 package, and some conte
 
 Please check @yearn/web-template for documentation and usage.
 
+## Component Library Development  
+1) `git clone https://github.com/yearn/web-lib.git`
+1) `yarn install`
+1) `yarn dev`
+
 ## How to install
 Run the following command:
 ```

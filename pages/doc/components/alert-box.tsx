@@ -3,6 +3,7 @@ import	{Card, AlertBox, AlertTypes}	from	'@yearn/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React		from	'react';
@@ -44,7 +45,7 @@ function	DocumentationAlertBox(): ReactElement {
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'AlertBox'}</h1>
 				<section aria-label={'code-part'}>
-					<div className={'box-gradient-default'}>
+					<CodeExample>
 						<div className={'w-3/4'}>
 							<AlertBox
 								level={variantType[variant] as AlertTypes.TAlertLevels}
@@ -58,7 +59,7 @@ function	DocumentationAlertBox(): ReactElement {
 							selected={variantType[variant]}
 							variants={variantType}
 							onChange={(n: number): void => set_variant(n)} />
-					</div>
+					</CodeExample>
 					<Highlight code={code} />
 				</section>
 

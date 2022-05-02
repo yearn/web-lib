@@ -3,6 +3,7 @@ import	{Card, AddressWithActions}	from	'@yearn/web-lib/components';
 import	{toAddress}					from	'@yearn/web-lib/utils';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React					from	'react';
@@ -22,7 +23,7 @@ export default function	App(): React.ReactElement {
 
 export function	AddressActionComponent(): ReactElement {
 	return (
-		<div className={'w-4/5'}>
+		<div className={'w-full md:w-4/5'}>
 			<Card>
 				<AddressWithActions
 					address={toAddress('0x16388463d60FFE0661Cf7F1f31a7D658aC790ff7')}
@@ -39,9 +40,9 @@ function	DocumentationAddressWithAction(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'AddressWithActions'}</h1>				
-				<div className={'box-gradient-default'}>
+				<CodeExample>
 					<AddressActionComponent />
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

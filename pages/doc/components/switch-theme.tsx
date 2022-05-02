@@ -3,6 +3,7 @@ import	{Card, SwitchTheme}			from	'@yearn/web-lib/components';
 import	{useUI}						from	'@yearn/web-lib/contexts';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React			from	'react';
@@ -34,9 +35,9 @@ function	DocumentationSwitchTheme(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'SwitchTheme'}</h1>
-				<div className={'box-gradient-alt'}>
+				<CodeExample>
 					<SwitchThemeComponent />
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

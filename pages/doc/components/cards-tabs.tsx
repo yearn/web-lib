@@ -2,6 +2,7 @@ import	React, {ReactElement}		from	'react';
 import	{Card}						from	'@yearn/web-lib/components';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React	from	'react';
@@ -21,7 +22,7 @@ export default function	App(): React.ReactElement {
 
 export function	CardTabsComponent(): ReactElement {
 	return (
-		<div className={'w-3/4'}>
+		<div className={'w-full md:w-3/4'}>
 			<Card.Tabs
 				tabs={[
 					{label: 'Details', children: <b>{'I am the first card.'}</b>},
@@ -38,9 +39,9 @@ function	DocumentationCard(): ReactElement {
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Card.Tabs'}</h1>
-				<div className={'box-gradient-default'}>
+				<CodeExample>
 					<CardTabsComponent />
-				</div>
+				</CodeExample>
 				<Highlight code={code} />
 
 				<h4 className={'mt-6 mb-1'}>{'Description'}</h4>

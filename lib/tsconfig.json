@@ -37,5 +37,5 @@
 		"outDir": "dist",
 	},
 	"exclude": ["node_modules", "library/dist"],
-	"include": ["src", "postcss.config.cjs", "tailwind.config.js", "tailwind.config.cjs"]
+	"include": ["src", "postcss.config.cjs", "tailwind.config.cjs"]
 }

@@ -1,21 +1,24 @@
-import	React, {ReactElement}		from	'react';
-import	Link						from	'next/link';
-import	{Card, AlertBanner, Button}	from	'@yearn/web-lib/components';
-import	{CardComponent}				from	'pages/doc/components/cards';
-import	{CardTabsComponent}			from	'pages/doc/components/cards-tabs';
-import	{CardDetailsComponent}		from	'pages/doc/components/cards-details';
-import	{SwitchComponent}			from	'pages/doc/components/switch';
-import	{SwitchThemeComponent}		from	'pages/doc/components/switch-theme';
-import	{ButtonsComponent}			from	'pages/doc/components/button';
-import	{DropdownComponent}			from	'pages/doc/components/dropdown';
-import	{SearchBoxComponent}		from	'pages/doc/components/search-box';
-import	{StatsCardComponent}		from	'pages/doc/components/statistic-card';
-import	{DescriptionListComponent}	from	'pages/doc/components/description-list';
-import	{AddressActionComponent}	from	'pages/doc/components/address-with-actions';
-import	{HashActionComponent}		from	'pages/doc/components/txhash-with-actions';
-import	{AlertBannerComponent}		from	'pages/doc/components/alert-banner';
-import	{AlertBoxComponent}			from	'pages/doc/components/alert-box';
-import	{ModalComponent}			from	'pages/doc/components/modal';
+import	React, {ReactElement}			from	'react';
+import	Link							from	'next/link';
+import	{RadialBackground}				from	'components/RadialBackground';
+import	{Card, AlertBanner, Button}		from	'@yearn/web-lib/components';
+import	{CardComponent}					from	'pages/doc/components/cards';
+import	{CardTabsComponent}				from	'pages/doc/components/cards-tabs';
+import	{CardDetailsComponent}			from	'pages/doc/components/cards-details';
+import	{SwitchComponent}				from	'pages/doc/components/switch';
+import	{SwitchThemeComponent}			from	'pages/doc/components/switch-theme';
+import	{ButtonsComponent}				from	'pages/doc/components/button';
+import	{DropdownComponent}				from	'pages/doc/components/dropdown';
+import	{SearchBoxComponent}			from	'pages/doc/components/search-box';
+import	{StatsCardComponent}			from	'pages/doc/components/statistic-card';
+import	{DescriptionListComponent}		from	'pages/doc/components/description-list';
+import	{AddressActionComponent}		from	'pages/doc/components/address-with-actions';
+import	{HashActionComponent}			from	'pages/doc/components/txhash-with-actions';
+import	{AlertBannerComponent}			from	'pages/doc/components/alert-banner';
+import	{AlertBoxComponent}				from	'pages/doc/components/alert-box';
+import	{ModalComponent}				from	'pages/doc/components/modal';
+import	{BannerComponent}				from	'pages/doc/components/banner';
+import	{BannerWithControlsComponent}	from	'pages/doc/components/banner-with-controls';
 import	{TokenCardComponent}		from	'pages/doc/components/token-card';
 
 const		ElementListCards = [
@@ -76,7 +79,6 @@ const		ElementListForms = [
 		version: '0.1.0',
 		href: '/doc/components/switch-theme',
 		description: 'A custom switch component to alternate between light theme (default) and dark theme.',
-		// background: 'alt',
 		children: <SwitchThemeComponent />
 	}
 ];
@@ -140,6 +142,20 @@ const		ElementListFeedback = [
 		href: '/doc/components/modal',
 		description: 'The Modal component will open a portal displayed on top of the UI.',
 		children: <ModalComponent />
+	},
+	{
+		title: 'Banner',
+		version: '0.1.0',
+		href: '/doc/components/banner',
+		description: 'The Banner component is used to display an highlighted message.',
+		children: <BannerComponent />
+	},
+	{
+		title: 'Banner With Controls',
+		version: '0.1.0',
+		href: '/doc/components/banner-with-controls',
+		description: 'The Banner With Controls component is used to display a banner with some controls.',
+		children: <BannerWithControlsComponent />
 	}
 ];
 
@@ -150,13 +166,13 @@ type		TElement = {
 	version: string,
 	description: string,
 	href: string,
-	background?: string
 }
-function	Element({children, title, version, description, href, background}: TElement): ReactElement {
+function	Element({children, title, version, description, href}: TElement): ReactElement {
 	return (
-		<Card padding={'none'} className={'flex flex-col h-full'}>
-			<div className={`flex flex-col h-full ${background === 'alt' ? 'square-gradient-alt' : 'square-gradient-default'}`}>
+		<Card padding={'none'} className={'flex flex-col h-full shadow-none hover:shadow-md transition-shadow duration-700 animate-weight-normal'}>
+			<div className={'flex flex-col h-full square-gradient-default'}>
 				{children}
+				<RadialBackground />
 			</div>
 			<div className={'flex flex-col p-4 w-full h-full'}>
 				<span className={'flex flex-row justify-between items-center'}>

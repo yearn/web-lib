@@ -12,11 +12,11 @@ type	TPossibleThemes = 'dark' | 'light';
 const	UI = createContext<TUIContext>({theme: '', switchTheme: (): void => undefined, toast});
 export const UIContextApp = ({children}: {children: ReactElement}): ReactElement => {
 	const	userPrefersColorScheme = React.useRef<TPossibleThemes>();
-	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', '');
+	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
 	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
 
 	const switchTheme = React.useCallback((): void => {
-		set_theme(['light', 'light-initial'].includes(theme) ? 'dark' : 'light');
+		set_theme(theme === 'light' ? 'dark' : 'light');
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [theme]);
 
@@ -58,12 +58,12 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	**************************************************************************/
 	useClientEffect((): void => {
 		if (theme === userPrefersColorScheme.current) {
-			document.body.dataset.theme = theme;
+			document.body.dataset.theme = 'system-prefs';
 			set_themeFromLs(theme);
 		} else if (theme === 'light') {
 			document.body.dataset.theme = 'light';
 			set_themeFromLs('light');
-		} else if (theme === 'dark' || theme === 'dark-initial') {
+		} else if (theme === 'dark') {
 			document.body.dataset.theme = 'dark';
 			set_themeFromLs('dark');
 		}

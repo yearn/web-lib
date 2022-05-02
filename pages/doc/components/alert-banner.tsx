@@ -3,6 +3,7 @@ import	{Card, AlertBanner, AlertTypes}	from	'@yearn/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React			from	'react';
@@ -100,7 +101,7 @@ function	VariantLevel(): ReactElement {
 	}
 
 	return (
-		<div className={'box-gradient-default'}>
+		<CodeExample>
 			<div className={'w-3/4 scale-75'}>
 				{renderAlertBanner()}
 			</div>
@@ -111,7 +112,7 @@ function	VariantLevel(): ReactElement {
 			<div className={'absolute right-4 bottom-4'}>
 				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
 			</div>
-		</div>
+		</CodeExample>
 	);
 }
 

@@ -1,79 +1,61 @@
 import	React, {ReactElement}				from	'react';
+import	Image								from	'next/image';
 import	{Cross, Grip}						from	'@yearn/web-lib/icons';
 import	{useClientEffect, useLocalStorage}	from	'@yearn/web-lib/hooks';
 import	{Button}							from	'@yearn/web-lib/components';
 import	* as dnd_kit						from	'@dnd-kit/core';
 import	* as dnd_kit_sortable				from	'@dnd-kit/sortable';
+import	{AnimateLayoutChanges}				from	'@dnd-kit/sortable';
 import	{CSS}								from	'@dnd-kit/utilities';
 import	YEARN_APPS							from	'utils/yearnApps';
 
 const {DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, MeasuringStrategy} = dnd_kit;
-const {arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy, useSortable} = dnd_kit_sortable;
+const {arrayMove, SortableContext, sortableKeyboardCoordinates, rectSortingStrategy, useSortable, defaultAnimateLayoutChanges} = dnd_kit_sortable;
 
-function SortableItem({item, onRemove, id}: {item: TAppList, onRemove: (s: string) => void, id: string}): ReactElement {
-	const {attributes, listeners, setNodeRef: set_nodeRef, transform, transition} = useSortable({id: id});
+function SortableItem({item, onRemove, id, animateLayoutChanges}: {item: TAppList, onRemove: (s: string) => void, id: string, animateLayoutChanges: any}): ReactElement {
+	const {attributes, listeners, setNodeRef: set_nodeRef, transform, transition} = useSortable({id, animateLayoutChanges});
 	const style = {
 		transform: CSS.Transform.toString(transform),
 		transition,
 		'--opacity': 0
 	};
 
-	useClientEffect((): void => {
-		const featuresEl = document.getElementById(item.title);
-		// const featureEls = document.querySelectorAll('.feature');
-		if (featuresEl) {
-			const	cleanup = (): void => {
-				featuresEl.removeEventListener('pointermove', pointermove);
-				featuresEl.removeEventListener('pointerleave', pointerleave);
-			};
-
-			const	pointermove = (ev: any): void => {
-				const rect = featuresEl.getBoundingClientRect();
-				if (featuresEl?.style) {
-					featuresEl.style.setProperty('--opacity', '0.7');
-					featuresEl.style.setProperty('--x', (ev.clientX - rect.left).toString());
-					featuresEl.style.setProperty('--y', (ev.clientY - rect.top).toString());
-				}
-			};
-
-			const	pointerleave = (): void => {
-				if (featuresEl?.style) {
-					featuresEl.style.setProperty('--opacity', '0');
-				}
-			};
-
-			featuresEl.addEventListener('pointermove', pointermove);
-			featuresEl.addEventListener('pointerleave', pointerleave);
-			return cleanup as any;
-		}
-	}, []);
-
-	
 	return (
 		<div
-			className={'group relative col-span-1 cursor-default feature'}
+			className={'group relative col-span-1 w-full h-full rounded-lg cursor-default'}
 			id={item.title}
 			key={item.title}
 			ref={set_nodeRef}
 			style={style}
 			{...attributes}>
-			<div className={'feature-content'}>
-				<div className={'flex absolute top-2 right-2 z-50 flex-row space-x-2'}>
-					<div onClick={(): void => onRemove(item.id)}>
-						<Cross className={'w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity cursor-pointer'} />
+			<div id={`child_${item.title}`} className={'feature-content'}>
+				<div className={'flex justify-between p-4 space-x-4 w-full h-16'}>
+					<div className={'flex justify-center items-center space-x-2'}>
+						<div className={'w-6 min-w-[24px] h-6 rounded-full bg-secondary-variant'}>
+							<Image src={item.icon} width={24} height={24} />
+						</div>
+						<h3 className={'self-center text-base font-bold capitalize'}>{item.title}</h3>
 					</div>
-					<div {...listeners}>
-						<Grip className={'w-4 h-4 opacity-40 hover:opacity-100 transition-opacity cursor-grab'} />
+					<div className={'flex z-50 justify-center items-center space-x-2'}>
+						<div onClick={(): void => onRemove(item.id)}>
+							<Cross className={'w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity cursor-pointer'} />
+						</div>
+						<div>
+							<Grip
+								{...listeners}
+								className={'w-4 h-4 opacity-40 hover:opacity-100 transition-opacity cursor-grab touch-none'} />
+						</div>
 					</div>
 				</div>
-				<b className={'text-lg capitalize'}>{item.title}</b>
-				<div className={'mb-4'}>
-					<p className={'text-sm text-typo-secondary'}>{'Voluptatem ut dolores error laboriosam sunt qui aliquid. Nam ut et sunt dolores deleniti fuga.'}</p>
-				</div>
-				<div className={'mt-auto'}>
-					<Button as={'a'} href={item.url} target={'_blank'} rel={'noreferrer'}>
-						{'Access app'}
-					</Button>
+				<div className={'p-4 pt-0 md:p-6 md:pt-0'}>
+					<div className={'mb-4'}>
+						<p className={'text-sm text-typo-secondary'}>{'Voluptatem ut dolores error laboriosam sunt qui aliquid. Nam ut et sunt dolores deleniti fuga.'}</p>
+					</div>
+					<div className={'mt-auto'}>
+						<Button as={'a'} href={item.url} target={'_blank'} rel={'noreferrer'}>
+							{'Access app'}
+						</Button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -84,6 +66,8 @@ type	TAppList = {
 	id: string,
 	title: string,
 	url: string,
+	icon: string,
+	image: string
 }
 function	DisclaimerPage(): ReactElement {
 	const	[shouldRender, set_shouldRender] = React.useState(false);
@@ -121,7 +105,10 @@ function	DisclaimerPage(): ReactElement {
 	if (!shouldRender) {
 		return <div />;
 	}
-
+	const animateLayoutChanges: AnimateLayoutChanges = (args): boolean =>
+		args.isSorting || args.wasDragging
+			? defaultAnimateLayoutChanges(args)
+			: true;
 	return (
 		<section aria-label={'dashboard'}>
 			<div className={'relative w-full'}>
@@ -137,6 +124,7 @@ function	DisclaimerPage(): ReactElement {
 									key={item.id}
 									id={item.id}
 									item={item}
+									animateLayoutChanges={animateLayoutChanges}
 									onRemove={handleRemove}
 								/>
 							))}

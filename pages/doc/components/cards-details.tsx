@@ -2,8 +2,8 @@ import	React, {ReactElement}		from	'react';
 import	{Card}						from	'@yearn/web-lib/components';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	CodeExample					from	'components/CodeExample';
 
-// The code snippet you want to highlight, as a string
 const code = `
 import	React	from	'react';
 import	{Card}	from	'@yearn/web-lib/components';
@@ -57,7 +57,7 @@ function	DocumentationCard(): ReactElement {
 			<Card>
 				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Card.Detail'}</h1>
 				<section aria-label={'code-part'}>
-					<div className={'box-gradient-default'}>
+					<CodeExample>
 						<div className={'w-3/4'}>
 							<Card.Detail
 								summary={(p: unknown): ReactElement => (
@@ -69,8 +69,7 @@ function	DocumentationCard(): ReactElement {
 								</div>
 							</Card.Detail>
 						</div>
-					</div>
-
+					</CodeExample>
 					<Highlight code={code} />
 				</section>
 
