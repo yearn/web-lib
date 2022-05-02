@@ -23,7 +23,7 @@ class MyDocument extends Document {
 					<script src={'/feedback.source.js'} defer />
 					<script src={'/feedback.js'} defer />
 				</Head>
-				<body className={'transition-colors duration-150 bg-background'} data-theme={'system-prefs'}>
+				<body className={'transition-colors duration-150 bg-background'} data-theme={'light'}>
 					<Main />
 					<NextScript />
 				</body>

@@ -101,16 +101,8 @@
 }
 
 
-
-.feature,
-.feature:before,
-.feature:after {
-
-}
-
-
 .features {
-  @apply grid grid-cols-3 gap-4 w-full h-full;
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 w-full h-full;
 }
 
 :root {
@@ -124,7 +116,7 @@
 	--x-px: calc(var(--x) * 1px);
 	--y-px: calc(var(--y) * 1px);
 	--opacity: var(--opacity);
-	@apply w-full h-full rounded-lg overflow-hidden col-span-1;
+	@apply w-full h-full rounded-lg col-span-1;
 
 	&:before,
 	&:after {
@@ -145,5 +137,5 @@
 }
 
 .feature-content {
-	@apply text-typo-primary rounded-lg bg-surface p-4 md:p-6 h-full flex flex-col z-10;
+	@apply text-typo-primary rounded-lg bg-surface h-full flex flex-col z-10 shadow-none hover:shadow-md transition-shadow cursor-pointer;
 }

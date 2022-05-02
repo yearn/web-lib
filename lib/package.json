@@ -10,11 +10,13 @@
 		"dist",
 		"postcss.config.cjs",
 		"tailwind.config.cjs",
-		"style.css"
+		"style.css",
+		"build.css"
 	],
 	"exports": {
 		".": "./dist/index.js",
 		"./style.css": "./dist/style.css",
+		"./build.css": "./dist/build.css",
 		"./tailwind.plugin": "./dist/tailwind.plugin.cjs",
 		"./layouts": "./dist/layouts/index.js",
 		"./components": "./dist/components/index.js",
@@ -31,8 +33,9 @@
 		"access": "public"
 	},
 	"scripts": {
-		"prepublishOnly": "./build.sh --external:react --external:react-dom --platform=node",
-		"build": "./build.sh --external:react --external:react-dom --platform=node",
+		"exportStyle": "npx tailwindcss -c tailwind.config.cjs -o ./src/build.css --minify && sed -i '' 's/rem/em/g' ./src/build.css",
+		"prepublishOnly": "./build.sh --external:react --external:react-dom --platform=node && yarn exportStyle",
+		"build": "./build.sh --external:react --external:react-dom --platform=node && yarn exportStyle",
 		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
 		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
 	},
@@ -77,6 +80,7 @@
 		"eslint-plugin-tailwindcss": "^3.5.0",
 		"events": "^3.3.0",
 		"fast-glob": "^3.2.11",
-		"typescript": "^4.6.3"
+		"typescript": "^4.6.3",
+		"tailwindcss": "^3.0.23"
 	}
 }
