@@ -21,7 +21,7 @@ export default function	App(): React.ReactElement {
 
 export function	CardTabsComponent(): ReactElement {
 	return (
-		<div className={'w-3/4'}>
+		<div className={'w-full md:w-3/4'}>
 			<Card.Tabs
 				tabs={[
 					{label: 'Details', children: <b>{'I am the first card.'}</b>},

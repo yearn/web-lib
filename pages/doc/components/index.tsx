@@ -1,21 +1,23 @@
-import	React, {ReactElement}		from	'react';
-import	Link						from	'next/link';
-import	{Card, AlertBanner, Button}	from	'@yearn/web-lib/components';
-import	{CardComponent}				from	'pages/doc/components/cards';
-import	{CardTabsComponent}			from	'pages/doc/components/cards-tabs';
-import	{CardDetailsComponent}		from	'pages/doc/components/cards-details';
-import	{SwitchComponent}			from	'pages/doc/components/switch';
-import	{SwitchThemeComponent}		from	'pages/doc/components/switch-theme';
-import	{ButtonsComponent}			from	'pages/doc/components/button';
-import	{DropdownComponent}			from	'pages/doc/components/dropdown';
-import	{SearchBoxComponent}		from	'pages/doc/components/search-box';
-import	{StatsCardComponent}		from	'pages/doc/components/statistic-card';
-import	{DescriptionListComponent}	from	'pages/doc/components/description-list';
-import	{AddressActionComponent}	from	'pages/doc/components/address-with-actions';
-import	{HashActionComponent}		from	'pages/doc/components/txhash-with-actions';
-import	{AlertBannerComponent}		from	'pages/doc/components/alert-banner';
-import	{AlertBoxComponent}			from	'pages/doc/components/alert-box';
-import	{ModalComponent}			from	'pages/doc/components/modal';
+import	React, {ReactElement}			from	'react';
+import	Link							from	'next/link';
+import	{Card, AlertBanner, Button}		from	'@yearn/web-lib/components';
+import	{CardComponent}					from	'pages/doc/components/cards';
+import	{CardTabsComponent}				from	'pages/doc/components/cards-tabs';
+import	{CardDetailsComponent}			from	'pages/doc/components/cards-details';
+import	{SwitchComponent}				from	'pages/doc/components/switch';
+import	{SwitchThemeComponent}			from	'pages/doc/components/switch-theme';
+import	{ButtonsComponent}				from	'pages/doc/components/button';
+import	{DropdownComponent}				from	'pages/doc/components/dropdown';
+import	{SearchBoxComponent}			from	'pages/doc/components/search-box';
+import	{StatsCardComponent}			from	'pages/doc/components/statistic-card';
+import	{DescriptionListComponent}		from	'pages/doc/components/description-list';
+import	{AddressActionComponent}		from	'pages/doc/components/address-with-actions';
+import	{HashActionComponent}			from	'pages/doc/components/txhash-with-actions';
+import	{AlertBannerComponent}			from	'pages/doc/components/alert-banner';
+import	{AlertBoxComponent}				from	'pages/doc/components/alert-box';
+import	{ModalComponent}				from	'pages/doc/components/modal';
+import	{BannerComponent}				from	'pages/doc/components/banner';
+import	{BannerWithControlsComponent}	from	'pages/doc/components/banner-with-controls';
 
 const		ElementListCards = [
 	{
@@ -132,6 +134,20 @@ const		ElementListFeedback = [
 		href: '/doc/components/modal',
 		description: 'The Modal component will open a portal displayed on top of the UI.',
 		children: <ModalComponent />
+	},
+	{
+		title: 'Banner',
+		version: '0.1.0',
+		href: '/doc/components/banner',
+		description: 'The Banner component is used to display an highlighted message.',
+		children: <BannerComponent />
+	},
+	{
+		title: 'Banner With Controls',
+		version: '0.1.0',
+		href: '/doc/components/banner-with-controls',
+		description: 'The Banner With Controls component is used to display a banner with some controls.',
+		children: <BannerWithControlsComponent />
 	}
 ];
 

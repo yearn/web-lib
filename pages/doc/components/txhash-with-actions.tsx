@@ -21,7 +21,7 @@ export default function	App(): React.ReactElement {
 
 export function	HashActionComponent(): ReactElement {
 	return (
-		<div className={'w-4/5'}>
+		<div className={'w-full md:w-4/5'}>
 			<Card>
 				<TxHashWithActions
 					txHash={'0x56aa0161072a6dd2661adf6fbebd0cbc6f538f9ad2306cc4cbe5afa06268b2f2'}
