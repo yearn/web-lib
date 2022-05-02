@@ -28,9 +28,7 @@ function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: TTo
 						{value}
 					</div>
 				</div>
-				{onClick && <div className={'flex justify-center items-center ml-auto'}>
-					<IconChevron className={'w-6 h-6 rotate-180 cursor-pointer'} />
-				</div>}
+				{onClick && <IconChevron className={'my-auto ml-auto w-6 h-6 rotate-180 cursor-pointer'} />}
 			</button>
 		</Card>
 	);
