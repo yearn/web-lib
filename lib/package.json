@@ -33,7 +33,7 @@
 		"access": "public"
 	},
 	"scripts": {
-		"exportStyle": "npx tailwindcss -c tailwind.config.cjs -o ./src/build.css --minify && sed -i '' 's/rem/em/g' ./src/build.css",
+		"exportStyle": "npx tailwindcss -c tailwind.config.cjs -o ./dist/build.css --minify && sed -i '' 's/rem/em/g' ./dist/build.css",
 		"prepublishOnly": "yarn exportStyle && ./build.sh --external:react --external:react-dom --platform=node",
 		"build": "yarn exportStyle && ./build.sh --external:react --external:react-dom --platform=node",
 		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
