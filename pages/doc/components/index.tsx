@@ -19,6 +19,7 @@ import	{AlertBoxComponent}				from	'pages/doc/components/alert-box';
 import	{ModalComponent}				from	'pages/doc/components/modal';
 import	{BannerComponent}				from	'pages/doc/components/banner';
 import	{BannerWithControlsComponent}	from	'pages/doc/components/banner-with-controls';
+import	{TokenCardComponent}		from	'pages/doc/components/token-card';
 
 const		ElementListCards = [
 	{
@@ -110,6 +111,13 @@ const		ElementListDataDisplay = [
 		href: '/doc/components/txhash-with-actions',
 		description: 'The TxHashWithActions is generic component that could be used to display a Tx Hash with some defaults action.',
 		children: <HashActionComponent />
+	},
+	{
+		title: 'TokenCard',
+		version: '0.1.1',
+		href: '/doc/components/token-card',
+		description: 'The TokenCard is a component used to display a token image, label, and value.',
+		children: <TokenCardComponent />
 	}
 ];
 

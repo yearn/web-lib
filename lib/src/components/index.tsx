@@ -12,6 +12,7 @@ import {SearchBox} from './SearchBox';
 import {StatisticCard} from './StatisticCard';
 import {Switch} from './Switch';
 import {SwitchTheme} from './SwitchTheme';
+import {TokenCard} from './TokenCard';
 import {TxHashWithActions} from './TxHashWithActions';
 import {Button} from './Button';
 import {BannerEventAmsterdam} from './BannerEventAmsterdam';
@@ -32,6 +33,7 @@ export {
 	StatisticCard,
 	Switch,
 	SwitchTheme,
+	TokenCard,
 	TxHashWithActions,
 	Button,	
 	BannerEventAmsterdam,
