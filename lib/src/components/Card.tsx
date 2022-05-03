@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react';
-import {Disclosure, Transition, Tab} from '@headlessui/react';
+import {Disclosure, Tab} from '@headlessui/react';
+import {motion, AnimatePresence} from 'framer-motion';
 import IconChevron from '../icons/IconChevron';
 import * as CardTypes from './Card.d';
 
@@ -27,26 +28,29 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg p-0`}>
 					<Disclosure.Button
 						as={'div'}
-						role="button"
+						role={'button'}
 						tabIndex={0}
 						className={`w-full h-full justify-between rounded-lg text-justify transition-colors ${variant === 'background' ? 'bg-background' : 'bg-surface'} ${open ? '' : 'hover:bg-surface-variant'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
 						{summary}
 					</Disclosure.Button>
-					<Transition
-						as={React.Fragment}
-						show={open}
-						enter={'transition duration-100 ease-out origin-top'}
-						enterFrom={'transform scale-y-0 opacity-0 origin-top'}
-						enterTo={'transform scale-y-100 opacity-100 origin-top'}
-						leave={'transition ease-out origin-top'}
-						leaveFrom={'transform scale-y-100 opacity-100 origin-top'}
-						leaveTo={'transform scale-y-0 opacity-0 origin-top'}>
-						<Disclosure.Panel
-							static
-							className={`px-6 pb-6 w-full rounded-b-lg ${variant === 'background' ? 'bg-background' : 'bg-surface'}`}>
-							{children}
-						</Disclosure.Panel>
-					</Transition>
+					<AnimatePresence initial={false}>
+						{open && (
+							<motion.section
+								key={'content'}
+								initial={'collapsed'}
+								animate={'open'}
+								exit={'collapsed'}
+								variants={{open: {opacity: 1, height: 'auto'}, collapsed: {opacity: 0, height: 0}}}
+								transition={{duration: 0.3, linear: true}}
+							>
+								<Disclosure.Panel
+									static
+									className={`px-6 pb-6 w-full rounded-b-lg ${variant === 'background' ? 'bg-background' : 'bg-surface'}`}>
+									{children}
+								</Disclosure.Panel>
+							</motion.section>
+						)}
+					</AnimatePresence>
 				</div>
 			)}
 		</Disclosure>
