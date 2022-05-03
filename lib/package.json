@@ -1,6 +1,6 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "0.3.3",
+	"version": "0.3.5",
 	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
 	"main": "dist/index.cjs",
 	"typings": "dist/index.d.ts",
@@ -34,8 +34,8 @@
 	},
 	"scripts": {
 		"exportStyle": "npx tailwindcss -c tailwind.config.cjs -o ./dist/build.css --minify && sed -i '' 's/rem/em/g' ./dist/build.css",
-		"prepublishOnly": "yarn exportStyle && ./build.sh --external:react --external:react-dom --platform=node",
-		"build": "yarn exportStyle && ./build.sh --external:react --external:react-dom --platform=node",
+		"prepublishOnly": "yarn exportStyle && ./build.sh --external:react --external:react-dom --platform=node && cp -r ./dist/src/* ./dist",
+		"build": "yarn exportStyle && ./build.sh --external:react --external:react-dom --platform=node && cp -r ./dist/src/* ./dist",
 		"lint": "eslint src --ext .js,.jsx,.ts,.tsx",
 		"lintfix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
 	},
