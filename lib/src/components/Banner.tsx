@@ -1,29 +1,7 @@
 import	React, {ReactElement}	from	'react';
 import	IconChevron				from	'../icons/IconChevron';
 import	IconCross				from	'../icons/IconCross';
-
-type TBanner = {
-	title?: string,
-	image?: string | ReactElement,
-	primaryButton?: ReactElement,
-	secondaryButton?: ReactElement,
-	children?: ReactElement | ReactElement[],
-	canClose?: boolean,
-	onClose?: () => void,
-	onClick?: React.MouseEventHandler
-	variant?: 'default' | 'image' | 'split' | 'background'
-	height?: string | number,
-	className?: string,
-	withControls?: boolean
-}
-type TDefaultVariant = {
-	title?: string,
-	primaryButton?: ReactElement,
-	secondaryButton?: ReactElement,
-	children?: ReactElement | ReactElement[],
-	variant?: 'default' | 'image' | 'split' | 'background',
-	withControls?: boolean
-}
+import type * as BannerTypes	from	'./Banner.d';
 
 function	SplitVariant({image}: {image: string}) {
 	return (
@@ -59,7 +37,7 @@ function	BackgroundVariant({image}: {image: string | ReactElement}) {
 	)
 }
 
-function	DefaultVariant({variant, title, children, primaryButton, secondaryButton, withControls}: TDefaultVariant) {
+function	DefaultVariant({variant, title, children, primaryButton, secondaryButton, withControls}: BannerTypes.TDefaultVariant) {
 	return (
 		<div className={`p-4 md:p-6 space-y-4 md:space-y-6 flex-col ${variant === 'split' && 'w-full md:w-1/2'}`}>
 			<h4 className={withControls ? 'mr-5 md:mr-0 text-inherit' : 'text-inherit'}>{title}</h4>
@@ -94,7 +72,7 @@ function	BannerBase({
 	height = 350,
 	className = '',
 	withControls = false
-}: TBanner): ReactElement {
+}: BannerTypes.TBanner): ReactElement {
 	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
 	const	defaultClassName = 'text-primary bg-secondary border-primary';
 	const	backgroundClassName = 'bg-no-repeat bg-cover bg-center border-primary';
@@ -125,14 +103,7 @@ function	BannerBase({
 }
 
 
-export type	TBannerPagination = {
-	children: ReactElement[],
-	canClose?: boolean,
-	paginationStyle?: string,
-	onClose?: () => void
-}
-
-function	BannerControlable({children, onClose, canClose = true, paginationStyle}: TBannerPagination): ReactElement {
+function	BannerControlable({children, onClose, canClose = true, paginationStyle}: BannerTypes.TBannerPagination): ReactElement {
 	const	[currentSlide, set_currentSlide] = React.useState(0);
 	const	[isVisible, set_isVisible] = React.useState(true);
 
