@@ -64,10 +64,10 @@ function	DefaultVariant({variant, title, children, primaryButton, secondaryButto
 		<div className={`p-4 md:p-6 space-y-4 md:space-y-6 flex-col ${variant === 'split' && 'w-full md:w-1/2'}`}>
 			<h4 className={withControls ? 'mr-5 md:mr-0 text-inherit' : 'text-inherit'}>{title}</h4>
 			<div className={'text-inherit'}>{children}</div>
-			<div className={'flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4'}>
+			{primaryButton || secondaryButton ? <div className={'flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4'}>
 				{primaryButton}
 				{secondaryButton}
-			</div>
+			</div> : null}
 		</div>
 	)
 }
