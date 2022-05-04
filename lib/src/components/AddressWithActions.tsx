@@ -20,18 +20,22 @@ function	AddressWithActions({
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
 			<p className={className}>{toENS(address, truncate > 0, truncate)}</p>
-			<div className='mx-2 md:mx-2'>
+			<div className={'mx-2 md:mx-2'}>
 				<button
-					onClick={(): void => copyToClipboard(address)}
-					className={'cursor-copy w-8 h-8 justify-center items-center flex p-0 rounded-lg'}>
+					onClick={(e): void => {
+						e.stopPropagation();
+						copyToClipboard(address);
+					}}
+					className={'flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy'}>
 					<IconCopy className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
 				</button>
 			</div>
 			<a
+				onClick={(e): void => e.stopPropagation()}
 				href={`${explorer}/address/${address}`}
 				target={'_blank'}
 				rel={'noreferrer'}
-				className={'cursor-copy w-8 h-8 justify-center items-center flex p-0 rounded-lg'}>
+				className={'flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy'}>
 				<span className={'sr-only'}>{'Link to explorer'}</span>
 				<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
 			</a>

@@ -69,7 +69,7 @@ type	TAppList = {
 	icon: string,
 	image: string
 }
-function	DisclaimerPage(): ReactElement {
+function	DashboardPage(): ReactElement {
 	const	[shouldRender, set_shouldRender] = React.useState(false);
 	const	[items, set_items] = useLocalStorage('appList', YEARN_APPS);
 	const	sensors = useSensors(
@@ -109,6 +109,8 @@ function	DisclaimerPage(): ReactElement {
 		args.isSorting || args.wasDragging
 			? defaultAnimateLayoutChanges(args)
 			: true;
+
+
 	return (
 		<section aria-label={'dashboard'}>
 			<div className={'relative w-full'}>
@@ -143,4 +145,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default DashboardPage;
