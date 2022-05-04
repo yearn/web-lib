@@ -59,7 +59,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 		if (!force && (!isActive || hasDisableAutoChainChange)) {
 			return;
 		}
-		const	isCompatibleChain = [1, 56, 100, 137, 250, 1337, 31337, 42161].includes(Number(newChainID || 0));
+		const	isCompatibleChain = [1, 4, 56, 100, 137, 250, 1337, 31337, 42161].includes(Number(newChainID || 0));
 		if (!force && isCompatibleChain) {
 			return;
 		}
@@ -72,6 +72,10 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 			if (Number(newChainID) === 1) {
 				library
 					.send('wallet_switchEthereumChain', [{chainId: '0x1'}])
+					.catch((): void => set_hasDisableAutoChainChange(true));
+			} else if (Number(newChainID) === 4) {
+				library
+					.send('wallet_switchEthereumChain', [{chainId: '0x4'}])
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else {
 				if (newChainID in CHAINS) {
@@ -117,6 +121,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 			const walletconnect = new WalletConnectConnector({
 				rpc: {
 					1: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+					4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
 					250: 'https://rpc.ftm.tools',
 					1337: 'http://localhost:8545',
 					31337: 'http://localhost:8545'
@@ -158,7 +163,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 				isDisconnected,
 				chainID: Number(chainID || 0),
 				onSwitchChain,
-				isActive: isActive && [1, 250, 1337, 31337].includes(Number(chainId || 0)),
+				isActive: isActive && [1, 4, 250, 1337, 31337].includes(Number(chainId || 0)),
 				provider: library,
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {

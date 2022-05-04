@@ -35,6 +35,8 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 		if (process.env.ALCHEMY_KEY)
 			return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
 		return new ethers.providers.JsonRpcProvider('https://rpc.flashbots.net');
+	} else if (chain === 4) {
+		return new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`);
 	} else if (chain === 56) {
 		return new ethers.providers.JsonRpcProvider('https://bscrpc.com');
 	} else if (chain === 100) {

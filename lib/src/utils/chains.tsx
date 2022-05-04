@@ -8,6 +8,24 @@ const CHAINS = {
 		'chain_swap': {
 		}
 	},
+	4: {
+		"chainID": "4",
+		"name": "Rinkeby Testnet",
+		"displayName": "Rinkeby",
+		"coin": "rETH",
+		"block_explorer": "https://rinkeby.etherscan.io/",
+		"chain_swap": {
+			"chainId": "0x4",
+			"blockExplorerUrls": ["https://rinkeby.etherscan.io/"],
+			"chainName": "Rinkeby Testnet",
+			"rpcUrls": ["https://rinkeby.infura.io/v3/"],
+			"nativeCurrency": {
+				"name": "rEthereum",
+				"symbol": "ETH",
+				"decimals": 18
+			}
+		}
+	},
 	56: {
 		'chainID': '56',
 		'name': 'BSC Mainnet',
