@@ -15,7 +15,7 @@ const Button = React.forwardRef(({
 
 	if (as === 'a') {
 		return (
-			<a {...props as React.ComponentPropsWithoutRef<'a'>}>
+			<a tabIndex={-1} {...props as React.ComponentPropsWithoutRef<'a'>}>
 				<button className={`button flex-center ${buttonClassName} ${props.className}`}>
 					{children}
 				</button>
