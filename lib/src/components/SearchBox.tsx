@@ -1,21 +1,15 @@
 import React, {ReactElement} from 'react';
 import {Card} from './Card';
 import IconSearch from '../icons/IconSearch';
+import type * as SearchBoxTypes	from './SearchBox.d';
 
-type 		TSearchBox = {
-	searchTerm: string,
-	onChange: (s: string) => void
-	onSearch?: (s: string) => void
-	isNarrow?: boolean,
-	ariaLabel?: string
-}
 function	SearchBox({
 	searchTerm,
 	onChange,
 	onSearch,
 	isNarrow,
 	ariaLabel = 'Search'
-}: TSearchBox): ReactElement {
+}: SearchBoxTypes.TSearchBox): ReactElement {
 	return (
 		<Card padding={'none'}>
 			<form

@@ -1,16 +1,7 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement} 			from 	'react';
+import type * as DescriptionListTypes	from	'./DescriptionList.d';
 
-export type TDescriptionListOption = {
-	title: string;
-	details: string | ReactElement;
-}
-  
-export type TDescriptionList = {
-	options: TDescriptionListOption[];
-	className?: string;
-}
-
-function DescriptionList({options, className, ...props}: TDescriptionList): ReactElement {
+function DescriptionList({options, className, ...props}: DescriptionListTypes.TDescriptionList): ReactElement {
 	return (
 		<dl className={`flex flex-col space-y-4 ${className}`} {...props}>
 			{options.map((option): ReactElement => (

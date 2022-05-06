@@ -1,13 +1,9 @@
 
 import	React, {ReactElement}		from	'react';
 import	{Switch as HeadlessSwitch}	from	'@headlessui/react';
+import type * as SwitchTypes		from 	'./Switch.d';
 
-export type TSwitch = {
-	isEnabled: boolean;
-	onSwitch: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Switch({isEnabled, onSwitch}: TSwitch): ReactElement {
+function Switch({isEnabled, onSwitch}: SwitchTypes.TSwitch): ReactElement {
 	return (
 		<div>
 			<HeadlessSwitch

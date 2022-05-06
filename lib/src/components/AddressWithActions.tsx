@@ -1,22 +1,16 @@
 import	React, {ReactElement}				from	'react';
-import	{toENS, copyToClipboard, TAddress}	from	'../utils/utils';
+import	{toENS, copyToClipboard}			from	'../utils/utils';
 import	IconLinkOut							from	'../icons/IconLinkOut';
 import	IconCopy							from	'../icons/IconCopy';
+import type * as AddressWithActionsTypes	from	'./AddressWithActions.d';
 
-export type	TAddressWithActions = {
-	address: TAddress,
-	explorer: string,
-	truncate?: number,
-	wrapperClassName?: string
-	className?: string
-};
 function	AddressWithActions({
 	address,
 	explorer = 'https://etherscan.io',
 	truncate = 5,
 	wrapperClassName,
 	className = 'font-mono font-bold text-left text-typo-primary'
-}: TAddressWithActions): ReactElement {
+}: AddressWithActionsTypes.TAddressWithActions): ReactElement {
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
 			<p className={className}>{toENS(address, truncate > 0, truncate)}</p>
