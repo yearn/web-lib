@@ -23,6 +23,7 @@ type TWeb3Context = {
 	isDisconnected: boolean,
 	isActive: boolean,
 	provider: ethers.providers.Provider,
+	onConnect: (p: number) => void,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
@@ -34,6 +35,7 @@ const defaultState = {
 	isDisconnected: false,
 	isActive: false,
 	provider: getProvider(),
+	onConnect: (): void => undefined,
 	onSwitchChain: (): void => undefined,
 	openLoginModal: (): void => undefined,
 	onDesactivate: (): void => undefined
@@ -165,6 +167,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 				onSwitchChain,
 				isActive: isActive && [1, 4, 250, 1337, 31337].includes(Number(chainId || 0)),
 				provider: library,
+				onConnect: (p: number) => connect(p),
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
