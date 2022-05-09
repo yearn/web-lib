@@ -50,7 +50,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 	const   [isDisconnected, set_isDisconnected] = React.useState(false);
 	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = React.useState(false);
 	const	[isModalLoginOpen, set_isModalLoginOpen] = React.useState(false);
-	const	[chainID, set_chainId] = React.useState(chainId);
+	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
 
@@ -66,7 +66,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 			return;
 		}
 		if (!library || !isActive) {
-			set_chainId(newChainID);
+			set_chainID(newChainID);
 			console.error('Not initialized');
 			return;
 		}
@@ -155,7 +155,10 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 		}
 	}, [account]);
 
-	useClientEffect((): void => set_chainId(chainId), [chainId]);
+	useClientEffect((): void => {
+		if ((chainId || 0) > 0)
+			set_chainID(Number(chainId))
+	}, [chainId]);
 
 	return (
 		<Web3Context.Provider
