@@ -1,6 +1,6 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "0.3.13",
+	"version": "0.3.14",
 	"description": "A set of UI components for Yearn, made with React & Nextjs, designed to integrate beautifully with Tailwind CSS.",
 	"main": "dist/index.cjs",
 	"typings": "dist/index.d.ts",
@@ -52,8 +52,8 @@
 		"dayjs": "^1.11.1",
 		"ethcall": "^4.6.0",
 		"ethers": "^5.6.4",
-		"nprogress": "^0.2.0",
 		"framer-motion": "^6.3.3",
+		"nprogress": "^0.2.0",
 		"react-flip-move": "^3.0.4",
 		"react-hot-toast": "^2.2.0",
 		"react-virtualized": "^9.22.3"
