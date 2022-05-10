@@ -110,12 +110,6 @@ function	AppWrapper(props: AppProps): ReactElement {
 			icon: <Home  />
 		},
 		{
-			route: '/dashboard',
-			values: ['/dashboard'],
-			label: 'App Dashboard',
-			icon: <Dashboard  />
-		},
-		{
 			route: '/doc/components',
 			values: ['/doc/components'],
 			label: 'Components',
