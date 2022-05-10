@@ -1,12 +1,8 @@
 import	React, {ReactElement, useRef}	from	'react';
 import	{Dialog, Transition}			from	'@headlessui/react';
+import * as ModalTypes					from 	'./Modal.d';
 
-type		TModal = {
-	isOpen: boolean,
-	onClose: () => void
-	children: ReactElement,
-}
-function	Modal({isOpen, onClose, children}: TModal): ReactElement {
+function	Modal({isOpen, onClose, children}: ModalTypes.TModal): ReactElement {
 	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (

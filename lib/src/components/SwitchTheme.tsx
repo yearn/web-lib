@@ -1,14 +1,10 @@
-import	React, {ReactElement}	from	'react';
-import	useClientEffect			from	'../hooks/useClientEffect';
-import	IconThemeDark			from	'../icons/IconThemeDark';
-import	IconThemeLight			from	'../icons/IconThemeLight';
+import	React, {ReactElement}		from	'react';
+import	useClientEffect				from	'../hooks/useClientEffect';
+import	IconThemeDark				from	'../icons/IconThemeDark';
+import	IconThemeLight				from	'../icons/IconThemeLight';
+import type * as SwitchThemeTypes	from 	'./SwitchTheme.d';
 
-type 		TSwitchTheme = {
-	theme: string,
-	switchTheme: () => void,
-} & React.ComponentPropsWithoutRef<'div'>
-
-function	SwitchTheme({theme, switchTheme, ...props}: TSwitchTheme): ReactElement {
+function	SwitchTheme({theme, switchTheme, ...props}: SwitchThemeTypes.TSwitchTheme): ReactElement {
 	const	[currentTheme, set_currentTheme] = React.useState('light');
 
 	useClientEffect((): void => {

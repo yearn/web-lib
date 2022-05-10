@@ -1,14 +1,9 @@
 import	React, {ReactElement} 	from 'react';
 import	{Card} 					from './Card';
-import	IconChevron				from	'../icons/IconChevron';
+import	IconChevron				from '../icons/IconChevron';
+import type * as TokenCardTypes	from './TokenCard.d';
 
-export type TTokenCard = {
-	label: string;
-	value: string;
-	imgSrc: string;
-	onClick?: React.MouseEventHandler;
-} & React.ComponentPropsWithoutRef<'div'>;
-function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: TTokenCard): ReactElement {
+function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: TokenCardTypes.TTokenCard): ReactElement {
 	const	cardClassname = className || 'col-span-12 sm:col-span-6';
 	return (
 		<Card

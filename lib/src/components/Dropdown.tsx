@@ -2,21 +2,9 @@
 import	React, {ReactElement}	from	'react';
 import	{Menu, Transition}		from	'@headlessui/react';
 import	IconChevron				from	'../icons/IconChevron';
+import type * as DropdownTypes	from	'./Dropdown.d';
 
-export type TDropdownOption = {
-	icon?: ReactElement;
-	value: string | number;
-	label: string;
-}
-  
-export type TDropdownProps = {
-	options: TDropdownOption[];
-	defaultOption: TDropdownOption;
-	selected: TDropdownOption;
-	onSelect: React.Dispatch<React.SetStateAction<TDropdownOption>> | ((option: TDropdownOption) => void);
-}
-
-function Dropdown({options, defaultOption, selected, onSelect}: TDropdownProps): ReactElement {
+function Dropdown({options, defaultOption, selected, onSelect}: DropdownTypes.TDropdownProps): ReactElement {
 	return (
 		<div>
 			<Menu as={'menu'} className={'inline-block relative text-left'}>

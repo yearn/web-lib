@@ -1,12 +1,8 @@
 import	React, {ReactElement} from 'react';
 import	{Card} from './Card';
+import type * as TableTypes	from './Table.d';
 
-export type TStatisticCard = {
-	label: string;
-	value: string;
-	variant?: 'surface' | 'background',
-} & React.ComponentPropsWithoutRef<'div'>;
-function StatisticCardBase({label, value, ...props}: TStatisticCard): ReactElement {
+function StatisticCardBase({label, value, ...props}: TableTypes.TStatisticCard): ReactElement {
 	const	className = props.className || 'col-span-12 md:col-span-4';
 	return (
 		<Card
