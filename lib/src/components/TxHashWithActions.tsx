@@ -2,21 +2,15 @@ import	React, {ReactElement}			from	'react';
 import	{truncateHex, copyToClipboard}	from	'../utils/utils';
 import	IconLinkOut						from	'../icons/IconLinkOut';
 import	IconCopy						from	'../icons/IconCopy';
+import type * as TxHashWithActionsTypes	from 	'./TxHashWithActions.d';
 
-export type	TTxHashWithActions = {
-	txHash: string,
-	explorer: string,
-	truncate?: number,
-	wrapperClassName?: string
-	className?: string
-};
 function	TxHashWithActions({
 	txHash,
 	explorer = 'https://etherscan.io',
 	truncate = 5,
 	wrapperClassName,
 	className = 'font-mono font-bold text-left text-typo-primary'
-}: TTxHashWithActions): ReactElement {
+}: TxHashWithActionsTypes.TTxHashWithActions): ReactElement {
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
 			<p className={className}>{truncateHex(txHash, truncate)}</p>

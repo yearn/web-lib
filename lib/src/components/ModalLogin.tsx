@@ -2,14 +2,9 @@ import	React, {ReactElement}		from	'react';
 import	{Modal}						from	'./Modal';
 import	IconWalletMetamask			from	'../icons/IconWalletMetamask';
 import	IconWalletWalletConnect		from	'../icons/IconWalletWalletConnect';
+import * as ModalLoginTypes			from 	'./ModalLogin.d';
 
-type		TModalLogin = {
-	isOpen: boolean,
-	set_isOpen: React.Dispatch<React.SetStateAction<boolean>>,
-	connect: (_providerType: number) => Promise<void>,
-	walletType: {[key: string]: number},
-}
-function	ModalLogin({isOpen, set_isOpen, connect, walletType}: TModalLogin): ReactElement {
+function	ModalLogin({isOpen, set_isOpen, connect, walletType}: ModalLoginTypes.TModalLogin): ReactElement {
 	return (
 		<Modal
 			isOpen={isOpen}
