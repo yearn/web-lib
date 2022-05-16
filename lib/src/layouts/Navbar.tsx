@@ -61,7 +61,7 @@ function	Navbar({
 						{title ? <h1 className={'lowercase'}>{title}</h1> : null}
 					</div>
 				</a>
-				<nav className={'flex overflow-y-scroll flex-col mt-12 space-y-4 max-h-[75vh]'}>
+				<nav className={'flex overflow-y-auto flex-col mt-12 space-y-4 max-h-[75vh] scrollbar-none'}>
 					{options.map((option): ReactElement  => {
 						if (wrapper) {
 							return (

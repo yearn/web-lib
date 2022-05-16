@@ -18,6 +18,8 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.max-w-6xl {@apply max-w-[1216px] px-4;}
+
 /* 🔵 - Yearn Finance ******************************************************
 ** NsProgress is used to display the loading indicator. All of theses
 ** styles are required to make it visible
@@ -39,3 +41,10 @@ select:-webkit-autofill:focus {
 	background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
 	@apply absolute inset-0 w-full h-full;
 }
+
+.scrollbar-none::-webkit-scrollbar {display: none;}
+.scrollbar-none {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
