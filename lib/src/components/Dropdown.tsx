@@ -26,7 +26,7 @@ function Dropdown({options, defaultOption, selected, onSelect}: DropdownTypes.TD
 							leave={'transition duration-75 ease-out'}
 							leaveFrom={'transform scale-100 opacity-100'}
 							leaveTo={'transform scale-95 opacity-0'}>
-							<Menu.Items className={'flex overflow-y-scroll absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 rounded-lg border-0 bg-background-variant'}>
+							<Menu.Items className={'flex overflow-y-auto absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 rounded-lg border-0 bg-background-variant scrollbar-none'}>
 								{options.map((option): ReactElement => (
 									<Menu.Item key={option.value}>
 										{({active}): ReactElement => (
