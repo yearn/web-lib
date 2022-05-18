@@ -29,6 +29,7 @@ export function	bigNumberAsAmount(
 		symbolWithPrefix = ` ${symbol}`;
 	}
 
+	bnAmount = BN(bnAmount)
 	if (bnAmount.isZero()) {
 		return (`0${symbolWithPrefix}`);
 	} else if (bnAmount.eq(ethers.constants.MaxUint256)) {
@@ -80,7 +81,7 @@ export function	duration(value: number, withSuffix?: boolean): string {
 	return dayjs.duration(value, 'milliseconds').humanize(withSuffix);
 }
 
-export const BN = (amount?: string | number): BigNumber => {
+export const BN = (amount?: string | number | BigNumber): BigNumber => {
 	return BigNumber.from(amount || 0);
 };
 

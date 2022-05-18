@@ -9,7 +9,7 @@ function DescriptionList({options, className, ...props}: DescriptionListTypes.TD
 					<dt className={'mr-8 w-5/12 text-left text-typo-secondary-variant'}>
 						{option.title}
 					</dt>
-					<dd className={'font-bold tabular-nums text-left text-typo-primary'}>
+					<dd className={'font-bold tabular-nums text-left text-typo-primary w-7/12'}>
 						{option.details}
 					</dd>
 				</span>
