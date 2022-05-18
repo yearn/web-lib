@@ -1,7 +1,7 @@
-import	{ethers}		from	'ethers';
-import	dayjs			from	'dayjs';
-import	relativeTime	from	'dayjs/plugin/relativeTime.js';
-import	dayjsDuration	from	'dayjs/plugin/duration.js';
+import	{ethers, BigNumber}	from	'ethers';
+import	dayjs				from	'dayjs';
+import	relativeTime		from	'dayjs/plugin/relativeTime.js';
+import	dayjsDuration		from	'dayjs/plugin/duration.js';
 
 dayjs.extend(relativeTime);
 dayjs.extend(dayjsDuration);
@@ -15,7 +15,7 @@ export function units(value: ethers.BigNumberish, unitName?: ethers.BigNumberish
 }
 
 export function	bigNumberAsAmount(
-	bnAmount = ethers.BigNumber.from(0),
+	bnAmount = ethers.constants.Zero,
 	decimals = 18,
 	decimalsToDisplay = 2,
 	symbol = ''
@@ -79,3 +79,22 @@ export function	since(value: number): string {
 export function	duration(value: number, withSuffix?: boolean): string {
 	return dayjs.duration(value, 'milliseconds').humanize(withSuffix);
 }
+
+export const BN = (amount?: string | number): BigNumber => {
+	return BigNumber.from(amount || 0);
+};
+
+export	const	toNormalizedValue = (v: string | BigNumber, d?: number): number => (
+	Number(units(v || 0, d || 18))
+);
+
+export const	toNormalizedAmount = (v: string | BigNumber, d?: number): string => (
+	amount(toNormalizedValue(v, d || 18), 6, 6)
+);
+
+export const	toSafeAmount = (v: string, m: BigNumber, d = 18): BigNumber => {
+	if (v === units(m || 0, d)) {
+		return m;
+	}
+	return ethers.utils.parseUnits(v || '0', d);
+};
