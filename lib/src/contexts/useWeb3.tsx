@@ -1,5 +1,4 @@
 import	React, {createContext, ReactElement, ErrorInfo}	from	'react';
-import	{ethers}								from	'ethers';
 import	{useWeb3React}							from	'@web3-react/core';
 import	{InjectedConnector}						from	'@web3-react/injected-connector';
 import	{WalletConnectConnector}				from	'@web3-react/walletconnect-connector';
@@ -12,37 +11,35 @@ import	performBatchedUpdates					from	'../utils/performBatchedUpdates';
 import	{getProvider}							from	'../utils/providers';
 import	{toAddress}								from	'../utils/utils';
 import	CHAINS									from	'../utils/chains';
+import type * as useWeb3Types					from	'./useWeb3.d';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, TRUSTWALLET: 2, COINBASE: 3, FORTMATIC: 4, PORTIS: 5};
 
-type TWeb3Context = {
-	address: string | null | undefined,
-	ens: string | undefined,
-	chainID: number,
-	isDisconnected: boolean,
-	isActive: boolean,
-	provider: ethers.providers.Provider,
-	onConnect: (p: number) => void,
-	onSwitchChain: (newChainID: number, force?: boolean) => void,
-	openLoginModal: () => void,
-	onDesactivate: () => void,
-}
 const defaultState = {
 	address: undefined,
 	ens: undefined,
 	chainID: 0,
 	isDisconnected: false,
 	isActive: false,
+	hasProvider: false,
 	provider: getProvider(),
 	onConnect: (): void => undefined,
 	onSwitchChain: (): void => undefined,
 	openLoginModal: (): void => undefined,
 	onDesactivate: (): void => undefined
 };
+const	defaultOptions: useWeb3Types.TWeb3Options = {
+	shouldUseStrictChainMode: false,
+	defaultChainID: 1,
+	supportedChainID: [1, 4, 56, 100, 137, 250, 1337, 31337, 42161]
+}
 
-const Web3Context = createContext<TWeb3Context>(defaultState);
-export const Web3ContextApp = ({children}: {children: ReactElement}): ReactElement => {
+const Web3Context = createContext<useWeb3Types.TWeb3Context>(defaultState);
+export const Web3ContextApp = ({children, options = defaultOptions}: {
+	children: ReactElement,
+	options?: useWeb3Types.TWeb3Options
+}): ReactElement => {
 	const	web3 = useWeb3React();
 	const   {activate, active: isActive, library, account, chainId, deactivate} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
@@ -61,13 +58,12 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 		if (!force && (!isActive || hasDisableAutoChainChange)) {
 			return;
 		}
-		const	isCompatibleChain = [1, 4, 56, 100, 137, 250, 1337, 31337, 42161].includes(Number(newChainID || 0));
-		if (!force && isCompatibleChain) {
+		const	isCompatibleChain = (options.supportedChainID).includes(Number(newChainID || 0))
+		if (!force && !isCompatibleChain) {
 			return;
 		}
 		if (!library || !isActive) {
 			set_chainID(newChainID);
-			console.error('Not initialized');
 			return;
 		}
 		if (process.env.USE_WALLET) {
@@ -90,7 +86,7 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 		}
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, library, account]);
 
-	React.useEffect((): void => onSwitchChain(1), [hasWindowInFocus, onSwitchChain]);
+	React.useEffect((): void => onSwitchChain(options.defaultChainID), [hasWindowInFocus, onSwitchChain]);
 
 	/**************************************************************************
 	**	connect
@@ -105,7 +101,11 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 	**	Moreover, we are starting to listen to events (disconnect, changeAccount
 	**	or changeChain).
 	**************************************************************************/
-	const connect = React.useCallback(async (_providerType: number): Promise<void> => {
+	const connect = React.useCallback(async (
+		_providerType: number,
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<void> => {
 		if (!process.env.USE_WALLET) {
 			return;
 		}
@@ -113,9 +113,31 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 			if (isActive) {
 				deactivate();
 			}
-			const	injected = new InjectedConnector({});
-			activate(injected, undefined, true);
-			set_lastWallet(walletType.METAMASK);
+			if (options.shouldUseStrictChainMode) {
+				const	injected = new InjectedConnector({supportedChainIds: options.supportedChainID});
+				try {
+					await activate(injected, onError, true);					
+					set_lastWallet(walletType.METAMASK);
+					if (onSuccess)
+						onSuccess()
+				} catch (error) {
+					set_lastWallet(walletType.NONE);
+					if (onError)
+						onError(error as Error);
+				}
+			} else {
+				const	injected = new InjectedConnector({});
+				try {
+					await activate(injected, onError, true);					
+					set_lastWallet(walletType.METAMASK);
+					if (onSuccess)
+						onSuccess()
+				} catch (error) {
+					set_lastWallet(walletType.NONE);
+					if (onError)
+						onError(error as Error);
+				}
+			}
 		} else if (_providerType === walletType.WALLET_CONNECT) {
 			if (isActive) {
 				deactivate();
@@ -132,11 +154,14 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 				bridge: 'https://bridge.walletconnect.org'
 			});
 			try {
-				await activate(walletconnect, undefined, true);
+				await activate(walletconnect, onError, true);					
 				set_lastWallet(walletType.WALLET_CONNECT);
+				if (onSuccess)
+					onSuccess()
 			} catch (error) {
-				console.error(error);
 				set_lastWallet(walletType.NONE);
+				if (onError)
+					onError(error as Error);
 			}
 		}
 	}, [activate, isActive, deactivate, set_lastWallet]);
@@ -168,9 +193,10 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 				isDisconnected,
 				chainID: Number(chainID || 0),
 				onSwitchChain,
-				isActive: isActive && [1, 4, 250, 1337, 31337].includes(Number(chainId || 0)),
+				isActive: isActive && (options.supportedChainID).includes(Number(chainId || 0)),
+				hasProvider: !!library,
 				provider: library,
-				onConnect: (p: number) => connect(p),
+				onConnect: (p: number, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => connect(p, e, s),
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
@@ -191,5 +217,5 @@ export const Web3ContextApp = ({children}: {children: ReactElement}): ReactEleme
 	);
 };
 
-export const useWeb3 = (): TWeb3Context => React.useContext(Web3Context);
+export const useWeb3 = (): useWeb3Types.TWeb3Context => React.useContext(Web3Context);
 export default useWeb3;

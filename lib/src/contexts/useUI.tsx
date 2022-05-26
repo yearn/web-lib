@@ -2,21 +2,25 @@ import	React, {createContext, ReactElement}	from	'react';
 import	toast, {Toaster}						from	'react-hot-toast';
 import	{useLocalStorage}						from	'../hooks/useLocalStorage';
 import	{useClientEffect}						from	'../hooks/useClientEffect';
+import type * as useUITypes						from	'./useUI.d';
 
-type	TUIContext = {
-	theme: string,
-	switchTheme: () => void,
-	toast: unknown
+const	defaultOptions: useUITypes.TUIOptions = {
+	shouldUseDefaultToaster: true,
+	shouldUseThemes: true
 }
-type	TPossibleThemes = 'dark' | 'light';
-const	UI = createContext<TUIContext>({theme: '', switchTheme: (): void => undefined, toast});
-export const UIContextApp = ({children}: {children: ReactElement}): ReactElement => {
-	const	userPrefersColorScheme = React.useRef<TPossibleThemes>();
+
+const	UI = createContext<useUITypes.TUIContext>({theme: '', switchTheme: (): void => undefined, toast});
+export const UIContextApp = ({children, options = defaultOptions}: {
+	children: ReactElement,
+	options?: useUITypes.TUIOptions
+}): ReactElement => {
+	const	userPrefersColorScheme = React.useRef<useUITypes.TPossibleThemes>();
 	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
 	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
 
 	const switchTheme = React.useCallback((): void => {
-		set_theme(theme === 'light' ? 'dark' : 'light');
+		if (options.shouldUseThemes)
+			set_theme(theme === 'light' ? 'dark' : 'light');
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [theme]);
 
@@ -25,7 +29,11 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	}
 
 	useClientEffect((): void => {
-		set_theme(themeFromLs as string);
+		if (options.shouldUseThemes) {
+			set_theme(themeFromLs as string);
+		} else {
+			set_theme('light');
+		}
 	}, [themeFromLs]);
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -34,6 +42,9 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	** better control on the theme switch
 	**************************************************************************/
 	useClientEffect(() => {
+		if (!options.shouldUseThemes) {
+			return;
+		}
 		const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 		darkModeMediaQuery.addEventListener('change', listenToThemeChange)
 		if (darkModeMediaQuery.matches) {
@@ -57,6 +68,9 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 	** if the selected theme matches the user's preference, clear this value.
 	**************************************************************************/
 	useClientEffect((): void => {
+		if (!options.shouldUseThemes) {
+			return;
+		}
 		if (theme === userPrefersColorScheme.current) {
 			document.body.dataset.theme = 'system-prefs';
 			set_themeFromLs(theme);
@@ -71,13 +85,18 @@ export const UIContextApp = ({children}: {children: ReactElement}): ReactElement
 
 	return (
 		<UI.Provider value={{theme, switchTheme, toast}}>
-			<Toaster
+			{options.shouldUseDefaultToaster ? <Toaster
 				position={'bottom-right'}
-				toastOptions={{className: 'text-sm text-typo-primary', style: {borderRadius: '0.5rem'}}} />
+				containerClassName={'!z-[1000000]'}
+				containerStyle={{zIndex: 1000000}}
+				toastOptions={{
+					className: 'text-sm text-typo-primary',
+					style: {borderRadius: '0.5rem'}
+				}} /> : null}
 			{children}
 		</UI.Provider>
 	);
 };
 
-export const useUI = (): TUIContext => React.useContext(UI);
+export const useUI = (): useUITypes.TUIContext => React.useContext(UI);
 export default useUI;
