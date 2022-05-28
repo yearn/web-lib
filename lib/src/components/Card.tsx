@@ -65,11 +65,11 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 					as={Card}
 					className={'flex flex-row w-full rounded-b-none'}
 					padding={'none'}>
-					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
+					{tabs.map((option: CardTypes.TCardWithTabsOption, index: number): ReactElement => (
 						<Tab
 							key={option.label}
 							as={'div'}
-							className={({selected}): string => `w-full h-20 border-b-2 flex-center cursor-pointer rounded-t-lg ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
+							className={({selected}): string => `w-full h-20 border-b-2 flex-center cursor-pointer ${index === 0 ? 'rounded-tl-lg' : index === tabs.length - 1 ? 'rounded-tr-lg' : 'rounded-t-none'} ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
 							<p className={'text-lg text-center'}>{option.label}</p>
 						</Tab>
 					))}

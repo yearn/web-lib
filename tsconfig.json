@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "rootDirs": [
-      "."
-    ],
+    "rootDirs": ["."],
     "baseUrl": ".",
     "paths": {
       "@web-lib": ["./lib/src"],

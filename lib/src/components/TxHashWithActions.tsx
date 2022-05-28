@@ -21,14 +21,15 @@ function	TxHashWithActions({
 					<IconCopy className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
 				</button>
 			</div>
-			<a
-				href={`${explorer}/tx/${txHash}`}
-				target={'_blank'}
-				rel={'noreferrer'}
-				className={'cursor-copy w-8 h-8 justify-center items-center flex p-0 rounded-lg'}>
-				<span className={'sr-only'}>{'Link to explorer'}</span>
-				<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
-			</a>
+			<button className={'flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy'}>
+				<a
+					href={`${explorer}/tx/${txHash}`}
+					target={'_blank'}
+					rel={'noreferrer'}>
+					<span className={'sr-only'}>{'Link to explorer'}</span>
+					<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
+				</a>
+			</button>
 		</span>
 	);
 }

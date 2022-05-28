@@ -24,15 +24,16 @@ function	AddressWithActions({
 					<IconCopy className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
 				</button>
 			</div>
-			<a
-				onClick={(e): void => e.stopPropagation()}
-				href={`${explorer}/address/${address}`}
-				target={'_blank'}
-				rel={'noreferrer'}
-				className={'flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy'}>
-				<span className={'sr-only'}>{'Link to explorer'}</span>
-				<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
-			</a>
+			<button className={'flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy'}>
+				<a
+					onClick={(e): void => e.stopPropagation()}
+					href={`${explorer}/address/${address}`}
+					target={'_blank'}
+					rel={'noreferrer'}>
+					<span className={'sr-only'}>{'Link to explorer'}</span>
+					<IconLinkOut className={'w-4 h-4 transition-colors text-primary hover:text-primary-variant'} />
+				</a>
+			</button>
 		</span>
 	);
 }

@@ -40,7 +40,7 @@ function	Header({
 	}, [ens, address, isActive])
 
 	return (
-		<header className={'z-30 py-4 mx-auto w-full max-w-6xl'}>
+		<header className={'z-30 py-4 mx-auto w-full'}>
 			<Card className={'flex justify-between items-center h-auto md:h-20'}>
 				<div className={'flex flex-row items-center w-full'}>
 					{children}
@@ -63,7 +63,8 @@ function	Header({
 								else
 									openLoginModal();
 							}}
-							className={'truncate button-light'}>
+							property={'theme.light'}
+							className={'truncate component--button'}>
 							{walletIdentity}
 						</button>
 					) : null}

@@ -204,7 +204,7 @@ function	Documentation(): ReactElement {
 				maxHeight={'max-height-[350px] md:max-height-[250px]'}>
 				<div>
 					<p>{'This is a beta version of the documentation. It is not yet complete and will be updated as soon as possible.'}</p>
-					<p className={'mt-4'}>{'If you want to contribute to the documentation, please open an issue on the GitHub repository, or just hit the feedback button on the bottom left of that page!'}</p>
+					<p className={'mt-4'}>{'If you want to contribute to the documentation, please open an issue on the GitHub repository!'}</p>
 				</div>
 			</AlertBanner>
 			<section aria-label={'documentation list'} className={'mt-8 mb-16 space-y-20'}>

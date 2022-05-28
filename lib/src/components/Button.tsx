@@ -1,22 +1,22 @@
 import	React, {ReactElement}	from	'react';
+import	IconLoader				from	'../icons/IconLoader';
 import type * as ButtonTypes	from	'./Button.d';
 
 const Button = React.forwardRef(({
 	children,
-	variant = 'filled',
+	variant = 'inherit',
 	as = 'button',
 	shouldStopPropagation = false,
+	isBusy = false,
+	isDisabled = false,
 	...props
 }: ButtonTypes.TButton, _): ReactElement => {
-	const	filledClassName = 'button-filled';
-	const	outlinedClassName = 'button-outline';
-	const	lightClassName = 'button-light';
-	const	buttonClassName = variant === 'filled' ? filledClassName : variant === 'outlined' ? outlinedClassName : lightClassName;
-
 	if (as === 'a') {
 		return (
 			<a tabIndex={-1} {...props as React.ComponentPropsWithoutRef<'a'>}>
-				<button className={`button flex-center ${buttonClassName} ${props.className}`}>
+				<button
+					property={`theme.${variant}`}
+					className={`component--button flex-center ${props.className}`}>
 					{children}
 				</button>
 			</a>
@@ -24,17 +24,23 @@ const Button = React.forwardRef(({
 	}
 	return (
 		<button
-			{...props as React.ComponentPropsWithoutRef<'button'>}
-			className={`${buttonClassName} ${props.className}`}
+			{...(props as React.ComponentPropsWithoutRef<'button'>)}
+			property={`theme.${variant}`}
+			className={`component--button ${props.className}`}
+			aria-busy={isBusy}
+			disabled={isDisabled || (props as React.ComponentPropsWithoutRef<'button'>).disabled}
 			onClick={(event: ButtonTypes.TMouseEvent): void => {
 				if (shouldStopPropagation) {
 					event.stopPropagation();
 				}
-				if (props.onClick) {
+				if (!isBusy && props.onClick) {
 					props.onClick(event);
 				}
 			}}>
 			{children}
+			{isBusy ? <div className={'flex absolute inset-0 justify-center items-center'}>
+				<IconLoader className={'w-6 h-6 text-white animate-spin'} />
+			</div> : null}
 		</button>
 	);
 });

@@ -47,7 +47,7 @@ function	DocumentationButton(): ReactElement {
 					<Button
 						variant={variantType[variant]}
 						onClick={(): void => console.log('Do something')}
-						disabled={isDisabled}
+						isDisabled={isDisabled}
 						className={'min-w-[132px]'}>
 						{variantType[variant]}
 					</Button>

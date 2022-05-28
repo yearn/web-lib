@@ -7,15 +7,6 @@
     src: local('Menlo Regular'), url('/Menlo-Regular.woff') format('woff');
 }
 
-
-/* 🔵 - Yearn Finance ******************************************************
-** Shorthand for some group of style used across the application
-**************************************************************************/
-.flex-row-center {@apply flex flex-row items-center;}
-.flex-row-start {@apply flex flex-row items-start;}
-.flex-col-start {@apply flex flex-col items-start;}
-.flex-col-full {@apply flex flex-col w-full h-full;}
-
 /* 🔵 - Yearn Finance ******************************************************
 ** Theses styles are used for the documentation
 **************************************************************************/
@@ -47,36 +38,6 @@
 [data-theme*=dark] .box-gradient-alt {
 	background-image: radial-gradient(circle, #253d56, #1e344a, #172c3f, #112434, #0b1c29);
 }
-
-/* 🔵 - Yearn Finance ******************************************************
-** Overwrite for the feedbackfin component
-**************************************************************************/
-:root {
-	--feedbackfin-primary-color: #FFFFFF;
-	--feedbackfin-bg-color: rgb(6, 87, 249);
-}
-[data-theme*=dark] {
-	--feedbackfin-primary-color: #FFFFFF;
-	--feedbackfin-bg-color: #000000;
-}
-#feedbackfin__container {@apply rounded-lg shadow-xl -mt-2;}
-#feedbackfin__title {@apply text-white text-2xl font-bold;}
-#feedbackfin__branding {@apply opacity-0 h-0;}
-#feedbackfin__submit {@apply button button-light}
-#feedbackfin__container :focus,
-#feedbackfin__container :focus-visible,
-#feedbackfin__message:focus,
-.feedbackfin__radio:focus+.feedbackfin__radio-label {
-	@apply outline-none shadow-none ring-0;
-}
-#feedbackfin__message:focus {@apply border-white/50}
-#feedbackfin__submit {@apply border border-white/50}
-#feedbackfin__submit:active,
-#feedbackfin__submit:focus-visible,
-#feedbackfin__submit:hover {
-	@apply bg-secondary-variant;
-}
-
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Prism

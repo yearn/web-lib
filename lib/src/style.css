@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-* {@apply scroll-smooth font-roboto}
 
-input::placeholder {@apply italic;}
+/* 🔵 - Yearn Finance ******************************************************
+** Overwritting the defaults to match our needs
+**************************************************************************/
+* {@apply scroll-smooth font-roboto}
+input::placeholder {@apply text-typo-off italic}
+textarea::placeholder {@apply text-typo-off italic}
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
@@ -14,9 +18,57 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px rgb(var(--color-background) / 0) inset;
-  transition: background-color 5000s ease-in-out 0s;
+	-webkit-box-shadow: 0 0 0px 1000px rgb(var(--color-background) / 0) inset;
+	transition: background-color 5000s ease-in-out 0s;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type=number] {
+	-moz-appearance: textfield;
+}
+label[aria-invalid="true"] {
+	@apply text-typo-secondary transition-colors;
+	& > form > div {
+		@apply border-[#FE0000] focus-within:border-[#FE0000] text-[#FE0000] focus-within:text-[#FE0000];
+	}
+	& > p {
+		@apply text-[#FF0000];
+	}
+}
+
+.component--button {
+	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;
+
+	&[property="theme.filled"] {
+		@apply text-button-filled-text bg-button-filled-primary font-bold;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-filled-variant;}
+	}
+	&[property="theme.light"] {
+		@apply text-primary bg-button-outlined-variant;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-secondary-variant;}
+	}
+	&[property="theme.outlined"] {
+		@apply text-primary bg-transparent border border-primary;
+		&:disabled {@apply border-button-disabled-text text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
+	}
+	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
+	&:disabled {@apply cursor-not-allowed;}
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Shorthand for some group of style used across the application
+***************************************************************************/
+.flex-row-center {@apply flex flex-row items-center;}
+.flex-row-start {@apply flex flex-row items-start;}
+.flex-col-start {@apply flex flex-col items-start;}
+.flex-col-full {@apply flex flex-col w-full h-full;}
+.max-w-6xl {@apply max-w-[1216px] px-4;}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** NsProgress is used to display the loading indicator. All of theses
@@ -30,19 +82,21 @@ select:-webkit-autofill:focus {
 #nprogress .spinner {@apply block fixed z-[1031] top-4 right-4}
 #nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-primary border-l-primary rounded-[50%] animate-spin}
 
-:focus {
-	@apply outline-2 outline-primary outline-offset-2;
-}
-
-.img-gradient::after {
-	content: '';
-	background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
-	@apply absolute inset-0 w-full h-full;
-}
-
+/* 🔵 - Yearn Finance ******************************************************
+** Some accessibilities fixes
+**************************************************************************/
+:focus {@apply outline-2 outline-primary outline-offset-2;}
 .scrollbar-none::-webkit-scrollbar {display: none;}
 .scrollbar-none {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
 
+/* 🔵 - Yearn Finance ******************************************************
+** Some custom css for the components
+**************************************************************************/
+.img-gradient::after {
+	content: '';
+	background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+	@apply absolute inset-0 w-full h-full;
+}

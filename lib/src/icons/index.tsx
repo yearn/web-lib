@@ -29,6 +29,7 @@ import IconVault from './IconVault';
 import IconWallet from './IconWallet';
 import IconGrip from './IconGrip';
 import IconDashboard from './IconDashboard';
+import IconLoader from './IconLoader';
 
 export {
 	IconAlertCritical as AlertCritical,
@@ -62,4 +63,5 @@ export {
 	IconWallet as Wallet,
 	IconGrip as Grip,
 	IconDashboard as Dashboard,
+	IconLoader as Loader,
 };

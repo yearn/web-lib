@@ -152,17 +152,7 @@ function	AppWrapper(props: AppProps): ReactElement {
 							logo={<IconYearn className={'w-full h-12 text-primary'} />}
 							title={'yWeb'}
 							options={navbarMenuOptions}
-							wrapper={<Link passHref href={''} />}>
-							<div className={'flex flex-col mt-auto space-y-2'}>
-								{
-									process.env.USE_FEEDBACKS ? (
-										<button data-feedbackfin-button className={'button-light'}>
-											{'Feedback'}
-										</button>
-									) : null
-								}
-							</div>
-						</Navbar>
+							wrapper={<Link passHref href={''} />} />
 					</div>
 				</div>
 				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh] md:col-span-10'}>
