@@ -4,7 +4,7 @@ import	{RadialBackground}					from	'components/RadialBackground';
 
 function	CodeExample({children}: {children: ReactNode}): ReactElement {
 	return (
-		<div className={'box-gradient-alt'}>
+		<div className={'box-gradient-default'}>
 			{children}
 			<RadialBackground />
 		</div>

@@ -16,8 +16,8 @@ const Button = React.forwardRef(({
 		return (
 			<a tabIndex={-1} {...props as React.ComponentPropsWithoutRef<'a'>}>
 				<button
-					property={`theme.${variant}`}
-					className={`component--button flex-center ${className}`}>
+					data-variant={variant}
+					className={`yearn--button flex-center ${className}`}>
 					{children}
 				</button>
 			</a>
@@ -26,8 +26,8 @@ const Button = React.forwardRef(({
 	return (
 		<button
 			{...(props as React.ComponentPropsWithoutRef<'button'>)}
-			property={`theme.${variant}`}
-			className={`component--button ${className}`}
+			data-variant={variant}
+			className={`yearn--button ${className}`}
 			aria-busy={isBusy}
 			disabled={isDisabled || (props as React.ComponentPropsWithoutRef<'button'>).disabled}
 			onClick={(event: ButtonTypes.TMouseEvent): void => {

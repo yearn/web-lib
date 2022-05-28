@@ -1,7 +1,52 @@
+/* 🔵 - Yearn Finance ******************************************************
+** First, we are declaring the Yearn's specific class for the components.
+** We need to declare them first in order to work with css inheritence
+** correctly. Aka theses class should be possible to overwrite by adding an
+** extra tailwind class
+**************************************************************************/
+.yearn--button {
+	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;
+
+	&[data-variant="filled"] {
+		@apply text-button-filled-text bg-button-filled-primary font-bold;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-filled-variant;}
+	}
+	&[data-variant="light"] {
+		@apply text-primary bg-button-outlined-variant;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-secondary-variant;}
+	}
+	&[data-variant="outlined"] {
+		@apply text-primary bg-transparent border border-primary;
+		&:disabled {@apply border-button-disabled-text text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
+	}
+	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
+	&:disabled {@apply cursor-not-allowed;}
+}
+.yearn--searchBox {
+	@apply flex flex-row items-center w-full text-typo-secondary rounded-lg border-2 border-surface focus-within:border-primary transition-colors bg-transparent;
+}
+.yearn--searchBox-input {
+	@apply p-0 w-full bg-transparent border-none focus:border-none outline-none focus:outline-none focus:ring-0;
+}
+.yearn--card {
+	@apply shadow-none rounded-lg transition-all;
+	&[role="button"] {@apply cursor-pointer hover:bg-surface-variant shadow-lg;}
+	&[data-variant="background"] {@apply bg-background;}
+	&[data-variant="surface"] {@apply bg-surface;}
+	&[data-padding="narrow"] {@apply p-2 md:p-4;}
+	&[data-padding="regular"] {@apply p-4 md:p-6;}
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Then, we import the tailwind class. They will be able to overwrite all
+** the previous classes, not the next ones directly.
+**************************************************************************/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Overwritting the defaults to match our needs
@@ -37,28 +82,6 @@ label[aria-invalid="true"] {
 	& > p {
 		@apply text-[#FF0000];
 	}
-}
-
-.component--button {
-	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;
-
-	&[property="theme.filled"] {
-		@apply text-button-filled-text bg-button-filled-primary font-bold;
-		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-filled-variant;}
-	}
-	&[property="theme.light"] {
-		@apply text-primary bg-button-outlined-variant;
-		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-secondary-variant;}
-	}
-	&[property="theme.outlined"] {
-		@apply text-primary bg-transparent border border-primary;
-		&:disabled {@apply border-button-disabled-text text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
-	}
-	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
-	&:disabled {@apply cursor-not-allowed;}
 }
 
 /* 🔵 - Yearn Finance ******************************************************

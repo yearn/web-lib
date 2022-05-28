@@ -98,7 +98,10 @@ function	CardBase({
 }: CardTypes.TCard): ReactElement {
 	return (
 		<section
-			className={`${className ?? ''} ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg ${padding === 'none' ? 'p-0' : padding === 'narrow' ? 'p-2 md:p-4' : 'p-4 md:p-6'} transition-all ${onClick ? 'cursor-pointer hover:bg-surface-variant shadow-lg' : ''}`}
+			role={onClick ? 'button' : undefined}
+			data-variant={variant}
+			data-padding={padding}
+			className={`yearn--card ${className ?? ''}`}
 			{...props}>
 			{children}
 		</section>

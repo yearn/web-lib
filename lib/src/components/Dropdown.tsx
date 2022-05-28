@@ -12,7 +12,7 @@ function Dropdown({options, defaultOption, selected, onSelect}: DropdownTypes.TD
 					<>
 						<Menu.Button
 							property={'theme.light'}
-							className={'flex justify-between items-center component--button'}>
+							className={'flex justify-between items-center yearn--button'}>
 							<div className={'flex flex-row items-center'}>
 								{selected?.icon ? React.cloneElement(selected.icon, {className: 'w-5 h-5 mr-2 min-w-[24px]'}) : null}
 								<p className={'font-normal font-roboto text-primary'}>{selected?.label || defaultOption.label}</p>

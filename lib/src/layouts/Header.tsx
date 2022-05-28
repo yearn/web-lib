@@ -64,7 +64,7 @@ function	Header({
 									openLoginModal();
 							}}
 							property={'theme.light'}
-							className={'truncate component--button'}>
+							className={'truncate yearn--button'}>
 							{walletIdentity}
 						</button>
 					) : null}
