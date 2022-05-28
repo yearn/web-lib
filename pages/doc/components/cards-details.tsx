@@ -39,7 +39,7 @@ export function	CardDetailsComponent(): ReactElement {
 	return (
 		<div className={'w-3/4'}>
 			<Card.Detail
-				summary={(p: unknown): ReactElement => (
+				summary={(p: any): ReactElement => (
 					<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
 				)}>
 				<div className={'text-typo-primary'}>
@@ -60,7 +60,7 @@ function	DocumentationCard(): ReactElement {
 					<CodeExample>
 						<div className={'w-3/4'}>
 							<Card.Detail
-								summary={(p: unknown): ReactElement => (
+								summary={(p: any): ReactElement => (
 									<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
 								)}>
 								<div className={'text-typo-primary'}>
