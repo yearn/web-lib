@@ -68,7 +68,7 @@ label[aria-invalid="true"] {
 .flex-row-start {@apply flex flex-row items-start;}
 .flex-col-start {@apply flex flex-col items-start;}
 .flex-col-full {@apply flex flex-col w-full h-full;}
-.max-w-6xl {@apply max-w-[1216px] px-4;}
+.max-w-6xl {@apply max-w-[1232px] px-4;}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** NsProgress is used to display the loading indicator. All of theses
