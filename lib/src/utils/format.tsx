@@ -99,3 +99,10 @@ export const	toSafeAmount = (v: string, m: BigNumber, d = 18): BigNumber => {
 	}
 	return ethers.utils.parseUnits(v || '0', d);
 };
+
+export const	toSafeValue = (v: string | number): number => {
+	if (!v || v === 'NaN') {
+		return 0;
+	}
+	return Number(v);
+};

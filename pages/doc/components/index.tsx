@@ -19,26 +19,27 @@ import	{AlertBoxComponent}				from	'pages/doc/components/alert-box';
 import	{ModalComponent}				from	'pages/doc/components/modal';
 import	{BannerComponent}				from	'pages/doc/components/banner';
 import	{BannerWithControlsComponent}	from	'pages/doc/components/banner-with-controls';
-import	{TokenCardComponent}		from	'pages/doc/components/token-card';
+import	{TokenCardComponent}			from	'pages/doc/components/token-card';
+import	{InputComponent}				from	'pages/doc/components/input';
 
 const		ElementListCards = [
 	{
 		title: 'Card',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/cards',
 		description: 'The Card is one of the main wrapper for the UI components, displayed on a surface.',
 		children: <CardComponent />
 	},
 	{
 		title: 'Card.Tabs',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/cards-tabs',
 		description: 'The Card.Tabs is a variant of Card that will display the Card with some available Tabs.',
 		children: <CardTabsComponent />
 	},
 	{
 		title: 'Card.Detail',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/cards-details',
 		description: 'The Detail variant of the Card is an attempt to replicate how the <detail> and <summary> htmls tags are working.',
 		children: <CardDetailsComponent />
@@ -48,35 +49,42 @@ const		ElementListCards = [
 const		ElementListForms = [
 	{
 		title: 'Switch',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/switch',
 		description: 'A basic Switch component, accepting a boolean and switching this boolean.',
 		children: <SwitchComponent />
 	},
 	{
 		title: 'Button',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/button',
 		description: 'Well it\'s nothing more than a button. It comes in 3 variants for each theme: filled (default), outlined and light.',
 		children: <ButtonsComponent />
 	},
 	{
+		title: 'Input',
+		version: '0.4.0',
+		href: '/doc/components/input',
+		description: 'The Input component is a wrapper for the <input> html tag, focused on the correct management of BigNumbers.',
+		children: <InputComponent />
+	},
+	{
 		title: 'Dropdown',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/dropdown',
 		description: 'The Dropdown component is used to create what is known as <select> in regular HTML.',
 		children: <DropdownComponent />
 	},
 	{
 		title: 'SearchBox',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/search-box',
 		description: 'The SearchBox is an <input> wrapped in a Card with no padding. It should be used to search an element.',
 		children: <SearchBoxComponent />
 	},
 	{
 		title: 'SwitchTheme',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/switch-theme',
 		description: 'A custom switch component to alternate between light theme (default) and dark theme.',
 		children: <SwitchThemeComponent />
@@ -86,28 +94,28 @@ const		ElementListForms = [
 const		ElementListDataDisplay = [
 	{
 		title: 'StatisticCard',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/statistic-card',
 		description: 'The StatisticCard is a simple component used to display, in a Card, a label and a value.',
 		children: <StatsCardComponent />
 	},
 	{
 		title: 'DescriptionList',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/description-list',
 		description: 'The DescriptionList component is a mimic of the <dl> HTML element.',
 		children: <DescriptionListComponent />
 	},
 	{
 		title: 'AddressWithActions',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/address-with-actions',
 		description: 'The AddressWithActions is generic component that could be used to display an address with some defaults action.',
 		children: <AddressActionComponent />
 	},
 	{
 		title: 'TxHashWithActions',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/txhash-with-actions',
 		description: 'The TxHashWithActions is generic component that could be used to display a Tx Hash with some defaults action.',
 		children: <HashActionComponent />
@@ -124,35 +132,35 @@ const		ElementListDataDisplay = [
 const		ElementListFeedback = [
 	{
 		title: 'AlertBanner',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/alert-banner',
 		description: 'The Alert Banner component is used to display some notice.',
 		children: <AlertBannerComponent />
 	},
 	{
 		title: 'AlertBox',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/alert-box',
 		description: 'The Alert Box component is used to display a group of alerts with the icon matching the alert level.',
 		children: <AlertBoxComponent />
 	},
 	{
 		title: 'Modal',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/modal',
 		description: 'The Modal component will open a portal displayed on top of the UI.',
 		children: <ModalComponent />
 	},
 	{
 		title: 'Banner',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/banner',
 		description: 'The Banner component is used to display an highlighted message.',
 		children: <BannerComponent />
 	},
 	{
 		title: 'Banner With Controls',
-		version: '0.1.0',
+		version: '0.4.0',
 		href: '/doc/components/banner-with-controls',
 		description: 'The Banner With Controls component is used to display a banner with some controls.',
 		children: <BannerWithControlsComponent />

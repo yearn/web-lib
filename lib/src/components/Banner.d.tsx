@@ -1,26 +1,23 @@
-import	React, {ReactElement}	from	'react';
+import	React, {ReactElement, ReactNode}	from	'react';
 
 export type TBanner = {
 	title?: string,
-	image?: string | ReactElement,
+	image?: ReactNode,
 	primaryButton?: ReactElement,
 	secondaryButton?: ReactElement,
-	children?: ReactElement | ReactElement[],
+	children?: ReactNode,
 	canClose?: boolean,
 	onClose?: () => void,
 	onClick?: React.MouseEventHandler
 	variant?: 'default' | 'image' | 'split' | 'background'
 	height?: string | number,
-	className?: string,
-	withControls?: boolean
+	className?: string
 }
 export type TDefaultVariant = {
 	title?: string,
 	primaryButton?: ReactElement,
 	secondaryButton?: ReactElement,
-	children?: ReactElement | ReactElement[],
-	variant?: 'default' | 'image' | 'split' | 'background',
-	withControls?: boolean
+	children?: ReactNode
 }
 
 export type	TBannerPagination = {

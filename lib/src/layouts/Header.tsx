@@ -63,7 +63,7 @@ function	Header({
 								else
 									openLoginModal();
 							}}
-							property={'theme.light'}
+							data-variant={'light'}
 							className={'truncate yearn--button'}>
 							{walletIdentity}
 						</button>

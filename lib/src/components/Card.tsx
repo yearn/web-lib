@@ -63,13 +63,13 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 			<Tab.Group>
 				<Tab.List
 					as={Card}
-					className={'flex flex-row w-full rounded-b-none'}
+					className={'yearn--card-tab'}
 					padding={'none'}>
-					{tabs.map((option: CardTypes.TCardWithTabsOption, index: number): ReactElement => (
+					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
 						<Tab
 							key={option.label}
 							as={'div'}
-							className={({selected}): string => `w-full h-20 border-b-2 flex-center cursor-pointer ${index === 0 ? 'rounded-tl-lg' : index === tabs.length - 1 ? 'rounded-tr-lg' : 'rounded-t-none'} ${selected ? 'border-primary text-primary font-bold' : 'border-disabled transition-colors cursor-pointer hover:bg-background text-typo-secondary'}`}>
+							className={({selected}): string => `yearn--card-tab-item ${selected ? 'selected' : ''}`}>
 							<p className={'text-lg text-center'}>{option.label}</p>
 						</Tab>
 					))}
@@ -102,6 +102,7 @@ function	CardBase({
 			data-variant={variant}
 			data-padding={padding}
 			className={`yearn--card ${className ?? ''}`}
+			onClick={onClick}
 			{...props}>
 			{children}
 		</section>

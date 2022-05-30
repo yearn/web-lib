@@ -10,14 +10,12 @@ function Switch({isEnabled, onSwitch}: SwitchTypes.TSwitch): ReactElement {
 				checked={isEnabled}
 				onChange={onSwitch}
 				onKeyDown={({keyCode}: {keyCode: number}) => keyCode === 13 ? onSwitch(s => !s) : null}
-				className={`${isEnabled ? 'bg-secondary-variant' : 'bg-surface'}
-				relative flex h-6 w-[42px] border border-primary rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center`}
+				className={`yearn--switch`}
 			>
 				<span className={'sr-only'}>{'Use setting'}</span>
-				<span
+				<div
 					aria-hidden={'true'}
-					className={`${isEnabled ? 'translate-x-4' : 'translate-x-0'} mx-1 pointer-events-none inline-block h-4 w-4 rounded-full bg-primary transition ease-in-out duration-200 transform`}
-				/>
+					className={isEnabled ? 'translate-x-4' : 'translate-x-0'} />
 			</HeadlessSwitch>
 		</div>
 	);

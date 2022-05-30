@@ -10,9 +10,8 @@ function	Modal({isOpen, onClose, children}: ModalTypes.TModal): ReactElement {
 			<Dialog
 				as={'div'}
 				className={'overflow-y-auto fixed inset-0'}
-				style={{zIndex: 9999999}}
+				style={{zIndex: 9999}}
 				initialFocus={ref}
-				open={isOpen}
 				onClose={onClose}>
 				<div className={'flex justify-center items-end px-4 pt-4 pb-20 min-h-screen text-center sm:block sm:p-0'}>
 					<Transition.Child

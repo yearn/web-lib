@@ -4,7 +4,7 @@ import type * as ButtonTypes	from	'./Button.d';
 
 const Button = React.forwardRef(({
 	children,
-	variant = 'inherit',
+	variant = 'filled',
 	as = 'button',
 	className,
 	shouldStopPropagation = false,

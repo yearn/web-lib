@@ -1,59 +1,11 @@
-/* 🔵 - Yearn Finance ******************************************************
-** First, we are declaring the Yearn's specific class for the components.
-** We need to declare them first in order to work with css inheritence
-** correctly. Aka theses class should be possible to overwrite by adding an
-** extra tailwind class
-**************************************************************************/
-.yearn--button {
-	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;
-
-	&[data-variant="filled"] {
-		@apply text-button-filled-text bg-button-filled-primary font-bold;
-		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-filled-variant;}
-	}
-	&[data-variant="light"] {
-		@apply text-primary bg-button-outlined-variant;
-		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-secondary-variant;}
-	}
-	&[data-variant="outlined"] {
-		@apply text-primary bg-transparent border border-primary;
-		&:disabled {@apply border-button-disabled-text text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
-	}
-	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
-	&:disabled {@apply cursor-not-allowed;}
-}
-.yearn--searchBox {
-	@apply flex flex-row items-center w-full text-typo-secondary rounded-lg border-2 border-surface focus-within:border-primary transition-colors bg-transparent;
-}
-.yearn--searchBox-input {
-	@apply p-0 w-full bg-transparent border-none focus:border-none outline-none focus:outline-none focus:ring-0;
-}
-.yearn--card {
-	@apply shadow-none rounded-lg transition-all;
-	&[role="button"] {@apply cursor-pointer hover:bg-surface-variant shadow-lg;}
-	&[data-variant="background"] {@apply bg-background;}
-	&[data-variant="surface"] {@apply bg-surface;}
-	&[data-padding="narrow"] {@apply p-2 md:p-4;}
-	&[data-padding="regular"] {@apply p-4 md:p-6;}
-}
-
-/* 🔵 - Yearn Finance ******************************************************
-** Then, we import the tailwind class. They will be able to overwrite all
-** the previous classes, not the next ones directly.
-**************************************************************************/
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Overwritting the defaults to match our needs
 **************************************************************************/
 * {@apply scroll-smooth font-roboto}
-input::placeholder {@apply text-typo-off italic}
-textarea::placeholder {@apply text-typo-off italic}
+input::placeholder {@apply text-typo-off not-italic}
+textarea::placeholder {@apply text-typo-off not-italic}
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
@@ -83,6 +35,264 @@ label[aria-invalid="true"] {
 		@apply text-[#FF0000];
 	}
 }
+
+/* 🔵 - Yearn Finance ******************************************************
+** First, we are declaring the Yearn's specific class for the components.
+** We need to declare them first in order to work with css inheritence
+** correctly. Aka theses class should be possible to overwrite by adding an
+** extra tailwind class
+**************************************************************************/
+/* -- Button.tsx ------------------------------------------------------- */
+.yearn--button {
+	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;
+
+	&[data-variant="filled"] {
+		@apply text-button-filled-text bg-button-filled-primary font-bold;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-filled-variant;}
+	}
+	&[data-variant="light"] {
+		@apply text-primary bg-button-outlined-variant;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-secondary-variant;}
+	}
+	&[data-variant="outlined"] {
+		@apply text-primary bg-transparent border border-primary;
+		&:disabled {@apply border-button-disabled-text text-button-disabled-text;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
+	}
+	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
+	&:disabled {@apply cursor-not-allowed;}
+}
+
+/* -- SearchBox.tsx ---------------------------------------------------- */
+.yearn--searchBox-wrapper {
+	--searchBox-text-color: rgb(var(--color-typo-secondary));
+	--searchBox-border-color: rgb(var(--color-surface));
+	--searchBox-bg-color: rgb(var(--color-surface));
+	--searchBox-border-width: 2px;
+
+	@apply overflow-hidden rounded-lg;
+	background-color: var(--searchBox-bg-color);
+}
+.yearn--searchBox {
+	@apply flex flex-row items-center w-full rounded-lg focus-within:border-primary transition-colors bg-transparent;
+	color: var(--searchBox-text-color);
+	border: solid var(--searchBox-border-width) var(--searchBox-border-color);
+
+	&[data-padding="narrow"] {
+		@apply p-2 h-10;
+		& > svg {@apply w-4 h-4 mr-2;}
+		& > input {@apply h-10;}
+	}
+	&[data-padding="regular"] {
+		@apply p-2 md:p-4 h-14;
+		& > svg {@apply w-6 h-6 mr-4;}
+		& > input {@apply h-14;}
+	}
+}
+.yearn--searchBox-input {
+	@apply p-0 w-full bg-transparent border-none focus:border-none outline-none focus:outline-none focus:ring-0;
+}
+
+/* -- Card.tsx --------------------------------------------------------- */
+.yearn--card-tab-item {
+	--card-tab-color-active: rgb(var(--color-primary));
+	--card-tab-color: rgb(var(--color-disabled));
+	--card-bg-color: rgb(var(--color-background));
+
+	@apply w-full h-20 border-b-2 flex-center cursor-pointer;
+	&.selected {
+		@apply font-bold;
+		border-color: var(--card-tab-color-active);
+		color: var(--card-tab-color-active);
+	}
+	&:not(.selected) {
+		@apply transition-colors cursor-pointer;
+		border-color: var(--card-tab-color);
+		color: var(--card-tab-color);
+		&:hover {
+			background-color: var(--card-bg-color);
+		}
+	}
+}
+.yearn--card-tab {
+	@apply flex flex-row w-full rounded-b-none;
+	& > .yearn--card-tab-item:first-child {
+		@apply rounded-tl-lg;
+	}
+	& > .yearn--card-tab-item:last-child {
+		@apply rounded-tr-lg;
+	}
+}
+.yearn--card {
+	@apply shadow-none rounded-lg transition-all;
+	&[role="button"] {@apply cursor-pointer hover:bg-surface-variant shadow-lg;}
+	&[data-variant="background"] {@apply bg-background;}
+	&[data-variant="surface"] {@apply bg-surface;}
+	&[data-padding="narrow"] {@apply p-2 md:p-4;}
+	&[data-padding="regular"] {@apply p-4 md:p-6;}
+}
+
+/* -- Banner.tsx ------------------------------------------------------- */
+.yearn--banner-content-wrapper {
+	@apply z-10 p-4 md:p-6 space-y-4 md:space-y-6 flex-col;
+}
+.yearn--banner-content-title {
+	@apply text-inherit;
+}
+.yearn--banner-content-text {
+	@apply text-inherit;
+}
+.yearn--banner-content-buttons {
+	@apply flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4;
+}
+.yearn--banner-split-wrapper {
+	&[data-mobile] {
+		@apply flex md:hidden overflow-hidden relative -mx-1 -mt-1 w-full h-full rounded-xl max-h-48;
+		border-color: var(--banner-border-color);
+		border-left-width: var(--banner-border-width);
+		border-right-width: var(--banner-border-width);
+		border-bottom-width: var(--banner-border-width);
+		& > div {
+			@apply rounded-lg image-align-middle;
+		}
+	}
+	&[data-desktop] {
+		@apply hidden md:flex overflow-hidden -my-1 -ml-1 w-full h-full rounded-xl absolute;
+		border-left-width: var(--banner-border-width);
+		border-top-width: var(--banner-border-width);
+		border-bottom-width: var(--banner-border-width);
+		border-color: var(--banner-border-color);
+		& > div {
+			@apply rounded-lg image-align-middle w-full h-full -ml-1;
+		}
+	}
+}
+.yearn--banner {
+	--banner-bg-color: rgb(var(--color-secondary));
+	--banner-text-color: rgb(var(--color-primary));
+	--banner-border-color: rgb(var(--color-primary));
+	--banner-border-width: 2px;
+
+	@apply w-full flex flex-col-reverse md:flex-row relative rounded-lg overflow-hidden text-primary;
+	background-color: var(--banner-bg-color);
+	color: var(--banner-text-color);
+	border: solid var(--banner-border-width) var(--banner-border-color);
+	&[data-variant="image"] {
+		@apply bg-no-repeat bg-cover bg-center;
+		border: solid var(--banner-border-width) var(--banner-border-color);
+	}
+	&[data-variant="background"] {
+		@apply bg-no-repeat bg-cover bg-center;
+		border: solid var(--banner-border-width) var(--banner-border-color);
+	}
+	&[data-variant="split"] {
+		& .yearn--banner-content-wrapper {
+			@apply w-full md:w-1/2;
+		}
+	}
+}
+.yearn--banner-with-controls {
+	@apply relative;
+	& .yearn--banner {&[data-variant="image"] {@apply pb-8 md:pb-0;}}
+	& .yearn--banner-title {@apply mr-5 md:mr-0 text-inherit;}
+}
+
+/* -- Switch.tsx ------------------------------------------------------- */
+.yearn--switch {
+	--switch-bg-color: rgb(var(--color-secondary-variant));
+	--switch-border-width: 2px;
+	--switch-border-color: rgb(var(--color-primary));
+	--switch-knob-color: rgb(var(--color-primary));
+
+	@apply relative flex h-6 w-[42px] border border-primary rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center;
+	border: solid var(--switch-border-width) var(--switch-border-color);
+	&[aria-checked="true"] {background-color: var(--switch-bg-color);}
+	&[aria-checked="false"] {@apply bg-transparent;}
+
+	& > div {
+		@apply mx-1 pointer-events-none inline-block h-4 w-4 rounded-full transition ease-in-out duration-200;
+		background-color: var(--switch-knob-color);
+	}
+}
+
+/* -- Dropdown.tsx ----------------------------------------------------- */
+.yearn--dropdown {
+}
+.yearn--dropdown-menu {
+	--dropdown-text-color: rgb(var(--color-primary));
+	--dropdown-bg-color: rgb(var(--color-background-variant));
+	--dropdown-bg-color-active: rgb(var(--color-secondary-variant));
+	--dropdown-border-width: 0px;
+	--dropdown-border-color: transparent;
+
+	@apply flex overflow-y-auto absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 rounded-lg scrollbar-none;
+	border: solid var(--dropdown-border-width) var(--dropdown-border-color);
+	background: var(--dropdown-bg-color);
+}
+.yearn--dropdown-menu-item {
+	@apply flex flex-row items-center cursor-pointer py-1 pr-4 pl-3 transition-colors;
+	color: var(--dropdown-text-color);
+	&[data-active="true"] {
+		background-color: var(--dropdown-bg-color-active);
+	}
+}
+
+/* -- AddressWithActions.tsx ------------------------------------------- */
+.yearn--addressWithActions-icon {
+	@apply w-4 h-4 transition-colors;
+	color: var(--addressWithActions-action-color);
+	&:hover {
+		color: var(--addressWithActions-action-color-hover);
+	}
+}
+.yearn--addressWithActions {
+	--addressWithActions-text-color: rgb(var(--color-typo-primary));
+	--addressWithActions-action-color: rgb(var(--color-primary));
+	--addressWithActions-action-color-hover: rgb(var(--color-primary-variant));
+
+	@apply font-mono font-bold text-left;
+	color: var(--addressWithActions-text-color);
+	& ~ div > button,
+	& ~ button {
+		@apply flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy;
+	}
+}
+
+
+/* -- Input.tsx -------------------------------------------------------- */
+.yearn--input-max {
+	@apply py-1 px-2 ml-2 rounded-lg transition-colors cursor-pointer;
+
+	background-color: var(--input-max-bg-color);
+	color: var(--input-max-text-color);
+	border: solid var(--input-max-border-width) var(--input-max-border-color);
+	&:hover {
+		background-color: var(--input-max-bg-color-hover);
+	}
+}
+.yearn--input {
+	--input-label-color: rgb(var(--color-typo-secondary));
+	--input-max-bg-color: transparent;
+	--input-max-bg-color-hover: rgb(var(--color-button-outlined-variant));
+	--input-max-text-color: rgb(var(--color-primary));
+	--input-max-border-color: rgb(var(--color-primary));
+	--input-max-border-width: 1px;
+
+	@apply space-y-1 md:space-y-2;
+	& > p {
+		@apply text-sm md:text-base transition-colors;
+		color: var(--input-label-color);
+	}
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Then, we import the tailwind class. They will be able to overwrite all
+** the previous classes, not the next ones directly.
+**************************************************************************/
+@tailwind components;
+@tailwind utilities;
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Shorthand for some group of style used across the application

@@ -1,48 +1,57 @@
-import	React, {ReactElement}	from	'react';
-import	IconChevron				from	'../icons/IconChevron';
-import	IconCross				from	'../icons/IconCross';
-import type * as BannerTypes	from	'./Banner.d';
+import	React, {ReactElement, ReactNode}	from	'react';
+import	IconChevron							from	'../icons/IconChevron';
+import	IconCross							from	'../icons/IconCross';
+import type * as BannerTypes				from	'./Banner.d';
 
 function	SplitVariant({image}: {image: string}) {
 	return (
 		<div className={'w-full md:w-1/2 relative'}>
 			<div
-				className={'flex md:hidden overflow-hidden relative -mx-1 -mt-1 w-full h-full rounded-xl border-x-2 border-b-2 border-primary max-h-48'}
+				data-mobile
+				className={'yearn--banner-split-wrapper'}
 				style={{width: 'calc(100% + 8px)'}}>
-				<div className={'rounded-lg image-align-middle'}>
-					<img src={image} className={'w-full h-full object-cover'} loading={'eager'} />
+				<div>
+					<img
+						src={image}
+						className={'w-full h-full object-cover'}
+						loading={'eager'} />
 				</div>
 			</div>
 			<div
-				className={'hidden md:flex overflow-hidden -my-1 -ml-1 w-full h-full rounded-xl border-y-2 border-l-2 border-primary absolute'}
+				data-desktop
+				className={'yearn--banner-split-wrapper'}
 				style={{height: 'calc(100% + 8px)', width: 'calc(100% + 8px)'}}>
-				<div
-					style={{minWidth: 'calc(100% + 8px)'}}
-					className={'rounded-lg image-align-middle w-full h-full -ml-1'}>
-					<img src={image} className={'w-full h-full object-cover'} loading={'eager'} />
+				<div style={{minWidth: 'calc(100% + 8px)'}}>
+					<img
+						src={image}
+						className={'w-full h-full object-cover'}
+						loading={'eager'} />
 				</div>
 			</div>
 		</div>
 	)
 }
 
-function	BackgroundVariant({image}: {image: string | ReactElement}) {
+function	BackgroundVariant({image}: {image: ReactNode}) {
 	return (
-		<div className={'absolute inset-0 w-full h-full -ml-1 -z-10 img-gradient'} style={{minWidth: 'calc(100% + 8px)'}}>
+		<div className={'absolute inset-0 w-full h-full -ml-1 img-gradient'} style={{minWidth: 'calc(100% + 8px)'}}>
 			{typeof image === 'string'
-				? <img src={image} className={'relative object-cover w-full h-full'} loading={'eager'} />
+				? <img
+					src={image}
+					className={'relative object-cover w-full h-full'}
+					loading={'eager'} />
 				: image
 			}
 		</div>
 	)
 }
 
-function	DefaultVariant({variant, title, children, primaryButton, secondaryButton, withControls}: BannerTypes.TDefaultVariant) {
+function	DefaultVariant({title, children, primaryButton, secondaryButton}: BannerTypes.TDefaultVariant) {
 	return (
-		<div className={`p-4 md:p-6 space-y-4 md:space-y-6 flex-col ${variant === 'split' && 'w-full md:w-1/2'}`}>
-			<h4 className={withControls ? 'mr-5 md:mr-0 text-inherit' : 'text-inherit'}>{title}</h4>
-			<div className={'text-inherit'}>{children}</div>
-			{primaryButton || secondaryButton ? <div className={'flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4'}>
+		<div className={'yearn--banner-content-wrapper'}>
+			<h4 className={'yearn--banner-content-title'}>{title}</h4>
+			<div className={'yearn--banner-content-text'}>{children}</div>
+			{primaryButton || secondaryButton ? <div className={'yearn--banner-content-buttons'}>
 				{primaryButton}
 				{secondaryButton}
 			</div> : null}
@@ -50,9 +59,16 @@ function	DefaultVariant({variant, title, children, primaryButton, secondaryButto
 	)
 }
 
-function	ImageVariant({image, height, onClick}: {height: string | number, image: string | ReactElement, onClick?: React.MouseEventHandler}) {
+function	ImageVariant({image, height, onClick}: {
+	height: string | number,
+	image: ReactNode,
+	onClick?: React.MouseEventHandler
+}) {
 	return (
-		<div className={'w-full h-full -ml-1 cursor-pointer'} style={{minWidth: 'calc(100% + 8px)'}} onClick={onClick}>
+		<div
+			className={'w-full h-full -ml-1 cursor-pointer'}
+			style={{minWidth: 'calc(100% + 8px)'}}
+			onClick={onClick}>
 			{typeof image === 'string'
 				? <img src={image} height={height} className={'relative object-cover w-full'} loading={'eager'} />
 				: image
@@ -71,25 +87,21 @@ function	BannerBase({
 	onClick,
 	height = 350,
 	className = '',
-	withControls = false
 }: BannerTypes.TBanner): ReactElement {
 	const	contentRef = React.useRef<HTMLDivElement | null | undefined>();
-	const	defaultClassName = 'text-primary bg-secondary border-primary';
-	const	backgroundClassName = 'bg-no-repeat bg-cover bg-center border-primary';
-	const	imageClassName = 'border-primary bg-no-repeat bg-cover bg-center';
-	const	bannerClassName = `${variant === 'image' ? imageClassName : variant === 'background' ? backgroundClassName : defaultClassName} ${className || ''}`;
 
 	return (
 		<div
 			ref={contentRef as never}
-			className={`w-full flex flex-col-reverse md:flex-row relative rounded-lg border-2 overflow-hidden ${withControls && variant !== 'image' ? 'pb-8 md:pb-0' : ''} ${bannerClassName}`}>
-
+			data-variant={variant}
+			className={`yearn--banner ${className || ''}`}>
 			{variant === 'image' ? (
-				<ImageVariant image={image as string} onClick={onClick} height={height} />
+				<ImageVariant
+					image={image as string}
+					onClick={onClick}
+					height={height} />
 			) : (
 				<DefaultVariant
-					withControls={withControls}
-					variant={variant}
 					title={title}
 					children={children}
 					primaryButton={primaryButton}
@@ -97,7 +109,7 @@ function	BannerBase({
 				)
 			}
 			{variant === 'split' ? <SplitVariant image={image as string} /> : null}
-			{variant === 'background' ? <BackgroundVariant image={image as string} /> : null}
+			{variant === 'background' ? <BackgroundVariant image={image as ReactNode} /> : null}
 		</div>
 	);
 }
@@ -136,12 +148,14 @@ function	BannerControlable({children, onClose, canClose = true, paginationStyle}
 	}
 
 	return (
-		<div className={`relative ${isVisible ? '' : 'hidden'}`}>
+		<div
+			className={'yearn--banner-with-controls'}
+			style={isVisible ? {} : {display: 'none'}}>
 			{canClose ? <button onClick={onTryToClose} className={'absolute top-4 right-4 z-50'}>
 				<IconCross className={`w-6 h-6 cursor-pointer ${paginationStyle ? paginationStyle : 'text-primary'}`} />
 			</button> : null}
 
-			{React.cloneElement(children[currentSlide], {withControls: true})}
+			{React.cloneElement(children[currentSlide])}
 			
 			{children.length > 1 ? <div className={`flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50 ${paginationStyle ? paginationStyle : 'text-primary'}`}>
 				{renderPreviousChevron()}
