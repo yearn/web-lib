@@ -209,10 +209,9 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			}}>
 			{children}
 			<ModalLogin
-				connect={connect as (providerType: number) => Promise<void>}
 				walletType={walletType}
 				isOpen={isModalLoginOpen}
-				set_isOpen={set_isModalLoginOpen} />
+				onClose={(): void => set_isModalLoginOpen(false)} />
 		</Web3Context.Provider>
 	);
 };

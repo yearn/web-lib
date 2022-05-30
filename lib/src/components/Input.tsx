@@ -1,6 +1,7 @@
 import	React, {MutableRefObject, ReactElement}		from	'react';
 import	{BigNumber, ethers}							from	'ethers';
-import	{format, performBatchedUpdates}				from	'../utils';
+import	{toSafeValue, toNormalizedValue, amount}	from	'../utils/format';
+import	performBatchedUpdates						from	'../utils/performBatchedUpdates';
 
 type 		TInput = {
 	value: string,
@@ -89,10 +90,10 @@ function	InputBigNumber({
 		});
 	}
 
-	const	safeValue = format.toSafeValue(value);
+	const	safeValue = toSafeValue(value);
 	return (
 		<label
-			aria-invalid={withMax && (safeValue !== 0 && (safeValue > format.toNormalizedValue(maxValue, decimals)))}
+			aria-invalid={withMax && (safeValue !== 0 && (safeValue > toNormalizedValue(maxValue, decimals)))}
 			className={'yearn--input'}>
 			<p>{`You have ${balance}`}</p>
 			<Input
@@ -102,14 +103,14 @@ function	InputBigNumber({
 				onChange={(s: unknown): void => onChange(s as string)}
 				onSearch={(s: unknown): void => onChange(s as string)}
 				placeholder={'0.00000000'}
-				max={format.toNormalizedValue(maxValue, decimals)}
+				max={toNormalizedValue(maxValue, decimals)}
 				onMaxClick={(): void => {
 					if (!maxValue.isZero())
-						onChange(format.toNormalizedValue(maxValue, decimals).toString());
+						onChange(toNormalizedValue(maxValue, decimals).toString());
 				}}
 				withMax={withMax}
 				disabled={props.disabled} />
-			<p>{`$ ${format.amount(safeValue * price, 2, 2)}`}</p>
+			<p>{`$ ${amount(safeValue * price, 2, 2)}`}</p>
 		</label>
 	);
 }

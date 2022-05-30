@@ -1,19 +1,26 @@
 import	React, {ReactElement}		from	'react';
+import	toast						from	'react-hot-toast';
 import	{Modal}						from	'./Modal';
+import	{useWeb3}					from	'../contexts/useWeb3';
 import	IconWalletMetamask			from	'../icons/IconWalletMetamask';
 import	IconWalletWalletConnect		from	'../icons/IconWalletWalletConnect';
 import * as ModalLoginTypes			from 	'./ModalLogin.d';
 
-function	ModalLogin({isOpen, set_isOpen, connect, walletType}: ModalLoginTypes.TModalLogin): ReactElement {
+function	ModalLogin({isOpen, onClose, walletType}: ModalLoginTypes.TModalLogin): ReactElement {
+	const	{onConnect} = useWeb3();
+
 	return (
 		<Modal
 			isOpen={isOpen}
-			onClose={(): void => set_isOpen(false)}>
+			onClose={(): void => onClose()}>
 			<div className={'p-6 space-y-4'}>
 				<div
 					onClick={(): void => {
-						connect(walletType.METAMASK);
-						set_isOpen(false);
+						onConnect(
+							walletType.METAMASK,
+							(): string => toast.error('Unsupported network. Please use Ethereum mainnet.'),
+							(): void => onClose()
+						);
 					}}
 					className={'flex flex-col justify-center items-center p-6 text-center rounded-sm transition-colors cursor-pointer bg-surface hover:bg-surface-variant'}>
 					<div>
@@ -24,8 +31,11 @@ function	ModalLogin({isOpen, set_isOpen, connect, walletType}: ModalLoginTypes.T
 				</div>
 				<div
 					onClick={(): void => {
-						connect(walletType.WALLET_CONNECT);
-						set_isOpen(false);
+						onConnect(
+							walletType.WALLET_CONNECT,
+							(): string => toast.error('Invalid chain'),
+							(): void => onClose()
+						);
 					}}
 					className={'flex flex-col justify-center items-center p-6 text-center rounded-sm transition-colors cursor-pointer bg-surface hover:bg-surface-variant'}>
 					<div>
