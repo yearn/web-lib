@@ -1,4 +1,4 @@
-import {EventEmitter} from 'eventemitter3';
+import EventEmitter from 'eventemitter3';
 
 // By default post to any origin
 const DEFAULT_TARGET_ORIGIN = '*';

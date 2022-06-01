@@ -28,7 +28,7 @@ const	[gnosisSafeConnector, gnosisSafeHooks] = initializeConnector<GnosisSafe | 
 	{allowedDomains: [/gnosis-safe.io/]}
 ));
 
-const	[coinbaseConnector, coinbaseHooks] = initializeConnector<CoinbaseWallet>((actions) => new CoinbaseWallet(actions, {
+const	[coinbaseConnector, coinbaseHooks] = initializeConnector<CoinbaseWallet | any>((actions) => new CoinbaseWallet(actions, {
 		url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
 		appName: 'Yearn.finance',
 	})
