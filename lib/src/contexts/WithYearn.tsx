@@ -21,6 +21,7 @@ function	WithYearn({children, options}: {
 		[connectors.walletConnect.connector, connectors.walletConnect.hooks],
 		[connectors.eip1193.connector, connectors.eip1193.hooks],
 		[connectors.gnosisSafe.connector, connectors.gnosisSafe.hooks],
+		[connectors.coinbase.connector, connectors.coinbase.hooks],
 	];
 
 	return (

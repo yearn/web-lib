@@ -26,9 +26,16 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function	InputComponent(): ReactElement {
+	const	[shouldRender, set_shouldRender] = React.useState(false);
 	const	[amount, set_amount] = React.useState('');
 	const	userBalance = format.BN('2564145567845456084456');
 	const	priceOfToken = format.BN('1451454');
+
+	React.useEffect((): void => set_shouldRender(true), []);
+
+	if (!shouldRender) {
+		return <div />;
+	}
 	return (
 		<div className={'py-2 px-4 mx-auto w-full max-w-[400px] h-24 rounded-lg md:py-4 md:px-6 md:h-32 bg-background'}>
 			<Input.BigNumber

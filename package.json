@@ -16,6 +16,7 @@
 		"publish-minor": "cd lib && rm -rf dist && yarn publish --minor --access public --message"
 	},
 	"dependencies": {
+		"@coinbase/wallet-sdk": "^3.1.0",
 		"@dnd-kit/core": "^6.0.2",
 		"@dnd-kit/sortable": "^7.0.0",
 		"@dnd-kit/utilities": "^3.2.0",
@@ -24,6 +25,7 @@
 		"@tailwindcss/line-clamp": "^0.4.0",
 		"@tailwindcss/typography": "^0.5.2",
 		"@walletconnect/ethereum-provider": "^1.7.8",
+		"@web3-react/coinbase-wallet": "^8.0.31-beta.0",
 		"autoprefixer": "^10.4.7",
 		"axios": "^0.27.2",
 		"babel-loader": "^8.2.5",

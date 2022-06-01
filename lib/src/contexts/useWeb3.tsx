@@ -17,7 +17,7 @@ import	type {TPartnersInfo}					from	'../utils/partners';
 import	type * as useWeb3Types					from	'./useWeb3.d';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3};
+const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
 
 const defaultState = {
 	address: undefined,
@@ -140,20 +140,33 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			}
 		} else if (_providerType === walletType.EMBED_LEDGER) {
 			set_lastWallet(walletType.EMBED_LEDGER);
-			// if (isActive)
-			// 	connectors.eip1193.connector.deactivate();
-			// try {
-			// 	connectors.eip1193.connector.activate();
-			// 	set_lastWallet(walletType.LEDGER);	
-			// 	if (onSuccess)
-			// 		onSuccess()
-			// } catch (error) {
-			// 	console.log(error)
-			// 	set_lastWallet(walletType.NONE);
-			// 	if (onError)
-			// 		onError(error as Error);
-			// }
-		}
+		} else if (_providerType === walletType.EMBED_GNOSIS_SAFE) {
+			if (isActive)
+				connectors.gnosisSafe.connector.deactivate();
+			try {
+				connectors.gnosisSafe.connector.activate();
+				set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
+				if (onSuccess)
+					onSuccess()
+			} catch (error) {
+				set_lastWallet(walletType.NONE);
+				if (onError)
+					onError(error as Error);
+			}
+		} else if (_providerType === walletType.COINBASE) {
+			if (isActive)
+				connectors.coinbase.connector.deactivate();
+			try {
+				connectors.coinbase.connector.activate(1);
+				set_lastWallet(walletType.COINBASE);	
+				if (onSuccess)
+					onSuccess()
+			} catch (error) {
+				set_lastWallet(walletType.NONE);
+				if (onError)
+					onError(error as Error);
+			}
+		} 
 	}, [isActive, set_lastWallet, connectors]);
 
 	useClientEffect(() => {
@@ -189,12 +202,16 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 									id: signerAddress,
 									walletType: walletType.EMBED_GNOSIS_SAFE,
 								});
-								connect(walletType.EMBED_GNOSIS_SAFE);
+								set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
 							})
 						}
 					})
 				} catch (error) {}
 			}
+		} else if ((window?.ethereum as any)?.isCoinbaseBrowser) {
+			connectors.coinbase.connector.activate().then(() => {
+				set_lastWallet(walletType.COINBASE)
+			});
 		}
 	}, []);
 
@@ -216,7 +233,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		if ((chainId || 0) > 0)
 			set_chainID(Number(chainId))
 	}, [chainId]);
-
+	
 	return (
 		<Web3Context.Provider
 			value={{
@@ -236,7 +253,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 						set_lastWallet(walletType.NONE);
 						set_isDisconnected(true);
 					});
-					setTimeout((): void => set_isDisconnected(false), 100);
+					setTimeout((): void => set_isDisconnected(false), 100);					
 				}
 			}}>
 			{children}

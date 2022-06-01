@@ -2,6 +2,7 @@ import	{Web3ReactHooks, initializeConnector}	from	'@web3-react/core';
 import	{MetaMask}								from	'@web3-react/metamask';
 import	{WalletConnect}							from	'@web3-react/walletconnect';
 import	{GnosisSafe}							from	'@web3-react/gnosis-safe';
+import	{CoinbaseWallet}						from	'@web3-react/coinbase-wallet'
 import	{EIP1193}								from	'./connectors.eip1193';
 
 const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask | any>((actions) => new MetaMask(actions));
@@ -27,12 +28,19 @@ const	[gnosisSafeConnector, gnosisSafeHooks] = initializeConnector<GnosisSafe | 
 	{allowedDomains: [/gnosis-safe.io/]}
 ));
 
+const	[coinbaseConnector, coinbaseHooks] = initializeConnector<CoinbaseWallet>((actions) => new CoinbaseWallet(actions, {
+		url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+		appName: 'Yearn.finance',
+	})
+)
+
 
 export type TConnector = {
 	metamask: {connector: MetaMask; hooks: Web3ReactHooks;},
 	walletConnect: {connector: WalletConnect; hooks: Web3ReactHooks;},
 	eip1193: {connector: EIP1193; hooks: Web3ReactHooks;}
 	gnosisSafe: {connector: GnosisSafe; hooks: Web3ReactHooks;}
+	coinbase: {connector: CoinbaseWallet; hooks: Web3ReactHooks;}
 }
 export const connectors: TConnector = {
 	metamask: {
@@ -50,5 +58,9 @@ export const connectors: TConnector = {
 	gnosisSafe: {
 		connector: gnosisSafeConnector,
 		hooks: gnosisSafeHooks,
+	},
+	coinbase: {
+		connector: coinbaseConnector,
+		hooks: coinbaseHooks,
 	}
 }

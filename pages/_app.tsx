@@ -143,7 +143,7 @@ function	AppWrapper(props: AppProps): ReactElement {
 	return (
 		<>
 			<AppHead />
-			<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-6xl md:flex-row'}>
+			<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-[1200px] md:flex-row'}>
 				<div className={'sticky top-0 z-50 col-span-12 h-auto md:relative md:col-span-2'}>
 					<div className={'flex flex-col justify-between h-full'}>
 						<Navbar
@@ -155,7 +155,7 @@ function	AppWrapper(props: AppProps): ReactElement {
 							wrapper={<Link passHref href={''} />} />
 					</div>
 				</div>
-				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh] md:col-span-10'}>
+				<div className={'flex flex-col col-span-12 w-full max-w-6xl min-h-[100vh] md:col-span-10'}>
 					<AppHeader />
 					<Component
 						key={router.route}
