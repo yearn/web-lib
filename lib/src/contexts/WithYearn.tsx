@@ -1,16 +1,13 @@
-import	React, {ReactElement}		from	'react';
-import	{ethers}					from	'ethers';
-import	{Web3ReactProvider}			from	'@web3-react/core';
-import	{BalancesContextApp}		from	'./useBalances';
-import	{UIContextApp}				from	'./useUI';
-import	{PricesContextApp}			from	'./usePrices';
-import	{Web3ContextApp}			from	'./useWeb3';
-import	type {TUIOptions}			from	'./useUI.d';
-import	type {TWeb3Options}			from	'./useWeb3.d';
-
-const getLibrary = (provider: ethers.providers.ExternalProvider): ethers.providers.Web3Provider => {
-	return new ethers.providers.Web3Provider(provider, 'any');
-};
+import	React, {ReactElement}				from	'react';
+import	{Web3ReactProvider, Web3ReactHooks}	from	'@web3-react/core';
+import	type {Connector}					from	'@web3-react/types'
+import	{BalancesContextApp}				from	'./useBalances';
+import	{UIContextApp}						from	'./useUI';
+import	{PricesContextApp}					from	'./usePrices';
+import	{Web3ContextApp}					from	'./useWeb3';
+import	{connectors}						from	'../utils/connectors';
+import	type {TUIOptions}					from	'./useUI.d';
+import	type {TWeb3Options}					from	'./useWeb3.d';
 
 function	WithYearn({children, options}: {
 	children: ReactElement
@@ -19,9 +16,16 @@ function	WithYearn({children, options}: {
 		web3?: TWeb3Options
 	}
 }): ReactElement {
+	const web3Connectors: [Connector | any, Web3ReactHooks][] = [
+		[connectors.metamask.connector, connectors.metamask.hooks],
+		[connectors.walletConnect.connector, connectors.walletConnect.hooks],
+		[connectors.eip1193.connector, connectors.eip1193.hooks],
+		[connectors.gnosisSafe.connector, connectors.gnosisSafe.hooks],
+	];
+
 	return (
 		<UIContextApp options={options?.ui}>
-			<Web3ReactProvider getLibrary={getLibrary}>
+			<Web3ReactProvider connectors={web3Connectors} lookupENS={false}>
 				<Web3ContextApp options={options?.web3}>
 					<BalancesContextApp>
 						<PricesContextApp>

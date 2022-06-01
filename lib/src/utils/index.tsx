@@ -3,10 +3,11 @@ import performBatchedUpdates from './performBatchedUpdates';
 import * as format from './format';
 import * as providers from './providers';
 export * from './utils';
+export * from './partners';
 export * from './Transaction';
 export {
 	chains,
 	format,
 	performBatchedUpdates,
-	providers
+	providers,
 };

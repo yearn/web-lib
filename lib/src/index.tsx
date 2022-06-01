@@ -1,5 +1,3 @@
-export * from './WithYearn';
-
 export * as contexts from './contexts/index';
 export * from './contexts/useBalances';
 export * from './contexts/usePrices';

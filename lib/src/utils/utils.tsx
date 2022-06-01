@@ -94,3 +94,15 @@ export function slugify(text: string): string {
 		.replace(/^-+/, '')             // Trim - from start of text
 		.replace(/-+$/, '');            // Trim - from end of text
 }
+
+/* 🔵 - Yearn Finance ******************************************************
+** Detect is we are running from an Iframe
+**************************************************************************/
+export function	isIframe(): boolean {
+	if (typeof(window) === 'undefined') {
+		return false;
+	}
+	if (window !== window.top || window.parent.frames.length > 0)
+		return true;
+	return false;
+}

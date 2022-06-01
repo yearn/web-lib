@@ -42,6 +42,10 @@ label[aria-invalid="true"] {
 ** correctly. Aka theses class should be possible to overwrite by adding an
 ** extra tailwind class
 **************************************************************************/
+.image-align-middle > img {
+	object-position: 0 70%;
+}
+
 /* -- Button.tsx ------------------------------------------------------- */
 .yearn--button {
 	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;

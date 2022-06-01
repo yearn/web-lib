@@ -172,7 +172,14 @@ function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
 	
 	return (
-		<WithYearn>
+		<WithYearn
+			options={{
+				web3: {
+					shouldUseStrictChainMode: false,
+					defaultChainID: 1,
+					supportedChainID: [1, 250, 42161, 1337, 31337]
+				}
+			}}>
 			<AppWrapper
 				Component={Component}
 				pageProps={pageProps}

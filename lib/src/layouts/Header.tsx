@@ -26,6 +26,7 @@ function	Header({
 }: THeader): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = React.useState('Connect wallet');
+	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
 
 	React.useEffect(() => {
 		if (!isActive) {
@@ -39,6 +40,11 @@ function	Header({
 		}
 	}, [ens, address, isActive])
 
+	React.useEffect(() => {
+		const	_selectedOption = options.find((e): boolean => e.value === Number(chainID)) || options[0]
+		set_selectedOption(_selectedOption);
+	}, [chainID, isActive])
+
 	return (
 		<header className={'z-30 py-4 mx-auto w-full'}>
 			<Card className={'flex justify-between items-center h-auto md:h-20'}>
@@ -51,7 +57,7 @@ function	Header({
 							<Dropdown
 								defaultOption={options[0]}
 								options={options}
-								selected={options.find((e): boolean => e.value === Number(chainID)) || options[0]}
+								selected={selectedOption}
 								onSelect={(option: TDropdownOption): void => onSwitchChain(option.value as number, true)} />
 						</div>
 					) : null}
