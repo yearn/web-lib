@@ -1,6 +1,6 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "1.0.1-0",
+	"version": "1.0.2-0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -10,8 +10,8 @@
 		"dist/**"
 	],
 	"scripts": {
-		"build": "tsup index.tsx --format esm,cjs --dts --external react",
-		"dev": "tsup index.tsx --format esm,cjs --watch --dts --external react",
+		"build": "tsup *.tsx **/*.tsx --format esm,cjs --dts --external react",
+		"dev": "tsup *.tsx **/*.tsx --format esm,cjs --watch --dts --external react",
 		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
 		"lint-fix": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/' --fix",
 		"clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
