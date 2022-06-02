@@ -1,5 +1,5 @@
 {
-  "extends": "@yearn/web-lib-config/tsconfig.next.json",
+  "extends": "@yearn/web-lib/config/tsconfig.next.json",
   "exclude": [
     "dist",
     "build",

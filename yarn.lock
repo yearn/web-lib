@@ -1529,6 +1529,37 @@
     "@web3-react/types" "^8.0.10-beta.0"
     eventemitter3 "^4.0.7"
 
+"@yearn/web-lib@*":
+  version "0.5.7"
+  resolved "https://npm.pkg.github.com/download/@yearn/web-lib/0.5.7/2f5000468e33d9c4d547511c378b8025cdc773a4e39f9ae3a724a65f96d33749#80c333571a9f36695b0054aa16ad98bb12fecd67"
+  integrity sha512-Jy4zc5vV3RlJ15xIiQRvoAttFWWFzeTUnqAebTcJc9vtsYCBmzEVgjnEl7Ly05CJdKk8atNtsEhxVWok5cpikw==
+  dependencies:
+    "@coinbase/wallet-sdk" "^3.1.0"
+    "@ethersproject/experimental" "^5.6.2"
+    "@headlessui/react" "^1.6.3"
+    "@tailwindcss/forms" "^0.5.2"
+    "@tailwindcss/line-clamp" "^0.4.0"
+    "@tailwindcss/typography" "^0.5.2"
+    "@walletconnect/ethereum-provider" "^1.7.8"
+    "@walletconnect/jsonrpc-http-connection" "^1.0.0"
+    "@walletconnect/jsonrpc-provider" "^1.0.3"
+    "@web3-react/coinbase-wallet" "^8.0.22-beta.0"
+    "@web3-react/core" "8.0.30-beta.0"
+    "@web3-react/eip1193" "8.0.14-beta.0"
+    "@web3-react/gnosis-safe" "^8.0.0-beta.0"
+    "@web3-react/metamask" "8.0.16-beta.0"
+    "@web3-react/types" "8.0.17-beta.0"
+    "@web3-react/walletconnect" "8.0.23-beta.0"
+    dayjs "^1.11.2"
+    ethcall "^4.7.0"
+    ethers "^5.6.8"
+    eventemitter3 "^4.0.7"
+    framer-motion "^6.3.4"
+    nprogress "^0.2.0"
+    react-flip-move "^3.0.4"
+    react-hot-toast "^2.2.0"
+    react-virtualized "^9.22.3"
+
 abi-coder@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/abi-coder/-/abi-coder-3.1.1.tgz#d8cce4db75d97daae7269d6dedf5d9dcff87c720"

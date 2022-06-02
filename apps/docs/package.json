@@ -34,7 +34,6 @@
 		"react": "18.1.0",
 		"react-dom": "18.1.0",
 		"next": "12.1.6",
-		"@yearn/web-lib-config": "*",
 		"@yearn/web-lib": "*"
 	},
 	"devDependencies": {

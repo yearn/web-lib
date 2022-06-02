@@ -2,7 +2,7 @@
 
 module.exports = {
 	presets: [
-		require('../../packages/config/tailwind.config.cjs')
+		require('../../packages/web-lib/config/tailwind.config.cjs')
 	],
 	theme: {
 		extend: {

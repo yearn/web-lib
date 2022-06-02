@@ -1,6 +1,6 @@
-module.exports = {
+module.exports = { // eslint-disable-line no-undef
 	root: true,
-	extends: ["../../packages/config/index.js"],
+	extends: ['../../packages/web-lib/config/eslintrc.js'],
 	parserOptions: {
 		tsconfigRootDir: __dirname, // eslint-disable-line no-undef
 		ecmaFeatures: {
