@@ -9,7 +9,7 @@ type 		TComponentAPI = {
 }
 function	ComponentAPI({elements}: TComponentAPI): ReactElement {
 	return (
-		<section aria-label={'component API'} className={'mt-6 bg-[#FE0000]'}>
+		<section aria-label={'component API'} className={'mt-6'}>
 			<h4>{'Component API'}</h4>
 			<dl className={'mt-4 space-y-4 w-full divide-y divide-surface'}>
 				{elements.map((element, index): ReactElement => (
