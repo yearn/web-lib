@@ -1,0 +1,16 @@
+{
+	"extends": "@yearn/web-lib-config/tsconfig.react-library.json",
+	"include": [
+		"components/**.tsx",
+		"contexts/**.tsx",
+		"hooks/**.tsx",
+		"icons/**.tsx",
+		"layouts/**.tsx",
+		"utils/**.tsx",
+		".eslintrc.js",
+		"style.css",
+		"index.tsx",
+		"declarations.d.ts"
+	],
+	"exclude": ["dist", "dist/**.ts*", "build", "node_modules"]
+}

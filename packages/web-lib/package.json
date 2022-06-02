@@ -1,0 +1,66 @@
+{
+	"name": "@yearn/web-lib",
+	"version": "0.0.0",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"license": "MIT",
+	"files": [
+		"dist/**"
+	],
+	"scripts": {
+		"build": "tsup index.tsx --format esm,cjs --dts --external react",
+		"dev": "tsup index.tsx --format esm,cjs --watch --dts --external react",
+		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
+		"lint-fix": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/' --fix",
+		"clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+	},
+	"dependencies": {
+		"@coinbase/wallet-sdk": "^3.1.0",
+		"@ethersproject/experimental": "^5.6.2",
+		"@headlessui/react": "^1.6.3",
+		"@tailwindcss/forms": "^0.5.2",
+		"@tailwindcss/line-clamp": "^0.4.0",
+		"@tailwindcss/typography": "^0.5.2",
+		"@walletconnect/ethereum-provider": "^1.7.8",
+		"@walletconnect/jsonrpc-http-connection": "^1.0.0",
+		"@walletconnect/jsonrpc-provider": "^1.0.3",
+		"@web3-react/coinbase-wallet": "^8.0.22-beta.0",
+		"@web3-react/core": "8.0.30-beta.0",
+		"@web3-react/eip1193": "8.0.14-beta.0",
+		"@web3-react/gnosis-safe": "^8.0.0-beta.0",
+		"@web3-react/metamask": "8.0.16-beta.0",
+		"@web3-react/types": "8.0.17-beta.0",
+		"@web3-react/walletconnect": "8.0.23-beta.0",
+		"dayjs": "^1.11.2",
+		"ethcall": "^4.7.0",
+		"ethers": "^5.6.8",
+		"eventemitter3": "^4.0.7",
+		"framer-motion": "^6.3.4",
+		"nprogress": "^0.2.0",
+		"react-flip-move": "^3.0.4",
+		"react-hot-toast": "^2.2.0",
+		"react-virtualized": "^9.22.3",
+		"@yearn/web-lib-config": "*"
+	},
+	"peerDependencies": {
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"tailwindcss": "^3.0.24"
+	},
+	"devDependencies": {
+		"react": "^18.1.0",
+		"tsup": "^6.0.1",
+		"@types/node": "^17.0.35",
+		"@types/react": "^18.0.9",
+		"@types/react-dom": "^18.0.5",
+		"eslint": "^8.16.0",
+		"tailwindcss": "^3.0.24",
+		"typescript": "^4.7.2",
+		"ts-loader": "^9.3.0"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
+}
