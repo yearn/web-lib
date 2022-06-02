@@ -1,195 +1,186 @@
-# Turborepo Design System Starter
+# Yearn Web Lib
+Yearn web Lib is a library of standard components used through Yearn's Projects.    
+This library is made for React projects with the idea to be light, efficient and easy to use.  
+We are using React + Tailwindcss + ethersjs for the web3 package, and some contexts are available to correctly wrap your app.
 
-This guide explains how to use a React design system starter powered by:
+Please check @yearn/web-template for documentation and usage.
 
-- 🏎 [Turborepo](https://turborepo.org) — High-performance build system for Monorepos
-- 🚀 [React](https://reactjs.org/) — JavaScript library for user interfaces
-- 🛠 [Tsup](https://github.com/egoist/tsup) — TypeScript bundler powered by esbuild
-- 📖 [Storybook](https://storybook.js.org/) — UI component environment powered by Vite
+## Component Library Development  
+1) `git clone https://github.com/yearn/web-lib.git`
+1) `yarn install`
+1) `yarn dev`
 
-As well as a few others tools preconfigured:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-- [Changesets](https://github.com/changesets/changesets) for managing versioning and changelogs
-- [GitHub Actions](https://github.com/changesets/action) for fully automated package publishing
-
-## Getting Started
-
-Clone the design system example locally or [from GitHub](https://github.com/vercel/turborepo/tree/main/examples/design-system):
-
-```bash
-npx degit vercel/turborepo/examples/design-system design-system
-cd design-system
-yarn install
-git init . && git add . && git commit -m "Init"
+## How to install
+Run the following command:
+```
+yarn add @yearn/web-lib
 ```
 
-### Useful Commands
-
-- `yarn build` - Build all packages including the Storybook site
-- `yarn dev` - Run all packages locally and preview with Storybook
-- `yarn lint` - Lint all packages
-- `yarn changeset` - Generate a changeset
-- `yarn clean` - Clean up all `node_modules` and `dist` folders (runs each package's clean script)
-
-## Turborepo
-
-[Turborepo](https://turborepo.org) is a high-performance build system for JavaScript and TypeScript codebases. It was designed after the workflows used by massive software engineering organizations to ship code at scale. Turborepo abstracts the complex configuration needed for monorepos and provides fast, incremental builds with zero-configuration remote caching.
-
-Using Turborepo simplifes managing your design system monorepo, as you can have a single lint, build, test, and release process for all packages. [Learn more](https://vercel.com/blog/monorepos-are-changing-how-teams-build-software) about how monorepos improve your development workflow.
-
-## Apps & Packages
-
-This Turborepo includes the following packages and applications:
-
-- `apps/docs`: Component documentation site with Storybook
-- `packages/@yearn/core`: Core React components
-- `packages/@yearn/web-lib/utils`: Shared React utilities
-- `packages/@yearn/tsconfig`: Shared `tsconfig.json`s used throughout the Turborepo
-- `packages/eslint-preset-yearn`: ESLint preset
-
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/). Yarn Workspaces enables us to "hoist" dependencies that are shared between packages to the root `package.json`. This means smaller `node_modules` folders and a better local dev experience. To install a dependency for the entire monorepo, use the `-W` workspaces flag with `yarn add`.
-
-This example sets up your `.gitignore` to exclude all generated files, other folders like `node_modules` used to store your dependencies.
-
-### Compilation
-
-To make the core library code work across all browsers, we need to compile the raw TypeScript and React code to plain JavaScript. We can accomplish this with `tsup`, which uses `esbuild` to greatly improve performance.
-
-Running `yarn build` from the root of the Turborepo will run the `build` command defined in each package's `package.json` file. Turborepo runs each `build` in parallel and caches & hashes the output to speed up future builds.
-
-For `yearn-core`, the `build` command is the following:
-
-```bash
-tsup src/index.tsx --format esm,cjs --dts --external react
+Your project will also need `React`, `React-Dom` and `TailwindCss`
+```
+yarn add react
+yarn add react-dom
+yarn add tailwindcss
 ```
 
-`tsup` compiles `src/index.tsx`, which exports all of the components in the design system, into both ES Modules and CommonJS formats as well as their TypeScript types. The `package.json` for `yearn-core` then instructs the consumer to select the correct format:
+You will need to generate a [Github Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), to create or update the `~/.npmrc` file with the following content:
+```
+registry=https://registry.npmjs.org/
+@yearn:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_ACCESS_TOKEN
+```
+This will link all repo named `@yearn` you will install to the correct Yearn organization
 
-```json:yearn-core/package.json
-{
-  "name": "@yearn/core",
-  "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "sideEffects": false,
+## How to setup
+
+#### Setup tsconfig
+With TS config, you should add some paths to be sure to correctly link the web lib: 
+```ts
+	"baseUrl": ".",
+	"paths": {
+		"@yearn/web-lib/components": ["./node_modules/@yearn/web-lib/dist/components"],
+		"@yearn/web-lib/layouts": ["./node_modules/@yearn/web-lib/dist/layouts"],
+		"@yearn/web-lib/contexts": ["./node_modules/@yearn/web-lib/dist/contexts"],
+		"@yearn/web-lib/hooks": ["./node_modules/@yearn/web-lib/dist/hooks"],
+		"@yearn/web-lib/icons": ["./node_modules/@yearn/web-lib/dist/icons"],
+		"@yearn/web-lib/utils": ["./node_modules/@yearn/web-lib/dist/utils"],
+	},
+```
+
+#### Import the CSS
+Create a default `style.css` file in your project root, and add that in it:
+```scss
+/* This will load Tailwindcss + all the overwrite from Yearn lib */
+@import '@yearn/web-lib/dist/style.css';
+```
+
+Then, setup your `tailwind.config.js` file to enable detection of your style and prod optimization:
+```js
+const {join} = require('path');
+module.exports = {
+	presets: [
+		require('@yearn/web-lib/tailwind.plugin')
+	],
+	content: [
+		join(__dirname, 'pages', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', 'icons', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', 'logo', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', 'strategies', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', 'vaults', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'layouts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'components', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'contexts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'icons', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'utils', '**', '*.js')
+	],
+	.....
+};
+```
+
+
+#### Setup the env
+Ensure your env are set. Here is the list of the stuff to set:
+```bash
+WEBSITE_URI: 'https://my-web3-app.major.farm',
+WEBSITE_NAME: 'My awesome yWeb3 app',
+WEBSITE_TITLE: 'My awesome yWeb3 app',
+WEBSITE_DESCRIPTION: 'Welcome to my awesome Yearn Web3 app. This is a super description that will be used for the SEO stuffs',
+PROJECT_GITHUB_URL: 'https://github.com/me/yweb3-awesome',
+
+USE_WALLET: true,
+USE_PRICES: false,
+USE_PRICE_TRI_CRYPTO: false,
+USE_FEEDBACKS: true,
+
+CG_IDS: ['yearn-finance'],
+TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],
+RPC_URL: {
+	1: process.env.RPC_URL_MAINNET,
+	250: process.env.RPC_URL_FANTOM || 'https://rpc.ftm.tools',
+	42161: process.env.RPC_URL_ARBITRUM || 'https://arbitrum.public-rpc.com'
+},
+
+# Only if feedbacks is true
+FEEBACKS_TYPE: 'github',
+LINEAR_OAUTH_TOKEN: process.env.LINEAR_OAUTH_TOKEN,
+LINEAR_TEAM_ID: process.env.LINEAR_TEAM_ID,
+LINEAR_PROJECT_NAME: process.env.LINEAR_PROJECT_NAME,
+GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN,
+GITHUB_PROJECT_OWNER: process.env.GITHUB_PROJECT_OWNER,
+GITHUB_PROJECT_REPO: process.env.GITHUB_PROJECT_REPO
+```
+
+
+## How to use
+Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
+```tsx
+import	{WithYearn}		from	'@yearn/web-lib/contexts';
+
+function	MyApp(props: AppProps): ReactElement {
+	const	{Component, pageProps} = props;
+	
+	return (
+		<WithYearn>
+			<AppWrapper
+				Component={Component}
+				pageProps={pageProps} />
+		</WithYearn>
+	);
 }
 ```
 
-Run `yarn build` to confirm compilation is working correctly. You should see a folder `yearn-core/dist` which contains the compiled output.
+## Subpackage
+This repository is organised in subpackages: 
 
-```bash
-yearn-core
-└── dist
-    ├── index.d.ts  <-- Types
-    ├── index.js    <-- CommonJS version
-    └── index.mjs   <-- ES Modules version
+#### Components
+> Having everything in one file is not great for both code splitting and organisation. The components folder is used to split the code and build some shared components that we will use in our app.
+> Sections, aka a large part of the UI, can be put in here but should be prefixed with `Section` to be easy to recognise.
+> Group of components for the same usage could be wrapped in a subfolder.
+```tsx
+import {Card, SearchBox, Switch, ...} from '@yearn/web-lib/components';
 ```
 
-## Components
-
-Each file inside of `yearn-core/src` is a component inside our design system. For example:
-
-```tsx:yearn-core/src/Button.tsx
-import * as React from 'react';
-
-export interface ButtonProps {
-  children: React.ReactNode;
-}
-
-export function Button(props: ButtonProps) {
-  return <button>{props.children}</button>;
-}
-
-Button.displayName = 'Button';
+#### Layouts
+> The layouts folder is used to build the layout of the app. Layout have kind of the same objectif as components but are focused on the display of big section and parts of the UI.
+```tsx
+import {List, Header, Navbar, ...} from '@yearn/web-lib/layouts';
 ```
 
-When adding a new file, ensure the component is also exported from the entry `index.tsx` file:
-
-```tsx:yearn-core/src/index.tsx
-import * as React from "react";
-export { Button, type ButtonProps } from "./Button";
-// Add new component exports here
+#### Icons
+> The icons folder is used to build the icons of the app. Icons are SVG files transformed in JSX/TSX components. They accept any props by default and the default fill color is set to `currentColor` to enable fill personalization
+```tsx
+import {Cross, AlertWarning, ...} from '@yearn/web-lib/icons';
 ```
 
-## Storybook
-
-Storybook provides us with an interactive UI playground for our components. This allows us to preview our components in the browser and instantly see changes when developing locally. This example preconfigures Storybook to:
-
-- Use Vite to bundle stories instantly (in milliseconds)
-- Automatically find any stories inside the `stories/` folder
-- Support using module path aliases like `@yearn-core` for imports
-- Write MDX for component documentation pages
-
-For example, here's the included Story for our `Button` component:
-
-```js:apps/docs/stories/button.stories.mdx
-import { Button } from '@yearn-core/src';
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-
-<Meta title="Components/Button" component={Button} />
-
-# Button
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur tempor, nisl nunc egestas nisi, euismod aliquam nisl nunc euismod.
-
-## Props
-
-<Props of={Box} />
-
-## Examples
-
-<Preview>
-  <Story name="Default">
-    <Button>Hello</Button>
-  </Story>
-</Preview>
+#### Contexts
+> The contexts are what some users could know as `store`. With react you have some state managements that will trigger the re-render and store data in your app. Theses states can be send to children and used by children if required. This is nice but when you have a grand-x10-child, passing the state as prop is not the best idea.
+> Contexts are a way to store share state across your app. A contexts is defined for one specific reason and it's best to keep the contexts for one use case: it's best to have one for the web3 management and one for the theme than on big mix.
+> This is where the most of the logic will be done. We need to fetch some balances we will use in multiple places? Context! We need to get the account and web3 provider? Context!
+```tsx
+import {useUI, useWeb3, ...} from '@yearn/web-lib/contexts';
 ```
 
-This example includes a few helpful Storybook scripts:
-
-- `yarn dev`: Starts Storybook in dev mode with hot reloading at `localhost:6006`
-- `yarn build`: Builds the Storybook UI and generates the static HTML files
-- `yarn preview-storybook`: Starts a local server to view the generated Storybook UI
-
-## Versioning & Publishing Packages
-
-This example uses [Changesets](https://github.com/changesets/changesets) to manage versions, create changelogs, and publish to npm. It's preconfigured so you can start publishing packages immediatley.
-
-You'll need to create an `NPM_TOKEN` and `GITHUB_TOKEN` and add it to your GitHub repository settings to enable access to npm. It's also worth installing the [Changesets bot](https://github.com/apps/changeset-bot) on your repository.
-
-### Generating the Changelog
-
-To generate your changelog, run `yarn changeset` locally:
-
-1. **Which packages would you like to include?** – This shows which packages and changed and which have remained the same. By default, no packages are included. Press `space` to select the packages you want to include in the `changeset`.
-1. **Which packages should have a major bump?** – Press `space` to select the packages you want to bump versions for.
-1. If doing the first major version, confirm you want to release.
-1. Write a summary for the changes.
-1. Confirm the changeset looks as expected.
-1. A new Markdown file will be created in the `changeset` folder with the summary and a list of the packages included.
-
-### Releasing
-
-When you push your code to GitHub, the [GitHub Action](https://github.com/changesets/action) will run the `release` script defined in the root `package.json`:
-
-```bash
-turbo run build --filter=docs^... && changeset publish
+#### Hooks
+> Hooks are a bunch of state-management style helper designed to work with react and to perform some specific stuff out of the box. This can be something like `useLocalStorage`, `useIndexDB`, `useWindowInFocus`, etc.
+> They should be independant from the app logic and should handle one specific case, not related to what the app is doing
+```tsx
+import {useClientEffect, useLocalStorage, ...} from '@yearn/web-lib/hooks';
 ```
 
-Turborepo runs the `build` script for all publishable packages (excluding docs) and publishes the packages to npm. By default, this example includes `yearn` as the npm organization. To change this, do the following:
-
-- Rename folders in `packages/*` to replace `yearn` with your desired scope
-- Search and replace `yearn` with your desired scope
-- Re-run `yarn install`
-
-To publish packages to a private npm organization scope, **remove** the following from each of the `package.json`'s
-
-```diff
-- "publishConfig": {
--  "access": "public"
-- },
+#### Utils
+> The utils are just some basics helpers or logic we will used across our app. This can be some ABIs, this can be a function to sum an array of object, some reducer, etc.
+```tsx
+import {toAddress, format, parseMarkdown, ...} from '@yearn/web-lib/utils';
 ```
+
+## Pull request and review Conventions
+- Each pull request mush have an explaination on why this PR is relevant.
+- Commit should be signed.
+- After a review, **one commits should fix one issue** at a time.
+- All comments should be **resolved by the person who originally created the comment**.
+- All comments should be **resolved before merging**.
+- Any comments with feedback should be responded to by the author with a comment including the commit hash where the feedback has been resolved, or a reason with why it will not be addressed.
+- PRs require one approving review by a contributor with write access before it can be merged.
+
+
