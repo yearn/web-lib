@@ -22,17 +22,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@yearn"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
         run: yarn
-
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-          //npm.pkg.github.com/:_authToken=$NPM_GITHUB_TOKEN
-          EOF
-        env:
-          NPM_GITHUB_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
