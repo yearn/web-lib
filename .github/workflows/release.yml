@@ -32,6 +32,10 @@ jobs:
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: yarn release
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+          //npm.pkg.github.com/:_authToken=$NPM_GITHUB_TOKEN
+          EOF
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_GITHUB_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
