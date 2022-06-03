@@ -1,11 +1,16 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "1.0.15-0",
+	"version": "1.0.18-0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"sideEffects": false,
-	"license": "MIT",
+	"type": "module",
+	"repository": "git://github.com/yearn/web-lib.git",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com",
+		"access": "public"
+	},
 	"files": [
 		"dist/**",
 		"tailwind.config.js",
@@ -26,7 +31,7 @@
 	},
 	"scripts": {
 		"dev": "tsup *.tsx **/*.tsx --format esm,cjs --watch --dts --external react",
-		"exportStyle": "npx tailwindcss -c ./config/tailwind.config.js -o ./dist/build.css --minify && sed -i '' 's/rem/em/g' ./dist/build.css",
+		"exportStyle": "npx tailwindcss -c ./config/tailwind.config.cjs -o ./dist/build.css --minify && sed -i '' 's/rem/em/g' ./dist/build.css",
 		"build": "./scripts/build.sh --external:react --external:react-dom --platform=node",
 		"prepublishOnly": "rm -rf dist && yarn exportStyle && yarn build",
 		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
@@ -87,8 +92,5 @@
 		"ts-loader": "^9.3.0",
 		"tsup": "^6.0.1",
 		"typescript": "^4.7.2"
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }
