@@ -54,17 +54,10 @@ jobs:
         with:
           node-version: 16.x
           registry-url: "https://registry.npmjs.org"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
         run: yarn
 
-      - name: Publish to npm
-        id: changesets-npm
-        uses: changesets/action@v1
-        with:
-          publish: yarn --cwd packages/web-lib publish-npm
+      - run: yarn --cwd packages/web-lib publish-npm
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
