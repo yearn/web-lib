@@ -16,6 +16,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - run: cd packages/web-lib
+
       - uses: copapow/version-bump-package@v1
         id: bump
         with:
@@ -42,7 +45,7 @@ jobs:
         id: changesets-github
         uses: changesets/action@v1
         with:
-          publish: yarn --cwd packages/web-lib publish-github
+          publish: yarn publish-github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,7 +53,7 @@ jobs:
         id: changesets-npm
         uses: changesets/action@v1
         with:
-          publish: yarn --cwd packages/web-lib publish-npm
+          publish: yarn publish-npm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
