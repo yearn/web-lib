@@ -27,6 +27,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
+        with:
+          COMMIT_DISABLED: 1
+
       - name: Install Dependencies
         run: yarn
 
@@ -45,23 +50,25 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
+          registry-url: "https://registry.npmjs.org"
+          scope: "@yearn-finance"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Dependencies
         run: yarn
 
-      - name: Publish if version has been updated
-        uses: pascalgn/npm-publish-action@1.3.9
+      - name: Publish to npm
+        id: changesets-npm
+        uses: changesets/action@v1
         with:
-          publish_command: "yarn --cwd packages/web-lib publish-npm"
+          publish: yarn --cwd packages/web-lib publish-npm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
