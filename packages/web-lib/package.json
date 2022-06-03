@@ -1,6 +1,6 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "1.0.10-0",
+	"version": "1.0.11-0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -10,8 +10,10 @@
 		"dist/**"
 	],
 	"scripts": {
-		"build": "tsup {index.tsx,layouts/index.tsx,components/index.tsx,contexts/index.tsx,hooks/index.tsx,icons/index.tsx,utils/index.tsx,config} --format esm,cjs --dts --external react && cp ./style.css dist/style.css",
 		"dev": "tsup *.tsx **/*.tsx --format esm,cjs --watch --dts --external react",
+		"exportStyle": "npx tailwindcss -c ./config/tailwind.config.cjs -o ./dist/build.css --minify && sed -i '' 's/rem/em/g' ./dist/build.css",
+		"build": "yarn exportStyle && ./scripts/build.sh --external:react --external:react-dom --platform=node",
+		"prepublishOnly": "rm -rf dist && yarn exportStyle && yarn build",
 		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
 		"lint-fix": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/' --fix",
 		"clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
