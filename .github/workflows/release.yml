@@ -9,7 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   release-github:
-    name: Patch
+    name: Patch on Github
     runs-on: ubuntu-latest
     if: "startsWith(github.event.head_commit.message, 'patch:')"
     steps:
@@ -38,6 +38,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  release-npm:
+    name: Patch on NPM
+    runs-on: ubuntu-latest
+    if: "startsWith(github.event.head_commit.message, 'patch:')"
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
         with:
@@ -47,6 +57,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install Dependencies
+        run: yarn
+
       - name: Publish to npm
         id: changesets-npm
         uses: changesets/action@v1
@@ -55,38 +68,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-#   release-npm:
-#     name: Release on NPM
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout Repo
-#         uses: actions/checkout@v2
-#         with:
-#           fetch-depth: 0
-
-#       - name: Setup Node.js 16.x
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: 16.x
-#           registry-url: "https://registry.npmjs.org"
-#           scope: "@yearn-finance"
-#         env:
-#           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-#       - name: Check package version
-#         uses: technote-space/package-version-check-action@v1
-#         with:
-#           COMMIT_DISABLED: 1
-
-#       - name: Install Dependencies
-#         run: yarn
-
-#       - name: Publish to npm
-#         id: changesets-npm
-#         uses: changesets/action@v1
-#         with:
-#           publish: yarn --cwd packages/web-lib publish-npm
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
