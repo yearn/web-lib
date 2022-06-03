@@ -31,7 +31,7 @@ jobs:
         run: yarn
 
       - name: Publish to github
-        id: changesets
+        id: changesets-github
         uses: changesets/action@v1
         with:
           publish: yarn --cwd packages/web-lib publish-github
@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to npm
-        id: changesets
+        id: changesets-npm
         uses: changesets/action@v1
         with:
           publish: yarn --cwd packages/web-lib publish-npm
