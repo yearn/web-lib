@@ -14,13 +14,6 @@ The stack used for this project is the following:
 - 💄 [ESLint](https://eslint.org/) for code linting
 - ⚙️ [GitHub Actions](https://github.com/changesets/action) for fully automated package publishing
 
-### Install
-```sh
-yarn add @yearn/web-lib #recommanded, from Github package
-# or
-yarn add @yearn-finance/web-lib #from npm
-```
-
 ### Access Token
 This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib) but should be primary used with Github Packages.  
 With theses packages, you will need to provider a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), to create or update the `~/.npmrc` file with the following content:
@@ -30,6 +23,13 @@ registry=https://registry.npmjs.org/
 //npm.pkg.github.com/:_authToken=YOUR_ACCESS_TOKEN
 ```
 This will link all repo named `@yearn` you will install to the correct Yearn organization
+
+### Install
+```sh
+yarn add @yearn/web-lib #recommanded, from Github package
+# or
+yarn add @yearn-finance/web-lib #from npm
+```
 
 ### Useful Commands
 - `yarn build` - Build all packages including the Storybook site
