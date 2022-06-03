@@ -15,8 +15,16 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+      - uses: copapow/version-bump-package@v1
+        id: bump
+        with:
+         default_branch: next
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          echo "Previous version: ${{ steps.bump.outputs.previous_version }}"
+          echo "New Version: ${{ steps.bump.outputs.new_version }}"
 
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
@@ -26,11 +34,6 @@ jobs:
           scope: "@yearn"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check package version
-        uses: technote-space/package-version-check-action@v1
-        with:
-          COMMIT_DISABLED: 1
 
       - name: Install Dependencies
         run: yarn
@@ -43,32 +46,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  release-npm:
-    name: Release on NPM
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          registry-url: "https://registry.npmjs.org"
-          scope: "@yearn-finance"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check package version
-        uses: technote-space/package-version-check-action@v1
-        with:
-          COMMIT_DISABLED: 1
-
-      - name: Install Dependencies
-        run: yarn
-
       - name: Publish to npm
         id: changesets-npm
         uses: changesets/action@v1
@@ -77,3 +54,38 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+#   release-npm:
+#     name: Release on NPM
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Repo
+#         uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+
+#       - name: Setup Node.js 16.x
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: 16.x
+#           registry-url: "https://registry.npmjs.org"
+#           scope: "@yearn-finance"
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#       - name: Check package version
+#         uses: technote-space/package-version-check-action@v1
+#         with:
+#           COMMIT_DISABLED: 1
+
+#       - name: Install Dependencies
+#         run: yarn
+
+#       - name: Publish to npm
+#         id: changesets-npm
+#         uses: changesets/action@v1
+#         with:
+#           publish: yarn --cwd packages/web-lib publish-npm
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
