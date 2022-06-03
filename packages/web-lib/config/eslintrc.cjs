@@ -51,7 +51,6 @@ module.exports = {
 		'@typescript-eslint/naming-convention': ['error',
 			{'selector': 'default', 'format': ['camelCase']},
 			{'selector': 'function', 'format': ['camelCase', 'PascalCase']},
-			
 			{'selector': 'variableLike', 'format': ['camelCase', 'PascalCase', 'UPPER_CASE'], 'leadingUnderscore': 'allow'},
 			{'selector': 'variable', 'types': ['boolean'], 'format': ['PascalCase'], 'prefix': ['is', 'should', 'has', 'can', 'did', 'will']},
 			{'selector': 'default', 'format': null, 'filter': {'regex': '^(0-9)$', 'match': false}},
@@ -61,8 +60,8 @@ module.exports = {
 				'format': ['camelCase'],
 				'prefix': ['set_']
 			},
+			{'selector': 'variableLike', 'filter': {'regex': '^(set_)', 'match': true}, 'format': ['camelCase'], 'prefix': ['set_']},
 			{'selector': 'variableLike', 'format': ['PascalCase'], 'filter': {'regex': '(Context)$|(ContextApp)$|^Component$', 'match': true}},
-			
 			{'selector': ['typeParameter', 'typeAlias'], 'format': ['PascalCase'], 'prefix': ['T']},
 			{'selector': 'interface', 'format': ['PascalCase'], 'prefix': ['I']},
 			{'selector': ['default', 'variableLike', 'parameter'], 'format': null, 'filter': {'regex': '^(__html|_css)$', 'match': true}}
