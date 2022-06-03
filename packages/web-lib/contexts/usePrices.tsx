@@ -1,9 +1,13 @@
-import	React, {ReactElement, createContext}	from	'react';
-import	{ethers}								from	'ethers';
-import	axios									from	'axios';
-import	useLocalStorage							from	'../hooks/useLocalStorage';
-import	{units as formatUnits}					from	'../utils/format';
-import	{getProvider}							from	'../utils/providers';
+import React, {ReactElement, createContext} from 'react';
+import {ethers} from 'ethers';
+import axios from 'axios';
+import useLocalStorage from '../hooks/useLocalStorage';
+import {units as formatUnits} from '../utils/format';
+import {providers} from '../utils';
+import {useSettings} from '../contexts/useSettings';
+
+import type * as usePricesTypes from './usePrices.d';
+import useWeb3 from './useWeb3';
 
 async function	getTriCryptoPrice(provider: ethers.providers.Provider): Promise<string> {
 	const	TRI_CRYPTO_LP_TOKEN_ADDR = '0xcA3d75aC011BF5aD07a98d02f18225F9bD9A6BDF';
@@ -21,18 +25,15 @@ async function	getTriCryptoPrice(provider: ethers.providers.Provider): Promise<s
 	return triCryptoPrice;
 }
 
-type TPriceElement = {
-	[index: string]: {
-		'usd': string,
-		'eth'?: string
-	}
-}
-type TPricesContext = {prices: TPriceElement}
-
-const	PricesContext = createContext<TPricesContext>({prices: {}});
+const	PricesContext = createContext<usePricesTypes.TPricesContext>({prices: {}});
 export const PricesContextApp = ({children}: {children: ReactElement}): React.ReactElement => {
-	const	[prices, set_prices] = useLocalStorage('prices', {}) as [TPriceElement, (prices: TPriceElement) => void];
+	const	{networks} = useSettings();
+	const	{chainID} = useWeb3();
 	const	[nonce, set_nonce] = React.useState(0);
+	const	[prices, set_prices] = useLocalStorage('prices', {}) as [
+		usePricesTypes.TPriceElement,
+		(prices: usePricesTypes.TPriceElement) => void
+	];
 
 	/**************************************************************************
 	**	Fetch the prices of the list of CG_TOKENS
@@ -44,7 +45,8 @@ export const PricesContextApp = ({children}: {children: ReactElement}): React.Re
 				set_nonce(nonce + 1);
 
 				if (process.env.USE_PRICES_TRI_CRYPTO) {
-					getTriCryptoPrice(getProvider(Number(process.env.RPC_NETWORK))).then((price: string): void => {
+					const	provider = providers.fromRPC(networks[chainID]?.rpcURI as string);
+					getTriCryptoPrice(provider).then((price: string): void => {
 						data.triCrypto = {usd: Number(price)};
 						data.crypto = {usd: Number(price)};
 						data['3crypto'] = {usd: Number(price)};
@@ -55,7 +57,7 @@ export const PricesContextApp = ({children}: {children: ReactElement}): React.Re
 			});
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [chainID, networks]);
 
 	return (
 		<PricesContext.Provider value={{prices}}>
@@ -64,5 +66,5 @@ export const PricesContextApp = ({children}: {children: ReactElement}): React.Re
 	);
 };
 
-export const usePrices = (): TPricesContext => React.useContext(PricesContext);
+export const usePrices = (): usePricesTypes.TPricesContext => React.useContext(PricesContext);
 export default usePrices;

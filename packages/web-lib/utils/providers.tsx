@@ -58,3 +58,13 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 	}
 	return (new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY));
 }
+
+/* 🔵 - Yearn Finance ******************************************************
+** Connect to the RPC from a specific RPC
+**************************************************************************/
+export function fromRPC(rpcURI: string): ethers.providers.BaseProvider | ethers.providers.Web3Provider {
+	if (rpcURI) {
+		return new ethers.providers.JsonRpcProvider(rpcURI);
+	}
+	return (new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY));
+}

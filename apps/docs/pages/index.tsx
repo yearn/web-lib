@@ -94,6 +94,7 @@ function	ColorPaletteLight(): ReactElement {
 }
 
 function	Index(): ReactElement {
+
 	return (
 		<section aria-label={'some default section'}>
 			<Card>

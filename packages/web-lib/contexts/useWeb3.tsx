@@ -1,20 +1,21 @@
 import	React, {createContext, ReactElement, ErrorInfo}	from	'react';
-import	{useWeb3React}							from	'@web3-react/core';
-import	{ethers}								from	'ethers';
-import	{ModalLogin}							from	'../components/ModalLogin';
-import	{useLocalStorage}						from	'../hooks/useLocalStorage';
-import	{useWindowInFocus}						from	'../hooks/useWindowInFocus';
-import	{useClientEffect}						from	'../hooks/useClientEffect';
-import	{useDebounce}							from	'../hooks/useDebounce';
-import	performBatchedUpdates					from	'../utils/performBatchedUpdates';
-import	{getProvider}							from	'../utils/providers';
-import	{toAddress, isIframe}					from	'../utils/utils';
-import	{getPartner}							from	'../utils/partners';
-import	CHAINS									from	'../utils/chains';
-import	{connectors}							from	'../utils/connectors';
-import	{IFrameEthereumProvider}				from	'../utils/connectors.eip1193.ledger';
-import	type {TPartnersInfo}					from	'../utils/partners';
-import	type * as useWeb3Types					from	'./useWeb3.d';
+import {useWeb3React} from '@web3-react/core';
+import {ethers} from 'ethers';
+import useSettings from './useSettings';
+import {ModalLogin} from '../components/ModalLogin';
+import {useLocalStorage} from '../hooks/useLocalStorage';
+import {useWindowInFocus} from '../hooks/useWindowInFocus';
+import {useClientEffect} from '../hooks/useClientEffect';
+import {useDebounce} from '../hooks/useDebounce';
+import performBatchedUpdates from '../utils/performBatchedUpdates';
+import {getProvider, fromRPC} from '../utils/providers';
+import {toAddress, isIframe} from '../utils/utils';
+import {getPartner} from '../utils/partners';
+import CHAINS from '../utils/chains';
+import {connectors} from '../utils/connectors';
+import {IFrameEthereumProvider} from '../utils/connectors.eip1193.ledger';
+import type {TPartnersInfo} from '../utils/partners';
+import type * as useWeb3Types from './useWeb3.d';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
@@ -44,6 +45,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 	options?: useWeb3Types.TWeb3Options
 }): ReactElement => {
 	const	web3 = useWeb3React();
+	const	{networks} = useSettings();
 	const   {connector, isActive, provider, account, chainId} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
 	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', walletType.NONE) as [number, (n: number) => void];
@@ -225,18 +227,17 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 	}, [isActive]);
 
 	useClientEffect((): void => {
-		if (account) {
-			getProvider()
-				.lookupAddress(toAddress(account))
-				.then((_ens): void => set_ens(_ens || ''));
-		}
-	}, [account]);
-
-	useClientEffect((): void => {
 		if ((chainId || 0) > 0)
 			set_chainID(Number(chainId));
 	}, [chainId]);
-	
+
+	useClientEffect((): void => {
+		if (account) {
+			const	provider = fromRPC(networks[chainID]?.rpcURI as string);
+			provider.lookupAddress(toAddress(account)).then((_ens: string | null): void => set_ens(_ens || ''));
+		}
+	}, [account, chainID]);
+
 	return (
 		<Web3Context.Provider
 			value={{

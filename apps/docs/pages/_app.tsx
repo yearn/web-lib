@@ -174,6 +174,10 @@ function	MyApp(props: AppProps): ReactElement {
 	return (
 		<WithYearn
 			options={{
+				networks: {
+					250: {rpcURI: 'https://rpc.ftm.tools'},
+					137: {rpcURI: 'https://polygon-rpc.com'}
+				},
 				web3: {
 					shouldUseStrictChainMode: false,
 					defaultChainID: 1,
