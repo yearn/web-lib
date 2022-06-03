@@ -30,7 +30,7 @@
 		"./utils": "./dist/utils/index.js"
 	},
 	"scripts": {
-		"dev": "tsup *.tsx **/*.tsx --format esm,cjs --watch --dts --external react",
+		"dev": "tsc --jsx react --esModuleInterop -m esnext -p ./tsconfig.json --watch --outDir dist",
 		"exportStyle": "npx tailwindcss -c ./config/tailwind.config.cjs -o dist/build.css --minify && sed -i -e 's/rem/em/g' dist/build.css",
 		"build": "./scripts/build.sh --external:react --external:react-dom --platform=node",
 		"prepare": "rm -rf dist && yarn build && yarn exportStyle",
