@@ -7,7 +7,7 @@
 		"icons/**.tsx",
 		"layouts/**.tsx",
 		"utils/**.tsx",
-		".eslintrc.js",
+		".eslintrc.cjs",
 		"style.css",
 		"index.tsx",
 		"declarations.d.ts"
