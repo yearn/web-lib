@@ -1,6 +1,6 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "1.0.11-0",
+	"version": "1.0.12-0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -9,11 +9,22 @@
 	"files": [
 		"dist/**"
 	],
+	"exports": {
+		".": "./dist/index.js",
+		"./style.css": "./dist/style.css",
+		"./build.css": "./dist/build.css",
+		"./tailwind.plugin": "./dist/config/tailwind.config.js",
+		"./layouts": "./dist/layouts/index.js",
+		"./components": "./dist/components/index.js",
+		"./contexts": "./dist/contexts/index.js",
+		"./hooks": "./dist/hooks/index.js",
+		"./icons": "./dist/icons/index.js",
+		"./utils": "./dist/utils/index.js"
+	},
 	"scripts": {
 		"dev": "tsup *.tsx **/*.tsx --format esm,cjs --watch --dts --external react",
 		"exportStyle": "npx tailwindcss -c ./config/tailwind.config.cjs -o ./dist/build.css --minify && sed -i '' 's/rem/em/g' ./dist/build.css",
-		"build": "yarn exportStyle && ./scripts/build.sh --external:react --external:react-dom --platform=node",
-		"prepublishOnly": "rm -rf dist && yarn exportStyle && yarn build",
+		"build": "rm -rf dist && yarn exportStyle && ./scripts/build.sh --external:react --external:react-dom --platform=node",
 		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
 		"lint-fix": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/' --fix",
 		"clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
