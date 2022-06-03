@@ -1,6 +1,6 @@
 {
 	"name": "@yearn/web-lib",
-	"version": "1.0.18-0",
+	"version": "1.0.19-0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -13,7 +13,7 @@
 	},
 	"files": [
 		"dist/**",
-		"tailwind.config.js",
+		"tailwind.config.cjs",
 		"style.css",
 		"build.css"
 	],
@@ -21,7 +21,7 @@
 		".": "./dist/index.js",
 		"./style.css": "./dist/style.css",
 		"./build.css": "./dist/build.css",
-		"./tailwind.plugin": "./dist/tailwind.config.js",
+		"./tailwind.plugin": "./dist/tailwind.config.cjs",
 		"./layouts": "./dist/layouts/index.js",
 		"./components": "./dist/components/index.js",
 		"./contexts": "./dist/contexts/index.js",
