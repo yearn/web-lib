@@ -3,7 +3,7 @@ name: Major
 on:
   push:
     branches:
-      - next
+      - main
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
