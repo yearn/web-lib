@@ -18,8 +18,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: cd packages/web-lib
-
       - name: Setup Node.js 16.x
         uses: actions/setup-node@v2
         with:
@@ -36,7 +34,7 @@ jobs:
         id: changesets-github
         uses: changesets/action@v1
         with:
-          publish: yarn publish-github --patch
+          publish: yarn --cwd packages/web-lib publish-github --patch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -44,7 +42,7 @@ jobs:
         id: changesets-npm
         uses: changesets/action@v1
         with:
-          publish: yarn publish-npm
+          publish: yarn --cwd packages/web-lib publish-npm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
