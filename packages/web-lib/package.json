@@ -35,8 +35,8 @@
 
 		"build": "./scripts/build.sh --external:react --external:react-dom --platform=node",
 		"prepare": "rm -rf dist && yarn build && yarn exportStyle",
-		"publish-github": "sed -i -e 's|\"@yearn-finance/web-lib\"|\"@yearn/web-lib\"|' package.json && sed -i -e 's|\"https://registry.npmjs.org\"|\"https://npm.pkg.github.com\"|' package.json && yarn publish",
-		"publish-npm": "sed -i -e 's|\"@yearn/web-lib\"|\"@yearn-finance/web-lib\"|' package.json && sed -i -e 's|\"https://npm.pkg.github.com\"|\"https://registry.npmjs.org\"|' package.json && yarn publish",
+		"publish-github": "sed -i -e 's|\"@yearn-finance/web-lib\"|\"@yearn/web-lib\"|' package.json && sed -i -e 's|\"https://registry.npmjs.org\"|\"https://npm.pkg.github.com\"|' package.json && yarn publish --patch",
+		"publish-npm": "sed -i -e 's|\"@yearn/web-lib\"|\"@yearn-finance/web-lib\"|' package.json && sed -i -e 's|\"https://npm.pkg.github.com\"|\"https://registry.npmjs.org\"|' package.json && yarn publish --patch",
 
 		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
 		"lint-fix": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/' --fix",
