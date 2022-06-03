@@ -34,7 +34,7 @@ jobs:
         id: changesets-github
         uses: changesets/action@v1
         with:
-          publish: yarn --cwd packages/web-lib publish-github --patch
+          publish: yarn --cwd packages/web-lib publish-github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
