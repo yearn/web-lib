@@ -4,8 +4,7 @@ const dotenv = require('dotenv-webpack');
 
 module.exports = withTM({
 	experimental: {
-		concurrentFeatures: true,
-		esmExternals: 'loose'
+		concurrentFeatures: true
 	},
 	plugins: [new dotenv()],
 	images: {

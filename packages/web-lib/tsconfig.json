@@ -1,5 +1,5 @@
 {
-	"extends": "@yearn/web-lib/config/tsconfig.react-library.json",
+	"extends": "./config/tsconfig.react-library.json",
 	"include": [
 		"components/**.tsx",
 		"contexts/**.tsx",
