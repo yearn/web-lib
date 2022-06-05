@@ -243,24 +243,30 @@ label[aria-invalid="true"] {
 	}
 }
 
-/* -- AddressWithActions.tsx ------------------------------------------- */
-.yearn--addressWithActions-icon {
+/* -- ElementWithActions.tsx ------------------------------------------- */
+.yearn--elementWithActions-copy {
+	@apply cursor-copy px-1 md:px-2;
+}
+.yearn--elementWithActions-linkout {
+	@apply cursor-alias;
+	& > a {@apply cursor-alias;}
+}
+.yearn--elementWithActions-icon {
 	@apply w-4 h-4 transition-colors;
-	color: var(--addressWithActions-action-color);
+	color: var(--elementWithActions-action-color);
 	&:hover {
-		color: var(--addressWithActions-action-color-hover);
+		color: var(--elementWithActions-action-color-hover);
 	}
 }
-.yearn--addressWithActions {
-	--addressWithActions-text-color: rgb(var(--color-typo-primary));
-	--addressWithActions-action-color: rgb(var(--color-primary));
-	--addressWithActions-action-color-hover: rgb(var(--color-primary-variant));
+.yearn--elementWithActions {
+	--elementWithActions-text-color: rgb(var(--color-typo-primary));
+	--elementWithActions-action-color: rgb(var(--color-primary));
+	--elementWithActions-action-color-hover: rgb(var(--color-primary-variant));
 
 	@apply font-mono font-bold text-left;
-	color: var(--addressWithActions-text-color);
-	& ~ div > button,
+	color: var(--elementWithActions-text-color);
 	& ~ button {
-		@apply flex justify-center items-center p-0 w-8 h-8 rounded-lg cursor-copy;
+		@apply flex justify-center items-center p-0 w-8 h-8 rounded-lg;
 	}
 }
 

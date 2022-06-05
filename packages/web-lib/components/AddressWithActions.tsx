@@ -13,24 +13,24 @@ function	AddressWithActions({
 }: AddressWithActionsTypes.TAddressWithActions): ReactElement {
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
-			<p className={`yearn--addressWithActions ${className}`}>{toENS(address, truncate > 0, truncate)}</p>
-			<div className={'mx-2 md:mx-2'}>
-				<button
-					onClick={(e): void => {
-						e.stopPropagation();
-						copyToClipboard(address);
-					}}>
-					<IconCopy className={'yearn--addressWithActions-icon'} />
-				</button>
-			</div>
-			<button>
+			<p className={`yearn--elementWithActions ${className}`}>{toENS(address, truncate > 0, truncate)}</p>
+			<button
+				className={'yearn--elementWithActions-copy'}
+				onClick={(e): void => {
+					e.stopPropagation();
+					copyToClipboard(address);
+				}}>
+				<IconCopy className={'yearn--elementWithActions-icon'} />
+			</button>
+			<button className={'yearn--elementWithActions-linkout'}>
 				<a
 					onClick={(e): void => e.stopPropagation()}
 					href={`${explorer}/address/${address}`}
 					target={'_blank'}
+					className={'cursor-alias'}
 					rel={'noreferrer'}>
 					<span className={'sr-only'}>{'Link to explorer'}</span>
-					<IconLinkOut className={'yearn--addressWithActions-icon'} />
+					<IconLinkOut className={'yearn--elementWithActions-icon'} />
 				</a>
 			</button>
 		</span>
