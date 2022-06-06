@@ -7,7 +7,8 @@ function	SearchBox({
 	onChange,
 	onSearch,
 	isNarrow,
-	ariaLabel = 'Search'
+	ariaLabel = 'Search',
+	placeholder = 'Search'
 }: SearchBoxTypes.TSearchBox): ReactElement {
 	return (
 		<div className={'yearn--searchBox-wrapper'}>
@@ -29,7 +30,7 @@ function	SearchBox({
 						onChange={(e): void => onChange(e.target.value)}
 						type={'text'}
 						className={'yearn--searchBox-input'}
-						placeholder={'Search'} />
+						placeholder={placeholder} />
 				</label>
 			</form>
 		</div>
