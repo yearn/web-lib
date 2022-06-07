@@ -4,4 +4,5 @@ export type TSearchBox = {
 	onSearch?: (s: string) => void;
 	isNarrow?: boolean;
 	ariaLabel?: string;
+	placeholder?: string;
 };
