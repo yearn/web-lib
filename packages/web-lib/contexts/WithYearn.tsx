@@ -5,15 +5,18 @@ import	{BalancesContextApp}				from	'./useBalances';
 import	{UIContextApp}						from	'./useUI';
 import	{PricesContextApp}					from	'./usePrices';
 import	{Web3ContextApp}					from	'./useWeb3';
+import	{SettingsContextApp}				from	'./useSettings';
 import	{connectors}						from	'../utils/connectors';
 import	type {TUIOptions}					from	'./useUI.d';
 import	type {TWeb3Options}					from	'./useWeb3.d';
+import	type {TSettingsOptions}				from	'./useSettings.d';
 
 function	WithYearn({children, options}: {
 	children: ReactElement
 	options?: {
 		ui?: TUIOptions,
-		web3?: TWeb3Options
+		web3?: TWeb3Options,
+		networks?: TSettingsOptions,
 	}
 }): ReactElement {
 	const web3Connectors: [Connector | any, Web3ReactHooks][] = [
@@ -26,15 +29,17 @@ function	WithYearn({children, options}: {
 
 	return (
 		<UIContextApp options={options?.ui}>
-			<Web3ReactProvider connectors={web3Connectors} lookupENS={false}>
-				<Web3ContextApp options={options?.web3}>
-					<BalancesContextApp>
-						<PricesContextApp>
-							{children}
-						</PricesContextApp>
-					</BalancesContextApp>
-				</Web3ContextApp>
-			</Web3ReactProvider>
+			<SettingsContextApp options={options?.networks}>
+				<Web3ReactProvider connectors={web3Connectors} lookupENS={false}>
+					<Web3ContextApp options={options?.web3}>
+						<BalancesContextApp>
+							<PricesContextApp>
+								{children}
+							</PricesContextApp>
+						</BalancesContextApp>
+					</Web3ContextApp>
+				</Web3ReactProvider>
+			</SettingsContextApp>
 		</UIContextApp>
 	);
 }

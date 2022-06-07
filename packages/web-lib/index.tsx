@@ -3,6 +3,7 @@ export * from './contexts/useBalances';
 export * from './contexts/usePrices';
 export * from './contexts/useUI';
 export * from './contexts/useWeb3';
+export * from './contexts/useSettings';
 
 export * as hooks from './hooks/index';
 export * from './hooks/useClientEffect';

@@ -1,5 +1,5 @@
 import	React, {createContext, ReactElement}	from	'react';
-import	{Call, Contract}								from	'ethcall';
+import	{Call, Contract}						from	'ethcall';
 import	{ethers}								from	'ethers';
 import	useWeb3									from	'./useWeb3';
 import	useLocalStorage							from	'../hooks/useLocalStorage';
