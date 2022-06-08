@@ -1,4 +1,6 @@
 import	React, {ReactElement}				from	'react';
+import	{useSettings}						from	'../contexts/useSettings';
+import	{useWeb3}							from	'../contexts/useWeb3';
 import	{toENS, copyToClipboard}			from	'../utils/utils';
 import	IconLinkOut							from	'../icons/IconLinkOut';
 import	IconCopy							from	'../icons/IconCopy';
@@ -6,11 +8,23 @@ import type * as AddressWithActionsTypes	from	'./AddressWithActions.d';
 
 function	AddressWithActions({
 	address,
-	explorer = 'https://etherscan.io',
+	explorer = '',
 	truncate = 5,
 	wrapperClassName,
 	className = ''
 }: AddressWithActionsTypes.TAddressWithActions): ReactElement {
+	const	{networks} = useSettings();
+	const	{chainID} = useWeb3();
+	const	[explorerURI, set_explorerURI] = React.useState('');
+
+	React.useEffect(() => {
+		if (explorer !== '') {
+			set_explorerURI(explorer);
+		} else if (networks[chainID] && networks[chainID].explorerBaseURI) {
+			set_explorerURI(networks[chainID].explorerBaseURI as string);
+		}
+	}, [chainID, networks]);
+
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
 			<p className={`yearn--elementWithActions ${className}`}>{toENS(address, truncate > 0, truncate)}</p>
@@ -25,7 +39,7 @@ function	AddressWithActions({
 			<button className={'yearn--elementWithActions-linkout'}>
 				<a
 					onClick={(e): void => e.stopPropagation()}
-					href={`${explorer}/address/${address}`}
+					href={`${explorerURI}/address/${address}`}
 					target={'_blank'}
 					className={'cursor-alias'}
 					rel={'noreferrer'}>

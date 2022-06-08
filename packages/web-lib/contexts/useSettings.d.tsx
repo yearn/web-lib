@@ -5,6 +5,7 @@ export type	TSettingsForNetwork = {
 	graphURI?: string,
 	metaURI?: string,
 	apiURI?: string,
+	explorerBaseURI?: string,
 	lensAddress?: string,
 }
 

@@ -1,4 +1,6 @@
 import	React, {ReactElement}				from	'react';
+import	{useSettings}						from	'../contexts/useSettings';
+import	{useWeb3}							from	'../contexts/useWeb3';
 import	{truncateHex, copyToClipboard}		from	'../utils/utils';
 import	IconLinkOut							from	'../icons/IconLinkOut';
 import	IconCopy							from	'../icons/IconCopy';
@@ -6,11 +8,23 @@ import type * as TxHashWithActionsTypes		from	'./TxHashWithActions.d';
 
 function	TxHashWithActions({
 	txHash,
-	explorer = 'https://etherscan.io',
+	explorer = '',
 	truncate = 5,
 	wrapperClassName,
 	className = ''
 }: TxHashWithActionsTypes.TTxHashWithActions): ReactElement {
+	const	{networks} = useSettings();
+	const	{chainID} = useWeb3();
+	const	[explorerURI, set_explorerURI] = React.useState('');
+
+	React.useEffect(() => {
+		if (explorer !== '') {
+			set_explorerURI(explorer);
+		} else if (networks[chainID] && networks[chainID].explorerBaseURI) {
+			set_explorerURI(networks[chainID].explorerBaseURI as string);
+		}
+	}, [chainID, networks]);
+
 	return (
 		<span className={`flex flex-row items-center ${wrapperClassName}`}>
 			<p className={`yearn--elementWithActions ${className}`}>{truncateHex(txHash, truncate)}</p>
@@ -25,7 +39,7 @@ function	TxHashWithActions({
 			<button className={'yearn--elementWithActions-linkout'}>
 				<a
 					onClick={(e): void => e.stopPropagation()}
-					href={`${explorer}/address/${txHash}`}
+					href={`${explorerURI}/address/${txHash}`}
 					target={'_blank'}
 					className={'cursor-alias'}
 					rel={'noreferrer'}>
