@@ -39,7 +39,7 @@ const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 **	we want dApps to be able to customize, without being specific to the dApp.
 **	One of theses parameters is the list of networks with the specific Yearn's endpoints.
 **********************************************************************************************/
-export const SettingsContextApp = ({children, options}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
+export const SettingsContextApp = ({children, options = {}}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
 	const	[networks, set_networks] = React.useState<useSettingsTypes.TSettingsContext>(() => (
 		deepMerge(defaultSettings, options) as useSettingsTypes.TSettingsContext)
 	);

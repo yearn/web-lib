@@ -2,7 +2,7 @@ export function deepMerge(target: any, source: any): unknown {
 	const isObject = (obj: any) => obj && typeof obj === 'object';
 
 	if (!isObject(target) || !isObject(source)) {
-		return source;
+		return target;
 	}
 
 	Object.keys(source).forEach(key => {
