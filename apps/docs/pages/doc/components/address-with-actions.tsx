@@ -16,7 +16,7 @@ export default function	App(): React.ReactElement {
 				address={'0x16388463d60FFE0661Cf7F1f31a7D658aC790ff7'}
 				explorer={'https://etherscan.io'}
 				truncate={5}
-				className={'font-mono text-sm text-typo-secondary'} />
+				className={'font-mono text-sm text-neutral-500'} />
 		</Card>
 	);
 }`.trim();
@@ -29,7 +29,7 @@ export function	AddressActionComponent(): ReactElement {
 					address={toAddress('0x16388463d60FFE0661Cf7F1f31a7D658aC790ff7')}
 					explorer={'https://etherscan.io'}
 					truncate={5}
-					className={'font-mono text-sm text-typo-secondary'} />
+					className={'font-mono text-sm text-neutral-500'} />
 			</Card>
 		</div>
 	);
@@ -39,7 +39,7 @@ function	DocumentationAddressWithAction(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'AddressWithActions'}</h1>				
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'AddressWithActions'}</h1>				
 				<CodeExample>
 					<AddressActionComponent />
 				</CodeExample>

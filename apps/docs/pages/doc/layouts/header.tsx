@@ -21,7 +21,7 @@ function	DocumentationCard(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Header'}</h1>				
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Header'}</h1>				
 				<div className={'box-gradient-default'}>
 					<div className={'w-3/4'}>
 						<Header>

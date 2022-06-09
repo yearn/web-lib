@@ -47,7 +47,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 
 			<div className={'pb-6 mt-auto'}>
 				<div className={'flex flex-row justify-center items-center space-x-4'}>
-					<div className={'transition-colors text-typo-secondary'}>
+					<div className={'transition-colors text-neutral-500'}>
 						<a
 							href={'https://twitter.com/iearnfinance'}
 							target={'_blank'}
@@ -56,7 +56,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 							<IconSocialTwitter />
 						</a>
 					</div>
-					<div className={'transition-colors text-typo-secondary'}>
+					<div className={'transition-colors text-neutral-500'}>
 						<a
 							href={process.env.PROJECT_GITHUB_URL}
 							target={'_blank'}
@@ -65,7 +65,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 							<IconSocialGithub />
 						</a>
 					</div>
-					<div className={'transition-colors text-typo-secondary'}>
+					<div className={'transition-colors text-neutral-500'}>
 						<a
 							href={'https://discord.yearn.finance/'}
 							target={'_blank'}
@@ -74,7 +74,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 							<IconSocialDiscord />
 						</a>
 					</div>
-					<div className={'transition-colors text-typo-secondary'}>
+					<div className={'transition-colors text-neutral-500'}>
 						<a
 							href={'https://medium.com/iearn'}
 							target={'_blank'}

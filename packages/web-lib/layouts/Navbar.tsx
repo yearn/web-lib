@@ -6,14 +6,14 @@ import type * as NavbarTypes from './Navbar.d';
 function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
-			<div className={`mr-4 transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
+			<div className={`mr-4 transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary-500' : 'text-neutral-500 group-hover:text-primary-500'}`}>
 				{option.icon ? (
 					React.cloneElement(option.icon, {className: 'w-6 min-w-[1.5rem] h-6'})
 				) : (
 					<div className={'py-1 mr-4 w-6 min-w-[1.5rem] h-6 cursor-pointer'} />
 				)}
 			</div>
-			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
+			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary-500' : 'text-neutral-500 group-hover:text-primary-500'}`}>
 				{option.label}
 			</p>
 		</div>
@@ -24,7 +24,7 @@ function	NavbarMenuSubItem({option, selected}: NavbarTypes.TMenuItem): ReactElem
 	return (
 		<div className={'group flex flex-row items-center'}>
 			<div className={'py-1 mr-4 w-6 min-w-[1.5rem] h-6 cursor-pointer'} />
-			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary' : 'text-typo-secondary group-hover:text-primary'}`}>
+			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary-500' : 'text-neutral-500 group-hover:text-primary-500'}`}>
 				{option.label}
 			</p>
 		</div>
@@ -104,7 +104,7 @@ function	Navbar({
 			</div>
 			<div
 				aria-label={'mobile-navigation'}
-				className={'flex flex-row justify-between items-center p-4 border-b md:hidden bg-surface border-background-variant'}>
+				className={'flex flex-row justify-between items-center p-4 border-b md:hidden bg-neutral-0 border-neutral-300'}>
 				<a href={'/'}>
 					<div className={'flex flex-row items-center cursor-pointer'}>
 						<span className={'sr-only'}>{'Home'}</span>
@@ -117,7 +117,7 @@ function	Navbar({
 				<div
 					onClick={(): void => set_hasOpenMenu(true)}
 					className={'p-1 -m-1'}>
-					<IconHamburger className={'w-8 h-8 text-typo-primary'} />
+					<IconHamburger className={'w-8 h-8 text-neutral-700'} />
 				</div>
 				<ModalMenu
 					isOpen={hasOpenMenu}

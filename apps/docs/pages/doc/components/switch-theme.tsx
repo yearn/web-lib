@@ -34,7 +34,7 @@ function	DocumentationSwitchTheme(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'SwitchTheme'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'SwitchTheme'}</h1>
 				<CodeExample>
 					<SwitchThemeComponent />
 				</CodeExample>

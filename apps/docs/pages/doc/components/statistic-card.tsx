@@ -45,7 +45,7 @@ function	DocumentationStatCard(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'StatisticCard'}</h1>				
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'StatisticCard'}</h1>				
 				<CodeExample>
 					<div className={'w-3/4'}>
 						<StatisticCard.Wrapper>

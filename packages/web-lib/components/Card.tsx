@@ -14,7 +14,7 @@ function	CardDetailsSummary({startChildren, endChildren, ...props}: CardTypes.TC
 				{endChildren}
 				<div className={'ml-auto'}>
 					<IconChevron
-						className={`w-6 h-6 text-primary transition-transform ${props.open ? '-rotate-90' : '-rotate-180'}`} />
+						className={`w-6 h-6 text-primary-500 transition-transform ${props.open ? '-rotate-90' : '-rotate-180'}`} />
 				</div>
 			</div>
 		</div>
@@ -25,12 +25,12 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 	return (
 		<Disclosure>
 			{({open}): ReactElement => (
-				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-background' : 'bg-surface'} shadow-none rounded-lg p-0`}>
+				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} shadow-none rounded-lg p-0`}>
 					<Disclosure.Button
 						as={'div'}
 						role={'button'}
 						tabIndex={0}
-						className={`w-full h-full justify-between rounded-lg text-justify transition-colors ${variant === 'background' ? 'bg-background' : 'bg-surface'} ${open ? '' : 'hover:bg-surface-variant'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
+						className={`w-full h-full justify-between rounded-lg text-justify transition-colors ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} ${open ? '' : 'hover:bg-neutral-100'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
 						{summary}
 					</Disclosure.Button>
 					<AnimatePresence initial={false}>
@@ -45,7 +45,7 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 							>
 								<Disclosure.Panel
 									static
-									className={`px-6 pb-6 w-full rounded-b-lg ${variant === 'background' ? 'bg-background' : 'bg-surface'}`}>
+									className={`px-6 pb-6 w-full rounded-b-lg ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'}`}>
 									{children}
 								</Disclosure.Panel>
 							</motion.section>
@@ -69,7 +69,7 @@ function	CardWithTabs({tabs}: CardTypes.TCardWithTabs): ReactElement {
 						<Tab
 							key={option.label}
 							as={'div'}
-							className={({selected}): string => `yearn--card-tab-item ${selected ? 'selected' : ''}`}>
+							className={({selected}: {selected: boolean}): string => `yearn--card-tab-item ${selected ? 'selected' : ''}`}>
 							<p className={'text-lg text-center'}>{option.label}</p>
 						</Tab>
 					))}

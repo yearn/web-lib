@@ -11,11 +11,11 @@ function	ComponentAPI({elements}: TComponentAPI): ReactElement {
 	return (
 		<section aria-label={'component API'} className={'mt-6'}>
 			<h4>{'Component API'}</h4>
-			<dl className={'mt-4 space-y-4 w-full divide-y divide-surface'}>
+			<dl className={'mt-4 space-y-4 w-full'}>
 				{elements.map((element, index): ReactElement => (
 					<dd
 						key={`${element.title}_${index}`}
-						className={'grid grid-cols-12 p-4 space-y-4 rounded-lg md:space-y-0 bg-background'}>
+						className={'grid grid-cols-12 p-4 space-y-4 rounded-lg md:space-y-0 bg-neutral-200'}>
 						<div className={'col-span-12 md:col-span-2'}>
 							<b className={'font-mono break-words'}>{element.title}</b>
 						</div>

@@ -28,7 +28,7 @@ export function	HashActionComponent(): ReactElement {
 					txHash={'0x56aa0161072a6dd2661adf6fbebd0cbc6f538f9ad2306cc4cbe5afa06268b2f2'}
 					explorer={'https://etherscan.io'}
 					truncate={8}
-					className={'font-mono text-sm text-typo-secondary'} />
+					className={'font-mono text-sm text-neutral-500'} />
 			</Card>
 		</div>
 	);
@@ -38,7 +38,7 @@ function	DocumentationTxHashWithAction(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'TxHashWithActions'}</h1>				
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'TxHashWithActions'}</h1>				
 				<CodeExample>
 					<HashActionComponent />
 				</CodeExample>

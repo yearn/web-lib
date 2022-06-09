@@ -11,15 +11,15 @@ function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: Tok
 			padding={'none'}
 			{...props}>	
 			<button
-				className={`flex p-2 md:p-4 w-full h-full rounded-lg ${onClick ? 'hover:bg-surface-variant' : 'cursor-default'}`}
+				className={`flex p-2 md:p-4 w-full h-full rounded-lg ${onClick ? 'hover:bg-neutral-100' : 'cursor-default'}`}
 				onClick={onClick}
 				tabIndex={onClick ? 0 : -1}>
 				<img src={imgSrc} className={'my-auto mr-4 w-16 h-16 select-none'} />
 				<div className={'overflow-hidden flex-col text-left'}>
-					<div className={'mb-2 text-sm truncate text-typo-secondary'}>
+					<div className={'mb-2 text-sm truncate text-neutral-500'}>
 						{label}
 					</div>
-					<div className={'text-xl font-bold tabular-nums truncate text-typo-primary'}>
+					<div className={'text-xl font-bold tabular-nums truncate text-neutral-700'}>
 						{value}
 					</div>
 				</div>

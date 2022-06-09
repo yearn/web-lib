@@ -10,16 +10,16 @@
 ** Theses styles are used for the documentation
 **************************************************************************/
 .button-variant {
-	@apply flex w-8 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant;
+	@apply flex w-8 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-0;
 }
 .button-variant[aria-selected="true"] {
-	@apply flex w-8 h-8 font-bold rounded-lg bg-surface flex-center text-primary;
+	@apply flex w-8 h-8 font-bold rounded-lg bg-neutral-0 flex-center text-primary-500;
 }
 .button-variant-label {
-	@apply flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant;
+	@apply flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-0;
 }
 .button-variant-label[aria-selected="true"] {
-	@apply flex px-2 h-8 font-bold rounded-lg bg-surface flex-center text-primary;
+	@apply flex px-2 h-8 font-bold rounded-lg bg-neutral-0 flex-center text-primary-500;
 }
 
 .square-gradient-default {
@@ -66,5 +66,5 @@
 
 
 .feature-content {
-	@apply text-typo-primary rounded-lg bg-surface h-full flex flex-col z-10 shadow-none hover:shadow-md transition-shadow duration-700 animate-weight-normal cursor-pointer;
+	@apply text-neutral-700 rounded-lg bg-neutral-0 h-full flex flex-col z-10 shadow-none hover:shadow-md transition-shadow duration-700 animate-weight-normal cursor-pointer;
 }

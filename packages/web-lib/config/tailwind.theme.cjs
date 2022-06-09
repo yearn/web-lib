@@ -1,94 +1,112 @@
 const	lightTheme = {
-	'--color-background': '244 247 251',
-	'--color-background-variant': '224 234 255',
-	'--color-surface': '255 255 255',
-	'--color-surface-variant': '249 251 253',
-	'--color-primary': '6 87 249',
-	'--color-primary-variant': '0 74 223',
-	'--color-secondary': '224 234 255',
-	'--color-secondary-variant': '198 215 249',
-	'--color-disabled': '206 213 227',
-	'--color-dark': '20 20 20',
-	
-	'--color-alert-warning-primary': '255 138 0',
-	'--color-alert-warning-secondary': '255 244 231',
-	'--color-alert-warning-secondary-variant': '255 229 199',
-	'--color-alert-error-primary': '231 0 125',
-	'--color-alert-error-secondary': '255 232 244',
-	'--color-alert-error-secondary-variant': '255 207 233',
-	'--color-alert-critical-primary': '255 0 0',
-	'--color-alert-critical-secondary': '255 228 228',
-	'--color-alert-critical-secondary-variant': '255 206 206',
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the colors you will use the most and will make up the majority
+	**	of your UI. Use them for most of your text, backgrounds, and borders,
+	**	as well as for things like secondary buttons and links.
+	**************************************************************************/
+	'--color-neutral-0': '0 0% 100%',
+	'--color-neutral-100': '220 50% 98%',
+	'--color-neutral-200': '220 47% 97%',
+	'--color-neutral-300': '220 100% 94%',
+	'--color-neutral-400': '220 27% 85%',
+	'--color-neutral-500': '220 22% 36%',
+	'--color-neutral-600': '220 22% 25%',
+	'--color-neutral-700': '220 100% 14%',
+	'--color-neutral-800': '0 0% 8%',
+	'--color-neutral-900': '0 0% 0%',
 
-	'--color-icons-primary': '206 213 227',
-	'--color-icons-variant': '71 85 112',
-	'--color-typo-primary': '0 23 70',
-	'--color-typo-primary-variant': '6 87 249',
-	'--color-typo-secondary': '71 85 112',
-	'--color-typo-secondary-variant': '50 59 78',
-	'--color-typo-off': '206 213 227',
-	'--color-button-filled-primary': '6 87 249',
-	'--color-button-filled-variant': '0 74 223',
-	'--color-button-filled-text': '255 255 255',
-	'--color-button-outlined-primary': '255 255 255',
-	'--color-button-outlined-variant': '224 234 255',
-	'--color-button-outlined-text': '6 87 249',
-	'--color-button-disabled-primary': '244 247 251',
-	'--color-button-disabled-text': '206 213 227',
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the splashes of color that should appear the most in your UI,
+	**	and are the ones that determine the overall "look" of the site. Use
+	**	these for things like primary actions, links, navigation items, icons,
+	**	accent borders, or text you want to emphasize.
+	**************************************************************************/
+	'--color-primary-100': '220 100% 94%',
+	'--color-primary-200': '220 81% 88%',
+	'--color-primary-500': '220 95% 50%',
+	'--color-primary-600': '220 100% 44%',
+	'--color-accent-500': '220 95% 50%',
+	'--color-accent-600': '220 100% 44%',
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These colors should be used fairly conservatively throughout your UI to
+	**	avoid overpowering your primary colors. Use them when you need an
+	**	element to stand out, or to reinforce things like error states or
+	**	positive trends with the appropriate semantic color.
+	**************************************************************************/
+	'--color-support-yellow-900': '32 100% 45%',
+	'--color-support-yellow-300': '32 100% 95%',
+	'--color-support-yellow-200': '32 100% 90%',
+	'--color-support-pink-900': '328 100% 45%',
+	'--color-support-pink-300': '328 100% 95%',
+	'--color-support-pink-200': '328 100% 90%',
+	'--color-support-red-900': '0 100% 45%',
+	'--color-support-red-300': '0 100% 95%',
+	'--color-support-red-200': '0 100% 90%',
 }
 const	darkTheme = {
-	'--color-background': '20 20 20',
-	'--color-background-variant': '39 39 39',
-	'--color-surface': '0 0 0',
-	'--color-surface-variant': '25 25 25',
-	'--color-primary': '255 255 255',
-	'--color-primary-variant': '255 255 255',
-	'--color-secondary': '39 39 39',
-	'--color-secondary-variant': '32 32 32',
-	'--color-disabled': '168 168 168',
-	'--color-dark': '20 20 20',
-	'--color-alert-warning-primary': '255 138 0',
-	'--color-alert-warning-secondary': '255 244 231',
-	'--color-alert-warning-secondary-variant': '255 229 199',
-	'--color-alert-error-primary': '231 0 125',
-	'--color-alert-error-secondary': '255 232 244',
-	'--color-alert-error-secondary-variant': '255 207 233',
-	'--color-alert-critical-primary': '255 0 0',
-	'--color-alert-critical-secondary': '255 228 228',
-	'--color-alert-critical-secondary-variant': '255 206 206',
-	'--color-icons-primary': '168 168 168',
-	'--color-icons-variant': '255 255 255',
-	'--color-typo-primary': '255 255 255',
-	'--color-typo-primary-variant': '255 255 255',
-	'--color-typo-secondary': '168 168 168',
-	'--color-typo-secondary-variant': '168 168 168',
-	'--color-typo-off': '168 168 168',
-	'--color-button-filled-primary': '6 87 249',
-	'--color-button-filled-variant': '0 74 223',
-	'--color-button-filled-text': '255 255 255',
-	'--color-button-outlined-primary': '255 255 255',
-	'--color-button-outlined-variant': '39 39 39',
-	'--color-button-outlined-text': '255 255 255',
-	'--color-button-disabled-primary': '20 20 20',
-	'--color-button-disabled-text': '168 168 168'
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the colors you will use the most and will make up the majority
+	**	of your UI. Use them for most of your text, backgrounds, and borders,
+	**	as well as for things like secondary buttons and links.
+	**************************************************************************/
+	'--color-neutral-0': '0 0% 0%',
+	'--color-neutral-100': '0 0% 10%',
+	'--color-neutral-200': '0 0% 8%',
+	'--color-neutral-300': '0 0% 15%',
+	'--color-neutral-400': '0 0% 66%',
+	'--color-neutral-500': '0 0% 100%',
+	'--color-neutral-600': '0 0% 13%',
+	'--color-neutral-700': '0 0% 100%',
+	'--color-neutral-800': '0 0% 8%',
+	'--color-neutral-900': '0 0% 100%',
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the splashes of color that should appear the most in your UI,
+	**	and are the ones that determine the overall "look" of the site. Use
+	**	these for things like primary actions, links, navigation items, icons,
+	**	accent borders, or text you want to emphasize.
+	**************************************************************************/
+	'--color-primary-100': '0 0% 15%',
+	'--color-primary-200': '0 0% 13%',
+	'--color-primary-500': '0 0% 100%',
+	'--color-primary-600': '0 0% 90%',
+	'--color-accent-500': '220 95% 50%',
+	'--color-accent-600': '220 100% 44%',
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These colors should be used fairly conservatively throughout your UI to
+	**	avoid overpowering your primary colors. Use them when you need an
+	**	element to stand out, or to reinforce things like error states or
+	**	positive trends with the appropriate semantic color.
+	**************************************************************************/
+	'--color-support-yellow-900': '32 100% 45%',
+	'--color-support-yellow-300': '32 100% 95%',
+	'--color-support-yellow-200': '32 100% 90%',
+	'--color-support-pink-900': '328 100% 45%',
+	'--color-support-pink-300': '328 100% 95%',
+	'--color-support-pink-200': '328 100% 90%',
+	'--color-support-red-900': '0 100% 45%',
+	'--color-support-red-300': '0 100% 95%',
+	'--color-support-red-200': '0 100% 90%',
 }
 const colors = {
 	...lightTheme, //default
 
 	'@media (prefers-color-scheme: light)': {
-		'& [data-theme="system-prefs"]': {
+		'& body[data-theme="system-prefs"]': {
 			...lightTheme
 		}
 	},
 	'@media (prefers-color-scheme: dark)': {
-		'& [data-theme="system-prefs"]': {
+		'& body[data-theme="system-prefs"]': {
 			...darkTheme
 		}
 	},
-	'& [data-theme="light"]': {
+	'& body[data-theme="light"]': {
 		...lightTheme
 	},
-	'& [data-theme="dark"]': {
+	'& body[data-theme="dark"]': {
 		...darkTheme
 	}
 };

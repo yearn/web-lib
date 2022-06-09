@@ -5,9 +5,9 @@ const {colors, paddings} = require('./tailwind.theme.cjs');
 function withOpacityValue(variable) {
 	return ({opacityValue}) => {
 		if (opacityValue === undefined) {
-			return `rgb(var(${variable}))`;
+			return `hsl(var(${variable}))`;
 		}
-		return `rgb(var(${variable}) / ${opacityValue})`;
+		return `hsl(var(${variable}) / ${opacityValue})`;
 	};
 }
 
@@ -22,54 +22,37 @@ module.exports = {
 			mono: ['Roboto Mono', ...defaultTheme.fontFamily.mono]
 		},
 		colors: {
-			'white': '#FFFFFF',
+			'black': 'hsl(0, 0%, 0%)',
+			'white': 'rgb(255, 255, 255)',
 			'transparent': 'transparent',
 			'inherit': 'inherit',
 
-			'background': withOpacityValue('--color-background'),
-			'background-variant': withOpacityValue('--color-background-variant'),
-			'surface': withOpacityValue('--color-surface'),
-			'surface-variant': withOpacityValue('--color-surface-variant'),
-			'primary': withOpacityValue('--color-primary'),
-			'primary-variant': withOpacityValue('--color-primary-variant'),
-			'secondary': withOpacityValue('--color-secondary'),
-			'secondary-variant': withOpacityValue('--color-secondary-variant'),
-			'disabled': withOpacityValue('--color-disabled'),
-			'dark': withOpacityValue('--color-dark'),
-		
-			'alert-warning-primary': withOpacityValue('--color-alert-warning-primary'),
-			'alert-warning-secondary': withOpacityValue('--color-alert-warning-secondary'),
-			'alert-warning-secondary-variant': withOpacityValue('--color-alert-warning-secondary-variant'),
-			'alert-error-primary': withOpacityValue('--color-alert-error-primary'),
-			'alert-error-secondary': withOpacityValue('--color-alert-error-secondary'),
-			'alert-error-secondary-variant': withOpacityValue('--color-alert-error-secondary-variant'),
-			'alert-critical-primary': withOpacityValue('--color-alert-critical-primary'),
-			'alert-critical-secondary': withOpacityValue('--color-alert-critical-secondary'),
-			'alert-critical-secondary-variant': withOpacityValue('--color-alert-critical-secondary-variant'),
+			'neutral-0': withOpacityValue('--color-neutral-0'),
+			'neutral-100': withOpacityValue('--color-neutral-100'),
+			'neutral-200': withOpacityValue('--color-neutral-200'),
+			'neutral-300': withOpacityValue('--color-neutral-300'),
+			'neutral-400': withOpacityValue('--color-neutral-400'),
+			'neutral-500': withOpacityValue('--color-neutral-500'),
+			'neutral-600': withOpacityValue('--color-neutral-600'),
+			'neutral-700': withOpacityValue('--color-neutral-700'),
+			'neutral-800': withOpacityValue('--color-neutral-800'),
+			'neutral-900': withOpacityValue('--color-neutral-900'),
+			'primary-100': withOpacityValue('--color-primary-100'),
+			'primary-200': withOpacityValue('--color-primary-200'),
+			'primary-500': withOpacityValue('--color-primary-500'),
+			'primary-600': withOpacityValue('--color-primary-600'),
+			'accent-500': withOpacityValue('--color-accent-500'),
+			'accent-600': withOpacityValue('--color-accent-600'),
 
-			'icons-primary': withOpacityValue('--color-icons-primary'),
-			'icons-variant': withOpacityValue('--color-icons-variant'),
-		
-			'typo-primary': withOpacityValue('--color-typo-primary'),
-			'typo-primary-variant': withOpacityValue('--color-typo-primary-variant'),
-			'typo-secondary': withOpacityValue('--color-typo-secondary'),
-			'typo-secondary-variant': withOpacityValue('--color-typo-secondary-variant'),
-			'typo-off': withOpacityValue('--color-typo-off'),
-		
-			// Button filled
-			'button-filled-primary': withOpacityValue('--color-button-filled-primary'),
-			'button-filled-variant': withOpacityValue('--color-button-filled-variant'),
-			'button-filled-text': withOpacityValue('--color-button-filled-text'),
-
-			// Button outlined
-			'button-outlined-primary': withOpacityValue('--color-button-outlined-primary'),
-			'button-outlined-variant': withOpacityValue('--color-button-outlined-variant'),
-			'button-outlined-text': withOpacityValue('--color-button-outlined-text'),
-
-			// Button disabled
-			'button-disabled-primary': withOpacityValue('--color-button-disabled-primary'),
-			'button-disabled-variant': withOpacityValue('--color-button-disabled-primary'),
-			'button-disabled-text': withOpacityValue('--color-button-disabled-text')
+			'support-yellow-900': withOpacityValue('--color-support-yellow-900'),
+			'support-yellow-300': withOpacityValue('--color-support-yellow-300'),
+			'support-yellow-200': withOpacityValue('--color-support-yellow-200'),
+			'support-pink-900': withOpacityValue('--color-support-pink-900'),
+			'support-pink-300': withOpacityValue('--color-support-pink-300'),
+			'support-pink-200': withOpacityValue('--color-support-pink-200'),
+			'support-red-900': withOpacityValue('--color-support-red-900'),
+			'support-red-300': withOpacityValue('--color-support-red-300'),
+			'support-red-200': withOpacityValue('--color-support-red-200'),
 		},
 		extend: {
 			gridTemplateColumns: {
@@ -111,66 +94,14 @@ module.exports = {
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),
 		require('@tailwindcss/line-clamp'),
-		plugin(function ({addBase, addComponents, addUtilities, theme}) {
+		plugin(function ({addBase, addUtilities, theme}) {
 			addBase({
 				':root': {
 					...colors,
 					...paddings
-				},
-				'html': {
-					marginLeft: 'calc(100vw - 100%)'
-				},
-				'body': {
-					color: theme('colors.typo-primary')
-				},
-				'h1': {
-					fontSize: theme('fontSize.xl'),
-					fontWeight: theme('fontWeight.bold'),
-					color: theme('colors.primary')
-				},
-				'h4': {
-					fontSize: theme('fontSize.lg'),
-					fontWeight: theme('fontWeight.bold'),
-					color: theme('colors.typo-primary')
-				},
-			});
-			addComponents({
-				'#__next': {
-					width: theme('width.full'),
-					height: theme('width.full')
-				},
-				'.inline-dl': {
-					display: 'flex',
-					flexDirection: 'column',
-					padding: theme('spacing.6'),
-					boxShadow: theme('boxShadow.xl')
-				},
-				'.link': {
-					color: theme('colors.primary'),
-					textDecoration: 'underline',
-					cursor: theme('cursor.pointer'),
-					transitionProperty: 'color',
-					transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-					transitionDuration: '150ms',
-					'&:hover': {
-						color: theme('colors.primary-variant')
-					}
 				}
 			});
 			addUtilities({
-				'.flex-center': {
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center'
-				},
-				'.cell-end': {
-					justifyContent: 'flex-end',
-					textAlign: 'right'
-				},
-				'.cell-start': {
-					justifyContent: 'flex-start',
-					textAlign: 'left'
-				},
 				'.scrollbar-none': {
 					'-ms-overflow-style': 'none',
 					'scrollbar-width': 'none',

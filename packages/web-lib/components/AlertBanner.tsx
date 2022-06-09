@@ -17,10 +17,10 @@ function	AlertBanner({
 	const	[isVisible, set_isVisible] = React.useState(true);
 	const	[currentSlide, set_currentSlide] = React.useState(0);
 	const	hasSlide = (children as ReactElement).type === undefined;
-	const	infoClassName = 'text-primary bg-secondary border-primary';
-	const	warningClassName = 'text-alert-warning-primary bg-alert-warning-secondary border-alert-warning-primary';
-	const	errorClassName = 'text-alert-error-primary bg-alert-error-secondary border-alert-error-primary';
-	const	criticalClassName = 'text-alert-critical-primary bg-alert-critical-secondary border-alert-critical-primary';
+	const	infoClassName = 'text-primary-500 bg-primary-100 border-primary-500';
+	const	warningClassName = 'text-support-yellow-900 bg-support-yellow-300 border-support-yellow-900';
+	const	errorClassName = 'text-support-pink-900 bg-support-pink-300 border-support-pink-900';
+	const	criticalClassName = 'text-support-red-900 bg-support-red-300 border-support-red-900';
 	const	alertClassName = level === 'critical' ? criticalClassName : level === 'warning' ? warningClassName : level === 'error' ? errorClassName : infoClassName;
 
 	React.useEffect((): void => {

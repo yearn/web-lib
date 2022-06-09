@@ -18,7 +18,7 @@ function	DocumentationSwitch(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Icons'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Icons'}</h1>
 				<div className={'box-gradient-default'}>
 					<div className={'grid grid-cols-6 gap-10 w-full'}>
 						{Object.entries(Icons).map(([name, icon]): ReactElement => (

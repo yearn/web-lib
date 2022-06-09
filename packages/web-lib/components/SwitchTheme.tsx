@@ -21,10 +21,10 @@ function	SwitchTheme({theme, switchTheme, ...props}: SwitchThemeTypes.TSwitchThe
 			className={`hidden flex-row items-center md:flex space-x-2 ${props.className ?? ''}`}>
 			<IconThemeLight
 				aria-label={'Switch to light theme'}
-				className={`w-5 h-5 transition-colors cursor-pointer ${['light', 'light-initial'].includes(currentTheme) ? 'text-primary' : 'text-typo-secondary hover:text-primary'}`} />
+				className={`w-5 h-5 transition-colors cursor-pointer ${['light', 'light-initial'].includes(currentTheme) ? 'text-primary-500' : 'text-neutral-500 hover:text-primary-500'}`} />
 			<IconThemeDark
 				aria-label={'Switch to dark theme'}
-				className={`w-5 h-5 transition-colors cursor-pointer ${currentTheme === 'dark' ? 'text-primary' : 'text-typo-secondary hover:text-primary'}`} />
+				className={`w-5 h-5 transition-colors cursor-pointer ${currentTheme === 'dark' ? 'text-primary-500' : 'text-neutral-500 hover:text-primary-500'}`} />
 		</div>
 	);
 }

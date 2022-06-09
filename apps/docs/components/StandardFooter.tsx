@@ -10,34 +10,34 @@ function	Footer(): ReactElement {
 	return (
 		<footer className={'hidden flex-row items-center py-8 mx-auto mt-auto w-full max-w-6xl md:flex'}>
 			<Link href={'/disclaimer'}>
-				<p className={'mr-6 text-xs hover:underline transition-colors cursor-pointer text-typo-secondary hover:text-primary'}>{'Disclaimer'}</p>
+				<p className={'mr-6 text-xs text-neutral-500 hover:underline transition-colors cursor-pointer hover:text-primary-500'}>{'Disclaimer'}</p>
 			</Link>
-			<a href={'https://docs.yearn.finance'} target={'_blank'} className={'mr-6 text-xs hover:underline transition-colors text-typo-secondary hover:text-primary'} rel={'noreferrer'}>
+			<a href={'https://docs.yearn.finance'} target={'_blank'} className={'mr-6 text-xs text-neutral-500 hover:underline transition-colors hover:text-primary-500'} rel={'noreferrer'}>
 				{'Documentation'}
 			</a>
-			<a href={'https://gov.yearn.finance/'} target={'_blank'} className={'mr-6 text-xs hover:underline transition-colors text-typo-secondary hover:text-primary'} rel={'noreferrer'}>
+			<a href={'https://gov.yearn.finance/'} target={'_blank'} className={'mr-6 text-xs text-neutral-500 hover:underline transition-colors hover:text-primary-500'} rel={'noreferrer'}>
 				{'Governance forum'}
 			</a>
-			<a href={'https://github.com/yearn/yearn-security/blob/master/SECURITY.md'} target={'_blank'} className={'mr-6 text-xs hover:underline transition-colors text-typo-secondary hover:text-primary'} rel={'noreferrer'}>
+			<a href={'https://github.com/yearn/yearn-security/blob/master/SECURITY.md'} target={'_blank'} className={'mr-6 text-xs text-neutral-500 hover:underline transition-colors hover:text-primary-500'} rel={'noreferrer'}>
 				{'Report a vulnerability'}
 			</a>
 
-			<div className={'px-2 ml-auto transition-colors cursor-pointer text-typo-secondary hover:text-primary'}>
+			<div className={'px-2 ml-auto text-neutral-500 transition-colors cursor-pointer hover:text-primary-500'}>
 				<a href={'https://twitter.com/iearnfinance'} target={'_blank'} rel={'noreferrer'}>
 					<SocialTwitter className={'w-5 h-5'} />
 				</a>
 			</div>
-			<div className={'px-2 transition-colors cursor-pointer text-typo-secondary hover:text-primary'}>
+			<div className={'px-2 text-neutral-500 transition-colors cursor-pointer hover:text-primary-500'}>
 				<a href={process.env.PROJECT_GITHUB_URL} target={'_blank'} rel={'noreferrer'}>
 					<SocialGithub className={'w-5 h-5'} />
 				</a>
 			</div>
-			<div className={'px-2 transition-colors cursor-pointer text-typo-secondary hover:text-primary'}>
+			<div className={'px-2 text-neutral-500 transition-colors cursor-pointer hover:text-primary-500'}>
 				<a href={'https://discord.yearn.finance/'} target={'_blank'} rel={'noreferrer'}>
 					<SocialDiscord className={'w-5 h-5'} />
 				</a>
 			</div>
-			<div className={'px-2 transition-colors cursor-pointer text-typo-secondary hover:text-primary'}>
+			<div className={'px-2 text-neutral-500 transition-colors cursor-pointer hover:text-primary-500'}>
 				<a href={'https://medium.com/iearn'} target={'_blank'} rel={'noreferrer'}>
 					<SocialMedium className={'w-5 h-5'} />
 				</a>

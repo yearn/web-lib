@@ -64,7 +64,7 @@ export function truncateHex(address: string | undefined, size: number): string {
 export function	parseMarkdown(markdownText: string): string {
 	const htmlText = markdownText
 		.replace(/\[(.*?)\]\((.*?)\)/gim, "<a class='link' target='_blank' href='$2'>$1</a>")
-		.replace(/~~(.*?)~~/gim, "<span class='text-primary'>$1</span>")
+		.replace(/~~(.*?)~~/gim, "<span class='text-primary-500'>$1</span>")
 		.replace(/\*\*(.*?)\*\*/gim, "<span class='font-bold'>$1</span>")
 		;
 

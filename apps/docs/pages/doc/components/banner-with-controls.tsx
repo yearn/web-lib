@@ -119,7 +119,7 @@ function	VariantLevel(): ReactElement {
 					</Banner.WithControls> : null}
 				</div>
 				<div className={'absolute z-0'}>
-					<div onClick={(): void => set_isClosed(false)} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-surface flex-center hover:bg-surface-variant'}>{'Reset'}</div>
+					<div onClick={(): void => set_isClosed(false)} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-100'}>{'Reset'}</div>
 				</div>
 			</div>
 		);
@@ -138,7 +138,7 @@ function	DocumentationBanner(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Banner With Controls'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Banner With Controls'}</h1>
 				<section aria-label={'code-part'}>
 					<VariantLevel />
 					<Highlight code={code} />

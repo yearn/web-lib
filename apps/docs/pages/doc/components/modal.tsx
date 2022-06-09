@@ -57,7 +57,7 @@ function	DocumentationModal(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Modal'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Modal'}</h1>
 				<CodeExample>
 					<ModalComponent />
 				</CodeExample>

@@ -50,7 +50,7 @@ function	DocumentationDropdown(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Dropdown'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Dropdown'}</h1>
 				<CodeExample>
 					<DropdownComponent />
 				</CodeExample>

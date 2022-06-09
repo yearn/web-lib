@@ -38,7 +38,7 @@ function	DocumentationCard(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Card.Tabs'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Card.Tabs'}</h1>
 				<CodeExample>
 					<CardTabsComponent />
 				</CodeExample>

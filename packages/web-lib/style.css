@@ -1,11 +1,19 @@
 @tailwind base;
 
+:root {
+	margin-left: calc(100vw - 100%);
+}
+body {@apply text-neutral-700;}
+h1 {@apply text-xl font-bold text-primary-500;}
+h4 {@apply text-lg font-bold text-neutral-700;}
+#__next {@apply w-full h-full}
+
 /* 🔵 - Yearn Finance ******************************************************
 ** Overwritting the defaults to match our needs
 **************************************************************************/
 * {@apply scroll-smooth font-roboto}
-input::placeholder {@apply text-typo-off not-italic}
-textarea::placeholder {@apply text-typo-off not-italic}
+input::placeholder {@apply text-neutral-400 not-italic}
+textarea::placeholder {@apply text-neutral-400 not-italic}
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
@@ -15,7 +23,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-	-webkit-box-shadow: 0 0 0px 1000px rgb(var(--color-background) / 0) inset;
+	-webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
 	transition: background-color 5000s ease-in-out 0s;
 }
 input::-webkit-outer-spin-button,
@@ -27,7 +35,7 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 label[aria-invalid="true"] {
-	@apply text-typo-secondary transition-colors;
+	@apply text-neutral-500 transition-colors;
 	& > form > div {
 		@apply border-[#FE0000] focus-within:border-[#FE0000] text-[#FE0000] focus-within:text-[#FE0000];
 	}
@@ -45,42 +53,63 @@ label[aria-invalid="true"] {
 .image-align-middle > img {
 	object-position: 0 70%;
 }
+.inline-dl {@apply flex flex-col p-6 shadow-xl;}
+.flex-center {@apply flex justify-center items-center;}
+.cell-end {@apply justify-end text-right;}
+.cell-start {@apply justify-start text-left;}
+.link {
+	@apply text-primary-500 underline cursor-pointer transition-colors;
+	&:hover {@apply text-primary-600;}
+}
 
 /* -- Button.tsx ------------------------------------------------------- */
 .yearn--button {
 	@apply cursor-pointer px-3 flex justify-center items-center h-8 rounded-lg text-base transition-colors relative;
-
 	&[data-variant="filled"] {
-		@apply text-button-filled-text bg-button-filled-primary font-bold;
-		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-filled-variant;}
+		@apply text-neutral-0 bg-accent-500 font-bold;
+		&:disabled {@apply bg-neutral-200 text-neutral-400;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-accent-600;}
 	}
 	&[data-variant="light"] {
-		@apply text-primary bg-button-outlined-variant;
-		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-secondary-variant;}
+		@apply text-primary-500 bg-primary-100;
+		&:disabled {@apply bg-neutral-200 text-neutral-400;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-primary-200;}
 	}
 	&[data-variant="outlined"] {
-		@apply text-primary bg-transparent border border-primary;
-		&:disabled {@apply border-button-disabled-text text-button-disabled-text;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
+		@apply text-accent-500 bg-transparent border border-accent-500;
+		&:disabled {@apply border-neutral-400 text-neutral-400;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-primary-100;}
 	}
 	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
 	&:disabled {@apply cursor-not-allowed;}
 }
 
+:root [data-theme="dark"] {
+	& .yearn--button {
+		&[data-variant="filled"] {
+			@apply text-neutral-900;
+			&:disabled {@apply opacity-60;}
+		}
+		&[data-variant="outlined"] {
+			@apply text-neutral-900 bg-transparent border border-neutral-900;
+			&:disabled {@apply opacity-60;}
+		}
+	}
+}
+
+
 /* -- SearchBox.tsx ---------------------------------------------------- */
 .yearn--searchBox-wrapper {
-	--searchBox-text-color: rgb(var(--color-typo-secondary));
-	--searchBox-border-color: rgb(var(--color-surface));
-	--searchBox-bg-color: rgb(var(--color-surface));
+	--searchBox-text-color: hsl(var(--color-neutral-500));
+	--searchBox-border-color: hsl(var(--color-neutral-0));
+	--searchBox-bg-color: hsl(var(--color-neutral-0));
 	--searchBox-border-width: 2px;
 
 	@apply overflow-hidden rounded-lg;
 	background-color: var(--searchBox-bg-color);
 }
 .yearn--searchBox {
-	@apply flex flex-row items-center w-full rounded-lg focus-within:border-primary transition-colors bg-transparent;
+	@apply flex flex-row items-center w-full rounded-lg focus-within:border-primary-500 transition-colors bg-transparent;
 	color: var(--searchBox-text-color);
 	border: solid var(--searchBox-border-width) var(--searchBox-border-color);
 
@@ -101,9 +130,9 @@ label[aria-invalid="true"] {
 
 /* -- Card.tsx --------------------------------------------------------- */
 .yearn--card-tab-item {
-	--card-tab-color-active: rgb(var(--color-primary));
-	--card-tab-color: rgb(var(--color-disabled));
-	--card-bg-color: rgb(var(--color-background));
+	--card-tab-color-active: hsl(var(--color-primary-500));
+	--card-tab-color: hsl(var(--color-neutral-400));
+	--card-bg-color: hsl(var(--color-neutral-200));
 
 	@apply w-full h-20 border-b-2 flex-center cursor-pointer;
 	&.selected {
@@ -121,7 +150,7 @@ label[aria-invalid="true"] {
 	}
 }
 .yearn--card-tab {
-	@apply flex flex-row w-full rounded-b-none;
+	@apply flex flex-row w-full !rounded-b-none;
 	& > .yearn--card-tab-item:first-child {
 		@apply rounded-tl-lg;
 	}
@@ -131,9 +160,9 @@ label[aria-invalid="true"] {
 }
 .yearn--card {
 	@apply shadow-none rounded-lg transition-all;
-	&[role="button"] {@apply cursor-pointer hover:bg-surface-variant shadow-lg;}
-	&[data-variant="background"] {@apply bg-background;}
-	&[data-variant="surface"] {@apply bg-surface;}
+	&[role="button"] {@apply cursor-pointer hover:bg-neutral-0 shadow-lg;}
+	&[data-variant="background"] {@apply bg-neutral-200;}
+	&[data-variant="surface"] {@apply bg-neutral-0;}
 	&[data-padding="narrow"] {@apply p-2 md:p-4;}
 	&[data-padding="regular"] {@apply p-4 md:p-6;}
 }
@@ -174,12 +203,12 @@ label[aria-invalid="true"] {
 	}
 }
 .yearn--banner {
-	--banner-bg-color: rgb(var(--color-secondary));
-	--banner-text-color: rgb(var(--color-primary));
-	--banner-border-color: rgb(var(--color-primary));
+	--banner-bg-color: hsl(var(--color-primary-100));
+	--banner-text-color: hsl(var(--color-primary-500));
+	--banner-border-color: hsl(var(--color-primary-500));
 	--banner-border-width: 2px;
 
-	@apply w-full flex flex-col-reverse md:flex-row relative rounded-lg overflow-hidden text-primary;
+	@apply w-full flex flex-col-reverse md:flex-row relative rounded-lg overflow-hidden;
 	background-color: var(--banner-bg-color);
 	color: var(--banner-text-color);
 	border: solid var(--banner-border-width) var(--banner-border-color);
@@ -205,12 +234,12 @@ label[aria-invalid="true"] {
 
 /* -- Switch.tsx ------------------------------------------------------- */
 .yearn--switch {
-	--switch-bg-color: rgb(var(--color-secondary-variant));
+	--switch-bg-color: var(--color-neutral-600);
 	--switch-border-width: 2px;
-	--switch-border-color: rgb(var(--color-primary));
-	--switch-knob-color: rgb(var(--color-primary));
+	--switch-border-color: var(--color-primary-500);
+	--switch-knob-color: var(--color-primary-500);
 
-	@apply relative flex h-6 w-[42px] border border-primary rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center;
+	@apply relative flex h-6 w-[42px] border border-primary-500 rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center;
 	border: solid var(--switch-border-width) var(--switch-border-color);
 	&[aria-checked="true"] {background-color: var(--switch-bg-color);}
 	&[aria-checked="false"] {@apply bg-transparent;}
@@ -225,9 +254,9 @@ label[aria-invalid="true"] {
 .yearn--dropdown {
 }
 .yearn--dropdown-menu {
-	--dropdown-text-color: rgb(var(--color-primary));
-	--dropdown-bg-color: rgb(var(--color-background-variant));
-	--dropdown-bg-color-active: rgb(var(--color-secondary-variant));
+	--dropdown-text-color: hsl(var(--color-primary-500));
+	--dropdown-bg-color: hsl(var(--color-neutral-300));
+	--dropdown-bg-color-active: hsl(var(--color-neutral-600));
 	--dropdown-border-width: 0px;
 	--dropdown-border-color: transparent;
 
@@ -262,9 +291,9 @@ label[aria-invalid="true"] {
 	@apply flex flex-row items-center;
 }
 .yearn--elementWithActions {
-	--elementWithActions-text-color: rgb(var(--color-typo-primary));
-	--elementWithActions-action-color: rgb(var(--color-primary));
-	--elementWithActions-action-color-hover: rgb(var(--color-primary-variant));
+	--elementWithActions-text-color: hsl(var(--color-neutral-700));
+	--elementWithActions-action-color: hsl(var(--color-primary-500));
+	--elementWithActions-action-color-hover: hsl(var(--color-primary-600));
 
 	@apply font-mono font-bold text-left;
 	color: var(--elementWithActions-text-color);
@@ -285,11 +314,11 @@ label[aria-invalid="true"] {
 	}
 }
 .yearn--input {
-	--input-label-color: rgb(var(--color-typo-secondary));
+	--input-label-color: hsl(var(--color-neutral-500));
 	--input-max-bg-color: transparent;
-	--input-max-bg-color-hover: rgb(var(--color-button-outlined-variant));
-	--input-max-text-color: rgb(var(--color-primary));
-	--input-max-border-color: rgb(var(--color-primary));
+	--input-max-bg-color-hover: hsl(var(--color-primary-100));
+	--input-max-text-color: hsl(var(--color-primary-500));
+	--input-max-border-color: hsl(var(--color-primary-500));
 	--input-max-border-width: 1px;
 
 	@apply space-y-1 md:space-y-2;
@@ -309,15 +338,15 @@ label[aria-invalid="true"] {
 .yearn--alertbox {
 	--alertbox-icon-size: 1.25rem;
 
-	@apply flex flex-row items-start p-2 rounded-lg text-primary bg-secondary space-x-2;
+	@apply flex flex-row items-start p-2 rounded-lg text-primary-500 bg-primary-100 space-x-2;
 	&[data-variant="critical"] {
-		@apply text-alert-critical-primary bg-alert-critical-secondary;
+		@apply text-support-red-900 bg-support-red-300;
 	}
 	&[data-variant="error"] {
-		@apply text-alert-error-primary bg-alert-error-secondary;
+		@apply text-support-pink-900 bg-support-pink-300;
 	}
 	&[data-variant="warning"] {
-		@apply text-alert-warning-primary bg-alert-warning-secondary;
+		@apply text-support-yellow-900 bg-support-yellow-300;
 	}
 }
 
@@ -326,17 +355,17 @@ label[aria-invalid="true"] {
 	@apply flex justify-center items-end px-4 pt-4 pb-20 min-h-screen text-center sm:block sm:p-0;
 }
 .yearn--modal {
-	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom rounded-lg shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle md:mb-96 bg-surface;
+	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom rounded-lg shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle md:mb-96 bg-neutral-0;
 }
 
 /* -- ModalLogin.tsx ---------------------------------------------------- */
 .yearn--modalLogin-wrapper {
 }
 .yearn--modalLogin-card {
-	@apply flex flex-col justify-center items-center py-6 px-2 text-center rounded-sm transition-colors cursor-pointer bg-surface hover:bg-surface-variant;
+	@apply flex flex-col justify-center items-center py-6 px-2 text-center rounded-sm transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-0;
 	& > div > svg {@apply w-12 h-12;}
-	& > b {@apply mt-2 text-xl text-typo-primary;}
-	& > p {@apply text-typo-secondary;}
+	& > b {@apply mt-2 text-xl text-neutral-700;}
+	& > p {@apply text-neutral-500;}
 }
 .yearn--modalLogin {
 	@apply grid grid-cols-2 p-6 space-y-4;
@@ -367,14 +396,14 @@ label[aria-invalid="true"] {
 .nprogress-custom-parent #nprogress .spinner {@apply absolute}
 .nprogress-custom-parent #nprogress .bar {@apply absolute}
 #nprogress {@apply pointer-events-none}
-#nprogress .bar {@apply bg-primary fixed top-0 left-0 w-full h-1 z-[1031]}
+#nprogress .bar {@apply bg-accent-500 fixed top-0 left-0 w-full h-1 z-[1031]}
 #nprogress .spinner {@apply block fixed z-[1031] top-4 right-4}
-#nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-primary border-l-primary rounded-[50%] animate-spin}
+#nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-accent-500 border-l-accent-500 rounded-[50%] animate-spin}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Some accessibilities fixes
 **************************************************************************/
-:focus {@apply outline-2 outline-primary outline-offset-2;}
+:focus {@apply outline-2 outline-accent-500 outline-offset-2;}
 .scrollbar-none::-webkit-scrollbar {display: none;}
 .scrollbar-none {
     -ms-overflow-style: none;  /* IE and Edge */

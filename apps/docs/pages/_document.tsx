@@ -21,7 +21,7 @@ class MyDocument extends Document {
 					<link rel={'preconnect'} href={'https://fonts.gstatic.com'} crossOrigin={'true'} />
 					<link href={'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;700&family=Source+Code+Pro&&display=swap'} rel={'stylesheet'} />
 				</Head>
-				<body className={'transition-colors duration-150 bg-background'} data-theme={'light'}>
+				<body className={'bg-neutral-200 transition-colors duration-150'} data-theme={'light'}>
 					<Main />
 					<NextScript />
 				</body>

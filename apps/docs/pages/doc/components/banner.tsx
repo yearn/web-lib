@@ -130,7 +130,7 @@ function	DocumentationBanner(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Banner'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Banner'}</h1>
 				<section aria-label={'code-part'}>
 					<VariantLevel />
 					<Highlight code={code} />

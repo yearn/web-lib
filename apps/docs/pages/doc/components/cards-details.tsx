@@ -14,7 +14,7 @@ export default function	App(): React.ReactElement {
 			summary={(p: unknown): ReactElement => (
 				<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
 			)}>
-			<div className={'text-typo-primary'}>
+			<div className={'text-neutral-700'}>
 				{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
 				{'Laboriosam et natus natus sed beatae. Quia in magni minus inventore ipsa repudiandae. Provident debitis impedit doloremque harum dolorum sit. Ut eaque recusandae ad cupiditate autem facilis. Molestiae possimus ea doloribus magnam asperiores aut sit. Iure sit et excepturi voluptas id.'}
 			</div>
@@ -42,7 +42,7 @@ export function	CardDetailsComponent(): ReactElement {
 				summary={(p: any): ReactElement => (
 					<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
 				)}>
-				<div className={'text-typo-primary'}>
+				<div className={'text-neutral-700'}>
 					{'Dolore pariatur aut facilis.'}
 				</div>
 			</Card.Detail>
@@ -55,7 +55,7 @@ function	DocumentationCard(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
-				<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Card.Detail'}</h1>
+				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Card.Detail'}</h1>
 				<section aria-label={'code-part'}>
 					<CodeExample>
 						<div className={'w-3/4'}>
@@ -63,7 +63,7 @@ function	DocumentationCard(): ReactElement {
 								summary={(p: any): ReactElement => (
 									<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
 								)}>
-								<div className={'text-typo-primary'}>
+								<div className={'text-neutral-700'}>
 									{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
 									{'Laboriosam et natus natus sed beatae. Quia in magni minus inventore ipsa repudiandae. Provident debitis impedit doloremque harum dolorum sit. Ut eaque recusandae ad cupiditate autem facilis. Molestiae possimus ea doloribus magnam asperiores aut sit. Iure sit et excepturi voluptas id.'}
 								</div>
@@ -97,7 +97,7 @@ function	DocumentationCard(): ReactElement {
 				</section>
 
 				<section aria-label={'extra-code-part'} className={'mt-10'}>
-					<h1 className={'mb-2 text-3xl text-typo-primary'}>{'Card.Detail.Summary'}</h1>
+					<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Card.Detail.Summary'}</h1>
 					<Highlight code={codeAlt} />
 					<section aria-label={'description-part'} className={'mt-6'}>
 						<h4 className={'mb-1'}>{'Description'}</h4>

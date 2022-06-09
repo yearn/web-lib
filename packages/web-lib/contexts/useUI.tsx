@@ -31,6 +31,17 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	useClientEffect((): void => {
 		if (options.shouldUseThemes) {
 			set_theme(themeFromLs as string);
+			if (themeFromLs === 'system-prefs') {
+				const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+				darkModeMediaQuery.addEventListener('change', listenToThemeChange);
+				if (darkModeMediaQuery.matches) {
+					userPrefersColorScheme.current = 'dark';
+					set_theme('dark');
+				} else {
+					userPrefersColorScheme.current = 'light';
+					set_theme('light');
+				}
+			}
 		} else {
 			set_theme('light');
 		}
@@ -72,7 +83,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 			return;
 		}
 		if (theme === userPrefersColorScheme.current) {
-			document.body.dataset.theme = 'system-prefs';
+			document.body.dataset.theme = theme;
 			set_themeFromLs(theme);
 		} else if (theme === 'light') {
 			document.body.dataset.theme = 'light';
@@ -90,7 +101,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 				containerClassName={'!z-[1000000]'}
 				containerStyle={{zIndex: 1000000}}
 				toastOptions={{
-					className: 'text-sm text-typo-primary',
+					className: 'text-sm text-neutral-700',
 					style: {borderRadius: '0.5rem'}
 				}} /> : null}
 			{children}

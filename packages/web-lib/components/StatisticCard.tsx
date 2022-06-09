@@ -9,10 +9,10 @@ function StatisticCardBase({label, value, ...props}: StatisticCardTypes.TStatist
 			className={`flex flex-col ${className}`}
 			padding={'narrow'}
 			{...props}>
-			<div className={'mb-2 text-sm text-typo-secondary'}>
+			<div className={'mb-2 text-sm text-neutral-500'}>
 				{label}
 			</div>
-			<div className={'text-xl font-bold tabular-nums text-typo-primary'}>
+			<div className={'text-xl font-bold tabular-nums text-neutral-700'}>
 				{value}
 			</div>
 		</Card>
