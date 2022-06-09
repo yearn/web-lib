@@ -8,29 +8,25 @@ function	AlertBox({
 	alerts,
 	level = 'warning'
 }: AlertTypes.TAlertBox): ReactElement | null {
-	const	infoClassName = 'text-primary bg-secondary';
-	const	warningClassName = 'text-alert-warning-primary bg-alert-warning-secondary';
-	const	errorClassName = 'text-alert-error-primary bg-alert-error-secondary';
-	const	criticalClassName = 'text-alert-critical-primary bg-alert-critical-secondary';
-	const	alertClassName = `flex flex-row items-start p-2 rounded-lg ${level === 'critical' ? criticalClassName : level === 'warning' ? warningClassName : level === 'error' ? errorClassName : infoClassName}`;
-
 	function	renderIcon(): ReactElement {
 		if (level === 'critical')
-			return (<IconAlertCritical className={'w-5 h-5'} />);
+			return (<IconAlertCritical className={'yearn--alertbox-icon'} />);
 		if (level === 'error')
-			return (<IconAlertError className={'w-5 h-5'} />);
+			return (<IconAlertError className={'yearn--alertbox-icon'} />);
 		if (level === 'warning')
-			return (<IconAlertWarning className={'w-5 h-5'} />);
-		return (<IconAlertWarning className={'w-5 h-5'} />);
+			return (<IconAlertWarning className={'yearn--alertbox-icon'} />);
+		return (<IconAlertWarning className={'yearn--alertbox-icon'} />);
 	}
 
 	if (alerts.length === 0) {
 		return null;
 	}
 	return (
-		<div className={alertClassName}>
+		<div
+			data-variant={level}
+			className={'yearn--alertbox'}>
 			{renderIcon()}
-			<div className={'pl-2'}>
+			<div>
 				{alerts.map((alert): ReactElement => (
 					<div key={alert} className={'flex flex-row items-center'}>
 						<p>{alert}</p>

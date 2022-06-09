@@ -13,7 +13,7 @@ function	SearchBox({
 	return (
 		<div className={'yearn--searchBox-wrapper'}>
 			<form
-				name={'search'}
+				name={ariaLabel}
 				onSubmit={(e): void => {
 					e.preventDefault();
 					if (onSearch)

@@ -258,6 +258,9 @@ label[aria-invalid="true"] {
 		color: var(--elementWithActions-action-color-hover);
 	}
 }
+.yearn--elementWithActions-wrapper {
+	@apply flex flex-row items-center;
+}
 .yearn--elementWithActions {
 	--elementWithActions-text-color: rgb(var(--color-typo-primary));
 	--elementWithActions-action-color: rgb(var(--color-primary));
@@ -269,7 +272,6 @@ label[aria-invalid="true"] {
 		@apply flex justify-center items-center p-0 w-8 h-8 rounded-lg;
 	}
 }
-
 
 /* -- Input.tsx -------------------------------------------------------- */
 .yearn--input-max {
@@ -296,6 +298,50 @@ label[aria-invalid="true"] {
 		color: var(--input-label-color);
 	}
 }
+
+/* -- AlertBox.tsx ---------------------------------------------------- */
+.yearn--alertbox-icon {
+	width: var(--alertbox-icon-size);
+	height: var(--alertbox-icon-size);
+	min-width: var(--alertbox-icon-size);
+	min-height: var(--alertbox-icon-size);
+}
+.yearn--alertbox {
+	--alertbox-icon-size: 1.25rem;
+
+	@apply flex flex-row items-start p-2 rounded-lg text-primary bg-secondary space-x-2;
+	&[data-variant="critical"] {
+		@apply text-alert-critical-primary bg-alert-critical-secondary;
+	}
+	&[data-variant="error"] {
+		@apply text-alert-error-primary bg-alert-error-secondary;
+	}
+	&[data-variant="warning"] {
+		@apply text-alert-warning-primary bg-alert-warning-secondary;
+	}
+}
+
+/* -- Modal.tsx ---------------------------------------------------- */
+.yearn--modal-wrapper {
+	@apply flex justify-center items-end px-4 pt-4 pb-20 min-h-screen text-center sm:block sm:p-0;
+}
+.yearn--modal {
+	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom rounded-lg shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle md:mb-96 bg-surface;
+}
+
+/* -- ModalLogin.tsx ---------------------------------------------------- */
+.yearn--modalLogin-wrapper {
+}
+.yearn--modalLogin-card {
+	@apply flex flex-col justify-center items-center py-6 px-2 text-center rounded-sm transition-colors cursor-pointer bg-surface hover:bg-surface-variant;
+	& > div > svg {@apply w-12 h-12;}
+	& > b {@apply mt-2 text-xl text-typo-primary;}
+	& > p {@apply typo-secondary;}
+}
+.yearn--modalLogin {
+	@apply grid grid-cols-2 p-6 space-y-4;
+}
+
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Then, we import the tailwind class. They will be able to overwrite all

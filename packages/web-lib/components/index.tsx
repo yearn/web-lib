@@ -15,7 +15,6 @@ import {SwitchTheme} from './SwitchTheme';
 import {TokenCard} from './TokenCard';
 import {TxHashWithActions} from './TxHashWithActions';
 import {Button} from './Button';
-import {BannerEventAmsterdam} from './BannerEventAmsterdam';
 import {Banner} from './Banner';
 import {Input} from './Input';
 
@@ -37,7 +36,6 @@ export {
 	TokenCard,
 	TxHashWithActions,
 	Button,	
-	BannerEventAmsterdam,
 	Banner,
 	Input
 };
@@ -56,7 +54,6 @@ import type * as SearchBoxTypes from './SearchBox.d';
 import type * as StatisticCardTypes from './StatisticCard.d';
 import type * as SwitchTypes from './Switch.d';
 import type * as SwitchThemeTypes from './SwitchTheme.d';
-import type * as TableTypes from './Table.d';
 import type * as TokenCardTypes from './TokenCard.d';
 import type * as TxHashWithActionsTypes from './TxHashWithActions.d';
 export type {
@@ -74,7 +71,6 @@ export type {
 	StatisticCardTypes,
 	SwitchTypes,
 	SwitchThemeTypes,
-	TableTypes,
 	TokenCardTypes,
 	TxHashWithActionsTypes
 };

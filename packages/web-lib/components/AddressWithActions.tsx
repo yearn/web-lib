@@ -26,7 +26,7 @@ function	AddressWithActions({
 	}, [chainID, networks]);
 
 	return (
-		<span className={`flex flex-row items-center ${wrapperClassName}`}>
+		<span className={`yearn--elementWithActions-wrapper ${wrapperClassName}`}>
 			<p className={`yearn--elementWithActions ${className}`}>{toENS(address, truncate > 0, truncate)}</p>
 			<button
 				className={'yearn--elementWithActions-copy'}

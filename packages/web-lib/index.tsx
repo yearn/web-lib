@@ -31,7 +31,6 @@ export * from './components/SwitchTheme';
 export * from './components/TokenCard';
 export * from './components/TxHashWithActions';
 export * from './components/Button';
-export * from './components/BannerEventAmsterdam';
 export * from './components/Banner';
 export * from './components/Input';
 

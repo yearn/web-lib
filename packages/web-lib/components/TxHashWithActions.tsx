@@ -26,7 +26,7 @@ function	TxHashWithActions({
 	}, [chainID, networks]);
 
 	return (
-		<span className={`flex flex-row items-center ${wrapperClassName}`}>
+		<span className={`yearn--elementWithActions-wrapper ${wrapperClassName}`}>
 			<p className={`yearn--elementWithActions ${className}`}>{truncateHex(txHash, truncate)}</p>
 			<button
 				className={'yearn--elementWithActions-copy'}
