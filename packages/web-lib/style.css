@@ -336,7 +336,7 @@ label[aria-invalid="true"] {
 	@apply flex flex-col justify-center items-center py-6 px-2 text-center rounded-sm transition-colors cursor-pointer bg-surface hover:bg-surface-variant;
 	& > div > svg {@apply w-12 h-12;}
 	& > b {@apply mt-2 text-xl text-typo-primary;}
-	& > p {@apply typo-secondary;}
+	& > p {@apply text-typo-secondary;}
 }
 .yearn--modalLogin {
 	@apply grid grid-cols-2 p-6 space-y-4;
