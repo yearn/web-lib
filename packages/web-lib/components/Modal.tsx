@@ -18,7 +18,7 @@ function	Modal({isOpen, onClose, children}: ModalTypes.TModal): ReactElement {
 						as={React.Fragment}
 						enter={'ease-out duration-300'} enterFrom={'opacity-0'} enterTo={'opacity-100'}
 						leave={'ease-in duration-200'} leaveFrom={'opacity-100'} leaveTo={'opacity-0'}>
-						<Dialog.Overlay className={'fixed inset-0 z-10 transition-opacity bg-dark/50'} />
+						<Dialog.Overlay className={'fixed inset-0 z-10 transition-opacity bg-black/50'} />
 					</Transition.Child>
 
 					<span className={'hidden sm:inline-block sm:h-screen sm:align-middle'} aria-hidden={'true'}>
