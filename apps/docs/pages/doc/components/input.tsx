@@ -7,7 +7,7 @@ import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React			from	'react';
-import	{Button}	from	'@yearn/web-lib/components';
+import	{Input}	from	'@yearn/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	const	[amount, set_amount] = React.useState('');
