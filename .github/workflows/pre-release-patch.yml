@@ -58,6 +58,6 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - run: yarn --cwd packages/web-lib publish-npm --tag next
+      - run: yarn --cwd packages/web-lib publish-npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
