@@ -1,5 +1,5 @@
 # Yearn Web Lib
-![](./.github/og.jpeg)
+![](../../.github/og.jpeg)
 
 
 Yearn web Lib is a library of standard components used through Yearn's Projects.    
