@@ -6,10 +6,10 @@ import	{DefaultSeo}								from	'next-seo';
 import	{Header}									from	'@yearn/web-lib/layouts';
 import	{WithYearn, usePrices, useBalances}			from	'@yearn/web-lib/contexts';
 import	{format}									from	'@yearn/web-lib/utils';
-import	{AlertError, Hamburger, Home}				from	'@yearn/web-lib/icons';
 import	Footer										from	'components/StandardFooter';
+// import	{AlertError, Hamburger, Home}				from	'@yearn/web-lib/icons';
+// import	IconHealthcheck								from	'components/icons/IconHealthcheck';
 // import	IconYearn									from	'components/icons/IconYearn';
-import	IconHealthcheck								from	'components/icons/IconHealthcheck';
 
 import	'../style.css';
 import LogoYearn from 'components/icons/LogoYearn';
@@ -108,43 +108,43 @@ function	AppHeader(): ReactElement {
 
 function	AppWrapper(props: AppProps): ReactElement {
 	const	{Component, pageProps, router} = props;
-	const	navbarMenuOptions = [
-		{
-			route: '/',
-			values: ['/'],
-			label: 'Home',
-			icon: <Home  />
-		},
-		{
-			route: '/doc/components',
-			values: ['/doc/components'],
-			label: 'Components',
-			icon: <IconHealthcheck />
-		},
-		{
-			route: '/doc/icons',
-			values: ['/doc/icons'],
-			label: 'Icons',
-			icon: <AlertError />
-		},
-		{
-			route: '/doc/layouts',
-			values: ['/doc/layouts'],
-			label: 'Layouts',
-			icon: <Hamburger />,
-			options: [
-				{
-					route: '/doc/layouts/header',
-					values: ['/doc/layouts/header'],
-					label: 'Header'
-				}
-			]
-		}
-	];
+	// const	navbarMenuOptions = [
+	// 	{
+	// 		route: '/',
+	// 		values: ['/'],
+	// 		label: 'Home',
+	// 		icon: <Home  />
+	// 	},
+	// 	{
+	// 		route: '/doc/components',
+	// 		values: ['/doc/components'],
+	// 		label: 'Components',
+	// 		icon: <IconHealthcheck />
+	// 	},
+	// 	{
+	// 		route: '/doc/icons',
+	// 		values: ['/doc/icons'],
+	// 		label: 'Icons',
+	// 		icon: <AlertError />
+	// 	},
+	// 	{
+	// 		route: '/doc/layouts',
+	// 		values: ['/doc/layouts'],
+	// 		label: 'Layouts',
+	// 		icon: <Hamburger />,
+	// 		options: [
+	// 			{
+	// 				route: '/doc/layouts/header',
+	// 				values: ['/doc/layouts/header'],
+	// 				label: 'Header'
+	// 			}
+	// 		]
+	// 	}
+	// ];
 
-	function	onChangeRoute(selected: string): void {
-		router.push(selected);
-	}
+	// function	onChangeRoute(selected: string): void {
+	// 	router.push(selected);
+	// }
 
 	return (
 		<>
