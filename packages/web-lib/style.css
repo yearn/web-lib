@@ -84,7 +84,7 @@ label[aria-invalid="true"] {
 	&:disabled {@apply cursor-not-allowed;}
 }
 
-:root [data-theme="dark"] {
+:root body[data-theme="dark"] {
 	& .yearn--button {
 		&[data-variant="filled"] {
 			@apply text-neutral-900;
