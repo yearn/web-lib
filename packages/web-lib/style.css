@@ -340,13 +340,13 @@ label[aria-invalid="true"] {
 
 	@apply flex flex-row items-start p-2 rounded-lg text-primary-500 bg-primary-100 space-x-2;
 	&[data-variant="critical"] {
-		@apply text-support-red-900 bg-support-red-300;
+		@apply text-red-900 bg-red-300;
 	}
 	&[data-variant="error"] {
-		@apply text-support-pink-900 bg-support-pink-300;
+		@apply text-pink-900 bg-pink-300;
 	}
 	&[data-variant="warning"] {
-		@apply text-support-yellow-900 bg-support-yellow-300;
+		@apply text-yellow-900 bg-yellow-300;
 	}
 }
 

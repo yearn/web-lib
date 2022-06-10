@@ -74,21 +74,21 @@ function	ColorPaletteLight(): ReactElement {
 			<div className={'grid grid-cols-3 w-full'}>
 				<div className={'flex flex-col gap-2 w-full'}>
 					<h4 className={'mb-2'}>{'Warnings'}</h4>
-					<ColorBox color={'bg-support-yellow-900'} name={'--color-support-yellow-900'} />
-					<ColorBox color={'bg-support-yellow-300'} name={'--color-support-yellow-300'} />
-					<ColorBox color={'bg-support-yellow-200'} name={'--color-support-yellow-200'} />
+					<ColorBox color={'bg-yellow-900'} name={'--color-yellow-900'} />
+					<ColorBox color={'bg-yellow-300'} name={'--color-yellow-300'} />
+					<ColorBox color={'bg-yellow-200'} name={'--color-yellow-200'} />
 				</div>
 				<div className={'flex flex-col gap-2 w-full'}>
 					<h4 className={'mb-2'}>{'Errors'}</h4>
-					<ColorBox color={'bg-support-pink-900'} name={'--color-support-pink-900'} />
-					<ColorBox color={'bg-support-pink-300'} name={'--color-support-pink-300'} />
-					<ColorBox color={'bg-support-pink-200'} name={'--color-support-pink-200'} />
+					<ColorBox color={'bg-pink-900'} name={'--color-pink-900'} />
+					<ColorBox color={'bg-pink-300'} name={'--color-pink-300'} />
+					<ColorBox color={'bg-pink-200'} name={'--color-pink-200'} />
 				</div>
 				<div className={'flex flex-col gap-2 w-full'}>
 					<h4 className={'mb-2'}>{'Critical'}</h4>
-					<ColorBox color={'bg-support-red-900'} name={'--color-support-red-900'} />
-					<ColorBox color={'bg-support-red-300'} name={'--color-support-red-300'} />
-					<ColorBox color={'bg-support-red-200'} name={'--color-support-red-200'} />
+					<ColorBox color={'bg-red-900'} name={'--color-red-900'} />
+					<ColorBox color={'bg-red-300'} name={'--color-red-300'} />
+					<ColorBox color={'bg-red-200'} name={'--color-red-200'} />
 				</div>
 			</div>
 

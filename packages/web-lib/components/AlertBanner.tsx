@@ -18,9 +18,9 @@ function	AlertBanner({
 	const	[currentSlide, set_currentSlide] = React.useState(0);
 	const	hasSlide = (children as ReactElement).type === undefined;
 	const	infoClassName = 'text-primary-500 bg-primary-100 border-primary-500';
-	const	warningClassName = 'text-support-yellow-900 bg-support-yellow-300 border-support-yellow-900';
-	const	errorClassName = 'text-support-pink-900 bg-support-pink-300 border-support-pink-900';
-	const	criticalClassName = 'text-support-red-900 bg-support-red-300 border-support-red-900';
+	const	warningClassName = 'text-yellow-900 bg-yellow-300 border-yellow-900';
+	const	errorClassName = 'text-pink-900 bg-pink-300 border-pink-900';
+	const	criticalClassName = 'text-red-900 bg-red-300 border-red-900';
 	const	alertClassName = level === 'critical' ? criticalClassName : level === 'warning' ? warningClassName : level === 'error' ? errorClassName : infoClassName;
 
 	React.useEffect((): void => {
