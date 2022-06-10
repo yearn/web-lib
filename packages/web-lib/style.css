@@ -68,17 +68,17 @@ label[aria-invalid="true"] {
 	&[data-variant="filled"] {
 		@apply text-neutral-0 bg-accent-500 font-bold;
 		&:disabled {@apply bg-neutral-200 text-neutral-400;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-accent-600;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-accent-600;}
 	}
 	&[data-variant="light"] {
 		@apply text-primary-500 bg-primary-100;
 		&:disabled {@apply bg-neutral-200 text-neutral-400;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-primary-200;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-primary-200;}
 	}
 	&[data-variant="outlined"] {
 		@apply text-accent-500 bg-transparent border border-accent-500;
 		&:disabled {@apply border-neutral-400 text-neutral-400;}
-		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-primary-100;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-primary-100;}
 	}
 	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
 	&:disabled {@apply cursor-not-allowed;}
