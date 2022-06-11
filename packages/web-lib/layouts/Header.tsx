@@ -47,7 +47,7 @@ function	Header({
 
 	return (
 		<header className={'z-30 py-4 mx-auto w-full'}>
-			<Card className={'flex justify-between items-center h-auto md:h-20'}>
+			<Card className={'flex flex-col md:flex-row justify-between items-end md:items-center h-auto md:h-20'}>
 				<div className={'flex flex-row items-center w-full'}>
 					{children}
 				</div>
