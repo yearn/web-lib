@@ -53,7 +53,7 @@ function	Header({
 				</div>
 				<div className={'flex flex-row items-center space-x-4'}>
 					{shouldUseNetworks ? (
-						<div className={'hidden flex-row items-center space-x-4 md:flex'}>
+						<div className={'flex flex-row items-center space-x-4'}>
 							<Dropdown
 								defaultOption={options[0]}
 								options={options}
