@@ -1,4 +1,4 @@
-@import '@yearn/web-lib/style.dark.css';
+@import './style.dark.css';
 @tailwind base;
 
 :root {
