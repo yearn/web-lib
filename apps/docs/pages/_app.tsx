@@ -6,13 +6,13 @@ import	{DefaultSeo}								from	'next-seo';
 import	{Header}									from	'@yearn/web-lib/layouts';
 import	{WithYearn, usePrices, useBalances}			from	'@yearn/web-lib/contexts';
 import	{format}									from	'@yearn/web-lib/utils';
+import	LogoYearn									from	'components/icons/LogoYearn';
 import	Footer										from	'components/StandardFooter';
 // import	{AlertError, Hamburger, Home}				from	'@yearn/web-lib/icons';
 // import	IconHealthcheck								from	'components/icons/IconHealthcheck';
 // import	IconYearn									from	'components/icons/IconYearn';
 
 import	'../style.css';
-import LogoYearn from 'components/icons/LogoYearn';
 
 const		YFI_ADDRESS = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e';
 function	AppHead(): ReactElement {

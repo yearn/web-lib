@@ -43,7 +43,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 				}
 			}
 		} else {
-			set_theme('light');
+			// set_theme('light');
 		}
 	}, [themeFromLs]);
 

@@ -119,7 +119,7 @@ function	VariantLevel(): ReactElement {
 					</Banner.WithControls> : null}
 				</div>
 				<div className={'absolute z-0'}>
-					<div onClick={(): void => set_isClosed(false)} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-100'}>{'Reset'}</div>
+					<div onClick={(): void => set_isClosed(false)} className={'flex px-2 h-8 font-bold hover:bg-neutral-100 transition-colors cursor-pointer rounded-default bg-neutral-0 flex-center'}>{'Reset'}</div>
 				</div>
 			</div>
 		);

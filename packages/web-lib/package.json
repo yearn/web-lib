@@ -15,11 +15,17 @@
 		"dist/**",
 		"tailwind.config.cjs",
 		"style.css",
+		"style.light.css",
+		"style.dark.css",
+		"style.macarena.css",
 		"build.css"
 	],
 	"exports": {
 		".": "./dist/index.js",
 		"./style.css": "./dist/style.css",
+		"./style.light.css": "./dist/style.light.css",
+		"./style.dark.css": "./dist/style.dark.css",
+		"./style.macarena.css": "./dist/style.macarena.css",
 		"./build.css": "./dist/build.css",
 		"./tailwind.plugin": "./dist/tailwind.config.cjs",
 		"./layouts": "./dist/layouts/index.js",

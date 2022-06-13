@@ -97,7 +97,6 @@ module.exports = {
 		plugin(function ({addBase, addUtilities, theme}) {
 			addBase({
 				':root': {
-					...colors,
 					...paddings
 				}
 			});

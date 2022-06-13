@@ -11,7 +11,7 @@ function TokenCardBase({label, value, imgSrc, onClick, className, ...props}: Tok
 			padding={'none'}
 			{...props}>	
 			<button
-				className={`flex p-2 md:p-4 w-full h-full rounded-lg ${onClick ? 'hover:bg-neutral-100' : 'cursor-default'}`}
+				className={`flex p-2 md:p-4 w-full h-full rounded-default ${onClick ? 'hover:bg-neutral-100' : 'cursor-default'}`}
 				onClick={onClick}
 				tabIndex={onClick ? 0 : -1}>
 				<img src={imgSrc} className={'my-auto mr-4 w-16 h-16 select-none'} />

@@ -9,6 +9,9 @@
 		"utils/**.tsx",
 		".eslintrc.cjs",
 		"style.css",
+		"style.light.css",
+		"style.dark.css",
+		"style.macarena.css",
 		"index.tsx",
 		"declarations.d.ts"
 	],

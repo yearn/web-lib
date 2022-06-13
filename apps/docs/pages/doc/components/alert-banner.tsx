@@ -45,7 +45,7 @@ export function	AlertBannerComponent(): ReactElement {
 				</AlertBanner>
 			</div>
 			<div className={'absolute z-0'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-100'}>{'Reset'}</div>
+				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold hover:bg-neutral-100 transition-colors cursor-pointer rorounded-default bg-neutral-0 flex-center'}>{'Reset'}</div>
 			</div>
 		</div>
 	);
@@ -111,7 +111,7 @@ function	VariantLevel(): ReactElement {
 				variants={variantType}
 				onChange={(n: number): void => set_variant(n)} />
 			<div className={'absolute right-4 bottom-4'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold rounded-lg transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-100'}>{'Reset'}</div>
+				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold hover:bg-neutral-100 transition-colors cursor-pointer rounded-default bg-neutral-0 flex-center'}>{'Reset'}</div>
 			</div>
 		</CodeExample>
 	);

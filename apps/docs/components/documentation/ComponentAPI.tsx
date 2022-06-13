@@ -15,7 +15,7 @@ function	ComponentAPI({elements}: TComponentAPI): ReactElement {
 				{elements.map((element, index): ReactElement => (
 					<dd
 						key={`${element.title}_${index}`}
-						className={'grid grid-cols-12 p-4 space-y-4 rounded-lg md:space-y-0 bg-neutral-200'}>
+						className={'grid grid-cols-12 p-4 space-y-4 bg-neutral-200 md:space-y-0 rounded-default'}>
 						<div className={'col-span-12 md:col-span-2'}>
 							<b className={'font-mono break-words'}>{element.title}</b>
 						</div>

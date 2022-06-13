@@ -6,7 +6,7 @@ import * as CardTypes from './Card.d';
 
 function	CardDetailsSummary({startChildren, endChildren, ...props}: CardTypes.TCardDetailSummary): ReactElement{
 	return (
-		<div className={'flex flex-col justify-between items-start p-6 w-full rounded-lg cursor-pointer md:flex-row md:items-center'} {...props}>
+		<div className={'flex flex-col justify-between items-start p-6 w-full rounded-default cursor-pointer md:flex-row md:items-center'} {...props}>
 			<div className={'w-inherit'}>
 				{startChildren}
 			</div>
@@ -25,12 +25,12 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 	return (
 		<Disclosure>
 			{({open}): ReactElement => (
-				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} shadow-none rounded-lg p-0`}>
+				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} shadow-none rounded-default p-0`}>
 					<Disclosure.Button
 						as={'div'}
 						role={'button'}
 						tabIndex={0}
-						className={`w-full h-full justify-between rounded-lg text-justify transition-colors ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} ${open ? '' : 'hover:bg-neutral-100'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
+						className={`w-full h-full justify-between rounded-default text-justify transition-colors ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} ${open ? '' : 'hover:bg-neutral-100'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
 						{summary}
 					</Disclosure.Button>
 					<AnimatePresence initial={false}>
@@ -45,7 +45,7 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 							>
 								<Disclosure.Panel
 									static
-									className={`px-6 pb-6 w-full rounded-b-lg ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'}`}>
+									className={`px-6 pb-6 w-full rounded-b-default ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'}`}>
 									{children}
 								</Disclosure.Panel>
 							</motion.section>

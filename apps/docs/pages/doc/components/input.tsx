@@ -37,7 +37,7 @@ export function	InputComponent(): ReactElement {
 		return <div />;
 	}
 	return (
-		<div className={'py-2 px-4 mx-auto w-full max-w-[400px] h-24 rounded-lg md:py-4 md:px-6 md:h-32 bg-neutral-200'}>
+		<div className={'py-2 px-4 mx-auto w-full max-w-[400px] h-24 bg-neutral-200 md:py-4 md:px-6 md:h-32 rounded-default'}>
 			<Input.BigNumber
 				balance={format.toNormalizedAmount(userBalance, 18)}
 				price={format.toNormalizedValue(priceOfToken, 6)}

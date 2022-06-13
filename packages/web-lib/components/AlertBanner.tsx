@@ -63,7 +63,7 @@ function	AlertBanner({
 	return (
 		<div
 			className={`transition-max-height overflow-hidden duration-600 ${isVisible ? maxHeight : 'max-h-0'}`}>
-			<div className={`alertBanner--wrapper flex relative flex-col p-6 rounded-lg border-2 ${alertClassName} ${hasSlide ? 'pb-8' : 'pb-6'}`}>
+			<div className={`alertBanner--wrapper flex relative flex-col p-6 rounded-default border-2 ${alertClassName} ${hasSlide ? 'pb-8' : 'pb-6'}`}>
 				{canClose ? (
 					<button onClick={onTryToClose} className={'absolute top-4 right-4'}>
 						<IconCross className={'w-6 h-6 cursor-pointer'} />
