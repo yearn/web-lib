@@ -1,5 +1,5 @@
-@tailwind base;
 @import '@yearn/web-lib/style.dark.css';
+@tailwind base;
 
 :root {
 	--default-rounded: 0.5rem;
