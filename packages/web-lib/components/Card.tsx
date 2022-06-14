@@ -1,6 +1,5 @@
 import React, {ReactElement} from 'react';
 import {Disclosure, Tab} from '@headlessui/react';
-import {motion} from 'framer-motion';
 import IconChevron from '../icons/IconChevron';
 import * as CardTypes from './Card.d';
 
@@ -34,20 +33,11 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 						{summary}
 					</Disclosure.Button>
 						{open && (
-							<motion.section
-								key={'content'}
-								initial={'collapsed'}
-								animate={'open'}
-								exit={'collapsed'}
-								variants={{open: {opacity: 1, height: 'auto'}, collapsed: {opacity: 0, height: 0}}}
-								transition={{duration: 0.3, linear: true}}
-							>
-								<Disclosure.Panel
-									static
-									className={`px-6 pb-6 w-full rounded-b-default ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'}`}>
-									{children}
-								</Disclosure.Panel>
-							</motion.section>
+							<Disclosure.Panel
+								static
+								className={`px-6 pb-6 w-full rounded-b-default ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'}`}>
+								{children}
+							</Disclosure.Panel>
 						)}
 				</div>
 			)}
