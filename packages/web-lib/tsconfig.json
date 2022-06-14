@@ -8,6 +8,7 @@
 		"layouts/**.tsx",
 		"utils/**.tsx",
 		".eslintrc.cjs",
+		"build.css",
 		"style.css",
 		"style.light.css",
 		"style.dark.css",
