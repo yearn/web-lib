@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import {Disclosure, Tab} from '@headlessui/react';
-import {motion, AnimatePresence} from 'framer-motion';
+import {motion} from 'framer-motion';
 import IconChevron from '../icons/IconChevron';
 import * as CardTypes from './Card.d';
 
@@ -33,7 +33,6 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 						className={`w-full h-full justify-between rounded-default text-justify transition-colors ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} ${open ? '' : 'hover:bg-neutral-100'} ${isSticky ? 'relative md:sticky top-0' : ''}`}>
 						{summary}
 					</Disclosure.Button>
-					<AnimatePresence initial={false}>
 						{open && (
 							<motion.section
 								key={'content'}
@@ -50,7 +49,6 @@ function	CardDetails({summary, variant = 'surface', isSticky = true, children}: 
 								</Disclosure.Panel>
 							</motion.section>
 						)}
-					</AnimatePresence>
 				</div>
 			)}
 		</Disclosure>
