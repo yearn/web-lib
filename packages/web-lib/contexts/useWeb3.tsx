@@ -233,7 +233,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 
 	useClientEffect((): void => {
 		if (account) {
-			const	provider = fromRPC(networks[chainID]?.rpcURI as string);
+			const	provider = fromRPC(networks[1]?.rpcURI as string);
 			provider.lookupAddress(toAddress(account)).then((_ens: string | null): void => set_ens(_ens || ''));
 		}
 	}, [account, chainID]);

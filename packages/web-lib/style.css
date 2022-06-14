@@ -430,7 +430,7 @@ label[aria-invalid="true"] {
 .yearn--modalLogin-wrapper {
 }
 .yearn--modalLogin-card {
-	@apply flex flex-col justify-center items-center py-6 px-2 text-center transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-0;
+	@apply flex flex-col justify-center items-center py-6 px-2 text-center transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-100;
 	
 	border-radius: var(--default-rounded);
 	& > div > svg {@apply w-12 h-12;}
