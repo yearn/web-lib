@@ -42,8 +42,6 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 					set_theme('light');
 				}
 			}
-		} else {
-			// set_theme('light');
 		}
 	}, [themeFromLs]);
 

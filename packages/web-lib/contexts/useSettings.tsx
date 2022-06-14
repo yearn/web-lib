@@ -9,7 +9,8 @@ const	defaultSettings = {
 		metaURI: 'https://meta.yearn.finance/api/1',
 		apiURI: 'https://api.yearn.finance/v1/chains/1',
 		explorerBaseURI: 'https://etherscan.io',
-		lensAddress: '0x83d95e0D5f402511dB06817Aff3f9eA88224B030'
+		lensAddress: '0x83d95e0D5f402511dB06817Aff3f9eA88224B030',
+		partnerContractAddress: '0x8ee392a4787397126C163Cb9844d7c447da419D8'
 	},
 	250: {
 		rpcURI: 'https://rpc.ftm.tools',
@@ -17,7 +18,8 @@ const	defaultSettings = {
 		metaURI: 'https://meta.yearn.finance/api/250',
 		apiURI: 'https://api.yearn.finance/v1/chains/250',
 		explorerBaseURI: 'https://ftmscan.com',
-		lensAddress: '0x57AA88A0810dfe3f9b71a9b179Dd8bF5F956C46A'
+		lensAddress: '0x57AA88A0810dfe3f9b71a9b179Dd8bF5F956C46A',
+		partnerContractAddress: '0x086865B2983320b36C42E48086DaDc786c9Ac73B'
 	},
 	42161: {
 		rpcURI: 'https://arbitrum.public-rpc.com',
@@ -25,7 +27,8 @@ const	defaultSettings = {
 		metaURI: 'https://meta.yearn.finance/api/42161',
 		apiURI: 'https://api.yearn.finance/v1/chains/42161',
 		explorerBaseURI: 'https://arbiscan.io',
-		lensAddress: '0x043518AB266485dC085a1DB095B8d9C2Fc78E9b9'
+		lensAddress: '0x043518AB266485dC085a1DB095B8d9C2Fc78E9b9',
+		partnerContractAddress: '0x0000000000000000000000000000000000000000'
 	}
 };
 

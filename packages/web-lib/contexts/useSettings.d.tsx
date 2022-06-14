@@ -7,6 +7,7 @@ export type	TSettingsForNetwork = {
 	apiURI?: string,
 	explorerBaseURI?: string,
 	lensAddress?: string,
+	partnerContractAddress?: string
 }
 
 export type	TSettingsContext = {

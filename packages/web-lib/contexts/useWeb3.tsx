@@ -229,6 +229,8 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 	useClientEffect((): void => {
 		if ((chainId || 0) > 0)
 			set_chainID(Number(chainId));
+		else if (chainId === 0)
+			set_chainID(Number(options.defaultChainID));
 	}, [chainId]);
 
 	useClientEffect((): void => {
@@ -244,7 +246,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				address: account,
 				ens,
 				isDisconnected,
-				chainID: Number(chainID || 0),
+				chainID: Number(chainID || options.defaultChainID || 0),
 				onSwitchChain,
 				isActive: isActive && (options.supportedChainID).includes(Number(chainId || 0)),
 				hasProvider: !!provider,
