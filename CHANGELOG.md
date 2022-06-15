@@ -1,6 +1,6 @@
 # Releases
 
-## @yearn/web-lib@0.8.0
+## @yearn-finance/web-lib@0.8.0
 -  `335891d`: Update the color system  
 > **Warning**  
 > This bump is a breaking change about the color names.  
@@ -73,7 +73,7 @@ Hue is a color’s position on the color wheel — it’s the attribute of a col
     '--color-red-200'      =>  '--color-alert-critical-secondary-variant'
 </details>
 
-## @yearn/web-lib@0.7.0
+## @yearn-finance/web-lib@0.7.0
 -  `d9ab314`: Fix issue in the input example
 -  `d3875cb`: Fix issue with the network config in `useSettings` being undefined if no options is provided
 -  `bba7001`: Update the way TxHashWithActions and AddressWithActions works, removing the default explorer argument value and using the combinaison of networks from useSettings and chainID from useWeb3 to determine the correct explorer address. If the explorer param is not empty, this will override the automatic assignation.

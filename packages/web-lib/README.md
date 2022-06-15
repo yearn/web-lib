@@ -17,20 +17,10 @@ The stack used for this project is the following:
 - 💄 [ESLint](https://eslint.org/) for code linting
 - ⚙️ [GitHub Actions](https://github.com/changesets/action) for fully automated package publishing
 
-### Access Token
-This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib) but should be primary used with Github Packages.  
-With theses packages, you will need to provider a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token), to create or update the `~/.npmrc` file with the following content:
-```
-registry=https://registry.npmjs.org/
-@yearn:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_ACCESS_TOKEN
-```
-This will link all repo named `@yearn` you will install to the correct Yearn organization
+This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib).
 
 ### Install
 ```sh
-yarn add @yearn/web-lib #recommanded, from Github package
-# or
 yarn add @yearn-finance/web-lib #from npm
 ```
 
@@ -78,12 +68,12 @@ With TS config, you should add some paths to be sure to correctly link the web l
 ```ts
 	"baseUrl": ".",
 	"paths": {
-		"@yearn/web-lib/components": ["./node_modules/@yearn/web-lib/dist/components"],
-		"@yearn/web-lib/layouts": ["./node_modules/@yearn/web-lib/dist/layouts"],
-		"@yearn/web-lib/contexts": ["./node_modules/@yearn/web-lib/dist/contexts"],
-		"@yearn/web-lib/hooks": ["./node_modules/@yearn/web-lib/dist/hooks"],
-		"@yearn/web-lib/icons": ["./node_modules/@yearn/web-lib/dist/icons"],
-		"@yearn/web-lib/utils": ["./node_modules/@yearn/web-lib/dist/utils"],
+		"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
+		"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
+		"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
+		"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
+		"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
+		"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"],
 	},
 ```
 
@@ -91,7 +81,7 @@ With TS config, you should add some paths to be sure to correctly link the web l
 Create a default `style.css` file in your project root, and add that in it:
 ```scss
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
-@import '@yearn/web-lib/dist/style.css';
+@import '@yearn-finance/web-lib/dist/style.css';
 ```
 
 Then, setup your `tailwind.config.js` file to enable detection of your style and prod optimization:
@@ -99,7 +89,7 @@ Then, setup your `tailwind.config.js` file to enable detection of your style and
 const {join} = require('path');
 module.exports = {
 	presets: [
-		require('@yearn/web-lib/tailwind.plugin')
+		require('@yearn-finance/web-lib/tailwind.plugin')
 	],
 	content: [
 		join(__dirname, 'pages', '**', '*.{js,jsx,ts,tsx}'),
@@ -108,11 +98,11 @@ module.exports = {
 		join(__dirname, 'components', 'strategies', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', 'vaults', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', '**', '*.{js,jsx,ts,tsx}'),
-		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'layouts', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'components', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'contexts', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'icons', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn', 'web-lib', 'dist', 'utils', '**', '*.js')
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'layouts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'components', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'contexts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'icons', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'utils', '**', '*.js')
 	],
 	.....
 };
@@ -155,7 +145,7 @@ GITHUB_PROJECT_REPO: process.env.GITHUB_PROJECT_REPO
 ## How to use
 Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
 ```tsx
-import	{WithYearn}		from	'@yearn/web-lib/contexts';
+import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
 
 function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;

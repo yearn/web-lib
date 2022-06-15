@@ -1,11 +1,11 @@
 import	React, {ReactElement}	from	'react';
-import	{Card, TokenCard}		from	'@yearn/web-lib/components';
+import	{Card, TokenCard}		from	'@yearn-finance/web-lib/components';
 import	ComponentAPI			from	'components/documentation/ComponentAPI';
 import	Highlight				from	'components/documentation/Highlight';
 
 const code = `
 import	React		from	'react';
-import	{TokenCard}	from	'@yearn/web-lib/components';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (

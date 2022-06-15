@@ -1,14 +1,14 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, Button}				from	'@yearn/web-lib/components';
+import	{Card, Button}				from	'@yearn-finance/web-lib/components';
 import	VariantSelectors			from	'components/documentation/VariantSelectors';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';
-import	type * as ButtonTypes		from	'@yearn/web-lib/components/Button.d';
+import	type * as ButtonTypes		from	'@yearn-finance/web-lib/components/Button.d';
 
 const code = `
 import	React		from	'react';
-import	{Button}	from	'@yearn/web-lib/components';
+import	{Button}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (

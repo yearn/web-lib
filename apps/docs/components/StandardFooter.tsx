@@ -1,8 +1,8 @@
 import React, {ReactElement} from 'react';
 import Link from 'next/link';
-import {SwitchTheme} from '@yearn/web-lib/components';
-import {useUI} from '@yearn/web-lib/contexts';
-import {SocialTwitter, SocialGithub, SocialDiscord, SocialMedium} from '@yearn/web-lib/icons';
+import {SwitchTheme} from '@yearn-finance/web-lib/components';
+import {useUI} from '@yearn-finance/web-lib/contexts';
+import {SocialTwitter, SocialGithub, SocialDiscord, SocialMedium} from '@yearn-finance/web-lib/icons';
 
 function	Footer(): ReactElement {
 	const	{theme, switchTheme} = useUI();

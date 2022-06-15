@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const withTM = require('next-transpile-modules')(['@yearn/web-lib']);
+const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
 const dotenv = require('dotenv-webpack');
 
 module.exports = withTM({

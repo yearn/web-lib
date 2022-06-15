@@ -11,7 +11,7 @@ jobs:
   deploy-github:
     name: Deploy on Github
     runs-on: ubuntu-latest
-    if: "startsWith(github.event.head_commit.message, 'pre-release major:')"
+    if: "startsWith(github.event.head_commit.message, 'github-pre-release major:')"
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -37,7 +37,6 @@ jobs:
   deploy-npm:
     name: Deploy on NPM
     runs-on: ubuntu-latest
-    needs: deploy-github
     if: "startsWith(github.event.head_commit.message, 'pre-release major:')"
     steps:
       - name: Checkout Repo

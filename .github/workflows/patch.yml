@@ -11,7 +11,7 @@ jobs:
   major-github:
     name: Major on Github
     runs-on: ubuntu-latest
-    if: "startsWith(github.event.head_commit.message, 'major:')"
+    if: "startsWith(github.event.head_commit.message, 'github-major:')"
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -37,7 +37,6 @@ jobs:
   major-npm:
     name: Major on NPM
     runs-on: ubuntu-latest
-    needs: major-github
     if: "startsWith(github.event.head_commit.message, 'major:')"
     steps:
       - name: Checkout Repo

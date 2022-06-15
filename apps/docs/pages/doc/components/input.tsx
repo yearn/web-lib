@@ -1,13 +1,13 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, Input}				from	'@yearn/web-lib/components';
-import	{format}					from	'@yearn/web-lib/utils';
+import	{Card, Input}				from	'@yearn-finance/web-lib/components';
+import	{format}					from	'@yearn-finance/web-lib/utils';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React			from	'react';
-import	{Input}	from	'@yearn/web-lib/components';
+import	{Input}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	const	[amount, set_amount] = React.useState('');

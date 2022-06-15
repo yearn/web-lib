@@ -1,5 +1,5 @@
 ---
-"@yearn/web-lib": minor  
+"@yearn-finance/web-lib": minor  
 ---  
   
 > **Warning**  

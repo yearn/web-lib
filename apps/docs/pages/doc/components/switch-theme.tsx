@@ -1,14 +1,14 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, SwitchTheme}			from	'@yearn/web-lib/components';
-import	{useUI}						from	'@yearn/web-lib/contexts';
+import	{Card, SwitchTheme}			from	'@yearn-finance/web-lib/components';
+import	{useUI}						from	'@yearn-finance/web-lib/contexts';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React			from	'react';
-import	{SwitchTheme}	from	'@yearn/web-lib/components';
-import	{useUI}			from	'@yearn/web-lib/contexts';
+import	{SwitchTheme}	from	'@yearn-finance/web-lib/components';
+import	{useUI}			from	'@yearn-finance/web-lib/contexts';
 
 export default function	App(): React.ReactElement {
 	const	{theme, switchTheme} = useUI();

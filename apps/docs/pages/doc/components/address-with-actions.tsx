@@ -1,13 +1,13 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, AddressWithActions}	from	'@yearn/web-lib/components';
-import	{toAddress}					from	'@yearn/web-lib/utils';
+import	{Card, AddressWithActions}	from	'@yearn-finance/web-lib/components';
+import	{toAddress}					from	'@yearn-finance/web-lib/utils';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React					from	'react';
-import	{Card, AddressWithActions}	from	'@yearn/web-lib/components';
+import	{Card, AddressWithActions}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (

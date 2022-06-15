@@ -3,12 +3,12 @@ import	Head										from	'next/head';
 import	Link										from	'next/link';
 import	{AppProps}									from	'next/app';
 import	{DefaultSeo}								from	'next-seo';
-import	{Header}									from	'@yearn/web-lib/layouts';
-import	{WithYearn, usePrices, useBalances}			from	'@yearn/web-lib/contexts';
-import	{format}									from	'@yearn/web-lib/utils';
+import	{Header}									from	'@yearn-finance/web-lib/layouts';
+import	{WithYearn, usePrices, useBalances}			from	'@yearn-finance/web-lib/contexts';
+import	{format}									from	'@yearn-finance/web-lib/utils';
 import	LogoYearn									from	'components/icons/LogoYearn';
 import	Footer										from	'components/StandardFooter';
-// import	{AlertError, Hamburger, Home}				from	'@yearn/web-lib/icons';
+// import	{AlertError, Hamburger, Home}				from	'@yearn-finance/web-lib/icons';
 // import	IconHealthcheck								from	'components/icons/IconHealthcheck';
 // import	IconYearn									from	'components/icons/IconYearn';
 

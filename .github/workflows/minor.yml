@@ -11,7 +11,7 @@ jobs:
   minor-github:
     name: Minor on Github
     runs-on: ubuntu-latest
-    if: "startsWith(github.event.head_commit.message, 'minor:')"
+    if: "startsWith(github.event.head_commit.message, 'github-minor:')"
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -37,7 +37,6 @@ jobs:
   minor-npm:
     name: Minor on NPM
     runs-on: ubuntu-latest
-    needs: minor-github
     if: "startsWith(github.event.head_commit.message, 'minor:')"
     steps:
       - name: Checkout Repo

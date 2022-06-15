@@ -1,5 +1,5 @@
 {
-	"name": "@yearn/web-lib",
+	"name": "@yearn-finance/web-lib",
 	"version": "0.8.16",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -8,7 +8,7 @@
 	"type": "module",
 	"repository": "git://github.com/yearn/web-lib.git",
 	"publishConfig": {
-		"registry": "https://npm.pkg.github.com",
+		"registry": "https://registry.npmjs.org",
 		"access": "public"
 	},
 	"files": [

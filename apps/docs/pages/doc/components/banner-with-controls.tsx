@@ -1,6 +1,6 @@
 import	React, {ReactElement}			from	'react';
 import	Image							from	'next/image';
-import	{Card, Banner, Button}			from	'@yearn/web-lib/components';
+import	{Card, Banner, Button}			from	'@yearn-finance/web-lib/components';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 import	CodeExample						from	'components/CodeExample';

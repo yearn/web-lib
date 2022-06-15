@@ -1,7 +1,7 @@
 import	React, {ReactElement}			from	'react';
 import	Link							from	'next/link';
 import	{RadialBackground}				from	'components/RadialBackground';
-import	{Card, AlertBanner, Button}		from	'@yearn/web-lib/components';
+import	{Card, AlertBanner, Button}		from	'@yearn-finance/web-lib/components';
 import	{CardComponent}					from	'pages/doc/components/cards';
 import	{CardTabsComponent}				from	'pages/doc/components/cards-tabs';
 import	{CardDetailsComponent}			from	'pages/doc/components/cards-details';

@@ -1,14 +1,14 @@
 import	React, {ReactElement}		from	'react';
-import	{Card, Dropdown}			from	'@yearn/web-lib/components';
-import	* as Icons					from	'@yearn/web-lib/icons';
+import	{Card, Dropdown}			from	'@yearn-finance/web-lib/components';
+import	* as Icons					from	'@yearn-finance/web-lib/icons';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';
 
 const code = `
 import	React		from	'react';
-import	{Dropdown}	from	'@yearn/web-lib/components';
-import	* as Icons	from	'@yearn/web-lib/icons';
+import	{Dropdown}	from	'@yearn-finance/web-lib/components';
+import	* as Icons	from	'@yearn-finance/web-lib/icons';
 
 export default function	App(): React.ReactElement {
 	const	options = [
