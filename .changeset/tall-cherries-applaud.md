@@ -1,9 +1,9 @@
 ---
-"@yearn/web-lib": minor
----
-
-> **Warning**
-> This bump is a breaking change about the color names. Please, update at least the following declaration `color-(bg|text|border)-(all-previous-names)` to the current new HSL color names. See bellow for mapping.
+"@yearn/web-lib": minor  
+---  
+  
+> **Warning**  
+> This bump is a breaking change about the color names. Please, update at least the following declaration `color-(bg|text|border)-(all-previous-names)` to the current new HSL color names. See bellow for mapping.  
 
 1 - Color system update, updating color system from RGB to HSL
 HE and RGB are the most common formats for representing color on the web, but they’re not the most useful.
