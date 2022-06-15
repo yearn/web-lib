@@ -39,7 +39,7 @@ function	TxHashWithActions({
 			<button className={'yearn--elementWithActions-linkout'}>
 				<a
 					onClick={(e): void => e.stopPropagation()}
-					href={`${explorerURI}/address/${txHash}`}
+					href={`${explorerURI}/tx/${txHash}`}
 					target={'_blank'}
 					className={'cursor-alias'}
 					rel={'noreferrer'}>
