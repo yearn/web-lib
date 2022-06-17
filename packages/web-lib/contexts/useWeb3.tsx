@@ -1,7 +1,6 @@
 import	React, {createContext, ReactElement, ErrorInfo}	from	'react';
 import {useWeb3React} from '@web3-react/core';
 import {ethers} from 'ethers';
-import useSettings from './useSettings';
 import {ModalLogin} from '../components/ModalLogin';
 import {useLocalStorage} from '../hooks/useLocalStorage';
 import {useWindowInFocus} from '../hooks/useWindowInFocus';
@@ -45,7 +44,6 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 	options?: useWeb3Types.TWeb3Options
 }): ReactElement => {
 	const	web3 = useWeb3React();
-	const	{networks} = useSettings();
 	const   {connector, isActive, provider, account, chainId} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
 	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', walletType.NONE) as [number, (n: number) => void];
