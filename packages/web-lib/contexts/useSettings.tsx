@@ -1,10 +1,11 @@
 import React, {createContext} from 'react';
+import { getRPC } from '../utils/providers';
 import type * as useSettingsTypes from './useSettings.d';
 import {deepMerge} from './utils';
 
 const	defaultSettings = {
 	1: {
-		rpcURI: 'https://eth.public-rpc.com',
+		rpcURI: getRPC(1),
 		graphURI: 'https://api.thegraph.com/subgraphs/name/0xkofee/yearn-vaults-v2',
 		metaURI: 'https://meta.yearn.finance/api/1',
 		apiURI: 'https://api.yearn.finance/v1/chains/1',
@@ -13,7 +14,7 @@ const	defaultSettings = {
 		partnerContractAddress: '0x8ee392a4787397126C163Cb9844d7c447da419D8'
 	},
 	250: {
-		rpcURI: 'https://rpc.ftm.tools',
+		rpcURI: getRPC(250),
 		graphURI: 'https://api.thegraph.com/subgraphs/name/bsamuels453/yearn-fantom-validation-grafted',
 		metaURI: 'https://meta.yearn.finance/api/250',
 		apiURI: 'https://api.yearn.finance/v1/chains/250',
@@ -22,7 +23,7 @@ const	defaultSettings = {
 		partnerContractAddress: '0x086865B2983320b36C42E48086DaDc786c9Ac73B'
 	},
 	42161: {
-		rpcURI: 'https://arbitrum.public-rpc.com',
+		rpcURI: getRPC(42161),
 		graphURI: 'https://api.thegraph.com/subgraphs/name/yearn/yearn-vaults-v2-arbitrum',
 		metaURI: 'https://meta.yearn.finance/api/42161',
 		apiURI: 'https://api.yearn.finance/v1/chains/42161',
