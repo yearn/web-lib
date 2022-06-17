@@ -125,20 +125,19 @@ USE_FEEDBACKS: true,
 
 CG_IDS: ['yearn-finance'],
 TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],
-RPC_URL: {
-	1: process.env.RPC_URL_MAINNET,
-	250: process.env.RPC_URL_FANTOM || 'https://rpc.ftm.tools',
-	42161: process.env.RPC_URL_ARBITRUM || 'https://arbitrum.public-rpc.com'
-},
 
-# Only if feedbacks is true
-FEEBACKS_TYPE: 'github',
-LINEAR_OAUTH_TOKEN: process.env.LINEAR_OAUTH_TOKEN,
-LINEAR_TEAM_ID: process.env.LINEAR_TEAM_ID,
-LINEAR_PROJECT_NAME: process.env.LINEAR_PROJECT_NAME,
-GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN,
-GITHUB_PROJECT_OWNER: process.env.GITHUB_PROJECT_OWNER,
-GITHUB_PROJECT_REPO: process.env.GITHUB_PROJECT_REPO
+WEB_SOCKET_URL: {
+	1: process.env.WS_URL_MAINNET,
+	250: process.env.WS_URL_FANTOM,
+	42161: process.env.WS_URL_ARBITRUM
+},
+JSON_RPC_URL: {
+	1: process.env.RPC_URL_MAINNET,
+	250: process.env.RPC_URL_FANTOM,
+	42161: process.env.RPC_URL_ARBITRUM
+},
+ALCHEMY_KEY: process.env.ALCHEMY_KEY,
+INFURA_KEY: process.env.INFURA_KEY
 ```
 
 

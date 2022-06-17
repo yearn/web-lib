@@ -4,6 +4,7 @@ import	{WalletConnect}							from	'@web3-react/walletconnect';
 import	{GnosisSafe}							from	'@web3-react/gnosis-safe';
 import	{CoinbaseWallet}						from	'@web3-react/coinbase-wallet';
 import	{EIP1193}								from	'./connectors.eip1193';
+import	{getRPC}							from	'./providers';
 
 const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask | any>((actions): MetaMask => new MetaMask(
 	actions,
@@ -14,11 +15,11 @@ const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletC
 	actions,
 	{
 		rpc: {
-			1: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-			4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
-			250: 'https://rpc.ftm.tools',
-			1337: 'http://localhost:8545',
-			31337: 'http://localhost:8545'
+			1: getRPC(1),
+			4: getRPC(4),
+			250: getRPC(250),
+			1337: getRPC(1337),
+			31337: getRPC(31337)
 		}
 	},
 	false
@@ -36,8 +37,8 @@ const	[gnosisSafeConnector, gnosisSafeHooks] = initializeConnector<GnosisSafe | 
 ));
 
 const	[coinbaseConnector, coinbaseHooks] = initializeConnector<CoinbaseWallet | any>((actions): CoinbaseWallet => new CoinbaseWallet(actions, {
-	url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
-	appName: 'Yearn.finance'
+	url: getRPC(1),
+	appName: process.env.WEBSITE_TITLE as string
 })
 );
 
