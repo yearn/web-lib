@@ -3,7 +3,7 @@ import {ethers} from 'ethers';
 import axios from 'axios';
 import useLocalStorage from '../hooks/useLocalStorage';
 import {units as formatUnits} from '../utils/format';
-import {fromRPC} from '../utils/providers';
+import {getProvider} from '../utils/providers';
 import {useSettings} from '../contexts/useSettings';
 
 import type * as usePricesTypes from './usePrices.d';
@@ -45,7 +45,7 @@ export const PricesContextApp = ({children}: {children: ReactElement}): React.Re
 				set_nonce(nonce + 1);
 
 				if (process.env.USE_PRICES_TRI_CRYPTO) {
-					const	provider = fromRPC(networks[chainID]?.rpcURI as string);
+					const	provider = getProvider(chainID || 1);
 					getTriCryptoPrice(provider).then((price: string): void => {
 						data.triCrypto = {usd: Number(price)};
 						data.crypto = {usd: Number(price)};

@@ -8,7 +8,7 @@ import {useWindowInFocus} from '../hooks/useWindowInFocus';
 import {useClientEffect} from '../hooks/useClientEffect';
 import {useDebounce} from '../hooks/useDebounce';
 import performBatchedUpdates from '../utils/performBatchedUpdates';
-import {getProvider, fromRPC} from '../utils/providers';
+import {getProvider} from '../utils/providers';
 import {toAddress, isIframe} from '../utils/utils';
 import {getPartner} from '../utils/partners';
 import CHAINS from '../utils/chains';
@@ -235,7 +235,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 
 	useClientEffect((): void => {
 		if (account) {
-			const	provider = fromRPC(networks[1]?.rpcURI as string);
+			const	provider = getProvider(1);
 			provider.lookupAddress(toAddress(account)).then((_ens: string | null): void => set_ens(_ens || ''));
 		}
 	}, [account, chainID]);
