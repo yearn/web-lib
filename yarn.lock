@@ -1093,20 +1093,15 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*", "@types/node@^17.0.35", "@types/node@^17.0.38":
-  version "17.0.38"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.38.tgz#f8bb07c371ccb1903f3752872c89f44006132947"
-  integrity sha512-5jY9RhV7c0Z4Jy09G+NIDTsCZ5G0L5n+Z+p+Y7t5VJHM30bgwzSjVtlcBxqAj+6L/swIlvtOSzr8rBk/aNyV2g==
+"@types/node@*", "@types/node@^17.0.33", "@types/node@^17.0.35", "@types/node@^17.0.38":
+  version "17.0.45"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
+  integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
 "@types/node@^12.7.1":
   version "12.20.54"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.54.tgz#38a3dff8c2a939553f2cdb85dcddc68be46c3c68"
   integrity sha512-CFMnEPkSXWALI73t1oIWyb8QOmVrp6RruAqIx349sd+1ImaFwzlKcz55mwrx/yLyOyz1gkq/UKuNOigt27PXqg==
-
-"@types/node@^16.0.0":
-  version "16.11.38"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.38.tgz#be0edd097b23eace6c471c525a74b3f98803017f"
-  integrity sha512-hjO/0K140An3GWDw2HJfq7gko3wWeznbjXgg+rzPdVzhe198hp4x2i1dgveAOEiFKd8sOilAxzoSJiVv5P/CUg==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -1519,10 +1514,10 @@
     "@web3-react/types" "^8.0.10-beta.0"
     eventemitter3 "^4.0.7"
 
-abi-coder@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/abi-coder/-/abi-coder-3.1.1.tgz#d8cce4db75d97daae7269d6dedf5d9dcff87c720"
-  integrity sha512-M/BfjZiBYokqKrlvPe9258Jce8oiXKMtoAygNbj+yUoNf41MQvBAy25DXCPiaTirjC+914kh5RU7sfYEk0s0bA==
+abi-coder@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/abi-coder/-/abi-coder-4.0.0.tgz#c50f2363818000485836fe41a48e12c863f9b180"
+  integrity sha512-kR3+QqAbvG+nBR3dE6tgxiaxyu9dJl40y7WXwmMqAaatg0E8xn37XkS/bBUozQ45KWqQnUHt4TtLcvad+X9Z5g==
   dependencies:
     "@ethersproject/abi" "^5.0.0"
     "@ethersproject/keccak256" "^5.0.0"
@@ -3059,17 +3054,17 @@ eth-sig-util@^1.4.2:
     ethereumjs-abi "git+https://github.com/ethereumjs/ethereumjs-abi.git"
     ethereumjs-util "^5.1.1"
 
-ethcall@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/ethcall/-/ethcall-4.7.0.tgz#1c95ce3d1e9038a565d4bf5f4db7d052563d4987"
-  integrity sha512-kRj8KN5bRn6uwkH+WJS286c45U1Cf+ToOC2klVpYFSojgD5EIFYxravGkcJJmouraPohU2PxJrQDQxB5Lip7Ew==
+ethcall@^4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/ethcall/-/ethcall-4.7.2.tgz#9b979dc9c1e357e049d7f3a660920bb78fb01b34"
+  integrity sha512-GyIBiRzJXfHt6CoLFhq5wPrKoqVpkKgzun2h6zZF1/tc+JDLmqcBkVkSKijV/NvzKQUBfAi5ziUZ36Alx4NO9A==
   dependencies:
     "@ethersproject/abi" "^5.0.0"
     "@ethersproject/bytes" "^5.0.0"
     "@ethersproject/contracts" "^5.0.0"
     "@ethersproject/providers" "^5.0.0"
-    "@types/node" "^16.0.0"
-    abi-coder "^3.1.1"
+    "@types/node" "^17.0.33"
+    abi-coder "^4.0.0"
 
 ethereum-cryptography@^0.1.3:
   version "0.1.3"
