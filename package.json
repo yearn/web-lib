@@ -14,7 +14,7 @@
 		"release": "turbo run build --filter=docs^... && changeset publish"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.22.0",
+		"@changesets/cli": "^2.23.0",
 		"eslint": "^8.15.0",
 		"turbo": "latest"
 	}
