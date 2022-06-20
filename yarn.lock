@@ -409,10 +409,10 @@
     "@dnd-kit/utilities" "^3.2.0"
     tslib "^2.0.0"
 
-"@dnd-kit/sortable@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@dnd-kit/sortable/-/sortable-7.0.0.tgz#b094b288a8bd37cb74af0ed347b5ca4cfe6ce795"
-  integrity sha512-Em6d1n18lMmpRnNB9mmBWN/X7wNDnIw26tab+c7H0jCjW9UQ0+lRV+vatB1lLzFZlgQgIas/A/TXZDY16RQA5Q==
+"@dnd-kit/sortable@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@dnd-kit/sortable/-/sortable-7.0.1.tgz#99c6012bbab4d8bb726c0eef7b921a338c404fdb"
+  integrity sha512-n77qAzJQtMMywu25sJzhz3gsHnDOUlEjTtnRl8A87rWIhnu32zuP+7zmFjwGgvqfXmRufqiHOSlH7JPC/tnJ8Q==
   dependencies:
     "@dnd-kit/utilities" "^3.2.0"
     tslib "^2.0.0"
