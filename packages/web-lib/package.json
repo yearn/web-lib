@@ -55,7 +55,7 @@
 		"@tailwindcss/typography": "^0.5.2",
 		"@walletconnect/ethereum-provider": "^1.7.8",
 		"@walletconnect/jsonrpc-http-connection": "^1.0.0",
-		"@walletconnect/jsonrpc-provider": "^1.0.3",
+		"@walletconnect/jsonrpc-provider": "^1.0.5",
 		"@web3-react/coinbase-wallet": "^8.0.22-beta.0",
 		"@web3-react/core": "8.0.30-beta.0",
 		"@web3-react/eip1193": "8.0.14-beta.0",
