@@ -30,15 +30,3 @@ function useInterval(callback: () => void, delay = 1000, runOnLoad = false, effe
 
 export {useInterval};
 export default useInterval;
-// Usage
-
-// const App = () => {
-//   // Grabs user data every 7500ms or when user changes
-//   useInterval(() => {
-//     if (user) {
-//       getUserInfo(user);
-//     }
-//   }, 7500, true, [user]);
-
-//   ...
-// };
