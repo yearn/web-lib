@@ -1,7 +1,8 @@
 import	{useRef, useState, useCallback, useEffect}	from	'react';
 import	{ethers}									from	'ethers';
 import	{useWeb3}									from	'../contexts/useWeb3';
-import	{performBatchedUpdates, providers}			from	'../utils';
+import	performBatchedUpdates						from	'../utils/performBatchedUpdates';
+import	{getProvider}								from	'../utils/providers';
 import	type * as Types								from	'./types.d';
 
 const		defaultStatus = {
@@ -39,7 +40,7 @@ function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
 		blockNumber: ethers.providers.BlockTag,
 		shallow?: boolean
 	): Promise<void> => {
-		let		currentProvider = props?.provider || providers.getProvider(props?.chainID || web3ChainID || 1);
+		let		currentProvider = props?.provider || getProvider(props?.chainID || web3ChainID || 1);
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.Provider;
 		}
@@ -103,7 +104,7 @@ function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
 			return (): void => undefined;
 		}
 
-		let	currentProvider = props?.provider || providers.getProvider(props?.chainID || web3ChainID || 1);
+		let	currentProvider = props?.provider || getProvider(props?.chainID || web3ChainID || 1);
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
