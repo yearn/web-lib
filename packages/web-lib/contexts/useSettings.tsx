@@ -1,5 +1,5 @@
 import React, {createContext} from 'react';
-import { getRPC } from '../utils/providers';
+import {getRPC} from '../utils/providers';
 import type * as useSettingsTypes from './useSettings.d';
 import {deepMerge} from './utils';
 
@@ -35,7 +35,7 @@ const	defaultSettings = {
 
 const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 	networks: defaultSettings,
-	onUpdateNetworks: () => null,
+	onUpdateNetworks: (): null => null
 });
 
 /* 💙 - Yearn Finance *************************************************************************
@@ -44,7 +44,7 @@ const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 **	One of theses parameters is the list of networks with the specific Yearn's endpoints.
 **********************************************************************************************/
 export const SettingsContextApp = ({children, options = {}}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
-	const	[networks, set_networks] = React.useState<useSettingsTypes.TSettingsContext>(() => (
+	const	[networks, set_networks] = React.useState<useSettingsTypes.TSettingsContext>((): useSettingsTypes.TSettingsContext => (
 		deepMerge(defaultSettings, options) as useSettingsTypes.TSettingsContext)
 	);
 

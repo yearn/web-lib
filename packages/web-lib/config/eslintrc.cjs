@@ -66,7 +66,7 @@ module.exports = {
 			{'selector': 'interface', 'format': ['PascalCase'], 'prefix': ['I']},
 			{'selector': ['default', 'variableLike', 'parameter'], 'format': null, 'filter': {'regex': '^(__html|_css)$', 'match': true}}
 		],
-		'@typescript-eslint/no-misused-promises': ['error', {'checksConditionals': true, 'checksVoidReturn': true}],
+		'@typescript-eslint/no-misused-promises': ['error', {'checksConditionals': true, 'checksVoidReturn': false}],
 		'@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'error',
 		'@typescript-eslint/no-unnecessary-qualifier': 'error',
 		'@typescript-eslint/no-unnecessary-type-arguments': 'error',

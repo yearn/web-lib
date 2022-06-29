@@ -12,6 +12,7 @@ export type TWeb3Context = {
 	chainID: number,
 	isDisconnected: boolean,
 	isActive: boolean,
+	isConnecting: boolean,
 	hasProvider: boolean,
 	provider: ethers.providers.Provider,
 	onConnect: (p: number, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,

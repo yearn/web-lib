@@ -25,6 +25,7 @@ const defaultState = {
 	chainID: 0,
 	isDisconnected: false,
 	isActive: false,
+	isConnecting: false,
 	hasProvider: false,
 	provider: getProvider(),
 	onConnect: async (): Promise<void> => undefined,
@@ -47,10 +48,12 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 	const   {connector, isActive, provider, account, chainId} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
 	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', walletType.NONE) as [number, (n: number) => void];
+	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
+
+	const   [isConnecting, set_isConnecting] = React.useState(false);
 	const   [isDisconnected, set_isDisconnected] = React.useState(false);
 	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = React.useState(false);
 	const	[isModalLoginOpen, set_isModalLoginOpen] = React.useState(false);
-	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
 	const	[, set_currentPartner] = React.useState<TPartnersInfo>();
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
@@ -113,59 +116,68 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		if (!process.env.USE_WALLET) {
 			return;
 		}
+		set_isConnecting(true);
 		if (_providerType === walletType.METAMASK) {
 			if (isActive)
-				connectors.metamask.connector.deactivate();
+				await connectors.metamask.connector.deactivate();
 			try {
-				connectors.metamask.connector.activate();
+				await connectors.metamask.connector.activate();
 				set_lastWallet(walletType.METAMASK);	
 				if (onSuccess)
 					onSuccess();
+				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
 				if (onError)
 					onError(error as Error);
+				set_isConnecting(false);
 			}
 		} else if (_providerType === walletType.WALLET_CONNECT) {
 			if (isActive)
-				connectors.walletConnect.connector.deactivate();
+				await connectors.walletConnect.connector.deactivate();
 			try {
-				connectors.walletConnect.connector.activate(1);
+				await connectors.walletConnect.connector.activate(1);
 				set_lastWallet(walletType.WALLET_CONNECT);	
 				if (onSuccess)
 					onSuccess();
+				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
 				if (onError)
 					onError(error as Error);
+				set_isConnecting(false);
 			}
 		} else if (_providerType === walletType.EMBED_LEDGER) {
 			set_lastWallet(walletType.EMBED_LEDGER);
 		} else if (_providerType === walletType.EMBED_GNOSIS_SAFE) {
 			if (isActive)
-				connectors.gnosisSafe.connector.deactivate();
+				await connectors.gnosisSafe.connector.deactivate();
 			try {
-				connectors.gnosisSafe.connector.activate();
+				await connectors.gnosisSafe.connector.activate();
 				set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
 				if (onSuccess)
 					onSuccess();
+				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
 				if (onError)
 					onError(error as Error);
+				set_isConnecting(false);
 			}
 		} else if (_providerType === walletType.COINBASE) {
 			if (isActive)
-				connectors.coinbase.connector.deactivate();
+				await connectors.coinbase.connector.deactivate();
 			try {
-				connectors.coinbase.connector.activate(1);
+				await connectors.coinbase.connector.activate(1);
 				set_lastWallet(walletType.COINBASE);	
 				if (onSuccess)
 					onSuccess();
+				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
 				if (onError)
 					onError(error as Error);
+				set_isConnecting(false);
 			}
 		} 
 	}, [isActive, set_lastWallet]);
@@ -243,10 +255,11 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			value={{
 				address: account,
 				ens,
-				isDisconnected,
 				chainID: Number(chainID || options.defaultChainID || 0),
 				onSwitchChain,
 				isActive: isActive && (options.supportedChainID).includes(Number(chainId || 0)),
+				isDisconnected,
+				isConnecting,
 				hasProvider: !!provider,
 				provider: provider as ethers.providers.BaseProvider,
 				onConnect: connect, // eslint-disable @typescript-eslint/no-misused-promises
