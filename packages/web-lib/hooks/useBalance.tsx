@@ -19,9 +19,9 @@ const		defaultStatus = {
 };
 const		defaultData = {
 	decimals: 0,
-	formatted: 0,
+	normalized: 0,
 	symbol: '',
-	value: ethers.constants.Zero
+	raw: ethers.constants.Zero
 };
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -58,9 +58,9 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 				performBatchedUpdates((): void => {
 					set_data({
 						decimals: 18,
-						formatted: format.toNormalizedValue(balanceOfEth, 18),
+						normalized: format.toNormalizedValue(balanceOfEth, 18),
 						symbol: 'ETH',
-						value: balanceOfEth
+						raw: balanceOfEth
 					});
 					set_error(undefined);
 					set_status({...defaultStatus, isSuccess: true, isFetched: true});
@@ -88,9 +88,9 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			performBatchedUpdates((): void => {
 				set_data({
 					decimals: Number(decimals),
-					formatted: format.toNormalizedValue(balanceOf, Number(decimals)),
+					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
 					symbol: symbol,
-					value: balanceOf
+					raw: balanceOf
 				});
 				set_error(undefined);
 				set_status({...defaultStatus, isSuccess: true, isFetched: true});

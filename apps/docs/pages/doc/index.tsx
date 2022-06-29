@@ -11,7 +11,7 @@ function	Index(): ReactElement {
 	const	{data: ethBalance} = useBalance({refreshEvery: 'block'});
 	const	{data: usdcBalance} = useBalance({token: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'});
 	
-	console.log({ethBalance: ethBalance.formatted, usdcBalance, blockNumber: block.number});
+	console.log({ethBalance: ethBalance.normalized, usdcBalance, blockNumber: block.number});
 	return (
 		<section aria-label={'some default section'}>
 			{'Nothing to see here. Yet.'}

@@ -56,9 +56,9 @@ export type	TUseBlockRes = {
 ******************************************************************************/
 export type	TData = {
 	decimals: number,
-	formatted: number,
+	normalized: number,
 	symbol: string,
-	value: BigNumber
+	raw: BigNumber
 }
 
 export type	TUseBalanceReq = {
