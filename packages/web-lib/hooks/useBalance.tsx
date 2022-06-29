@@ -6,7 +6,7 @@ import	{toAddress, isZeroAddress}							from	'../utils/utils';
 import	performBatchedUpdates								from	'../utils/performBatchedUpdates';
 import	* as format											from	'../utils/format';
 import	* as providers										from	'../utils/providers';
-import	* as ABI											from	'../utils/abi';
+import	ERC20_ABI											from	'../utils/abi/erc20.abi';
 import	type * as Types										from	'./types.d';
 
 const		defaultStatus = {
@@ -75,7 +75,7 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			return;
 		}
 
-		const	tokenContract = new Contract(props?.token as string, ABI.ERC20_ABI);
+		const	tokenContract = new Contract(props?.token as string, ERC20_ABI);
 		try {
 			const	ethcallProvider = await providers.newEthCallProvider(currentProvider);
 			const	multiCallResult = await ethcallProvider.tryAll([
