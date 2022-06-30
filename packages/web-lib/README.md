@@ -118,10 +118,7 @@ WEBSITE_TITLE: 'My awesome yWeb3 app',
 WEBSITE_DESCRIPTION: 'Welcome to my awesome Yearn Web3 app. This is a super description that will be used for the SEO stuffs',
 PROJECT_GITHUB_URL: 'https://github.com/me/yweb3-awesome',
 
-USE_WALLET: true,
 USE_PRICES: false,
-USE_PRICE_TRI_CRYPTO: false,
-USE_FEEDBACKS: true,
 
 CG_IDS: ['yearn-finance'],
 TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],

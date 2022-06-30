@@ -20,8 +20,8 @@ type		THeader = {
 	children: ReactElement
 }
 function	Header({
-	shouldUseWallets = process.env.USE_WALLET as unknown as boolean,
-	shouldUseNetworks = process.env.USE_NETWORKS as unknown as boolean,
+	shouldUseWallets = true,
+	shouldUseNetworks = true,
 	children
 }: THeader): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();

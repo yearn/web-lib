@@ -1,6 +1,4 @@
 export * as contexts from './contexts/index';
-export * from './contexts/useBalances';
-export * from './contexts/usePrices';
 export * from './contexts/useUI';
 export * from './contexts/useWeb3';
 export * from './contexts/useSettings';

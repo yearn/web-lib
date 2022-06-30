@@ -1,20 +1,16 @@
-import	React, {ReactElement}						from	'react';
-import	Head										from	'next/head';
-import	Link										from	'next/link';
-import	{AppProps}									from	'next/app';
-import	{DefaultSeo}								from	'next-seo';
-import	{Header}									from	'@yearn-finance/web-lib/layouts';
-import	{WithYearn, usePrices, useBalances}			from	'@yearn-finance/web-lib/contexts';
-import	{format}									from	'@yearn-finance/web-lib/utils';
-import	LogoYearn									from	'components/icons/LogoYearn';
-import	Footer										from	'components/StandardFooter';
-// import	{AlertError, Hamburger, Home}				from	'@yearn-finance/web-lib/icons';
-// import	IconHealthcheck								from	'components/icons/IconHealthcheck';
-// import	IconYearn									from	'components/icons/IconYearn';
+import	React, {ReactElement}		from	'react';
+import	Head						from	'next/head';
+import	Link						from	'next/link';
+import	{AppProps}					from	'next/app';
+import	{DefaultSeo}				from	'next-seo';
+import	{Header}					from	'@yearn-finance/web-lib/layouts';
+import	{WithYearn}					from	'@yearn-finance/web-lib/contexts';
+import	{useBalance}				from	'@yearn-finance/web-lib/hooks';
+import	LogoYearn					from	'components/icons/LogoYearn';
+import	Footer						from	'components/StandardFooter';
 
 import	'../style.css';
 
-const		YFI_ADDRESS = '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e';
 function	AppHead(): ReactElement {
 	return (
 		<>
@@ -69,13 +65,10 @@ function	AppHead(): ReactElement {
 
 function	AppHeader(): ReactElement {
 	const	[shouldDisplayPrice, set_shouldDisplayPrice] = React.useState(true);
-	const	[tokenPrice, set_tokenPrice] = React.useState('0');
-	const	{prices} = usePrices();
-	const	{balancesOf} = useBalances();
-
-	React.useEffect((): void => {
-		set_tokenPrice(format.amount(Number(prices?.['yearn-finance']?.usd || 0), 2));
-	}, [prices]);
+	const	{data: YFIBalance} = useBalance({
+		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
+		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+	});
 
 	return (
 		<Header>
@@ -92,11 +85,11 @@ function	AppHeader(): ReactElement {
 						onClick={(): void => set_shouldDisplayPrice(!shouldDisplayPrice)}>
 						{shouldDisplayPrice ? (
 							<p className={'text-primary-500'}>
-								{`YFI $ ${tokenPrice}`}
+								{`YFI $ ${YFIBalance.normalizedPrice}`}
 							</p>
 						) : (
 							<p className={'text-primary-500'}>
-								{`Balance: ${format.amount(Number(balancesOf?.[YFI_ADDRESS] || 0), 6)} YFI`}
+								{`Balance: ${YFIBalance.normalized} YFI`}
 							</p>
 						)}
 					</div>
@@ -108,59 +101,10 @@ function	AppHeader(): ReactElement {
 
 function	AppWrapper(props: AppProps): ReactElement {
 	const	{Component, pageProps, router} = props;
-	// const	navbarMenuOptions = [
-	// 	{
-	// 		route: '/',
-	// 		values: ['/'],
-	// 		label: 'Home',
-	// 		icon: <Home  />
-	// 	},
-	// 	{
-	// 		route: '/doc/components',
-	// 		values: ['/doc/components'],
-	// 		label: 'Components',
-	// 		icon: <IconHealthcheck />
-	// 	},
-	// 	{
-	// 		route: '/doc/icons',
-	// 		values: ['/doc/icons'],
-	// 		label: 'Icons',
-	// 		icon: <AlertError />
-	// 	},
-	// 	{
-	// 		route: '/doc/layouts',
-	// 		values: ['/doc/layouts'],
-	// 		label: 'Layouts',
-	// 		icon: <Hamburger />,
-	// 		options: [
-	// 			{
-	// 				route: '/doc/layouts/header',
-	// 				values: ['/doc/layouts/header'],
-	// 				label: 'Header'
-	// 			}
-	// 		]
-	// 	}
-	// ];
-
-	// function	onChangeRoute(selected: string): void {
-	// 	router.push(selected);
-	// }
-
 	return (
 		<>
 			<AppHead />
 			<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-[1200px] md:flex-row'}>
-				{/* <div className={'sticky top-0 z-50 col-span-12 h-auto md:relative md:col-span-2'}>
-					<div className={'flex flex-col justify-between h-full'}>
-						<Navbar
-							selected={router.pathname}
-							set_selected={onChangeRoute}
-							logo={<IconYearn className={'w-full h-12 text-primary-500'} />}
-							title={'yWeb'}
-							options={navbarMenuOptions}
-							wrapper={<Link passHref href={''} />} />
-					</div>
-				</div> */}
 				<div className={'flex flex-col col-span-12 w-full max-w-6xl min-h-[100vh] md:col-span-12'}>
 					<AppHeader />
 					<Component
@@ -185,6 +129,7 @@ function	MyApp(props: AppProps): ReactElement {
 					137: {rpcURI: 'https://polygon-rpc.com'}
 				},
 				web3: {
+					shouldUseWallets: true,
 					shouldUseStrictChainMode: false,
 					defaultChainID: 1,
 					supportedChainID: [1, 250, 42161, 1337, 31337]
