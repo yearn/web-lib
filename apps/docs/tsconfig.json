@@ -1,0 +1,27 @@
+{
+	"extends": "@yearn-finance/web-lib/config/tsconfig.next.json",
+	"exclude": [
+	  "dist",
+	  "build",
+	  "node_modules"
+	],
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"*.d.ts",
+		"tsconfig.json",
+		"next.config.js",
+		"tailwind.config.js",
+		"theme.config.js",
+		".eslintrc.js",
+		"postcss.config.js"
+, "pages/docs/3-hooks/useClientEffect.msx"	],
+	"compilerOptions": {
+	  "rootDirs": [
+		"."
+	  ],
+	  "baseUrl": ".",
+	  "incremental": true
+	}
+  }
+  

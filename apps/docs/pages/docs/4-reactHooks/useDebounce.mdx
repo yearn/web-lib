@@ -1,0 +1,63 @@
+---
+title: 'useDebounce'
+description: 'Hook to debounce any fast changing value'
+---
+
+# useDebounce
+This hook will debounce any fast changing value. You can find details on it's implementation on the [react-recipe](https://github.com/craig1123/react-recipes/blob/master/docs/useDebounce.md) repository.
+
+```tsx
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
+```
+
+## Usage
+
+```tsx
+import {useWeb3}     from '@yearn-finance/web-lib/contexts';
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
+
+function	App() {
+	const   {chainID} = useWeb3();
+	const	debouncedChainID = useDebounce(chainID, 500);
+
+	return (
+		<div>
+			{`${chainID} may be debounced with a 500ms delay: ${debouncedChainID}`}
+		</div>
+	);
+}
+```
+
+## Return Value
+```tsx
+debouncedValue: unknown
+```
+
+
+## Configuration
+
+### `value`
+The value to debounce. Can be any value but must be provided.
+```tsx {5}
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
+
+function	App(chainID: number) {
+	const	debouncedChainID = useDebounce(
+		chainID,
+		500
+	);
+}
+```
+
+### `delay`
+The delay in milliseconds to debounce the value. Must be provided.
+```tsx {6}
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
+
+function	App(chainID: number) {
+	const	debouncedChainID = useDebounce(
+		chainID,
+		500
+	);
+}
+```

@@ -9,6 +9,10 @@
 			"dependsOn": ["^build"],
 			"outputs": ["dist/**", ".next/**"]
 		},
+		"docs#build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".next/**"]
+		},
 		"dev": {
 			"cache": false
 		},
