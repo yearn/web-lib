@@ -1,5 +1,5 @@
 {
-	"name": "@yearn-finance/web-lib-docs",
+	"name": "@yearn-finance/web-lib-playground",
 	"version": "0.6.12",
 	"private": true,
 	"scripts": {

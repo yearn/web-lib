@@ -5,7 +5,7 @@
 			"dependsOn": ["^build"],
 			"outputs": ["dist/**", ".next/**"]
 		},
-		"docs#build": {
+		"playground#build": {
 			"dependsOn": ["^build"],
 			"outputs": ["dist/**", ".next/**"]
 		},

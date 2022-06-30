@@ -6,7 +6,7 @@ import * as CardTypes from './Card.d';
 
 function	CardDetailsSummary({startChildren, endChildren, ...props}: CardTypes.TCardDetailSummary): ReactElement{
 	return (
-		<div className={'flex flex-col justify-between items-start p-6 w-full rounded-default cursor-pointer md:flex-row md:items-center'} {...props}>
+		<div className={'flex flex-col justify-between items-start p-6 w-full cursor-pointer md:flex-row md:items-center rounded-default'} {...props}>
 			<div className={'w-inherit'}>
 				{startChildren}
 			</div>

@@ -1,4 +1,4 @@
-import	React, {ReactElement}		from	'react';
+import	React, {ReactElement}	from	'react';
 import	{useBlock, useBalance}	from	'@yearn-finance/web-lib/hooks';
 
 function	Index(): ReactElement {

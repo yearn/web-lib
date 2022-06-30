@@ -2,7 +2,7 @@
 
 module.exports = {
 	presets: [
-		require('../../packages/web-lib/config/tailwind.config.cjs')
+		require('@yearn-finance/web-lib/config/tailwind.config.cjs')
 	],
 	theme: {
 		extend: {

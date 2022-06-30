@@ -181,7 +181,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				set_isConnecting(false);
 			}
 		} 
-	}, [isActive, set_lastWallet]);
+	}, [isActive, options.shouldUseWallets, set_lastWallet]);
 
 	useClientEffect((): void => {
 		if (isIframe()) {
@@ -263,11 +263,12 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				isConnecting,
 				hasProvider: !!provider,
 				provider: provider as ethers.providers.BaseProvider,
-				onConnect: connect, // eslint-disable @typescript-eslint/no-misused-promises
+				onConnect: connect,
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
 						connector.deactivate();
+						set_ens('');
 						set_lastWallet(walletType.NONE);
 						set_isDisconnected(true);
 					});
