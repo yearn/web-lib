@@ -2,6 +2,7 @@ import	{useState, useRef, useEffect, useCallback}			from	'react';
 import	{BigNumber, ethers}									from	'ethers';
 import	{Contract}											from	'ethcall';
 import	{useWeb3}											from	'../contexts/useWeb3';
+import	{useSettings}										from	'../contexts/useSettings';
 import	{toAddress, isZeroAddress}							from	'../utils/utils';
 import	performBatchedUpdates								from	'../utils/performBatchedUpdates';
 import	* as format											from	'../utils/format';
@@ -9,7 +10,6 @@ import	* as providers										from	'../utils/providers';
 import	ERC20_ABI											from	'../utils/abi/erc20.abi';
 import	LENS_ABI											from	'../utils/abi/lens.abi';
 import	type * as Types										from	'./types.d';
-import {useSettings} from '../contexts';
 
 const		defaultStatus = {
 	isLoading: false,
