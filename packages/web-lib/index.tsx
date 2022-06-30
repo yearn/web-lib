@@ -4,6 +4,9 @@ export * from './contexts/useWeb3';
 export * from './contexts/useSettings';
 
 export * as hooks from './hooks/index';
+export * from './hooks/useBlock';
+export * from './hooks/useBalance';
+export * from './hooks/useAccount';
 export * from './hooks/useClientEffect';
 export * from './hooks/useDebounce';
 export * from './hooks/useInterval';
