@@ -13,7 +13,7 @@
 	},
 	"files": [
 		"dist/**",
-		"tailwind.config.cjs",
+		"./config/tailwind.config.cjs",
 		"build.css",
 		"style.css",
 		"style.light.css",
