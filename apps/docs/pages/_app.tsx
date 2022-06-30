@@ -3,8 +3,7 @@ import type {AppProps} from 'next/app';
 import	'../style.css';
 
 function App({Component, pageProps}: AppProps): React.ReactElement {
-	const getLayout =
-		(Component as any).getLayout || ((page: React.ReactElement): React.ReactElement => page);
+	const getLayout = (Component as any).getLayout || ((page: React.ReactElement): React.ReactElement => page); // eslint-disable-line
 
 	return (
 		getLayout(<Component {...pageProps} />)

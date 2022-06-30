@@ -13,7 +13,7 @@
 	},
 	"files": [
 		"dist/**",
-		"./config/tailwind.config.cjs",
+		"tailwind.config.cjs",
 		"build.css",
 		"style.css",
 		"style.light.css",
@@ -22,12 +22,12 @@
 	],
 	"exports": {
 		".": "./dist/index.js",
+		"./config/tailwind.config.cjs": "./dist/tailwind.config.cjs",
 		"./build.css": "./dist/build.css",
 		"./style.css": "./dist/style.css",
 		"./style.light.css": "./dist/style.light.css",
 		"./style.dark.css": "./dist/style.dark.css",
 		"./style.macarena.css": "./dist/style.macarena.css",
-		"./tailwind.plugin": "./dist/tailwind.config.cjs",
 		"./layouts": "./dist/layouts/index.js",
 		"./components": "./dist/components/index.js",
 		"./contexts": "./dist/contexts/index.js",

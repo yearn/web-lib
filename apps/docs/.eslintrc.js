@@ -1,7 +1,8 @@
 module.exports = { // eslint-disable-line no-undef
 	root: true,
 	extends: [
-		'../../packages/web-lib/config/eslintrc.cjs'
+		'../../packages/web-lib/config/eslintrc.cjs',
+		'plugin:@next/next/recommended'
 	],
 	parserOptions: {
 		tsconfigRootDir: __dirname, // eslint-disable-line no-undef

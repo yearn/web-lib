@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-undef */
+const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
 const withNextra = require('nextra')({
 	theme: 'nextra-theme-docs',
 	themeConfig: './theme.config.js',
@@ -19,10 +20,10 @@ const config = {
 
 if (process.env.NODE_ENV === 'development') {
 	const withPreconstruct = require('@preconstruct/next');
-	module.exports = withPreconstruct(withNextra(config));
+	module.exports = withPreconstruct(withTM(withNextra(config)));
 } else {
 	const withBundleAnalyzer = require('@next/bundle-analyzer')({
 		enabled: process.env.ANALYZE === 'true'
 	});
-	module.exports = withBundleAnalyzer(withNextra(config));
+	module.exports = withBundleAnalyzer(withTM(withNextra(config)));
 }

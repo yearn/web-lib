@@ -6,16 +6,16 @@
 	  "node_modules"
 	],
 	"include": [
-		"**/*.ts",
-		"**/*.tsx",
-		"*.d.ts",
-		"tsconfig.json",
-		"next.config.js",
-		"tailwind.config.js",
-		"theme.config.js",
-		".eslintrc.js",
-		"postcss.config.js"
-, "pages/docs/3-hooks/useClientEffect.msx"	],
+	  "**/*.ts",
+	  "**/*.tsx",
+	  "**/*.mdx",
+	  "*.d.ts",
+	  "tsconfig.json",
+	  "next.config.js",
+	  "tailwind.config.js",
+	  ".eslintrc.js",
+	  "postcss.config.js"
+	],
 	"compilerOptions": {
 	  "rootDirs": [
 		"."

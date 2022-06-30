@@ -11,7 +11,7 @@ type TInitialProps = {
 class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext): Promise<TInitialProps> {
 		const initialProps = await Document.getInitialProps(ctx);
-		return {...initialProps} as any;
+		return {...initialProps} as any; // eslint-disable-line
 	}
 	render(): ReactElement {
 		return (
