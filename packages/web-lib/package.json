@@ -67,7 +67,7 @@
 		"ethcall": "^4.7.0",
 		"ethers": "^5.6.9",
 		"eventemitter3": "^4.0.7",
-		"framer-motion": "^6.3.4",
+		"framer-motion": "^6.3.15",
 		"nprogress": "^0.2.0",
 		"postcss": "^8.4.14",
 		"react-flip-move": "^3.0.4",
