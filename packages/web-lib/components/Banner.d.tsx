@@ -6,8 +6,6 @@ export type TBanner = {
 	primaryButton?: ReactElement,
 	secondaryButton?: ReactElement,
 	children?: ReactNode,
-	canClose?: boolean,
-	onClose?: () => void,
 	onClick?: React.MouseEventHandler
 	variant?: 'default' | 'image' | 'split' | 'background'
 	height?: string | number,
@@ -23,6 +21,5 @@ export type TDefaultVariant = {
 export type	TBannerPagination = {
 	children: ReactElement[],
 	canClose?: boolean,
-	paginationStyle?: string,
 	onClose?: () => void
 }

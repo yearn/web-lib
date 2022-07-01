@@ -8,6 +8,7 @@ export default {
 	feedbackLabels: 'feedback',
 	feedbackLink: 'Question? Give us feedback →',
 	floatTOC: true,
+	defaultMenuCollapsed: true,
 	footerEditLink: 'Edit this page on GitHub',
 	footerText: () => (
 		<div className={'text-sm text-current'}>
@@ -38,17 +39,6 @@ export default {
 				<meta name={'robots'} content={'index,nofollow'} />
 				<meta name={'googlebot'} content={'index,nofollow'} />
 				<meta charSet={'utf-8'} />
-
-				<script
-					lang={'javascript'}
-					dangerouslySetInnerHTML={{
-						__html: `if (!window.localStorage.getItem("theme_default")) {
-						window.localStorage.setItem("theme", "dark");
-						window.localStorage.setItem("theme_default", "dark");
-						document.documentElement.classList.add("dark");
-						document.documentElement.classList.remove("light");
-						}`
-					}} />
 			</>
 		);
 	},

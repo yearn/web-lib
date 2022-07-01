@@ -289,9 +289,20 @@ label[aria-invalid="true"] {
 	}
 }
 .yearn--banner-with-controls {
+	--banner-with-controls-text-color: hsl(var(--color-primary-500));
+
 	@apply relative;
 	& .yearn--banner {&[data-variant="image"] {@apply pb-8 md:pb-0;}}
 	& .yearn--banner-title {@apply mr-5 md:mr-0 text-inherit;}
+}
+
+.yearn--banner-with-controls-icons-cross {
+	@apply w-6 h-6 cursor-pointer;
+	color: var(--banner-with-controls-text-color);
+}
+.yearn--banner-with-controls-pagination {
+	@apply flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50;
+	color: var(--banner-with-controls-text-color);
 }
 
 /* -- Switch.tsx ------------------------------------------------------- */
@@ -350,20 +361,20 @@ label[aria-invalid="true"] {
 		color: var(--elementWithActions-action-color-hover);
 	}
 }
-.yearn--elementWithActions-wrapper {
-	@apply flex flex-row items-center;
-}
 .yearn--elementWithActions {
-	--elementWithActions-text-color: hsl(var(--color-neutral-700));
-	--elementWithActions-action-color: hsl(var(--color-primary-500));
-	--elementWithActions-action-color-hover: hsl(var(--color-primary-600));
-
 	@apply font-mono font-bold text-left;
 	color: var(--elementWithActions-text-color);
 	& ~ button {
 		@apply flex justify-center items-center p-0 w-8 h-8;
 		border-radius: var(--default-rounded);
 	}
+}
+
+.yearn--elementWithActions-wrapper {
+	--elementWithActions-text-color: hsl(var(--color-neutral-700));
+	--elementWithActions-action-color: hsl(var(--color-primary-500));
+	--elementWithActions-action-color-hover: hsl(var(--color-primary-600));
+	@apply flex flex-row items-center;
 }
 
 /* -- Input.tsx -------------------------------------------------------- */

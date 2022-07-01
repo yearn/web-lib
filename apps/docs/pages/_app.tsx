@@ -1,13 +1,25 @@
 import * as React from 'react';
+import {useTheme} from 'next-themes';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks';
 import type {AppProps} from 'next/app';
 import	'../style.css';
 
-function App({Component, pageProps}: AppProps): React.ReactElement {
-	const getLayout = (Component as any).getLayout || ((page: React.ReactElement): React.ReactElement => page); // eslint-disable-line
+function	WrappedApp({Component, pageProps}: AppProps): React.ReactElement {
+	const {theme} = useTheme();
+
+	useClientEffect((): void => {
+		document.body.dataset.theme = theme;
+	}, [theme]);
 
 	return (
-		getLayout(<Component {...pageProps} />)
+		<Component {...pageProps} />
 	);
+}
+
+function	App(props: AppProps): React.ReactElement {
+	const getLayout = (props.Component as any).getLayout || ((page: React.ReactElement): React.ReactElement => page); // eslint-disable-line
+
+	return (getLayout(<WrappedApp {...props} />));
 }
 
 export default App;

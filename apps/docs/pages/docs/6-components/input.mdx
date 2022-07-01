@@ -37,13 +37,13 @@ function	App() {
 }
 ```
 
-## Arguments
+## Properties
 
 ```tsx
-{
+type TDropdown = {
 	value: string
-	onSetValue: (s: string) => void
-	onValueChange?: (s: string) => void
+	onSetValue: React.Dispatch<React.SetStateAction<string>>
+	onValueChange?: React.Dispatch<React.SetStateAction<string>>
 	maxValue?: BigNumber
 	withMax?: boolean
 	decimals?: number

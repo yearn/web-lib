@@ -68,7 +68,7 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[250]);
 		if (process.env.JSON_RPC_URL?.[250])
 			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[250]);
-		return new ethers.providers.JsonRpcProvider('https://rpc.ftm.tools');
+		return new ethers.providers.JsonRpcProvider('https://rpc.ankr.com/fantom');
 	} else if (chain === 1337 || chain === 31337) {
 		return new ethers.providers.JsonRpcProvider('http://localhost:8545');
 	} else if (chain === 42161) {

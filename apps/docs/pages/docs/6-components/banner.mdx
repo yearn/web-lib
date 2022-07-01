@@ -1,0 +1,276 @@
+---
+title: 'Banner'
+---
+
+import {CodeExample} from '../../../components/CodeExample';
+import {Card, Button, Banner} from '@yearn-finance/web-lib/components';
+
+
+# Banner
+```ts
+import {Banner} from '@yearn-finance/web-lib/components';
+```
+
+<CodeExample>
+	<Banner
+		title={'Welcome to banner'}
+		primaryButton={<Button>Primary CTA</Button>}
+		secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}>
+		<div>
+			<p>{'This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page.'}</p>
+			<p>{'The banner can have CTA as one or two buttons to provide some usefull links.'}</p>
+			<p>{'The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.'}</p>
+			<br />
+			<p>{'Have a nice day.'}</p>
+		</div>
+	</Banner>
+</CodeExample>
+
+The Banner component is used to display some notice. There are 4 variations with image options.  
+
+## Usage
+```tsx
+import	React				from	'react';
+import	{Button, Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			title={'Welcome to banner'}
+			primaryButton={<Button>Primary CTA</Button>}
+			secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}>
+			<div>
+				<p>{'This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page.'}</p>
+				<p>{'The banner can have CTA as one or two buttons to provide some usefull links.'}</p>
+				<p>{'The component’s height could be changed to fit text length. Please, be sure you have 24px gaps between outer borders and the whole content inside. And 16px between text and CTA buttons if there are some.'}</p>
+				<br />
+				<p>{'Have a nice day.'}</p>
+			</div>
+		</Banner>
+	);
+}
+```
+
+## Properties
+```tsx
+type TBanner = {
+	title?: string,
+	image?: ReactNode,
+	primaryButton?: ReactElement,
+	secondaryButton?: ReactElement,
+	children?: ReactNode,
+	onClick?: React.MouseEventHandler
+	variant?: 'default' | 'image' | 'split' | 'background'
+	height?: string | number,
+	className?: string
+}
+```
+
+### `variant` (optional)
+Indicate the type of banner to display. Default is set to `default`.
+
+<CodeExample>
+	<div className={'flex flex-col space-y-2'}>
+		<Banner
+			title={'This is the default banner'}
+			primaryButton={<Button>Primary CTA</Button>}
+			secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}>
+			<div>
+				<p>{'This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page.'}</p>
+				<p>{'Have a nice day.'}</p>
+			</div>
+		</Banner>
+		<Banner
+			title={'This is the split banner'}
+			variant={'split'}
+			primaryButton={<Button>{'Primary CTA'}</Button>}
+			image={'/examples/mommy-bunny.jpg'}>
+			<div>
+				<p>{'Have a nice day.'}</p>
+			</div>
+		</Banner>
+		<Banner
+			className={'text-white'}
+			title={'This is the background banner'}
+			variant={'background'}
+			primaryButton={<Button>{'Primary CTA'}</Button>}
+			image={<img src={'/examples/blue.jpeg'} className={'object-cover relative w-full h-full'} loading={'eager'} />}>
+			<div>
+				<p>{'Have a nice day.'}</p>
+			</div>
+		</Banner>
+		<Banner
+			variant={'image'}
+			image={'/examples/goblin-town.jpg'}
+			onClick={console.log} />
+	</div>
+</CodeExample>
+
+```tsx {9, 19, 29, 37}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<div className={'flex flex-col space-y-2'}>
+			<Banner
+				title={'This is the default banner'}
+				variant={'default'}
+				primaryButton={<Button>Primary CTA</Button>}
+				secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}>
+				<div>
+					<p>{'This is a banner component. It can appear on different pages to inform users about anything. There can be multiple banners on a single page.'}</p>
+					<p>{'Have a nice day.'}</p>
+				</div>
+			</Banner>
+			<Banner
+				title={'This is the split banner'}
+				variant={'split'}
+				primaryButton={<Button>{'Primary CTA'}</Button>}
+				image={'/examples/mommy-bunny.jpg'}>
+				<div>
+					<p>{'Have a nice day.'}</p>
+				</div>
+			</Banner>
+			<Banner
+				className={'text-white'}
+				title={'This is the background banner'}
+				variant={'background'}
+				primaryButton={<Button>{'Primary CTA'}</Button>}
+				image={<img src={'/examples/blue.jpeg'} className={'object-cover relative w-full h-full'} loading={'eager'} />}>
+				<div>
+					<p>{'Have a nice day.'}</p>
+				</div>
+			</Banner>
+			<Banner
+				variant={'image'}
+				image={'/examples/goblin-town.jpg'}
+				onClick={console.log} />
+		</div>
+	);
+}
+```
+
+### `title` (optional)
+Title displayed on the top of the banner. Not used with image variant.
+
+```tsx {7}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			title={'This is the default banner'}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+
+### `image` (optional)
+Image displayed at banner. If  its an URL then it applies default image styling. If it\'s an <img /> component the default image styiling is overrided. Not used with default variant.
+
+```tsx {9}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			title={'Some title'}
+			variant={'split'}
+			image={'/examples/mommy-bunny.jpg'}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+
+
+### `children` (optional)
+Text or content displayed inside the banner. Not used with image variant. The standard buttons associated with the banner should not be included in this component.
+
+```tsx {7}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner title={'Some title'}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+
+### `primaryButton` (optional)
+Button to display as primary action. Not used with image variant.
+
+```tsx {7}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			primaryButton={<Button>Primary CTA</Button>}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+
+### `secondaryButton` (optional)
+Button to display as secondary action. Not used with image variant.
+
+```tsx {7}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			secondaryButton={<Button variant='outlined'>Secondary CTA</Button>}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+
+### `onClick` (optional)
+Action to trigger when clicked and using the image variant. This action is set because of the lack of primary or secondary buttons in this variant structure.
+
+```tsx {8}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			variant={'image'}
+			onClick={console.log}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+
+### `height` (optional)
+Used for the image variant to ensure we capture the full height of the image, without any unfortunate cropping. Default is set to `350`.
+
+```tsx {8}
+import	React		from	'react';
+import	{Banner}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<Banner
+			variant={'image'}
+			height={350}>
+			<div>{'Have a nice day.'}</div>
+		</Banner>
+	);
+}
+```
+

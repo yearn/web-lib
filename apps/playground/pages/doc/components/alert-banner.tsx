@@ -13,7 +13,6 @@ import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
 export default function	App(): React.ReactElement {
 	return (
 		<AlertBanner
-			id={'someID'}
 			title={'Spend your time wisely'}
 			maxHeight={'max-h-[600px] md:max-h-[300px]'}>
 			<div>
@@ -26,17 +25,10 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function	AlertBannerComponent(): ReactElement {
-	const	[refresher, set_refresher] = React.useState(0);
-	const	resetStorage = (): void => {
-		window.localStorage.setItem('someID-info', JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
 	return (
 		<div className={'relative w-full flex-center'}>
 			<div className={'z-10'}>
 				<AlertBanner
-					key={`someID-info${refresher}`}
-					id={'someID-info'}
 					title={'Spend your time wisely'}
 					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 					<div>
@@ -44,28 +36,18 @@ export function	AlertBannerComponent(): ReactElement {
 					</div>
 				</AlertBanner>
 			</div>
-			<div className={'absolute z-0'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold hover:bg-neutral-100 transition-colors cursor-pointer rorounded-default bg-neutral-0 flex-center'}>{'Reset'}</div>
-			</div>
 		</div>
 	);
 }
 
 function	VariantLevel(): ReactElement {
 	const	[variant, set_variant] = React.useState(0);
-	const	[refresher, set_refresher] = React.useState(0);
 	const	variantType = ['info', 'warning', 'error', 'critical', 'multi'];
-	const	resetStorage = (): void => {
-		window.localStorage.setItem(`someID-${variantType[variant]}`, JSON.stringify(true));
-		setTimeout((): void => set_refresher(refresher + 1), 100);
-	};
 
 	function	renderAlertBanner(): ReactElement {
 		if (variant === 4) {
 			return (
 				<AlertBanner
-					key={`someID-multi${refresher}`}
-					id={'someID-multi'}
 					title={'Spend your time wisely (multi)'}
 					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 					<div>
@@ -87,8 +69,6 @@ function	VariantLevel(): ReactElement {
 		}
 		return (
 			<AlertBanner
-				key={`someID-${variantType[variant]}${refresher}`}
-				id={`someID-${variantType[variant]}`}
 				title={`Spend your time wisely (${variantType[variant]})`}
 				level={variantType[variant] as TAlertLevels}
 				maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
@@ -110,9 +90,6 @@ function	VariantLevel(): ReactElement {
 				selected={variantType[variant]}
 				variants={variantType}
 				onChange={(n: number): void => set_variant(n)} />
-			<div className={'absolute right-4 bottom-4'}>
-				<div onClick={resetStorage} className={'flex px-2 h-8 font-bold hover:bg-neutral-100 transition-colors cursor-pointer rounded-default bg-neutral-0 flex-center'}>{'Reset'}</div>
-			</div>
 		</CodeExample>
 	);
 }
@@ -130,15 +107,9 @@ function	DocumentationAlertBanner(): ReactElement {
 				<section aria-label={'description-part'} className={'mt-6'}>
 					<h4 className={'mb-1'}>{'Description'}</h4>
 					<p className={'mb-2'}>{'The Alert Banner component is used to display some notice. A few levels are available, info, warning, error and critical and multiple pages could be used.'}</p>
-					<p className={'mb-4'}>{'Note: the component uses the localStorage to save the user choice, aka once dismissed, the alert with the provided id will no longer be displayed.'}</p>
 
 					<ComponentAPI
 						elements={[{
-							title: 'id',
-							type: 'string',
-							description: 'Unique string to identify the alert in the local storage'
-						},
-						{
 							title: 'level',
 							type: 'info | warning | error | critical',
 							description: 'Indicate the type of banner to display, aka mostly the colors. Default is set to info'

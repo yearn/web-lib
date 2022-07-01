@@ -116,7 +116,7 @@ function	BannerBase({
 }
 
 
-function	BannerControlable({children, onClose, canClose = true, paginationStyle}: BannerTypes.TBannerPagination): ReactElement {
+function	BannerControlable({children, onClose, canClose = true}: BannerTypes.TBannerPagination): ReactElement {
 	const	[currentSlide, set_currentSlide] = React.useState(0);
 	const	[isVisible, set_isVisible] = React.useState(true);
 
@@ -153,12 +153,12 @@ function	BannerControlable({children, onClose, canClose = true, paginationStyle}
 			className={'yearn--banner-with-controls'}
 			style={isVisible ? {} : {display: 'none'}}>
 			{canClose ? <button onClick={onTryToClose} className={'absolute top-4 right-4 z-50'}>
-				<IconCross className={`w-6 h-6 cursor-pointer ${paginationStyle ? paginationStyle : 'text-primary-500'}`} />
+				<IconCross className={'yearn--banner-with-controls-icons-cross'} />
 			</button> : null}
 
 			{React.cloneElement(children[currentSlide])}
 			
-			{children.length > 1 ? <div className={`flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50 ${paginationStyle ? paginationStyle : 'text-primary-500'}`}>
+			{children.length > 1 ? <div className={'yearn--banner-with-controls-pagination'}>
 				{renderPreviousChevron()}
 				<p className={'text-sm tabular-nums'}>{`${currentSlide + 1}/${(children as ReactElement[]).length}`}</p>
 				{renderNextChevron()}
