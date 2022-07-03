@@ -1,6 +1,5 @@
 import	React, {ReactElement}			from	'react';
 import	{Card, Banner, Button}			from	'@yearn-finance/web-lib/components';
-import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 import	CodeExample						from	'components/CodeExample';
@@ -23,9 +22,7 @@ export function BannerComponent(): ReactElement {
 		<div className={'w-full scale-75'}>
 			<Banner
 				title={'Welcome to banner 3'}
-				variant={'split'}
-				primaryButton={<Button>{'Primary CTA'}</Button>}
-				image={'/mommy-bunny.jpg'}>
+				primaryButton={<Button>{'Primary CTA'}</Button>}>
 				<div>
 					<p>{'Have a nice day.'}</p>
 				</div>
@@ -51,88 +48,17 @@ function	BannerComponentDefault(): ReactElement {
 	);
 }
 
-function	BannerComponentBackground(): ReactElement {
-	return (
-		<Banner
-			className={'text-white'}
-			title={'Welcome to banner 4'}
-			variant={'background'}
-			primaryButton={<Button>{'Primary CTA'}</Button>}
-			secondaryButton={<Button variant={'light'}>{'Secondary CTA'}</Button>}
-			image={<img src={'https://yfistory.org/static/media/transmission-bkg_bleed__1-25-22_100DPI_cymk_1-25-22.fcf16a4ba7df751345ec.jpg'} className={'object-cover relative w-full h-full'} loading={'eager'} />}>
-			<div>
-				<p>{'This is a second image banner component. It has an image as a background with a slight black gradient on it to have a contrast with text. Use this type of banner if the image is not a primay content and could be just an accompagnement. Please be careful with the contrast. The text should be readable. The color of the text and controls can be changed according to image color to have a contrast. Also be sure that the image you use doesn’t have many details and is not very motley - again - to have a contrast.'}</p>
-				<br />
-				<p>{'Have a nice day.'}</p>
-			</div>
-		</Banner>
-	);
-}
-
-function	BannerComponentSplit(): ReactElement {
-	return (
-		<Banner
-			title={'Welcome to banner 3'}
-			variant={'split'}
-			primaryButton={<Button>{'Primary CTA'}</Button>}
-			secondaryButton={<Button variant={'outlined'}>{'Secondary CTA'}</Button>}
-			image={'/mommy-bunny.jpg'}>
-			<div>
-				<p>{'This is a image banner component. It has an image on the right side that fills the half of the banner. The hight of the banner should adapt according to image and/or text hight.'}</p>
-				<br />
-				<p>{'Margin rules are the same as for regular banner'}</p>
-				<br />
-				<p>{'Have a nice day.'}</p>
-			</div>
-		</Banner>
-	);
-}
-
-function	BannerComponentImage(): ReactElement {
-	return (
-		<Banner
-			variant={'image'}
-			image={'/goblin-town.jpg'}
-			onClick={console.log} />
-	);
-}
-
-function	VariantLevel(): ReactElement {
-	const	[variant, set_variant] = React.useState(0);
-	const	variantType = ['default', 'image', 'split', 'background'];
-
-	function	renderBanner(): ReactElement {
-		if (variantType[variant] === 'default')
-			return (<BannerComponentDefault />);
-		if (variantType[variant] === 'image')
-			return (<BannerComponentImage />);
-		if (variantType[variant] === 'split')
-			return (<BannerComponentSplit />);
-		if (variantType[variant] === 'background')
-			return (<BannerComponentBackground />);
-		return (<BannerComponentDefault />);
-	}
-
-	return (
-		<CodeExample>
-			<div className={'w-full scale-90'}>
-				{renderBanner()}
-			</div>
-			<VariantSelectors
-				selected={variantType[variant]}
-				variants={variantType}
-				onChange={(n: number): void => set_variant(n)} />
-		</CodeExample>
-	);
-}
-
 function	DocumentationBanner(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
 				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Banner'}</h1>
 				<section aria-label={'code-part'}>
-					<VariantLevel />
+					<CodeExample>
+						<div className={'w-full scale-90'}>
+							<BannerComponentDefault />
+						</div>
+					</CodeExample>
 					<Highlight code={code} />
 				</section>
 
@@ -143,22 +69,12 @@ function	DocumentationBanner(): ReactElement {
 
 					<ComponentAPI
 						elements={[{
-							title: 'variant',
-							type: 'default | image | split | background',
-							description: 'Indicate the type of banner to display'
-						},
-						{
-							title: 'title?',
+							title: 'title',
 							type: 'string',
 							description: 'Title displayed on the top of the banner. Not used with image variant'
 						},
 						{
-							title: 'image?',
-							type: 'string | ReactElement',
-							description: 'Image displayed at banner. If  its an URL then it applies default image styling. If it\'s an <img /> component the default image styiling is overrided. Not used with default variant.'
-						},
-						{
-							title: 'children?',
+							title: 'children',
 							type: 'string',
 							description: 'Text displayed. Not used with image variant.'
 						},
@@ -173,28 +89,9 @@ function	DocumentationBanner(): ReactElement {
 							description: 'Button to display as secondary action. Not used with image variant.'
 						},
 						{
-							title: 'onClick?',
-							type: 'string',
-							description: 'Action to trigger when clicked and using the image variant.'
-						},
-						{
-							title: 'canClose?',
-							type: 'boolean',
-							description: 'Can the banner be closed? Default is set to true. If false, the banner will always render and the cross will be hidden.'
-						},
-						{
-							title: 'onClose?',
-							type: 'function',
-							description: 'Action to perform onClose. By default, this is handled by the component itself.'
-						},
-						{
 							title: 'children',
 							type: 'ReactElement | ReactElement[]',
 							description: 'Worth a mention: can be a single ReactElement or an array of ReactElement. If it is an array, this will enable the multi-page banner.'
-						}, {
-							title: 'className',
-							type: 'string',
-							description: 'Custom className to provide to alter the style of the Banner.'
 						}]} />
 				</section>
 			</Card>
