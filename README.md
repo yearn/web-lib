@@ -22,6 +22,10 @@ yarn add @yearn-finance/web-lib
 ```
 This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib)
 
+### Turbo
+
+- `npm install -g turbo` - Install turbo command globally
+
 ### Useful Commands
 - `yarn build` - Build all packages including the Storybook site
 - `yarn dev` - Run all packages locally and preview with Storybook
