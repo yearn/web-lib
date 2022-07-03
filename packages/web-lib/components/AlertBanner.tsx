@@ -1,20 +1,20 @@
 import	React, {ReactElement}	from	'react';
 import	IconCross				from	'../icons/IconCross';
 import	IconChevron				from	'../icons/IconChevron';
-import	useLocalStorage			from	'../hooks/useLocalStorage';
+import performBatchedUpdates	from	'../utils/performBatchedUpdates';
 import type * as AlertTypes		from	'./Alert.d';
 
 function	AlertBanner({
-	id,
 	title,
 	children,
 	level = 'info',
 	maxHeight = 'max-h-[300px]',
 	canClose = true,
+	isVisible = true,
 	onClose
 }: AlertTypes.TAlertBanner): ReactElement {
-	const	[shouldRender, set_shouldRender] = useLocalStorage(id, true) as [boolean, (b: boolean) => void];
-	const	[isVisible, set_isVisible] = React.useState(true);
+	const	[shouldRender, set_shouldRender] = React.useState(isVisible);
+	const	[isLocalVisible, set_isLocalVisible] = React.useState(isVisible);
 	const	[currentSlide, set_currentSlide] = React.useState(0);
 	const	hasSlide = (children as ReactElement).type === undefined;
 	const	infoClassName = 'text-primary-500 bg-primary-100 border-primary-500';
@@ -24,7 +24,13 @@ function	AlertBanner({
 	const	alertClassName = level === 'critical' ? criticalClassName : level === 'warning' ? warningClassName : level === 'error' ? errorClassName : infoClassName;
 
 	React.useEffect((): void => {
-		if (!isVisible) {
+		if (isVisible) {
+			performBatchedUpdates((): void => {
+				set_isLocalVisible(true);
+				set_shouldRender(true);
+			});
+		} else {
+			set_isLocalVisible(false);
 			setTimeout((): void => set_shouldRender(false), 650);
 		}
 	}, [isVisible]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,7 +39,8 @@ function	AlertBanner({
 		if (onClose) {
 			onClose();
 		} else {
-			set_isVisible(false);
+			set_isLocalVisible(false);
+			setTimeout((): void => set_shouldRender(false), 650);
 		}
 	}
 
@@ -62,7 +69,7 @@ function	AlertBanner({
 	}
 	return (
 		<div
-			className={`transition-max-height overflow-hidden duration-600 ${isVisible ? maxHeight : 'max-h-0'}`}>
+			className={`transition-max-height overflow-hidden duration-600 ${isLocalVisible ? maxHeight : 'max-h-0'}`}>
 			<div className={`alertBanner--wrapper flex relative flex-col p-6 rounded-default border-2 ${alertClassName} ${hasSlide ? 'pb-8' : 'pb-6'}`}>
 				{canClose ? (
 					<button onClick={onTryToClose} className={'absolute top-4 right-4'}>

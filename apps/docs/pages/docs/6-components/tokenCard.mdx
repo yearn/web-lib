@@ -1,0 +1,181 @@
+---
+title: 'TokenCard'
+---
+
+import {CodeExample} from '../../../components/CodeExample';
+import {Card, TokenCard} from '@yearn-finance/web-lib/components';
+
+
+# TokenCard
+```ts
+import {TokenCard} from '@yearn-finance/web-lib/components';
+```
+<CodeExample>
+	<div className="w-3/4">
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'}
+				onClick={() => alert('Hello!')} />
+			<TokenCard
+				label={'Curve CVX-ETH'}
+				value={'34.02%'}
+				imgSrc={'/examples/token2.png'} />
+		</TokenCard.Wrapper>
+	</div>
+</CodeExample>
+
+The TokenCard is a component used to display a token image, label and value.  
+A subcomponent, the TokenCard.Wrapper, is also available to multiple TokenCard together. Size of each card and grid should be controlled with the className props. The wrapper is just a div with `grid grid-cols-12 gap-4` as className.
+This component extends the Card component.
+
+## Usage
+```tsx
+import	React		from	'react';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/token.png'}
+				onClick={(): void => alert('Hello!')} />
+			<TokenCard
+				label={'Curve CVX-ETH'}
+				value={'34.02%'}
+				imgSrc={'/token2.png'} />
+		</TokenCard.Wrapper>
+	);
+}
+```
+
+## Properties
+```tsx
+type TTokenCard = {
+	label: string;
+	value: string;
+	imgSrc: string;
+	onClick?: React.MouseEventHandler;
+} & React.ComponentPropsWithoutRef<'div'>;
+```
+
+### `label`
+Small displayed text to indicate the token name.
+```tsx {8}
+import	React		from	'react';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'} />
+		</TokenCard.Wrapper>
+	);
+}
+```
+
+### `value`
+Statistic to display with a bolder and bigger font.
+```tsx {9}
+import	React		from	'react';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'} />
+		</TokenCard.Wrapper>
+	);
+}
+```
+
+### `imgeSrc`
+Image source URL for token to display
+```tsx {10}
+import	React		from	'react';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'} />
+		</TokenCard.Wrapper>
+	);
+}
+```
+
+### `onClick` (optional)
+Function to call on mouse click. Enables hover and shows the chevron icon if this is set. Default to undefined. Having this props enables the hover effect.
+
+<CodeExample>
+	<div className="w-3/4">
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'}
+				onClick={() => alert('Hello!')} />
+		</TokenCard.Wrapper>
+	</div>
+</CodeExample>
+
+```tsx {11}
+import	React		from	'react';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'}
+				onClick={() => alert('Hello!')} />
+		</TokenCard.Wrapper>
+	);
+}
+```
+
+### `className` (optional)
+Custom className to provide to alter the style of the Card. This could be useful to define the size of the card in the grid. Default is `col-span-12 md:col-span-4` with a `grid-cols-12` wrapper.
+
+<CodeExample>
+	<div className="w-3/4">
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'}
+				className={'col-span-12'} />
+		</TokenCard.Wrapper>
+	</div>
+</CodeExample>
+
+```tsx {11}
+import	React		from	'react';
+import	{TokenCard}	from	'@yearn-finance/web-lib/components';
+
+function	App(): React.ReactElement {
+	return (
+		<TokenCard.Wrapper>
+			<TokenCard
+				label={'Curve Rocket Pool'}
+				value={'NEW ✨'}
+				imgSrc={'/examples/token.png'}
+				className={'col-span-12'} />
+		</TokenCard.Wrapper>
+	);
+}
+```

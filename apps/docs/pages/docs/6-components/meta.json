@@ -1,0 +1,20 @@
+{
+	"card": "Card",
+	"cardTabs": "Card Tabs",
+	"cardDetails": "Card Details",
+	"switch": "Switch",
+	"button": "Button",
+	"input": "Input",
+	"dropdown": "Dropdown",
+	"searchBox": "SearchBox",
+	"statisticCard": "Statistic Card",
+	"tokenCard": "Token Card",
+	"descriptionList": "Description List",
+	"addressWithAction": "Address With Action",
+	"txHashWithAction": "TxHash With Action",
+	"alertBanner": "Alert Banner",
+	"alertBox": "Alert Box",
+	"modal": "Modal",
+	"banner": "Banner",
+	"bannerWithControls": "Banner With Controls"
+}

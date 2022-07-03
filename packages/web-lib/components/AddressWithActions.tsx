@@ -17,13 +17,13 @@ function	AddressWithActions({
 	const	{chainID} = useWeb3();
 	const	[explorerURI, set_explorerURI] = React.useState('');
 
-	React.useEffect(() => {
+	React.useEffect((): void => {
 		if (explorer !== '') {
 			set_explorerURI(explorer);
-		} else if (networks[chainID] && networks[chainID].explorerBaseURI) {
+		} else if (networks[chainID]?.explorerBaseURI) {
 			set_explorerURI(networks[chainID].explorerBaseURI as string);
 		}
-	}, [chainID, networks]);
+	}, [chainID, explorer, networks]);
 
 	return (
 		<span className={`yearn--elementWithActions-wrapper ${wrapperClassName}`}>

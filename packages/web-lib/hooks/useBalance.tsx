@@ -2,11 +2,13 @@ import	{useState, useRef, useEffect, useCallback}			from	'react';
 import	{BigNumber, ethers}									from	'ethers';
 import	{Contract}											from	'ethcall';
 import	{useWeb3}											from	'../contexts/useWeb3';
+import	{useSettings}										from	'../contexts/useSettings';
 import	{toAddress, isZeroAddress}							from	'../utils/utils';
 import	performBatchedUpdates								from	'../utils/performBatchedUpdates';
 import	* as format											from	'../utils/format';
 import	* as providers										from	'../utils/providers';
-import	* as ABI											from	'../utils/abi';
+import	ERC20_ABI											from	'../utils/abi/erc20.abi';
+import	LENS_ABI											from	'../utils/abi/lens.abi';
 import	type * as Types										from	'./types.d';
 
 const		defaultStatus = {
@@ -19,9 +21,12 @@ const		defaultStatus = {
 };
 const		defaultData = {
 	decimals: 0,
-	formatted: 0,
+	normalized: 0,
 	symbol: '',
-	value: ethers.constants.Zero
+	raw: ethers.constants.Zero,
+	rawPrice: ethers.constants.Zero,
+	normalizedPrice: 0,
+	normalizedValue: 0
 };
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -29,8 +34,9 @@ const		defaultData = {
 ** any ERC20 token.
 **************************************************************************/
 function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
+	const	{networks} = useSettings();
 	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
-	const	[data, set_data] = useState<Types.TData>(defaultData);
+	const	[data, set_data] = useState<Types.TBalanceData>(defaultData);
 	const	[status, set_status] = useState<Types.TDefaultStatus>(defaultStatus);
 	const	[error, set_error] = useState<Error | undefined>(undefined);
 	const	interval = useRef<NodeJS.Timer>();
@@ -51,16 +57,27 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
 
+		const	lensAddress = networks[props?.chainID || web3ChainID].lensAddress;
+		let		lensContract: Contract | undefined = undefined;
+		if (lensAddress)
+			lensContract = new Contract(lensAddress, LENS_ABI);
+
 		//If no token provider or if provided token is Fake ETH, then fetch ETH Balance
 		if (isZeroAddress(props?.token) || toAddress(props?.token) === toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')) {
 			try {
-				const	balanceOfEth = await currentProvider.getBalance(ownerAddress);
+				const	[balanceOfEth, priceOfWEth] = await Promise.all([
+					currentProvider.getBalance(ownerAddress),
+					lensContract ? lensContract.getPriceUsdcRecommended(props?.token as string) : undefined
+				]);
 				performBatchedUpdates((): void => {
 					set_data({
 						decimals: 18,
-						formatted: format.toNormalizedValue(balanceOfEth, 18),
 						symbol: 'ETH',
-						value: balanceOfEth
+						raw: balanceOfEth,
+						rawPrice: priceOfWEth ? priceOfWEth : ethers.constants.Zero,
+						normalized: format.toNormalizedValue(balanceOfEth, 18),
+						normalizedPrice: priceOfWEth ? format.toNormalizedValue(priceOfWEth, 6) : 0,
+						normalizedValue: priceOfWEth ? (format.toNormalizedValue(balanceOfEth, 18) * format.toNormalizedValue(priceOfWEth, 6)) : 0
 					});
 					set_error(undefined);
 					set_status({...defaultStatus, isSuccess: true, isFetched: true});
@@ -75,22 +92,27 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			return;
 		}
 
-		const	tokenContract = new Contract(props?.token as string, ABI.ERC20_ABI);
+		const	token = props?.token as string;
+		const	tokenContract = new Contract(token, ERC20_ABI);
 		try {
 			const	ethcallProvider = await providers.newEthCallProvider(currentProvider);
 			const	multiCallResult = await ethcallProvider.tryAll([
 				tokenContract.balanceOf(ownerAddress),
 				tokenContract.decimals(),
-				tokenContract.symbol()
-			]) as [BigNumber, number, string];
+				tokenContract.symbol(),
+				lensContract ? lensContract.getPriceUsdcRecommended(token) : tokenContract.balanceOf(ownerAddress)
+			]) as [BigNumber, number, string, BigNumber];
 
-			const	[balanceOf, decimals, symbol] = multiCallResult;
+			const	[balanceOf, decimals, symbol, price] = multiCallResult;
 			performBatchedUpdates((): void => {
 				set_data({
 					decimals: Number(decimals),
-					formatted: format.toNormalizedValue(balanceOf, Number(decimals)),
 					symbol: symbol,
-					value: balanceOf
+					raw: balanceOf,
+					rawPrice: lensContract ? price : ethers.constants.Zero,
+					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
+					normalizedPrice: lensContract ? format.toNormalizedValue(price, 6) : 0,
+					normalizedValue: lensContract ? (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(price, 6)) : 0
 				});
 				set_error(undefined);
 				set_status({...defaultStatus, isSuccess: true, isFetched: true});
@@ -102,7 +124,7 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 				set_status({...defaultStatus, isError: true, isFetched: true});
 			});
 		}
-	}, [props?.for, props?.chainID, isActive, provider, props?.token, web3Address, web3ChainID]);
+	}, [props?.for, props?.chainID, isActive, provider, props?.token, web3Address, web3ChainID, networks]);
 	useEffect((): void => {
 		getBalance();
 	}, [getBalance]);

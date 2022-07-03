@@ -1,9 +1,7 @@
 import	React, {ReactElement}				from	'react';
 import	{Web3ReactProvider, Web3ReactHooks}	from	'@web3-react/core';
 import	type {Connector}					from	'@web3-react/types';
-import	{BalancesContextApp}				from	'./useBalances';
 import	{UIContextApp}						from	'./useUI';
-import	{PricesContextApp}					from	'./usePrices';
 import	{Web3ContextApp}					from	'./useWeb3';
 import	{SettingsContextApp}				from	'./useSettings';
 import	{connectors}						from	'../utils/connectors';
@@ -32,11 +30,7 @@ function	WithYearn({children, options}: {
 			<SettingsContextApp options={options?.networks}>
 				<Web3ReactProvider connectors={web3Connectors} lookupENS={false}>
 					<Web3ContextApp options={options?.web3}>
-						<BalancesContextApp>
-							<PricesContextApp>
-								{children}
-							</PricesContextApp>
-						</BalancesContextApp>
+						{children}
 					</Web3ContextApp>
 				</Web3ReactProvider>
 			</SettingsContextApp>

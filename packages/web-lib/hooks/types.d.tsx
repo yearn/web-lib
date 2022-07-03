@@ -54,11 +54,14 @@ export type	TUseBlockRes = {
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalance hook.
 ******************************************************************************/
-export type	TData = {
+export type	TBalanceData = {
 	decimals: number,
-	formatted: number,
 	symbol: string,
-	value: BigNumber
+	raw: BigNumber,
+	rawPrice: BigNumber,
+	normalized: number,
+	normalizedPrice: number,
+	normalizedValue: number
 }
 
 export type	TUseBalanceReq = {
@@ -68,7 +71,7 @@ export type	TUseBalanceReq = {
 } & TDefaultReqArgs
 
 export type	TUseBalanceRes = {
-	data: TData,
+	data: TBalanceData,
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown'
 } & TDefaultStatus 

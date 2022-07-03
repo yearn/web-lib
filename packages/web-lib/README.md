@@ -35,7 +35,7 @@ yarn add @yearn-finance/web-lib #from npm
 ### Apps & Packages
 This Turborepo includes the following packages and applications:
 
-- `apps/docs`: Component documentation site, also playground
+- `apps/playground`: Component documentation site, also playground
 - `packages/web-lib`: Actual library for Yearn's projects
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/). Yarn Workspaces enables us to "hoist" dependencies that are shared between packages to the root `package.json`. This means smaller `node_modules` folders and a better local dev experience. To install a dependency for the entire monorepo, use the `-W` workspaces flag with `yarn add`.
@@ -118,10 +118,7 @@ WEBSITE_TITLE: 'My awesome yWeb3 app',
 WEBSITE_DESCRIPTION: 'Welcome to my awesome Yearn Web3 app. This is a super description that will be used for the SEO stuffs',
 PROJECT_GITHUB_URL: 'https://github.com/me/yweb3-awesome',
 
-USE_WALLET: true,
 USE_PRICES: false,
-USE_PRICE_TRI_CRYPTO: false,
-USE_FEEDBACKS: true,
 
 CG_IDS: ['yearn-finance'],
 TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],

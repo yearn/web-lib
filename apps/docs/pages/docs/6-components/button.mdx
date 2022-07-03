@@ -1,0 +1,156 @@
+---
+title: 'Button'
+---
+
+import {CodeExample} from '../../../components/CodeExample';
+import {Card, Button} from '@yearn-finance/web-lib/components';
+
+
+# Button
+```ts
+import {Button} from '@yearn-finance/web-lib/components';
+```
+<CodeExample>
+	<Button
+		variant={'filled'}
+		onClick={() => console.log('Do something')}
+		className={'min-w-[132px]'}>
+		{'Whao, such Woofy'}
+	</Button>
+</CodeExample>
+
+Well it's nothing more than a button. It comes in 3 variants for each theme: filled (default), outlined and light. All the default props for the buttons HTML components are available and some extra are exposed.
+
+## Usage
+
+```tsx
+import {Button} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Button
+			variant={'filled'}
+			onClick={() => console.log('Do something')}
+			className={'min-w-[132px]'}>
+			{'Whao, such Woofy'}
+		</Button>
+	);
+}
+```
+
+## Properties
+
+```tsx
+type TButton = {
+	as?: 'a' | 'button'
+	variant?: 'filled' | 'outlined' | 'light' | 'inherit'
+	shouldStopPropagation?: boolean
+	isBusy?: boolean
+	isDisabled?: boolean
+	children: ReactNode
+}
+```
+
+### `as` (optional)
+Used to indicate if the button is a `<a>` or a `<button>`. Default set to `<button>`. This is useful to use when your button should act as a link in order to respect the HTML5 semantic.
+```tsx {6-7}
+import {Button} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Button
+			as={'a'}
+			href={'https://yearn.finance'}>
+			{'Whao, such Woofy'}
+		</Button>
+	);
+}
+```
+
+### `variant` (optional)
+Used to indicate which kind of button we want to use. Default is set to filled. All of theses variants are customized via some CSS variables.
+
+<CodeExample>
+	<div className={'space-y-2'}>
+		<Button className={'w-full'} variant={'filled'}>
+			{'Whao, such filled Woofy'}
+		</Button>
+		<Button className={'w-full'} variant={'light'}>
+			{'Whao, such light Woofy'}
+		</Button>
+		<Button className={'w-full'} variant={'outlined'}>
+			{'Whao, such outlined Woofy'}
+		</Button>
+	</div>
+</CodeExample>
+
+
+```tsx {5}
+import {Button} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Button variant={'light'}>
+			{'Whao, such Woofy'}
+		</Button>
+	);
+}
+```
+
+### `shouldStopPropagation` (optional)
+This is a little trick to prevent the click event to propagate to the parent. In some case this could be really handy. Default to false.
+```tsx {5}
+import {Button} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Button shouldStopPropagation>
+			{'Whao, such Woofy'}
+		</Button>
+	);
+}
+```
+
+### `isBusy` (optional)
+This argument is used to control the `loading` state of the button. If set to `true`, the button's child will fade out and a spinner will be displayed. Button click will be disabled and some little UI change will occur, but not the same as the `isDisabled` argument.  
+This should be used when some action is in progress.
+
+<CodeExample>
+	<Button isBusy>
+		{'Whao, such Woofy (but I will not be visible)'}
+	</Button>
+</CodeExample>
+
+```tsx {5}
+import {Button} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Button isBusy>
+			{'Whao, such Woofy (but I will not be visible)'}
+		</Button>
+	);
+}
+```
+
+### `isDisabled` (optional)
+This argument is used to control the `disabled` state of the button. If set to `true`, the button will be set as `disabled`, preventing the click action and changing the look of the button.  
+This should be used to prevent the user from clicking on the button for some reasons.  
+
+<CodeExample>
+	<Button isDisabled>
+		{'Whao, such not Woofy'}
+	</Button>
+</CodeExample>
+
+```tsx {5}
+import {Button} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Button isDisabled>
+			{'Whao, such not Woofy'}
+		</Button>
+	);
+}
+```

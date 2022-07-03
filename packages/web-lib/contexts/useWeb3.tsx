@@ -34,6 +34,7 @@ const defaultState = {
 	onDesactivate: (): void => undefined
 };
 const	defaultOptions: useWeb3Types.TWeb3Options = {
+	shouldUseWallets: true,
 	shouldUseStrictChainMode: false,
 	defaultChainID: 1,
 	supportedChainID: [1, 4, 56, 100, 137, 250, 1337, 31337, 42161]
@@ -73,7 +74,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			set_chainID(newChainID);
 			return;
 		}
-		if (process.env.USE_WALLET) {
+		if (options.shouldUseWallets) {
 			if (Number(newChainID) === 1) {
 				provider
 					.send('wallet_switchEthereumChain', [{chainId: '0x1'}])
@@ -113,7 +114,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
 	): Promise<void> => {
-		if (!process.env.USE_WALLET) {
+		if (!options.shouldUseWallets) {
 			return;
 		}
 		set_isConnecting(true);
@@ -180,7 +181,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				set_isConnecting(false);
 			}
 		} 
-	}, [isActive, set_lastWallet]);
+	}, [isActive, options.shouldUseWallets, set_lastWallet]);
 
 	useClientEffect((): void => {
 		if (isIframe()) {
@@ -262,11 +263,12 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				isConnecting,
 				hasProvider: !!provider,
 				provider: provider as ethers.providers.BaseProvider,
-				onConnect: connect, // eslint-disable @typescript-eslint/no-misused-promises
+				onConnect: connect,
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
 						connector.deactivate();
+						set_ens('');
 						set_lastWallet(walletType.NONE);
 						set_isDisconnected(true);
 					});

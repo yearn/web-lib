@@ -7,5 +7,5 @@
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["@yearn-finance//web-lib-docs"]
+	"ignore": ["@yearn-finance/web-lib-playground", "@yearn-finance/web-lib-docs"]
 }

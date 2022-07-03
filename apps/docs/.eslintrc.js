@@ -1,6 +1,9 @@
 module.exports = { // eslint-disable-line no-undef
 	root: true,
-	extends: ['../../packages/web-lib/config/eslintrc.cjs'],
+	extends: [
+		'../../packages/web-lib/config/eslintrc.cjs',
+		'plugin:@next/next/recommended'
+	],
 	parserOptions: {
 		tsconfigRootDir: __dirname, // eslint-disable-line no-undef
 		ecmaFeatures: {
@@ -8,6 +11,6 @@ module.exports = { // eslint-disable-line no-undef
 		},
 		ecmaVersion: 12,
 		sourceType: 'module',
-		project: ['./tsconfig.json']
+		project: ['./tsconfig.json', '*.js']
 	}
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@yearn-finance/web-lib",
-	"version": "0.9.5",
+	"version": "0.11.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -22,12 +22,12 @@
 	],
 	"exports": {
 		".": "./dist/index.js",
+		"./config/tailwind.config.cjs": "./dist/tailwind.config.cjs",
 		"./build.css": "./dist/build.css",
 		"./style.css": "./dist/style.css",
 		"./style.light.css": "./dist/style.light.css",
 		"./style.dark.css": "./dist/style.dark.css",
 		"./style.macarena.css": "./dist/style.macarena.css",
-		"./tailwind.plugin": "./dist/tailwind.config.cjs",
 		"./layouts": "./dist/layouts/index.js",
 		"./components": "./dist/components/index.js",
 		"./contexts": "./dist/contexts/index.js",

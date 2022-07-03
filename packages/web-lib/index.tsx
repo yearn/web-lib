@@ -1,11 +1,12 @@
 export * as contexts from './contexts/index';
-export * from './contexts/useBalances';
-export * from './contexts/usePrices';
 export * from './contexts/useUI';
 export * from './contexts/useWeb3';
 export * from './contexts/useSettings';
 
 export * as hooks from './hooks/index';
+export * from './hooks/useBlock';
+export * from './hooks/useBalance';
+export * from './hooks/useAccount';
 export * from './hooks/useClientEffect';
 export * from './hooks/useDebounce';
 export * from './hooks/useInterval';

@@ -1,0 +1,106 @@
+---
+title: 'Card'
+---
+
+import {CodeExample} from '../../../components/CodeExample';
+import {Card} from '@yearn-finance/web-lib/components';
+
+
+# Card
+```ts
+import {Card} from '@yearn-finance/web-lib/components';
+```
+
+<CodeExample>
+	<div style={{width: '75%'}}>
+		<Card>
+			<p>{"I am a basic card"}</p>
+		</Card>
+	</div>
+</CodeExample>
+
+The Card is one of the main wrapper for the UI components, displayed on a surface. It is used to represent a section or a group of related items over the background.  
+The Card is a default component, and a few subcomponents are available, using the base logic, in order to build more complexe stuffs.  
+
+
+## Usage
+
+```tsx
+import {Card} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Card>
+			<p>{'I am a basic card'}</p>
+		</Card>
+	);
+}
+```
+
+## Properties
+
+```tsx
+type TCard = {
+	variant?: 'surface' | 'background'
+	padding?: 'none' | 'narrow' | 'regular'
+	onClick?: React.MouseEventHandler
+	className?: string
+	children: React.ReactNode
+}
+```
+
+### `variant` (optional)
+Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.
+```tsx {5}
+import {Card} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Card variant={'background'}>
+			<p>{'I am a basic card'}</p>
+		</Card>
+	);
+}
+```
+
+### `padding` (optional)
+Indicate is the card should use no padding (0px), narrow padding (8px) or regular (16px). Default set to regular.
+```tsx {5}
+import {Card} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Card padding={'narrow'}>
+			<p>{'I am a basic card'}</p>
+		</Card>
+	);
+}
+```
+
+### `onClick` (optional)
+If onClick is set, this will enable the hover variant for the card. This does not overwrite the onClick function. Default to undefined.
+```tsx {5}
+import {Card} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Card onClick={(): void => doSomething()}>
+			<p>{'I am a basic card'}</p>
+		</Card>
+	);
+}
+```
+
+### `className` (optional)
+Custom className to provide to alter the style of the Card.
+```tsx {5}
+import {Card} from '@yearn-finance/web-lib/components';
+
+function	App() {
+	return (
+		<Card className={'w-1/2'}>
+			<p>{'I am a basic card'}</p>
+		</Card>
+	);
+}
+```

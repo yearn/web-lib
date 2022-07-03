@@ -1,18 +1,12 @@
 import	React, {ReactElement, ReactNode}	from	'react';
 
 export type TBanner = {
-	title?: string,
-	image?: ReactNode,
+	title: string,
 	primaryButton?: ReactElement,
 	secondaryButton?: ReactElement,
-	children?: ReactNode,
-	canClose?: boolean,
-	onClose?: () => void,
-	onClick?: React.MouseEventHandler
-	variant?: 'default' | 'image' | 'split' | 'background'
-	height?: string | number,
-	className?: string
-}
+	children: ReactNode,
+} & React.ComponentPropsWithoutRef<'div'>
+
 export type TDefaultVariant = {
 	title?: string,
 	primaryButton?: ReactElement,
@@ -23,6 +17,5 @@ export type TDefaultVariant = {
 export type	TBannerPagination = {
 	children: ReactElement[],
 	canClose?: boolean,
-	paginationStyle?: string,
 	onClose?: () => void
 }

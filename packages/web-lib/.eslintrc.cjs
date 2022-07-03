@@ -8,6 +8,6 @@ module.exports = { // eslint-disable-line no-undef
 		},
 		ecmaVersion: 12,
 		sourceType: 'module',
-		project: ['./tsconfig.json']
+		project: ['./tsconfig.json', '*.cjs']
 	}
 };
