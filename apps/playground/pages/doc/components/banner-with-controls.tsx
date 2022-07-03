@@ -1,5 +1,4 @@
 import	React, {ReactElement}			from	'react';
-import	Image							from	'next/image';
 import	{Card, Banner, Button}			from	'@yearn-finance/web-lib/components';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
