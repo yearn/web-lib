@@ -32,14 +32,14 @@ function	InputBase({
 			}}>
 			<div
 				aria-label={ariaLabel}
-				className={`flex flex-row items-center py-2 h-8 w-full transition-colors ${className}`}>
+				className={`yearn--input-field-wrapper ${className}`}>
 				<span className={'sr-only'}>{ariaLabel}</span>
 				<input
 					ref={focusRef}
 					value={value}
 					onChange={(e): void => onChange(e.target.value)}
 					type={'text'}
-					className={'p-0 w-full text-xl font-bold bg-white/0 border-none focus:border-none outline-none focus:outline-none focus:ring-0'}
+					className={'yearn--input-field'}
 					{...props} />
 				{withMax ? <div
 					className={'yearn--input-max'}

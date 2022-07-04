@@ -378,6 +378,12 @@ label[aria-invalid="true"] {
 }
 
 /* -- Input.tsx -------------------------------------------------------- */
+.yearn--input-field {
+	@apply p-0 w-full text-xl font-bold bg-white/0 border-none focus:border-none outline-none focus:outline-none focus:ring-0;
+}
+.yearn--input-field-wrapper {
+	@apply flex flex-row items-center py-2 h-8 w-full transition-colors;
+}
 .yearn--input-max {
 	@apply py-1 px-2 ml-2 transition-colors cursor-pointer;
 	border-radius: var(--default-rounded);
