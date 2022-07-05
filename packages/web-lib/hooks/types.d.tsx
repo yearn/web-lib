@@ -76,6 +76,28 @@ export type	TUseBalanceRes = {
 	status: 'error' | 'loading' | 'success' | 'unknown'
 } & TDefaultStatus 
 
+
+/* 🔵 - Yearn Finance **********************************************************
+** Request, Response and helpers for the useBalances hook.
+******************************************************************************/
+export type	TUseBalancesReq = {
+	key: string | number,
+	tokens: {
+		token?: string,
+		for?: string,
+	}[]
+	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number | undefined
+} & TDefaultReqArgs
+
+export type	TUseBalancesRes = {
+	data: {
+		[key: string]: TBalanceData
+	},
+	error?: Error,
+	status: 'error' | 'loading' | 'success' | 'unknown'
+} & TDefaultStatus 
+
+
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useAccount hook.
 ******************************************************************************/

@@ -6,6 +6,7 @@ import useWindowInFocus from './useWindowInFocus';
 import useBlock from './useBlock';
 import useAccount from './useAccount';
 import useBalance from './useBalance';
+import useBalances from './useBalances';
 
 export {
 	useClientEffect,
@@ -16,5 +17,6 @@ export {
 	//Web3 specifics
 	useAccount,
 	useBlock,
-	useBalance
+	useBalance,
+	useBalances
 };

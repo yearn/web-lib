@@ -6,6 +6,7 @@ export * from './contexts/useSettings';
 export * as hooks from './hooks/index';
 export * from './hooks/useBlock';
 export * from './hooks/useBalance';
+export * from './hooks/useBalances';
 export * from './hooks/useAccount';
 export * from './hooks/useClientEffect';
 export * from './hooks/useDebounce';
