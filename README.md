@@ -68,15 +68,15 @@ Release will only occurs on `main` branch, only via an authorized member of Year
 #### Setup tsconfig
 With TS config, you should add some paths to be sure to correctly link the web lib: 
 ```ts
-	"baseUrl": ".",
-	"paths": {
-		"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
-		"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
-		"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
-		"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
-		"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
-		"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"],
-	},
+"baseUrl": ".",
+"paths": {
+	"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
+	"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
+	"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
+	"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
+	"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
+	"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"],
+},
 ```
 
 #### Import the CSS
@@ -143,10 +143,10 @@ INFURA_KEY: process.env.INFURA_KEY
 ## How to use
 Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
 ```tsx
-import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
+import {WithYearn} from '@yearn-finance/web-lib/contexts';
 
-function	MyApp(props: AppProps): ReactElement {
-	const	{Component, pageProps} = props;
+function MyApp(props: AppProps): ReactElement {
+	const {Component, pageProps} = props;
 	
 	return (
 		<WithYearn>
