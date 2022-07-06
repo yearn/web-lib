@@ -1,3 +1,53 @@
 ---
-title: 'Yearn Web Lib'
+title: 'useSettings'
+description: 'Hook to access environment variables.'
 ---
+
+# useSettings
+This hook contains environment information like URIs for rpc, subgraph, metadata, api, and fixed contracts addresses.
+
+```ts
+import {useSettings} from '@yearn-finance/web-lib/contexts';
+```
+
+## Usage
+
+```tsx
+import {useSettings} from '@yearn-finance/web-lib/contexts';
+
+function App() {
+	const {networks} = useSettings();
+    const chainId = 1
+
+    const {partnerContractAddress} = networks[chainId]
+
+	return (
+		<div>
+			{partnerContractAddress}
+		</div>
+	);
+}
+```
+
+## Return Value
+
+```tsx
+{
+	networks: [key: number]: TSettingsForNetwork,
+	onUpdateNetworks: (newNetworkSettings: TSettingsContext) => void,
+}
+
+type TSettingsForNetwork = {
+	rpcURI?: string,
+	graphURI?: string,
+	metaURI?: string,
+	apiURI?: string,
+	explorerBaseURI?: string,
+	lensAddress?: string,
+	partnerContractAddress?: string
+}	
+```
+
+## Configuration
+
+This hook doesn't receive any inputs, it will bring data that you can change at next.config.js environment [variables](https://github.com/yearn/web-lib/blob/main/apps/playground/next.config.js#L15)
