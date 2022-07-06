@@ -436,8 +436,11 @@ label[aria-invalid="true"] {
 .yearn--modal-wrapper {
 	@apply flex justify-center items-end px-4 pt-4 pb-20 min-h-screen text-center sm:block sm:p-0;
 }
+.yearn--modal-overlay {
+	@apply fixed inset-0 z-10 bg-black/50 transition-opacity;
+}
 .yearn--modal {
-	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle md:mb-96 bg-neutral-0;
+	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:align-middle md:mb-96 bg-neutral-0;
 
 	border-radius: var(--default-rounded);
 }
