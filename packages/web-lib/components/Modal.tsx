@@ -13,12 +13,12 @@ function	Modal({isOpen, onClose, className = '', children}: ModalTypes.TModal): 
 				style={{zIndex: 9999}}
 				initialFocus={ref}
 				onClose={onClose}>
-				<div className={'yearn--modal-wrapper'}>
+				<div className={`${className} yearn--modal-wrapper`}>
 					<Transition.Child
 						as={React.Fragment}
 						enter={'ease-out duration-300'} enterFrom={'opacity-0'} enterTo={'opacity-100'}
 						leave={'ease-in duration-200'} leaveFrom={'opacity-100'} leaveTo={'opacity-0'}>
-						<Dialog.Overlay className={'yearn--modal-overlay'} />
+						<Dialog.Overlay className={`${className} yearn--modal-overlay`} />
 					</Transition.Child>
 
 					<span className={'hidden sm:inline-block sm:h-screen sm:align-middle'} aria-hidden={'true'}>
