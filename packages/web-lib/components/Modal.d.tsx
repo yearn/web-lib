@@ -4,4 +4,4 @@ export type TModal = {
 	isOpen: boolean;
 	onClose: () => void;
 	children: ReactElement;
-};
+} & React.ComponentPropsWithoutRef<'div'>;

@@ -2,7 +2,7 @@ import	React, {ReactElement, useRef}	from	'react';
 import	{Dialog, Transition}			from	'@headlessui/react';
 import * as ModalTypes					from 	'./Modal.d';
 
-function	Modal({isOpen, onClose, children}: ModalTypes.TModal): ReactElement {
+function	Modal({isOpen, onClose, className = '', children}: ModalTypes.TModal): ReactElement {
 	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
@@ -32,7 +32,7 @@ function	Modal({isOpen, onClose, children}: ModalTypes.TModal): ReactElement {
 						leave={'ease-in duration-200'}
 						leaveFrom={'opacity-100 translate-y-0 sm:scale-100'}
 						leaveTo={'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'}>
-						<div ref={ref} className={'yearn--modal'}>
+						<div ref={ref} className={`${className} yearn--modal`}>
 							{children}
 						</div>
 					</Transition.Child>
