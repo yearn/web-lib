@@ -306,7 +306,7 @@ label[aria-invalid="true"] {
 
 /* -- Switch.tsx ------------------------------------------------------- */
 .yearn--switch {
-	--switch-bg-color: hsl(var(--color-neutral-600));
+	--switch-bg-color: hsl(var(--color-primary-200));
 	--switch-border-width: 2px;
 	--switch-border-color: hsl(var(--color-primary-500));
 	--switch-knob-color: hsl(var(--color-primary-500));
