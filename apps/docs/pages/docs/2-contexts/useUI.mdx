@@ -1,3 +1,60 @@
 ---
-title: 'Yearn Web Lib'
+title: 'useUI'
+description: 'Hook to access and change theme'
 ---
+
+# useUI
+xxxxxxxxxxxxxxxxxxxxxx
+
+```ts
+import {useUI} from '@yearn-finance/web-lib/contexts';
+```
+
+## Usage
+
+```tsx
+import {useUI} from '@yearn-finance/web-lib/contexts';
+
+function App() {
+    const {theme, switchTheme} = useUI();
+
+    return (
+        <p>{theme}</p>
+        <button onclick={switchTheme} />
+    );
+}
+```
+
+## Return Value
+
+```tsx
+{
+	theme: string,
+	switchTheme: () => void,
+	toast: unknown
+}
+```
+
+## Configuration
+
+Change configuration:
+
+```tsx
+import {useUI} from '@yearn-finance/web-lib/contexts';
+
+function App() { 
+	const web3 = useUI({
+		shouldUseDefaultToaster: false,
+	});
+	return <div />
+}
+```
+
+Default values:
+
+```tsx
+{
+	shouldUseDefaultToaster: true,
+	shouldUseThemes: true
+}
+```
