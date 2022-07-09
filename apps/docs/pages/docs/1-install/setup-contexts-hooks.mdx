@@ -65,9 +65,9 @@ RPC_URL_MAINNET='https://your-eth-node-uri'
 
 ### 2. Wrap your app in the `WithYearn` context
 ```tsx
-import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
+import {WithYearn} from '@yearn-finance/web-lib/contexts';
 
-function	MyApp(props: AppProps): ReactElement {
+function MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
 
 	return (
@@ -84,10 +84,10 @@ If you don't need designs or components, then, you are good to go!
 
 
 ```tsx
-import	React			from	'react';
-import	{useWeb3}		from	'@yearn-finance/web-lib/contexts';
-import	{useAccount}	from	'@yearn-finance/web-lib/hooks';
-import	{truncateHex}	from	'@yearn-finance/web-lib/utils';
+import React from 'react';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import {useAccount} from '@yearn-finance/web-lib/hooks';
+import {truncateHex} from '@yearn-finance/web-lib/utils';
 
 function Page() {
 	const	{openLoginModal, onDesactivate, onSwitchChain} = useWeb3();

@@ -13,12 +13,12 @@ import {useDebounce} from '@yearn-finance/web-lib/hooks';
 ## Usage
 
 ```tsx
-import {useWeb3}     from '@yearn-finance/web-lib/contexts';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
 import {useDebounce} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
-	const   {chainID} = useWeb3();
-	const	debouncedChainID = useDebounce(chainID, 500);
+function App() {
+	const {chainID} = useWeb3();
+	const debouncedChainID = useDebounce(chainID, 500);
 
 	return (
 		<div>
@@ -41,8 +41,8 @@ The value to debounce. Can be any value but must be provided.
 ```tsx {5}
 import {useDebounce} from '@yearn-finance/web-lib/hooks';
 
-function	App(chainID: number) {
-	const	debouncedChainID = useDebounce(
+function App(chainID: number) {
+	const debouncedChainID = useDebounce(
 		chainID,
 		500
 	);
@@ -54,8 +54,8 @@ The delay in milliseconds to debounce the value. Must be provided.
 ```tsx {6}
 import {useDebounce} from '@yearn-finance/web-lib/hooks';
 
-function	App(chainID: number) {
-	const	debouncedChainID = useDebounce(
+function App(chainID: number) {
+	const debouncedChainID = useDebounce(
 		chainID,
 		500
 	);

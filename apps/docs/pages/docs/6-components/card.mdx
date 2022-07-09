@@ -28,7 +28,7 @@ The Card is a default component, and a few subcomponents are available, using th
 ```tsx
 import {Card} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Card>
 			<p>{'I am a basic card'}</p>
@@ -54,7 +54,7 @@ Used to indicate if the Card is displayed on the Background (use surface) or on 
 ```tsx {5}
 import {Card} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Card variant={'background'}>
 			<p>{'I am a basic card'}</p>
@@ -68,7 +68,7 @@ Indicate is the card should use no padding (0px), narrow padding (8px) or regula
 ```tsx {5}
 import {Card} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Card padding={'narrow'}>
 			<p>{'I am a basic card'}</p>
@@ -82,7 +82,7 @@ If onClick is set, this will enable the hover variant for the card. This does no
 ```tsx {5}
 import {Card} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Card onClick={(): void => doSomething()}>
 			<p>{'I am a basic card'}</p>
@@ -96,7 +96,7 @@ Custom className to provide to alter the style of the Card.
 ```tsx {5}
 import {Card} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Card className={'w-1/2'}>
 			<p>{'I am a basic card'}</p>

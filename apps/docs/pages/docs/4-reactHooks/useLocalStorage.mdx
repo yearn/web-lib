@@ -21,8 +21,8 @@ import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 ```tsx
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
-	const	[myStoredValue, set_myStoredValue] = useLocalStorage('myKey', myInitialValue);
+function App() {
+	const [myStoredValue, set_myStoredValue] = useLocalStorage('myKey', myInitialValue);
 }
 ```
 
@@ -38,8 +38,8 @@ This is where, in the localStorage, the value will be stored. This key should be
 ```tsx {5}
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
-	const	[myStoredValue, set_myStoredValue] = useLocalStorage(
+function App() {
+	const [myStoredValue, set_myStoredValue] = useLocalStorage(
 		'myKey',
 		myInitialValue
 	);
@@ -51,8 +51,8 @@ If the localStorage is not set yet, this is the default value to set and to use 
 ```tsx {6}
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
-	const	[myStoredValue, set_myStoredValue] = useLocalStorage(
+function App() {
+	const [myStoredValue, set_myStoredValue] = useLocalStorage(
 		'myKey',
 		myInitialValue
 	);

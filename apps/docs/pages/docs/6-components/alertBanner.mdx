@@ -17,8 +17,8 @@ The Alert Banner component is used to display some notice. A few levels are avai
 
 ## Usage
 ```tsx
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
@@ -35,7 +35,7 @@ function	App(): React.ReactElement {
 
 ## Properties
 ```tsx
-type	TAlertBanner = {
+type TAlertBanner = {
 	title: string
 	level?: 'none' | 'info' | 'warning' | 'error' | 'critical'
 	children: ReactElement | ReactElement[]
@@ -49,8 +49,8 @@ type	TAlertBanner = {
 ### `title`
 Title to use for this banner. The title is a `<h4>` HTML tag.
 ```tsx {8}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
@@ -102,8 +102,8 @@ Indicate the type of banner to display, aka mostly the colors. Default is set to
 </CodeExample>
 
 ```tsx {7}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
@@ -134,10 +134,10 @@ Worth a mention: can be a single ReactElement or an array of ReactElement. If it
 </CodeExample>
 
 ```tsx {9-14}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<AlertBanner
 			title={'Lorem Ipsum'}>
@@ -155,10 +155,10 @@ function	App(): React.ReactElement {
 ### `maxHeight` (optional)
 Special variable to use as className. In pure CSS, it is impossible to correctly animate height, we need to animate max-height. This allow us to customize the max-height and have a correct transition on banner close. Default is set to `300px`. Dev should adapt it to the expected height.
 ```tsx {9}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<AlertBanner
 			title={'title'}
@@ -185,10 +185,10 @@ Allow you to control the visibility of the banner. Default is `true`.
 </CodeExample>
 
 ```tsx {9}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<AlertBanner
 			title={'title'}
@@ -216,10 +216,10 @@ Can the banner be closed? Default is set to true. If false, the banner will alwa
 </CodeExample>
 
 ```tsx {9}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<AlertBanner
 			title={'title'}
@@ -247,10 +247,10 @@ Action to perform onClose. By default, this is handled by the component itself, 
 </CodeExample>
 
 ```tsx {9}
-import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {AlertBanner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<AlertBanner
 			title={'title'}

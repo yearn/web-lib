@@ -19,11 +19,11 @@ You can put anything inside this modal, but keep in mind the fact that it comes 
 
 ## Usage
 ```tsx
-import	React					from	'react';
-import	{Button, Modal, Card}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Button, Modal, Card} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
-	const	[isOpen, set_isOpen] = React.useState(false);
+function App(): React.ReactElement {
+	const [isOpen, set_isOpen] = React.useState(false);
 
 	return (
 		<div className={'relative w-full flex-center'}>
@@ -60,11 +60,11 @@ type TModal = {
 Should the modal be displayed or not. The modal is displayed and rendered on true, and removed from the DOM on false.
 
 ```tsx {9}
-import	React			from	'react';
-import	{Modal}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Modal} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
-	const	[isOpen, set_isOpen] = React.useState(false);
+function App(): React.ReactElement {
+	const [isOpen, set_isOpen] = React.useState(false);
 
 	return (
 		<Modal
@@ -80,11 +80,11 @@ function	App(): React.ReactElement {
 Action to perform in order to close the modal. Will be triggered by any action supposed to close that modal (escape, background click, etc.)
 
 ```tsx {10}
-import	React		from	'react';
-import	{Modal}		from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Modal} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
-	const	[isOpen, set_isOpen] = React.useState(false);
+function App(): React.ReactElement {
+	const [isOpen, set_isOpen] = React.useState(false);
 
 	return (
 		<Modal

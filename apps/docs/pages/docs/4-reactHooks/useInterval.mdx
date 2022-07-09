@@ -15,7 +15,7 @@ import {useInterval} from '@yearn-finance/web-lib/hooks';
 ```tsx
 import {useInterval} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
+function App() {
 	useInterval((): void => {
 		doSomething();
 	}, 7500, true, []);
@@ -33,7 +33,7 @@ The function to trigger as callback, as you would do it with a standard `useEffe
 ```tsx {5}
 import {useInterval} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
+function App() {
 	useInterval(
 		(): void => doSomething(),
 		7500,
@@ -49,7 +49,7 @@ Default value is `1000`.
 ```tsx {6}
 import {useInterval} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
+function App() {
 	useInterval(
 		(): void => doSomething(),
 		7500,
@@ -64,7 +64,7 @@ Indicate if the callback should be triggered on component mount. Default value i
 ```tsx {7}
 import {useInterval} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
+function App() {
 	useInterval(
 		(): void => doSomething(),
 		7500,
@@ -79,7 +79,7 @@ Just like the `useEffect` hook, you can pass an array of dependencies to re-trig
 ```tsx {8}
 import {useInterval} from '@yearn-finance/web-lib/hooks';
 
-function	App(a: number, b: string, c: boolean) {
+function App(a: number, b: string, c: boolean) {
 	useInterval(
 		(): void => doSomething(),
 		7500,

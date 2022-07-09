@@ -26,7 +26,7 @@ Well it's nothing more than a button. It comes in 3 variants for each theme: fil
 ```tsx
 import {Button} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Button
 			variant={'filled'}
@@ -56,7 +56,7 @@ Used to indicate if the button is a `<a>` or a `<button>`. Default set to `<butt
 ```tsx {6-7}
 import {Button} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Button
 			as={'a'}
@@ -88,7 +88,7 @@ Used to indicate which kind of button we want to use. Default is set to filled. 
 ```tsx {5}
 import {Button} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Button variant={'light'}>
 			{'Whao, such Woofy'}
@@ -102,7 +102,7 @@ This is a little trick to prevent the click event to propagate to the parent. In
 ```tsx {5}
 import {Button} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Button shouldStopPropagation>
 			{'Whao, such Woofy'}
@@ -124,7 +124,7 @@ This should be used when some action is in progress.
 ```tsx {5}
 import {Button} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Button isBusy>
 			{'Whao, such Woofy (but I will not be visible)'}
@@ -146,7 +146,7 @@ This should be used to prevent the user from clicking on the button for some rea
 ```tsx {5}
 import {Button} from '@yearn-finance/web-lib/components';
 
-function	App() {
+function App() {
 	return (
 		<Button isDisabled>
 			{'Whao, such not Woofy'}
