@@ -48,6 +48,19 @@ function App() {
 
 ## Configuration
 
+Change configuration:
+
+```tsx
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+
+function App() { 
+	const web3 = useWeb3({
+		shouldUseWallets: false,
+	});
+	return <div />
+}
+```
+
 Default configuration:
 
 ```tsx
