@@ -90,9 +90,9 @@ import {useAccount} from '@yearn-finance/web-lib/hooks';
 import {truncateHex} from '@yearn-finance/web-lib/utils';
 
 function Page() {
-	const	{openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
-	const	{isConnected, address, ens} = useAccount();
-	const	[walletIdentity, set_walletIdentity] = React.useState('Connect with Web3');
+	const {openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
+	const {isConnected, address, ens} = useAccount();
+	const [walletIdentity, set_walletIdentity] = React.useState('Connect with Web3');
 	
 	React.useEffect((): void => {
 		if (!isConnected && address) {

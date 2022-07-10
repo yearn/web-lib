@@ -16,7 +16,7 @@ import {useBalance} from '@yearn-finance/web-lib/hooks';
 import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
-	const	{data: YFIBalance} = useBalance({
+	const {data: YFIBalance} = useBalance({
 		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
 		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
 	});
@@ -66,7 +66,7 @@ Address for ERC-20 token to use for the request. If not provided, this will fetc
 import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
-	const	{data: YFIBalance} = useBalance({
+	const {data: YFIBalance} = useBalance({
 		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
 		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
 	});
@@ -80,7 +80,7 @@ Address or ENS name to fetch balance for. If not defined, the hook will use the 
 import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
-	const	{data: YFIBalance} = useBalance({
+	const {data: YFIBalance} = useBalance({
 		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
 		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
 	});
@@ -100,7 +100,7 @@ The possible values are:
 import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
-	const	{data: YFIBalance} = useBalance({
+	const {data: YFIBalance} = useBalance({
 		refreshEvery: 'block'
 	});
 }
@@ -113,7 +113,7 @@ Use a specific chainID to perform the request. Supported values are `1`, `4`, `5
 import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
-	const	{data: YFIBalance} = useBalance({
+	const {data: YFIBalance} = useBalance({
 		chainID: 250
 	});
 }
@@ -127,7 +127,7 @@ import {ethers}     from 'ethers';
 import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
-	const	{data: YFIBalance} = useBalance({
+	const {data: YFIBalance} = useBalance({
 		provider: ethers.providers.getDefaultProvider(1)
 	});
 }

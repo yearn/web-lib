@@ -16,14 +16,14 @@ import {useWeb3} from '@yearn-finance/web-lib/contexts';
 import {useWeb3} from '@yearn-finance/web-lib/contexts';
 
 function App() { 
-    const {address, ens, onConnect} = useWeb3();
+	const {address, ens, onConnect} = useWeb3();
 
-    return (
-        <div>
-            <p>{ens || address}</p>
-            <button onClick={onConnect}></button>
-        </div>
-    );
+	return (
+		<div>
+			<p>{ens || address}</p>
+			<button onClick={onConnect}></button>
+		</div>
+	);
 }
 ```
 
