@@ -88,9 +88,9 @@ function Page() {
 }
 ```
 
-In this example, we wrap our whole nextJS app inside the `WithYearn` context, which enable all the feature we may need to work with it! A few configs are available, and you can check them [here](/docs/contexts/withYearn), but in short with this abstract wrapper, you gain access to the whole Web3 capabilities, some UI and theme controls, some global settings to access and update the Yearn's default ecosystem contracts and API, but also some more specific global contexts such as the Balances and the Price ones.  
+In this example, we wrap our whole NextJS app inside the `WithYearn` context, which enable all the features we may need to work with it! A few configs are available [here](/docs/contexts/withYearn), in short with this abstract wrapper you gain access to the whole Web3 capabilities, some UI and theme controls, some global settings to access and update the Yearn's default ecosystem contracts and API, and also other specific global contexts such as the Balances and  Prices.  
   
-Next, anywhere in our app, we can use the `useWeb3` hook to access to the Wallet, to the provider (aka link to the blockchain) and much more! If your user's `isActive`, it's wallet and provider will be ready to use in your dApp. Otherwise, you can just trigger the `openLoginModal` function to open a ready-to-use modal for the user's to connect to their wallet.  
+Next, anywhere in our app, we can use the `useWeb3` hook to access the user's Wallet provider (aka link to the blockchain) and much more! If your user `isActive` the wallet and provider will be ready to use in your dApp. Otherwise, you can just trigger the `openLoginModal` function to open a ready-to-use modal for the user's to connect to their wallet.  
    
 It's easy, and you can use it in your next app!
 
@@ -100,11 +100,11 @@ TODO
 ## Around the Block
 Check our theses apps built with Yearn Web Lib:  
 - The Yearn's [Web Template](https://github.com/yearn/web-template), a forkable repository to bootstrap your project with Next, Tailwind and the Web Lib
-- [Yearn Buyback](https://buyback.yearn.finance/), a project to buy your YFI.
+- [Yearn Buyback](https://buyback.yearn.finance/), a project to buy YFI from the market with Yearn treasury.
 - [Yearn Sync](https://sync.yearn.farm/), a dashboard to check the syncing status of Yearn's ecosystem.
 - [Yearn Watch](https://yearn.watch), a dashboard used to track information about Yearn's Vaults and strategies.
 - [Macarena finance](https://macarena.finance/), a simple UI for Yearn Finance, made to be forked!
-- [Yearn Hack](https://hack.yearn.farm/), your UI to deploy all your needs to hack Yearn.
+- [Yearn Hack](https://hack.yearn.farm/), UI to deploy all your needs to hack Yearn.
 - [NFTreasury](https://nft-reasury.vercel.app/), a treasury management tool for NFT projects.
 - [ape.tax](https://ape.tax/), an Experimental Experiments Registry for Yearn.
-- [Keep3r Network](https://keep3r.network/), a decentralized infrastructures for web3 jobs and tasks
+- [Keep3r Network](https://keep3r.network/), a decentralized infrastructure for web3 jobs and tasks
