@@ -4,9 +4,9 @@ import	{toSafeValue, toNormalizedValue, amount}	from	'../utils/format';
 import	performBatchedUpdates						from	'../utils/performBatchedUpdates';
 
 type 		TInput = {
-	value: string,
-	onChange: (s: string) => void
-	onSearch?: (s: string) => void
+	value: string | number,
+	onChange: (s: string | number) => void
+	onSearch?: (s: string | number) => void
 	ariaLabel?: string
 	withMax?: boolean
 	onMaxClick?: () => void
@@ -38,7 +38,7 @@ function	InputBase({
 					ref={focusRef}
 					value={value}
 					onChange={(e): void => onChange(e.target.value)}
-					type={'text'}
+					type={props.type || 'text'}
 					className={'yearn--input-field'}
 					{...props} />
 				{withMax ? <div
