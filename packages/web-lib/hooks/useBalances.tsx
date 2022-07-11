@@ -162,6 +162,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 
 	return ({
 		data,
+		update: getBalances,
 		error,
 		isLoading: status.isLoading,
 		isFetching: status.isFetching,

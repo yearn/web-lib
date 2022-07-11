@@ -175,6 +175,7 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 
 	return ({
 		data,
+		update: getBalance,
 		error,
 		isLoading: status.isLoading,
 		isFetching: status.isFetching,
