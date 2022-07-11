@@ -30,6 +30,15 @@ const	defaultSettings = {
 		explorerBaseURI: 'https://arbiscan.io',
 		lensAddress: '0x043518AB266485dC085a1DB095B8d9C2Fc78E9b9',
 		partnerContractAddress: '0x0000000000000000000000000000000000000000'
+	},
+	1337: {
+		rpcURI: getRPC(1337),
+		graphURI: 'https://api.thegraph.com/subgraphs/name/0xkofee/yearn-vaults-v2',
+		metaURI: 'https://meta.yearn.finance/api/1',
+		apiURI: 'https://api.yearn.finance/v1/chains/1',
+		explorerBaseURI: 'https://etherscan.io',
+		lensAddress: '0x83d95e0D5f402511dB06817Aff3f9eA88224B030',
+		partnerContractAddress: '0x8ee392a4787397126C163Cb9844d7c447da419D8'
 	}
 };
 
