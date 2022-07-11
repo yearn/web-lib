@@ -28,8 +28,8 @@ The Banner.WithControls component allows you to scroll many banners in the same 
 
 ## Usage
 ```tsx
-import	React		from	'react';
-import	{Banner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Banner} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
@@ -71,10 +71,10 @@ Indicate if the banner can be closed. If `true`, a little close cross button wil
 </CodeExample>
 
 ```tsx {6}
-import	React		from	'react';
-import	{Banner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Banner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<Banner.WithControls canClose={false}>
 			<Banner title={'Welcome to banner'}>
@@ -105,10 +105,10 @@ Action to perform onClose. By default, this is handled by the component itself, 
 </CodeExample>
 
 ```tsx {6}
-import	React		from	'react';
-import	{Banner}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Banner} from '@yearn-finance/web-lib/components';
 
-function	App(): React.ReactElement {
+function App(): React.ReactElement {
 	return (
 		<Banner.WithControls onClose={() => alert('hello')}>
 			<Banner title={'Welcome to banner'}>

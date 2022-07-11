@@ -39,7 +39,7 @@ module.exports = {
 ```
 
 ### 2. Add the `tailwind.config.js` file
-Then, create a new `tailwind.config.js` file in the root of your project. The Web Lib exports a preset you can plug into this file to prepare some part of the config:
+Then, create a new `tailwind.config.js` file in the root of your project. The Web Lib exports a preset you can plug into this file to prepare some parts of the config:
 ```js
 module.exports = {
 	presets: [
@@ -74,11 +74,11 @@ A default CSS file is included in the library. You can import it in your project
 
 And then, simply import it in your dApp, in `_app.tsx` for NextJS:
 ```tsx {2}
-import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
-import	'../style.css';
+import {WithYearn} from '@yearn-finance/web-lib/contexts';
+import '../style.css';
 
-function	MyApp(props: AppProps): ReactElement {
-	const	{Component, pageProps} = props;
+function MyApp(props: AppProps): ReactElement {
+	const {Component, pageProps} = props;
 
 	return (
 		<WithYearn client={client}>

@@ -1,3 +1,73 @@
 ---
-title: 'Yearn Web Lib'
+title: 'useWeb3'
+description: 'Hook to interact with web3 contracts and subgraphs'
 ---
+
+# useWeb3
+This hook contains functions to interact with web3 data, it's used to make other web3 hooks like `useAccount` and `useBalance` since it carries the provider that can sign transactions.
+
+```ts
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+```
+
+## Usage
+
+```tsx
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+
+function App() { 
+	const {address, ens, onConnect} = useWeb3();
+
+	return (
+		<div>
+			<p>{ens || address}</p>
+			<button onClick={onConnect}></button>
+		</div>
+	);
+}
+```
+
+## Return Value
+
+```tsx
+{
+	address: string | null | undefined,
+	ens: string | undefined,
+	chainID: number,
+	isDisconnected: boolean,
+	isActive: boolean,
+	isConnecting: boolean,
+	hasProvider: boolean,
+	provider: ethers.providers.Provider,
+	onConnect: (p: number, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
+	onSwitchChain: (newChainID: number, force?: boolean) => void,
+	openLoginModal: () => void,
+	onDesactivate: () => void,
+}
+```
+
+## Configuration
+
+Change configuration:
+
+```tsx
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+
+function App() { 
+	const web3 = useWeb3({
+		shouldUseWallets: false,
+	});
+	return <div />
+}
+```
+
+Default configuration:
+
+```tsx
+{
+	shouldUseWallets: true,
+	shouldUseStrictChainMode: false,
+	defaultChainID: 1,
+	supportedChainID: [1, 4, 56, 100, 137, 250, 1337, 31337, 42161]
+};
+```

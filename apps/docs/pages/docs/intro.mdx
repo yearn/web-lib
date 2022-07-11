@@ -18,12 +18,12 @@ The `logical` part only require a few lines of code to get started, but the ui p
 |
 ├── contexts/                       # Access via: @yearn-finance/web-lib/contexts
 │   ├── WithYearn.tsx               # Default wrapper around the Yearn Web Lib
-│   ├── useWeb3.tsx                 # Context wrapping your dApp enabling you unleash the Web3 features
+│   ├── useWeb3.tsx                 # Context wrapping your dApp enabling you to unleash the Web3 features
 │   ├── useSettings.tsx             # Context wrapping your dApp used to configure and access some default settings
 │   └── useUI.tsx                   # Context wrapping your dApp used to control some visual elements (theme, toast, etc.)
 |
 ├── hooks/                          # Access via: @yearn-finance/web-lib/hooks
-│   ├── useAccount.tsx              # Web3 Hook remapping the useWeb3 context for easier DX
+│   ├── useAccount.tsx              # Web3 Hook to remap useWeb3 context for easier DX
 │   ├── useBalance.tsx              # Web3 Hook to fetch balance information for the ETH coin or any ERC20 token
 │   ├── useBlock.tsx                # Web3 Hook to fetch the latest or any past block's information and subscript to new blocks
 |	|
@@ -34,10 +34,10 @@ The `logical` part only require a few lines of code to get started, but the ui p
 │   └── useWindowInFocus.tsx        # Hook to check if the window is in focus or not
 |
 ├── utils/                          # Access via: @yearn-finance/web-lib/utils
-│   ├── format.tsx                  # Bunch of utility functions to format amount, BigNumber, date etc.
-│   ├── performBatchedUpdates.tsx   # Utility function to update multiple state in one React render
-│   ├── providers.tsx               # Bunch of utility functions to access the defaults Web3 providers and multicall initializator.
-|	├── Transaction.tsx             # Class to control the execution of a transaction.
+│   ├── format.tsx                  # Bunch of utility functions to format amount, BigNumber, date etc
+│   ├── performBatchedUpdates.tsx   # Utility function to update multiple states in one React render
+│   ├── providers.tsx               # Bunch of utility functions to access the default Web3 providers and multicall initializator
+|	├── Transaction.tsx             # Class to control the execution of a transaction
 │   └── *.tsx                       # Any other utility function
 |
 ├── components/                     # Access via: @yearn-finance/web-lib/components

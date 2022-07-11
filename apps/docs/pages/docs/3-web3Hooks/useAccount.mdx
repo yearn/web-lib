@@ -4,7 +4,7 @@ description: 'Hook to access wallet data and information.'
 ---
 
 # useAccount
-This hook is really just a remapping of the useWeb3 context, providing a more friendly limited interface for dev experience.
+Remapping of the useWeb3 context, provides a more friendly limited interface for dev experience on managing accounts.
 
 ```ts
 import {useAccount} from '@yearn-finance/web-lib/hooks';
@@ -15,7 +15,7 @@ import {useAccount} from '@yearn-finance/web-lib/hooks';
 ```tsx
 import {useAccount} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
+function App() {
 	const {address, ens, isConnected, isConnecting, isDisconnected} = useAccount();
 
 	if (isConnecting)

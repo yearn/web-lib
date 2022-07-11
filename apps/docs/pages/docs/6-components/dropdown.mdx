@@ -21,14 +21,14 @@ The component has headless states, meaning you have to send him the useState and
 import {Dropdown} from  '@yearn-finance/web-lib/components';
 import * as Icons from	'@yearn-finance/web-lib/icons';
 
-function	App() {
-	const	options = [
+function App() {
+	const options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
 
 	return (
 		<Dropdown
@@ -61,17 +61,17 @@ type TDropdownProps = {
 ### `options`
 List of available options to select. The icon field is optional and the label field will be the one displayed. Values should be unique accross the dropdown.
 ```tsx {5-10, 16}
-import {Dropdown} from  '@yearn-finance/web-lib/components';
-import * as Icons from	'@yearn-finance/web-lib/icons';
+import {Dropdown} from '@yearn-finance/web-lib/components';
+import * as Icons from '@yearn-finance/web-lib/icons';
 
-function	App() {
-	const	options = [
+function App() {
+	const options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
 
 	return (
 		<Dropdown
@@ -86,17 +86,17 @@ function	App() {
 ### `defaultOption`
 Should be one of the options item. This is the default selected option, displayed when the dropdown is rendered the first time.
 ```tsx {15}
-import {Dropdown} from  '@yearn-finance/web-lib/components';
-import * as Icons from	'@yearn-finance/web-lib/icons';
+import {Dropdown} from '@yearn-finance/web-lib/components';
+import * as Icons from '@yearn-finance/web-lib/icons';
 
-function	App() {
-	const	options = [
+function App() {
+	const options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
 
 	return (
 		<Dropdown
@@ -114,14 +114,14 @@ The currently selected option. This should change once the user selects a new op
 import {Dropdown} from  '@yearn-finance/web-lib/components';
 import * as Icons from	'@yearn-finance/web-lib/icons';
 
-function	App() {
-	const	options = [
+function App() {
+	const options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
 
 	return (
 		<Dropdown
@@ -139,14 +139,14 @@ Callback when a new option is selected. The function will have the new selected 
 import {Dropdown} from  '@yearn-finance/web-lib/components';
 import * as Icons from	'@yearn-finance/web-lib/icons';
 
-function	App() {
-	const	options = [
+function App() {
+	const options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
 
 	return (
 		<Dropdown

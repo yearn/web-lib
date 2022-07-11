@@ -4,7 +4,7 @@ description: 'Hook to trigger useEffect or useLayoutEffect based on the current 
 ---
 
 # useClientEffect
-This hook can be used with NextJs or any SSR system to trigger useLayoutEffect on client and useEffect on server side.
+Can be used with NextJs or any SSR system to trigger useLayoutEffect on client and useEffect on server side.
 
 ```ts
 import {useClientEffect} from '@yearn-finance/web-lib/hooks';
@@ -15,7 +15,7 @@ import {useClientEffect} from '@yearn-finance/web-lib/hooks';
 ```tsx
 import {useClientEffect} from '@yearn-finance/web-lib/hooks';
 
-function	App() {
+function App() {
 	useClientEffect((): void => {
 		console.log('useClientEffect');
 	}, []);
