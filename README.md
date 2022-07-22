@@ -5,7 +5,7 @@ Yearn web Lib is a library of standard components used through Yearn's Projects.
 This library is made for React projects with the idea to be light, efficient and easy to use.  
 We are using React + Tailwindcss + ethersjs for the web3 package, and some contexts are available to correctly wrap your app.
 
-Please check @yearn/web-template for documentation and usage.
+Please check [@yearn/web-template](https://github.com/yearn/web-template) for documentation and usage.
 
 The stack used for this project is the following:
 - 🚀 [Next](https://nextjs.org) — JavaScript library for user interfaces
