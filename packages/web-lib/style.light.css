@@ -482,6 +482,12 @@ label[aria-invalid="true"] {
 .yearn--modalMobileMenu-separator {
 	@apply mx-auto mt-2 mb-4 h-[2px] w-full items-center justify-center bg-neutral-500/20;
 }
+.yearn--modalMobileMenu-chevron {
+	@apply absolute right-2;
+	& > svg {
+		@apply ml-1 h-3 w-3;
+	}
+}
 
 
 
