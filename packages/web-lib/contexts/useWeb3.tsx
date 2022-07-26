@@ -274,7 +274,8 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 						connector.resetState?.();
 					});
 					setTimeout((): void => set_isDisconnected(false), 100);					
-				}
+				},
+				options
 			}}>
 			{children}
 			<ModalLogin

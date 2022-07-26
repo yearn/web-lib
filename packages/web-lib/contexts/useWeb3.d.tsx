@@ -20,4 +20,5 @@ export type TWeb3Context = {
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
+	options?: TWeb3Options
 }
