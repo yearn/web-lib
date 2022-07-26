@@ -473,8 +473,14 @@ label[aria-invalid="true"] {
 .yearn--modalMobileMenu-walletCard {
 	@apply rounded-default flex cursor-pointer flex-col items-center justify-center bg-neutral-100 py-4 px-2 text-center transition-colors;
 }
+.yearn--modalMobileMenu-menuItemWrapper {
+	@apply mb-4 space-y-2 px-4;
+}
 .yearn--modalMobileMenu-menuItem {
 	@apply rounded-default bg-neutral-200 p-2 text-sm font-bold text-neutral-700;
+}
+.yearn--modalMobileMenu-separator {
+	@apply mx-auto mt-2 mb-4 h-[2px] w-full items-center justify-center bg-neutral-500/20;
 }
 
 

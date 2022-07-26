@@ -176,9 +176,9 @@ function	ModalMobileMenu({
 				{renderNotActive()}
 			</div>
 			<div className={'w-full px-4'}>
-				<div className={'mx-auto mt-2 mb-4 h-[2px] w-full items-center justify-center bg-neutral-500/20'} />
+				<div className={'yearn--modalMobileMenu-separator'} />
 			</div>
-			<menu className={'mb-4 space-y-2 px-4'}>
+			<menu className={'yearn--modalMobileMenu-menuItemWrapper'}>
 				{
 					menu.map((item, index) => (
 						<div
