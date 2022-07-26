@@ -1,9 +1,10 @@
 {
 	"name": "@yearn-finance/web-lib",
-	"version": "0.11.30",
+	"version": "0.11.31",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
+	"typings": "./dist/index.d.ts",
 	"sideEffects": false,
 	"type": "module",
 	"repository": "git://github.com/yearn/web-lib.git",
