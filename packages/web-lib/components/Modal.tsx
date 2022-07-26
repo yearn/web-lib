@@ -9,7 +9,7 @@ function	Modal({isOpen, onClose, className = '', children}: ModalTypes.TModal): 
 		<Transition.Root show={isOpen} as={React.Fragment}>
 			<Dialog
 				as={'div'}
-				className={'overflow-y-auto fixed inset-0'}
+				className={'fixed inset-0 overflow-y-auto'}
 				style={{zIndex: 9999}}
 				initialFocus={ref}
 				onClose={onClose}>

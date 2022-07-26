@@ -2,10 +2,10 @@
 const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
 const dotenv = require('dotenv-webpack');
 
+/**
+ * @type {import('next').NextConfig}
+ */
 module.exports = withTM({
-	experimental: {
-		concurrentFeatures: true
-	},
 	plugins: [new dotenv()],
 	images: {
 		domains: [

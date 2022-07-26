@@ -4,42 +4,51 @@ import	{WalletConnect}							from	'@web3-react/walletconnect';
 import	{GnosisSafe}							from	'@web3-react/gnosis-safe';
 import	{CoinbaseWallet}						from	'@web3-react/coinbase-wallet';
 import	{EIP1193}								from	'./connectors.eip1193';
-import	{getRPC}							from	'./providers';
+import	{getRPC}								from	'./providers';
 
-const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask | any>((actions): MetaMask => new MetaMask(
-	actions,
-	false
-));
+const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask>(
+	(actions): MetaMask => new MetaMask({actions})
+);
 
-const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletConnect | any>((actions): WalletConnect => new WalletConnect(
-	actions,
-	{
-		rpc: {
-			1: getRPC(1),
-			4: getRPC(4),
-			250: getRPC(250),
-			1337: getRPC(1337),
-			31337: getRPC(31337)
-		}
-	},
-	false
-));
+const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletConnect>(
+	(actions): WalletConnect =>
+		new WalletConnect({
+			actions,
+			options: {
+				rpc: {
+					1: getRPC(1),
+					4: getRPC(4),
+					250: getRPC(250),
+					1337: getRPC(1337),
+					31337: getRPC(31337)
+				}
+			}
+		})
+);
 
-const	[eip1193Connector, eip1193Hooks] = initializeConnector<EIP1193 | any>((actions): EIP1193 => new EIP1193(
-	actions,
-	null as any
-));
+const	[eip1193Connector, eip1193Hooks] = initializeConnector<EIP1193>(
+	(actions): EIP1193 => new EIP1193({
+		actions,
+		provider: null as any
+	})
+);
 
-const	[gnosisSafeConnector, gnosisSafeHooks] = initializeConnector<GnosisSafe | any>((actions): GnosisSafe => new GnosisSafe(
-	actions,
-	false,
-	{allowedDomains: [/gnosis-safe.io/]}
-));
+const	[gnosisSafeConnector, gnosisSafeHooks] = initializeConnector<GnosisSafe>(
+	(actions): GnosisSafe => new GnosisSafe({
+		actions,
+		options: {allowedDomains: [/gnosis-safe.io/]}
+	})
+);
 
-const	[coinbaseConnector, coinbaseHooks] = initializeConnector<CoinbaseWallet | any>((actions): CoinbaseWallet => new CoinbaseWallet(actions, {
-	url: getRPC(1),
-	appName: process.env.WEBSITE_TITLE as string
-})
+const [coinbaseConnector, coinbaseHooks] = initializeConnector<CoinbaseWallet>(
+	(actions): CoinbaseWallet =>
+		new CoinbaseWallet({
+			actions,
+			options: {
+				url: getRPC(1),
+				appName: process.env.WEBSITE_TITLE as string
+			}
+		})
 );
 
 export type TConnector = {

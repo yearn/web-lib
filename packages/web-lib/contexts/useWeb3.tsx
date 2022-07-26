@@ -120,7 +120,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		set_isConnecting(true);
 		if (_providerType === walletType.METAMASK) {
 			if (isActive)
-				await connectors.metamask.connector.deactivate();
+				await connectors.metamask.connector.deactivate?.();
 			try {
 				await connectors.metamask.connector.activate();
 				set_lastWallet(walletType.METAMASK);	
@@ -152,7 +152,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			set_lastWallet(walletType.EMBED_LEDGER);
 		} else if (_providerType === walletType.EMBED_GNOSIS_SAFE) {
 			if (isActive)
-				await connectors.gnosisSafe.connector.deactivate();
+				await connectors.gnosisSafe.connector.deactivate?.();
 			try {
 				await connectors.gnosisSafe.connector.activate();
 				set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
@@ -167,7 +167,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			}
 		} else if (_providerType === walletType.COINBASE) {
 			if (isActive)
-				await connectors.coinbase.connector.deactivate();
+				await connectors.coinbase.connector.deactivate?.();
 			try {
 				await connectors.coinbase.connector.activate(1);
 				set_lastWallet(walletType.COINBASE);	
@@ -267,7 +267,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
-						connector.deactivate();
+						connector.deactivate?.();
 						set_ens('');
 						set_lastWallet(walletType.NONE);
 						set_isDisconnected(true);

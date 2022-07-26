@@ -20,6 +20,8 @@ import IconThemeDark from './IconThemeDark';
 import IconThemeLight from './IconThemeLight';
 import IconWalletMetamask from './IconWalletMetamask';
 import IconWalletWalletConnect from './IconWalletWalletConnect';
+import IconWalletCoinbase from './IconWalletCoinbase';
+import IconWalletGnosis from './IconWalletGnosis';
 import IconCheckmark from './IconCheckmark';
 import IconAddToMetamask from './IconAddToMetamask';
 import IconHome from './IconHome';
@@ -54,6 +56,8 @@ export {
 	IconThemeLight as ThemeLight,
 	IconWalletMetamask as WalletMetamask,
 	IconWalletWalletConnect as WalletWalletConnect,
+	IconWalletCoinbase as WalletCoinbase,
+	IconWalletGnosis as WalletGnosis,
 	IconCheckmark as Checkmark,
 	IconAddToMetamask as AddToMetamask,
 	IconHome as Home,

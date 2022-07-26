@@ -16,5 +16,5 @@
 		"index.tsx",
 		"declarations.d.ts"
 	],
-	"exclude": ["dist", "dist/**.ts*", "build", "node_modules"]
+	"exclude": ["dist", "dist/**.ts*", "build", "node_modules/*"]
 }

@@ -13,7 +13,7 @@ export class EIP1193 extends Connector {
 	 * @param provider - An EIP-1193 ({@link https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md}) provider.
 	 * @param connectEagerly - A flag indicating whether connection should be initiated when the class is constructed.
 	 */
-	constructor(actions: Actions, provider: Provider) {
+	constructor({actions, provider}: {actions: Actions, provider: Provider}) {
 		super(actions);
 		this.provider = provider;
 	}
@@ -25,11 +25,11 @@ export class EIP1193 extends Connector {
 		});
 
 		this.provider.on('disconnect', (error: ProviderRpcError): void => {
-			this.actions.reportError(error);
+			this.onError?.(error);
 		});
 
 		this.provider.on('close', (error: ProviderRpcError): void => {
-			this.actions.reportError(error);
+			this.onError?.(error);
 		});
 
 		this.provider.on('chainChanged', (chainId: string): void => {
@@ -68,7 +68,7 @@ export class EIP1193 extends Connector {
 		]).then(([chainId, accounts]): void => {
 			this.actions.update({chainId: parseChainId(chainId), accounts});
 		}).catch((error: Error): void => {
-			this.actions.reportError(error);
+			this.onError?.(error);
 			cancelActivation();
 		});
 	}
