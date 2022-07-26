@@ -267,10 +267,11 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
-						connector.deactivate?.();
 						set_ens('');
 						set_lastWallet(walletType.NONE);
 						set_isDisconnected(true);
+						connector.deactivate?.();
+						connector.resetState?.();
 					});
 					setTimeout((): void => set_isDisconnected(false), 100);					
 				}
