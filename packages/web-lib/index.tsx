@@ -25,6 +25,7 @@ export * from './components/DescriptionList';
 export * from './components/Dropdown';
 export * from './components/Modal';
 export * from './components/ModalLogin';
+export * from './components/ModalMobileMenu';
 export * from './components/ModalMenu';
 export * from './components/SearchBox';
 export * from './components/StatisticCard';

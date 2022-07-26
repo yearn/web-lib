@@ -6,6 +6,7 @@ import {DescriptionList} from './DescriptionList';
 import {Dropdown} from './Dropdown';
 import {Modal} from './Modal';
 import {ModalLogin} from './ModalLogin';
+import {ModalMobileMenu} from './ModalMobileMenu';
 import {ModalMenu} from './ModalMenu';
 import {Navbar} from '../layouts/Navbar';
 import {SearchBox} from './SearchBox';
@@ -26,6 +27,7 @@ export {
 	DescriptionList,
 	Dropdown,
 	Modal,
+	ModalMobileMenu,
 	ModalLogin,
 	ModalMenu,
 	Navbar,
@@ -48,6 +50,7 @@ import type * as CardTypes from './Card.d';
 import type * as DescriptionListTypes from './DescriptionList.d';
 import type * as DropdownTypes from './Dropdown.d';
 import type * as ModalLoginTypes from './ModalLogin.d';
+import type * as ModalMobileMenuTypes from './ModalMobileMenu.d';
 import type * as ModalMenuTypes from './ModalMenu.d';
 import type * as ModalTypes from './Modal.d';
 import type * as SearchBoxTypes from './SearchBox.d';
@@ -65,6 +68,7 @@ export type {
 	DescriptionListTypes,
 	DropdownTypes,
 	ModalLoginTypes,
+	ModalMobileMenuTypes,
 	ModalMenuTypes,
 	ModalTypes,
 	SearchBoxTypes,

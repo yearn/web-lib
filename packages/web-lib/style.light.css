@@ -460,6 +460,24 @@ label[aria-invalid="true"] {
 	@apply grid grid-cols-2 p-6 space-y-4;
 }
 
+/* -- ModalMobileMenu.tsx ---------------------------------------------------- */
+.yearn--modalMobileMenu-title {
+	@apply text-center text-xl font-bold text-neutral-700;
+}
+.yearn--modalMobileMenu-content {
+	@apply relative flex w-full flex-col items-center justify-center space-y-1 pt-4;
+}
+.yearn--modalMobileMenu-select {
+	@apply rounded-default relative ml-1 flex flex-row items-center bg-accent-500/10 py-1 pl-2 text-accent-500;
+}
+.yearn--modalMobileMenu-walletCard {
+	@apply rounded-default flex cursor-pointer flex-col items-center justify-center bg-neutral-100 py-4 px-2 text-center transition-colors;
+}
+.yearn--modalMobileMenu-menuItem {
+	@apply rounded-default bg-neutral-200 p-2 text-sm font-bold text-neutral-700;
+}
+
+
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Then, we import the tailwind class. They will be able to overwrite all
@@ -497,6 +515,21 @@ label[aria-invalid="true"] {
 .scrollbar-none {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+.yearn--select-reset {
+	@apply bg-transparent p-0 border-none;
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+.yearn--select-no-arrow {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: none;
+}
+.yearn--select-no-arrow::-ms-expand {
+    display: none;
 }
 
 /* 🔵 - Yearn Finance ******************************************************
