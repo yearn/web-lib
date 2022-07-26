@@ -36,7 +36,7 @@ NODE_ENV=production  $esbuild $input --format=cjs --outfile=$DST/$name.prod.cjs 
 NODE_ENV=development $esbuild $input --format=cjs --outfile=$DST/$name.dev.cjs           --bundle --pure:React.createElement ${sharedOptions[@]} $@ &
 
 # Generate types
-yarn bin tsc --emitDeclarationOnly --outDir $DST &
+tsc --emitDeclarationOnly --outDir $DST &
 
 # Wait for all the scripts to finish
 wait
