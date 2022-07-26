@@ -143,8 +143,8 @@ function	ModalMobileMenu({
 				<h4 className={'yearn--modalMobileMenu-title'}>
 					{walletIdentity === 'Connect a wallet' ? walletIdentity : `Hello ${walletIdentity}`}
 				</h4>
-				<div className={'text-sm text-neutral-500'}>
-					<span className={'flex flex-row items-center'}>
+				<div className={'yearn--modalMobileMenu-networkIndicator'}>
+					<span>
 						{'You are connected to'}
 						<label
 							htmlFor={'network'}
@@ -164,10 +164,10 @@ function	ModalMobileMenu({
 						</label>
 					</span>
 				</div>
-				{walletIdentity === 'Connect a wallet' ? null : <div className={'absolute top-4 right-4'}>
+				{walletIdentity === 'Connect a wallet' ? null : <div className={'yearn--modalMobileMenu-logout'}>
 					<svg
 						onClick={onDesactivate}
-						xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 512 512'} className={'h-6 w-6 rounded-full bg-neutral-200 p-1.5 text-neutral-500'}>
+						xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 512 512'}>
 						<path d={'M288 256C288 273.7 273.7 288 256 288C238.3 288 224 273.7 224 256V32C224 14.33 238.3 0 256 0C273.7 0 288 14.33 288 32V256zM80 256C80 353.2 158.8 432 256 432C353.2 432 432 353.2 432 256C432 201.6 407.3 152.9 368.5 120.6C354.9 109.3 353 89.13 364.3 75.54C375.6 61.95 395.8 60.1 409.4 71.4C462.2 115.4 496 181.8 496 255.1C496 388.5 388.5 496 256 496C123.5 496 16 388.5 16 255.1C16 181.8 49.75 115.4 102.6 71.4C116.2 60.1 136.4 61.95 147.7 75.54C158.1 89.13 157.1 109.3 143.5 120.6C104.7 152.9 80 201.6 80 256z'} fill={'currentcolor'} />
 					</svg>
 				</div>}
@@ -175,7 +175,7 @@ function	ModalMobileMenu({
 			<div>
 				{renderNotActive()}
 			</div>
-			<div className={'w-full px-4'}>
+			<div className={'yearn--modalMobileMenu-separatorWrapper'}>
 				<div className={'yearn--modalMobileMenu-separator'} />
 			</div>
 			<menu className={'yearn--modalMobileMenu-menuItemWrapper'}>
