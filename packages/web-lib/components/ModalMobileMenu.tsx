@@ -54,8 +54,7 @@ function	ModalMobileMenu({
 	isOpen,
 	onClose,
 	shouldUseWallets,
-	menu,
-	menuItemClassName = 'yearn--modalMobileMenu-menuItem'
+	children
 }: TModalMobileMenu): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = React.useState('Connect a wallet');
@@ -175,20 +174,16 @@ function	ModalMobileMenu({
 			<div>
 				{renderNotActive()}
 			</div>
-			<div className={'yearn--modalMobileMenu-separatorWrapper'}>
-				<div className={'yearn--modalMobileMenu-separator'} />
-			</div>
-			<menu className={'yearn--modalMobileMenu-menuItemWrapper'}>
-				{
-					menu.map((item, index) => (
-						<div
-							key={index}
-							className={menuItemClassName}>
-							{item}
-						</div>
-					))
-				}
-			</menu>
+			{children ? (
+				<>
+					<div className={'yearn--modalMobileMenu-separatorWrapper'}>
+						<div className={'yearn--modalMobileMenu-separator'} />
+					</div>
+					<div className={'yearn--modalMobileMenu-childrenWrapper'}>
+						{children}
+					</div>
+				</>
+			) : <div className={'yearn--modalMobileMenu-childrenWrapper'} />}
 		</Modal>
 	);
 }

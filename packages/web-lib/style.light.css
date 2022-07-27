@@ -480,11 +480,8 @@ label[aria-invalid="true"] {
 .yearn--modalMobileMenu-walletCard {
 	@apply rounded-default flex cursor-pointer flex-col items-center justify-center bg-neutral-100 py-4 px-2 text-center transition-colors;
 }
-.yearn--modalMobileMenu-menuItemWrapper {
+.yearn--modalMobileMenu-childrenWrapper {
 	@apply mb-4 space-y-2 px-2;
-}
-.yearn--modalMobileMenu-menuItem {
-	@apply rounded-default bg-neutral-200 p-2 text-sm font-bold text-neutral-700;
 }
 .yearn--modalMobileMenu-separatorWrapper {
 	@apply w-full px-2;
