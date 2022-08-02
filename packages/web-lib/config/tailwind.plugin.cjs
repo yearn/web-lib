@@ -19,6 +19,7 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			roboto: ['Aeonik', 'Roboto', ...defaultTheme.fontFamily.sans],
+			aeonik: ['Aeonik', 'Roboto', ...defaultTheme.fontFamily.sans],
 			mono: ['Aeonik Mono', 'Roboto Mono', ...defaultTheme.fontFamily.mono]
 		},
 		colors: {
@@ -50,6 +51,8 @@ module.exports = {
 			/* 🔵 - Yearn Finance ******************************************************
 			** Colors for the next Yearn design system
 			**************************************************************************/
+			'primary': withOpacityValue('--color-primary'),
+
 			//New colors
 			'neutral-0': withOpacityValue('--color-neutral-0'),
 			'neutral-100': withOpacityValue('--color-neutral-100'),
