@@ -1,6 +1,6 @@
 {
 	"name": "@yearn-finance/web-lib",
-	"version": "0.11.36",
+	"version": "0.11.37",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",

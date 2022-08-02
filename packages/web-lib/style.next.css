@@ -1,5 +1,5 @@
-@tailwind base;
 @import	'./dist/fonts/fonts.css';
+@tailwind base;
 
 :root {
 	--default-rounded: 0.5rem;
