@@ -7,11 +7,13 @@
 		"icons/**.tsx",
 		"layouts/**.tsx",
 		"utils/**.tsx",
+		"fonts/*",
 		".eslintrc.cjs",
 		"build.css",
 		"style.css",
 		"style.light.css",
 		"style.dark.css",
+		"style.next.css",
 		"style.macarena.css",
 		"index.tsx",
 		"declarations.d.ts"

@@ -18,6 +18,7 @@
 		"build.css",
 		"style.css",
 		"style.light.css",
+		"style.next.css",
 		"style.dark.css",
 		"style.macarena.css"
 	],
@@ -28,7 +29,9 @@
 		"./style.css": "./dist/style.css",
 		"./style.light.css": "./dist/style.light.css",
 		"./style.dark.css": "./dist/style.dark.css",
+		"./style.next.css": "./dist/style.next.css",
 		"./style.macarena.css": "./dist/style.macarena.css",
+		"./fonts": "./dist/fonts",
 		"./layouts": "./dist/layouts/index.js",
 		"./components": "./dist/components/index.js",
 		"./contexts": "./dist/contexts/index.js",

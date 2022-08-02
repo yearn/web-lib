@@ -51,7 +51,10 @@ cp "$SRC/build.css" "$DST/build.css"
 cp "$SRC/style.css" "$DST/style.css"
 cp "$SRC/style.light.css" "$DST/style.light.css"
 cp "$SRC/style.dark.css" "$DST/style.dark.css"
+cp "$SRC/style.next.css" "$DST/style.next.css"
 cp "$SRC/style.macarena.css" "$DST/style.macarena.css"
+cp -r "$SRC/fonts" "$DST/dist/fonts"
+
 
 # Remove test related files
 rm -rf `$resolver "$DST" '/**/*.{test,__mocks__,}.*'`

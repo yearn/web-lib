@@ -49,7 +49,6 @@ function	Modal({isOpen, onClose, className = '', children}: any): ReactElement {
 	);
 }
 
-
 function	ModalMobileMenu({
 	isOpen,
 	onClose,
