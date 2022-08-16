@@ -52,7 +52,8 @@ function	Modal({isOpen, onClose, className = '', children}: any): ReactElement {
 function	ModalMobileMenu({
 	isOpen,
 	onClose,
-	shouldUseWallets,
+	shouldUseWallets = true,
+	shouldUseNetworks = true,
 	children
 }: TModalMobileMenu): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options} = useWeb3();
@@ -138,10 +139,10 @@ function	ModalMobileMenu({
 			isOpen={isOpen}
 			onClose={(): void => onClose()}>
 			<div className={'yearn--modalMobileMenu-content'}>
-				<h4 className={'yearn--modalMobileMenu-title'}>
+				{shouldUseWallets ? <h4 className={'yearn--modalMobileMenu-title'}>
 					{walletIdentity === 'Connect a wallet' ? walletIdentity : `Hello ${walletIdentity}`}
-				</h4>
-				<div className={'yearn--modalMobileMenu-networkIndicator'}>
+				</h4> : null}
+				{shouldUseNetworks ? <div className={'yearn--modalMobileMenu-networkIndicator'}>
 					<span>
 						{'You are connected to'}
 						<label
@@ -161,8 +162,8 @@ function	ModalMobileMenu({
 							</div>
 						</label>
 					</span>
-				</div>
-				{walletIdentity === 'Connect a wallet' ? null : <div className={'yearn--modalMobileMenu-logout'}>
+				</div> : null}
+				{!shouldUseWallets || walletIdentity === 'Connect a wallet' ? null : <div className={'yearn--modalMobileMenu-logout'}>
 					<svg
 						onClick={onDesactivate}
 						xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 512 512'}>
@@ -175,9 +176,9 @@ function	ModalMobileMenu({
 			</div>
 			{children ? (
 				<>
-					<div className={'yearn--modalMobileMenu-separatorWrapper'}>
+					{shouldUseNetworks || shouldUseWallets ? <div className={'yearn--modalMobileMenu-separatorWrapper'}>
 						<div className={'yearn--modalMobileMenu-separator'} />
-					</div>
+					</div> : null}
 					<div className={'yearn--modalMobileMenu-childrenWrapper'}>
 						{children}
 					</div>
