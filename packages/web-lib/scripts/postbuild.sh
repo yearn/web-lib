@@ -3,6 +3,9 @@
 # Known variables
 SRC='.'
 DST='./dist'
+SCRIPT_DIR=$(cd ${0%/*} && pwd -P)
+
+rewriteImports="${SCRIPT_DIR}/rewrite-imports.cjs"
 
 # Add some missing files 😤
 cp "$SRC/config/tailwind.config.cjs" "$DST/tailwind.config.cjs"
@@ -15,3 +18,7 @@ cp "$SRC/style.dark.css" "$DST/style.dark.css"
 cp "$SRC/style.next.css" "$DST/style.next.css"
 cp "$SRC/style.macarena.css" "$DST/style.macarena.css"
 cp -r "$SRC/fonts" "$DST/fonts"
+
+# Rewrite ESM imports 😤
+$rewriteImports "$DST" '/**/*.js'
+$rewriteImports "$DST" '/**/*.d.ts'
