@@ -25,7 +25,7 @@ sharedOptions+=("--target=es2019")
 resolverOptions=()
 resolverOptions+=($SRC)
 resolverOptions+=('/**/*.{ts,tsx}')
-resolverOptions+=('--ignore=.test.,__mocks__,.d.ts')
+resolverOptions+=('--ignore=.test.,__mocks__,config')
 INPUT_FILES=$($resolver ${resolverOptions[@]})
 
 NODE_ENV=production  $esbuild $INPUT_FILES --format=esm --outdir=$DST               --outbase=$SRC --minify --pure:React.createElement ${sharedOptions[@]} &
@@ -43,7 +43,7 @@ wait
 
 # Rewrite ESM imports 😤
 $rewriteImports "$DST" '/**/*.js'
-$rewriteImports "$DST" '/**/*.d.ts'
+# $rewriteImports "$DST" '/**/*.d.ts'
 
 # Add some missing files 😤
 cp "$SRC/config/tailwind.config.cjs" "$DST/tailwind.config.cjs"
