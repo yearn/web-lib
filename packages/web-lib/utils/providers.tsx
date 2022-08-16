@@ -45,6 +45,12 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 		if (process.env.JSON_RPC_URL?.[4])
 			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[4]);
 		return new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`);
+	} else if (chain === 10) {
+		if (process.env.WEB_SOCKET_URL?.[10])
+			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[10]);
+		if (process.env.JSON_RPC_URL?.[10])
+			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[10]);
+		return new ethers.providers.JsonRpcProvider('https://mainnet.optimism.io');
 	} else if (chain === 56) {
 		if (process.env.WEB_SOCKET_URL?.[56])
 			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[56]);
@@ -94,34 +100,38 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 /* 🔵 - Yearn Finance ******************************************************
 ** Retrieve the RPC for a specific chain.
 **************************************************************************/
-export function getRPC(chain = 1): string {
-	if (chain === 1) {
+export function getRPC(chainID = 1): string {
+	if (chainID === 1) {
 		if (process.env.JSON_RPC_URL?.[1])
 			return (process.env.JSON_RPC_URL[1]);
 		return ('https://rpc.flashbots.net');
-	} else if (chain === 4) {
+	} else if (chainID === 4) {
 		if (process.env.JSON_RPC_URL?.[4])
 			return (process.env.JSON_RPC_URL[4]);
 		return `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`;
-	} else if (chain === 56) {
+	} else if (chainID === 10) {
+		if (process.env.JSON_RPC_URL?.[10])
+			return (process.env.JSON_RPC_URL[10]);
+		return `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`;
+	} else if (chainID === 56) {
 		if (process.env.JSON_RPC_URL?.[56])
 			return (process.env.JSON_RPC_URL[56]);
 		return 'https://bscrpc.com';
-	} else if (chain === 100) {
+	} else if (chainID === 100) {
 		if (process.env.JSON_RPC_URL?.[100])
 			return (process.env.JSON_RPC_URL[100]);
-		return 'https://rpc.gnosischain.com';
-	} else if (chain === 137) {
+		return 'https://rpc.gnosischainID.com';
+	} else if (chainID === 137) {
 		if (process.env.JSON_RPC_URL?.[137])
 			return (process.env.JSON_RPC_URL[137]);
 		return 'https://polygon-rpc.com';
-	} else if (chain === 250) {
+	} else if (chainID === 250) {
 		if (process.env.JSON_RPC_URL?.[250])
 			return (process.env.JSON_RPC_URL[250]);
 		return ('https://rpc.ftm.tools');
-	} else if (chain === 1337 || chain === 31337) {
+	} else if (chainID === 1337 || chainID === 31337) {
 		return ('http://localhost:8545');
-	} else if (chain === 42161) {
+	} else if (chainID === 42161) {
 		if (process.env.JSON_RPC_URL?.[42161])
 			return (process.env.JSON_RPC_URL[42161]);
 		return ('https://arbitrum.public-rpc.com');

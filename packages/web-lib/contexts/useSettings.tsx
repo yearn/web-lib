@@ -13,6 +13,15 @@ const	defaultSettings = {
 		lensAddress: '0x83d95e0D5f402511dB06817Aff3f9eA88224B030',
 		partnerContractAddress: '0x8ee392a4787397126C163Cb9844d7c447da419D8'
 	},
+	10: {
+		rpcURI: getRPC(10),
+		graphURI: 'https://api.thegraph.com/subgraphs/name/yearn/yearn-vaults-v2-optimism',
+		metaURI: 'https://meta.yearn.finance/api/10',
+		apiURI: 'https://api.yearn.finance/v1/chains/10',
+		explorerBaseURI: 'https://optimistic.etherscan.io',
+		lensAddress: '0xB082d9f4734c535D9d80536F7E87a6f4F471bF65',
+		partnerContractAddress: '0x0000000000000000000000000000000000000000'
+	},
 	250: {
 		rpcURI: getRPC(250),
 		graphURI: 'https://api.thegraph.com/subgraphs/name/bsamuels453/yearn-fantom-validation-grafted',

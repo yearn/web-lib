@@ -37,7 +37,7 @@ const	defaultOptions: useWeb3Types.TWeb3Options = {
 	shouldUseWallets: true,
 	shouldUseStrictChainMode: false,
 	defaultChainID: 1,
-	supportedChainID: [1, 4, 56, 100, 137, 250, 1337, 31337, 42161]
+	supportedChainID: [1, 4, 10, 56, 100, 137, 250, 1337, 31337, 42161]
 };
 
 const Web3Context = createContext<useWeb3Types.TWeb3Context>(defaultState);

@@ -18,6 +18,7 @@ const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletC
 				rpc: {
 					1: getRPC(1),
 					4: getRPC(4),
+					10: getRPC(10),
 					250: getRPC(250),
 					1337: getRPC(1337),
 					31337: getRPC(31337)

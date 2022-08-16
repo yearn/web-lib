@@ -125,11 +125,13 @@ TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],
 
 WEB_SOCKET_URL: {
 	1: process.env.WS_URL_MAINNET,
+	10: process.env.WS_URL_OPTIMISM,
 	250: process.env.WS_URL_FANTOM,
 	42161: process.env.WS_URL_ARBITRUM
 },
 JSON_RPC_URL: {
 	1: process.env.RPC_URL_MAINNET,
+	10: process.env.RPC_URL_OPTIMISM,
 	250: process.env.RPC_URL_FANTOM,
 	42161: process.env.RPC_URL_ARBITRUM
 },

@@ -13,6 +13,7 @@ import	* as Icons	from	'@yearn-finance/web-lib/icons';
 export default function	App(): React.ReactElement {
 	const	options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
@@ -31,6 +32,7 @@ export default function	App(): React.ReactElement {
 export function	DropdownComponent(): ReactElement {
 	const	options = [
 		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
 		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}

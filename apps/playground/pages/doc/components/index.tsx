@@ -177,20 +177,20 @@ type		TElement = {
 }
 function	Element({children, title, version, description, href}: TElement): ReactElement {
 	return (
-		<Card padding={'none'} className={'flex flex-col h-full shadow-none hover:shadow-md transition-shadow duration-700 animate-weight-normal'}>
-			<div className={'flex flex-col h-full square-gradient-default'}>
+		<Card padding={'none'} className={'animate-weight-normal flex h-full flex-col shadow-none transition-shadow duration-700 hover:shadow-md'}>
+			<div className={'square-gradient-default flex h-full flex-col'}>
 				{children}
 				<RadialBackground />
 			</div>
-			<div className={'flex flex-col p-4 w-full h-full'}>
-				<span className={'flex flex-row justify-between items-center'}>
+			<div className={'flex h-full w-full flex-col p-4'}>
+				<span className={'flex flex-row items-center justify-between'}>
 					<h4>{title}</h4>
 					<p className={'text-xs text-neutral-500'}>{version}</p>
 				</span>
 				<p className={'mt-2 font-mono text-sm text-neutral-500'}>
 					{description}
 				</p>
-				<div className={'flex justify-end items-end pt-6 mt-auto'}>
+				<div className={'mt-auto flex items-end justify-end pt-6'}>
 					<Link href={href} passHref>
 						<Button variant={'outlined'} className={'h-10'} as={'a'}>
 							{'Access documentation'}

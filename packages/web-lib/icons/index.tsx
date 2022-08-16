@@ -10,6 +10,7 @@ import IconLinkOut from './IconLinkOut';
 import IconLogoYearn from './IconLogoYearn';
 import IconNetworkArbitrum from './IconNetworkArbitrum';
 import IconNetworkEthereum from './IconNetworkEthereum';
+import IconNetworkOptimism from './IconNetworkOptimism';
 import IconNetworkFantom from './IconNetworkFantom';
 import IconSearch from './IconSearch';
 import IconSocialDiscord from './IconSocialDiscord';
@@ -46,6 +47,7 @@ export {
 	IconLogoYearn as LogoYearn,
 	IconNetworkArbitrum as NetworkArbitrum,
 	IconNetworkEthereum as NetworkEthereum,
+	IconNetworkOptimism as NetworkOptimism,
 	IconNetworkFantom as NetworkFantom,
 	IconSearch as Search,
 	IconSocialDiscord as SocialDiscord,

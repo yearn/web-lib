@@ -26,6 +26,24 @@ const CHAINS = {
 			}
 		}
 	},
+	10: {
+		'chainID': '10',
+		'name': 'Optimism',
+		'displayName': 'Optimism',
+		'coin': 'oETH',
+		'block_explorer': 'https://optimistic.etherscan.io',
+		'chain_swap': {
+			'chainId': '0xA',
+			'blockExplorerUrls': ['https://optimistic.etherscan.io'],
+			'chainName': 'Optimism',
+			'rpcUrls': ['https://mainnet.optimism.io/', 'https://optimism-mainnet.public.blastapi.io', 'https://rpc.ankr.com/optimism'],
+			'nativeCurrency': {
+				'name': 'oEthereum',
+				'symbol': 'ETH',
+				'decimals': 18
+			}
+		}
+	},
 	56: {
 		'chainID': '56',
 		'name': 'BSC Mainnet',

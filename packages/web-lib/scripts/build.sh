@@ -18,14 +18,14 @@ rewriteImports="${SCRIPT_DIR}/rewrite-imports.cjs"
 # Setup shared options for esbuild
 sharedOptions=()
 sharedOptions+=("--platform=browser")
-sharedOptions+=("--target=es2019")
+sharedOptions+=("--target=es2020")
 
 # Generate actual builds
 # ESM
 resolverOptions=()
 resolverOptions+=($SRC)
 resolverOptions+=('/**/*.{ts,tsx}')
-resolverOptions+=('--ignore=.test.,__mocks__,config')
+resolverOptions+=('--ignore=.test.,__mocks__,.d.ts')
 INPUT_FILES=$($resolver ${resolverOptions[@]})
 
 NODE_ENV=production  $esbuild $INPUT_FILES --format=esm --outdir=$DST               --outbase=$SRC --minify --pure:React.createElement ${sharedOptions[@]} &
@@ -43,7 +43,9 @@ wait
 
 # Rewrite ESM imports 😤
 $rewriteImports "$DST" '/**/*.js'
+$rewriteImports "$DST" '/**/*.d.ts'
 
+# Add some missing files 😤
 cp "$SRC/config/tailwind.config.cjs" "$DST/tailwind.config.cjs"
 cp "$SRC/config/tailwind.plugin.cjs" "$DST/tailwind.plugin.cjs"
 cp "$SRC/config/tailwind.theme.cjs" "$DST/tailwind.theme.cjs"

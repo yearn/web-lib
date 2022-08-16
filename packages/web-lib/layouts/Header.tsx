@@ -7,9 +7,11 @@ import	{truncateHex}						from	'../utils/utils';
 import	IconNetworkEthereum					from	'../icons/IconNetworkEthereum';
 import	IconNetworkFantom					from	'../icons/IconNetworkFantom';
 import	IconNetworkArbitrum					from	'../icons/IconNetworkArbitrum';
+import	IconNetworkOptimism					from	'../icons/IconNetworkOptimism';
 
 const	options: TDropdownOption[] = [
 	{icon: <IconNetworkEthereum />, label: 'Ethereum', value: 1},
+	{icon: <IconNetworkOptimism />, label: 'Optimism', value: 10},
 	{icon: <IconNetworkFantom />, label: 'Fantom', value: 250},
 	{icon: <IconNetworkArbitrum />, label: 'Arbitrum', value: 42161}
 ];
@@ -46,9 +48,9 @@ function	Header({
 	}, [chainID, isActive]);
 
 	return (
-		<header className={'z-30 py-4 mx-auto w-full'}>
-			<Card className={'flex justify-between items-center h-auto md:h-20'}>
-				<div className={'flex flex-row items-center w-full'}>
+		<header className={'z-30 mx-auto w-full py-4'}>
+			<Card className={'flex h-auto items-center justify-between md:h-20'}>
+				<div className={'flex w-full flex-row items-center'}>
 					{children}
 				</div>
 				<div className={'flex flex-row items-center space-x-4'}>
@@ -70,7 +72,7 @@ function	Header({
 									openLoginModal();
 							}}
 							data-variant={'light'}
-							className={'truncate yearn--button'}>
+							className={'yearn--button truncate'}>
 							{walletIdentity}
 						</button>
 					) : null}
