@@ -1,6 +1,6 @@
 {
 	"name": "@yearn-finance/web-lib",
-	"version": "0.12.6",
+	"version": "0.12.7",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -45,8 +45,6 @@
 		"exportStyle": "npx tailwindcss --postcss -c ./config/tailwind.config.cjs -i style.css -o dist/build.css --minify && sed -i -e 's/rem/em/g' dist/build.css",
 		"builde": "./scripts/build.sh --external:react --external:react-dom --platform=node",
 		"prepare": "rm -rf dist && yarn build && yarn exportStyle",
-		"publish-github": "sed -i -e 's|\"@yearn-finance/web-lib\"|\"@yearn/web-lib\"|' package.json && sed -i -e 's|\"https://registry.npmjs.org\"|\"https://npm.pkg.github.com\"|' package.json && yarn publish",
-		"publish-npm": "sed -i -e 's|\"@yearn/web-lib\"|\"@yearn-finance/web-lib\"|' package.json && sed -i -e 's|\"https://npm.pkg.github.com\"|\"https://registry.npmjs.org\"|' package.json && yarn publish",
 		"lint": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/'",
 		"lint-fix": "TIMING=1 eslint **/*.ts* --ignore-pattern 'node_modules/**' --ignore-pattern 'dist/' --fix",
 		"clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"

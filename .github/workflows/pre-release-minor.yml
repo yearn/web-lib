@@ -8,32 +8,6 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  deploy-github:
-    name: Deploy on Github
-    runs-on: ubuntu-latest
-    if: "startsWith(github.event.head_commit.message, 'github-pre-release minor:')"
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node.js 16.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@yearn"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install Dependencies
-        run: yarn
-
-      - run: yarn --cwd packages/web-lib publish-github --tag next
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
   deploy-npm:
     name: Deploy on NPM
     runs-on: ubuntu-latest

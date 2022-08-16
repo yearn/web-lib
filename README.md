@@ -46,7 +46,6 @@ Each package and app is 100% [TypeScript](https://www.typescriptlang.org/). Yarn
 ### Releasing
 When you push your code to GitHub, the [GitHub Action](https://github.com/changesets/action) will run the publish script will run. This will:
 - Deploy the `app/dosc` app to [Vercel](https://vercel.com)
-- Publish the `@yearn/web-lib` package to the Github Registry
 - Publish the `@yearn-finance/web-lib` package to [npm](https://www.npmjs.com/)
 
 In order to trigger a new version of the web-lib, the commit message **MUST** start with one of the following:
