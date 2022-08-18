@@ -8,18 +8,25 @@ function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: 
 	const [storedValue, set_storedValue] = React.useState((): unknown => {
 		try {
 			if (typeof window === 'undefined') {
+				console.log('hello');
 				return initialValue;
 			}
 			// Get from local storage by key
 			const item = window.localStorage.getItem(key);
 			// Parse stored json or if none return initialValue
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			return item !== null ? JSON.parse(item, (_key: any, value: any): any => {
-				if (value?.type === 'BigNumber') {
-					return ethers.BigNumber.from(value);
-				}
-				return value;
-			}) : initialValue;
+			if (item !== null) {
+				return (
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					JSON.parse(item, (_key: any, value: any): any => {
+						if (value?.type === 'BigNumber') {
+							return ethers.BigNumber.from(value);
+						}
+						return value;
+					})
+				);
+			}
+			window.localStorage.setItem(key, JSON.stringify(initialValue));
+			return initialValue;
 		} catch (error) {
 			// If error also return initialValue
 			console.warn(error);
