@@ -1,6 +1,35 @@
 import	{ethers}		from	'ethers';
 import	{Provider}		from	'ethcall';
 
+const	defaultRPCURI: {[key: number]: string} = {
+	1: 'https://rpc.flashbots.net',
+	4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
+	10: 'https://mainnet.optimism.io',
+	56: 'https://bscrpc.com',
+	100: 'https://rpc.gnosischainID.com',
+	137: 'https://polygon-rpc.com',
+	250: 'https://rpc.ftm.tools',
+	1337: 'http://localhost:8545',
+	31337: 'http://localhost:8545',
+	42161: 'https://arbitrum.public-rpc.com',
+}
+const	envRPCURI: {[key: number]: string} = {
+	1: process.env.JSON_RPC_URL?.[1] || defaultRPCURI[1],
+	4: process.env.JSON_RPC_URL?.[4] || defaultRPCURI[4],
+	10: process.env.JSON_RPC_URL?.[10] || defaultRPCURI[10],
+	56: process.env.JSON_RPC_URL?.[56] || defaultRPCURI[56],
+	100: process.env.JSON_RPC_URL?.[100] || defaultRPCURI[100],
+	137: process.env.JSON_RPC_URL?.[137] || defaultRPCURI[137],
+	250: process.env.JSON_RPC_URL?.[250] || defaultRPCURI[250],
+	1337: process.env.JSON_RPC_URL?.[1337] || defaultRPCURI[1337],
+	31337: process.env.JSON_RPC_URL?.[31337] || defaultRPCURI[31337],
+	42161: process.env.JSON_RPC_URL?.[42161] || defaultRPCURI[42161],
+}
+
+export	function	replaceEnvRPCURI(key: number, value: string) {
+	envRPCURI[key] = value;
+}
+
 /* 🔵 - Yearn Finance ******************************************************
 ** Create a multicall provider that can be used to call multiple functions
 ** at the same time.
@@ -9,7 +38,7 @@ import	{Provider}		from	'ethcall';
 export async function newEthCallProvider(provider: ethers.providers.Provider): Promise<Provider> {
 	const	ethcallProvider = new Provider();
 	if (process.env.IS_TEST) {
-		await	ethcallProvider.init(new ethers.providers.JsonRpcProvider('http://localhost:8545'));
+		await	ethcallProvider.init(new ethers.providers.JsonRpcProvider(defaultRPCURI[1337]));
 		if (Number(process.env.TESTED_NETWORK) === 250) {
 			ethcallProvider.multicall = {address: '0xc04d660976c923ddba750341fe5923e47900cf24', block: 0};
 			ethcallProvider.multicall2 = {address: '0x470ADB45f5a9ac3550bcFFaD9D990Bf7e2e941c9', block: 0};
@@ -29,114 +58,38 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 ** supported and default is chain 1, aka ethereum mainnet.
 **************************************************************************/
 export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.providers.Web3Provider {
-	if (chain === 1) {
-		if (process.env.WEB_SOCKET_URL?.[1])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[1]);
-		if (process.env.JSON_RPC_URL?.[1])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[1]);
-		if (process.env.ALCHEMY_KEY)
-			return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
-		if (process.env.INFURA_KEY)
-			return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
-		return new ethers.providers.JsonRpcProvider('https://rpc.flashbots.net');
-	} else if (chain === 4) {
-		if (process.env.WEB_SOCKET_URL?.[4])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[4]);
-		if (process.env.JSON_RPC_URL?.[4])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[4]);
-		return new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`);
-	} else if (chain === 10) {
-		if (process.env.WEB_SOCKET_URL?.[10])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[10]);
-		if (process.env.JSON_RPC_URL?.[10])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[10]);
-		return new ethers.providers.JsonRpcProvider('https://mainnet.optimism.io');
-	} else if (chain === 56) {
-		if (process.env.WEB_SOCKET_URL?.[56])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[56]);
-		if (process.env.JSON_RPC_URL?.[56])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[56]);
-		return new ethers.providers.JsonRpcProvider('https://bscrpc.com');
-	} else if (chain === 100) {
-		if (process.env.WEB_SOCKET_URL?.[100])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[100]);
-		if (process.env.JSON_RPC_URL?.[100])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[100]);
-		return new ethers.providers.JsonRpcProvider('https://rpc.gnosischain.com');
-	} else if (chain === 137) {
-		if (process.env.WEB_SOCKET_URL?.[137])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[137]);
-		if (process.env.JSON_RPC_URL?.[137])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[137]);
-		return new ethers.providers.JsonRpcProvider('https://polygon-rpc.com');
-	} else if (chain === 250) {
-		if (process.env.WEB_SOCKET_URL?.[250])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[250]);
-		if (process.env.JSON_RPC_URL?.[250])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[250]);
-		return new ethers.providers.JsonRpcProvider('https://rpc.ankr.com/fantom');
-	} else if (chain === 1337 || chain === 31337) {
-		return new ethers.providers.JsonRpcProvider('http://localhost:8545');
-	} else if (chain === 42161) {
-		if (process.env.WEB_SOCKET_URL?.[42161])
-			return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[42161]);
-		if (process.env.JSON_RPC_URL?.[42161])
-			return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[42161]);
-		return new ethers.providers.JsonRpcProvider('https://arbitrum.public-rpc.com');
-	}
+	if (envRPCURI?.[chain])
+		return new ethers.providers.JsonRpcProvider(envRPCURI?.[chain]);
+	if (process.env.WEB_SOCKET_URL?.[chain])
+		return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[chain]);
+	if (process.env.ALCHEMY_KEY && chain === 1)
+		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
+	if (process.env.INFURA_KEY && chain === 1)
+		return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
+	if (defaultRPCURI?.[chain])
+		return new ethers.providers.JsonRpcProvider(defaultRPCURI[chain]);
 
 	//Fallback to chain 1
+	if (envRPCURI?.[1])
+		return new ethers.providers.JsonRpcProvider(envRPCURI?.[1]);
 	if (process.env.WEB_SOCKET_URL?.[1])
 		return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[1]);
-	if (process.env.JSON_RPC_URL?.[1])
-		return new ethers.providers.JsonRpcProvider(process.env.JSON_RPC_URL?.[1]);
 	if (process.env.ALCHEMY_KEY)
 		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
 	if (process.env.INFURA_KEY)
 		return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
-	return new ethers.providers.JsonRpcProvider('https://rpc.flashbots.net');
+	return new ethers.providers.JsonRpcProvider(defaultRPCURI?.[1] || '');
 }
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Retrieve the RPC for a specific chain.
 **************************************************************************/
 export function getRPC(chainID = 1): string {
-	if (chainID === 1) {
-		if (process.env.JSON_RPC_URL?.[1])
-			return (process.env.JSON_RPC_URL[1]);
-		return ('https://rpc.flashbots.net');
-	} else if (chainID === 4) {
-		if (process.env.JSON_RPC_URL?.[4])
-			return (process.env.JSON_RPC_URL[4]);
-		return `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`;
-	} else if (chainID === 10) {
-		if (process.env.JSON_RPC_URL?.[10])
-			return (process.env.JSON_RPC_URL[10]);
-		return `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`;
-	} else if (chainID === 56) {
-		if (process.env.JSON_RPC_URL?.[56])
-			return (process.env.JSON_RPC_URL[56]);
-		return 'https://bscrpc.com';
-	} else if (chainID === 100) {
-		if (process.env.JSON_RPC_URL?.[100])
-			return (process.env.JSON_RPC_URL[100]);
-		return 'https://rpc.gnosischainID.com';
-	} else if (chainID === 137) {
-		if (process.env.JSON_RPC_URL?.[137])
-			return (process.env.JSON_RPC_URL[137]);
-		return 'https://polygon-rpc.com';
-	} else if (chainID === 250) {
-		if (process.env.JSON_RPC_URL?.[250])
-			return (process.env.JSON_RPC_URL[250]);
-		return ('https://rpc.ftm.tools');
-	} else if (chainID === 1337 || chainID === 31337) {
-		return ('http://localhost:8545');
-	} else if (chainID === 42161) {
-		if (process.env.JSON_RPC_URL?.[42161])
-			return (process.env.JSON_RPC_URL[42161]);
-		return ('https://arbitrum.public-rpc.com');
-	}
-	return ('https://rpc.flashbots.net');
+	if (process.env.JSON_RPC_URL?.[chainID])
+		return (process.env.JSON_RPC_URL[chainID]);
+	if (defaultRPCURI?.[chainID])
+		return defaultRPCURI?.[chainID]
+	return (defaultRPCURI[1]);
 }
 
 

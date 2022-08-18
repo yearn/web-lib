@@ -1,9 +1,10 @@
 import	React, {createContext} from 'react';
 import	{ethers} from 'ethers';
-import	{getRPC} from '../utils/providers';
+import	{getRPC, replaceEnvRPCURI} from '../utils/providers';
 import	{deepMerge} from './utils';
 import	{useLocalStorage} from '../hooks/useLocalStorage';
 import	performBatchedUpdates from '../utils/performBatchedUpdates';
+
 import type * as useSettingsTypes from './useSettings.d';
 
 const	defaultSettings = {
@@ -78,15 +79,26 @@ const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 **********************************************************************************************/
 export const SettingsContextApp = ({children, baseOptions = defaultSettings, networksOptions = {}}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
 	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
-	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsContext);
+	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
+
+	React.useEffect(() => {
+		const	_networks = networks as useSettingsTypes.TSettingsOptions;
+		Object.keys(_networks).forEach((key): void => {
+			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
+		})
+	}, [networks]);
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	The app can provide a new list of networks with their own data. They will be deep
 	**	merged with the existing ones, aka the existing declarations will be overwritten but
 	**	the new ones will be added.
 	******************************************************************************************/
-	function	onUpdateNetworks(newNetworkSettings: useSettingsTypes.TSettingsContext): void {
-		set_networks(deepMerge(networks, newNetworkSettings) as useSettingsTypes.TSettingsContext);
+	function	onUpdateNetworks(newNetworkSettings: useSettingsTypes.TSettingsOptions): void {
+		const	_networks = deepMerge(networks, newNetworkSettings) as useSettingsTypes.TSettingsOptions;
+		Object.keys(_networks).forEach((key): void => {
+			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
+		})
+		set_networks(_networks);
 	}
 
 	/* 💙 - Yearn Finance *********************************************************************
@@ -99,9 +111,9 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 			set_baseSettings(newSettings);
 			set_networks((_networks: {[key: string]: useSettingsTypes.TSettingsForNetwork}) => {
 				Object.keys(_networks).forEach((key): void => {
-					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/1`;
-					_networks[key].metaURI = `${newSettings.metaBaseURI}/api/1`;
-					_networks[key].apiURI = `${newSettings.apiBaseURI}/v1/chains/1`;
+					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/${key}`;
+					_networks[key].metaURI = `${newSettings.metaBaseURI}/api/${key}`;
+					_networks[key].apiURI = `${newSettings.apiBaseURI}/v1/chains/${key}`;
 				})
 				return _networks;
 			});
@@ -116,7 +128,7 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 		<SettingsContext.Provider
 			value={{
 				settings: baseSettings as useSettingsTypes.TSettingsBase,
-				networks: networks as useSettingsTypes.TSettingsContext,
+				networks: networks as useSettingsTypes.TSettingsOptions,
 				onUpdateNetworks: onUpdateNetworks,
 				onUpdateBaseSettings: onUpdateBaseSettings
 			}}>
