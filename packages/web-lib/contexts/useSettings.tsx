@@ -77,8 +77,31 @@ const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 **	One of theses parameters is the list of networks with the specific Yearn's endpoints.
 **********************************************************************************************/
 export const SettingsContextApp = ({children, baseOptions = defaultSettings, networksOptions = {}}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
-	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
-	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsContext);
+	const	[baseSettingsFromLS, set_baseSettingsFromLS] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
+	const	[baseSettings, set_baseSettings] = React.useState(deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
+	const	[baseSettingsIsInit, set_baseSettingsIsInit] = React.useState(false);
+
+	const	[networksFromLS, set_networksFromLS] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
+	const	[networks, set_networks] = React.useState(deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
+	const	[networksIsInit, set_networksIsInit] = React.useState(false);
+
+	React.useEffect((): void => {
+		if (!baseSettingsIsInit) {
+			performBatchedUpdates((): void => {
+				set_baseSettings(baseSettingsFromLS as useSettingsTypes.TSettingsBase);
+				set_baseSettingsIsInit(true);
+			})
+		}
+	}, [baseSettingsFromLS]);
+
+	React.useEffect((): void => {
+		if (!networksIsInit) {
+			performBatchedUpdates((): void => {
+				set_networks(networksFromLS as useSettingsTypes.TSettingsOptions);
+				set_networksIsInit(true);
+			})
+		}
+	}, [networksFromLS]);
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	The app can provide a new list of networks with their own data. They will be deep
@@ -97,7 +120,16 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 	******************************************************************************************/
 	function	onUpdateBaseSettings(newSettings: useSettingsTypes.TSettingsBase): void {
 		performBatchedUpdates((): void => {
+			set_baseSettingsFromLS(newSettings);
 			set_baseSettings(newSettings);
+			set_networksFromLS((_networks: {[key: string]: useSettingsTypes.TSettingsForNetwork}) => {
+				Object.keys(_networks).forEach((key): void => {
+					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/1`;
+					_networks[key].metaURI = `${newSettings.metaBaseURI}/api/1`;
+					_networks[key].apiURI = `${newSettings.apiBaseURI}/v1/chains/1`;
+				})
+				return _networks;
+			})
 			set_networks((_networks: {[key: string]: useSettingsTypes.TSettingsForNetwork}) => {
 				Object.keys(_networks).forEach((key): void => {
 					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/1`;
