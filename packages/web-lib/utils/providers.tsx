@@ -13,7 +13,7 @@ const	defaultRPCURI: {[key: number]: string} = {
 	31337: 'http://localhost:8545',
 	42161: 'https://arbitrum.public-rpc.com',
 }
-const	envRPCURI: {[key: number]: string} = {
+export const	envRPCURI: {[key: number]: string} = {
 	1: process.env.JSON_RPC_URL?.[1] || defaultRPCURI[1],
 	4: process.env.JSON_RPC_URL?.[4] || defaultRPCURI[4],
 	10: process.env.JSON_RPC_URL?.[10] || defaultRPCURI[10],
