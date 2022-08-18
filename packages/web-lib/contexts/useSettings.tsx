@@ -1,10 +1,10 @@
-import React, {createContext} from 'react';
-import {ethers} from 'ethers';
-import {getRPC} from '../utils/providers';
+import	React, {createContext} from 'react';
+import	{ethers} from 'ethers';
+import	{getRPC} from '../utils/providers';
+import	{deepMerge} from './utils';
+import	{useLocalStorage} from '../hooks/useLocalStorage';
+import	performBatchedUpdates from '../utils/performBatchedUpdates';
 import type * as useSettingsTypes from './useSettings.d';
-import {deepMerge} from './utils';
-import { useLocalStorage } from '../hooks';
-import { performBatchedUpdates } from '../utils';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
