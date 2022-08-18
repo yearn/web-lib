@@ -5,6 +5,11 @@ export function deepMerge(target: any, source: any): unknown {
 		return target;
 	}
 
+	Object.keys(target).forEach(key => {
+		const targetValue = target[key];
+		target[key] = targetValue;
+	});
+
 	Object.keys(source).forEach(key => {
 		const targetValue = target[key];
 		const sourceValue = source[key];

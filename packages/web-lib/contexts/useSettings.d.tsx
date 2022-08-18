@@ -1,7 +1,13 @@
 import {ReactNode} from 'react';
 
+export type TSettingsBase = {
+	yDaemonBaseURI: string,
+	metaBaseURI: string,
+	apiBaseURI: string,
+}
 export type	TSettingsForNetwork = {
 	rpcURI?: string,
+	yDaemonURI?: string,
 	graphURI?: string,
 	metaURI?: string,
 	apiURI?: string,
@@ -11,10 +17,12 @@ export type	TSettingsForNetwork = {
 }
 
 export type	TSettingsContext = {
+	settings: TSettingsBase,
 	networks: {
 		[key: number]: TSettingsForNetwork,
 	},
 	onUpdateNetworks: (newNetworkSettings: TSettingsContext) => void,
+	onUpdateBaseSettings: (newBaseSettings: TSettingsBase) => void,
 }
 
 export type TSettingsOptions = {
@@ -23,5 +31,6 @@ export type TSettingsOptions = {
 
 export type	TSettingsContextApp = {
 	children: ReactNode,
-	options?: TSettingsOptions,
+	networksOptions?: TSettingsOptions,
+	baseOptions?: TSettingsBase,
 }
