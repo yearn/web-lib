@@ -89,7 +89,6 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 		set_networks(deepMerge(networks, newNetworkSettings) as useSettingsTypes.TSettingsContext);
 	}
 
-
 	/* 💙 - Yearn Finance *********************************************************************
 	**	The app can provide a new list of base options. They will be deep merged with the
 	**	existing ones, aka the existing declarations will be overwritten but the new ones will

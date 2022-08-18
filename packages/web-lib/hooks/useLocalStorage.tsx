@@ -25,7 +25,8 @@ function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: 
 					})
 				);
 			}
-			window.localStorage.setItem(key, JSON.stringify(initialValue));
+			//TODO: Should we do that ?
+			// window.localStorage.setItem(key, JSON.stringify(initialValue));
 			return initialValue;
 		} catch (error) {
 			// If error also return initialValue
