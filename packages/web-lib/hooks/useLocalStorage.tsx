@@ -8,7 +8,6 @@ function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: 
 	const [storedValue, set_storedValue] = React.useState((): unknown => {
 		try {
 			if (typeof window === 'undefined') {
-				console.log('hello');
 				return initialValue;
 			}
 			// Get from local storage by key
