@@ -1,3 +1,292 @@
 ---
-title: 'Yearn Web Lib'
+title: 'Utils'
+description: 'Utility functions that perform commonly needed operations'
 ---
+
+# chains
+
+A list of blockchain IDs and useful details.
+
+Example usage:
+
+```js
+import { chains } from '@yearn-finance/web-lib/utils'
+
+chains[1]
+/*{
+    'chainID': '1',
+    'name': 'ETH Mainnet',
+    'displayName': 'Ethereum',
+    'coin': 'ETH',
+    'block_explorer': 'https://etherscan.io',
+    'chain_swap': {
+    }
+}*/
+```
+
+# format
+
+Correctly format numbers, currency and date
+
+## format.units
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+import { BigNumber } from 'ethers'
+
+const oneGwei = BigNumber.from("1000000000");
+const oneEther = BigNumber.from("1000000000000000000");
+
+format.units(oneGwei, 0);
+// '1000000000'
+
+format.units(oneGwei, "gwei");
+// '1.0'
+
+format.units(oneGwei, 9);
+// '1.0'
+
+format.units(oneEther);
+// '1.0'
+
+format.units(oneEther, 18);
+// '1.0'
+```
+
+## format.bigNumberAsAmount
+
+Pretty-format a number to be displayed alongside a token symbol
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+import { BigNumber } from 'ethers'
+
+const oneEther = BigNumber.from("1111111111111111111")
+// 1.11 YFI
+```
+
+## format.amount
+
+Pretty format amount, accepts a range of min and max decimals allowed
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+format.amount(123.456, 0, 2) // (from 0 to 2 decimals allowed)
+// 123.46
+```
+
+## format.currency
+
+Pretty-format currency
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+format.currency(123.456, 2)
+// $123.46
+```
+
+## format.date
+
+Pretty-format dates
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+format.date(Date.now())
+// 25/08/2022 18:42
+```
+
+## format.since
+
+Pretty-format dates "since"
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+format.since(Date.now())
+// a few seconds ago
+
+format.since(Date.now() - 100000)
+// 2 minutes ago
+```
+
+## format.duration
+
+Pretty-format dates "duration"
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+format.duration(600000)
+// 10 minutes
+
+format.duration(600000, true)
+// in 10 minutes
+```
+
+## format.BN
+
+Convert string or number into BigNumber
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+const bigNumber = format.BN("6000000000000000000000000")
+```
+
+## format.toNormalizedValue
+
+Convert BigNumber 18 decimals value into pretty-formated Number
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+const bigNumber = format.BN("1000000000000000000")
+format.toNormalizedValue(bigNumber)
+// 1
+```
+
+## format.toNormalizedAmount
+
+Convert BigNumber  18 decimals value into pretty-formated Number with decimals 
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+const bigNumber = format.BN("1000000000000000000")
+format.toNormalizedAmount(bigNumber)
+// 1.000000
+```
+
+## format.toSafeValue
+
+Converts string into number, if value is falsy or NaN returns 0
+
+```js
+import { format } from '@yearn-finance/web-lib/utils'
+
+format.toSafeValue("42")
+// 42
+format.toSafeValue(false)
+// 0
+```
+
+## format.toSafeAmount
+
+# ABI
+
+Return contract ABIs to use functions through ethers
+
+```js
+import { ABI } from '@yearn-finance/web-lib/utils'
+
+console.log(ABI.ERC20_ABI)
+console.log(ABI.LENS_ABI)
+```
+
+# performBatchedUpdates
+
+Optimizes batch React "setState" changes to only trigger a single render.
+
+```js
+import { performBatchedUpdates } from '@yearn-finance/web-lib/utils'
+
+function callback () {
+    set_url("http://abc.com")
+    set_value(123)
+}
+
+performBatchedUpdates(callback)
+```
+
+# providers
+
+Contains RPC provider details
+
+## providers.defaultRPCURI
+
+An object that contains chain ID as key and RPC URI as value, only returns default uris and ignores .env values.
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+providers.defaultRPCURI[1]
+// "https://rpc.flashbots.net"
+```
+
+## providers.envRPCURI
+
+An object that contains chain ID as key and RPC URI as value, overrides any default value with ones sent at .env as JSON_RPC_URL
+
+```md
+JSON_RPC_URL: {
+	1: "http://some_rpc_url.com"
+}
+```
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+providers.envRPCURI[1]
+// "http://some_rpc_url.com"
+```
+
+## providers.replaceEnvRPCURI 
+
+Set a fixed URI for a chan ID instead of using the .env file
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+providers.replaceEnvRPCURI(1, "http://some_rpc_url.com")
+providers.envRPCURI[1]
+// "http://some_rpc_url.com"
+```
+
+## providers.newEthCallProvider
+
+Create a multicall provider that can be used to call multiple functions at the same time.
+Some specific rules are added in order to support test networks.
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+async function run () {
+    const provider = providers.getProvider(1)
+    const multicallProvider = await newEthCallProvider(provider)
+}
+run()
+```
+
+## providers.getProvider
+
+Connect to the RPC of the specific chain we want. Not all chains are supported and default is chain 1, aka ethereum mainnet.
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+const provider = providers.getProvider(1)
+```
+
+## providers.getRPC
+
+Retrieve the RPC for a specific chain.
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+providers.getRPC(1)
+// "http://some_rpc_url.com"
+```
+
+## providers.fromRPC
+
+Connect to the RPC from a specific RPC
+
+```js
+import { providers } from '@yearn-finance/web-lib/utils'
+
+const provider = providers.fromRPC("http://some_rpc_url.com")
+```
