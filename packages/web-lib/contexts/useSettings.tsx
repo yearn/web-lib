@@ -77,7 +77,11 @@ const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 **	we want dApps to be able to customize, without being specific to the dApp.
 **	One of theses parameters is the list of networks with the specific Yearn's endpoints.
 **********************************************************************************************/
-export const SettingsContextApp = ({children, baseOptions = defaultSettings, networksOptions = {}}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
+export const SettingsContextApp = ({
+	children,
+	baseOptions = defaultSettings,
+	networksOptions = {}
+}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
 	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
 	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
 
