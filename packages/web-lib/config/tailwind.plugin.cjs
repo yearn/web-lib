@@ -185,27 +185,6 @@ module.exports = {
 			},
 		},
 		extend: {
-			gridTemplateColumns: {
-				'22': 'repeat(22, minmax(0, 1fr))'
-			},
-			spacing: {
-				'none': 'var(--padding-none)',
-				'tightest': 'var(--padding-tightest)',
-				'tighter': 'var(--padding-tighter)',
-				'tight': 'var(--padding-tight)',
-				'normal': 'var(--padding-normal)',
-				'wide': 'var(--padding-wide)',
-				'wider': 'var(--padding-wider)',
-				'widest': 'var(--padding-widest)'
-			},
-			width: {
-				'inherit': 'inherit'
-			},
-			maxWidth: {
-				'xl': '552px',
-				'4xl': '904px',
-				'6xl': '1200px'
-			},
 			fontSize: {
 				'xs': ['12px', '16px'],
 				'sm': ['14px', '20px'],
@@ -217,8 +196,60 @@ module.exports = {
 				'4xl': ['40px', '56px'],
 				'7xl': ['80px', '96px']
 			},
+			gridTemplateColumns: {
+				'22': 'repeat(22, minmax(0, 1fr))'
+			},
+			maxWidth: {
+				'xl': '552px',
+				'4xl': '904px',
+				'6xl': '1200px'
+			},
+			spacing: {
+				'none': 'var(--padding-none)',
+				'tightest': 'var(--padding-tightest)',
+				'tighter': 'var(--padding-tighter)',
+				'tight': 'var(--padding-tight)',
+				'normal': 'var(--padding-normal)',
+				'wide': 'var(--padding-wide)',
+				'wider': 'var(--padding-wider)',
+				'widest': 'var(--padding-widest)'
+			},
 			transitionProperty: {
 				'max-height': 'max-height'
+			},
+			typography: (theme) => ({
+				DEFAULT: {
+					css: {
+						h1: {
+							fontFamily: theme('fontFamily.aeonik'),
+							fontSize: theme('fontSize.3xl'),
+							fontWeight: theme('fontWeight.400'),
+							lineHeight: theme('lineHeight.leading-10')
+						},
+						h2: {
+							fontFamily: theme('fontFamily.aeonik'),
+							fontSize: theme('fontSize.xl'),
+							fontWeight: theme('fontWeight.400'),
+							lineHeight: theme('lineHeight.leading-8')
+						},
+						h3: {
+							fontFamily: theme('fontFamily.aeonik'),
+							fontSize: theme('fontSize.lg'),
+							fontWeight: theme('fontWeight.400'),
+							lineHeight: theme('lineHeight.leading-8')
+						},
+						'bold': {
+							fontWeight: theme('fontWeight.700')
+						},
+						'mono-bold': {
+							fontFamily: theme('fontFamilty.mono'),
+							fontWeight: theme('fontWeight.700')
+						}
+					}
+				}
+			}),
+			width: {
+				'inherit': 'inherit'
 			}
 		}
 	},
