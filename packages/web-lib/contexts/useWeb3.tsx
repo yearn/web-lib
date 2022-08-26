@@ -70,7 +70,11 @@ export const Web3ContextApp = ({
 		if (!force && (!isActive || hasDisableAutoChainChange)) {
 			return;
 		}
-		const	isCompatibleChain = (web3Options.supportedChainID).includes(Number(newChainID || 0));
+		const	supportedChains = web3Options?.supportedChainID || defaultOptions.supportedChainID;
+		if (!supportedChains) {
+			return;
+		}
+		const	isCompatibleChain = supportedChains.includes(Number(newChainID || 0));
 		if (!force && isCompatibleChain) {
 			return;
 		}
@@ -98,7 +102,10 @@ export const Web3ContextApp = ({
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
-	React.useEffect((): void => onSwitchChain(web3Options.defaultChainID), [hasWindowInFocus, onSwitchChain, web3Options.defaultChainID]);
+
+	React.useEffect((): void => {
+		onSwitchChain(web3Options?.defaultChainID || 1);
+	}, [hasWindowInFocus, onSwitchChain, web3Options.defaultChainID]);
 
 	/**************************************************************************
 	**	connect
@@ -262,7 +269,7 @@ export const Web3ContextApp = ({
 				ens,
 				chainID: Number(chainID || web3Options.defaultChainID || 0),
 				onSwitchChain,
-				isActive: isActive && (web3Options.supportedChainID).includes(Number(chainId || 0)),
+				isActive: isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0)),
 				isDisconnected,
 				isConnecting,
 				hasProvider: !!provider,
