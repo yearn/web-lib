@@ -10,8 +10,8 @@ import type * as useSettingsTypes from './useSettings.d';
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
 	metaBaseURI: 'https://meta.yearn.finance',
-	apiBaseURI: 'https://api.yearn.finance',
-}
+	apiBaseURI: 'https://api.yearn.finance'
+};
 const	defaultNetworks = {
 	1: {
 		rpcURI: getRPC(1),
@@ -69,7 +69,7 @@ const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
 	settings: defaultSettings,
 	networks: defaultNetworks,
 	onUpdateNetworks: (): null => null,
-	onUpdateBaseSettings: (): null => null,
+	onUpdateBaseSettings: (): null => null
 });
 
 /* 💙 - Yearn Finance *************************************************************************
@@ -81,11 +81,11 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
 	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
 
-	React.useEffect(() => {
+	React.useEffect((): void => {
 		const	_networks = networks as useSettingsTypes.TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
-		})
+		});
 	}, [networks]);
 
 	/* 💙 - Yearn Finance *********************************************************************
@@ -97,7 +97,7 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 		const	_networks = deepMerge(networks, newNetworkSettings) as useSettingsTypes.TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
-		})
+		});
 		set_networks(_networks);
 	}
 
@@ -109,15 +109,15 @@ export const SettingsContextApp = ({children, baseOptions = defaultSettings, net
 	function	onUpdateBaseSettings(newSettings: useSettingsTypes.TSettingsBase): void {
 		performBatchedUpdates((): void => {
 			set_baseSettings(newSettings);
-			set_networks((_networks: {[key: string]: useSettingsTypes.TSettingsForNetwork}) => {
+			set_networks((_networks: {[key: string]: useSettingsTypes.TSettingsForNetwork}): any => {
 				Object.keys(_networks).forEach((key): void => {
 					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/${key}`;
 					_networks[key].metaURI = `${newSettings.metaBaseURI}/api/${key}`;
 					_networks[key].apiURI = `${newSettings.apiBaseURI}/v1/chains/${key}`;
-				})
+				});
 				return _networks;
 			});
-		})
+		});
 	}
 
 	/* 💙 - Yearn Finance *********************************************************************

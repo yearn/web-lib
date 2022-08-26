@@ -2,7 +2,6 @@ import	{ethers}	from	'ethers';
 
 export type TWeb3Options = {
 	shouldUseWallets: boolean,
-	shouldUseStrictChainMode: boolean,
 	defaultChainID: number,
 	supportedChainID: number[]
 }
