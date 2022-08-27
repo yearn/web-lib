@@ -12,6 +12,7 @@ import {toAddress, isIframe} from '../utils/utils';
 import {getPartner} from '../utils/partners';
 import CHAINS from '../utils/chains';
 import {connectors} from '../utils/connectors';
+import {deepMerge} from './utils';
 import {IFrameEthereumProvider} from '../utils/connectors.eip1193.ledger';
 import type {TPartnersInfo} from '../utils/partners';
 import type * as useWeb3Types from './useWeb3.d';
@@ -35,16 +36,19 @@ const defaultState = {
 };
 const	defaultOptions: useWeb3Types.TWeb3Options = {
 	shouldUseWallets: true,
-	shouldUseStrictChainMode: false,
 	defaultChainID: 1,
 	supportedChainID: [1, 4, 10, 56, 100, 137, 250, 1337, 31337, 42161]
 };
 
 const Web3Context = createContext<useWeb3Types.TWeb3Context>(defaultState);
-export const Web3ContextApp = ({children, options = defaultOptions}: {
+export const Web3ContextApp = ({
+	children,
+	options = defaultOptions
+}: {
 	children: ReactElement,
 	options?: useWeb3Types.TWeb3Options
 }): ReactElement => {
+	const	web3Options = deepMerge(defaultOptions, options) as useWeb3Types.TWeb3Options;
 	const	web3 = useWeb3React();
 	const   {connector, isActive, provider, account, chainId} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
@@ -66,7 +70,11 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		if (!force && (!isActive || hasDisableAutoChainChange)) {
 			return;
 		}
-		const	isCompatibleChain = (options.supportedChainID).includes(Number(newChainID || 0));
+		const	supportedChains = web3Options?.supportedChainID || defaultOptions.supportedChainID;
+		if (!supportedChains) {
+			return;
+		}
+		const	isCompatibleChain = supportedChains.includes(Number(newChainID || 0));
 		if (!force && isCompatibleChain) {
 			return;
 		}
@@ -74,7 +82,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			set_chainID(newChainID);
 			return;
 		}
-		if (options.shouldUseWallets) {
+		if (web3Options.shouldUseWallets) {
 			if (Number(newChainID) === 1) {
 				provider
 					.send('wallet_switchEthereumChain', [{chainId: '0x1'}])
@@ -93,8 +101,11 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			}
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [debouncedChainID, isActive, hasDisableAutoChainChange, options.supportedChainID, provider, account]);
-	React.useEffect((): void => onSwitchChain(options.defaultChainID), [hasWindowInFocus, onSwitchChain, options.defaultChainID]);
+	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
+
+	React.useEffect((): void => {
+		onSwitchChain(web3Options?.defaultChainID || 1);
+	}, [hasWindowInFocus, onSwitchChain, web3Options.defaultChainID]);
 
 	/**************************************************************************
 	**	connect
@@ -114,7 +125,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
 	): Promise<void> => {
-		if (!options.shouldUseWallets) {
+		if (!web3Options.shouldUseWallets) {
 			return;
 		}
 		set_isConnecting(true);
@@ -181,7 +192,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 				set_isConnecting(false);
 			}
 		} 
-	}, [isActive, options.shouldUseWallets, set_lastWallet]);
+	}, [isActive, web3Options.shouldUseWallets, set_lastWallet]);
 
 	useClientEffect((): void => {
 		if (isIframe()) {
@@ -241,7 +252,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 		if ((chainId || 0) > 0)
 			set_chainID(Number(chainId));
 		else if (chainId === 0)
-			set_chainID(Number(options.defaultChainID));
+			set_chainID(Number(web3Options.defaultChainID));
 	}, [chainId]);
 
 	useClientEffect((): void => {
@@ -256,9 +267,9 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 			value={{
 				address: account,
 				ens,
-				chainID: Number(chainID || options.defaultChainID || 0),
+				chainID: Number(chainID || web3Options.defaultChainID || 0),
 				onSwitchChain,
-				isActive: isActive && (options.supportedChainID).includes(Number(chainId || 0)),
+				isActive: isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0)),
 				isDisconnected,
 				isConnecting,
 				hasProvider: !!provider,
@@ -275,7 +286,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {
 					});
 					setTimeout((): void => set_isDisconnected(false), 100);					
 				},
-				options
+				options: web3Options
 			}}>
 			{children}
 			<ModalLogin

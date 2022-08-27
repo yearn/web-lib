@@ -1,12 +1,10 @@
 /* eslint-disable no-undef */
 const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
-const dotenv = require('dotenv-webpack');
 
 /**
  * @type {import('next').NextConfig}
  */
 module.exports = withTM({
-	plugins: [new dotenv()],
 	images: {
 		domains: [
 			'rawcdn.githack.com'
