@@ -46,7 +46,7 @@ const oneEther = BigNumber.from("1111111111111111111")
 
 ## format.amount
 
-Pretty format amount, accepts a range of min and max decimals allowed
+Pretty format amount based on local system settings, accepts a range of min and max decimals allowed
 
 ```js
 import { format } from '@yearn-finance/web-lib/utils'
@@ -57,7 +57,7 @@ format.amount(123.456, 0, 2) // (from 0 to 2 decimals allowed)
 
 ## format.currency
 
-Pretty-format currency
+Pretty-format currency based on local system settings
 
 ```js
 import { format } from '@yearn-finance/web-lib/utils'
@@ -154,13 +154,14 @@ format.toSafeValue(false)
 
 ## format.toSafeAmount
 
-# ABI
-
-Return contract ABIs to use functions through ethers
+Converts string into BigNumber, if value is equal max avoids conversion
 
 ```js
-import { ABI } from '@yearn-finance/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
-console.log(ABI.ERC20_ABI)
-console.log(ABI.LENS_ABI)
+const max = format.BN("1000000000000000000")
+const decimals = 18 // optional
+
+format.toSafeAmount("42", max, decimals)
+// 42000000000000000000 
 ```
