@@ -217,35 +217,30 @@ module.exports = {
 			transitionProperty: {
 				'max-height': 'max-height'
 			},
-			typography: (theme) => ({
-				DEFAULT: {
-					css: {
-						h1: {
-							fontFamily: theme('fontFamily.aeonik'),
-							fontSize: theme('fontSize.3xl'),
-							fontWeight: theme('fontWeight.400'),
-							lineHeight: theme('lineHeight.leading-10')
-						},
-						h2: {
-							fontFamily: theme('fontFamily.aeonik'),
-							fontSize: theme('fontSize.xl'),
-							fontWeight: theme('fontWeight.400'),
-							lineHeight: theme('lineHeight.leading-8')
-						},
-						h3: {
-							fontFamily: theme('fontFamily.aeonik'),
-							fontSize: theme('fontSize.lg'),
-							fontWeight: theme('fontWeight.400'),
-							lineHeight: theme('lineHeight.leading-8')
-						},
-						'bold': {
-							fontWeight: theme('fontWeight.700')
-						},
-						'mono-bold': {
-							fontFamily: theme('fontFamilty.mono'),
-							fontWeight: theme('fontWeight.700')
-						}
-					}
+			typography: ({ theme }) => ({
+				'h1': {
+					fontFamily: theme('fontFamily.aeonik'),
+					fontSize: theme('fontSize.3xl'),
+					fontWeight: theme('fontWeight.400'),
+					lineHeight: theme('lineHeight.leading-10')
+				},
+				'h1-mono': {
+					fontFamily: theme('fontFamilty.mono'),
+					fontSize: theme('fontSize.3xl'),
+					fontWeight: theme('fontWeight.400'),
+					lineHeight: theme('lineHeight.leading-10')
+				},
+				'h2': {
+					fontFamily: theme('fontFamily.aeonik'),
+					fontSize: theme('fontSize.xl'),
+					fontWeight: theme('fontWeight.400'),
+					lineHeight: theme('lineHeight.leading-8')
+				},
+				'h3': {
+					fontFamily: theme('fontFamily.aeonik'),
+					fontSize: theme('fontSize.lg'),
+					fontWeight: theme('fontWeight.400'),
+					lineHeight: theme('lineHeight.leading-8')
 				}
 			}),
 			width: {
