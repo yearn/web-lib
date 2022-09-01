@@ -7,24 +7,22 @@ description: 'Contains RPC provider details and connection methods'
 
 Contains RPC provider details and connection methods
 
-## providers.defaultRPCURI
-
-An object that contains chain ID as key and RPC URI as value, only returns default uris and ignores .env values.
-
-```js
-import { providers } from '@yearn-finance/web-lib/utils'
-
-providers.defaultRPCURI[1]
-// "https://rpc.flashbots.net"
-```
-
 ## providers.envRPCURI
 
-An object that contains chain ID as key and RPC URI as value, overrides any default value with ones sent at .env as JSON_RPC_URL
+An object that contains chain ID as key and RPC URI as value, overrides any default value with ones sent at .env as JSON_RPC_URL. Example defaults:
 
 ```md
 JSON_RPC_URL: {
-	1: "http://some_rpc_url.com"
+	1: "https://rpc.flashbots.net",
+    4: "https://rinkeby.infura.io/v3/undefined",
+    10: "https://mainnet.optimism.io",
+    56: "https://bscrpc.com",
+    100: "https://rpc.gnosischainID.com",
+    137: "https://polygon-rpc.com",
+    250: "https://rpc.ftm.tools",
+    1337: "http://localhost:8545",
+    31337: "http://localhost:8545",
+    42161: "https://arbitrum.public-rpc.com"
 }
 ```
 

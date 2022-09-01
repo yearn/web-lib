@@ -9,6 +9,20 @@ Correctly format numbers, currency and dates
 
 ## format.units
 
+Returns a string representation of value formatted with unit digits.
+
+Decimals can be represented with words:
+
+```
+wei: 0	 
+kwei: 3	 
+mwei: 6	 
+gwei: 9	 
+szabo: 12	 
+finney: 15	 
+ether: 18
+```
+
 ```js
 import { format } from '@yearn-finance/web-lib/utils'
 import { BigNumber } from 'ethers'
@@ -40,7 +54,8 @@ Pretty-format a number to be displayed alongside a token symbol
 import { format } from '@yearn-finance/web-lib/utils'
 import { BigNumber } from 'ethers'
 
-const oneEther = BigNumber.from("1111111111111111111")
+const amount = BigNumber.from("1111111111111111111")
+format.bigNumberAsAmount(amount, 18, 2, 'YFI')
 // 1.11 YFI
 ```
 
@@ -107,7 +122,7 @@ format.duration(600000, true)
 
 ## format.BN
 
-Convert string or number into BigNumber
+Convert string or number into BigNumber. "Safer" than ethers.BigNumber because invalid values are converted to 0.
 
 ```js
 import { format } from '@yearn-finance/web-lib/utils'
@@ -117,7 +132,7 @@ const bigNumber = format.BN("6000000000000000000000000")
 
 ## format.toNormalizedValue
 
-Convert BigNumber 18 decimals value into pretty-formated Number
+Convert BigNumber 18-decimals value into pretty-formated Number
 
 ```js
 import { format } from '@yearn-finance/web-lib/utils'
@@ -129,7 +144,7 @@ format.toNormalizedValue(bigNumber)
 
 ## format.toNormalizedAmount
 
-Convert BigNumber  18 decimals value into pretty-formated Number with decimals 
+Convert BigNumber 18-decimals value into pretty-formated String 
 
 ```js
 import { format } from '@yearn-finance/web-lib/utils'
