@@ -2,6 +2,7 @@ import	React, {createContext, ReactElement}	from	'react';
 import	toast, {Toaster}						from	'react-hot-toast';
 import	{useLocalStorage}						from	'../hooks/useLocalStorage';
 import	{useClientEffect}						from	'../hooks/useClientEffect';
+import	{deepMerge}								from	'./utils';
 import type * as useUITypes						from	'./useUI.d';
 
 const	defaultOptions: useUITypes.TUIOptions = {
@@ -9,17 +10,23 @@ const	defaultOptions: useUITypes.TUIOptions = {
 	shouldUseThemes: true
 };
 
-const	UI = createContext<useUITypes.TUIContext>({theme: '', switchTheme: (): void => undefined, toast});
+const	UI = createContext<useUITypes.TUIContext>({
+	theme: '',
+	switchTheme: (): void => undefined,
+	toast
+});
+
 export const UIContextApp = ({children, options = defaultOptions}: {
 	children: ReactElement,
 	options?: useUITypes.TUIOptions
 }): ReactElement => {
+	const	uiOptions = deepMerge(defaultOptions, options) as useUITypes.TUIOptions;
 	const	userPrefersColorScheme = React.useRef<useUITypes.TPossibleThemes>();
 	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
 	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
 
 	const switchTheme = React.useCallback((): void => {
-		if (options.shouldUseThemes)
+		if (uiOptions.shouldUseThemes)
 			set_theme(theme === 'light' ? 'dark' : 'light');
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [theme]);
@@ -29,7 +36,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	}
 
 	useClientEffect((): void => {
-		if (options.shouldUseThemes) {
+		if (uiOptions.shouldUseThemes) {
 			set_theme(themeFromLs as string);
 			if (themeFromLs === 'system-prefs') {
 				const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -51,7 +58,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	** better control on the theme switch
 	**************************************************************************/
 	useClientEffect((): any => {
-		if (!options.shouldUseThemes) {
+		if (!uiOptions.shouldUseThemes) {
 			return;
 		}
 		const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -77,7 +84,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	** if the selected theme matches the user's preference, clear this value.
 	**************************************************************************/
 	useClientEffect((): void => {
-		if (!options.shouldUseThemes) {
+		if (!uiOptions.shouldUseThemes) {
 			return;
 		}
 		if (theme === userPrefersColorScheme.current) {
@@ -94,7 +101,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 
 	return (
 		<UI.Provider value={{theme, switchTheme, toast}}>
-			{options.shouldUseDefaultToaster ? <Toaster
+			{uiOptions.shouldUseDefaultToaster ? <Toaster
 				position={'bottom-right'}
 				containerClassName={'!z-[1000000]'}
 				containerStyle={{zIndex: 1000000}}
