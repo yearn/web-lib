@@ -1,0 +1,19 @@
+---
+title: 'performBatchedUpdates'
+description: 'Optimizes batch React "setState" changes to only trigger a single render.'
+---
+
+# performBatchedUpdates
+
+Optimizes batch React "setState" changes to only trigger a single render.
+
+```js
+import { performBatchedUpdates } from '@yearn-finance/web-lib/utils'
+
+function callback () {
+    set_url("http://abc.com")
+    set_value(123)
+}
+
+performBatchedUpdates(callback)
+```
