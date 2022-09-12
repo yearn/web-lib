@@ -58,6 +58,7 @@ function	ModalMobileMenu({
 }: TModalMobileMenu): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = React.useState('Connect a wallet');
+	const	[optionsForSelect, set_optionsForSelect] = React.useState<number[]>([]);
 
 	React.useEffect((): void => {
 		if (!isActive && address) {
@@ -121,18 +122,11 @@ function	ModalMobileMenu({
 		return null;
 	}
 
-	const		optionsForSelect = React.useMemo((): ReactNode => {
-		const	_options = (options?.supportedChainID || [1])
-			.filter((id: number): boolean => ![1337, 31337].includes(id))
-			.map((id: number): ReactElement => {
-				return (
-					<option key={id} selected={chainID === id} value={id}>
-						{chains[id as keyof typeof chains]?.displayName || `Unknown chain (${id})`}
-					</option>
-				);
-			});
-		return _options;
-	}, [options, chainID]);
+	React.useEffect((): void => {
+		const	allChainsID = (options?.supportedChainID || [1]).filter((id: number): boolean => ![1337, 31337].includes(id))
+		const	noDuplicates = [...new Set(allChainsID)];
+		set_optionsForSelect(noDuplicates);
+	}, [options]);
 
 	return (
 		<Modal
@@ -153,7 +147,11 @@ function	ModalMobileMenu({
 								id={'network'}
 								onChange={(e): void => onSwitchChain(Number(e?.target?.value), true)}
 								className={'yearn--select-no-arrow yearn--select-reset !pr-6 text-sm'}>
-								{optionsForSelect}
+								{optionsForSelect.map((id: number): ReactElement => (
+									<option key={id} selected={chainID === id} value={id}>
+										{chains[id as keyof typeof chains]?.displayName || `Unknown chain (${id})`}
+									</option>
+								))}
 							</select>
 							<div className={'yearn--modalMobileMenu-chevron'}>
 								<svg xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 448 512'}>
