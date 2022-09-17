@@ -67,7 +67,7 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			try {
 				const	[balanceOfEth, priceOfWEth] = await Promise.all([
 					currentProvider.getBalance(ownerAddress),
-					lensContract ? lensContract.getPriceUsdcRecommended(props?.token as string) : undefined
+					lensContract ? lensContract.getPriceUsdcRecommended('0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2') : undefined
 				]);
 				performBatchedUpdates((): void => {
 					set_data({
