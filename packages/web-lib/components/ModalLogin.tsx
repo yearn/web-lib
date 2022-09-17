@@ -27,7 +27,6 @@ function	ModalLogin({isOpen, onClose, walletType}: ModalLoginTypes.TModalLogin):
 					className={'yearn--modalLogin-card'}>
 					<div><IconWalletMetamask /></div>
 					<b>{'Metamask'}</b>
-					<p>{'Connect with Metamask'}</p>
 				</div>
 				<div
 					onClick={(): void => {
@@ -40,7 +39,6 @@ function	ModalLogin({isOpen, onClose, walletType}: ModalLoginTypes.TModalLogin):
 					className={'yearn--modalLogin-card'}>
 					<div><IconWalletWalletConnect /></div>
 					<b>{'WalletConnect'}</b>
-					<p>{'Connect with WalletConnect'}</p>
 				</div>
 				<div
 					onClick={(): void => {
@@ -52,8 +50,7 @@ function	ModalLogin({isOpen, onClose, walletType}: ModalLoginTypes.TModalLogin):
 					}}
 					className={'yearn--modalLogin-card'}>
 					<div><IconWalletCoinbase /></div>
-					<b>{'Coinbase Wallet'}</b>
-					<p>{'Connect with Coinbase Wallet'}</p>
+					<b>{'Coinbase'}</b>
 				</div>
 				<div
 					onClick={(): void => {
@@ -65,8 +62,7 @@ function	ModalLogin({isOpen, onClose, walletType}: ModalLoginTypes.TModalLogin):
 					}}
 					className={'yearn--modalLogin-card'}>
 					<div><IconWalletGnosis /></div>
-					<b>{'Gnosis Safe'}</b>
-					<p>{'Connect with Gnosis Safe'}</p>
+					<b>{'Gnosis'}</b>
 				</div>
 			</div>
 		</Modal>
