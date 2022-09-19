@@ -2,15 +2,7 @@
 @tailwind base;
 
 :root {
-	--default-rounded: 0.5rem;
-	margin-left: calc(100vw - 100%);
-}
-
-:root,
-:root body[data-theme="light"] {
 	--color-primary: 220 95% 50%;
-
-	/* Grey */
 	--color-neutral-0: 0 0% 100%;
 	--color-neutral-100: 0 0% 96%;
 	--color-neutral-200: 0 0% 92%;
@@ -85,9 +77,27 @@
 	--color-red-900: 0 100% 45%;
 	--color-red-300: 0 100% 95%;
 	--color-red-200: 0 100% 90%;	
+
+	--default-rounded: 0rem;
+	font-family: 'Aeonik', sans-serif;
 }
 
-body {@apply text-neutral-700;}
+:root.dark {
+	--color-primary: 220 95% 50%;
+	--color-neutral-900: 0 0% 100%;
+	--color-neutral-800: 0 0% 96%;
+	--color-neutral-700: 0 0% 92%;
+	--color-neutral-600: 0 0% 88%;
+	--color-neutral-500: 0 0% 62%;
+	--color-neutral-400: 0 0% 50%;
+	--color-neutral-300: 0 0% 36%;
+	--color-neutral-200: 0 0% 26%;
+	--color-neutral-100: 0 0% 16%;
+	--color-neutral-0: 0 0% 5%;
+}
+
+
+body {@apply text-neutral-900;}
 h1 {@apply text-xl font-bold text-neutral-900;}
 h4 {@apply text-lg font-bold text-neutral-700;}
 #__next {@apply w-full h-full}
@@ -95,7 +105,7 @@ h4 {@apply text-lg font-bold text-neutral-700;}
 /* 🔵 - Yearn Finance ******************************************************
 ** Overwritting the defaults to match our needs
 **************************************************************************/
-* {@apply scroll-smooth font-roboto}
+* {@apply scroll-smooth font-aeonik}
 input::placeholder {@apply text-neutral-400 not-italic}
 textarea::placeholder {@apply text-neutral-400 not-italic}
 input:-webkit-autofill,
@@ -126,6 +136,13 @@ label[aria-invalid="true"] {
 	& > p {
 		@apply text-[#FF0000];
 	}
+}
+
+:focus {
+    outline-width: 0px;
+    outline-offset: 0px;
+	outline: none;
+    outline-color: transparent;
 }
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -165,23 +182,23 @@ label[aria-invalid="true"] {
 
 /* -- Button.tsx ------------------------------------------------------- */
 .yearn--button {
-	@apply cursor-pointer px-3 flex justify-center items-center h-10 text-base transition-colors relative;
+	@apply cursor-pointer px-5 flex justify-center items-center h-10 text-base transition-all relative;
 	border-radius: var(--default-rounded);
 
 	&[data-variant="filled"] {
-		@apply text-neutral-0 bg-accent-500 font-bold;
-		&:disabled {@apply bg-neutral-200 text-neutral-400;}
-		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-accent-600;}
+		@apply text-neutral-0 bg-neutral-900 font-normal;
+		&:disabled {@apply bg-neutral-700 opacity-40;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-800;}
 	}
 	&[data-variant="light"] {
-		@apply text-primary-500 bg-primary-100;
-		&:disabled {@apply bg-neutral-200 text-neutral-400;}
-		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-primary-200;}
+		@apply text-neutral-900 bg-neutral-100;
+		&:disabled {@apply opacity-40;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-200;}
 	}
 	&[data-variant="outlined"] {
-		@apply text-accent-500 bg-transparent border border-accent-500;
-		&:disabled {@apply border-neutral-400 text-neutral-400;}
-		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-primary-100;}
+		@apply text-neutral-900 bg-transparent border border-neutral-900;
+		&:disabled {@apply opacity-40;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-900 text-neutral-0;}
 	}
 	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
 	&:disabled {@apply cursor-not-allowed;}
@@ -253,10 +270,11 @@ label[aria-invalid="true"] {
 	@apply shadow-none transition-all;
 	border-radius: var(--default-rounded);
 	&[role="button"] {@apply cursor-pointer hover:bg-neutral-0 shadow-lg;}
-	&[data-variant="background"] {@apply bg-neutral-200;}
+	&[data-variant="background"] {@apply bg-neutral-100;}
 	&[data-variant="surface"] {@apply bg-neutral-0;}
 	&[data-padding="narrow"] {@apply p-2 md:p-4;}
 	&[data-padding="regular"] {@apply p-4 md:p-6;}
+	&[data-padding="relaxed"] {@apply p-8;}
 }
 
 /* -- Banner.tsx ------------------------------------------------------- */
@@ -412,10 +430,10 @@ label[aria-invalid="true"] {
 
 /* -- Input.tsx -------------------------------------------------------- */
 .yearn--input-field {
-	@apply p-0 w-full text-xl font-bold bg-white/0 border-none focus:border-none outline-none focus:outline-none focus:ring-0;
+	@apply p-0 w-full bg-white/0 border-none focus:border-none outline-none focus:outline-none focus:ring-0 text-base text-neutral-900 font-normal;
 }
 .yearn--input-field-wrapper {
-	@apply flex flex-row items-center py-2 h-8 w-full transition-colors;
+	@apply flex flex-row items-center py-2 w-full transition-colors border border-neutral-600 p-2 text-base text-neutral-900 h-10;
 }
 .yearn--input-max {
 	@apply py-1 px-2 ml-2 transition-colors cursor-pointer;
@@ -435,7 +453,7 @@ label[aria-invalid="true"] {
 	--input-max-border-color: hsl(var(--color-primary-500));
 	--input-max-border-width: 1px;
 
-	@apply space-y-1 md:space-y-2;
+	@apply space-y-1;
 	& > p {
 		@apply text-sm md:text-base transition-colors;
 		color: var(--input-label-color);
@@ -471,7 +489,7 @@ label[aria-invalid="true"] {
 	@apply flex justify-center items-end px-4 pt-4 pb-20 min-h-screen text-center sm:block sm:p-0;
 }
 .yearn--modal-overlay {
-	@apply fixed inset-0 z-10 bg-black/50 transition-opacity;
+	@apply fixed inset-0 z-10 bg-neutral-900/90 transition-opacity;
 }
 .yearn--modal {
 	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle md:mb-96 bg-neutral-0;
@@ -509,7 +527,7 @@ label[aria-invalid="true"] {
 
 }
 .yearn--modalMobileMenu-select {
-	@apply rounded-default relative ml-1 flex flex-row items-center bg-accent-500/10 py-1 pl-2 text-accent-500;
+	@apply rounded-default relative ml-1 flex flex-row items-center bg-neutral-500/10 py-1 pl-2 text-neutral-500;
 }
 .yearn--modalMobileMenu-walletCard {
 	@apply rounded-default flex cursor-pointer flex-col items-center justify-center bg-neutral-100 py-4 px-2 text-center transition-colors;
@@ -563,14 +581,13 @@ label[aria-invalid="true"] {
 .nprogress-custom-parent #nprogress .spinner {@apply absolute}
 .nprogress-custom-parent #nprogress .bar {@apply absolute}
 #nprogress {@apply pointer-events-none}
-#nprogress .bar {@apply bg-accent-500 fixed top-0 left-0 w-full h-1 z-[1031]}
+#nprogress .bar {@apply bg-neutral-900 fixed top-0 left-0 w-full h-1 z-[1031]}
 #nprogress .spinner {@apply block fixed z-[1031] top-4 right-4}
-#nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-accent-500 border-l-accent-500 rounded-[50%] animate-spin}
+#nprogress .spinner-icon {@apply hidden}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Some accessibilities fixes
 **************************************************************************/
-:focus {@apply outline-2 outline-accent-500 outline-offset-2;}
 .scrollbar-none::-webkit-scrollbar {display: none;}
 .scrollbar-none {
     -ms-overflow-style: none;  /* IE and Edge */
