@@ -41,7 +41,7 @@ const Button = React.forwardRef(({
 			}}>
 			{children}
 			{isBusy ? <div className={'flex absolute inset-0 justify-center items-center'}>
-				<IconLoader className={'w-6 h-6 text-neutral-900 animate-spin'} />
+				<IconLoader className={'w-6 h-6 text-neutral-0 animate-spin'} />
 			</div> : null}
 		</button>
 	);
