@@ -64,18 +64,23 @@ Release will only occurs on `main` branch, only via an authorized member of Year
 
 ### How to setup
 
-#### Setup tsconfig
+#### Setup `tsconfig.json`
 With TS config, you should add some paths to be sure to correctly link the web lib: 
 ```ts
-"baseUrl": ".",
-"paths": {
-	"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
-	"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
-	"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
-	"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
-	"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
-	"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"],
-},
+{
+	"compilerOptions": {
+		"rootDirs": ["."],
+		"baseUrl": ".",
+		"paths": {
+			"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
+			"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
+			"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
+			"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
+			"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
+			"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"]
+		}	
+	}
+}
 ```
 
 #### Import the CSS
