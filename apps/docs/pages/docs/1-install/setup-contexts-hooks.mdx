@@ -80,7 +80,25 @@ function MyApp(props: AppProps): ReactElement {
 }
 ```
 
-### 3. All the logical part of the plugin is now ready to use!
+### 3. Configure `tsconfig.json`
+```tsx
+{
+	"compilerOptions": {
+		"rootDirs": ["."],
+		"baseUrl": ".",
+		"paths": {
+			"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
+			"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
+			"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
+			"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
+			"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
+			"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"]
+		}	
+	}
+}
+```
+
+### 4. All the logical part of the plugin is now ready to use!
 The Web Lib is divided in multiple parts. With this simple configuration, you gain access to all the *logical* parts: `hooks`, `contexts`, and `utils`.   
 If you don't need designs or components, then, you are good to go!
 
