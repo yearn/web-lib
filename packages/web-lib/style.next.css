@@ -200,7 +200,10 @@ label[aria-invalid="true"] {
 		&:disabled {@apply opacity-40;}
 		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-900 text-neutral-0;}
 	}
-	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
+	&[aria-busy="true"] {
+		@apply cursor-wait;
+		color: transparent !important;
+	}
 	&:disabled {@apply cursor-not-allowed;}
 }
 
@@ -258,7 +261,9 @@ label[aria-invalid="true"] {
 	}
 }
 .yearn--card-tab {
-	@apply flex flex-row w-full !rounded-b-none;
+	@apply flex flex-row w-full;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
 	& > .yearn--card-tab-item:first-child {
 		border-top-left-radius: var(--default-rounded);
 	}

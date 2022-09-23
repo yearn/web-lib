@@ -11,8 +11,8 @@ const	defaultRPCURI: {[key: number]: string} = {
 	250: 'https://rpc.ftm.tools',
 	1337: 'http://localhost:8545',
 	31337: 'http://localhost:8545',
-	42161: 'https://arbitrum.public-rpc.com',
-}
+	42161: 'https://arbitrum.public-rpc.com'
+};
 export const	envRPCURI: {[key: number]: string} = {
 	1: process.env.JSON_RPC_URL?.[1] || defaultRPCURI[1],
 	4: process.env.JSON_RPC_URL?.[4] || defaultRPCURI[4],
@@ -23,8 +23,8 @@ export const	envRPCURI: {[key: number]: string} = {
 	250: process.env.JSON_RPC_URL?.[250] || defaultRPCURI[250],
 	1337: process.env.JSON_RPC_URL?.[1337] || defaultRPCURI[1337],
 	31337: process.env.JSON_RPC_URL?.[31337] || defaultRPCURI[31337],
-	42161: process.env.JSON_RPC_URL?.[42161] || defaultRPCURI[42161],
-}
+	42161: process.env.JSON_RPC_URL?.[42161] || defaultRPCURI[42161]
+};
 
 export	function	replaceEnvRPCURI(key: number, value: string) {
 	envRPCURI[key] = value;
@@ -88,7 +88,7 @@ export function getRPC(chainID = 1): string {
 	if (process.env.JSON_RPC_URL?.[chainID])
 		return (process.env.JSON_RPC_URL[chainID]);
 	if (defaultRPCURI?.[chainID])
-		return defaultRPCURI?.[chainID]
+		return defaultRPCURI?.[chainID];
 	return (defaultRPCURI[1]);
 }
 
