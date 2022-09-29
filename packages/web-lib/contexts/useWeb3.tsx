@@ -37,7 +37,7 @@ const defaultState = {
 const	defaultOptions: useWeb3Types.TWeb3Options = {
 	shouldUseWallets: true,
 	defaultChainID: 1,
-	supportedChainID: [1, 4, 10, 56, 100, 137, 250, 1337, 31337, 42161]
+	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 1337, 31337, 42161]
 };
 
 const Web3Context = createContext<useWeb3Types.TWeb3Context>(defaultState);
@@ -90,6 +90,10 @@ export const Web3ContextApp = ({
 			} else if (Number(newChainID) === 4) {
 				provider
 					.send('wallet_switchEthereumChain', [{chainId: '0x4'}])
+					.catch((): void => set_hasDisableAutoChainChange(true));
+			} else if (Number(newChainID) === 5) {
+				provider
+					.send('wallet_switchEthereumChain', [{chainId: '0x5'}])
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else {
 				if (newChainID in CHAINS) {

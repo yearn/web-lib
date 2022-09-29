@@ -21,7 +21,25 @@ const CHAINS = {
 			'rpcUrls': ['https://rinkeby.infura.io/v3/'],
 			'nativeCurrency': {
 				'name': 'rEthereum',
-				'symbol': 'ETH',
+				'symbol': 'rETH',
+				'decimals': 18
+			}
+		}
+	},
+	5: {
+		'chainID': '5',
+		'name': 'Goerli Testnet',
+		'displayName': 'Goerli',
+		'coin': 'gETH',
+		'block_explorer': 'https://goerli.etherscan.io/',
+		'chain_swap': {
+			'chainId': '0x4',
+			'blockExplorerUrls': ['https://goerli.etherscan.io/'],
+			'chainName': 'Goerli Testnet',
+			'rpcUrls': ['https://goerli.infura.io/v3/'],
+			'nativeCurrency': {
+				'name': 'gEthereum',
+				'symbol': 'gETH',
 				'decimals': 18
 			}
 		}

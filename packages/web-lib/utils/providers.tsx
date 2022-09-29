@@ -4,6 +4,7 @@ import	{Provider}		from	'ethcall';
 const	defaultRPCURI: {[key: number]: string} = {
 	1: 'https://rpc.flashbots.net',
 	4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
+	5: `https://goerli.infura.io/v3/${process.env.INFURA_KEY}`,
 	10: 'https://mainnet.optimism.io',
 	56: 'https://bscrpc.com',
 	100: 'https://rpc.gnosischainID.com',
@@ -16,6 +17,7 @@ const	defaultRPCURI: {[key: number]: string} = {
 export const	envRPCURI: {[key: number]: string} = {
 	1: process.env.JSON_RPC_URL?.[1] || defaultRPCURI[1],
 	4: process.env.JSON_RPC_URL?.[4] || defaultRPCURI[4],
+	5: process.env.JSON_RPC_URL?.[5] || defaultRPCURI[5],
 	10: process.env.JSON_RPC_URL?.[10] || defaultRPCURI[10],
 	56: process.env.JSON_RPC_URL?.[56] || defaultRPCURI[56],
 	100: process.env.JSON_RPC_URL?.[100] || defaultRPCURI[100],
@@ -26,7 +28,7 @@ export const	envRPCURI: {[key: number]: string} = {
 	42161: process.env.JSON_RPC_URL?.[42161] || defaultRPCURI[42161]
 };
 
-export	function	replaceEnvRPCURI(key: number, value: string) {
+export	function	replaceEnvRPCURI(key: number, value: string): void {
 	envRPCURI[key] = value;
 }
 
