@@ -1,10 +1,10 @@
 {
 	"name": "@majorfi/web-lib",
-	"version": "0.13.37",
+	"version": "0.13.38",
 	"files": [
 		"."
 	],
-	"type": "module",
+	"type": "commonjs",
 	"scripts": {
 		"tsc": "tsc --module es2022 --outDir dist --jsx react"
 	},
