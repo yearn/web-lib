@@ -1,0 +1,126 @@
+---
+title: 'Card.Details'
+---
+
+import {CodeExample} from '../../../components/CodeExample';
+import {Card} from '@majorfi/web-lib/components';
+
+
+# Card.Details
+```ts
+import {Card} from '@majorfi/web-lib/components';
+```
+
+<CodeExample>
+	<div style={{width: '75%'}}>
+		<Card.Detail
+			summary={(p) => (
+				<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
+			)}>
+			<div className="text-neutral-700">
+				{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
+			</div>
+		</Card.Detail>
+	</div>
+</CodeExample>
+
+The Detail variant of the Card is an attempt to replicate how the `<detail>` and `<summary>` htmls tags are working, with some twists as they are not easy to customize and do not fill all our needs.  
+This component can be divided in two distincts parts: the Details and the Summary. The Summary represents the always-visible-part, kind of the header of the card. The Details is the Wrapper, and it\'s child will be the expandable part.
+
+## Usage
+
+```tsx
+import {Card} from '@majorfi/web-lib/components';
+
+function App() {
+	return (
+		<Card.Detail
+			summary={(p: any): ReactElement => (
+				<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
+			)}>
+			<div className={'text-neutral-700'}>
+				{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
+				{'Laboriosam et natus natus sed beatae. Quia in magni minus inventore ipsa repudiandae. Provident debitis impedit doloremque harum dolorum sit. Ut eaque recusandae ad cupiditate autem facilis. Molestiae possimus ea doloribus magnam asperiores aut sit. Iure sit et excepturi voluptas id.'}
+			</div>
+		</Card.Detail>
+	);
+}
+```
+
+## Properties
+
+```tsx
+type TCardDetails = {
+	variant?: 'surface' | 'background'
+	summary: (p): ReactElement => React.ReactElement
+	isSticky?: boolean
+	onClick?: React.MouseEventHandler
+	children: React.ReactNode
+}
+```
+
+### `summary` and `<Card.Detail.Summary>`
+Special subcomponent used to handle the Summary. The Summary is splitted in two parts, Start and End, which represent the left and the right part. Both are separated with a justify-between class.  
+The arrow on the end part with it\'s rotation is set in the lib.
+```tsx {6-11}
+import {Card} from '@majorfi/web-lib/components';
+
+function App() {
+	return (
+		<Card.Detail
+			summary={(p: any): ReactElement => (
+				<Card.Detail.Summary
+					startChildren={<p>{'Hello'}</p>}
+					endChildren={<p>{'Byebye'}</p>}
+					{...p} />
+			)}>
+			<div className={'text-neutral-700'}>
+				{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
+				{'Laboriosam et natus natus sed beatae. Quia in magni minus inventore ipsa repudiandae. Provident debitis impedit doloremque harum dolorum sit. Ut eaque recusandae ad cupiditate autem facilis. Molestiae possimus ea doloribus magnam asperiores aut sit. Iure sit et excepturi voluptas id.'}
+			</div>
+		</Card.Detail>
+	);
+}
+```
+
+### `variant` (optional)
+Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.
+```tsx {6}
+import {Card} from '@majorfi/web-lib/components';
+
+function App() {
+	return (
+		<Card.Detail
+			variant={'background'}
+			summary={(p: any): ReactElement => (
+				<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
+			)}>
+			<div className={'text-neutral-700'}>
+				{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
+				{'Laboriosam et natus natus sed beatae. Quia in magni minus inventore ipsa repudiandae. Provident debitis impedit doloremque harum dolorum sit. Ut eaque recusandae ad cupiditate autem facilis. Molestiae possimus ea doloribus magnam asperiores aut sit. Iure sit et excepturi voluptas id.'}
+			</div>
+		</Card.Detail>
+	);
+}
+```
+
+### `isSticky` (optional)
+Indicate if the Summary should be sticky on scroll, aka if this should stay on top of the screen if you scroll and if you are still in the expanded details. Has no effect on mobile. Default set to true.
+```tsx {6}
+import {Card} from '@majorfi/web-lib/components';
+
+function App() {
+	return (
+		<Card.Detail
+			isSticky={true}
+			summary={(p: any): ReactElement => (
+				<Card.Detail.Summary startChildren={<p>{'Hello'}</p>} {...p} />
+			)}>
+			<div className={'text-neutral-700'}>
+				{'Dolore pariatur aut facilis. Molestiae quam voluptates tenetur quaerat aut rem maiores rem. Vero ducimus aut praesentium quaerat quia. Necessitatibus ea aut expedita reiciendis.'}
+				{'Laboriosam et natus natus sed beatae. Quia in magni minus inventore ipsa repudiandae. Provident debitis impedit doloremque harum dolorum sit. Ut eaque recusandae ad cupiditate autem facilis. Molestiae possimus ea doloribus magnam asperiores aut sit. Iure sit et excepturi voluptas id.'}
+			</div>
+		</Card.Detail>
+	);
+}
+```

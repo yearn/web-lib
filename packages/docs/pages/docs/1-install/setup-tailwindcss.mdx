@@ -1,0 +1,93 @@
+---
+title: 'Setup TailwindCSS'
+---
+
+import Callout from 'nextra-theme-docs/callout'
+
+# Setup TailwindCSS
+## Installation
+
+The Yearn Web Lib uses the Tailwind CSS framework to provide a consistent look and feel to the application. A few things are required to have the best experience with the library.
+
+Ensure the following packages are installed:
+<Nextra.Tabs items={['npm', 'yarn']}>
+	<Nextra.Tab>
+		```bash
+		npm i --save-dev sass autoprefixer postcss postcss-import postcss-nesting
+		```
+	</Nextra.Tab>
+	<Nextra.Tab>
+		```bash
+		yarn add -D sass autoprefixer postcss postcss-import postcss-nesting
+		```
+	</Nextra.Tab>
+</Nextra.Tabs>
+
+## Quick Start
+
+### 1. Add the `postcss.config.js` file
+First, create a new `postcss.config.js` file in the root of your project. This will enable all the required features to make the sCss work.
+```js
+module.exports = {
+	plugins: {
+		'postcss-import': {},
+		'tailwindcss/nesting': 'postcss-nesting',
+		'tailwindcss': {},
+		'autoprefixer': {}
+	}
+};
+```
+
+### 2. Add the `tailwind.config.js` file
+Then, create a new `tailwind.config.js` file in the root of your project. The Web Lib exports a preset you can plug into this file to prepare some parts of the config:
+```js
+module.exports = {
+	presets: [
+		require('@majorfi/web-lib/tailwind.plugin')
+	],
+	content: [
+		join(__dirname, 'pages', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', 'icons', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'components', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'layouts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'components', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'contexts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'icons', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'utils', '**', '*.js')
+	],
+	theme: {
+		extend: {
+			// all you need to extends
+		}
+	},
+	plugins: []
+};
+```
+
+### 3. Import the default CSS
+A default CSS file is included in the library. You can import it in your project and use it as a base. In order to do so, you will need to create a new `style.css` file in the root of your project.
+```scss
+@import '@majorfi/web-lib/style.css';
+
+/* your custom css */
+```
+
+And then, simply import it in your dApp, in `_app.tsx` for NextJS:
+```tsx {2}
+import {WithYearn} from '@majorfi/web-lib/contexts';
+import '../style.css';
+
+function MyApp(props: AppProps): ReactElement {
+	const {Component, pageProps} = props;
+
+	return (
+		<WithYearn client={client}>
+			<AppWrapper {...props} />
+		</WithYearn>
+	)
+}
+```
+
+<Callout type="info" emoji="💡">
+	Wanna customize the CSS, only use the `dark` or the `macarena` theme? Check out our documentation [here](/todo).
+</Callout>

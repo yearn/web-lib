@@ -1,0 +1,60 @@
+---
+title: 'useLocalStorage'
+description: 'Hook to use useState but with the localStorage'
+---
+
+import Callout from 'nextra-theme-docs/callout'
+
+# useLocalStorage
+<Callout type="warning" emoji="⚠️">
+	The `localStorage` browser API is **asynchronous**. The data will not be available on first React render and your should properly wait for the data to be available to avoid hydratation issue.
+</Callout>
+
+Same as `useState` but this will save the current state in the localStorage at the provided `key` position. You can check [react-recipe](https://github.com/craig1123/react-recipes/blob/master/docs/useLocalStorage.md) repository for more information.
+
+```tsx
+import {useLocalStorage} from '@majorfi/web-lib/hooks';
+```
+
+## Usage
+
+```tsx
+import {useLocalStorage} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const [myStoredValue, set_myStoredValue] = useLocalStorage('myKey', myInitialValue);
+}
+```
+
+## Return Value
+```tsx
+[unknown, React.Dispatch<React.SetStateAction<unknown>>]
+```
+
+## Configuration
+
+### `key`
+This is where, in the localStorage, the value will be stored. This key should be unique to avoid conflicts.
+```tsx {5}
+import {useLocalStorage} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const [myStoredValue, set_myStoredValue] = useLocalStorage(
+		'myKey',
+		myInitialValue
+	);
+}
+```
+
+### `initialValue`
+If the localStorage is not set yet, this is the default value to set and to use as initial value.
+```tsx {6}
+import {useLocalStorage} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const [myStoredValue, set_myStoredValue] = useLocalStorage(
+		'myKey',
+		myInitialValue
+	);
+}
+```

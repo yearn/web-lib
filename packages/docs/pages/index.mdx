@@ -1,0 +1,110 @@
+---
+title: 'Yearn Web Lib'
+---
+
+import {Header} from '../components/Header.tsx';
+
+<Header />
+
+**Yearn web Lib** is a library of standard components used through Yearn's Projects.  
+This library is made for React projects with the idea to be light, efficient and easy to use for any Web3 initiative.  
+Here you will find some basic components, contexts, hooks and other useful utils. We are working on this library to be a easy start for Web3, so it's all done with the Blockchain ecosystem in mind.
+
+
+<div className="max-w-xs mx-auto mt-5 mb-8 text-center install">
+	<Nextra.Tabs items={['npm', 'yarn']}>
+		<Nextra.Tab>
+			```bash
+			npm i @majorfi/web-lib
+			```
+		</Nextra.Tab>
+		<Nextra.Tab>
+			```bash
+			yarn add @majorfi/web-lib
+			```
+		</Nextra.Tab>
+	</Nextra.Tabs>
+</div>
+
+<div className="mb-20 text-center">
+[Get Started](/docs/intro) · [Examples](/docs/6-components/card) ·
+[GitHub Repository](https://github.com/yearn/web-lib)
+</div>
+
+## Overview
+
+```tsx
+import {WithYearn} from '@majorfi/web-lib/contexts';
+
+function MyApp(props: AppProps): ReactElement {
+	const {Component, pageProps} = props;
+
+	return (
+		<WithYearn client={client}>
+			<AppWrapper {...props} />
+		</WithYearn>
+	)
+}
+```
+
+```tsx
+import React from 'react';
+import {useWeb3} from '@majorfi/web-lib/contexts';
+import {truncateHex} from '@majorfi/web-lib/utils';
+import {Button} from '@majorfi/web-lib/components';
+
+function Page() {
+	const {isActive, address, ens, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
+	const [walletIdentity, set_walletIdentity] = React.useState('Connect with Web3');
+	
+	React.useEffect((): void => {
+		if (!isActive && address) {
+			set_walletIdentity('Invalid chain');
+		} else if (ens) {
+			set_walletIdentity(ens);
+		} else if (address) {
+			set_walletIdentity(truncateHex(address, 4));
+		} else {
+			set_walletIdentity('Connect with Web3');
+		}
+	}, [ens, address, isActive]);
+
+	return (
+		<main>
+			<Button
+				onClick={(): void => {
+					if (isActive) {
+						onDesactivate();
+					} else if (!isActive && address) {
+						onSwitchChain(1, true);
+					} else {
+						openLoginModal();
+					}
+				}}>
+				<p>{walletIdentity}</p>
+			</Button>
+		</main>
+	);
+}
+```
+
+In this example, we wrap our whole NextJS app inside the `WithYearn` context, which enable all the features we may need to work with it! A few configs are available [here](/docs/contexts/withYearn), in short with this abstract wrapper you gain access to the whole Web3 capabilities, some UI and theme controls, some global settings to access and update the Yearn's default ecosystem contracts and API, and also other specific global contexts such as the Balances and  Prices.  
+  
+Next, anywhere in our app, we can use the `useWeb3` hook to access the user's Wallet provider (aka link to the blockchain) and much more! If your user `isActive` the wallet and provider will be ready to use in your dApp. Otherwise, you can just trigger the `openLoginModal` function to open a ready-to-use modal for the user's to connect to their wallet.  
+   
+It's easy, and you can use it in your next app!
+
+## Features
+TODO
+
+## Around the Block
+Check our theses apps built with Yearn Web Lib:  
+- The Yearn's [Web Template](https://github.com/yearn/web-template), a forkable repository to bootstrap your project with Next, Tailwind and the Web Lib
+- [Yearn Buyback](https://buyback.yearn.finance/), a project to buy YFI from the market with Yearn treasury.
+- [Yearn Sync](https://sync.yearn.farm/), a dashboard to check the syncing status of Yearn's ecosystem.
+- [Yearn Watch](https://yearn.watch), a dashboard used to track information about Yearn's Vaults and strategies.
+- [Macarena finance](https://macarena.finance/), a simple UI for Yearn Finance, made to be forked!
+- [Yearn Hack](https://hack.yearn.farm/), UI to deploy all your needs to hack Yearn.
+- [NFTreasury](https://nft-reasury.vercel.app/), a treasury management tool for NFT projects.
+- [ape.tax](https://ape.tax/), an Experimental Experiments Registry for Yearn.
+- [Keep3r Network](https://keep3r.network/), a decentralized infrastructure for web3 jobs and tasks

@@ -1,0 +1,32 @@
+---
+title: 'useWindowInFocus'
+description: 'Hook to check if the tab/window is focused'
+---
+
+import Callout from 'nextra-theme-docs/callout'
+
+# useWindowInFocus
+Detect if you dApp is focused, aka if the tab/window is focused.
+Reactively track window focus with window.onfocus and window.onblur events.
+
+```tsx
+import {useWindowInFocus} from '@majorfi/web-lib/hooks';
+```
+
+## Usage
+
+```tsx
+import {useWindowInFocus} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const hasWindowInFocus = useWindowInFocus();
+}
+```
+
+## Return Value
+```tsx
+boolean
+```
+
+## Configuration
+*NA*

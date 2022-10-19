@@ -1,0 +1,164 @@
+---
+title: 'Dropdown'
+---
+
+import {DropdownExample} from '../../../components/specific/DropdownExample';
+import {Card, Dropdown} from '@majorfi/web-lib/components';
+
+
+# Dropdown
+```ts
+import {Dropdown} from '@majorfi/web-lib/components';
+```
+<DropdownExample />
+
+The Dropdown component is used to create what is known as `<select>` in regular HTML. It is a list of possible options you could select. This should be used to allow an user to choose between multiple options, like the network selection for example.  
+The component has headless states, meaning you have to send him the useState and you can controle the callback.  
+
+## Usage
+
+```tsx
+import {Dropdown} from  '@majorfi/web-lib/components';
+import * as Icons from	'@majorfi/web-lib/icons';
+
+function App() {
+	const options = [
+		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
+		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
+		{label: 'No Icon', value: 123}
+	];
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
+
+	return (
+		<Dropdown
+			defaultOption={options[0]}
+			options={options}
+			selected={selectedOption}
+			onSelect={(option: any): void => set_selectedOption(option)} />
+	);
+}
+```
+
+## Properties
+
+```tsx
+type TDropdownOption = {
+	icon?: ReactElement;
+	value: string | number;
+	label: string;
+};
+type TDropdownProps = {
+	options: TDropdownOption[];
+	defaultOption: TDropdownOption;
+	selected: TDropdownOption;
+	onSelect:
+		| React.Dispatch<React.SetStateAction<TDropdownOption>>
+		| ((option: TDropdownOption) => void);
+};
+```
+
+### `options`
+List of available options to select. The icon field is optional and the label field will be the one displayed. Values should be unique accross the dropdown.
+```tsx {5-10, 16}
+import {Dropdown} from '@majorfi/web-lib/components';
+import * as Icons from '@majorfi/web-lib/icons';
+
+function App() {
+	const options = [
+		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
+		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
+		{label: 'No Icon', value: 123}
+	];
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
+
+	return (
+		<Dropdown
+			defaultOption={options[0]}
+			options={options}
+			selected={selectedOption}
+			onSelect={(option: any): void => set_selectedOption(option)} />
+	);
+}
+```
+
+### `defaultOption`
+Should be one of the options item. This is the default selected option, displayed when the dropdown is rendered the first time.
+```tsx {15}
+import {Dropdown} from '@majorfi/web-lib/components';
+import * as Icons from '@majorfi/web-lib/icons';
+
+function App() {
+	const options = [
+		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
+		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
+		{label: 'No Icon', value: 123}
+	];
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
+
+	return (
+		<Dropdown
+			defaultOption={options[0]}
+			options={options}
+			selected={selectedOption}
+			onSelect={(option: any): void => set_selectedOption(option)} />
+	);
+}
+```
+
+### `selected`
+The currently selected option. This should change once the user selects a new option in the dropdown. Best controled by a react.useState.
+```tsx {17}
+import {Dropdown} from  '@majorfi/web-lib/components';
+import * as Icons from	'@majorfi/web-lib/icons';
+
+function App() {
+	const options = [
+		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
+		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
+		{label: 'No Icon', value: 123}
+	];
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
+
+	return (
+		<Dropdown
+			defaultOption={options[0]}
+			options={options}
+			selected={selectedOption}
+			onSelect={(option: any): void => set_selectedOption(option)} />
+	);
+}
+```
+
+### `onSelect`
+Callback when a new option is selected. The function will have the new selected option object as first param. You can then choose how to update the selected variable.
+```tsx {18}
+import {Dropdown} from  '@majorfi/web-lib/components';
+import * as Icons from	'@majorfi/web-lib/icons';
+
+function App() {
+	const options = [
+		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
+		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
+		{label: 'No Icon', value: 123}
+	];
+	const [selectedOption, set_selectedOption] = React.useState(options[0]);
+
+	return (
+		<Dropdown
+			defaultOption={options[0]}
+			options={options}
+			selected={selectedOption}
+			onSelect={(option: any): void => set_selectedOption(option)} />
+	);
+}
+```

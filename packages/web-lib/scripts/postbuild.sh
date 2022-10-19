@@ -11,3 +11,10 @@ cp "$SRC/tailwind.plugin.cjs" "$DST/tailwind.plugin.cjs"
 cp "$SRC/tailwind.theme.cjs" "$DST/tailwind.theme.cjs"
 cp "$SRC/style.next.css" "$DST/style.next.css"
 cp "$SRC/.eslintrc.cjs" "$DST/.eslintrc.cjs"
+
+# Legacy styles export
+cp "$SRC/style.css" "$DST/style.css"
+cp "$SRC/style.light.css" "$DST/style.light.css"
+cp "$SRC/style.dark.css" "$DST/style.dark.css"
+
+

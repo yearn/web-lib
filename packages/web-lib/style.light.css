@@ -1,0 +1,568 @@
+@tailwind base;
+
+:root {
+	--default-rounded: 0.5rem;
+	margin-left: calc(100vw - 100%);
+}
+
+:root,
+:root body[data-theme="light"] {
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the colors you will use the most and will make up the majority
+	**	of your UI. Use them for most of your text, backgrounds, and borders,
+	**	as well as for things like secondary buttons and links.
+	**************************************************************************/
+	--color-neutral-0: 0 0% 100%;
+	--color-neutral-100: 220 50% 98%;
+	--color-neutral-200: 220 47% 97%;
+	--color-neutral-300: 220 100% 94%;
+	--color-neutral-400: 220 27% 85%;
+	--color-neutral-500: 220 22% 36%;
+	--color-neutral-600: 220 22% 25%;
+	--color-neutral-700: 220 100% 14%;
+	--color-neutral-800: 0 0% 8%;
+	--color-neutral-900: 0 0% 0%;
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the splashes of color that should appear the most in your UI,
+	**	and are the ones that determine the overall "look" of the site. Use
+	**	these for things like primary actions, links, navigation items, icons,
+	**	accent borders, or text you want to emphasize.
+	**************************************************************************/
+	--color-primary-100: 220 100% 94%;
+	--color-primary-200: 220 81% 88%;
+	--color-primary-500: 220 95% 50%;
+	--color-primary-600: 220 100% 44%;
+	--color-accent-500: 220 95% 50%;
+	--color-accent-600: 220 100% 44%;
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These colors should be used fairly conservatively throughout your UI to
+	**	avoid overpowering your primary colors. Use them when you need an
+	**	element to stand out, or to reinforce things like error states or
+	**	positive trends with the appropriate semantic color.
+	**************************************************************************/
+	--color-yellow-900: 32 100% 45%;
+	--color-yellow-300: 32 100% 95%;
+	--color-yellow-200: 32 100% 90%;
+	--color-error-900: 328 100% 45%;
+	--color-error-300: 328 100% 95%;
+	--color-error-200: 328 100% 90%;
+	--color-red-900: 0 100% 45%;
+	--color-red-300: 0 100% 95%;
+	--color-red-200: 0 100% 90%;	
+}
+
+body {@apply text-neutral-700;}
+h1 {@apply text-xl font-bold text-primary-500;}
+h4 {@apply text-lg font-bold text-neutral-700;}
+#__next {@apply w-full h-full}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Overwritting the defaults to match our needs
+**************************************************************************/
+* {@apply scroll-smooth font-roboto}
+input::placeholder {@apply text-neutral-400 not-italic}
+textarea::placeholder {@apply text-neutral-400 not-italic}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type=number] {
+	-moz-appearance: textfield;
+}
+label[aria-invalid="true"] {
+	@apply text-neutral-500 transition-colors;
+	& > form > div {
+		@apply border-[#FE0000] focus-within:border-[#FE0000] text-[#FE0000] focus-within:text-[#FE0000];
+	}
+	& > p {
+		@apply text-[#FF0000];
+	}
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** First, we are declaring the Yearn's specific class for the components.
+** We need to declare them first in order to work with css inheritence
+** correctly. Aka theses class should be possible to overwrite by adding an
+** extra tailwind class
+**************************************************************************/
+.image-align-middle > img {
+	object-position: 0 70%;
+}
+.inline-dl {@apply flex flex-col p-6 shadow-xl;}
+.flex-center {@apply flex justify-center items-center;}
+.cell-end {@apply justify-end text-right;}
+.cell-start {@apply justify-start text-left;}
+.link {
+	@apply text-primary-500 underline cursor-pointer transition-colors;
+	&:hover {@apply text-primary-600;}
+}
+.rounded-default {border-radius: var(--default-rounded);}
+.rounded-b-default {
+	border-bottom-left-radius: var(--default-rounded);
+	border-bottom-right-radius: var(--default-rounded);
+}
+.rounded-t-default {
+	border-top-left-radius: var(--default-rounded);
+	border-top-right-radius: var(--default-rounded);
+}
+.rounded-l-default {
+	border-top-left-radius: var(--default-rounded);
+	border-bottom-left-radius: var(--default-rounded);
+}
+.rounded-r-default {
+	border-top-right-radius: var(--default-rounded);
+	border-bottom-right-radius: var(--default-rounded);
+}
+
+/* -- Button.tsx ------------------------------------------------------- */
+.yearn--button {
+	@apply cursor-pointer px-3 flex justify-center items-center h-10 text-base transition-colors relative;
+	border-radius: var(--default-rounded);
+
+	&[data-variant="filled"] {
+		@apply text-neutral-0 bg-accent-500 font-bold;
+		&:disabled {@apply bg-neutral-200 text-neutral-400;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-accent-600;}
+	}
+	&[data-variant="light"] {
+		@apply text-primary-500 bg-primary-100;
+		&:disabled {@apply bg-neutral-200 text-neutral-400;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-primary-200;}
+	}
+	&[data-variant="outlined"] {
+		@apply text-accent-500 bg-transparent border border-accent-500;
+		&:disabled {@apply border-neutral-400 text-neutral-400;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-primary-100;}
+	}
+	&[aria-busy="true"] {@apply !text-white/0 cursor-wait;}
+	&:disabled {@apply cursor-not-allowed;}
+}
+
+/* -- SearchBox.tsx ---------------------------------------------------- */
+.yearn--searchBox-wrapper {
+	--searchBox-text-color: hsl(var(--color-neutral-500));
+	--searchBox-border-color: hsl(var(--color-neutral-0));
+	--searchBox-bg-color: hsl(var(--color-neutral-0));
+	--searchBox-border-width: 2px;
+
+	@apply overflow-hidden;
+	border-radius: var(--default-rounded);
+	background-color: var(--searchBox-bg-color);
+}
+.yearn--searchBox {
+	@apply flex flex-row items-center w-full focus-within:border-primary-500 transition-colors bg-transparent;
+	color: var(--searchBox-text-color);
+	border: solid var(--searchBox-border-width) var(--searchBox-border-color);
+	border-radius: var(--default-rounded);
+
+	&[data-padding="narrow"] {
+		@apply p-2 h-10;
+		& > svg {@apply w-4 h-4 mr-2;}
+		& > input {@apply h-10;}
+	}
+	&[data-padding="regular"] {
+		@apply p-2 md:p-4 h-14;
+		& > svg {@apply w-6 h-6 mr-4;}
+		& > input {@apply h-14;}
+	}
+}
+.yearn--searchBox-input {
+	@apply p-0 w-full bg-transparent border-none focus:border-none outline-none focus:outline-none focus:ring-0;
+}
+
+/* -- Card.tsx --------------------------------------------------------- */
+.yearn--card-tab-item {
+	--card-tab-color-active: hsl(var(--color-primary-500));
+	--card-tab-color: hsl(var(--color-neutral-400));
+	--card-bg-color: hsl(var(--color-neutral-200));
+
+	@apply w-full h-20 border-b-2 flex-center cursor-pointer;
+	&.selected {
+		@apply font-bold;
+		border-color: var(--card-tab-color-active);
+		color: var(--card-tab-color-active);
+	}
+	&:not(.selected) {
+		@apply transition-colors cursor-pointer;
+		border-color: var(--card-tab-color);
+		color: var(--card-tab-color);
+		&:hover {
+			background-color: var(--card-bg-color);
+		}
+	}
+}
+.yearn--card-tab {
+	@apply flex flex-row w-full !rounded-b-none;
+	& > .yearn--card-tab-item:first-child {
+		border-top-left-radius: var(--default-rounded);
+	}
+	& > .yearn--card-tab-item:last-child {
+		border-top-right-radius: var(--default-rounded);
+	}
+}
+.yearn--card {
+	@apply shadow-none transition-all;
+	border-radius: var(--default-rounded);
+	&[role="button"] {@apply cursor-pointer hover:bg-neutral-0 shadow-lg;}
+	&[data-variant="background"] {@apply bg-neutral-200;}
+	&[data-variant="surface"] {@apply bg-neutral-0;}
+	&[data-padding="narrow"] {@apply p-2 md:p-4;}
+	&[data-padding="regular"] {@apply p-4 md:p-6;}
+}
+
+/* -- Banner.tsx ------------------------------------------------------- */
+.yearn--banner-content-wrapper {
+	@apply z-10 p-4 md:p-6 space-y-4 md:space-y-6 flex-col;
+}
+.yearn--banner-content-title {
+	@apply text-inherit;
+}
+.yearn--banner-content-text {
+	@apply text-inherit;
+}
+.yearn--banner-content-buttons {
+	@apply flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4;
+}
+.yearn--banner-split-wrapper {
+	&[data-mobile] {
+		@apply flex md:hidden overflow-hidden relative -mx-1 -mt-1 w-full h-full rounded-xl max-h-48;
+		border-color: var(--banner-border-color);
+		border-left-width: var(--banner-border-width);
+		border-right-width: var(--banner-border-width);
+		border-bottom-width: var(--banner-border-width);
+		& > div {
+			@apply image-align-middle;
+			border-radius: var(--default-rounded);
+		}
+	}
+	&[data-desktop] {
+		@apply hidden md:flex overflow-hidden -my-1 -ml-1 w-full h-full rounded-xl absolute;
+		border-left-width: var(--banner-border-width);
+		border-top-width: var(--banner-border-width);
+		border-bottom-width: var(--banner-border-width);
+		border-color: var(--banner-border-color);
+		& > div {
+			@apply image-align-middle w-full h-full -ml-1;
+			border-radius: var(--default-rounded);
+		}
+	}
+}
+.yearn--banner {
+	--banner-bg-color: hsl(var(--color-primary-100));
+	--banner-text-color: hsl(var(--color-primary-500));
+	--banner-border-color: hsl(var(--color-primary-500));
+	--banner-border-width: 2px;
+
+	@apply w-full flex flex-col-reverse md:flex-row relative overflow-hidden;
+	background-color: var(--banner-bg-color);
+	color: var(--banner-text-color);
+	border: solid var(--banner-border-width) var(--banner-border-color);
+	border-radius: var(--default-rounded);
+	&[data-variant="image"] {
+		@apply bg-no-repeat bg-cover bg-center;
+		border: solid var(--banner-border-width) var(--banner-border-color);
+	}
+	&[data-variant="background"] {
+		@apply bg-no-repeat bg-cover bg-center;
+		border: solid var(--banner-border-width) var(--banner-border-color);
+	}
+	&[data-variant="split"] {
+		& .yearn--banner-content-wrapper {
+			@apply w-full md:w-1/2;
+		}
+	}
+}
+.yearn--banner-with-controls {
+	--banner-with-controls-text-color: hsl(var(--color-primary-500));
+
+	@apply relative;
+	& .yearn--banner {&[data-variant="image"] {@apply pb-8 md:pb-0;}}
+	& .yearn--banner-title {@apply mr-5 md:mr-0 text-inherit;}
+}
+
+.yearn--banner-with-controls-icons-cross {
+	@apply w-6 h-6 cursor-pointer;
+	color: var(--banner-with-controls-text-color);
+}
+.yearn--banner-with-controls-pagination {
+	@apply flex absolute right-4 bottom-4 flex-row items-center space-x-2 z-50;
+	color: var(--banner-with-controls-text-color);
+}
+
+/* -- Switch.tsx ------------------------------------------------------- */
+.yearn--switch {
+	--switch-bg-color: hsl(var(--color-primary-200));
+	--switch-border-width: 2px;
+	--switch-border-color: hsl(var(--color-primary-500));
+	--switch-knob-color: hsl(var(--color-primary-500));
+
+	@apply relative flex h-6 w-[42px] border border-primary-500 rounded-full cursor-pointer transition-colors ease-in-out duration-200 p-0 items-center;
+	border: solid var(--switch-border-width) var(--switch-border-color);
+	&[aria-checked="true"] {background-color: var(--switch-bg-color);}
+	&[aria-checked="false"] {@apply bg-transparent;}
+
+	& > div {
+		@apply mx-1 pointer-events-none inline-block h-4 w-4 rounded-full transition ease-in-out duration-200;
+		background-color: var(--switch-knob-color);
+	}
+}
+
+/* -- Dropdown.tsx ----------------------------------------------------- */
+.yearn--dropdown {
+}
+.yearn--dropdown-menu {
+	--dropdown-text-color: hsl(var(--color-primary-500));
+	--dropdown-bg-color: hsl(var(--color-neutral-300));
+	--dropdown-bg-color-active: hsl(var(--color-neutral-600));
+	--dropdown-border-width: 0px;
+	--dropdown-border-color: transparent;
+
+	@apply flex overflow-y-auto absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 scrollbar-none;
+	border-radius: var(--default-rounded);
+	border: solid var(--dropdown-border-width) var(--dropdown-border-color);
+	background: var(--dropdown-bg-color);
+}
+.yearn--dropdown-menu-item {
+	@apply flex flex-row items-center cursor-pointer py-1 pr-4 pl-3 transition-colors;
+	color: var(--dropdown-text-color);
+	&[data-active="true"] {
+		background-color: var(--dropdown-bg-color-active);
+	}
+}
+
+/* -- ElementWithActions.tsx ------------------------------------------- */
+.yearn--elementWithActions-copy {
+	@apply cursor-copy px-1 md:px-2;
+}
+.yearn--elementWithActions-linkout {
+	@apply cursor-alias;
+	& > a {@apply cursor-alias;}
+}
+.yearn--elementWithActions-icon {
+	@apply w-4 h-4 transition-colors;
+	color: var(--elementWithActions-action-color);
+	&:hover {
+		color: var(--elementWithActions-action-color-hover);
+	}
+}
+.yearn--elementWithActions {
+	@apply font-mono font-bold text-left;
+	color: var(--elementWithActions-text-color);
+	& ~ button {
+		@apply flex justify-center items-center p-0 w-8 h-8;
+		border-radius: var(--default-rounded);
+	}
+}
+
+.yearn--elementWithActions-wrapper {
+	--elementWithActions-text-color: hsl(var(--color-neutral-700));
+	--elementWithActions-action-color: hsl(var(--color-primary-500));
+	--elementWithActions-action-color-hover: hsl(var(--color-primary-600));
+	@apply flex flex-row items-center;
+}
+
+/* -- Input.tsx -------------------------------------------------------- */
+.yearn--input-field {
+	@apply p-0 w-full text-xl font-bold bg-white/0 border-none focus:border-none outline-none focus:outline-none focus:ring-0;
+}
+.yearn--input-field-wrapper {
+	@apply flex flex-row items-center py-2 h-8 w-full transition-colors;
+}
+.yearn--input-max {
+	@apply py-1 px-2 ml-2 transition-colors cursor-pointer;
+	border-radius: var(--default-rounded);
+	background-color: var(--input-max-bg-color);
+	color: var(--input-max-text-color);
+	border: solid var(--input-max-border-width) var(--input-max-border-color);
+	&:hover {
+		background-color: var(--input-max-bg-color-hover);
+	}
+}
+.yearn--input {
+	--input-label-color: hsl(var(--color-neutral-500));
+	--input-max-bg-color: transparent;
+	--input-max-bg-color-hover: hsl(var(--color-primary-100));
+	--input-max-text-color: hsl(var(--color-primary-500));
+	--input-max-border-color: hsl(var(--color-primary-500));
+	--input-max-border-width: 1px;
+
+	@apply space-y-1 md:space-y-2;
+	& > p {
+		@apply text-sm md:text-base transition-colors;
+		color: var(--input-label-color);
+	}
+}
+
+/* -- AlertBox.tsx ---------------------------------------------------- */
+.yearn--alertbox-icon {
+	width: var(--alertbox-icon-size);
+	height: var(--alertbox-icon-size);
+	min-width: var(--alertbox-icon-size);
+	min-height: var(--alertbox-icon-size);
+}
+.yearn--alertbox {
+	--alertbox-icon-size: 1.25rem;
+
+	@apply flex flex-row items-start p-2 text-primary-500 bg-primary-100 space-x-2;
+
+	border-radius: var(--default-rounded);
+	&[data-variant="critical"] {
+		@apply text-red-900 bg-red-300;
+	}
+	&[data-variant="error"] {
+		@apply text-pink-900 bg-pink-300;
+	}
+	&[data-variant="warning"] {
+		@apply text-yellow-900 bg-yellow-300;
+	}
+}
+
+/* -- Modal.tsx ---------------------------------------------------- */
+.yearn--modal-wrapper {
+	@apply flex justify-center items-end px-4 pt-4 pb-20 min-h-screen text-center sm:block sm:p-0;
+}
+.yearn--modal-overlay {
+	@apply fixed inset-0 z-10 bg-black/50 transition-opacity;
+}
+.yearn--modal {
+	@apply inline-block overflow-hidden relative z-50 w-full text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle md:mb-96 bg-neutral-0;
+
+	border-radius: var(--default-rounded);
+}
+
+/* -- ModalLogin.tsx ---------------------------------------------------- */
+.yearn--modalLogin-wrapper {
+}
+.yearn--modalLogin-card {
+	@apply flex flex-col justify-center items-center py-6 px-2 text-center transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-100;
+	
+	border-radius: var(--default-rounded);
+	& > div > svg {@apply w-12 h-12;}
+	& > b {@apply mt-2 text-xl text-neutral-700;}
+	& > p {@apply text-neutral-500;}
+}
+.yearn--modalLogin {
+	@apply grid grid-cols-2 p-6 space-y-4;
+}
+
+/* -- ModalMobileMenu.tsx ---------------------------------------------------- */
+.yearn--modalMobileMenu-content {
+	@apply relative flex w-full flex-col items-center justify-center space-y-1 pt-4;
+}
+.yearn--modalMobileMenu-title {
+	@apply text-center text-xl font-bold text-neutral-700;
+}
+.yearn--modalMobileMenu-networkIndicator {
+	@apply text-sm text-neutral-500;
+	& > span {
+		@apply flex flex-row items-center;
+	}
+
+}
+.yearn--modalMobileMenu-select {
+	@apply rounded-default relative ml-1 flex flex-row items-center bg-accent-500/10 py-1 pl-2 text-accent-500;
+}
+.yearn--modalMobileMenu-walletCard {
+	@apply rounded-default flex cursor-pointer flex-col items-center justify-center bg-neutral-100 py-4 px-2 text-center transition-colors;
+}
+.yearn--modalMobileMenu-childrenWrapper {
+	@apply mb-4 space-y-2 px-2;
+}
+.yearn--modalMobileMenu-separatorWrapper {
+	@apply w-full px-2;
+}
+.yearn--modalMobileMenu-separator {
+	@apply mx-auto mt-2 mb-4 h-[2px] w-full items-center justify-center bg-neutral-500/20;
+}
+.yearn--modalMobileMenu-chevron {
+	@apply absolute right-2;
+	& > svg {
+		@apply ml-1 h-3 w-3;
+	}
+}
+
+.yearn--modalMobileMenu-logout {
+	@apply absolute top-4 right-4;
+	& > svg {
+		@apply h-6 w-6 rounded-full bg-neutral-200 p-1.5 text-neutral-500;
+	}
+}
+
+
+
+/* 🔵 - Yearn Finance ******************************************************
+** Then, we import the tailwind class. They will be able to overwrite all
+** the previous classes, not the next ones directly.
+**************************************************************************/
+@tailwind components;
+@tailwind utilities;
+
+/* 🔵 - Yearn Finance ******************************************************
+** Shorthand for some group of style used across the application
+***************************************************************************/
+.flex-row-center {@apply flex flex-row items-center;}
+.flex-row-start {@apply flex flex-row items-start;}
+.flex-col-start {@apply flex flex-col items-start;}
+.flex-col-full {@apply flex flex-col w-full h-full;}
+.max-w-6xl {@apply max-w-[1232px] px-4;}
+
+/* 🔵 - Yearn Finance ******************************************************
+** NsProgress is used to display the loading indicator. All of theses
+** styles are required to make it visible
+**************************************************************************/
+.nprogress-custom-parent {@apply overflow-hidden relative}
+.nprogress-custom-parent #nprogress .spinner {@apply absolute}
+.nprogress-custom-parent #nprogress .bar {@apply absolute}
+#nprogress {@apply pointer-events-none}
+#nprogress .bar {@apply bg-accent-500 fixed top-0 left-0 w-full h-1 z-[1031]}
+#nprogress .spinner {@apply block fixed z-[1031] top-4 right-4}
+#nprogress .spinner-icon {@apply w-4 h-4 box-border border-2 border-transparent border-t-accent-500 border-l-accent-500 rounded-[50%] animate-spin}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Some accessibilities fixes
+**************************************************************************/
+:focus {@apply outline-2 outline-accent-500 outline-offset-2;}
+.scrollbar-none::-webkit-scrollbar {display: none;}
+.scrollbar-none {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.yearn--select-reset {
+	@apply bg-transparent p-0 border-none;
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+.yearn--select-no-arrow {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: none;
+}
+.yearn--select-no-arrow::-ms-expand {
+    display: none;
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Some custom css for the components
+**************************************************************************/
+.img-gradient::after {
+	content: '';
+	background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+	@apply absolute inset-0 w-full h-full;
+}

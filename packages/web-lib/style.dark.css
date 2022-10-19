@@ -1,0 +1,62 @@
+@tailwind base;
+
+:root,
+:root body[data-theme="dark"] {
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the colors you will use the most and will make up the majority
+	**	of your UI. Use them for most of your text, backgrounds, and borders,
+	**	as well as for things like secondary buttons and links.
+	**************************************************************************/
+	--color-neutral-0: 0 0% 0%;
+	--color-neutral-100: 0 0% 10%;
+	--color-neutral-200: 0 0% 8%;
+	--color-neutral-300: 0 0% 15%;
+	--color-neutral-400: 0 0% 66%;
+	--color-neutral-500: 0 0% 100%;
+	--color-neutral-600: 0 0% 13%;
+	--color-neutral-700: 0 0% 100%;
+	--color-neutral-800: 0 0% 8%;
+	--color-neutral-900: 0 0% 100%;
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These are the splashes of color that should appear the most in your UI,
+	**	and are the ones that determine the overall "look" of the site. Use
+	**	these for things like primary actions, links, navigation items, icons,
+	**	accent borders, or text you want to emphasize.
+	**************************************************************************/
+	--color-primary-100: 0 0% 15%;
+	--color-primary-200: 0 0% 13%;
+	--color-primary-500: 0 0% 100%;
+	--color-primary-600: 0 0% 90%;
+	--color-accent-500: 220 95% 50%;
+	--color-accent-600: 220 100% 44%;
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	These colors should be used fairly conservatively throughout your UI to
+	**	avoid overpowering your primary colors. Use them when you need an
+	**	element to stand out, or to reinforce things like error states or
+	**	positive trends with the appropriate semantic color.
+	**************************************************************************/
+	--color-yellow-900: 32 100% 45%;
+	--color-yellow-300: 32 100% 95%;
+	--color-yellow-200: 32 100% 90%;
+	--color-pink-900: 328 100% 45%;
+	--color-pink-300: 328 100% 95%;
+	--color-pink-200: 328 100% 90%;
+	--color-red-900: 0 100% 45%;
+	--color-red-300: 0 100% 95%;
+	--color-red-200: 0 100% 90%;
+}
+
+:root body[data-theme="dark"] {
+	& .yearn--button {
+		&[data-variant="filled"] {
+			@apply text-neutral-900;
+			&:disabled {@apply opacity-60;}
+		}
+		&[data-variant="outlined"] {
+			@apply text-neutral-900 bg-transparent border border-neutral-900;
+			&:disabled {@apply opacity-60;}
+		}
+	}
+}

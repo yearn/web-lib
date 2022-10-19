@@ -1,0 +1,98 @@
+---
+title: 'useSettings'
+description: 'Hook to access environment variables.'
+---
+
+# useSettings
+Access environment information like URIs for rpc, subgraph, metadata, api, and fixed contracts addresses.
+
+```ts
+import {useSettings} from '@majorfi/web-lib/contexts';
+```
+
+## Usage
+
+```tsx
+import {useSettings} from '@majorfi/web-lib/contexts';
+
+function App() {
+	const {networks} = useSettings();
+	const chainId = 1
+
+	const {partnerContractAddress} = networks[chainId]
+
+	return (
+		<div>
+			{partnerContractAddress}
+		</div>
+	);
+}
+```
+
+## Return Value
+
+```tsx
+{
+	networks: [key: number]: TSettingsForNetwork,
+	onUpdateNetworks: (newNetworkSettings: TSettingsContext) => void,
+}
+
+type TSettingsForNetwork = {
+	rpcURI?: string,
+	graphURI?: string,
+	metaURI?: string,
+	apiURI?: string,
+	explorerBaseURI?: string,
+	lensAddress?: string,
+	partnerContractAddress?: string
+}   
+```
+
+## Configuration
+
+This hook doesn't receive any inputs. The above network configuration can be changed using the [WithYearn](https://github.com/yearn/web-lib/blob/main/apps/playground/pages/_app.tsx#L127-L130) app wrapper.
+
+## Default values
+
+These are the default values for each chain:
+
+```tsx
+import {getRPC} from '@majorfi/web-lib//utils/providers';
+
+1: { // Ethereum
+	rpcURI: getRPC(1),
+	graphURI: 'https://api.thegraph.com/subgraphs/name/0xkofee/yearn-vaults-v2',
+	metaURI: 'https://meta.yearn.finance/api/1',
+	apiURI: 'https://api.yearn.finance/v1/chains/1',
+	explorerBaseURI: 'https://etherscan.io',
+	lensAddress: '0x83d95e0D5f402511dB06817Aff3f9eA88224B030',
+	partnerContractAddress: '0x8ee392a4787397126C163Cb9844d7c447da419D8'
+},
+10: { // Optimism
+	rpcURI: getRPC(10),
+	graphURI: 'https://api.thegraph.com/subgraphs/name/yearn/yearn-vaults-v2-optimism',
+	metaURI: 'https://meta.yearn.finance/api/10',
+	apiURI: 'https://api.yearn.finance/v1/chains/10',
+	explorerBaseURI: 'https://optimistic.etherscan.io',
+	lensAddress: '0xB082d9f4734c535D9d80536F7E87a6f4F471bF65',
+	partnerContractAddress: '0x0000000000000000000000000000000000000000'
+},
+250: { // Fantom
+	rpcURI: getRPC(250),
+	graphURI: 'https://api.thegraph.com/subgraphs/name/bsamuels453/yearn-fantom-validation-grafted',
+	metaURI: 'https://meta.yearn.finance/api/250',
+	apiURI: 'https://api.yearn.finance/v1/chains/250',
+	explorerBaseURI: 'https://ftmscan.com',
+	lensAddress: '0x57AA88A0810dfe3f9b71a9b179Dd8bF5F956C46A',
+	partnerContractAddress: '0x086865B2983320b36C42E48086DaDc786c9Ac73B'
+}, // Arbitrum
+42161: {
+	rpcURI: getRPC(42161),
+	graphURI: 'https://api.thegraph.com/subgraphs/name/yearn/yearn-vaults-v2-arbitrum',
+	metaURI: 'https://meta.yearn.finance/api/42161',
+	apiURI: 'https://api.yearn.finance/v1/chains/42161',
+	explorerBaseURI: 'https://arbiscan.io',
+	lensAddress: '0x043518AB266485dC085a1DB095B8d9C2Fc78E9b9',
+	partnerContractAddress: '0x0000000000000000000000000000000000000000'
+}
+```

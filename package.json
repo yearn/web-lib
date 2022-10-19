@@ -8,8 +8,7 @@
 	},
 	"scripts": {
 		"bootstrap": "lerna bootstrap --hoist",
-		"start": "lerna run start --stream",
-		"tsc": "lerna run tsc --stream",
+		"start": "lerna run dev --stream",
 		"watch": "lerna run watch --stream"
 	}
 }

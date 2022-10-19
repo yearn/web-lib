@@ -1,0 +1,134 @@
+---
+title: 'useBalance'
+description: 'Hook to access balance information for the ETH coin or any ERC20 token.'
+---
+
+# useBalance
+Fetch balance information for the ETH coin or any ERC20 token. This includes the user's balance, the token price, the token symbol and the decimals.
+
+```tsx
+import {useBalance} from '@majorfi/web-lib/hooks';
+```
+
+## Usage
+
+```tsx
+import {useBalance} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const {data: YFIBalance} = useBalance({
+		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
+		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+	});
+
+	return (
+		<div>
+			<p className={'text-primary-500'}>
+				{`Price: $ ${YFIBalance.normalizedPrice}`}
+			</p>
+			<p className={'text-primary-500'}>
+				{`Balance: ${YFIBalance.normalized} ${YFIBalance.symbol}`}
+			</p>
+		</div>
+	);
+}
+```
+
+## Return Value
+
+```tsx
+{
+	data: {
+		decimals: number
+		symbol: string
+		raw: BigNumber
+		rawPrice: BigNumber
+		normalized: number
+		normalizedPrice: number
+		normalizedValue: number
+	}
+	error?: Error
+	isLoading: boolean
+	isSuccess: boolean
+	isError: boolean
+	isFetching: boolean
+	isFetched: boolean
+	isRefetching: boolean
+	status: 'error' | 'loading' | 'success' | 'unknown'
+}
+```
+
+## Configuration
+
+### `token` (optional)
+Address for ERC-20 token to use for the request. If not provided, this will fetch the user's balance for the chain native token.
+```tsx {6}
+import {useBalance} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const {data: YFIBalance} = useBalance({
+		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
+		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+	});
+}
+```
+
+
+### `for` (optional)
+Address or ENS name to fetch balance for. If not defined, the hook will use the currently connected account
+```tsx {5}
+import {useBalance} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const {data: YFIBalance} = useBalance({
+		for: '0x7a1057e6e9093da9c1d4c1d049609b6889fc4c67',
+		token: '0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'
+	});
+}
+```
+
+### `refreshEvery` (optional)
+If provided, the hook will refresh the balance every `refreshEvery` value. If the value is not provided, no refresh will be performed.  
+The possible values are: 
+- `block`: Refresh balance every time a new block is mined.
+- `second`: Refresh balance every second.
+- `minute`: Refresh balance every minute.
+- `hour`: Refresh balance every hour.
+- `N`: Refresh balance every `N` milliseconds, where `N` is a number (`1 second = 1000`).  
+
+```tsx {5}
+import {useBalance} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const {data: YFIBalance} = useBalance({
+		refreshEvery: 'block'
+	});
+}
+```
+
+### `chainID` (optional)
+Use a specific chainID to perform the request. Supported values are `1`, `4`, `10`, `56`, `100`, `137`, `250`, `1337`, `31337` and `42161`.
+
+```tsx {5}
+import {useBalance} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const {data: YFIBalance} = useBalance({
+		chainID: 250
+	});
+}
+```
+
+### `provider` (optional)
+Use a specific provider to perform the request. Any ethers.js provider can be used.
+
+```tsx {6}
+import {ethers}     from 'ethers';
+import {useBalance} from '@majorfi/web-lib/hooks';
+
+function App() {
+	const {data: YFIBalance} = useBalance({
+		provider: ethers.providers.getDefaultProvider(1)
+	});
+}
+```
