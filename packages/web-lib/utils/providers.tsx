@@ -1,5 +1,5 @@
-import	{ethers}		from	'ethers';
 import	{Provider}		from	'ethcall';
+import	{ethers}		from	'ethers';
 
 const	defaultRPCURI: {[key: number]: string} = {
 	1: 'https://rpc.flashbots.net',
@@ -60,26 +60,35 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 ** supported and default is chain 1, aka ethereum mainnet.
 **************************************************************************/
 export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.providers.Web3Provider {
-	if (envRPCURI?.[chain])
+	if (envRPCURI?.[chain]) {
 		return new ethers.providers.JsonRpcProvider(envRPCURI?.[chain]);
-	if (process.env.WEB_SOCKET_URL?.[chain])
+	}
+	if (process.env.WEB_SOCKET_URL?.[chain]) {
 		return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[chain]);
-	if (process.env.ALCHEMY_KEY && chain === 1)
+	}
+	if (process.env.ALCHEMY_KEY && chain === 1) {
 		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
-	if (process.env.INFURA_KEY && chain === 1)
+	}
+	if (process.env.INFURA_KEY && chain === 1) {
 		return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
-	if (defaultRPCURI?.[chain])
+	}
+	if (defaultRPCURI?.[chain]) {
 		return new ethers.providers.JsonRpcProvider(defaultRPCURI[chain]);
+	}
 
 	//Fallback to chain 1
-	if (envRPCURI?.[1])
+	if (envRPCURI?.[1]) {
 		return new ethers.providers.JsonRpcProvider(envRPCURI?.[1]);
-	if (process.env.WEB_SOCKET_URL?.[1])
+	}
+	if (process.env.WEB_SOCKET_URL?.[1]) {
 		return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[1]);
-	if (process.env.ALCHEMY_KEY)
+	}
+	if (process.env.ALCHEMY_KEY) {
 		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
-	if (process.env.INFURA_KEY)
+	}
+	if (process.env.INFURA_KEY) {
 		return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
+	}
 	return new ethers.providers.JsonRpcProvider(defaultRPCURI?.[1] || '');
 }
 
@@ -87,10 +96,12 @@ export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.p
 ** Retrieve the RPC for a specific chain.
 **************************************************************************/
 export function getRPC(chainID = 1): string {
-	if (process.env.JSON_RPC_URL?.[chainID])
+	if (process.env.JSON_RPC_URL?.[chainID]) {
 		return (process.env.JSON_RPC_URL[chainID]);
-	if (defaultRPCURI?.[chainID])
+	}
+	if (defaultRPCURI?.[chainID]) {
 		return defaultRPCURI?.[chainID];
+	}
 	return (defaultRPCURI[1]);
 }
 

@@ -1,19 +1,20 @@
-import React, {ReactElement} from 'react';
-import {ModalMenu} from '../components/ModalMenu';
-import IconHamburger from '../icons/IconHamburger';
+import React, {cloneElement, ReactElement, useState} from 'react';
+import {ModalMenu} from '@majorfi/web-lib/components/ModalMenu';
+import IconHamburger from '@majorfi/web-lib/icons/IconHamburger';
+
 import type * as NavbarTypes from './Navbar.d';
 
 function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
-			<div className={`mr-4 transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary-500' : 'text-neutral-500 group-hover:text-primary-500'}`}>
+			<div className={`mr-4 cursor-pointer py-1 transition-colors ${option.values.includes(selected) ? 'text-primary-500' : 'group-hover:text-primary-500 text-neutral-500'}`}>
 				{option.icon ? (
-					React.cloneElement(option.icon, {className: 'w-6 min-w-[1.5rem] h-6'})
+					cloneElement(option.icon, {className: 'w-6 min-w-[1.5rem] h-6'})
 				) : (
-					<div className={'py-1 mr-4 w-6 min-w-[1.5rem] h-6 cursor-pointer'} />
+					<div className={'mr-4 h-6 w-6 min-w-[1.5rem] cursor-pointer py-1'} />
 				)}
 			</div>
-			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary-500' : 'text-neutral-500 group-hover:text-primary-500'}`}>
+			<p className={`cursor-pointer py-1 transition-colors ${option.values.includes(selected) ? 'text-primary-500' : 'group-hover:text-primary-500 text-neutral-500'}`}>
 				{option.label}
 			</p>
 		</div>
@@ -23,8 +24,8 @@ function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement
 function	NavbarMenuSubItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
-			<div className={'py-1 mr-4 w-6 min-w-[1.5rem] h-6 cursor-pointer'} />
-			<p className={`transition-colors py-1 cursor-pointer ${option.values.includes(selected) ? 'text-primary-500' : 'text-neutral-500 group-hover:text-primary-500'}`}>
+			<div className={'mr-4 h-6 w-6 min-w-[1.5rem] cursor-pointer py-1'} />
+			<p className={`cursor-pointer py-1 transition-colors ${option.values.includes(selected) ? 'text-primary-500' : 'group-hover:text-primary-500 text-neutral-500'}`}>
 				{option.label}
 			</p>
 		</div>
@@ -41,39 +42,39 @@ function	Navbar({
 	wrapper,
 	...props
 }: NavbarTypes.TNavbar): ReactElement {
-	const	[hasOpenMenu, set_hasOpenMenu] = React.useState(false);
+	const	[hasOpenMenu, set_hasOpenMenu] = useState(false);
 
 	return (
 		<aside
 			aria-label={'aside-navigation'}
-			className={'relative top-0 pt-0 w-auto min-w-full md:sticky md:pt-9 md:w-full md:min-w-[10rem]'}
+			className={'relative top-0 w-auto min-w-full pt-0 md:sticky md:w-full md:min-w-[10rem] md:pt-9'}
 			{...props}>
 			<div
 				aria-label={'dektop-navigation'}
 				className={'hidden flex-col md:flex'}
 				style={{height: 'calc(100vh - 4.50rem)'}}>
 				<a href={'/'}>
-					<div className={'flex flex-row items-center cursor-pointer'}>
+					<div className={'flex cursor-pointer flex-row items-center'}>
 						<span className={'sr-only'}>{'Home'}</span>
 						<div className={title ? 'mr-4' : ''}>
-							{React.cloneElement(logo)}
+							{cloneElement(logo)}
 						</div>
 						{title ? <h1 className={'lowercase'}>{title}</h1> : null}
 					</div>
 				</a>
-				<nav className={'flex overflow-y-auto flex-col mt-12 space-y-4 max-h-[75vh] scrollbar-none'}>
+				<nav className={'scrollbar-none mt-12 flex max-h-[75vh] flex-col space-y-4 overflow-y-auto'}>
 					{options.map((option): ReactElement  => {
 						if (wrapper) {
 							return (
 								<div key={option.route} className={'space-y-2'}>
-									{React.cloneElement(
+									{cloneElement(
 										wrapper,
 										{href: option.route},
 										<a><NavbarMenuItem option={option} selected={selected} /></a>
 									)}
 									{(option.options || [])?.map((subOption): ReactElement => (
 										<div key={subOption.route}>
-											{React.cloneElement(
+											{cloneElement(
 												wrapper,
 												{href: subOption.route},
 												<a><NavbarMenuSubItem option={subOption} selected={selected} /></a>
@@ -104,20 +105,20 @@ function	Navbar({
 			</div>
 			<div
 				aria-label={'mobile-navigation'}
-				className={'flex flex-row justify-between items-center p-4 border-b md:hidden bg-neutral-0 border-neutral-300'}>
+				className={'bg-neutral-0 flex flex-row items-center justify-between border-b border-neutral-300 p-4 md:hidden'}>
 				<a href={'/'}>
-					<div className={'flex flex-row items-center cursor-pointer'}>
+					<div className={'flex cursor-pointer flex-row items-center'}>
 						<span className={'sr-only'}>{'Home'}</span>
 						<div className={title ? 'mr-4' : ''}>
-							{React.cloneElement(logo, {className: `h-8 ${logo.props.className}`})}
+							{cloneElement(logo, {className: `h-8 ${logo.props.className}`})}
 						</div>
 						{title ? <h1 className={'lowercase'}>{title}</h1> : null}
 					</div>
 				</a>
 				<div
 					onClick={(): void => set_hasOpenMenu(true)}
-					className={'p-1 -m-1'}>
-					<IconHamburger className={'w-8 h-8 text-neutral-700'} />
+					className={'-m-1 p-1'}>
+					<IconHamburger className={'h-8 w-8 text-neutral-700'} />
 				</div>
 				<ModalMenu
 					isOpen={hasOpenMenu}

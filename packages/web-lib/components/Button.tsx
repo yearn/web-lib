@@ -1,24 +1,18 @@
-import	React, {ReactElement}	from	'react';
-import	IconLoader				from	'../icons/IconLoader';
-import type * as ButtonTypes	from	'./Button.d';
+import React, {forwardRef, ReactElement} from 'react';
+import IconLoader from '@majorfi/web-lib/icons/IconLoader';
+
+import type	{TButton, TMouseEvent} from './Button.d';
 
 // eslint-disable-next-line react/display-name
-const Button = React.forwardRef(({
-	children,
-	variant = 'filled',
-	as = 'button',
-	className,
-	shouldStopPropagation = false,
-	isBusy = false,
-	isDisabled = false,
-	...props
-}: ButtonTypes.TButton): ReactElement => {
-	if (as === 'a') {
+const Button = forwardRef((props: TButton): ReactElement => {
+	const	{children, variant = 'filled', shouldStopPropagation = false, isBusy = false, isDisabled = false, ...rest} = props;
+
+	if (rest.as === 'a') {
 		return (
-			<a tabIndex={-1} {...props as React.ComponentPropsWithoutRef<'a'>}>
+			<a tabIndex={-1} {...rest as React.ComponentPropsWithoutRef<'a'>}>
 				<button
 					data-variant={variant}
-					className={`yearn--button flex-center ${className}`}>
+					className={`yearn--button flex-center ${rest.className}`}>
 					{children}
 				</button>
 			</a>
@@ -26,23 +20,25 @@ const Button = React.forwardRef(({
 	}
 	return (
 		<button
-			{...(props as React.ComponentPropsWithoutRef<'button'>)}
+			{...(rest as React.ComponentPropsWithoutRef<'button'>)}
 			data-variant={variant}
-			className={`yearn--button ${className}`}
+			className={`yearn--button ${rest.className}`}
 			aria-busy={isBusy}
-			disabled={isDisabled || (props as React.ComponentPropsWithoutRef<'button'>).disabled}
-			onClick={(event: ButtonTypes.TMouseEvent): void => {
+			disabled={isDisabled || (rest as React.ComponentPropsWithoutRef<'button'>).disabled}
+			onClick={(event: TMouseEvent): void => {
 				if (shouldStopPropagation) {
 					event.stopPropagation();
 				}
-				if (!isBusy && props.onClick) {
-					props.onClick(event);
+				if (!isBusy && rest.onClick) {
+					rest.onClick(event);
 				}
 			}}>
 			{children}
-			{isBusy ? <div className={'flex absolute inset-0 justify-center items-center'}>
-				<IconLoader className={'w-6 h-6 text-neutral-0 animate-spin'} />
-			</div> : null}
+			{isBusy ? (
+				<div className={'absolute inset-0 flex items-center justify-center'}>
+					<IconLoader className={'text-neutral-0 h-6 w-6 animate-spin'} />
+				</div>
+			) : null}
 		</button>
 	);
 });

@@ -1,29 +1,23 @@
-import	React, {ReactElement}	from	'react';
-import	IconCross				from	'../icons/IconCross';
-import	IconChevron				from	'../icons/IconChevron';
-import performBatchedUpdates	from	'../utils/performBatchedUpdates';
-import type * as AlertTypes		from	'./Alert.d';
+import React, {ReactElement, useEffect, useState} from 'react';
+import IconChevron from '@majorfi/web-lib/icons/IconChevron';
+import IconCross from '@majorfi/web-lib/icons/IconCross';
+import {performBatchedUpdates} from '@majorfi/web-lib/utils';
 
-function	AlertBanner({
-	title,
-	children,
-	level = 'info',
-	maxHeight = 'max-h-[300px]',
-	canClose = true,
-	isVisible = true,
-	onClose
-}: AlertTypes.TAlertBanner): ReactElement {
-	const	[shouldRender, set_shouldRender] = React.useState(isVisible);
-	const	[isLocalVisible, set_isLocalVisible] = React.useState(isVisible);
-	const	[currentSlide, set_currentSlide] = React.useState(0);
-	const	hasSlide = (children as ReactElement).type === undefined;
-	const	infoClassName = 'text-primary-500 bg-primary-100 border-primary-500';
-	const	warningClassName = 'text-yellow-900 bg-yellow-300 border-yellow-900';
-	const	errorClassName = 'text-pink-900 bg-pink-300 border-pink-900';
-	const	criticalClassName = 'text-red-900 bg-red-300 border-red-900';
-	const	alertClassName = level === 'critical' ? criticalClassName : level === 'warning' ? warningClassName : level === 'error' ? errorClassName : infoClassName;
+import type	{TAlertBanner} from './Alert.d';
 
-	React.useEffect((): void => {
+function AlertBanner(props: TAlertBanner): ReactElement {
+	const {title, children, level = 'info', maxHeight = 'max-h-[300px]', canClose = true, isVisible = true, onClose} = props;
+	const [shouldRender, set_shouldRender] = useState(isVisible);
+	const [isLocalVisible, set_isLocalVisible] = useState(isVisible);
+	const [currentSlide, set_currentSlide] = useState(0);
+	const hasSlide = (children as ReactElement).type === undefined;
+	const infoClassName = 'text-primary-500 bg-primary-100 border-primary-500';
+	const warningClassName = 'text-yellow-900 bg-yellow-300 border-yellow-900';
+	const errorClassName = 'text-pink-900 bg-pink-300 border-pink-900';
+	const criticalClassName = 'text-red-900 bg-red-300 border-red-900';
+	const alertClassName = level === 'critical' ? criticalClassName : level === 'warning' ? warningClassName : level === 'error' ? errorClassName : infoClassName;
+
+	useEffect((): void => {
 		if (isVisible) {
 			performBatchedUpdates((): void => {
 				set_isLocalVisible(true);
@@ -45,8 +39,9 @@ function	AlertBanner({
 	}
 
 	function	renderPreviousChevron(): ReactElement {
-		if (currentSlide === 0)
+		if (currentSlide === 0) {
 			return (<IconChevron className={'h-4 w-4 cursor-not-allowed opacity-50'} />);
+		}
 		return (
 			<IconChevron
 				className={'h-4 w-4 cursor-pointer'}
@@ -55,8 +50,9 @@ function	AlertBanner({
 	}
 
 	function	renderNextChevron(): ReactElement {
-		if (currentSlide === (children as ReactElement[]).length - 1)
+		if (currentSlide === (children as ReactElement[]).length - 1) {
 			return (<IconChevron className={'h-4 w-4 rotate-180 cursor-not-allowed opacity-50'} />);
+		}
 		return (
 			<IconChevron
 				className={'h-4 w-4 rotate-180 cursor-pointer'}
@@ -78,11 +74,13 @@ function	AlertBanner({
 				) : null}
 				<h4 className={'mb-6 text-inherit'}>{title}</h4>
 				{hasSlide ? (children as ReactElement[])[currentSlide] : children}
-				{hasSlide ? <div className={'absolute right-4 bottom-2 flex flex-row items-center space-x-2'}>
-					{renderPreviousChevron()}
-					<p className={'text-sm tabular-nums'}>{`${currentSlide + 1}/${(children as ReactElement[]).length}`}</p>
-					{renderNextChevron()}
-				</div> : null}
+				{hasSlide ? (
+					<div className={'absolute right-4 bottom-2 flex flex-row items-center space-x-2'}>
+						{renderPreviousChevron()}
+						<p className={'text-sm tabular-nums'}>{`${currentSlide + 1}/${(children as ReactElement[]).length}`}</p>
+						{renderNextChevron()}
+					</div>
+				) : null}
 			</div>
 		</div>
 	);

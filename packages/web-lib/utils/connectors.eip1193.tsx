@@ -1,4 +1,5 @@
 import {Connector} from '@web3-react/types';
+
 import type {Actions, Provider, ProviderConnectInfo, ProviderRpcError} from '@web3-react/types';
 
 function parseChainId(chainId: string | number): number {
@@ -7,7 +8,7 @@ function parseChainId(chainId: string | number): number {
 
 export class EIP1193 extends Connector {
 	/** {@inheritdoc Connector.provider} */
-	provider: Provider;
+	declare provider: Provider;
 
 	/**
 	 * @param provider - An EIP-1193 ({@link https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md}) provider.

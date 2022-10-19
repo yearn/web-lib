@@ -1,5 +1,5 @@
-import	{ethers}		from	'ethers';
-import	toast			from	'react-hot-toast';
+import {toast} from 'react-hot-toast';
+import {ethers} from 'ethers';
 
 //cf: https://github.com/ethers-io/ethers.js/discussions/1429
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
@@ -102,7 +102,8 @@ export function	isIframe(): boolean {
 	if (typeof(window) === 'undefined') {
 		return false;
 	}
-	if (window !== window.top || window.parent.frames.length > 0)
+	if (window !== window.top || window.parent.frames.length > 0) {
 		return true;
+	}
 	return false;
 }

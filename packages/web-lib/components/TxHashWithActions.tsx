@@ -1,23 +1,18 @@
-import	React, {ReactElement}				from	'react';
-import	{useSettings}						from	'../contexts/useSettings';
-import	{useWeb3}							from	'../contexts/useWeb3';
-import	{truncateHex, copyToClipboard}		from	'../utils/utils';
-import	IconLinkOut							from	'../icons/IconLinkOut';
-import	IconCopy							from	'../icons/IconCopy';
-import type * as TxHashWithActionsTypes		from	'./TxHashWithActions.d';
+import React, {ReactElement, useEffect, useState} from 'react';
+import {useSettings, useWeb3} from '@majorfi/web-lib/contexts';
+import IconCopy from '@majorfi/web-lib/icons/IconCopy';
+import IconLinkOut from '@majorfi/web-lib/icons/IconLinkOut';
+import {copyToClipboard, truncateHex} from '@majorfi/web-lib/utils';
 
-function	TxHashWithActions({
-	txHash,
-	explorer = '',
-	truncate = 5,
-	wrapperClassName,
-	className = ''
-}: TxHashWithActionsTypes.TTxHashWithActions): ReactElement {
+import type {TTxHashWithActions} from './TxHashWithActions.d';
+
+function	TxHashWithActions(props: TTxHashWithActions): ReactElement {
+	const	{txHash, explorer = '', truncate = 5, wrapperClassName, className = ''} = props;
 	const	{networks} = useSettings();
 	const	{chainID} = useWeb3();
-	const	[explorerURI, set_explorerURI] = React.useState('');
+	const	[explorerURI, set_explorerURI] = useState('');
 
-	React.useEffect((): void => {
+	useEffect((): void => {
 		if (explorer !== '') {
 			set_explorerURI(explorer);
 		} else if (networks[chainID]?.explorerBaseURI) {

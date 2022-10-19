@@ -1,11 +1,12 @@
 # Yearn Web Lib
-![](./.github/og.jpeg)
+![](../../.github/og.jpeg)
+
 
 Yearn web Lib is a library of standard components used through Yearn's Projects.    
 This library is made for React projects with the idea to be light, efficient and easy to use.  
 We are using React + Tailwindcss + ethersjs for the web3 package, and some contexts are available to correctly wrap your app.
 
-Please check [@yearn/web-template](https://github.com/yearn/web-template) for documentation and usage.
+Please check @yearn/web-template for documentation and usage.
 
 The stack used for this project is the following:
 - 🚀 [Next](https://nextjs.org) — JavaScript library for user interfaces
@@ -16,15 +17,12 @@ The stack used for this project is the following:
 - 💄 [ESLint](https://eslint.org/) for code linting
 - ⚙️ [GitHub Actions](https://github.com/changesets/action) for fully automated package publishing
 
+This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib).
+
 ### Install
 ```sh
-yarn add @yearn-finance/web-lib
+yarn add @yearn-finance/web-lib #from npm
 ```
-This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib)
-
-### Turbo
-
-- `npm install -g turbo` - Install turbo command globally
 
 ### Useful Commands
 - `yarn build` - Build all packages including the Storybook site
@@ -64,23 +62,18 @@ Release will only occurs on `main` branch, only via an authorized member of Year
 
 ### How to setup
 
-#### Setup `tsconfig.json`
+#### Setup tsconfig
 With TS config, you should add some paths to be sure to correctly link the web lib: 
 ```ts
-{
-	"compilerOptions": {
-		"rootDirs": ["."],
-		"baseUrl": ".",
-		"paths": {
-			"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
-			"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
-			"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
-			"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
-			"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
-			"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"]
-		}	
-	}
-}
+	"baseUrl": ".",
+	"paths": {
+		"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
+		"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
+		"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
+		"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
+		"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
+		"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"],
+	},
 ```
 
 #### Import the CSS
@@ -149,10 +142,10 @@ INFURA_KEY: process.env.INFURA_KEY
 ## How to use
 Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
 ```tsx
-import {WithYearn} from '@yearn-finance/web-lib/contexts';
+import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
 
-function MyApp(props: AppProps): ReactElement {
-	const {Component, pageProps} = props;
+function	MyApp(props: AppProps): ReactElement {
+	const	{Component, pageProps} = props;
 	
 	return (
 		<WithYearn>

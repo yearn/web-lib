@@ -1,6 +1,6 @@
-import	React					from	'react';
-import	{ethers}				from	'ethers';
-import	toast					from	'react-hot-toast';
+import React from 'react';
+import {toast} from 'react-hot-toast';
+import {ethers} from 'ethers';
 
 const		timeout = 3000;
 const		defaultTxStatus = {none: true, pending: false, success: false, error: false};
@@ -43,8 +43,9 @@ class Transaction {
 			// @ts-ignore
 			const	isSuccess = await this.funcCall(this.provider, ...this.txArgs);
 			if (isSuccess) {
-				if (this.successCall)
+				if (this.successCall) {
 					await this.successCall();
+				}
 				toast.success('Transaction successful');
 				this.onStatus(successTxStatus);
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);

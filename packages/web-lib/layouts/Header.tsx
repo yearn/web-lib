@@ -1,13 +1,14 @@
-import	React, {ReactElement}				from	'react';
-import	useWeb3								from	'../contexts/useWeb3';
-import	{Card}								from	'../components/Card';
-import	{Dropdown}							from	'../components/Dropdown';
-import	{TDropdownOption}					from	'../components/Dropdown.d';
-import	{truncateHex}						from	'../utils/utils';
-import	IconNetworkEthereum					from	'../icons/IconNetworkEthereum';
-import	IconNetworkFantom					from	'../icons/IconNetworkFantom';
-import	IconNetworkArbitrum					from	'../icons/IconNetworkArbitrum';
-import	IconNetworkOptimism					from	'../icons/IconNetworkOptimism';
+import React, {ReactElement, useEffect, useState} from 'react';
+import {Card} from '@majorfi/web-lib/components/Card';
+import {Dropdown} from '@majorfi/web-lib/components/Dropdown';
+import {useWeb3} from '@majorfi/web-lib/contexts/useWeb3';
+import IconNetworkArbitrum from '@majorfi/web-lib/icons/IconNetworkArbitrum';
+import IconNetworkEthereum from '@majorfi/web-lib/icons/IconNetworkEthereum';
+import IconNetworkFantom from '@majorfi/web-lib/icons/IconNetworkFantom';
+import IconNetworkOptimism from '@majorfi/web-lib/icons/IconNetworkOptimism';
+import {truncateHex} from '@majorfi/web-lib/utils';
+
+import type {TDropdownOption} from '@majorfi/web-lib/components/Dropdown.d';
 
 const	options: TDropdownOption[] = [
 	{icon: <IconNetworkEthereum />, label: 'Ethereum', value: 1},
@@ -27,10 +28,10 @@ function	Header({
 	children
 }: THeader): ReactElement {
 	const	{chainID, onSwitchChain, isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
-	const	[walletIdentity, set_walletIdentity] = React.useState('Connect wallet');
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const	[walletIdentity, set_walletIdentity] = useState('Connect wallet');
+	const	[selectedOption, set_selectedOption] = useState(options[0]);
 
-	React.useEffect((): void => {
+	useEffect((): void => {
 		if (!isActive) {
 			set_walletIdentity('Connect wallet');
 		} else if (ens) {
@@ -42,7 +43,7 @@ function	Header({
 		}
 	}, [ens, address, isActive]);
 
-	React.useEffect((): void => {
+	useEffect((): void => {
 		const	_selectedOption = options.find((e): boolean => e.value === Number(chainID)) || options[0];
 		set_selectedOption(_selectedOption);
 	}, [chainID, isActive]);
@@ -66,10 +67,11 @@ function	Header({
 					{shouldUseWallets ? (
 						<button
 							onClick={(): void => {
-								if (isActive)
+								if (isActive) {
 									onDesactivate();
-								else
+								} else {
 									openLoginModal();
+								}
 							}}
 							data-variant={'light'}
 							className={'yearn--button truncate'}>

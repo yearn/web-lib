@@ -1,13 +1,14 @@
 import	React, {ReactElement}					from	'react';
-import	{Web3ReactProvider, Web3ReactHooks}		from	'@web3-react/core';
+import	{SettingsContextApp}					from	'@majorfi/web-lib/contexts/useSettings';
+import	{UIContextApp}							from	'@majorfi/web-lib/contexts/useUI';
+import	{Web3ContextApp}						from	'@majorfi/web-lib/contexts/useWeb3';
+import	{connectors}							from	'@majorfi/web-lib/utils/connectors';
+import	{Web3ReactHooks, Web3ReactProvider}		from	'@web3-react/core';
+
 import	type {Connector}						from	'@web3-react/types';
-import	{UIContextApp}							from	'./useUI';
-import	{Web3ContextApp}						from	'./useWeb3';
-import	{SettingsContextApp}					from	'./useSettings';
-import	{connectors}							from	'../utils/connectors';
+import	type {TSettingsBase, TSettingsOptions}	from	'./useSettings.d';
 import	type {TUIOptions}						from	'./useUI.d';
 import	type {TWeb3Options}						from	'./useWeb3.d';
-import	type {TSettingsBase, TSettingsOptions}	from	'./useSettings.d';
 
 function	WithYearn({children, options}: {
 	children: ReactElement

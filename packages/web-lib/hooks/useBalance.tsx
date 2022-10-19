@@ -1,15 +1,16 @@
-import	{useState, useRef, useEffect, useCallback}			from	'react';
-import	{BigNumber, ethers}									from	'ethers';
-import	{Contract}											from	'ethcall';
-import	{useWeb3}											from	'../contexts/useWeb3';
-import	{useSettings}										from	'../contexts/useSettings';
-import	{toAddress, isZeroAddress}							from	'../utils/utils';
-import	performBatchedUpdates								from	'../utils/performBatchedUpdates';
-import	* as format											from	'../utils/format';
-import	* as providers										from	'../utils/providers';
-import	ERC20_ABI											from	'../utils/abi/erc20.abi';
-import	LENS_ABI											from	'../utils/abi/lens.abi';
-import	type * as Types										from	'./types.d';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {Contract} from 'ethcall';
+import {BigNumber, ethers} from 'ethers';
+import {useSettings} from '@majorfi/web-lib/contexts/useSettings';
+import {useWeb3} from '@majorfi/web-lib/contexts/useWeb3';
+import ERC20_ABI from '@majorfi/web-lib/utils/abi/erc20.abi';
+import LENS_ABI from '@majorfi/web-lib/utils/abi/lens.abi';
+import * as format from '@majorfi/web-lib/utils/format';
+import performBatchedUpdates from '@majorfi/web-lib/utils/performBatchedUpdates';
+import * as providers from '@majorfi/web-lib/utils/providers';
+import {isZeroAddress, toAddress} from '@majorfi/web-lib/utils/utils';
+
+import type * as Types from './types.d';
 
 const		defaultStatus = {
 	isLoading: false,
@@ -57,10 +58,11 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
 
-		const	lensAddress = networks[props?.chainID || web3ChainID].lensAddress;
+		const	{lensAddress} = networks[props?.chainID || web3ChainID];
 		let		lensContract: Contract | undefined = undefined;
-		if (lensAddress)
+		if (lensAddress) {
 			lensContract = new Contract(lensAddress, LENS_ABI);
+		}
 
 		//If no token provider or if provided token is Fake ETH, then fetch ETH Balance
 		if (isZeroAddress(props?.token) || toAddress(props?.token) === toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')) {

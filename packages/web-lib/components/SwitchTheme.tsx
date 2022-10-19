@@ -1,11 +1,13 @@
-import	React, {ReactElement}		from	'react';
-import	useClientEffect				from	'../hooks/useClientEffect';
-import	IconThemeDark				from	'../icons/IconThemeDark';
-import	IconThemeLight				from	'../icons/IconThemeLight';
-import type * as SwitchThemeTypes	from 	'./SwitchTheme.d';
+import React, {ReactElement, useState} from 'react';
+import {useClientEffect} from '@majorfi/web-lib/hooks';
+import IconThemeDark from '@majorfi/web-lib/icons/IconThemeDark';
+import IconThemeLight from '@majorfi/web-lib/icons/IconThemeLight';
 
-function	SwitchTheme({theme, switchTheme, ...props}: SwitchThemeTypes.TSwitchTheme): ReactElement {
-	const	[currentTheme, set_currentTheme] = React.useState('light');
+import type {TSwitchTheme} from './SwitchTheme.d';
+
+function	SwitchTheme(props: TSwitchTheme): ReactElement {
+	const	{theme, switchTheme, ...rest} = props;
+	const	[currentTheme, set_currentTheme] = useState('light');
 
 	useClientEffect((): void => {
 		set_currentTheme(theme);
@@ -13,18 +15,18 @@ function	SwitchTheme({theme, switchTheme, ...props}: SwitchThemeTypes.TSwitchThe
 
 	return (
 		<div
-			{...props}
+			{...rest}
 			role={'button'}
 			tabIndex={0}
 			onKeyDown={({keyCode}: {keyCode: number}): unknown => keyCode === 13 ? switchTheme() : null}
 			onClick={switchTheme}
-			className={`hidden flex-row items-center md:flex space-x-2 ${props.className ?? ''}`}>
+			className={`hidden flex-row items-center space-x-2 md:flex ${rest.className ?? ''}`}>
 			<IconThemeLight
 				aria-label={'Switch to light theme'}
-				className={`w-5 h-5 transition-colors cursor-pointer ${['light', 'light-initial'].includes(currentTheme) ? 'text-primary-500' : 'text-neutral-500 hover:text-primary-500'}`} />
+				className={`h-5 w-5 cursor-pointer transition-colors ${['light', 'light-initial'].includes(currentTheme) ? 'text-primary-500' : 'hover:text-primary-500 text-neutral-500'}`} />
 			<IconThemeDark
 				aria-label={'Switch to dark theme'}
-				className={`w-5 h-5 transition-colors cursor-pointer ${currentTheme === 'dark' ? 'text-primary-500' : 'text-neutral-500 hover:text-primary-500'}`} />
+				className={`h-5 w-5 cursor-pointer transition-colors ${currentTheme === 'dark' ? 'text-primary-500' : 'hover:text-primary-500 text-neutral-500'}`} />
 		</div>
 	);
 }

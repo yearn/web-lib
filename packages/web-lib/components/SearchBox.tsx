@@ -1,23 +1,20 @@
 import React, {ReactElement} from 'react';
-import IconSearch from '../icons/IconSearch';
-import type * as SearchBoxTypes	from './SearchBox.d';
+import IconSearch from '@majorfi/web-lib/icons/IconSearch';
 
-function	SearchBox({
-	searchTerm,
-	onChange,
-	onSearch,
-	isNarrow,
-	ariaLabel = 'Search',
-	placeholder = 'Search'
-}: SearchBoxTypes.TSearchBox): ReactElement {
+import type {TSearchBox} from './SearchBox.d';
+
+function	SearchBox(props: TSearchBox): ReactElement {
+	const {searchTerm, onChange, onSearch, isNarrow, ariaLabel = 'Search', placeholder = 'Search'} = props;
+
 	return (
 		<div className={'yearn--searchBox-wrapper'}>
 			<form
 				name={ariaLabel}
 				onSubmit={(e): void => {
 					e.preventDefault();
-					if (onSearch)
+					if (onSearch) {
 						onSearch(searchTerm);
+					}
 				}}>
 				<label
 					aria-label={ariaLabel}

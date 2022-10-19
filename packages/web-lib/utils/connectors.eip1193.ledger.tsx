@@ -126,7 +126,7 @@ export type TIFrameEthereumProvider = {
  * is constructed from both.
  */
 export class RpcError extends Error {
-	public readonly isRpcError: true = true;
+	public readonly isRpcError = true as const;
 
 	public readonly code: number;
 	public readonly reason: string;
@@ -311,7 +311,7 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
    * @param event message event that will be processed by the provider
    */
 	private handleEventSourceMessage = (event: MessageEvent): void => {
-		const data = event.data;
+		const {data} = event;
 
 		// No data to parse, skip.
 		if (!data) {

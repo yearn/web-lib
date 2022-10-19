@@ -1,7 +1,7 @@
-import React from 'react';
+import {useEffect, useLayoutEffect} from 'react';
 
 const isBrowser = typeof window !== 'undefined';
-const useClientEffect = isBrowser ? React.useLayoutEffect : React.useEffect;
+const useClientEffect = isBrowser ? useLayoutEffect : useEffect;
 
 export {useClientEffect};
 export default useClientEffect;

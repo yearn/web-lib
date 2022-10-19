@@ -1,21 +1,15 @@
 {
+	"name": "@yearn-finance/web-lib",
+	"version": "0.13.28",
 	"private": true,
-	"workspaces": [
-		"packages/*",
-		"apps/*"
-	],
-	"scripts": {
-		"build": "turbo run build --filter=playground^... --filter=docs^...",
-		"dev": "turbo run dev --no-cache --parallel --continue",
-		"lint": "turbo run lint",
-		"clean": "turbo run clean && rm -rf node_modules",
-		"changeset": "changeset",
-		"version-packages": "changeset version",
-		"release": "turbo run build --filter=playground^... --filter=docs^... && changeset publish"
-	},
+	"workspaces": ["packages/*"],
 	"devDependencies": {
-		"@changesets/cli": "^2.22.0",
-		"eslint": "^8.15.0",
-		"turbo": "latest"
+	  "lerna": "5.1.6"
+	},
+	"scripts": {
+		"bootstrap": "lerna bootstrap --hoist",
+		"start": "lerna run start --stream",
+		"tsc": "lerna run tsc --stream",
+		"watch": "lerna run watch --stream"
 	}
 }

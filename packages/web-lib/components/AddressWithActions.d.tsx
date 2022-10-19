@@ -1,4 +1,4 @@
-import {TAddress} from '../utils/utils';
+import type {TAddress} from '@majorfi/web-lib/utils';
 
 export type TAddressWithActions = {
 	address: TAddress;
