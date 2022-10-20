@@ -71,9 +71,8 @@ function	CardWithTabs(props: CardTypes.TCardWithTabs): ReactElement {
 		<div>
 			<Tab.Group>
 				<Tab.List
-					as={Card}
-					className={'yearn--card-tab'}
-					padding={'none'}>
+					className={'yearn--card yearn--card-tab'}
+					style={{padding: 0}}>
 					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
 						<Tab
 							key={option.label}
@@ -86,9 +85,14 @@ function	CardWithTabs(props: CardTypes.TCardWithTabs): ReactElement {
 				<Tab.Panels className={'w-full rounded-t-none'}>
 					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
 						<Tab.Panel key={option.label} as={Fragment}>
-							<Card className={'rounded-t-none'}>
+							<section
+								className={'yearn--card'}
+								style={{
+									borderTopRightRadius: 0,
+									borderTopLeftRadius: 0
+								}}>
 								{option.children}
-							</Card>
+							</section>
 						</Tab.Panel>
 					))}
 				</Tab.Panels>
@@ -113,6 +117,7 @@ function	CardBase(props: CardTypes.TCard): ReactElement {
 	);
 }
 
+export {CardWithTabs};
 export const Card = Object.assign(CardBase, {
 	Detail: Object.assign(CardDetails, {Summary: CardDetailsSummary}),
 	Tabs: CardWithTabs

@@ -1,5 +1,5 @@
 import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@majorfi/web-lib/components';
+import	{Card, CardWithTabs}		from	'@majorfi/web-lib/components/Card';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';
@@ -23,7 +23,7 @@ export default function	App(): React.ReactElement {
 export function	CardTabsComponent(): ReactElement {
 	return (
 		<div className={'w-full md:w-3/4'}>
-			<Card.Tabs
+			<CardWithTabs
 				tabs={[
 					{label: 'Details', children: <b>{'I am the first card.'}</b>},
 					{label: 'Reports', children: <p>{'I am the second Tab'}</p>},
