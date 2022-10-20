@@ -3,12 +3,12 @@ title: 'Dropdown'
 ---
 
 import {DropdownExample} from '../../../components/specific/DropdownExample';
-import {Card, Dropdown} from '@majorfi/web-lib/components';
+import {Card, Dropdown} from '@yearn-finance/web-lib/components';
 
 
 # Dropdown
 ```ts
-import {Dropdown} from '@majorfi/web-lib/components';
+import {Dropdown} from '@yearn-finance/web-lib/components';
 ```
 <DropdownExample />
 
@@ -18,8 +18,8 @@ The component has headless states, meaning you have to send him the useState and
 ## Usage
 
 ```tsx
-import {Dropdown} from  '@majorfi/web-lib/components';
-import * as Icons from	'@majorfi/web-lib/icons';
+import {Dropdown} from  '@yearn-finance/web-lib/components';
+import * as Icons from	'@yearn-finance/web-lib/icons';
 
 function App() {
 	const options = [
@@ -62,8 +62,8 @@ type TDropdownProps = {
 ### `options`
 List of available options to select. The icon field is optional and the label field will be the one displayed. Values should be unique accross the dropdown.
 ```tsx {5-10, 16}
-import {Dropdown} from '@majorfi/web-lib/components';
-import * as Icons from '@majorfi/web-lib/icons';
+import {Dropdown} from '@yearn-finance/web-lib/components';
+import * as Icons from '@yearn-finance/web-lib/icons';
 
 function App() {
 	const options = [
@@ -88,8 +88,8 @@ function App() {
 ### `defaultOption`
 Should be one of the options item. This is the default selected option, displayed when the dropdown is rendered the first time.
 ```tsx {15}
-import {Dropdown} from '@majorfi/web-lib/components';
-import * as Icons from '@majorfi/web-lib/icons';
+import {Dropdown} from '@yearn-finance/web-lib/components';
+import * as Icons from '@yearn-finance/web-lib/icons';
 
 function App() {
 	const options = [
@@ -114,8 +114,8 @@ function App() {
 ### `selected`
 The currently selected option. This should change once the user selects a new option in the dropdown. Best controled by a react.useState.
 ```tsx {17}
-import {Dropdown} from  '@majorfi/web-lib/components';
-import * as Icons from	'@majorfi/web-lib/icons';
+import {Dropdown} from  '@yearn-finance/web-lib/components';
+import * as Icons from	'@yearn-finance/web-lib/icons';
 
 function App() {
 	const options = [
@@ -140,8 +140,8 @@ function App() {
 ### `onSelect`
 Callback when a new option is selected. The function will have the new selected option object as first param. You can then choose how to update the selected variable.
 ```tsx {18}
-import {Dropdown} from  '@majorfi/web-lib/components';
-import * as Icons from	'@majorfi/web-lib/icons';
+import {Dropdown} from  '@yearn-finance/web-lib/components';
+import * as Icons from	'@yearn-finance/web-lib/icons';
 
 function App() {
 	const options = [

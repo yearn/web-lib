@@ -3,9 +3,9 @@ import	Head						from	'next/head';
 import	Link						from	'next/link';
 import	{AppProps}					from	'next/app';
 import	{DefaultSeo}				from	'next-seo';
-import	{Header}					from	'@majorfi/web-lib/layouts';
-import	{WithYearn}					from	'@majorfi/web-lib/contexts';
-import	{useBalance}				from	'@majorfi/web-lib/hooks';
+import	{Header}					from	'@yearn-finance/web-lib/layouts';
+import	{WithYearn}					from	'@yearn-finance/web-lib/contexts';
+import	{useBalance}				from	'@yearn-finance/web-lib/hooks';
 import	LogoYearn					from	'components/icons/LogoYearn';
 import	Footer						from	'components/StandardFooter';
 

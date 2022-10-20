@@ -1,7 +1,7 @@
 import	React		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {Dropdown}       from '@majorfi/web-lib/components';
-import	* as Icons	    from '@majorfi/web-lib/icons';
+import {Dropdown}       from '@yearn-finance/web-lib/components';
+import	* as Icons	    from '@yearn-finance/web-lib/icons';
 
 function	DropdownExample(): React.ReactElement {
 	const	options = [

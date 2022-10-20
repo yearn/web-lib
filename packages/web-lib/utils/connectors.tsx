@@ -1,10 +1,10 @@
-import	{EIP1193}								from	'@majorfi/web-lib/utils/connectors.eip1193';
-import	{getRPC}								from	'@majorfi/web-lib/utils/providers';
 import	{CoinbaseWallet}						from	'@web3-react/coinbase-wallet';
 import	{initializeConnector, Web3ReactHooks}	from	'@web3-react/core';
 import	{GnosisSafe}							from	'@web3-react/gnosis-safe';
 import	{MetaMask}								from	'@web3-react/metamask';
 import	{WalletConnect}							from	'@web3-react/walletconnect';
+import	{EIP1193}								from	'@yearn-finance/web-lib/utils/connectors.eip1193';
+import	{getRPC}								from	'@yearn-finance/web-lib/utils/providers';
 
 const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask>(
 	(actions): MetaMask => new MetaMask({actions})

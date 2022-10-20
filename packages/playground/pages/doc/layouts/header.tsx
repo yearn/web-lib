@@ -1,12 +1,12 @@
 import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@majorfi/web-lib/components';
-import	{Header}					from	'@majorfi/web-lib/layouts';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	{Header}					from	'@yearn-finance/web-lib/layouts';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 
 const code = `
 import	React		from	'react';
-import	{Header}	from	'@majorfi/web-lib/layouts';
+import	{Header}	from	'@yearn-finance/web-lib/layouts';
 
 export default function	App(): React.ReactElement {
 	return (

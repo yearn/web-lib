@@ -1,14 +1,14 @@
 import React, {ReactElement, useEffect, useState} from 'react';
-import {Card} from '@majorfi/web-lib/components/Card';
-import {Dropdown} from '@majorfi/web-lib/components/Dropdown';
-import {useWeb3} from '@majorfi/web-lib/contexts/useWeb3';
-import IconNetworkArbitrum from '@majorfi/web-lib/icons/IconNetworkArbitrum';
-import IconNetworkEthereum from '@majorfi/web-lib/icons/IconNetworkEthereum';
-import IconNetworkFantom from '@majorfi/web-lib/icons/IconNetworkFantom';
-import IconNetworkOptimism from '@majorfi/web-lib/icons/IconNetworkOptimism';
-import {truncateHex} from '@majorfi/web-lib/utils';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {Dropdown} from '@yearn-finance/web-lib/components/Dropdown';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import IconNetworkArbitrum from '@yearn-finance/web-lib/icons/IconNetworkArbitrum';
+import IconNetworkEthereum from '@yearn-finance/web-lib/icons/IconNetworkEthereum';
+import IconNetworkFantom from '@yearn-finance/web-lib/icons/IconNetworkFantom';
+import IconNetworkOptimism from '@yearn-finance/web-lib/icons/IconNetworkOptimism';
+import {truncateHex} from '@yearn-finance/web-lib/utils';
 
-import type {TDropdownOption} from '@majorfi/web-lib/components/Dropdown.d';
+import type {TDropdownOption} from '@yearn-finance/web-lib/components/Dropdown.d';
 
 const	options: TDropdownOption[] = [
 	{icon: <IconNetworkEthereum />, label: 'Ethereum', value: 1},

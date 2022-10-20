@@ -1,5 +1,5 @@
 import	React, {ReactElement}	from	'react';
-import	{Card}					from	'@majorfi/web-lib/components';
+import	{Card}					from	'@yearn-finance/web-lib/components';
 import	DocIndex				from	'pages/doc/components/index';
 
 export default DocIndex;

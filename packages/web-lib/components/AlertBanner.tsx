@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect, useState} from 'react';
-import IconChevron from '@majorfi/web-lib/icons/IconChevron';
-import IconCross from '@majorfi/web-lib/icons/IconCross';
-import {performBatchedUpdates} from '@majorfi/web-lib/utils';
+import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
+import IconCross from '@yearn-finance/web-lib/icons/IconCross';
+import {performBatchedUpdates} from '@yearn-finance/web-lib/utils';
 
 import type	{TAlertBanner} from './Alert.d';
 

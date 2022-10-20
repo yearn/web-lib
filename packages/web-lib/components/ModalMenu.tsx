@@ -1,12 +1,12 @@
 import React, {cloneElement, Fragment, ReactElement, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
-import {SwitchTheme} from '@majorfi/web-lib/components/SwitchTheme';
-import {useUI} from '@majorfi/web-lib/contexts';
-import IconCross from '@majorfi/web-lib/icons/IconCross';
-import IconSocialDiscord from '@majorfi/web-lib/icons/IconSocialDiscord';
-import IconSocialGithub from '@majorfi/web-lib/icons/IconSocialGithub';
-import IconSocialMedium from '@majorfi/web-lib/icons/IconSocialMedium';
-import IconSocialTwitter from '@majorfi/web-lib/icons/IconSocialTwitter';
+import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
+import {useUI} from '@yearn-finance/web-lib/contexts';
+import IconCross from '@yearn-finance/web-lib/icons/IconCross';
+import IconSocialDiscord from '@yearn-finance/web-lib/icons/IconSocialDiscord';
+import IconSocialGithub from '@yearn-finance/web-lib/icons/IconSocialGithub';
+import IconSocialMedium from '@yearn-finance/web-lib/icons/IconSocialMedium';
+import IconSocialTwitter from '@yearn-finance/web-lib/icons/IconSocialTwitter';
 
 import type {TMobileMenu, TModalMenu, TNavbarOption} from './ModalMenu.d';
 

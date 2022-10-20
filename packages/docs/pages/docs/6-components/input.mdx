@@ -6,7 +6,7 @@ import {InputExample} from '../../../components/specific/InputExample';
 
 # Input
 ```ts
-import {Input} from '@majorfi/web-lib/components';
+import {Input} from '@yearn-finance/web-lib/components';
 ```
 <InputExample />
 
@@ -17,8 +17,8 @@ All default `<input>` props are supported and a few extra must be used.
 ## Usage
 
 ```tsx
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -55,8 +55,8 @@ type TDropdown = {
 ### `value`
 It is what the user will type. It is not a big number, just plain humanized number, not scaled with the decimals. 1 USDC = 1000000 wei. This should be a `React.useState` value.
 ```tsx {11}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -74,8 +74,8 @@ function App() {
 ### `onSetValue`
 Trigger a change in the value. It will be a string, not a big number. This should be a React.useState setter. This is triggered everytime the user type something or when he clicks MAX.
 ```tsx {12}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -94,8 +94,8 @@ function App() {
 ### `onValueChange` (optional)
 Callback to trigger a custom update when the value changes. Ommited by default.
 ```tsx {13}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -115,8 +115,8 @@ function App() {
 ### `withMax` (optional)
 Do we want to use the Max feature. The max feature will display a Max button for the user to click to set the value to the max value. If `withMax` is enabled, the error management will also be enabled. Default is `true`.  
 ```tsx {14}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -136,8 +136,8 @@ function App() {
 ### `maxValue` (optional)
 BigNumber matching the maximum allowed value. This is the value that will be used when the user click on the Max button. If `withMax` is disabled, this value will be ignored.  
 ```tsx {14}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -157,8 +157,8 @@ function App() {
 ### `decimals` (optional)
 How many decimals are required to scale the number for plain humanized value to wei ones. This is used with the `maxValue` feature to set and check the correct input. Default is `18`.
 ```tsx {15}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -179,8 +179,8 @@ function App() {
 ### `balance` (optional)
 It will display the user's balance above the value. This is a string, not a big number. The displayed string will be: "You have [balance]".
 ```tsx {16}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');
@@ -202,8 +202,8 @@ function App() {
 ### `price` (optional)
 It will display the value matching the amount typed. Value will be formated for USD display.
 ```tsx {14}
-import {Input}  from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Input}  from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
 	const [amount, set_amount] = React.useState('');

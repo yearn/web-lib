@@ -1,8 +1,8 @@
 import React, {createContext, ReactElement, useCallback, useContext, useRef, useState} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
-import {deepMerge} from '@majorfi/web-lib/contexts//utils';
-import {useClientEffect} from '@majorfi/web-lib/hooks/useClientEffect';
-import {useLocalStorage} from '@majorfi/web-lib/hooks/useLocalStorage';
+import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 
 import type * as useUITypes from './useUI.d';
 

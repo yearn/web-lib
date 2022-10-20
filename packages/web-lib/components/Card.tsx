@@ -1,7 +1,7 @@
 import React, {Fragment, ReactElement} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {Disclosure, Tab} from '@headlessui/react';
-import IconChevron from '@majorfi/web-lib/icons/IconChevron';
+import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 
 import type * as CardTypes from './Card.d';
 

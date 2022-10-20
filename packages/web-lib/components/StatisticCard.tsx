@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import {Card} from '@majorfi/web-lib/components/Card';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
 import type {TStatisticCard} from './StatisticCard.d';
 

@@ -27,7 +27,7 @@ JSON_RPC_URL: {
 ```
 
 ```js
-import { providers } from '@majorfi/web-lib/utils'
+import { providers } from '@yearn-finance/web-lib/utils'
 
 providers.envRPCURI[1]
 // "http://some_rpc_url.com"
@@ -38,7 +38,7 @@ providers.envRPCURI[1]
 Set a fixed URI for a chan ID instead of using the .env file
 
 ```js
-import { providers } from '@majorfi/web-lib/utils'
+import { providers } from '@yearn-finance/web-lib/utils'
 
 providers.replaceEnvRPCURI(1, "http://some_rpc_url.com")
 providers.envRPCURI[1]
@@ -51,7 +51,7 @@ Create a multicall provider that can be used to call multiple functions at the s
 Some specific rules are added in order to support test networks.
 
 ```js
-import { providers } from '@majorfi/web-lib/utils'
+import { providers } from '@yearn-finance/web-lib/utils'
 
 async function run () {
     const provider = providers.getProvider(1)
@@ -65,7 +65,7 @@ run()
 Connect to the RPC of the specific chain we want. Not all chains are supported and default is chain 1, aka ethereum mainnet.
 
 ```js
-import { providers } from '@majorfi/web-lib/utils'
+import { providers } from '@yearn-finance/web-lib/utils'
 
 const provider = providers.getProvider(1)
 ```
@@ -75,7 +75,7 @@ const provider = providers.getProvider(1)
 Retrieve the RPC for a specific chain.
 
 ```js
-import { providers } from '@majorfi/web-lib/utils'
+import { providers } from '@yearn-finance/web-lib/utils'
 
 providers.getRPC(1)
 // "http://some_rpc_url.com"
@@ -86,7 +86,7 @@ providers.getRPC(1)
 Connect to the RPC from a specific RPC
 
 ```js
-import { providers } from '@majorfi/web-lib/utils'
+import { providers } from '@yearn-finance/web-lib/utils'
 
 const provider = providers.fromRPC("http://some_rpc_url.com")
 ```

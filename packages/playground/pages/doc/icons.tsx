@@ -1,12 +1,12 @@
 import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@majorfi/web-lib/components';
-import	* as Icons					from	'@majorfi/web-lib/icons';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	* as Icons					from	'@yearn-finance/web-lib/icons';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 
 const code = `
 import	React		from	'react';
-import	{Hamburger}	from	'@majorfi/web-lib/icons';
+import	{Hamburger}	from	'@yearn-finance/web-lib/icons';
 
 export default function	App(): React.ReactElement {
 	return (

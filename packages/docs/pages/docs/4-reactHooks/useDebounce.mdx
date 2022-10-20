@@ -7,14 +7,14 @@ description: 'Hook to debounce any fast changing value'
 Debounce any fast changing value. You can find details on it's implementation on the [react-recipe](https://github.com/craig1123/react-recipes/blob/master/docs/useDebounce.md) repository.
 
 ```tsx
-import {useDebounce} from '@majorfi/web-lib/hooks';
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
 ```
 
 ## Usage
 
 ```tsx
-import {useWeb3} from '@majorfi/web-lib/contexts';
-import {useDebounce} from '@majorfi/web-lib/hooks';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {chainID} = useWeb3();
@@ -39,7 +39,7 @@ debouncedValue: unknown
 ### `value`
 The value to debounce. Can be any value but must be provided.
 ```tsx {5}
-import {useDebounce} from '@majorfi/web-lib/hooks';
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
 
 function App(chainID: number) {
 	const debouncedChainID = useDebounce(
@@ -52,7 +52,7 @@ function App(chainID: number) {
 ### `delay`
 The delay in milliseconds to debounce the value. Must be provided.
 ```tsx {6}
-import {useDebounce} from '@majorfi/web-lib/hooks';
+import {useDebounce} from '@yearn-finance/web-lib/hooks';
 
 function App(chainID: number) {
 	const debouncedChainID = useDebounce(

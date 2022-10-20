@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import IconSearch from '@majorfi/web-lib/icons/IconSearch';
+import IconSearch from '@yearn-finance/web-lib/icons/IconSearch';
 
 import type {TSearchBox} from './SearchBox.d';
 

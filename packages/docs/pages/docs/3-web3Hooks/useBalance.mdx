@@ -7,13 +7,13 @@ description: 'Hook to access balance information for the ETH coin or any ERC20 t
 Fetch balance information for the ETH coin or any ERC20 token. This includes the user's balance, the token price, the token symbol and the decimals.
 
 ```tsx
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 ```
 
 ## Usage
 
 ```tsx
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {data: YFIBalance} = useBalance({
@@ -63,7 +63,7 @@ function App() {
 ### `token` (optional)
 Address for ERC-20 token to use for the request. If not provided, this will fetch the user's balance for the chain native token.
 ```tsx {6}
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {data: YFIBalance} = useBalance({
@@ -77,7 +77,7 @@ function App() {
 ### `for` (optional)
 Address or ENS name to fetch balance for. If not defined, the hook will use the currently connected account
 ```tsx {5}
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {data: YFIBalance} = useBalance({
@@ -97,7 +97,7 @@ The possible values are:
 - `N`: Refresh balance every `N` milliseconds, where `N` is a number (`1 second = 1000`).  
 
 ```tsx {5}
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {data: YFIBalance} = useBalance({
@@ -110,7 +110,7 @@ function App() {
 Use a specific chainID to perform the request. Supported values are `1`, `4`, `10`, `56`, `100`, `137`, `250`, `1337`, `31337` and `42161`.
 
 ```tsx {5}
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {data: YFIBalance} = useBalance({
@@ -124,7 +124,7 @@ Use a specific provider to perform the request. Any ethers.js provider can be us
 
 ```tsx {6}
 import {ethers}     from 'ethers';
-import {useBalance} from '@majorfi/web-lib/hooks';
+import {useBalance} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {data: YFIBalance} = useBalance({

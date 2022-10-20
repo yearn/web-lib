@@ -1,8 +1,8 @@
 import React, {ReactElement, useEffect, useState} from 'react';
-import {useSettings, useWeb3} from '@majorfi/web-lib/contexts';
-import IconCopy from '@majorfi/web-lib/icons/IconCopy';
-import IconLinkOut from '@majorfi/web-lib/icons/IconLinkOut';
-import {copyToClipboard, truncateHex} from '@majorfi/web-lib/utils';
+import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
+import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
+import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
+import {copyToClipboard, truncateHex} from '@yearn-finance/web-lib/utils';
 
 import type {TTxHashWithActions} from './TxHashWithActions.d';
 

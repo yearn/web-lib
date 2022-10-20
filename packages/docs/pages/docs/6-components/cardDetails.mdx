@@ -3,12 +3,12 @@ title: 'Card.Details'
 ---
 
 import {CodeExample} from '../../../components/CodeExample';
-import {Card} from '@majorfi/web-lib/components';
+import {Card} from '@yearn-finance/web-lib/components';
 
 
 # Card.Details
 ```ts
-import {Card} from '@majorfi/web-lib/components';
+import {Card} from '@yearn-finance/web-lib/components';
 ```
 
 <CodeExample>
@@ -30,7 +30,7 @@ This component can be divided in two distincts parts: the Details and the Summar
 ## Usage
 
 ```tsx
-import {Card} from '@majorfi/web-lib/components';
+import {Card} from '@yearn-finance/web-lib/components';
 
 function App() {
 	return (
@@ -63,7 +63,7 @@ type TCardDetails = {
 Special subcomponent used to handle the Summary. The Summary is splitted in two parts, Start and End, which represent the left and the right part. Both are separated with a justify-between class.  
 The arrow on the end part with it\'s rotation is set in the lib.
 ```tsx {6-11}
-import {Card} from '@majorfi/web-lib/components';
+import {Card} from '@yearn-finance/web-lib/components';
 
 function App() {
 	return (
@@ -86,7 +86,7 @@ function App() {
 ### `variant` (optional)
 Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.
 ```tsx {6}
-import {Card} from '@majorfi/web-lib/components';
+import {Card} from '@yearn-finance/web-lib/components';
 
 function App() {
 	return (
@@ -107,7 +107,7 @@ function App() {
 ### `isSticky` (optional)
 Indicate if the Summary should be sticky on scroll, aka if this should stay on top of the screen if you scroll and if you are still in the expanded details. Has no effect on mobile. Default set to true.
 ```tsx {6}
-import {Card} from '@majorfi/web-lib/components';
+import {Card} from '@yearn-finance/web-lib/components';
 
 function App() {
 	return (

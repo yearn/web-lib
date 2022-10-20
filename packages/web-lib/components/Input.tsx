@@ -1,6 +1,6 @@
 import React, {MutableRefObject, ReactElement, useRef} from 'react';
 import {ethers} from 'ethers';
-import {format, performBatchedUpdates} from '@majorfi/web-lib/utils';
+import {format, performBatchedUpdates} from '@yearn-finance/web-lib/utils';
 
 import type {TInput, TInputBigNumber} from './Input.d';
 

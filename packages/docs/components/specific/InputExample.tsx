@@ -1,7 +1,7 @@
 import React from 'react';
 import {CodeExample} from 'components/CodeExample';
-import {Card, Input} from '@majorfi/web-lib/components';
-import {format} from '@majorfi/web-lib/utils';
+import {Card, Input} from '@yearn-finance/web-lib/components';
+import {format} from '@yearn-finance/web-lib/utils';
 
 function	InputExample(): React.ReactElement {
 	const	[amount, set_amount] = React.useState('');

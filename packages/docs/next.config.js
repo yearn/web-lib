@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-undef */
-const withTM = require('next-transpile-modules')(['@majorfi/web-lib']);
+const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
 const withNextra = require('nextra')({
 	theme: 'nextra-theme-docs',
 	themeConfig: './theme.config.js',

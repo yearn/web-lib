@@ -3,12 +3,12 @@ title: 'SearchBox'
 ---
 
 import {SearchBoxExample} from '../../../components/specific/SearchBoxExample';
-import {SearchBox} from '@majorfi/web-lib/components';
+import {SearchBox} from '@yearn-finance/web-lib/components';
 
 
 # SearchBox
 ```ts
-import {SearchBox} from '@majorfi/web-lib/components';
+import {SearchBox} from '@yearn-finance/web-lib/components';
 ```
 <SearchBoxExample onSearch={(s) => alert(`Searching for ${s}`)} />
 
@@ -18,7 +18,7 @@ The component has headless states, meaning you have to send him the useState and
 ## Usage
 
 ```tsx
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');
@@ -49,7 +49,7 @@ type TSearchBox = {
 ### `searchTerm`
 The current value typed in the SearchBox. When the user type, this value should be updated with the onChange prop.
 ```tsx {8}
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');
@@ -66,7 +66,7 @@ function App() {
 ### `onChange`
 Callback when the value of the SearchBox is updated. The string send as param is directly the typed value.
 ```tsx {10}
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');
@@ -83,7 +83,7 @@ function App() {
 ### `onSearch` (optional)
 Callback when the form is submitted, trigger to perform the search.
 ```tsx {9}
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');
@@ -103,7 +103,7 @@ Indicate if the SearchBox should be narrow or not. A narrow box has less padding
 <SearchBoxExample isNarrow />
 
 ```tsx {10}
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');
@@ -123,7 +123,7 @@ The placeholder attribute specifies a short hint that describes the expected val
 <SearchBoxExample placeholder={'My Custom SearchBox'} />
 
 ```tsx {8}
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');
@@ -142,7 +142,7 @@ function App() {
 The ariaLabel attribute defines a string value that labels the interactive element. It's best to have because the search has no accessible name, does not accurately describe its contents, and there is no content visible in the DOM that can be associated with the object to give it meaning. Only used for accessibility. Should be a name to indicate the search. Default is set to "Search"
 
 ```tsx {8}
-import {SearchBox} from  '@majorfi/web-lib/components';
+import {SearchBox} from  '@yearn-finance/web-lib/components';
 
 function App() {
 	const [searchTerm, set_searchTerm] = React.useState('');

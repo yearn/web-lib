@@ -1,8 +1,8 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {ethers} from 'ethers';
-import {useWeb3} from '@majorfi/web-lib/contexts/useWeb3';
-import performBatchedUpdates from '@majorfi/web-lib/utils/performBatchedUpdates';
-import {getProvider} from '@majorfi/web-lib/utils/providers';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 
 import type * as Types from './types.d';
 

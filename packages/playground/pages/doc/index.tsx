@@ -1,5 +1,5 @@
 import	React, {ReactElement}	from	'react';
-import	{useBlock, useBalance, useBalances}	from	'@majorfi/web-lib/hooks';
+import	{useBlock, useBalance, useBalances}	from	'@yearn-finance/web-lib/hooks';
 
 function	Index(): ReactElement {
 	const	{data: block} = useBlock({

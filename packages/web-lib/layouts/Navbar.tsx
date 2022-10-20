@@ -1,6 +1,6 @@
 import React, {cloneElement, ReactElement, useState} from 'react';
-import {ModalMenu} from '@majorfi/web-lib/components/ModalMenu';
-import IconHamburger from '@majorfi/web-lib/icons/IconHamburger';
+import {ModalMenu} from '@yearn-finance/web-lib/components/ModalMenu';
+import IconHamburger from '@yearn-finance/web-lib/icons/IconHamburger';
 
 import type * as NavbarTypes from './Navbar.d';
 

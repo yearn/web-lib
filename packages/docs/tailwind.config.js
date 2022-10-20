@@ -1,5 +1,5 @@
 module.exports = {
-	presets: [require('@majorfi/web-lib/tailwind.config.cjs')],
+	presets: [require('@yearn-finance/web-lib/tailwind.config.cjs')],
 	theme: {
 		extend: {
 			height: {

@@ -13,16 +13,16 @@ The `logical` part only require a few lines of code to get started, but the ui p
 
 ## Library Architecture
 ```
-@majorfi/web-lib/
+@yearn-finance/web-lib/
 ├── style.css
 |
-├── contexts/                       # Access via: @majorfi/web-lib/contexts
+├── contexts/                       # Access via: @yearn-finance/web-lib/contexts
 │   ├── WithYearn.tsx               # Default wrapper around the Yearn Web Lib
 │   ├── useWeb3.tsx                 # Context wrapping your dApp enabling you to unleash the Web3 features
 │   ├── useSettings.tsx             # Context wrapping your dApp used to configure and access some default settings
 │   └── useUI.tsx                   # Context wrapping your dApp used to control some visual elements (theme, toast, etc.)
 |
-├── hooks/                          # Access via: @majorfi/web-lib/hooks
+├── hooks/                          # Access via: @yearn-finance/web-lib/hooks
 │   ├── useAccount.tsx              # Web3 Hook to remap useWeb3 context for easier DX
 │   ├── useBalance.tsx              # Web3 Hook to fetch balance information for the ETH coin or any ERC20 token
 │   ├── useBlock.tsx                # Web3 Hook to fetch the latest or any past block's information and subscript to new blocks
@@ -33,20 +33,20 @@ The `logical` part only require a few lines of code to get started, but the ui p
 │   ├── useLocalStorage.tsx         # Hook to get and set data in localStorage
 │   └── useWindowInFocus.tsx        # Hook to check if the window is in focus or not
 |
-├── utils/                          # Access via: @majorfi/web-lib/utils
+├── utils/                          # Access via: @yearn-finance/web-lib/utils
 │   ├── format.tsx                  # Bunch of utility functions to format amount, BigNumber, date etc
 │   ├── performBatchedUpdates.tsx   # Utility function to update multiple states in one React render
 │   ├── providers.tsx               # Bunch of utility functions to access the default Web3 providers and multicall initializator
 |	├── Transaction.tsx             # Class to control the execution of a transaction
 │   └── *.tsx                       # Any other utility function
 |
-├── components/                     # Access via: @majorfi/web-lib/components
+├── components/                     # Access via: @yearn-finance/web-lib/components
 │   └── *.tsx                       # List of components available in the library
 |
-├── icons/                          # Access via: @majorfi/web-lib/icons
+├── icons/                          # Access via: @yearn-finance/web-lib/icons
 │   └── *.tsx                       # List of SVG icons components available in the library
 |
-└── layouts/                        # Access via: @majorfi/web-lib/layouts
+└── layouts/                        # Access via: @yearn-finance/web-lib/layouts
     └── *.tsx                       # List of group of components ready for some specific use cases
 ```
 

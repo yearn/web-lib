@@ -1,5 +1,5 @@
 import React, {forwardRef, ReactElement} from 'react';
-import IconLoader from '@majorfi/web-lib/icons/IconLoader';
+import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
 import type	{TButton, TMouseEvent} from './Button.d';
 

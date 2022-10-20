@@ -1,13 +1,13 @@
 
 import React, {cloneElement, Fragment, ReactElement} from 'react';
 import {Menu, Transition} from '@headlessui/react';
-import IconChevron from '@majorfi/web-lib/icons/IconChevron';
+import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 
 import type {TDropdownProps} from './Dropdown.d';
 
 function Dropdown(props: TDropdownProps): ReactElement {
 	const {options, defaultOption, selected, onSelect} = props;
-	
+
 	return (
 		<div>
 			<Menu as={'menu'} className={'relative inline-block text-left'}>

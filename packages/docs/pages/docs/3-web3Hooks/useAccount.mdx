@@ -7,13 +7,13 @@ description: 'Hook to access wallet data and information.'
 Remapping of the useWeb3 context, provides a more friendly limited interface for dev experience on managing accounts.
 
 ```ts
-import {useAccount} from '@majorfi/web-lib/hooks';
+import {useAccount} from '@yearn-finance/web-lib/hooks';
 ```
 
 ## Usage
 
 ```tsx
-import {useAccount} from '@majorfi/web-lib/hooks';
+import {useAccount} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const {address, ens, isConnected, isConnecting, isDisconnected} = useAccount();

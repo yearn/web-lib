@@ -1,11 +1,11 @@
 import React, {Fragment, ReactElement, ReactNode, useEffect, useRef, useState} from 'react';
 import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';
-import {useWeb3} from '@majorfi/web-lib/contexts';
-import IconWalletCoinbase from '@majorfi/web-lib/icons/IconWalletCoinbase';
-import IconWalletMetamask from '@majorfi/web-lib/icons/IconWalletMetamask';
-import IconWalletWalletConnect from '@majorfi/web-lib/icons/IconWalletWalletConnect';
-import {chains, truncateHex} from '@majorfi/web-lib/utils';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
+import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
+import {chains, truncateHex} from '@yearn-finance/web-lib/utils';
 
 import type {TModalMobileMenu} from './ModalMenu.d';
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const withTM = require('next-transpile-modules')(['@majorfi/web-lib']);
+const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
 
 /**
  * @type {import('next').NextConfig}

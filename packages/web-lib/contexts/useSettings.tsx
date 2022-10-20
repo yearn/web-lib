@@ -1,9 +1,9 @@
 import	React, {createContext, useContext, useEffect} from 'react';
 import	{ethers} from 'ethers';
-import	{deepMerge} from '@majorfi/web-lib/contexts/utils';
-import	{useLocalStorage} from '@majorfi/web-lib/hooks/useLocalStorage';
-import	performBatchedUpdates from '@majorfi/web-lib/utils/performBatchedUpdates';
-import	{getRPC, replaceEnvRPCURI} from '@majorfi/web-lib/utils/providers';
+import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
 
 import type * as useSettingsTypes from './useSettings.d';
 

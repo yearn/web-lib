@@ -1,6 +1,6 @@
 import	React		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {AlertBanner}    from '@majorfi/web-lib/components';
+import {AlertBanner}    from '@yearn-finance/web-lib/components';
 
 function	AlertBannerExample(): React.ReactElement {
 	const	[isVisible, set_isVisible] = React.useState(true);

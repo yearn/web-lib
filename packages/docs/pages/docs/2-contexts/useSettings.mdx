@@ -7,13 +7,13 @@ description: 'Hook to access environment variables.'
 Access environment information like URIs for rpc, subgraph, metadata, api, and fixed contracts addresses.
 
 ```ts
-import {useSettings} from '@majorfi/web-lib/contexts';
+import {useSettings} from '@yearn-finance/web-lib/contexts';
 ```
 
 ## Usage
 
 ```tsx
-import {useSettings} from '@majorfi/web-lib/contexts';
+import {useSettings} from '@yearn-finance/web-lib/contexts';
 
 function App() {
 	const {networks} = useSettings();
@@ -57,7 +57,7 @@ This hook doesn't receive any inputs. The above network configuration can be cha
 These are the default values for each chain:
 
 ```tsx
-import {getRPC} from '@majorfi/web-lib//utils/providers';
+import {getRPC} from '@yearn-finance/web-lib//utils/providers';
 
 1: { // Ethereum
 	rpcURI: getRPC(1),

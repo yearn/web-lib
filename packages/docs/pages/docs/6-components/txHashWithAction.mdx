@@ -3,11 +3,11 @@ title: 'TxHashWithActions'
 ---
 
 import {CodeExample} from '../../../components/CodeExample';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 # TxHashWithActions
 ```ts
-import {TxHashWithActions} from '@majorfi/web-lib/components';
+import {TxHashWithActions} from '@yearn-finance/web-lib/components';
 ```
 
 <CodeExample>
@@ -29,7 +29,7 @@ Two actions are available, copy to clipboard and open the tx in explorer.
 
 ```tsx
 import React from 'react';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
@@ -60,7 +60,7 @@ type TAddressWithActions = {
 The hash to use. It should be valid to work properly.
 ```tsx {8}
 import React from 'react';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
@@ -76,7 +76,7 @@ function App(): React.ReactElement {
 Root uri of the explorer linked to this hash. Aka what should be the start of the URL when clicking the link-out icon. If it's not provided, the component will detect one through the Web Lib, via the `useWeb3` context, based on the current `ChainID`.
 ```tsx {9}
 import React from 'react';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
@@ -110,7 +110,7 @@ How many character should be displayed on the start and end part of the hash whe
 
 ```tsx {9}
 import React from 'react';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
@@ -139,7 +139,7 @@ Style to apply to the `<span>` wrapping this component.
 
 ```tsx {9}
 import React from 'react';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
@@ -167,7 +167,7 @@ Style to apply to the txHash (`<p>` element) itself.
 
 ```tsx {9}
 import React from 'react';
-import {Card, TxHashWithActions} from '@majorfi/web-lib/components';
+import {Card, TxHashWithActions} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (

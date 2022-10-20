@@ -7,13 +7,13 @@ description: 'Hook to interact with web3 contracts and subgraphs'
 This hook contains functions to interact with web3 data, it's used to make other web3 hooks like `useAccount` and `useBalance` since it carries the provider that can sign transactions.
 
 ```ts
-import {useWeb3} from '@majorfi/web-lib/contexts';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
 ```
 
 ## Usage
 
 ```tsx
-import {useWeb3} from '@majorfi/web-lib/contexts';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
 
 function App() { 
 	const {address, ens, onConnect} = useWeb3();
@@ -51,7 +51,7 @@ function App() {
 Change configuration:
 
 ```tsx
-import {useWeb3} from '@majorfi/web-lib/contexts';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
 
 function App() { 
 	const web3 = useWeb3({

@@ -1,7 +1,7 @@
 import React, {ReactElement, useState} from 'react';
-import {useClientEffect} from '@majorfi/web-lib/hooks';
-import IconThemeDark from '@majorfi/web-lib/icons/IconThemeDark';
-import IconThemeLight from '@majorfi/web-lib/icons/IconThemeLight';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks';
+import IconThemeDark from '@yearn-finance/web-lib/icons/IconThemeDark';
+import IconThemeLight from '@yearn-finance/web-lib/icons/IconThemeLight';
 
 import type {TSwitchTheme} from './SwitchTheme.d';
 

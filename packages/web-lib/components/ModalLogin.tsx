@@ -1,11 +1,11 @@
 import React, {ReactElement} from 'react';
 import {toast} from 'react-hot-toast';
-import {Modal} from '@majorfi/web-lib/components/Modal';
-import {useWeb3} from '@majorfi/web-lib/contexts';
-import IconWalletCoinbase from '@majorfi/web-lib/icons/IconWalletCoinbase';
-import IconWalletGnosis from '@majorfi/web-lib/icons/IconWalletGnosis';
-import IconWalletMetamask from '@majorfi/web-lib/icons/IconWalletMetamask';
-import IconWalletWalletConnect from '@majorfi/web-lib/icons/IconWalletWalletConnect';
+import {Modal} from '@yearn-finance/web-lib/components/Modal';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
+import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
+import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
 import type {TModalLogin} from './ModalLogin.d';
 

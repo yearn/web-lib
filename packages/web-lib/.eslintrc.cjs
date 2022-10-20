@@ -172,7 +172,7 @@ module.exports = {
 								'^eth.*',
 								'^axios', '^swr',
 								'^tailwindcss', '^framer-motion', '^nprogress',
-								'^(!.+\\u0000)(@yearn-finance|@majorfi)(/.*|$)',
+								'^(!.+\\u0000)(@yearn-finance|@yearn-finance)(/.*|$)',
 								'^@?\\w'
 							],
 							// Parent imports.

@@ -1,6 +1,6 @@
 import	React		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {SearchBox}       from '@majorfi/web-lib/components';
+import {SearchBox}       from '@yearn-finance/web-lib/components';
 
 function	SearchBoxExample(props): React.ReactElement {
 	const	[searchTerm, set_searchTerm] = React.useState('');

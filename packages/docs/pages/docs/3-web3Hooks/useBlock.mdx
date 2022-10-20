@@ -9,13 +9,13 @@ import Callout from 'nextra-theme-docs/callout'
 Fetch the latest or any past block's information. This could also be used to subscribe to new blocks and be able to trigger events based on that.
 
 ```tsx
-import {useBlock} from '@majorfi/web-lib/hooks';
+import {useBlock} from '@yearn-finance/web-lib/hooks';
 ```
 
 ## Usage
 
 ```tsx
-import {useBlock} from '@majorfi/web-lib/hooks';
+import {useBlock} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const	{data: block} = useBlock();
@@ -57,7 +57,7 @@ function App() {
 ### `blockHashOrBlockTag` (optional)
 Block to fetch. This can be a number, a hash or a tag (e.g. `'latest'`). If not provided, the `latest` value will be used.
 ```tsx {5}
-import {useBlock} from '@majorfi/web-lib/hooks';
+import {useBlock} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const	{data: block} = useBlock({
@@ -75,7 +75,7 @@ Boolean value, indicating if we want to watch for new blocks. This is useful if 
 </Callout>
 
 ```tsx {5}
-import {useBlock} from '@majorfi/web-lib/hooks';
+import {useBlock} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const	{data: block} = useBlock({
@@ -93,7 +93,7 @@ Boolean value, indicating if we want to watch for new blocks. This is useful if 
 </Callout>
 
 ```tsx {5}
-import {useBlock} from '@majorfi/web-lib/hooks';
+import {useBlock} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const	{data: block} = useBlock({
@@ -110,7 +110,7 @@ function App() {
 Function to invoke when a new block is mined. This function is only triggered when `shouldShallowWatch` is enabled.
 
 ```tsx {6-8}
-import {useBlock} from '@majorfi/web-lib/hooks';
+import {useBlock} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const	{data: block} = useBlock({

@@ -1,4 +1,4 @@
-import type {TAddress} from '@majorfi/web-lib/utils';
+import type {TAddress} from '@yearn-finance/web-lib/utils';
 
 export type TAddressWithActions = {
 	address: TAddress;

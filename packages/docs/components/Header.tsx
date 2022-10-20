@@ -17,17 +17,17 @@ export function Header(): ReactElement {
 			</h1>
 
 			<div className={'flex flex-wrap gap-2 justify-center max-w-[28rem] min-h-[3rem]'}>
-				<a aria-label={'Version'} href={'https://www.npmjs.com/package/@majorfi/web-lib'} className={'h-5'}>
+				<a aria-label={'Version'} href={'https://www.npmjs.com/package/@yearn-finance/web-lib'} className={'h-5'}>
 					<img
 						alt={''}
-						src={'https://img.shields.io/npm/v/@majorfi/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Version'}
+						src={'https://img.shields.io/npm/v/@yearn-finance/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Version'}
 					/>
 				</a>
 
-				<a aria-label={'Downloads'} href={'https://www.npmjs.com/package/@majorfi/web-lib'} className={'h-5'}>
+				<a aria-label={'Downloads'} href={'https://www.npmjs.com/package/@yearn-finance/web-lib'} className={'h-5'}>
 					<img
 						alt={''}
-						src={'https://img.shields.io/npm/dm/@majorfi/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Downloads'}
+						src={'https://img.shields.io/npm/dm/@yearn-finance/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Downloads'}
 					/>
 				</a>
 

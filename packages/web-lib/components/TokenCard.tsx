@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, {ReactElement} from 'react';
-import {Card} from '@majorfi/web-lib/components/Card';
-import IconChevron from '@majorfi/web-lib/icons/IconChevron';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 
 import type {TTokenCard} from './TokenCard.d';
 

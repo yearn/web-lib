@@ -1,6 +1,6 @@
 import React, {cloneElement, ReactElement, useState} from 'react';
-import IconChevron from '@majorfi/web-lib/icons/IconChevron';
-import IconCross from '@majorfi/web-lib/icons/IconCross';
+import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
+import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 
 import type	{TBanner, TBannerPagination} from './Banner.d';
 

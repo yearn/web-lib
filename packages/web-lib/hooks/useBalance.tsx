@@ -1,14 +1,14 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {Contract} from 'ethcall';
 import {BigNumber, ethers} from 'ethers';
-import {useSettings} from '@majorfi/web-lib/contexts/useSettings';
-import {useWeb3} from '@majorfi/web-lib/contexts/useWeb3';
-import ERC20_ABI from '@majorfi/web-lib/utils/abi/erc20.abi';
-import LENS_ABI from '@majorfi/web-lib/utils/abi/lens.abi';
-import * as format from '@majorfi/web-lib/utils/format';
-import performBatchedUpdates from '@majorfi/web-lib/utils/performBatchedUpdates';
-import * as providers from '@majorfi/web-lib/utils/providers';
-import {isZeroAddress, toAddress} from '@majorfi/web-lib/utils/utils';
+import {useSettings} from '@yearn-finance/web-lib/contexts/useSettings';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
+import LENS_ABI from '@yearn-finance/web-lib/utils/abi/lens.abi';
+import * as format from '@yearn-finance/web-lib/utils/format';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import * as providers from '@yearn-finance/web-lib/utils/providers';
+import {isZeroAddress, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
 import type * as Types from './types.d';
 

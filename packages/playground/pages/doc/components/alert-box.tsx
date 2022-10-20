@@ -1,14 +1,14 @@
 import	React, {ReactElement}			from	'react';
-import	{Card, AlertBox}				from	'@majorfi/web-lib/components';
+import	{Card, AlertBox}				from	'@yearn-finance/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 import	CodeExample						from	'components/CodeExample';
-import type * as AlertTypes				from	'@majorfi/web-lib/components/Alert.d';
+import type * as AlertTypes				from	'@yearn-finance/web-lib/components/Alert.d';
 
 const code = `
 import	React		from	'react';
-import	{AlertBox}	from	'@majorfi/web-lib/components';
+import	{AlertBox}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (

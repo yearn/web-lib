@@ -1,21 +1,21 @@
 import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useState} from 'react';
 import {ethers} from 'ethers';
-import {ModalLogin} from '@majorfi/web-lib/components/ModalLogin';
-import {deepMerge} from '@majorfi/web-lib/contexts/utils';
-import {useClientEffect} from '@majorfi/web-lib/hooks/useClientEffect';
-import {useDebounce} from '@majorfi/web-lib/hooks/useDebounce';
-import {useLocalStorage} from '@majorfi/web-lib/hooks/useLocalStorage';
-import {useWindowInFocus} from '@majorfi/web-lib/hooks/useWindowInFocus';
-import CHAINS from '@majorfi/web-lib/utils/chains';
-import {connectors} from '@majorfi/web-lib/utils/connectors';
-import {IFrameEthereumProvider} from '@majorfi/web-lib/utils/connectors.eip1193.ledger';
-import {getPartner} from '@majorfi/web-lib/utils/partners';
-import performBatchedUpdates from '@majorfi/web-lib/utils/performBatchedUpdates';
-import {getProvider} from '@majorfi/web-lib/utils/providers';
-import {isIframe, toAddress} from '@majorfi/web-lib/utils/utils';
 import {useWeb3React} from '@web3-react/core';
+import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
+import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
+import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
+import CHAINS from '@yearn-finance/web-lib/utils/chains';
+import {connectors} from '@yearn-finance/web-lib/utils/connectors';
+import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/connectors.eip1193.ledger';
+import {getPartner} from '@yearn-finance/web-lib/utils/partners';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import {getProvider} from '@yearn-finance/web-lib/utils/providers';
+import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import type {TPartnersInfo} from '@majorfi/web-lib/utils/partners';
+import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type * as useWeb3Types from './useWeb3.d';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -1,5 +1,5 @@
 {
-	"name": "@majorfi/web-lib-playground",
+	"name": "@yearn-finance/web-lib-playground",
 	"version": "0.6.12",
 	"private": true,
 	"scripts": {
@@ -34,7 +34,7 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"next": "12.2.5",
-		"@majorfi/web-lib": "*"
+		"@yearn-finance/web-lib": "*"
 	},
 	"devDependencies": {
 		"@types/node": "^18.7.13",

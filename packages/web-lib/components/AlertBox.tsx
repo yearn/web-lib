@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
-import IconAlertCritical from '@majorfi/web-lib/icons/IconAlertCritical';
-import IconAlertError from '@majorfi/web-lib/icons/IconAlertError';
-import IconAlertWarning from '@majorfi/web-lib/icons/IconAlertWarning';
+import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
+import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
+import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 
 import type	{TAlertBox} from './Alert.d';
 

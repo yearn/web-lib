@@ -7,13 +7,13 @@ description: 'Hook to use setInterval as a React hook.'
 Transform setInterval to a proper React hook [react-recipe](https://github.com/craig1123/react-recipes/blob/master/docs/useInterval.md) repository.
 
 ```tsx
-import {useInterval} from '@majorfi/web-lib/hooks';
+import {useInterval} from '@yearn-finance/web-lib/hooks';
 ```
 
 ## Usage
 
 ```tsx
-import {useInterval} from '@majorfi/web-lib/hooks';
+import {useInterval} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	useInterval((): void => {
@@ -31,7 +31,7 @@ function App() {
 ### `callback`
 The function to trigger as callback, as you would do it with a standard `useEffect`.
 ```tsx {5}
-import {useInterval} from '@majorfi/web-lib/hooks';
+import {useInterval} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	useInterval(
@@ -47,7 +47,7 @@ function App() {
 The delay in milliseconds to wait between each callback calls. If not provided, the callback is not re-triggered.  
 Default value is `1000`.
 ```tsx {6}
-import {useInterval} from '@majorfi/web-lib/hooks';
+import {useInterval} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	useInterval(
@@ -62,7 +62,7 @@ function App() {
 ### `runOnLoad`
 Indicate if the callback should be triggered on component mount. Default value is `false`.
 ```tsx {7}
-import {useInterval} from '@majorfi/web-lib/hooks';
+import {useInterval} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	useInterval(
@@ -77,7 +77,7 @@ function App() {
 ### `effectDependencies`
 Just like the `useEffect` hook, you can pass an array of dependencies to re-trigger the callback on changes. If one of the dependencies changes, the previous interval is cleared and the new callback is triggered.
 ```tsx {8}
-import {useInterval} from '@majorfi/web-lib/hooks';
+import {useInterval} from '@yearn-finance/web-lib/hooks';
 
 function App(a: number, b: string, c: boolean) {
 	useInterval(

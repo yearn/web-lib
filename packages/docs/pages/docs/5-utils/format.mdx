@@ -24,7 +24,7 @@ ether: 18
 ```
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 import { BigNumber } from 'ethers'
 
 const oneGwei = BigNumber.from("1000000000");
@@ -51,7 +51,7 @@ format.units(oneEther, 18);
 Pretty-format a number to be displayed alongside a token symbol
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 import { BigNumber } from 'ethers'
 
 const amount = BigNumber.from("1111111111111111111")
@@ -64,7 +64,7 @@ format.bigNumberAsAmount(amount, 18, 2, 'YFI')
 Pretty format amount based on local system settings, accepts a range of min and max decimals allowed
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 format.amount(123.456, 0, 2) // (from 0 to 2 decimals allowed)
 // 123.46
@@ -75,7 +75,7 @@ format.amount(123.456, 0, 2) // (from 0 to 2 decimals allowed)
 Pretty-format currency based on local system settings
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 format.currency(123.456, 2)
 // $123.46
@@ -86,7 +86,7 @@ format.currency(123.456, 2)
 Pretty-format dates
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 format.date(Date.now())
 // 25/08/2022 18:42
@@ -97,7 +97,7 @@ format.date(Date.now())
 Pretty-format dates "since"
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 format.since(Date.now())
 // a few seconds ago
@@ -111,7 +111,7 @@ format.since(Date.now() - 100000)
 Pretty-format dates "duration"
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 format.duration(600000)
 // 10 minutes
@@ -125,7 +125,7 @@ format.duration(600000, true)
 Convert string or number into BigNumber. "Safer" than ethers.BigNumber because invalid values are converted to 0.
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 const bigNumber = format.BN("6000000000000000000000000")
 ```
@@ -135,7 +135,7 @@ const bigNumber = format.BN("6000000000000000000000000")
 Convert BigNumber 18-decimals value into pretty-formated Number
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 const bigNumber = format.BN("1000000000000000000")
 format.toNormalizedValue(bigNumber)
@@ -147,7 +147,7 @@ format.toNormalizedValue(bigNumber)
 Convert BigNumber 18-decimals value into pretty-formated String 
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 const bigNumber = format.BN("1000000000000000000")
 format.toNormalizedAmount(bigNumber)
@@ -159,7 +159,7 @@ format.toNormalizedAmount(bigNumber)
 Converts string into number, if value is falsy or NaN returns 0
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 format.toSafeValue("42")
 // 42
@@ -172,7 +172,7 @@ format.toSafeValue(false)
 Converts string into BigNumber, if value is equal max avoids conversion
 
 ```js
-import { format } from '@majorfi/web-lib/utils'
+import { format } from '@yearn-finance/web-lib/utils'
 
 const max = format.BN("1000000000000000000")
 const decimals = 18 // optional

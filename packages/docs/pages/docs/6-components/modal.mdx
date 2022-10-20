@@ -4,12 +4,12 @@ title: 'Modal'
 
 import {CodeExample} from '../../../components/CodeExample';
 import {ModalExample} from '../../../components/specific/ModalExample';
-import {Card, Modal} from '@majorfi/web-lib/components';
+import {Card, Modal} from '@yearn-finance/web-lib/components';
 
 
 # Modal
 ```ts
-import {Modal} from '@majorfi/web-lib/components';
+import {Modal} from '@yearn-finance/web-lib/components';
 ```
 
 <ModalExample />
@@ -20,7 +20,7 @@ You can put anything inside this modal, but keep in mind the fact that it comes 
 ## Usage
 ```tsx
 import React from 'react';
-import {Button, Modal, Card} from '@majorfi/web-lib/components';
+import {Button, Modal, Card} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	const [isOpen, set_isOpen] = React.useState(false);
@@ -61,7 +61,7 @@ Should the modal be displayed or not. The modal is displayed and rendered on tru
 
 ```tsx {9}
 import React from 'react';
-import {Modal} from '@majorfi/web-lib/components';
+import {Modal} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	const [isOpen, set_isOpen] = React.useState(false);
@@ -81,7 +81,7 @@ Action to perform in order to close the modal. Will be triggered by any action s
 
 ```tsx {10}
 import React from 'react';
-import {Modal} from '@majorfi/web-lib/components';
+import {Modal} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	const [isOpen, set_isOpen] = React.useState(false);

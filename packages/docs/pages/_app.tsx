@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useTheme} from 'next-themes';
-import {useClientEffect} from '@majorfi/web-lib/hooks';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks';
 import type {AppProps} from 'next/app';
 import	'../style.css';
 

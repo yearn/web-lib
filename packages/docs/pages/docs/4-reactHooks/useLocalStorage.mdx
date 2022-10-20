@@ -13,13 +13,13 @@ import Callout from 'nextra-theme-docs/callout'
 Same as `useState` but this will save the current state in the localStorage at the provided `key` position. You can check [react-recipe](https://github.com/craig1123/react-recipes/blob/master/docs/useLocalStorage.md) repository for more information.
 
 ```tsx
-import {useLocalStorage} from '@majorfi/web-lib/hooks';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 ```
 
 ## Usage
 
 ```tsx
-import {useLocalStorage} from '@majorfi/web-lib/hooks';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const [myStoredValue, set_myStoredValue] = useLocalStorage('myKey', myInitialValue);
@@ -36,7 +36,7 @@ function App() {
 ### `key`
 This is where, in the localStorage, the value will be stored. This key should be unique to avoid conflicts.
 ```tsx {5}
-import {useLocalStorage} from '@majorfi/web-lib/hooks';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const [myStoredValue, set_myStoredValue] = useLocalStorage(
@@ -49,7 +49,7 @@ function App() {
 ### `initialValue`
 If the localStorage is not set yet, this is the default value to set and to use as initial value.
 ```tsx {6}
-import {useLocalStorage} from '@majorfi/web-lib/hooks';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks';
 
 function App() {
 	const [myStoredValue, set_myStoredValue] = useLocalStorage(
