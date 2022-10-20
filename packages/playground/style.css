@@ -1,0 +1,72 @@
+@import '@yearn-finance/web-lib/style.css';
+
+@font-face {
+    font-family: 'Menlo Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Menlo Regular'), url('/Menlo-Regular.woff') format('woff');
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Theses styles are used for the documentation
+**************************************************************************/
+.button-variant {
+	@apply flex w-8 h-8 font-bold rounded-default transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-0;
+}
+.button-variant[aria-selected="true"] {
+	@apply flex w-8 h-8 font-bold rounded-default bg-neutral-0 flex-center text-primary-500;
+}
+.button-variant-label {
+	@apply flex px-2 h-8 font-bold rounded-default transition-colors cursor-pointer bg-neutral-0 flex-center hover:bg-neutral-0;
+}
+.button-variant-label[aria-selected="true"] {
+	@apply flex px-2 h-8 font-bold rounded-default bg-neutral-0 flex-center text-primary-500;
+}
+
+.square-gradient-default {
+	@apply flex relative justify-center items-center p-4 w-full rounded-t-default transition-colors h-[150%] md:h-48 overflow-hidden min-h-[12rem];
+}
+
+.box-gradient-default {
+	@apply flex relative justify-center items-center p-4 w-full min-h-0 md:min-h-[20rem] rounded-default rounded-t transition-colors overflow-hidden z-10;
+	background-image: linear-gradient(to right bottom, #0546c7, #1753d4, #235fe1, #2e6ced, #3879fa);
+}
+.box-gradient-alt {
+	@apply flex relative justify-center items-center p-4 w-full min-h-0 md:min-h-[20rem] rounded-default transition-colors;
+	background-image: radial-gradient(circle, #ffffff, #fbfbfb, #f6f6f6, #f2f2f2, #eeeeee);
+}
+[data-theme*=dark] .box-gradient-alt {
+	background-image: radial-gradient(circle, #253d56, #1e344a, #172c3f, #112434, #0b1c29);
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Prism
+**************************************************************************/
+.prism-code {
+	@apply p-4 rounded-default my-4 overflow-x-scroll;
+}
+.token {
+	font-family: 'Menlo Regular', monospace;
+}
+
+.image-align-middle > span {
+	vertical-align: middle;
+}
+
+
+.features {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 w-full h-full;
+}
+
+:root {
+	--feature-primary-color: rgba(6, 87, 249, 0.15);
+}
+[data-theme*=dark] {
+	--feature-primary-color: rgba(198, 215, 249, 0.3);
+}
+
+
+.feature-content {
+	@apply text-neutral-700 rounded-default bg-neutral-0 h-full flex flex-col z-10 shadow-none hover:shadow-md transition-shadow duration-700 cursor-pointer;
+}
+

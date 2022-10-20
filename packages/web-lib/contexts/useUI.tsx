@@ -1,9 +1,10 @@
-import	React, {createContext, ReactElement}	from	'react';
-import	toast, {Toaster}						from	'react-hot-toast';
-import	{useLocalStorage}						from	'../hooks/useLocalStorage';
-import	{useClientEffect}						from	'../hooks/useClientEffect';
-import	{deepMerge}								from	'./utils';
-import type * as useUITypes						from	'./useUI.d';
+import React, {createContext, ReactElement, useCallback, useContext, useRef, useState} from 'react';
+import {toast, Toaster} from 'react-hot-toast';
+import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+
+import type * as useUITypes from './useUI.d';
 
 const	defaultOptions: useUITypes.TUIOptions = {
 	shouldUseDefaultToaster: true,
@@ -21,13 +22,14 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	options?: useUITypes.TUIOptions
 }): ReactElement => {
 	const	uiOptions = deepMerge(defaultOptions, options) as useUITypes.TUIOptions;
-	const	userPrefersColorScheme = React.useRef<useUITypes.TPossibleThemes>();
+	const	userPrefersColorScheme = useRef<useUITypes.TPossibleThemes>();
 	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
-	const	[theme, set_theme] = React.useState(themeFromLs) as [string, (value: string) => void];
+	const	[theme, set_theme] = useState(themeFromLs) as [string, (value: string) => void];
 
-	const switchTheme = React.useCallback((): void => {
-		if (uiOptions.shouldUseThemes)
+	const switchTheme = useCallback((): void => {
+		if (uiOptions.shouldUseThemes) {
 			set_theme(theme === 'light' ? 'dark' : 'light');
+		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [theme]);
 
@@ -114,5 +116,5 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	);
 };
 
-export const useUI = (): useUITypes.TUIContext => React.useContext(UI);
+export const useUI = (): useUITypes.TUIContext => useContext(UI);
 export default useUI;

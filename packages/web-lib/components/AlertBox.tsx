@@ -1,26 +1,30 @@
-import	React, {ReactElement}	from	'react';
-import	IconAlertWarning		from	'../icons/IconAlertWarning';
-import	IconAlertError			from	'../icons/IconAlertError';
-import	IconAlertCritical		from	'../icons/IconAlertCritical';
-import type * as AlertTypes		from	'./Alert.d';
+import React, {ReactElement} from 'react';
+import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
+import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
+import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 
-function	AlertBox({
-	alerts,
-	level = 'warning'
-}: AlertTypes.TAlertBox): ReactElement | null {
+import type	{TAlertBox} from './Alert.d';
+
+function	AlertBox(props: TAlertBox): ReactElement | null {
+	const {alerts, level = 'warning'} = props;
+
 	function	renderIcon(): ReactElement {
-		if (level === 'critical')
+		if (level === 'critical') {
 			return (<IconAlertCritical className={'yearn--alertbox-icon'} />);
-		if (level === 'error')
+		}
+		if (level === 'error') {
 			return (<IconAlertError className={'yearn--alertbox-icon'} />);
-		if (level === 'warning')
+		}
+		if (level === 'warning') {
 			return (<IconAlertWarning className={'yearn--alertbox-icon'} />);
+		}
 		return (<IconAlertWarning className={'yearn--alertbox-icon'} />);
 	}
 
 	if (alerts.length === 0) {
 		return null;
 	}
+
 	return (
 		<div
 			data-variant={level}

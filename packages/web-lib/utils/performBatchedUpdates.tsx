@@ -1,7 +1,7 @@
-import ReactDOM from 'react-dom';
+import {unstable_batchedUpdates} from 'react-dom';
 
 function performBatchedUpdates(callback: () => void): void {
-	ReactDOM.unstable_batchedUpdates((): void => {
+	unstable_batchedUpdates((): void => {
 		callback();
 	});
 }

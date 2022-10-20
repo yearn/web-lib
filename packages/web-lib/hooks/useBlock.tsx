@@ -1,11 +1,12 @@
-import	{useRef, useState, useCallback, useEffect}	from	'react';
-import	{ethers}									from	'ethers';
-import	{useWeb3}									from	'../contexts/useWeb3';
-import	performBatchedUpdates						from	'../utils/performBatchedUpdates';
-import	{getProvider}								from	'../utils/providers';
-import	type * as Types								from	'./types.d';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {ethers} from 'ethers';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 
-const		defaultStatus = {
+import type * as Types from './types.d';
+
+const	defaultStatus = {
 	isLoading: false,
 	isSuccess: false,
 	isError: false
@@ -45,8 +46,9 @@ function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
 			currentProvider = provider as ethers.providers.Provider;
 		}
 
-		if (!shallow)
+		if (!shallow) {
 			set_status({...defaultStatus, isLoading: true});
+		}
 
 		currentProvider
 			.getBlock(blockNumber)

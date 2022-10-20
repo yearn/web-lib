@@ -1,10 +1,12 @@
 
-import	React, {ReactElement}		from	'react';
-import	{Switch as HeadlessSwitch}	from	'@headlessui/react';
-import type * as SwitchTypes		from 	'./Switch.d';
+import React, {ReactElement, useState} from 'react';
+import {Switch as HeadlessSwitch} from '@headlessui/react';
 
-function Switch({isEnabled, onSwitch}: SwitchTypes.TSwitch): ReactElement {
-	const	[isEnabledState, set_isEnabledState] = React.useState(isEnabled);
+import type {TSwitch} from './Switch.d';
+
+function Switch(props: TSwitch): ReactElement {
+	const	{isEnabled, onSwitch} = props;
+	const	[isEnabledState, set_isEnabledState] = useState(isEnabled);
 
 	function	safeOnSwitch(): void {
 		if (onSwitch) {

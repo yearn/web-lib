@@ -1,9 +1,9 @@
-import	React, {createContext} from 'react';
+import	React, {createContext, useContext, useEffect} from 'react';
 import	{ethers} from 'ethers';
-import	{getRPC, replaceEnvRPCURI} from '../utils/providers';
-import	{deepMerge} from './utils';
-import	{useLocalStorage} from '../hooks/useLocalStorage';
-import	performBatchedUpdates from '../utils/performBatchedUpdates';
+import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
 
 import type * as useSettingsTypes from './useSettings.d';
 
@@ -85,7 +85,7 @@ export const SettingsContextApp = ({
 	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
 	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
 
-	React.useEffect((): void => {
+	useEffect((): void => {
 		const	_networks = networks as useSettingsTypes.TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
@@ -141,5 +141,5 @@ export const SettingsContextApp = ({
 	);
 };
 
-export const useSettings = (): useSettingsTypes.TSettingsContext => React.useContext(SettingsContext);
+export const useSettings = (): useSettingsTypes.TSettingsContext => useContext(SettingsContext);
 export default useSettings;

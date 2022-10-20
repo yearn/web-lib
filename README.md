@@ -1,134 +1,97 @@
 # Yearn Web Lib
-![](./.github/og.jpeg)
+![](../../.github/og.jpeg)
+
 
 Yearn web Lib is a library of standard components used through Yearn's Projects.    
 This library is made for React projects with the idea to be light, efficient and easy to use.  
 We are using React + Tailwindcss + ethersjs for the web3 package, and some contexts are available to correctly wrap your app.
 
-Please check [@yearn/web-template](https://github.com/yearn/web-template) for documentation and usage.
+Please check @yearn/web-template for documentation and usage.
 
 The stack used for this project is the following:
 - 🚀 [Next](https://nextjs.org) — JavaScript library for user interfaces
 - ▲ [Vercel](https://vercel.com) — Cloud deployment platform
-- 🏎 [Turborepo](https://turborepo.org) — High-performance build system for Monorepos
+- 🏎 [Lerna](https://lerna.js.org/) — Workspace management
 - 🛠 [Tsup](https://github.com/egoist/tsup) — TypeScript bundler powered by esbuild
 - 📄 [TypeScript](https://www.typescriptlang.org/) for static type checking
 - 💄 [ESLint](https://eslint.org/) for code linting
 - ⚙️ [GitHub Actions](https://github.com/changesets/action) for fully automated package publishing
 
+This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib).
+
 ### Install
 ```sh
 yarn add @yearn-finance/web-lib
 ```
-This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-lib)
-
-### Turbo
-
-- `npm install -g turbo` - Install turbo command globally
 
 ### Useful Commands
-- `yarn build` - Build all packages including the Storybook site
-- `yarn dev` - Run all packages locally and preview with Storybook
-- `yarn lint` - Lint all packages
-- `yarn changeset` - Generate a changeset
-- `yarn clean` - Clean up all `node_modules` and `dist` folders (runs each package's clean script)
-
+- `yarn dev` - Run all packages locally
 
 ### Apps & Packages
-This Turborepo includes the following packages and applications:
+The following packages and applications are available
 
-- `apps/playground`: Component documentation site, also playground
+- `package/docs`: Documentation site for the library
+- `package/playground`: A playground for testing components
 - `packages/web-lib`: Actual library for Yearn's projects
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/). Yarn Workspaces enables us to "hoist" dependencies that are shared between packages to the root `package.json`. This means smaller `node_modules` folders and a better local dev experience. To install a dependency for the entire monorepo, use the `-W` workspaces flag with `yarn add`.
+Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 
 ### Releasing
-When you push your code to GitHub, the [GitHub Action](https://github.com/changesets/action) will run the publish script will run. This will:
-- Deploy the `app/dosc` app to [Vercel](https://vercel.com)
-- Publish the `@yearn-finance/web-lib` package to [npm](https://www.npmjs.com/)
-
-In order to trigger a new version of the web-lib, the commit message **MUST** start with one of the following:
-- `patch:` - This will trigger a new patch version of the web-lib
-- `minor:` - This will trigger a new minor version of the web-lib
-- `major:` - This will trigger a new major version of the web-lib
-
-We recommand you to use [bump](https://github.com/JS-DevTools/version-bump-prompt) to generate a new version number for each release, with the following commands:
-```bash
-bump -a -p -c "patch: " #for a patch version, [-a] is for [git commit -a], [-p] is for [git push] and [-c] is for [git commit -m].
-bump -a -p -c "minor: " #for a minor version, [-a] is for [git commit -a], [-p] is for [git push] and [-c] is for [git commit -m].
-bump -a -p -c "major: " #for a major version, [-a] is for [git commit -a], [-p] is for [git push] and [-c] is for [git commit -m].
-```
-
-Release will only occurs on `main` branch, only via an authorized member of Yearn of via the Github Action.
+When running `yarn build` in the `package/web-lib` folder, the library will be bumped to the next minor version, the code will be compiled and the various files will be copied in the `package/web-lib/dist` folder.  
+From there the library can be published to NPM via the `yarn publish ./dist` command.
 
 ### How to setup
-
-#### Setup `tsconfig.json`
-With TS config, you should add some paths to be sure to correctly link the web lib: 
-```ts
-{
-	"compilerOptions": {
-		"rootDirs": ["."],
-		"baseUrl": ".",
-		"paths": {
-			"@yearn-finance/web-lib/components": ["./node_modules/@yearn-finance/web-lib/dist/components"],
-			"@yearn-finance/web-lib/layouts": ["./node_modules/@yearn-finance/web-lib/dist/layouts"],
-			"@yearn-finance/web-lib/contexts": ["./node_modules/@yearn-finance/web-lib/dist/contexts"],
-			"@yearn-finance/web-lib/hooks": ["./node_modules/@yearn-finance/web-lib/dist/hooks"],
-			"@yearn-finance/web-lib/icons": ["./node_modules/@yearn-finance/web-lib/dist/icons"],
-			"@yearn-finance/web-lib/utils": ["./node_modules/@yearn-finance/web-lib/dist/utils"]
-		}	
-	}
-}
-```
 
 #### Import the CSS
 Create a default `style.css` file in your project root, and add that in it:
 ```scss
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
-@import '@yearn-finance/web-lib/dist/style.css';
+@import '@yearn-finance/web-lib/style.next.css';
 ```
 
 Then, setup your `tailwind.config.js` file to enable detection of your style and prod optimization:
 ```js
 const {join} = require('path');
 module.exports = {
-	presets: [
-		require('@yearn-finance/web-lib/tailwind.plugin')
-	],
+	presets: [require('@yearn-finance/web-lib/tailwind.config.cjs')],
 	content: [
 		join(__dirname, 'pages', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', 'icons', '**', '*.{js,jsx,ts,tsx}'),
-		join(__dirname, 'components', 'logo', '**', '*.{js,jsx,ts,tsx}'),
-		join(__dirname, 'components', 'strategies', '**', '*.{js,jsx,ts,tsx}'),
-		join(__dirname, 'components', 'vaults', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', '**', '*.{js,jsx,ts,tsx}'),
-		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'layouts', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'components', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'contexts', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'icons', '**', '*.js'),
-		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'dist', 'utils', '**', '*.js')
+		join(__dirname, 'utils', '**', '*.{js,jsx,ts,tsx}'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'layouts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'components', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'contexts', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'icons', '**', '*.js'),
+		join(__dirname, 'node_modules', '@yearn-finance', 'web-lib', 'utils', '**', '*.js')
 	],
 	.....
 };
+```
+
+Finally, you can import the Eslint config in your `.eslintrc.js` file:
+```js
+module.exports = {
+	'extends': ['./node_modules/@yearn-finance/web-lib/.eslintrc.cjs'],
+	'parser': '@typescript-eslint/parser',
+	'parserOptions': {
+		'ecmaFeatures': {
+			'jsx': true
+		},
+		'tsconfigRootDir': __dirname,
+		'ecmaVersion': 2022,
+		'sourceType': 'module',
+		'project': ['./tsconfig.json']
+	}
+};
+
 ```
 
 
 #### Setup the env
 Ensure your env are set. Here is the list of the stuff to set:
 ```bash
-WEBSITE_URI: 'https://my-web3-app.major.farm',
-WEBSITE_NAME: 'My awesome yWeb3 app',
-WEBSITE_TITLE: 'My awesome yWeb3 app',
-WEBSITE_DESCRIPTION: 'Welcome to my awesome Yearn Web3 app. This is a super description that will be used for the SEO stuffs',
-PROJECT_GITHUB_URL: 'https://github.com/me/yweb3-awesome',
-
-USE_PRICES: false,
-
-CG_IDS: ['yearn-finance'],
-TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],
-
 WEB_SOCKET_URL: {
 	1: process.env.WS_URL_MAINNET,
 	10: process.env.WS_URL_OPTIMISM,
@@ -149,10 +112,10 @@ INFURA_KEY: process.env.INFURA_KEY
 ## How to use
 Usage is way simpler. You first need to wrap you app with the WithYearn context, and then you can use the components from the library.
 ```tsx
-import {WithYearn} from '@yearn-finance/web-lib/contexts';
+import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
 
-function MyApp(props: AppProps): ReactElement {
-	const {Component, pageProps} = props;
+function	MyApp(props: AppProps): ReactElement {
+	const	{Component, pageProps} = props;
 	
 	return (
 		<WithYearn>

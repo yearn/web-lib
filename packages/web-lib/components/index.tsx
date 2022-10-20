@@ -1,80 +1,41 @@
-import {Card} from './Card';
 import {AddressWithActions} from './AddressWithActions';
-import {AlertBox} from './AlertBox';
 import {AlertBanner} from './AlertBanner';
+import {AlertBox} from './AlertBox';
+import {Banner} from './Banner';
+import {Button} from './Button';
+import {Card} from './Card';
 import {DescriptionList} from './DescriptionList';
 import {Dropdown} from './Dropdown';
+import {Input} from './Input';
 import {Modal} from './Modal';
 import {ModalLogin} from './ModalLogin';
-import {ModalMobileMenu} from './ModalMobileMenu';
 import {ModalMenu} from './ModalMenu';
-import {Navbar} from '../layouts/Navbar';
+import {ModalMobileMenu} from './ModalMobileMenu';
 import {SearchBox} from './SearchBox';
 import {StatisticCard} from './StatisticCard';
 import {Switch} from './Switch';
 import {SwitchTheme} from './SwitchTheme';
 import {TokenCard} from './TokenCard';
 import {TxHashWithActions} from './TxHashWithActions';
-import {Button} from './Button';
-import {Banner} from './Banner';
-import {Input} from './Input';
 
 export {
-	Card,
 	AddressWithActions,
-	AlertBox,
 	AlertBanner,
+	AlertBox,
+	Banner,
+	Button,	
+	Card,
 	DescriptionList,
 	Dropdown,
+	Input,
 	Modal,
-	ModalMobileMenu,
 	ModalLogin,
 	ModalMenu,
-	Navbar,
+	ModalMobileMenu,
 	SearchBox,
 	StatisticCard,
 	Switch,
 	SwitchTheme,
 	TokenCard,
-	TxHashWithActions,
-	Button,	
-	Banner,
-	Input
-};
-
-import type * as AddressWithActionsTypes from './AddressWithActions.d';
-import type * as AlertTypes from './Alert.d';
-import type * as BannerTypes from './Banner.d';
-import type * as ButtonTypes from './Button.d';
-import type * as CardTypes from './Card.d';
-import type * as DescriptionListTypes from './DescriptionList.d';
-import type * as DropdownTypes from './Dropdown.d';
-import type * as ModalLoginTypes from './ModalLogin.d';
-import type * as ModalMobileMenuTypes from './ModalMobileMenu.d';
-import type * as ModalMenuTypes from './ModalMenu.d';
-import type * as ModalTypes from './Modal.d';
-import type * as SearchBoxTypes from './SearchBox.d';
-import type * as StatisticCardTypes from './StatisticCard.d';
-import type * as SwitchTypes from './Switch.d';
-import type * as SwitchThemeTypes from './SwitchTheme.d';
-import type * as TokenCardTypes from './TokenCard.d';
-import type * as TxHashWithActionsTypes from './TxHashWithActions.d';
-export type {
-	AddressWithActionsTypes,
-	AlertTypes,
-	BannerTypes,
-	ButtonTypes,
-	CardTypes,
-	DescriptionListTypes,
-	DropdownTypes,
-	ModalLoginTypes,
-	ModalMobileMenuTypes,
-	ModalMenuTypes,
-	ModalTypes,
-	SearchBoxTypes,
-	StatisticCardTypes,
-	SwitchTypes,
-	SwitchThemeTypes,
-	TokenCardTypes,
-	TxHashWithActionsTypes
+	TxHashWithActions
 };

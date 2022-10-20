@@ -189,7 +189,7 @@ label[aria-invalid="true"] {
 .yearn--card-tab-item {
 	--card-tab-color-active: hsl(var(--color-primary-500));
 	--card-tab-color: hsl(var(--color-neutral-400));
-	--card-bg-color: hsl(var(--color-neutral-200));
+	--card-bg-color: hsl(var(--color-neutral-300) / 0.5);
 
 	@apply w-full h-20 border-b-2 flex-center cursor-pointer;
 	&.selected {
@@ -536,7 +536,7 @@ label[aria-invalid="true"] {
 /* 🔵 - Yearn Finance ******************************************************
 ** Some accessibilities fixes
 **************************************************************************/
-:focus {@apply outline-2 outline-accent-500 outline-offset-2;}
+:focus {@apply outline-none outline-transparent outline-offset-0;}
 .scrollbar-none::-webkit-scrollbar {display: none;}
 .scrollbar-none {
     -ms-overflow-style: none;  /* IE and Edge */

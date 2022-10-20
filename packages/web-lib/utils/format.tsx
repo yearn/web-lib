@@ -1,10 +1,10 @@
-import	{ethers, BigNumber}	from	'ethers';
-import	dayjs				from	'dayjs';
-import	relativeTime		from	'dayjs/plugin/relativeTime.js';
-import	dayjsDuration		from	'dayjs/plugin/duration.js';
+import {BigNumber, ethers} from 'ethers';
+import dayjs, {extend} from 'dayjs';
+import dayjsDuration from 'dayjs/plugin/duration.js';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
 
-dayjs.extend(relativeTime);
-dayjs.extend(dayjsDuration);
+extend(relativeTime);
+extend(dayjsDuration);
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
@@ -21,8 +21,9 @@ export function	bigNumberAsAmount(
 	symbol = ''
 ): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined')
+	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
+	}
 	
 	let	symbolWithPrefix = symbol;
 	if (symbol.length > 0 && symbol !== '%') {
@@ -47,17 +48,20 @@ export function	bigNumberAsAmount(
 
 export function	amount(amount: number, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined')
+	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
-	if (maximumFractionDigits < minimumFractionDigits)
+	}
+	if (maximumFractionDigits < minimumFractionDigits) {
 		maximumFractionDigits = minimumFractionDigits;
+	}
 	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount));
 }
 
 export function	currency(amount: number, decimals = 2): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined')
+	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
+	}
 	return (new Intl.NumberFormat([locale, 'en-US'], {
 		style: 'currency',
 		currency: 'USD',
@@ -68,8 +72,9 @@ export function	currency(amount: number, decimals = 2): string {
 }
 
 export function	date(value: number, withDate = true): string {
-	if (withDate)
+	if (withDate) {
 		return (new Intl.DateTimeFormat('fr', {dateStyle: 'short', timeStyle: 'short', hourCycle: 'h24'}).format(value));
+	}
 	return (new Intl.DateTimeFormat('fr', {dateStyle: 'short', hourCycle: 'h24'}).format(value));
 }
 

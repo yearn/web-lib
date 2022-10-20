@@ -1,20 +1,21 @@
-import	React, {createContext, ReactElement, ErrorInfo}	from	'react';
-import {useWeb3React} from '@web3-react/core';
+import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useState} from 'react';
 import {ethers} from 'ethers';
-import {ModalLogin} from '../components/ModalLogin';
-import {useLocalStorage} from '../hooks/useLocalStorage';
-import {useWindowInFocus} from '../hooks/useWindowInFocus';
-import {useClientEffect} from '../hooks/useClientEffect';
-import {useDebounce} from '../hooks/useDebounce';
-import performBatchedUpdates from '../utils/performBatchedUpdates';
-import {getProvider} from '../utils/providers';
-import {toAddress, isIframe} from '../utils/utils';
-import {getPartner} from '../utils/partners';
-import CHAINS from '../utils/chains';
-import {connectors} from '../utils/connectors';
-import {deepMerge} from './utils';
-import {IFrameEthereumProvider} from '../utils/connectors.eip1193.ledger';
-import type {TPartnersInfo} from '../utils/partners';
+import {useWeb3React} from '@web3-react/core';
+import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
+import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
+import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
+import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
+import CHAINS from '@yearn-finance/web-lib/utils/chains';
+import {connectors} from '@yearn-finance/web-lib/utils/connectors';
+import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/connectors.eip1193.ledger';
+import {getPartner} from '@yearn-finance/web-lib/utils/partners';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+import {getProvider} from '@yearn-finance/web-lib/utils/providers';
+import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
+
+import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type * as useWeb3Types from './useWeb3.d';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -55,15 +56,15 @@ export const Web3ContextApp = ({
 	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', walletType.NONE) as [number, (n: number) => void];
 	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
 
-	const   [isConnecting, set_isConnecting] = React.useState(false);
-	const   [isDisconnected, set_isDisconnected] = React.useState(false);
-	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = React.useState(false);
-	const	[isModalLoginOpen, set_isModalLoginOpen] = React.useState(false);
-	const	[, set_currentPartner] = React.useState<TPartnersInfo>();
+	const   [isConnecting, set_isConnecting] = useState(false);
+	const   [isDisconnected, set_isDisconnected] = useState(false);
+	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
+	const	[isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+	const	[, set_currentPartner] = useState<TPartnersInfo>();
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
 
-	const	onSwitchChain = React.useCallback((newChainID: number, force?: boolean): void => {
+	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
 		if (newChainID === debouncedChainID) {
 			return;
 		}
@@ -107,7 +108,7 @@ export const Web3ContextApp = ({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
 
-	React.useEffect((): void => {
+	useEffect((): void => {
 		onSwitchChain(web3Options?.defaultChainID || 1);
 	}, [hasWindowInFocus, onSwitchChain, web3Options.defaultChainID]);
 
@@ -124,7 +125,7 @@ export const Web3ContextApp = ({
 	**	Moreover, we are starting to listen to events (disconnect, changeAccount
 	**	or changeChain).
 	**************************************************************************/
-	const connect = React.useCallback(async (
+	const connect = useCallback(async (
 		_providerType: number,
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
@@ -134,65 +135,77 @@ export const Web3ContextApp = ({
 		}
 		set_isConnecting(true);
 		if (_providerType === walletType.METAMASK) {
-			if (isActive)
+			if (isActive) {
 				await connectors.metamask.connector.deactivate?.();
+			}
 			try {
 				await connectors.metamask.connector.activate();
 				set_lastWallet(walletType.METAMASK);	
-				if (onSuccess)
+				if (onSuccess) {
 					onSuccess();
+				}
 				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
-				if (onError)
+				if (onError) {
 					onError(error as Error);
+				}
 				set_isConnecting(false);
 			}
 		} else if (_providerType === walletType.WALLET_CONNECT) {
-			if (isActive)
+			if (isActive) {
 				await connectors.walletConnect.connector.deactivate();
+			}
 			try {
 				await connectors.walletConnect.connector.activate(1);
 				set_lastWallet(walletType.WALLET_CONNECT);	
-				if (onSuccess)
+				if (onSuccess) {
 					onSuccess();
+				}
 				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
-				if (onError)
+				if (onError) {
 					onError(error as Error);
+				}
 				set_isConnecting(false);
 			}
 		} else if (_providerType === walletType.EMBED_LEDGER) {
 			set_lastWallet(walletType.EMBED_LEDGER);
 		} else if (_providerType === walletType.EMBED_GNOSIS_SAFE) {
-			if (isActive)
+			if (isActive) {
 				await connectors.gnosisSafe.connector.deactivate?.();
+			}
 			try {
 				await connectors.gnosisSafe.connector.activate();
 				set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
-				if (onSuccess)
+				if (onSuccess) {
 					onSuccess();
+				}
 				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
-				if (onError)
+				if (onError) {
 					onError(error as Error);
+				}
 				set_isConnecting(false);
 			}
 		} else if (_providerType === walletType.COINBASE) {
-			if (isActive)
+			if (isActive) {
 				await connectors.coinbase.connector.deactivate?.();
+			}
 			try {
 				await connectors.coinbase.connector.activate(1);
 				set_lastWallet(walletType.COINBASE);	
-				if (onSuccess)
+				if (onSuccess) {
 					onSuccess();
+				}
 				set_isConnecting(false);
 			} catch (error) {
 				set_lastWallet(walletType.NONE);
-				if (onError)
+				if (onError) {
 					onError(error as Error);
+				}
 				set_isConnecting(false);
 			}
 		} 
@@ -203,7 +216,7 @@ export const Web3ContextApp = ({
 			const params = new Proxy(new URLSearchParams(window.location.search), {
 				get: (searchParams, prop): unknown => searchParams.get(prop as string)
 			});
-			const	origin = (params as any).origin;
+			const	{origin} = params as any;
 			const	partnerInformation = getPartner(origin);
 
 			/* 🔵 - Yearn Finance **************************************************
@@ -253,10 +266,11 @@ export const Web3ContextApp = ({
 	}, [isActive]);
 
 	useClientEffect((): void => {
-		if ((chainId || 0) > 0)
+		if ((chainId || 0) > 0) {
 			set_chainID(Number(chainId));
-		else if (chainId === 0)
+		} else if (chainId === 0) {
 			set_chainID(Number(web3Options.defaultChainID));
+		}
 	}, [chainId]);
 
 	useClientEffect((): void => {
@@ -301,5 +315,5 @@ export const Web3ContextApp = ({
 	);
 };
 
-export const useWeb3 = (): useWeb3Types.TWeb3Context => React.useContext(Web3Context);
+export const useWeb3 = (): useWeb3Types.TWeb3Context => useContext(Web3Context);
 export default useWeb3;

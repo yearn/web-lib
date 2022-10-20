@@ -1,8 +1,8 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 
 const useWindowInFocus = (): boolean => {
-	const [isFocused, set_isFocused] = React.useState(true);
-	React.useEffect((): (() => void) => {
+	const [isFocused, set_isFocused] = useState(true);
+	useEffect((): (() => void) => {
 		const onFocus = (): void => set_isFocused(true);
 		const onBlur = (): void => set_isFocused(false);
 

@@ -1,14 +1,16 @@
-import	React, {ReactElement}		from	'react';
-import	toast						from	'react-hot-toast';
-import	{Modal}						from	'./Modal';
-import	{useWeb3}					from	'../contexts/useWeb3';
-import	IconWalletMetamask			from	'../icons/IconWalletMetamask';
-import	IconWalletWalletConnect		from	'../icons/IconWalletWalletConnect';
-import	IconWalletCoinbase			from	'../icons/IconWalletCoinbase';
-import	IconWalletGnosis			from	'../icons/IconWalletGnosis';
-import * as ModalLoginTypes			from 	'./ModalLogin.d';
+import React, {ReactElement} from 'react';
+import {toast} from 'react-hot-toast';
+import {Modal} from '@yearn-finance/web-lib/components/Modal';
+import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
+import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
+import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
-function	ModalLogin({isOpen, onClose, walletType}: ModalLoginTypes.TModalLogin): ReactElement {
+import type {TModalLogin} from './ModalLogin.d';
+
+function ModalLogin(props: TModalLogin): ReactElement {
+	const	{isOpen, onClose, walletType} = props;
 	const	{onConnect} = useWeb3();
 
 	return (

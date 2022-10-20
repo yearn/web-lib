@@ -1,4 +1,5 @@
-import	{useWeb3}				from	'../contexts/useWeb3';
+import	{useWeb3}				from	'@yearn-finance/web-lib/contexts/useWeb3';
+
 import	type {TUseAccountRes}	from	'./types.d';
 
 /* 🔵 - Yearn Finance ******************************************************

@@ -1,14 +1,17 @@
-import	React, {ReactElement} from 'react';
-import	{Card} from './Card';
-import type * as StatisticCardTypes	from './StatisticCard.d';
+import React, {ReactElement} from 'react';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
-function StatisticCardBase({label, value, ...props}: StatisticCardTypes.TStatisticCard): ReactElement {
-	const	className = props.className || 'col-span-12 md:col-span-4';
+import type {TStatisticCard} from './StatisticCard.d';
+
+function StatisticCardBase(props: TStatisticCard): ReactElement {
+	const	{label, value, ...rest} = props;
+	const	className = rest.className || 'col-span-12 md:col-span-4';
+
 	return (
 		<Card
 			className={`flex flex-col ${className}`}
 			padding={'narrow'}
-			{...props}>
+			{...rest}>
 			<div className={'mb-2 text-sm text-neutral-500'}>
 				{label}
 			</div>

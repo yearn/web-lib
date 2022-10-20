@@ -1,10 +1,10 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 
 function useDebounce(value: unknown, delay: number): unknown {
 	// State and setters for debounced value
-	const [debouncedValue, set_debouncedValue] = React.useState(value);
+	const [debouncedValue, set_debouncedValue] = useState(value);
 
-	React.useEffect((): (() => void) => {
+	useEffect((): (() => void) => {
 		// Update debounced value after delay
 		const handler = setTimeout((): void => {
 			set_debouncedValue(value);

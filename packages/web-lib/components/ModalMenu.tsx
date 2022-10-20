@@ -1,33 +1,35 @@
-import	React, {ReactElement, useRef}				from	'react';
-import	{Dialog, Transition}						from	'@headlessui/react';
-import	{SwitchTheme}								from	'../components/SwitchTheme';
-import	{useUI}										from	'../contexts/useUI';
-import	IconSocialTwitter							from	'../icons/IconSocialTwitter';
-import	IconSocialGithub							from	'../icons/IconSocialGithub';
-import	IconSocialDiscord							from	'../icons/IconSocialDiscord';
-import	IconSocialMedium							from	'../icons/IconSocialMedium';
-import	IconCross									from	'../icons/IconCross';
-import type * as ModalMenuTypes						from	'./ModalMenu.d';
+import React, {cloneElement, Fragment, ReactElement, useRef} from 'react';
+import {Dialog, Transition} from '@headlessui/react';
+import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
+import {useUI} from '@yearn-finance/web-lib/contexts';
+import IconCross from '@yearn-finance/web-lib/icons/IconCross';
+import IconSocialDiscord from '@yearn-finance/web-lib/icons/IconSocialDiscord';
+import IconSocialGithub from '@yearn-finance/web-lib/icons/IconSocialGithub';
+import IconSocialMedium from '@yearn-finance/web-lib/icons/IconSocialMedium';
+import IconSocialTwitter from '@yearn-finance/web-lib/icons/IconSocialTwitter';
 
-function	MobileMenuItem({option}: {option: ModalMenuTypes.TNavbarOption}): ReactElement {
+import type {TMobileMenu, TModalMenu, TNavbarOption} from './ModalMenu.d';
+
+function	MobileMenuItem({option}: {option: TNavbarOption}): ReactElement {
 	return (
-		<div className={'pb-6 text-dark-blue-1 link'}>
+		<div className={'text-dark-blue-1 link pb-6'}>
 			{option.label}
 		</div>
 	);
 }
 
-function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): ReactElement {
+function	Menu(props: TMobileMenu): ReactElement {
+	const	{options, wrapper, set_selected} = props;
 	const	{theme, switchTheme} = useUI();
 
 	return (
-		<div className={'flex flex-col justify-between pt-20 h-screen'}>
+		<div className={'flex h-screen flex-col justify-between pt-20'}>
 			<nav className={'flex flex-col pt-2'}>
 				{options.map((option): ReactElement  => {
 					if (wrapper) {
 						return (
 							<div key={option.route}>
-								{React.cloneElement(
+								{cloneElement(
 									wrapper,
 									{href: option.route},
 									<a><MobileMenuItem option={option} /></a>
@@ -45,9 +47,9 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 				})}
 			</nav>
 
-			<div className={'pb-6 mt-auto'}>
-				<div className={'flex flex-row justify-center items-center space-x-4'}>
-					<div className={'transition-colors text-neutral-500'}>
+			<div className={'mt-auto pb-6'}>
+				<div className={'flex flex-row items-center justify-center space-x-4'}>
+					<div className={'text-neutral-500 transition-colors'}>
 						<a
 							href={'https://twitter.com/iearnfinance'}
 							target={'_blank'}
@@ -56,7 +58,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 							<IconSocialTwitter />
 						</a>
 					</div>
-					<div className={'transition-colors text-neutral-500'}>
+					<div className={'text-neutral-500 transition-colors'}>
 						<a
 							href={process.env.PROJECT_GITHUB_URL}
 							target={'_blank'}
@@ -65,7 +67,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 							<IconSocialGithub />
 						</a>
 					</div>
-					<div className={'transition-colors text-neutral-500'}>
+					<div className={'text-neutral-500 transition-colors'}>
 						<a
 							href={'https://discord.yearn.finance/'}
 							target={'_blank'}
@@ -74,7 +76,7 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 							<IconSocialDiscord />
 						</a>
 					</div>
-					<div className={'transition-colors text-neutral-500'}>
+					<div className={'text-neutral-500 transition-colors'}>
 						<a
 							href={'https://medium.com/iearn'}
 							target={'_blank'}
@@ -92,44 +94,52 @@ function	Menu({options, wrapper, set_selected}: ModalMenuTypes.TMobileMenu): Rea
 	);
 }
 
-function	ModalMenu({isOpen, set_isOpen, options, set_selected, wrapper}: ModalMenuTypes.TModalMenu): ReactElement {
+function	ModalMenu(props: TModalMenu): ReactElement {
+	const	{isOpen, set_isOpen, options, set_selected, wrapper} = props;
 	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
-		<Transition.Root show={isOpen} as={React.Fragment}>
+		<Transition.Root show={isOpen} as={Fragment}>
 			<Dialog
 				static
-				className={'overflow-hidden fixed inset-0 w-screen h-screen'}
+				className={'fixed inset-0 h-screen w-screen overflow-hidden'}
 				style={{zIndex: 9999999}}
 				initialFocus={ref}
 				open={isOpen}
 				onClose={set_isOpen}>
 				<div
-					className={'flex justify-center items-start min-h-screen text-center backdrop-blur transition-opacity'}
+					className={'flex min-h-screen items-start justify-center text-center backdrop-blur transition-opacity'}
 					style={{background: 'rgba(255,255,255,0.68)'}}>
 					<Transition.Child
-						as={React.Fragment}
-						enter={'ease-out duration-300'} enterFrom={'opacity-0'} enterTo={'opacity-100'}
-						leave={'ease-in duration-200'} leaveFrom={'opacity-100'} leaveTo={'opacity-0'}>
+						as={Fragment}
+						enter={'ease-out duration-300'}
+						enterFrom={'opacity-0'}
+						enterTo={'opacity-100'}
+						leave={'ease-in duration-200'}
+						leaveFrom={'opacity-100'}
+						leaveTo={'opacity-0'}>
 						<Dialog.Overlay className={'fixed inset-0 z-10'} />
 					</Transition.Child>
 
 					<Transition.Child
-						as={React.Fragment}
+						as={Fragment}
 						enter={'ease-out duration-300'}
 						enterFrom={'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'}
 						enterTo={'opacity-100 translate-y-0 sm:scale-100'}
 						leave={'ease-in duration-200'}
 						leaveFrom={'opacity-100 translate-y-0 sm:scale-100'}
 						leaveTo={'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'}>
-						<div className={'relative z-50 w-full h-full transition-all'}>
+						<div className={'relative z-50 h-full w-full transition-all'}>
 							<div
 								ref={ref}
 								className={'absolute top-4 right-2'}
 								onClick={(): void => set_isOpen(false)}>
 								<IconCross />
 							</div>
-							<Menu options={options} set_selected={set_selected} wrapper={wrapper} />
+							<Menu
+								options={options}
+								set_selected={set_selected}
+								wrapper={wrapper} />
 						</div>
 					</Transition.Child>
 				</div>
