@@ -1,3 +1,4 @@
+'use client';
 
 import React, {cloneElement, Fragment, ReactElement} from 'react';
 import {Menu, Transition} from '@headlessui/react';

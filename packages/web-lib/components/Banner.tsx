@@ -1,3 +1,5 @@
+'use client';
+
 import React, {cloneElement, ReactElement, useState} from 'react';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';

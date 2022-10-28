@@ -1,3 +1,5 @@
+'use client';
+
 import React, {ReactElement} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 

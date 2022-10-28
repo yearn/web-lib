@@ -1,3 +1,5 @@
+'use client';
+
 import {Header} from './Header';
 import {Navbar} from './Navbar';
 

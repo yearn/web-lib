@@ -1,3 +1,5 @@
+'use client';
+
 import React, {cloneElement, Fragment, ReactElement, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';

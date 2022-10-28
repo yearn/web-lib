@@ -1,3 +1,5 @@
+'use client';
+
 /* eslint-disable @next/next/no-img-element */
 import React, {ReactElement} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';

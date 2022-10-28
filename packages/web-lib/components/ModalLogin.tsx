@@ -1,3 +1,5 @@
+'use client';
+
 import React, {ReactElement} from 'react';
 import {toast} from 'react-hot-toast';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';

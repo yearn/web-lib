@@ -1,3 +1,5 @@
+'use client';
+
 import React, {ReactElement, useEffect, useState} from 'react';
 import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';

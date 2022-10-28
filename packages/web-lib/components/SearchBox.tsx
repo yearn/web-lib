@@ -1,3 +1,5 @@
+'use client';
+
 import React, {ReactElement} from 'react';
 import IconSearch from '@yearn-finance/web-lib/icons/IconSearch';
 

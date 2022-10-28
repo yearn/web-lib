@@ -1,3 +1,5 @@
+'use client';
+
 import	{useWeb3}				from	'@yearn-finance/web-lib/contexts/useWeb3';
 
 import	type {TUseAccountRes}	from	'./types.d';

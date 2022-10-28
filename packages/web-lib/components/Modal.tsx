@@ -1,3 +1,5 @@
+'use client';
+
 import React, {Fragment, ReactElement, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 

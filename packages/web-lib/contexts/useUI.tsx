@@ -1,3 +1,5 @@
+'use client';
+
 import React, {createContext, ReactElement, useCallback, useContext, useRef, useState} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';

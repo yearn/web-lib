@@ -1,3 +1,5 @@
+'use client';
+
 import	React, {createContext, useContext, useEffect} from 'react';
 import	{ethers} from 'ethers';
 import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';

@@ -1,3 +1,4 @@
+'use client';
 
 import React, {ReactElement, useState} from 'react';
 import {Switch as HeadlessSwitch} from '@headlessui/react';
