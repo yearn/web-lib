@@ -1,12 +1,10 @@
-'use client';
-
 import React, {createContext, ReactElement, useCallback, useContext, useRef, useState} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 
-import type * as useUITypes from './useUI.d';
+import type * as useUITypes from '@yearn-finance/web-lib/contexts/useUI.d';
 
 const	defaultOptions: useUITypes.TUIOptions = {
 	shouldUseDefaultToaster: true,

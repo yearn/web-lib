@@ -1,5 +1,3 @@
-'use client';
-
 import React, {ReactElement, useEffect, useState} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 import {Dropdown} from '@yearn-finance/web-lib/components/Dropdown';

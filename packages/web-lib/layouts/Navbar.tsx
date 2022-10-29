@@ -1,5 +1,3 @@
-'use client';
-
 import React, {cloneElement, ReactElement, useState} from 'react';
 import {ModalMenu} from '@yearn-finance/web-lib/components/ModalMenu';
 import IconHamburger from '@yearn-finance/web-lib/icons/IconHamburger';

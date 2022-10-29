@@ -1,5 +1,3 @@
-'use client';
-
 import	React, {createContext, useContext, useEffect} from 'react';
 import	{ethers} from 'ethers';
 import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
@@ -7,7 +5,7 @@ import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
 
-import type * as useSettingsTypes from './useSettings.d';
+import type * as useSettingsTypes from '@yearn-finance/web-lib/contexts/useSettings.d';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',

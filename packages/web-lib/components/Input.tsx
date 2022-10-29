@@ -1,5 +1,3 @@
-'use client';
-
 import React, {MutableRefObject, ReactElement, useRef} from 'react';
 import {ethers} from 'ethers';
 import {format, performBatchedUpdates} from '@yearn-finance/web-lib/utils';

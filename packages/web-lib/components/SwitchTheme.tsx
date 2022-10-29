@@ -1,5 +1,3 @@
-'use client';
-
 import React, {ReactElement, useState} from 'react';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks';
 import IconThemeDark from '@yearn-finance/web-lib/icons/IconThemeDark';

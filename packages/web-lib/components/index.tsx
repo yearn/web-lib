@@ -1,5 +1,3 @@
-'use client';
-
 import {AddressWithActions} from './AddressWithActions';
 import {AlertBanner} from './AlertBanner';
 import {AlertBox} from './AlertBox';

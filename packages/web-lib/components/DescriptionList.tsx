@@ -1,5 +1,3 @@
-'use client';
-
 import React, {ReactElement} from 'react';
 
 import type {TDescriptionList} from './DescriptionList.d';

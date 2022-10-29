@@ -1,5 +1,3 @@
-'use client';
-
 import React, {ReactElement} from 'react';
 import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
 import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';

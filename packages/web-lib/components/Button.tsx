@@ -1,5 +1,3 @@
-'use client';
-
 import React, {forwardRef, ReactElement} from 'react';
 import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 

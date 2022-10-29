@@ -1,5 +1,3 @@
-'use client';
-
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';

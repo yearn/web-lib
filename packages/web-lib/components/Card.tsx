@@ -1,5 +1,3 @@
-'use client';
-
 import React, {Fragment, ReactElement} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {Disclosure, Tab} from '@headlessui/react';

@@ -1,5 +1,3 @@
-'use client';
-
 import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
@@ -17,8 +15,8 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
+import type * as useWeb3Types from '@yearn-finance/web-lib/contexts/useWeb3.d';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
-import type * as useWeb3Types from './useWeb3.d';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};

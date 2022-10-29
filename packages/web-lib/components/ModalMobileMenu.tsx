@@ -1,5 +1,3 @@
-'use client';
-
 import React, {Fragment, ReactElement, ReactNode, useEffect, useRef, useState} from 'react';
 import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';

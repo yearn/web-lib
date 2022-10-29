@@ -1,5 +1,3 @@
-'use client';
-
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {Contract} from 'ethcall';
 import {BigNumber, ethers} from 'ethers';
