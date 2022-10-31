@@ -37,9 +37,9 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 	** specified list of tokens. If no props are specified, the default values
 	** will be used.
 	**************************************************************************/
-	const getBalances = useCallback(async (): Promise<void> => {
+	const getBalances = useCallback(async (): Promise<{[key: string]: Types.TBalanceData}> => {
 		if (!isActive || !web3Address || (props?.tokens || []).length === 0) {
-			return;
+			return {};
 		}
 
 		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched ? true : false});
@@ -94,12 +94,14 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 				set_error(undefined);
 				set_status({...defaultStatus, isSuccess: true, isFetched: true});
 			});
+			return (_data);
 		} catch (_error) {
 			performBatchedUpdates((): void => {
 				set_data({});
 				set_error(_error as Error);
 				set_status({...defaultStatus, isError: true, isFetched: true});
 			});
+			return ({});
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isActive, web3Address, props?.chainID, web3ChainID, provider, networks, props?.key]);
@@ -144,10 +146,10 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
-		currentProvider.on('block', async (): Promise<void> => getBalances());
+		currentProvider.on('block', async (): Promise<{[key: string]: Types.TBalanceData}> => getBalances());
 
 		return (): void => {
-			currentProvider.off('block', async (): Promise<void> => getBalances());
+			currentProvider.off('block', async (): Promise<{[key: string]: Types.TBalanceData}> => getBalances());
 		};
 	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalances]);
 

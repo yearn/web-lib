@@ -72,7 +72,7 @@ export type	TUseBalanceReq = {
 
 export type	TUseBalanceRes = {
 	data: TBalanceData,
-	update: () => Promise<void>,
+	update: () => Promise<TBalanceData>,
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown'
 } & TDefaultStatus 
@@ -94,7 +94,7 @@ export type	TUseBalancesRes = {
 	data: {
 		[key: string]: TBalanceData
 	},
-	update: () => Promise<void>,
+	update: () => Promise<{[key: string]: TBalanceData}>,
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown'
 } & TDefaultStatus 

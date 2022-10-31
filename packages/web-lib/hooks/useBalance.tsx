@@ -46,9 +46,9 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 	** When this hook is called, it will fetch the balance for the specified
 	** props. If no props are specified, the default values will be used.
 	**************************************************************************/
-	const getBalance = useCallback(async (): Promise<void> => {
+	const getBalance = useCallback(async (): Promise<Types.TBalanceData> => {
 		if (!isActive || (!props?.for && !web3Address)) {
-			return;
+			return (defaultData);
 		}
 
 		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched ? true : false});
@@ -71,27 +71,29 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 					currentProvider.getBalance(ownerAddress),
 					lensContract ? lensContract.getPriceUsdcRecommended('0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2') : undefined
 				]);
+				const	_data = {
+					decimals: 18,
+					symbol: 'ETH',
+					raw: balanceOfEth,
+					rawPrice: priceOfWEth ? priceOfWEth : ethers.constants.Zero,
+					normalized: format.toNormalizedValue(balanceOfEth, 18),
+					normalizedPrice: priceOfWEth ? format.toNormalizedValue(priceOfWEth, 6) : 0,
+					normalizedValue: priceOfWEth ? (format.toNormalizedValue(balanceOfEth, 18) * format.toNormalizedValue(priceOfWEth, 6)) : 0
+				};
 				performBatchedUpdates((): void => {
-					set_data({
-						decimals: 18,
-						symbol: 'ETH',
-						raw: balanceOfEth,
-						rawPrice: priceOfWEth ? priceOfWEth : ethers.constants.Zero,
-						normalized: format.toNormalizedValue(balanceOfEth, 18),
-						normalizedPrice: priceOfWEth ? format.toNormalizedValue(priceOfWEth, 6) : 0,
-						normalizedValue: priceOfWEth ? (format.toNormalizedValue(balanceOfEth, 18) * format.toNormalizedValue(priceOfWEth, 6)) : 0
-					});
+					set_data(_data);
 					set_error(undefined);
 					set_status({...defaultStatus, isSuccess: true, isFetched: true});
 				});
+				return _data;
 			} catch (_error) {
 				performBatchedUpdates((): void => {
 					set_data(defaultData);
 					set_error(_error as Error);
 					set_status({...defaultStatus, isError: true, isFetched: true});
 				});
+				return defaultData;
 			}
-			return;
 		}
 
 		const	token = props?.token as string;
@@ -106,25 +108,28 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 			]) as [BigNumber, number, string, BigNumber];
 
 			const	[balanceOf, decimals, symbol, price] = multiCallResult;
+			const	_data = {
+				decimals: Number(decimals),
+				symbol: symbol,
+				raw: balanceOf,
+				rawPrice: lensContract ? price : ethers.constants.Zero,
+				normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
+				normalizedPrice: lensContract ? format.toNormalizedValue(price, 6) : 0,
+				normalizedValue: lensContract ? (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(price, 6)) : 0
+			};
 			performBatchedUpdates((): void => {
-				set_data({
-					decimals: Number(decimals),
-					symbol: symbol,
-					raw: balanceOf,
-					rawPrice: lensContract ? price : ethers.constants.Zero,
-					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
-					normalizedPrice: lensContract ? format.toNormalizedValue(price, 6) : 0,
-					normalizedValue: lensContract ? (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(price, 6)) : 0
-				});
+				set_data(_data);
 				set_error(undefined);
 				set_status({...defaultStatus, isSuccess: true, isFetched: true});
 			});
+			return _data;
 		} catch (_error) {
 			performBatchedUpdates((): void => {
 				set_data(defaultData);
 				set_error(_error as Error);
 				set_status({...defaultStatus, isError: true, isFetched: true});
 			});
+			return (defaultData);
 		}
 	}, [props?.for, props?.chainID, isActive, provider, props?.token, web3Address, web3ChainID, networks]);
 	useEffect((): void => {
@@ -168,10 +173,10 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
-		currentProvider.on('block', async (): Promise<void> => getBalance());
+		currentProvider.on('block', async (): Promise<Types.TBalanceData> => getBalance());
 
 		return (): void => {
-			currentProvider.off('block', async (): Promise<void> => getBalance());
+			currentProvider.off('block', async (): Promise<Types.TBalanceData> => getBalance());
 		};
 	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalance]);
 
