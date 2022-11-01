@@ -185,7 +185,7 @@ label[aria-invalid="true"] {
 	border-radius: var(--default-rounded);
 
 	&[data-variant="filled"] {
-		@apply text-neutral-0 bg-neutral-900 font-normal border-transparent;
+		@apply text-neutral-0 bg-neutral-900 font-normal border border-transparent;
 		&:disabled {@apply bg-neutral-700 opacity-40;}
 		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-800;}
 	}
