@@ -10,6 +10,7 @@ export type TWeb3Context = {
 	address: string | null | undefined,
 	ens: string | undefined,
 	chainID: number,
+	safeChainID: number,
 	isDisconnected: boolean,
 	isActive: boolean,
 	isConnecting: boolean,

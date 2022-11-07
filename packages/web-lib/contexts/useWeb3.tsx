@@ -1,4 +1,4 @@
-import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useState} from 'react';
+import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
@@ -25,6 +25,7 @@ const defaultState = {
 	address: undefined,
 	ens: undefined,
 	chainID: 0,
+	safeChainID: 0,
 	isDisconnected: false,
 	isActive: false,
 	isConnecting: false,
@@ -107,6 +108,8 @@ export const Web3ContextApp = ({
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
+
+	const	safeChainID = useMemo(() => chainID === 1337 ? 1 : chainID, [chainID]);
 
 	useEffect((): void => {
 		onSwitchChain(web3Options?.defaultChainID || 1);
@@ -286,6 +289,7 @@ export const Web3ContextApp = ({
 				address: account,
 				ens,
 				chainID: Number(chainID || web3Options.defaultChainID || 0),
+				safeChainID,
 				onSwitchChain,
 				isActive: isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0)),
 				isDisconnected,
