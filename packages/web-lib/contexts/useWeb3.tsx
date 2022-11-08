@@ -109,7 +109,7 @@ export const Web3ContextApp = ({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
 
-	const	safeChainID = useMemo(() => chainID === 1337 ? 1 : chainID, [chainID]);
+	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID, [chainID]);
 
 	useEffect((): void => {
 		onSwitchChain(web3Options?.defaultChainID || 1);
