@@ -37,7 +37,7 @@ const	[eip1193Connector, eip1193Hooks] = initializeConnector<EIP1193>(
 const	[gnosisSafeConnector, gnosisSafeHooks] = initializeConnector<GnosisSafe>(
 	(actions): GnosisSafe => new GnosisSafe({
 		actions,
-		options: {allowedDomains: [/gnosis-safe.io/]}
+		options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}
 	})
 );
 
