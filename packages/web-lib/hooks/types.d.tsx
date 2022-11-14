@@ -1,4 +1,5 @@
-import	{BigNumber, ethers}	from	'ethers';
+import {DependencyList} from 'react';
+import {BigNumber, ethers} from 'ethers';
 
 type	TDefaultReqArgs = {
 	chainID?: number,
@@ -92,7 +93,7 @@ export type	TUseBalancesReq = {
 		[token: string]: string,
 	}
 	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
-	effectDependencies: any[]
+	effectDependencies: DependencyList
 } & TDefaultReqArgs
 
 export type	TUseBalancesRes = {
