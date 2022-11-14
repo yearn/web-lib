@@ -91,7 +91,7 @@ export type	TUseBalancesReq = {
 	prices?: {
 		[token: string]: string,
 	}
-	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number | undefined,
+	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
 	effectDependencies: any[]
 } & TDefaultReqArgs
 
