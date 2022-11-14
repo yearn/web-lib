@@ -133,7 +133,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
 			_data[tokenAddress] = {
 				..._data[tokenAddress],
-				rawPrice: rawPrice,
+				rawPrice,
 				normalizedPrice: format.toNormalizedValue(rawPrice, 6),
 				normalizedValue: (_data[tokenAddress].normalized * format.toNormalizedValue(rawPrice, 6))
 			};
