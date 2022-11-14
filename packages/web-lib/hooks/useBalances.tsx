@@ -48,7 +48,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			...defaultStatus,
 			isLoading: true,
 			isFetching: true,
-			isRefetching: defaultStatus.isFetched ? true : false
+			isRefetching: defaultStatus.isFetched
 		});
 
 		let		currentProvider = providers.getProvider(props?.chainID || web3ChainID || 1);
