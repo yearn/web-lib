@@ -72,11 +72,11 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 				);
 			} else {
 				const	tokenContract = new Contract(token, ERC20_ABI);
-				calls.push(...[
+				calls.push(
 					tokenContract.balanceOf(ownerAddress),
 					tokenContract.decimals(),
 					tokenContract.symbol()
-				]);
+				);
 			}
 		}
 
