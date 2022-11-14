@@ -88,8 +88,8 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
 				const	decimals = results[rIndex++] as number;
+				const	rawPrice = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
 				let symbol = results[rIndex++] as string;
-				const	price = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
 
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
 					symbol = 'ETH';
@@ -98,10 +98,10 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 					decimals: Number(decimals),
 					symbol: symbol,
 					raw: balanceOf,
-					rawPrice: price,
+					rawPrice: rawPrice,
 					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
-					normalizedPrice: format.toNormalizedValue(price, 6),
-					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(price, 6))
+					normalizedPrice: format.toNormalizedValue(rawPrice, 6),
+					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(rawPrice, 6))
 				};
 			}
 			performBatchedUpdates((): void => {
@@ -131,12 +131,12 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 		const _data = {...rawData};
 		for (const entries of Object.entries(rawData)) {
 			const	tokenAddress = toAddress(entries[0]);
-			const	price = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
+			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
 			_data[tokenAddress] = {
 				..._data[tokenAddress],
-				rawPrice: price,
-				normalizedPrice: format.toNormalizedValue(price, 6),
-				normalizedValue: (_data[tokenAddress].normalized * format.toNormalizedValue(price, 6))
+				rawPrice: rawPrice,
+				normalizedPrice: format.toNormalizedValue(rawPrice, 6),
+				normalizedValue: (_data[tokenAddress].normalized * format.toNormalizedValue(rawPrice, 6))
 			};
 		}
 		set_data(_data);
