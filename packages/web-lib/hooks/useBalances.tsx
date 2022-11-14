@@ -65,11 +65,11 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			if (isEth) {
 				const	wETHAddress = WETH_TOKEN_ADDRESS;
 				const	tokenContract = new Contract(wETHAddress, ERC20_ABI);
-				calls.push(...[
+				calls.push(
 					ethcallProvider.getEthBalance(ownerAddress),
 					tokenContract.decimals(),
 					tokenContract.symbol()
-				]);
+				);
 			} else {
 				const	tokenContract = new Contract(token, ERC20_ABI);
 				calls.push(...[
