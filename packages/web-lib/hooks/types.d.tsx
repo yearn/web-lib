@@ -82,7 +82,7 @@ export type	TUseBalanceRes = {
 ** Request, Response and helpers for the useBalances hook.
 ******************************************************************************/
 export type	TUseBalancesTokens = {
-	token?: string,
+	token: string,
 	for?: string,
 }
 export type	TUseBalancesReq = {

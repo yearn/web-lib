@@ -70,7 +70,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 		const	calls = [];
 		const	ethcallProvider = await providers.newEthCallProvider(currentProvider);
 		for (const element of (props?.tokens || [])) {
-			const	token = element.token as string;
+			const	{token} = element;
 			const	ownerAddress = (element?.for || web3Address) as string;
 			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
@@ -96,7 +96,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			const	results = await ethcallProvider.tryAll(calls);
 			let		rIndex = 0;
 			for (const element of (props?.tokens || [])) {
-				const	token = element.token as string;
+				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
 				const	decimals = results[rIndex++] as number;
 				let		symbol = results[rIndex++] as string;
