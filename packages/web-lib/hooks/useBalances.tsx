@@ -97,7 +97,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 					decimals: Number(decimals),
 					symbol: symbol,
 					raw: balanceOf,
-					rawPrice: rawPrice,
+					rawPrice,
 					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
 					normalizedPrice: format.toNormalizedValue(rawPrice, 6),
 					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(rawPrice, 6))
