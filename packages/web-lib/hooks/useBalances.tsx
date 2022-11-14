@@ -20,17 +20,6 @@ const		defaultStatus = {
 	isFetched: false,
 	isRefetching: false
 };
-const		defaultData = {
-	[toAddress('')]: {
-		decimals: 0,
-		normalized: 0,
-		symbol: '',
-		raw: ethers.constants.Zero,
-		rawPrice: ethers.constants.Zero,
-		normalizedPrice: 0,
-		normalizedValue: 0
-	}
-};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** This hook can be used to fetch balance information for any ERC20 tokens.
@@ -38,8 +27,8 @@ const		defaultData = {
 function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 	const	{networks} = useSettings();
 	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
-	const	[rawData, set_rawData] = useState<{[key: string]: Types.TBalanceData}>(defaultData);
-	const	[data, set_data] = useState<{[key: string]: Types.TBalanceData}>(defaultData);
+	const	[rawData, set_rawData] = useState<{[key: string]: Types.TBalanceData}>({});
+	const	[data, set_data] = useState<{[key: string]: Types.TBalanceData}>({});
 	const	[status, set_status] = useState<Types.TDefaultStatus>(defaultStatus);
 	const	[error, set_error] = useState<Error | undefined>(undefined);
 	const	interval = useRef<NodeJS.Timer>();
@@ -122,7 +111,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			});
 		} catch (_error) {
 			performBatchedUpdates((): void => {
-				set_rawData(defaultData);
+				set_rawData({});
 				set_error(_error as Error);
 				set_status({...defaultStatus, isError: true, isFetched: true});
 			});
