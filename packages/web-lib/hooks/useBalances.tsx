@@ -4,11 +4,11 @@ import {BigNumber, ethers} from 'ethers';
 import {useSettings} from '@yearn-finance/web-lib/contexts/useSettings';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
-import LENS_ABI from '@yearn-finance/web-lib/utils/abi/lens.abi';
 import * as format from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import * as providers from '@yearn-finance/web-lib/utils/providers';
 import {toAddress} from '@yearn-finance/web-lib/utils/utils';
+import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from 'utils/constants';
 
 import type * as Types from './types.d';
 
@@ -20,6 +20,17 @@ const		defaultStatus = {
 	isFetched: false,
 	isRefetching: false
 };
+const		defaultData = {
+	[toAddress('')]: {
+		decimals: 0,
+		normalized: 0,
+		symbol: '',
+		raw: ethers.constants.Zero,
+		rawPrice: ethers.constants.Zero,
+		normalizedPrice: 0,
+		normalizedValue: 0
+	}
+};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** This hook can be used to fetch balance information for any ERC20 tokens.
@@ -27,31 +38,33 @@ const		defaultStatus = {
 function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 	const	{networks} = useSettings();
 	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
-	const	[data, set_data] = useState<{[key: string]: Types.TBalanceData}>({});
+	const	[rawData, set_rawData] = useState<{[key: string]: Types.TBalanceData}>(defaultData);
+	const	[data, set_data] = useState<{[key: string]: Types.TBalanceData}>(defaultData);
 	const	[status, set_status] = useState<Types.TDefaultStatus>(defaultStatus);
 	const	[error, set_error] = useState<Error | undefined>(undefined);
 	const	interval = useRef<NodeJS.Timer>();
-  
+	const	effectDependencies = props?.effectDependencies || [];
+
 	/* 🔵 - Yearn Finance ******************************************************
 	** When this hook is called, it will fetch the informations for the
 	** specified list of tokens. If no props are specified, the default values
 	** will be used.
 	**************************************************************************/
-	const getBalances = useCallback(async (): Promise<{[key: string]: Types.TBalanceData}> => {
+	const getBalances = useCallback(async (): Promise<void> => {
 		if (!isActive || !web3Address || (props?.tokens || []).length === 0) {
-			return {};
+			return;
 		}
 
-		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched ? true : false});
+		set_status({
+			...defaultStatus,
+			isLoading: true,
+			isFetching: true,
+			isRefetching: defaultStatus.isFetched ? true : false
+		});
+
 		let		currentProvider = providers.getProvider(props?.chainID || web3ChainID || 1);
 		if (props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
-		}
-
-		const	{lensAddress} = networks[props?.chainID || web3ChainID];
-		let		lensContract: Contract | undefined = undefined;
-		if (lensAddress) {
-			lensContract = new Contract(lensAddress, LENS_ABI);
 		}
 
 		const	calls = [];
@@ -59,14 +72,23 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 		for (const element of (props?.tokens || [])) {
 			const	token = element.token as string;
 			const	ownerAddress = (element?.for || web3Address) as string;
-			const	tokenContract = new Contract(token, ERC20_ABI);
-
-			calls.push(...[
-				tokenContract.balanceOf(ownerAddress),
-				tokenContract.decimals(),
-				tokenContract.symbol(),
-				lensContract ? lensContract.getPriceUsdcRecommended(token) : tokenContract.balanceOf(ownerAddress)
-			]);
+			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
+			if (isEth) {
+				const	wETHAddress = WETH_TOKEN_ADDRESS;
+				const	tokenContract = new Contract(wETHAddress, ERC20_ABI);
+				calls.push(...[
+					ethcallProvider.getEthBalance(ownerAddress),
+					tokenContract.decimals(),
+					tokenContract.symbol()
+				]);
+			} else {
+				const	tokenContract = new Contract(token, ERC20_ABI);
+				calls.push(...[
+					tokenContract.balanceOf(ownerAddress),
+					tokenContract.decimals(),
+					tokenContract.symbol()
+				]);
+			}
 		}
 
 		const	_data: {[key: string]: Types.TBalanceData} = {};
@@ -77,37 +99,63 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 				const	token = element.token as string;
 				const	balanceOf = results[rIndex++] as BigNumber;
 				const	decimals = results[rIndex++] as number;
-				const	symbol = results[rIndex++] as string;
-				const	price = results[rIndex++] as BigNumber;
+				let		symbol = results[rIndex++] as string;
+				const	price = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
+
+				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
+					symbol = 'ETH';
+				}
 				_data[toAddress(token)] = {
 					decimals: Number(decimals),
 					symbol: symbol,
 					raw: balanceOf,
-					rawPrice: lensContract ? price : ethers.constants.Zero,
+					rawPrice: price,
 					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
-					normalizedPrice: lensContract ? format.toNormalizedValue(price, 6) : 0,
-					normalizedValue: lensContract ? (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(price, 6)) : 0
+					normalizedPrice: format.toNormalizedValue(price, 6),
+					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(price, 6))
 				};
 			}
 			performBatchedUpdates((): void => {
-				set_data(_data);
+				set_rawData(_data);
 				set_error(undefined);
 				set_status({...defaultStatus, isSuccess: true, isFetched: true});
 			});
-			return (_data);
 		} catch (_error) {
 			performBatchedUpdates((): void => {
-				set_data({});
+				set_rawData(defaultData);
 				set_error(_error as Error);
 				set_status({...defaultStatus, isError: true, isFetched: true});
 			});
-			return ({});
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isActive, web3Address, props?.chainID, web3ChainID, provider, networks, props?.key]);
+	}, [isActive, web3Address, props?.chainID, web3ChainID, provider, networks, props?.key, ...effectDependencies]);
 	useEffect((): void => {
 		getBalances();
 	}, [getBalances]);
+
+
+	/* 🔵 - Yearn Finance ******************************************************
+	** Once the prices are available, we can update each balance with the price
+	** information.
+	**************************************************************************/
+	const updatePriceInformation = useCallback(async (): Promise<void> => {
+		const _data = {...rawData};
+		for (const entries of Object.entries(rawData)) {
+			const	tokenAddress = toAddress(entries[0]);
+			const	price = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
+			_data[tokenAddress] = {
+				..._data[tokenAddress],
+				rawPrice: price,
+				normalizedPrice: format.toNormalizedValue(price, 6),
+				normalizedValue: (_data[tokenAddress].normalized * format.toNormalizedValue(price, 6))
+			};
+		}
+		set_data(_data);
+	}, [rawData, props?.prices]);
+
+	useEffect((): void => {
+		updatePriceInformation();
+	}, [updatePriceInformation]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X time, based on the
@@ -146,10 +194,10 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
-		currentProvider.on('block', async (): Promise<{[key: string]: Types.TBalanceData}> => getBalances());
+		currentProvider.on('block', async (): Promise<void> => getBalances());
 
 		return (): void => {
-			currentProvider.off('block', async (): Promise<{[key: string]: Types.TBalanceData}> => getBalances());
+			currentProvider.off('block', async (): Promise<void> => getBalances());
 		};
 	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalances]);
 

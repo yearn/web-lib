@@ -81,20 +81,25 @@ export type	TUseBalanceRes = {
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalances hook.
 ******************************************************************************/
+export type	TUseBalancesTokens = {
+	token?: string,
+	for?: string,
+}
 export type	TUseBalancesReq = {
 	key: string | number,
-	tokens: {
-		token?: string,
-		for?: string,
-	}[]
-	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number | undefined
+	tokens: TUseBalancesTokens[]
+	prices?: {
+		[token: string]: string,
+	}
+	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number | undefined,
+	effectDependencies: any[]
 } & TDefaultReqArgs
 
 export type	TUseBalancesRes = {
 	data: {
 		[key: string]: TBalanceData
 	},
-	update: () => Promise<{[key: string]: TBalanceData}>,
+	update: () => Promise<void>,
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown'
 } & TDefaultStatus 
