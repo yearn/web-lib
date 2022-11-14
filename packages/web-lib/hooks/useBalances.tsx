@@ -88,7 +88,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
 				const	decimals = results[rIndex++] as number;
-				let		symbol = results[rIndex++] as string;
+				let symbol = results[rIndex++] as string;
 				const	price = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
 
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
