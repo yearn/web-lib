@@ -63,8 +63,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			const	ownerAddress = (element?.for || web3Address) as string;
 			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
-				const	wETHAddress = WETH_TOKEN_ADDRESS;
-				const	tokenContract = new Contract(wETHAddress, ERC20_ABI);
+				const	tokenContract = new Contract(WETH_TOKEN_ADDRESS, ERC20_ABI);
 				calls.push(
 					ethcallProvider.getEthBalance(ownerAddress),
 					tokenContract.decimals(),
