@@ -129,8 +129,8 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 	**************************************************************************/
 	const updatePriceInformation = useCallback(async (): Promise<void> => {
 		const _data = {...rawData};
-		for (const entries of Object.entries(rawData)) {
-			const	tokenAddress = toAddress(entries[0]);
+		for (const key of Object.keys(rawData)) {
+			const	tokenAddress = toAddress(key);
 			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
 			_data[tokenAddress] = {
 				..._data[tokenAddress],
