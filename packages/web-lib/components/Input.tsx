@@ -1,12 +1,30 @@
-import React, {MutableRefObject, ReactElement, useRef} from 'react';
-import {ethers} from 'ethers';
+import React, {ReactElement, useRef} from 'react';
+import {BigNumber, ethers} from 'ethers';
 import {format, performBatchedUpdates} from '@yearn-finance/web-lib/utils';
 
-import type {TInput, TInputBigNumber} from './Input.d';
+export type	TInput = {
+	value: string | number,
+	onChange: (s: string | number) => void
+	onSearch?: (s: string | number) => void
+	ariaLabel?: string
+	withMax?: boolean
+	onMaxClick?: () => void
+} & React.ComponentPropsWithoutRef<'input'>
+
+export type	TInputBigNumber = {
+	value: string,
+	onSetValue: (s: string) => void,
+	onValueChange?: (s: string) => void,
+	maxValue?: BigNumber,
+	withMax?: boolean,
+	decimals?: number,
+	balance?: string,
+	price?: number,
+} & React.InputHTMLAttributes<HTMLInputElement>;
 
 function	InputBase(props: TInput): ReactElement {
 	const	{value, onChange, onSearch, ariaLabel = 'Search', withMax, onMaxClick, className, ...rest} = props;
-	const	focusRef = useRef<MutableRefObject<HTMLInputElement | undefined> | any>();
+	const	focusRef = useRef<HTMLInputElement | null>(null);
 
 	return (
 		<form
@@ -37,7 +55,7 @@ function	InputBase(props: TInput): ReactElement {
 							if (onMaxClick) {
 								onMaxClick();
 								if (focusRef.current) {
-									(focusRef.current as unknown as HTMLInputElement).blur();
+									focusRef.current.blur();
 								}
 							}
 						}}>

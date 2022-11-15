@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDirs": ["."],
+		"outDir": "./dist",
 		"paths": {
 			"@yearn-finance/web-lib/components/*": ["components/*"],
 			"@yearn-finance/web-lib/components": ["components"],
@@ -48,12 +49,11 @@
 	"exclude": ["node_modules"],
 	"include": [
 		".eslintrc.cjs",
-		"components/**.tsx",
-		"contexts/**.tsx",
-		"hooks/**.tsx",
-		"icons/**.tsx",
-		"layouts/**.tsx",
-		"utils/**.tsx"
+		"components/**/*",
+		"contexts/**/*",
+		"hooks/**/*",
+		"icons/**/*",
+		"layouts/**/*",
+		"utils/**/*",
 	]
 }
-  

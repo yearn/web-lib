@@ -4,14 +4,14 @@ import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 
-import type * as useUITypes from '@yearn-finance/web-lib/contexts/useUI.d';
+import {TPossibleThemes, TUIContext, TUIOptions} from './types';
 
-const	defaultOptions: useUITypes.TUIOptions = {
+const	defaultOptions: TUIOptions = {
 	shouldUseDefaultToaster: true,
 	shouldUseThemes: true
 };
 
-const	UI = createContext<useUITypes.TUIContext>({
+const	UI = createContext<TUIContext>({
 	theme: '',
 	switchTheme: (): void => undefined,
 	toast
@@ -19,10 +19,10 @@ const	UI = createContext<useUITypes.TUIContext>({
 
 export const UIContextApp = ({children, options = defaultOptions}: {
 	children: ReactElement,
-	options?: useUITypes.TUIOptions
+	options?: TUIOptions
 }): ReactElement => {
-	const	uiOptions = deepMerge(defaultOptions, options) as useUITypes.TUIOptions;
-	const	userPrefersColorScheme = useRef<useUITypes.TPossibleThemes>();
+	const	uiOptions = deepMerge(defaultOptions, options) as TUIOptions;
+	const	userPrefersColorScheme = useRef<TPossibleThemes>();
 	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
 	const	[theme, set_theme] = useState(themeFromLs) as [string, (value: string) => void];
 
@@ -59,7 +59,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	** scheme and set the theme variable to it. This will allow us to have a 
 	** better control on the theme switch
 	**************************************************************************/
-	useClientEffect((): any => {
+	useClientEffect((): (() => void) | undefined => {
 		if (!uiOptions.shouldUseThemes) {
 			return;
 		}
@@ -116,5 +116,5 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	);
 };
 
-export const useUI = (): useUITypes.TUIContext => useContext(UI);
+export const useUI = (): TUIContext => useContext(UI);
 export default useUI;

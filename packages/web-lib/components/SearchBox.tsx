@@ -1,7 +1,14 @@
 import React, {ReactElement} from 'react';
 import IconSearch from '@yearn-finance/web-lib/icons/IconSearch';
 
-import type {TSearchBox} from './SearchBox.d';
+export type TSearchBox = {
+	searchTerm: string;
+	onChange: (s: string) => void;
+	onSearch?: (s: string) => void;
+	isNarrow?: boolean;
+	ariaLabel?: string;
+	placeholder?: string;
+};
 
 function	SearchBox(props: TSearchBox): ReactElement {
 	const {searchTerm, onChange, onSearch, isNarrow, ariaLabel = 'Search', placeholder = 'Search'} = props;

@@ -1,7 +1,11 @@
-import React, {Fragment, ReactElement, useRef} from 'react';
+import React, {Fragment, ReactElement, ReactNode, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 
-import type {TModal} from './Modal.d';
+export type TModal = {
+	isOpen: boolean;
+	onClose: () => void;
+	children: ReactNode;
+} & React.ComponentPropsWithoutRef<'div'>;
 
 function	Modal(props: TModal): ReactElement {
 	const {isOpen, onClose, className = '', children} = props;

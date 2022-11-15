@@ -5,7 +5,8 @@ import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
 
-import type * as useSettingsTypes from '@yearn-finance/web-lib/contexts/useSettings.d';
+import {TDict} from '../utils';
+import {TSettingsBase, TSettingsContext, TSettingsContextApp, TSettingsForNetwork, TSettingsOptions} from './types';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
@@ -65,7 +66,7 @@ const	defaultNetworks = {
 	}
 };
 
-const	SettingsContext = createContext<useSettingsTypes.TSettingsContext>({
+const	SettingsContext = createContext<TSettingsContext>({
 	settings: defaultSettings,
 	networks: defaultNetworks,
 	onUpdateNetworks: (): null => null,
@@ -81,12 +82,12 @@ export const SettingsContextApp = ({
 	children,
 	baseOptions = defaultSettings,
 	networksOptions = {}
-}: useSettingsTypes.TSettingsContextApp): React.ReactElement => {
-	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as useSettingsTypes.TSettingsBase);
-	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as useSettingsTypes.TSettingsOptions);
+}: TSettingsContextApp): React.ReactElement => {
+	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as TSettingsBase);
+	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as TSettingsOptions);
 
 	useEffect((): void => {
-		const	_networks = networks as useSettingsTypes.TSettingsOptions;
+		const	_networks = networks as TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
 		});
@@ -97,8 +98,8 @@ export const SettingsContextApp = ({
 	**	merged with the existing ones, aka the existing declarations will be overwritten but
 	**	the new ones will be added.
 	******************************************************************************************/
-	function	onUpdateNetworks(newNetworkSettings: useSettingsTypes.TSettingsOptions): void {
-		const	_networks = deepMerge(networks, newNetworkSettings) as useSettingsTypes.TSettingsOptions;
+	function	onUpdateNetworks(newNetworkSettings: TSettingsOptions): void {
+		const	_networks = deepMerge(networks, newNetworkSettings) as TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
 		});
@@ -110,10 +111,10 @@ export const SettingsContextApp = ({
 	**	existing ones, aka the existing declarations will be overwritten but the new ones will
 	**	be added. Networks settings are updated accordingly.
 	******************************************************************************************/
-	function	onUpdateBaseSettings(newSettings: useSettingsTypes.TSettingsBase): void {
+	function	onUpdateBaseSettings(newSettings: TSettingsBase): void {
 		performBatchedUpdates((): void => {
 			set_baseSettings(newSettings);
-			set_networks((_networks: {[key: string]: useSettingsTypes.TSettingsForNetwork}): any => {
+			set_networks((_networks: TDict<TSettingsForNetwork>): unknown => {
 				Object.keys(_networks).forEach((key): void => {
 					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/${key}`;
 					_networks[key].metaURI = `${newSettings.metaBaseURI}/api/${key}`;
@@ -131,8 +132,8 @@ export const SettingsContextApp = ({
 	return (
 		<SettingsContext.Provider
 			value={{
-				settings: baseSettings as useSettingsTypes.TSettingsBase,
-				networks: networks as useSettingsTypes.TSettingsOptions,
+				settings: baseSettings as TSettingsBase,
+				networks: networks as TSettingsOptions,
 				onUpdateNetworks: onUpdateNetworks,
 				onUpdateBaseSettings: onUpdateBaseSettings
 			}}>
@@ -141,5 +142,5 @@ export const SettingsContextApp = ({
 	);
 };
 
-export const useSettings = (): useSettingsTypes.TSettingsContext => useContext(SettingsContext);
+export const useSettings = (): TSettingsContext => useContext(SettingsContext);
 export default useSettings;

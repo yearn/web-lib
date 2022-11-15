@@ -2,7 +2,20 @@ import React, {cloneElement, Fragment, ReactElement} from 'react';
 import {Menu, Transition} from '@headlessui/react';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 
-import type {TDropdownProps} from './Dropdown.d';
+export type TDropdownOption = {
+	icon?: ReactElement;
+	value: string | number;
+	label: string;
+};
+
+export type TDropdownProps = {
+	options: TDropdownOption[];
+	defaultOption: TDropdownOption;
+	selected: TDropdownOption;
+	onSelect:
+		| React.Dispatch<React.SetStateAction<TDropdownOption>>
+		| ((option: TDropdownOption) => void);
+};
 
 function Dropdown(props: TDropdownProps): ReactElement {
 	const {options, defaultOption, selected, onSelect} = props;

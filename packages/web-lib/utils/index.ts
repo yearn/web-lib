@@ -6,7 +6,8 @@ import * as ABI from './abi/index';
 
 export * from './constants';
 export * from './partners';
-export * from './Transaction';
+export * from './transaction';
+export * from './types';
 export * from './utils';
 export {
 	ABI,

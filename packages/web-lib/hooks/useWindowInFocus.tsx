@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-const useWindowInFocus = (): boolean => {
+export const useWindowInFocus = (): boolean => {
 	const [isFocused, set_isFocused] = useState(true);
 	useEffect((): (() => void) => {
 		const onFocus = (): void => set_isFocused(true);
@@ -17,6 +17,3 @@ const useWindowInFocus = (): boolean => {
 
 	return isFocused;
 };
-
-export {useWindowInFocus};
-export default useWindowInFocus;

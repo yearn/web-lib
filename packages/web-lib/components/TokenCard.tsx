@@ -3,7 +3,12 @@ import React, {ReactElement} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 
-import type {TTokenCard} from './TokenCard.d';
+export type TTokenCard = {
+	label: string;
+	value: string;
+	imgSrc: string;
+	onClick?: React.MouseEventHandler;
+} & React.ComponentPropsWithoutRef<'div'>;
 
 function TokenCardBase(props: TTokenCard): ReactElement {
 	const	{label, value, imgSrc, onClick, className, ...rest} = props;

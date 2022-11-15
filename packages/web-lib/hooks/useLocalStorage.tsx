@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {ethers} from 'ethers';
 
-function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: unknown) => void] {
+export function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: unknown) => void] {
 	
 	// State to store our value
 	// Pass initial state function to useState so logic is only executed once
@@ -51,6 +51,3 @@ function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: 
 
 	return [storedValue, set_value];
 }
-
-export {useLocalStorage};
-export default useLocalStorage;

@@ -1,7 +1,18 @@
-import React, {forwardRef, ReactElement} from 'react';
+import React, {forwardRef, ReactElement, ReactNode} from 'react';
 import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
-import type	{TButton, TMouseEvent} from './Button.d';
+export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit';
+
+export type	TButton = {
+	children: ReactNode,
+	as?: 'a' | 'button',
+	variant?: TButtonVariant,
+	shouldStopPropagation?: boolean,
+	isBusy?: boolean,
+	isDisabled?: boolean,
+} & React.ComponentPropsWithoutRef<'button' | 'a'>
+
+export type TMouseEvent = React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLAnchorElement>;
 
 // eslint-disable-next-line react/display-name
 const Button = forwardRef((props: TButton): ReactElement => {

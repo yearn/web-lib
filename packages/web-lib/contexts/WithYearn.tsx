@@ -5,10 +5,9 @@ import	{UIContextApp}							from	'@yearn-finance/web-lib/contexts/useUI';
 import	{Web3ContextApp}						from	'@yearn-finance/web-lib/contexts/useWeb3';
 import	{connectors}							from	'@yearn-finance/web-lib/utils/connectors';
 
+import {TSettingsBase, TSettingsOptions, TUIOptions, TWeb3Options} from './types';
+
 import	type {Connector}						from	'@web3-react/types';
-import	type {TSettingsBase, TSettingsOptions}	from	'@yearn-finance/web-lib/contexts/useSettings.d';
-import	type {TUIOptions}						from	'@yearn-finance/web-lib/contexts/useUI.d';
-import	type {TWeb3Options}						from	'@yearn-finance/web-lib/contexts/useWeb3.d';
 
 function	WithYearn({children, options}: {
 	children: ReactElement
@@ -19,7 +18,7 @@ function	WithYearn({children, options}: {
 		baseSettings?: TSettingsBase,
 	}
 }): ReactElement {
-	const web3Connectors: [Connector | any, Web3ReactHooks][] = [
+	const web3Connectors: [Connector, Web3ReactHooks][] = [
 		[connectors.metamask.connector, connectors.metamask.hooks],
 		[connectors.walletConnect.connector, connectors.walletConnect.hooks],
 		[connectors.eip1193.connector, connectors.eip1193.hooks],

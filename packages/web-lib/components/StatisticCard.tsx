@@ -1,7 +1,11 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 
-import type {TStatisticCard} from './StatisticCard.d';
+export type TStatisticCard = {
+	label: string;
+	value: ReactNode;
+	variant?: 'surface' | 'background';
+} & React.ComponentPropsWithoutRef<'div'>;
 
 function StatisticCardBase(props: TStatisticCard): ReactElement {
 	const	{label, value, ...rest} = props;

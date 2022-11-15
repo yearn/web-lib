@@ -2,9 +2,15 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
-import {copyToClipboard, toENS} from '@yearn-finance/web-lib/utils';
+import {copyToClipboard, TAddress, toENS} from '@yearn-finance/web-lib/utils';
 
-import type {TAddressWithActions} from './AddressWithActions.d';
+export type TAddressWithActions = {
+	address: TAddress;
+	explorer: string;
+	truncate?: number;
+	wrapperClassName?: string;
+	className?: string;
+};
 
 function	AddressWithActions(props: TAddressWithActions): ReactElement {
 	const	{address, explorer = '', truncate = 5, wrapperClassName, className = ''} = props;

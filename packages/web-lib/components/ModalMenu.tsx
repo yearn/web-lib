@@ -1,4 +1,4 @@
-import React, {cloneElement, Fragment, ReactElement, useRef} from 'react';
+import React, {cloneElement, Fragment, ReactElement, ReactNode, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
 import {useUI} from '@yearn-finance/web-lib/contexts';
@@ -8,7 +8,35 @@ import IconSocialGithub from '@yearn-finance/web-lib/icons/IconSocialGithub';
 import IconSocialMedium from '@yearn-finance/web-lib/icons/IconSocialMedium';
 import IconSocialTwitter from '@yearn-finance/web-lib/icons/IconSocialTwitter';
 
-import type {TMobileMenu, TModalMenu, TNavbarOption} from './ModalMenu.d';
+export type TNavbarOption = {
+	route: string;
+	values: string | string[];
+	label: string;
+	icon?: ReactElement;
+	options?: TNavbarOption[];
+}
+
+export type TMobileMenu = {
+	options: TNavbarOption[];
+	set_selected: React.Dispatch<React.SetStateAction<string>> | ((option: string) => void);
+	wrapper: ReactElement;
+}
+
+export type TModalMenu = {
+	options: TNavbarOption[];
+	isOpen: boolean,
+	set_isOpen: React.Dispatch<React.SetStateAction<boolean>>
+	set_selected: React.Dispatch<React.SetStateAction<string>> | ((option: string) => void);
+	wrapper: ReactElement;
+}
+
+export type	TModalMobileMenu = {
+	isOpen: boolean
+	shouldUseWallets: boolean
+	shouldUseNetworks: boolean
+	onClose: () => void
+	children: ReactNode
+};
 
 function	MobileMenuItem({option}: {option: TNavbarOption}): ReactElement {
 	return (

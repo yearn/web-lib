@@ -1,6 +1,14 @@
 import React, {ReactElement} from 'react';
 
-import type {TDescriptionList} from './DescriptionList.d';
+export type TDescriptionListOption = {
+	title: string;
+	details: string | ReactElement;
+};
+
+export type TDescriptionList = {
+	options: TDescriptionListOption[];
+	className?: string;
+};
 
 function DescriptionList(props: TDescriptionList): ReactElement {
 	const {options, className, ...rest} = props;

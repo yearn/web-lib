@@ -1,8 +1,26 @@
-import React, {cloneElement, ReactElement, useState} from 'react';
+import React, {cloneElement, ReactElement, ReactNode, useState} from 'react';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 
-import type	{TBanner, TBannerPagination} from './Banner.d';
+export type TBanner = {
+	title: string,
+	primaryButton?: ReactElement,
+	secondaryButton?: ReactElement,
+	children: ReactNode,
+} & React.ComponentPropsWithoutRef<'div'>
+
+export type TDefaultVariant = {
+	title?: string,
+	primaryButton?: ReactElement,
+	secondaryButton?: ReactElement,
+	children?: ReactNode
+}
+
+export type	TBannerPagination = {
+	children: ReactElement[],
+	canClose?: boolean,
+	onClose?: () => void
+}
 
 function	BannerBase(props: TBanner): ReactElement {
 	const {title, children, primaryButton, secondaryButton} = props;

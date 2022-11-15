@@ -4,12 +4,12 @@ title: 'AlertBanner'
 
 import {CodeExample} from '../../../components/CodeExample';
 import {AlertBannerExample} from '../../../components/specific/AlertBannerExample';
-import {Card, AlertBanner} from '@yearn-finance/web-lib/components';
+import {Card, Alert} from '@yearn-finance/web-lib/components';
 
 
 # AlertBanner
 ```ts
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 ```
 <AlertBannerExample />
 
@@ -18,17 +18,17 @@ The Alert Banner component is used to display some notice. A few levels are avai
 ## Usage
 ```tsx
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'Spend your time wisely'}
 			maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 			<div>
 				<p>{'Yearn Vaults are a way to use technology to help manage your holdings.'}</p>
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -50,16 +50,16 @@ type TAlertBanner = {
 Title to use for this banner. The title is a `<h4>` HTML tag.
 ```tsx {8}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'title'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -70,50 +70,50 @@ Indicate the type of banner to display, aka mostly the colors. Default is set to
 
 <CodeExample>
 	<div className="w-3/4 flex flex-col space-y-2">
-		<AlertBanner
+		<Alert.Banner
 			level={'info'}
 			title={'title'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
-		<AlertBanner
+		</Alert.Banner>
+		<Alert.Banner
 			level={'warning'}
 			title={'title'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
-		<AlertBanner
+		</Alert.Banner>
+		<Alert.Banner
 			level={'error'}
 			title={'title'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
-		<AlertBanner
+		</Alert.Banner>
+		<Alert.Banner
 			level={'critical'}
 			title={'title'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	</div>
 </CodeExample>
 
 ```tsx {7}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function	App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			level={'warning'}
 			title={'title'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -122,7 +122,7 @@ function	App(): React.ReactElement {
 Worth a mention: can be a single ReactElement or an array of ReactElement. If it is an array, this will enable the multi-page banner.
 
 <CodeExample>
-	<AlertBanner
+	<Alert.Banner
 		title={'Lorem Ipsum'}>
 		<div>
 			{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
@@ -130,16 +130,16 @@ Worth a mention: can be a single ReactElement or an array of ReactElement. If it
 		<div>
 			{'Donexceptumque euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod. Donec euismod.'}
 		</div>
-	</AlertBanner>
+	</Alert.Banner>
 </CodeExample>
 
 ```tsx {9-14}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'Lorem Ipsum'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
@@ -147,7 +147,7 @@ function App(): React.ReactElement {
 			<div>
 				{'Donexceptumque euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -156,17 +156,17 @@ function App(): React.ReactElement {
 Special variable to use as className. In pure CSS, it is impossible to correctly animate height, we need to animate max-height. This allow us to customize the max-height and have a correct transition on banner close. Default is set to `300px`. Dev should adapt it to the expected height.
 ```tsx {9}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'title'}
 			maxHeight={'max-h-[654px]'}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -175,28 +175,28 @@ function App(): React.ReactElement {
 Allow you to control the visibility of the banner. Default is `true`.
 
 <CodeExample>
-	<AlertBanner
+	<Alert.Banner
 		isVisible={false}
 		title={'Spend your time wisely'}>
 		<div>
 			{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 		</div>
-	</AlertBanner>
+	</Alert.Banner>
 </CodeExample>
 
 ```tsx {9}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'title'}
 			isVisible={false}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -206,28 +206,28 @@ function App(): React.ReactElement {
 Can the banner be closed? Default is set to true. If false, the banner will alwasy render and the cross will be hidden.
 
 <CodeExample>
-	<AlertBanner
+	<Alert.Banner
 		title={'Spend your time wisely'}
 		canClose={false}>
 		<div>
 			{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 		</div>
-	</AlertBanner>
+	</Alert.Banner>
 </CodeExample>
 
 ```tsx {9}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'title'}
 			canClose={false}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```
@@ -237,28 +237,28 @@ function App(): React.ReactElement {
 Action to perform onClose. By default, this is handled by the component itself, but you can override this action to perform a custom one.
 
 <CodeExample>
-	<AlertBanner
+	<Alert.Banner
 		title={'Spend your time wisely'}
 		onClose={() => alert('nop')}>
 		<div>
 			{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 		</div>
-	</AlertBanner>
+	</Alert.Banner>
 </CodeExample>
 
 ```tsx {9}
 import React from 'react';
-import {AlertBanner} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'title'}
 			onClose={() => alert('nop')}>
 			<div>
 				{'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget consectetur sagittis, nisl nunc egestas nisi, euismod aliquet nisi nisl euismod. Donec euismod.'}
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }
 ```

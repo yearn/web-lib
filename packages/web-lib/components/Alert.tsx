@@ -1,9 +1,31 @@
 import React, {ReactElement, useEffect, useState} from 'react';
+import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
+import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
+import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 import {performBatchedUpdates} from '@yearn-finance/web-lib/utils';
 
-import type	{TAlertBanner} from './Alert.d';
+export type	TAlertLevels = 'none' | 'info' | 'warning' | 'error' | 'critical';
+
+export type	TAlertBanner = {
+	title: string,
+	level?: TAlertLevels,
+	children: ReactElement | ReactElement[],
+	canClose?: boolean,
+	isVisible?: boolean,
+	onClose?: () => void,
+	maxHeight?: string
+}
+
+export type TAlertBox = {
+	alerts: string[],
+	level: TAlertLevels
+}
+
+export function Alert(): void {
+	throw new Error('Please use `Alert.Banner` or `Alert.Box` instead');
+}
 
 function AlertBanner(props: TAlertBanner): ReactElement {
 	const {title, children, level = 'info', maxHeight = 'max-h-[300px]', canClose = true, isVisible = true, onClose} = props;
@@ -85,5 +107,43 @@ function AlertBanner(props: TAlertBanner): ReactElement {
 		</div>
 	);
 }
+Alert.Banner = AlertBanner;
 
-export {AlertBanner};
+function	AlertBox(props: TAlertBox): ReactElement | null {
+	const {alerts, level = 'warning'} = props;
+
+	function	renderIcon(): ReactElement {
+		if (level === 'critical') {
+			return (<IconAlertCritical className={'yearn--alertbox-icon'} />);
+		}
+		if (level === 'error') {
+			return (<IconAlertError className={'yearn--alertbox-icon'} />);
+		}
+		if (level === 'warning') {
+			return (<IconAlertWarning className={'yearn--alertbox-icon'} />);
+		}
+		return (<IconAlertWarning className={'yearn--alertbox-icon'} />);
+	}
+
+	if (alerts.length === 0) {
+		return null;
+	}
+
+	return (
+		<div
+			data-variant={level}
+			className={'yearn--alertbox'}>
+			{renderIcon()}
+			<div>
+				{alerts.map((alert): ReactElement => (
+					<div key={alert} className={'flex flex-row items-center'}>
+						<p>{alert}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	);
+}
+Alert.Box = AlertBox;
+
+export default Alert;

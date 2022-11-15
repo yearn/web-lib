@@ -30,7 +30,7 @@ const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletC
 const	[eip1193Connector, eip1193Hooks] = initializeConnector<EIP1193>(
 	(actions): EIP1193 => new EIP1193({
 		actions,
-		provider: null as any
+		provider: undefined
 	})
 );
 

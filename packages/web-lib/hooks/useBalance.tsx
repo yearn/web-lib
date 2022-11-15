@@ -10,7 +10,7 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import * as providers from '@yearn-finance/web-lib/utils/providers';
 import {isZeroAddress, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import type * as Types from './types.d';
+import type * as Types from './types';
 
 const		defaultStatus = {
 	isLoading: false,
@@ -34,7 +34,7 @@ const		defaultData = {
 ** This hook can be used to fetch balance information for the ETH coin or
 ** any ERC20 token.
 **************************************************************************/
-function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
+export function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 	const	{networks} = useSettings();
 	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
 	const	[data, set_data] = useState<Types.TBalanceData>(defaultData);
@@ -197,5 +197,3 @@ function	useBalance(props?: Types.TUseBalanceReq): Types.TUseBalanceRes {
 		)
 	});
 }
-
-export default useBalance;

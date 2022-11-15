@@ -1,6 +1,4 @@
-export function deepMerge(target: any, source: any): unknown {
-	const isObject = (obj: any): boolean => obj && typeof obj === 'object';
-
+export function deepMerge(target: unknown, source: unknown): unknown {
 	if (!isObject(target) || !isObject(source)) {
 		return target;
 	}
@@ -25,3 +23,7 @@ export function deepMerge(target: any, source: any): unknown {
 
 	return target;
 }
+
+const isObject = (input: unknown): input is { [key: string]: unknown } => {
+	return typeof input === 'object' && input !== null && !Array.isArray(input);
+};

@@ -1,16 +1,17 @@
 import	React		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {SearchBox}       from '@yearn-finance/web-lib/components';
+import {SearchBox, TSearchBox}       from '@yearn-finance/web-lib/components';
 
-function	SearchBoxExample(props): React.ReactElement {
+function	SearchBoxExample(props: TSearchBox): React.ReactElement {
 	const	[searchTerm, set_searchTerm] = React.useState('');
 
 	return (
 		<CodeExample>
 			<SearchBox
+				{...props}
 				searchTerm={searchTerm}
 				onChange={set_searchTerm}
-				{...props} />
+				/>
 		</CodeExample>
 	);
 }
