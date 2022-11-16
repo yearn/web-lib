@@ -1,6 +1,5 @@
 import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
-import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
@@ -16,10 +15,10 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import type {TWeb3Context, TWeb3Options} from './types';
-
+import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
 import type {Provider} from '@web3-react/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
+import type {TWeb3Context, TWeb3Options} from './types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
