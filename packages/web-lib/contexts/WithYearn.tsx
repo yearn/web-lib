@@ -5,7 +5,7 @@ import	{UIContextApp}							from	'@yearn-finance/web-lib/contexts/useUI';
 import	{Web3ContextApp}						from	'@yearn-finance/web-lib/contexts/useWeb3';
 import	{connectors}							from	'@yearn-finance/web-lib/utils/connectors';
 
-import {TSettingsBase, TSettingsOptions, TUIOptions, TWeb3Options} from './types';
+import type {TSettingsBase, TSettingsOptions, TUIOptions, TWeb3Options} from './types';
 
 import	type {Connector}						from	'@web3-react/types';
 
