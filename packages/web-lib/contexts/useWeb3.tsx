@@ -16,7 +16,7 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import {TWeb3Context, TWeb3Options} from './types';
+import type {TWeb3Context, TWeb3Options} from './types';
 
 import type {Provider} from '@web3-react/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
