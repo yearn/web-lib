@@ -10,7 +10,7 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import * as providers from '@yearn-finance/web-lib/utils/providers';
 import {toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import {TDict} from '../utils';
+import type {TDict} from '../utils';
 import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from './types';
 
 const		defaultStatus = {
