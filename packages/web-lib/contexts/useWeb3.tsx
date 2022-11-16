@@ -1,6 +1,6 @@
 import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
-import {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
+import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
