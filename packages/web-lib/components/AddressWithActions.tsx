@@ -2,7 +2,9 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
-import {copyToClipboard, TAddress, toENS} from '@yearn-finance/web-lib/utils';
+import {copyToClipboard, toENS} from '@yearn-finance/web-lib/utils';
+
+import type {TAddress} from '@yearn-finance/web-lib/utils';
 
 export type TAddressWithActions = {
 	address: TAddress;
