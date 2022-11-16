@@ -1,6 +1,7 @@
 import React, {ReactElement, useEffect, useState} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
-import {Dropdown, TDropdownOption} from '@yearn-finance/web-lib/components/Dropdown';
+import {Dropdown} from '@yearn-finance/web-lib/components/Dropdown';
+import type {TDropdownOption} from '@yearn-finance/web-lib/components/Dropdown';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import IconNetworkArbitrum from '@yearn-finance/web-lib/icons/IconNetworkArbitrum';
 import IconNetworkEthereum from '@yearn-finance/web-lib/icons/IconNetworkEthereum';
