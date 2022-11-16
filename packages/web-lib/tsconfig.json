@@ -2,7 +2,6 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"rootDirs": ["."],
-		"outDir": "./dist",
 		"paths": {
 			"@yearn-finance/web-lib/components/*": ["components/*"],
 			"@yearn-finance/web-lib/components": ["components"],
@@ -48,7 +47,6 @@
 	},
 	"exclude": ["node_modules"],
 	"include": [
-		".eslintrc.cjs",
 		"components/**/*",
 		"contexts/**/*",
 		"hooks/**/*",
