@@ -5,8 +5,8 @@ import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
 
-import {TDict} from '../utils';
-import {TSettingsBase, TSettingsContext, TSettingsContextApp, TSettingsForNetwork, TSettingsOptions} from './types';
+import type {TDict} from '../utils';
+import type {TSettingsBase, TSettingsContext, TSettingsContextApp, TSettingsForNetwork, TSettingsOptions} from './types';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
