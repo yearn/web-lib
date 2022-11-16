@@ -11,7 +11,7 @@ import * as providers from '@yearn-finance/web-lib/utils/providers';
 import {toAddress} from '@yearn-finance/web-lib/utils/utils';
 
 import {TDict} from '../utils';
-import {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from './types';
+import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from './types';
 
 const		defaultStatus = {
 	isLoading: false,
