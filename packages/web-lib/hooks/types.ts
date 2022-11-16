@@ -1,7 +1,7 @@
 import {DependencyList} from 'react';
 import {BigNumber, ethers} from 'ethers';
 
-import {TDict} from '../utils';
+import type {TDict} from '../utils';
 
 type	TDefaultReqArgs = {
 	chainID?: number,
