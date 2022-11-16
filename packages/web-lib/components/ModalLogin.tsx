@@ -7,7 +7,7 @@ import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
-import {TDict} from '../utils';
+import type {TDict} from '../utils';
 
 export type	TModalLogin = {
 	isOpen: boolean,
