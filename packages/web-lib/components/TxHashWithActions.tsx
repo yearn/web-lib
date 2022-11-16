@@ -4,7 +4,13 @@ import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
 import {copyToClipboard, truncateHex} from '@yearn-finance/web-lib/utils';
 
-import type {TTxHashWithActions} from './TxHashWithActions.d';
+export type TTxHashWithActions = {
+	txHash: string;
+	explorer: string;
+	truncate?: number;
+	wrapperClassName?: string;
+	className?: string;
+};
 
 function	TxHashWithActions(props: TTxHashWithActions): ReactElement {
 	const	{txHash, explorer = '', truncate = 5, wrapperClassName, className = ''} = props;

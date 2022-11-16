@@ -8,13 +8,13 @@ function parseChainId(chainId: string | number): number {
 
 export class EIP1193 extends Connector {
 	/** {@inheritdoc Connector.provider} */
-	declare provider: Provider;
+	declare provider: Provider | undefined;
 
 	/**
 	 * @param provider - An EIP-1193 ({@link https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md}) provider.
 	 * @param connectEagerly - A flag indicating whether connection should be initiated when the class is constructed.
 	 */
-	constructor({actions, provider}: {actions: Actions, provider: Provider}) {
+	constructor({actions, provider}: {actions: Actions, provider?: Provider}) {
 		super(actions);
 		this.provider = provider;
 	}
@@ -47,10 +47,9 @@ export class EIP1193 extends Connector {
 		const cancelActivation = this.actions.startActivation();
 
 		return Promise.all([
-		this.provider.request({method: 'eth_chainId'}) as Promise<string>,
-		this.provider
-			.request({method: 'eth_requestAccounts'})
-			.catch(async (): Promise<unknown> => this.provider.request({method: 'eth_accounts'})) as Promise<string[]>
+		this.provider?.request({method: 'eth_chainId'}) as Promise<string>,
+		this.provider?.request({method: 'eth_requestAccounts'})
+			.catch(async (): Promise<unknown> => this.provider?.request({method: 'eth_accounts'})) as Promise<string[]>
 		]).then(([chainId, accounts]): void => {
 			this.actions.update({chainId: parseChainId(chainId), accounts});
 		}).catch((error): void => {
@@ -64,8 +63,8 @@ export class EIP1193 extends Connector {
 		const cancelActivation = this.actions.startActivation();
 
 		return Promise.all([
-			this.provider.request({method: 'eth_chainId'}) as Promise<string>,
-			this.provider.request({method: 'eth_accounts'}) as Promise<string[]>
+			this.provider?.request({method: 'eth_chainId'}) as Promise<string>,
+			this.provider?.request({method: 'eth_accounts'}) as Promise<string[]>
 		]).then(([chainId, accounts]): void => {
 			this.actions.update({chainId: parseChainId(chainId), accounts});
 		}).catch((error: Error): void => {

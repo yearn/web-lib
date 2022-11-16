@@ -1,6 +1,8 @@
 import {DependencyList} from 'react';
 import {BigNumber, ethers} from 'ethers';
 
+import type {TDict} from '../utils';
+
 type	TDefaultReqArgs = {
 	chainID?: number,
 	provider?: ethers.providers.Provider,
@@ -97,9 +99,7 @@ export type	TUseBalancesReq = {
 } & TDefaultReqArgs
 
 export type	TUseBalancesRes = {
-	data: {
-		[key: string]: TBalanceData
-	},
+	data: TDict<TBalanceData>,
 	update: () => Promise<void>,
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown'

@@ -160,7 +160,7 @@ module.exports = {
 	},
 	overrides: [
 		{
-			files: ['*.tsx'],
+			files: ['*.{ts,tsx}'],
 			rules: {
 				'simple-import-sort/imports': [
 					'error',

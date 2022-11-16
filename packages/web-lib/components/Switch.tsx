@@ -1,7 +1,10 @@
 import React, {ReactElement, useState} from 'react';
 import {Switch as HeadlessSwitch} from '@headlessui/react';
 
-import type {TSwitch} from './Switch.d';
+export type TSwitch = {
+	isEnabled: boolean;
+	onSwitch?: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 function Switch(props: TSwitch): ReactElement {
 	const	{isEnabled, onSwitch} = props;

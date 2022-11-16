@@ -3,7 +3,10 @@ import {useClientEffect} from '@yearn-finance/web-lib/hooks';
 import IconThemeDark from '@yearn-finance/web-lib/icons/IconThemeDark';
 import IconThemeLight from '@yearn-finance/web-lib/icons/IconThemeLight';
 
-import type {TSwitchTheme} from './SwitchTheme.d';
+export type TSwitchTheme = {
+	theme: string;
+	switchTheme: () => void;
+} & React.ComponentPropsWithoutRef<'div'>;
 
 function	SwitchTheme(props: TSwitchTheme): ReactElement {
 	const	{theme, switchTheme, ...rest} = props;

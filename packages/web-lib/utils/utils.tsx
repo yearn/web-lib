@@ -1,6 +1,8 @@
 import {toast} from 'react-hot-toast';
 import {ethers} from 'ethers';
 
+import type {TDict} from './types';
+
 //cf: https://github.com/ethers-io/ethers.js/discussions/1429
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
@@ -10,7 +12,7 @@ export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 ** should be a specific type address, which does not exists, so any address
 ** should always be called by toAddress(0x...).
 **************************************************************************/
-export function toAddress(address: string | undefined): TAddress {
+export function toAddress(address?: string): TAddress {
 	if (!address) {
 		return ethers.constants.AddressZero as TAddress;
 	}
@@ -29,7 +31,7 @@ export function toENS(address: string | undefined, format?: boolean, size?: numb
 		return address || '';
 	}
 	const	_address = toAddress(address);
-	const	knownENS = process.env.KNOWN_ENS as unknown as {[key: string]: string};
+	const	knownENS = process.env.KNOWN_ENS as unknown as TDict<string>;
 	if (knownENS?.[_address]) {
 		return knownENS[_address];
 	}
@@ -39,7 +41,7 @@ export function toENS(address: string | undefined, format?: boolean, size?: numb
 	return address;
 }
 
-export function isZeroAddress(address: string | undefined): boolean {
+export function isZeroAddress(address?: string): boolean {
 	return toAddress(address) === ethers.constants.AddressZero as TAddress;
 }
 

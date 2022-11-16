@@ -4,7 +4,7 @@ import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 
-import type * as Types from './types.d';
+import type * as Types from './types';
 
 const	defaultStatus = {
 	isLoading: false,
@@ -30,7 +30,7 @@ const	defaultData = {
 ** information. This could also be used to subscribe to new blocks and be
 ** able to trigger events based on that.
 **************************************************************************/
-function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
+export function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
 	const	{provider, chainID: web3ChainID} = useWeb3();
 	const	lastBlock = useRef<number>(0);
 	const	[data, set_data] = useState<Types.TBlock>(defaultData);
@@ -129,5 +129,3 @@ function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
 		isError: status.isError
 	});
 }
-
-export default useBlock;

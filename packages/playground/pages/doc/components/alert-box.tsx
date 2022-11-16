@@ -1,18 +1,18 @@
 import	React, {ReactElement}			from	'react';
-import	{Card, AlertBox}				from	'@yearn-finance/web-lib/components';
+import	{Card, Alert}				from	'@yearn-finance/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 import	CodeExample						from	'components/CodeExample';
-import type * as AlertTypes				from	'@yearn-finance/web-lib/components/Alert.d';
+import type * as AlertTypes				from	'@yearn-finance/web-lib/components/Alert';
 
 const code = `
 import	React		from	'react';
-import	{AlertBox}	from	'@yearn-finance/web-lib/components';
+import	{Alert}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (
-		<AlertBox
+		<Alert.Box
 			level={'warning'}
 			alerts={[
 				'This is my alert number 1',
@@ -26,7 +26,7 @@ export default function	App(): React.ReactElement {
 export function	AlertBoxComponent(): ReactElement {
 	return (
 		<div className={'w-3/4'}>
-			<AlertBox
+			<Alert.Box
 				level={'warning'}
 				alerts={[
 					'This is my alert number 1',
@@ -48,7 +48,7 @@ function	DocumentationAlertBox(): ReactElement {
 				<section aria-label={'code-part'}>
 					<CodeExample>
 						<div className={'w-3/4'}>
-							<AlertBox
+							<Alert.Box
 								level={variantType[variant] as AlertTypes.TAlertLevels}
 								alerts={[
 									'This is my alert number 1',

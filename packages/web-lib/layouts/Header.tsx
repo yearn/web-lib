@@ -8,7 +8,7 @@ import IconNetworkFantom from '@yearn-finance/web-lib/icons/IconNetworkFantom';
 import IconNetworkOptimism from '@yearn-finance/web-lib/icons/IconNetworkOptimism';
 import {truncateHex} from '@yearn-finance/web-lib/utils';
 
-import type {TDropdownOption} from '@yearn-finance/web-lib/components/Dropdown.d';
+import type {TDropdownOption} from '@yearn-finance/web-lib/components/Dropdown';
 
 const	options: TDropdownOption[] = [
 	{icon: <IconNetworkEthereum />, label: 'Ethereum', value: 1},

@@ -1,7 +1,7 @@
 import	React, {ReactElement}			from	'react';
 import	Link							from	'next/link';
 import	{RadialBackground}				from	'components/RadialBackground';
-import	{Card, AlertBanner, Button}		from	'@yearn-finance/web-lib/components';
+import	{Card, Alert, Button}		from	'@yearn-finance/web-lib/components';
 import	{CardComponent}					from	'pages/doc/components/cards';
 import	{CardTabsComponent}				from	'pages/doc/components/cards-tabs';
 import	{CardDetailsComponent}			from	'pages/doc/components/cards-details';
@@ -205,7 +205,7 @@ function	Element({children, title, version, description, href}: TElement): React
 function	Documentation(): ReactElement {
 	return (
 		<>
-			<AlertBanner
+			<Alert.Banner
 				title={'The yComponents'}
 				canClose={false}
 				maxHeight={'max-height-[350px] md:max-height-[250px]'}>
@@ -213,7 +213,7 @@ function	Documentation(): ReactElement {
 					<p>{'This is a beta version of the documentation. It is not yet complete and will be updated as soon as possible.'}</p>
 					<p className={'mt-4'}>{'If you want to contribute to the documentation, please open an issue on the GitHub repository!'}</p>
 				</div>
-			</AlertBanner>
+			</Alert.Banner>
 			<section aria-label={'documentation list'} className={'mt-8 mb-16 space-y-20'}>
 				<section aria-label={'Cards layout elements'}>
 					<h1 className={'mb-4 text-3xl text-neutral-700'}>{'Cards'}</h1>

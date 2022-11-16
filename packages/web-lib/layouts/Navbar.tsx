@@ -2,9 +2,30 @@ import React, {cloneElement, ReactElement, useState} from 'react';
 import {ModalMenu} from '@yearn-finance/web-lib/components/ModalMenu';
 import IconHamburger from '@yearn-finance/web-lib/icons/IconHamburger';
 
-import type * as NavbarTypes from './Navbar.d';
+export type TNavbarOption = {
+	route: string;
+	values: string | string[];
+	label: string;
+	icon?: ReactElement;
+	options?: TNavbarOption[];
+}
 
-function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
+export type TNavbar = {
+	options: TNavbarOption[];
+	logo: ReactElement;
+	title?: string;
+	selected: string;
+	set_selected: React.Dispatch<React.SetStateAction<string>> | ((option: string) => void);
+	children?: ReactElement;
+	wrapper: ReactElement;
+}
+
+export type TMenuItem = {
+	option: TNavbarOption;
+	selected: string;
+}
+
+function	NavbarMenuItem({option, selected}: TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
 			<div className={`mr-4 cursor-pointer py-1 transition-colors ${option.values.includes(selected) ? 'text-primary-500' : 'group-hover:text-primary-500 text-neutral-500'}`}>
@@ -21,7 +42,7 @@ function	NavbarMenuItem({option, selected}: NavbarTypes.TMenuItem): ReactElement
 	);
 }
 
-function	NavbarMenuSubItem({option, selected}: NavbarTypes.TMenuItem): ReactElement {
+function	NavbarMenuSubItem({option, selected}: TMenuItem): ReactElement {
 	return (
 		<div className={'group flex flex-row items-center'}>
 			<div className={'mr-4 h-6 w-6 min-w-[1.5rem] cursor-pointer py-1'} />
@@ -41,7 +62,7 @@ function	Navbar({
 	children,
 	wrapper,
 	...props
-}: NavbarTypes.TNavbar): ReactElement {
+}: TNavbar): ReactElement {
 	const	[hasOpenMenu, set_hasOpenMenu] = useState(false);
 
 	return (

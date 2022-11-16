@@ -3,9 +3,38 @@ import {AnimatePresence, motion} from 'framer-motion';
 import {Disclosure, Tab} from '@headlessui/react';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 
-import type * as CardTypes from './Card.d';
+export type TCard = {
+	className?: string;
+	variant?: 'surface' | 'background';
+	padding?: 'none' | 'narrow' | 'regular';
+	onClick?: React.MouseEventHandler;
+	children?: React.ReactNode;
+} & React.ComponentPropsWithoutRef<'section'>;
 
-function	CardDetailsSummary(props: CardTypes.TCardDetailSummary): ReactElement{
+export type TCardDetailSummary = {
+	startChildren?: React.ReactNode;
+	endChildren?: React.ReactNode;
+	open?: boolean;
+} & React.ComponentPropsWithoutRef<'div'>;
+
+export type TCardWithTabsOption = {
+	label: string;
+	children: ReactElement;
+}
+
+export type TCardWithTabs = {
+	tabs: TCardWithTabsOption[];
+}
+
+export type TCardDetail = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	summary?: TCardDetailSummary | ReactElement | ((p: unknown) => ReactElement | TCardDetailSummary) | any;
+	variant?: 'surface' | 'background';
+	isSticky?: boolean;
+	children?: React.ReactNode;
+} & React.ComponentPropsWithoutRef<'div'>;
+
+function	CardDetailsSummary(props: TCardDetailSummary): ReactElement{
 	const {startChildren, endChildren} = props;
 
 	return (
@@ -26,7 +55,7 @@ function	CardDetailsSummary(props: CardTypes.TCardDetailSummary): ReactElement{
 	);
 }
 
-function	CardDetails(props: CardTypes.TCardDetail): ReactElement {
+function	CardDetails(props: TCardDetail): ReactElement {
 	const {summary, variant = 'surface', isSticky = true, children} = props;
 
 	return (
@@ -64,7 +93,7 @@ function	CardDetails(props: CardTypes.TCardDetail): ReactElement {
 	);
 }
 
-function	CardWithTabs(props: CardTypes.TCardWithTabs): ReactElement {
+function	CardWithTabs(props: TCardWithTabs): ReactElement {
 	const	{tabs} = props;
 
 	return (
@@ -73,7 +102,7 @@ function	CardWithTabs(props: CardTypes.TCardWithTabs): ReactElement {
 				<Tab.List
 					className={'yearn--card yearn--card-tab'}
 					style={{padding: 0}}>
-					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
+					{tabs.map((option: TCardWithTabsOption): ReactElement => (
 						<Tab
 							key={option.label}
 							as={'div'}
@@ -83,7 +112,7 @@ function	CardWithTabs(props: CardTypes.TCardWithTabs): ReactElement {
 					))}
 				</Tab.List>
 				<Tab.Panels className={'w-full rounded-t-none'}>
-					{tabs.map((option: CardTypes.TCardWithTabsOption): ReactElement => (
+					{tabs.map((option: TCardWithTabsOption): ReactElement => (
 						<Tab.Panel key={option.label} as={Fragment}>
 							<section
 								className={'yearn--card'}
@@ -101,7 +130,7 @@ function	CardWithTabs(props: CardTypes.TCardWithTabs): ReactElement {
 	);
 }
 
-function	CardBase(props: CardTypes.TCard): ReactElement {
+function	CardBase(props: TCard): ReactElement {
 	const {children, onClick, padding = 'regular', variant = 'surface', ...rest} = props;
 
 	return (

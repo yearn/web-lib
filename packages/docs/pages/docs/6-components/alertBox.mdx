@@ -3,17 +3,17 @@ title: 'AlertBox'
 ---
 
 import {CodeExample} from '../../../components/CodeExample';
-import {Card, AlertBox} from '@yearn-finance/web-lib/components';
+import {Card, Alert} from '@yearn-finance/web-lib/components';
 
 
 # AlertBox
 ```ts
-import {AlertBox} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 ```
 
 <CodeExample>
 	<div style={{width: '75%'}}>
-		<AlertBox
+		<Alert.Box
 			level={'warning'}
 			alerts={[
 				'This is my alert number 1',
@@ -28,11 +28,11 @@ The Alert Box component is used to display a group of alerts with the icon match
 ## Usage
 ```tsx
 import React from 'react';
-import {AlertBox} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBox
+		<Alert.Box
 			level={'warning'}
 			alerts={[
 				'This is my alert number 1',
@@ -56,28 +56,28 @@ Indicate the type of box to display, aka mostly the colors. Default is set to in
 
 <CodeExample>
 	<div className="w-3/4 flex flex-col space-y-2">
-		<AlertBox
+		<Alert.Box
 			level={'info'}
 			alerts={[
 				'This is my alert number 1',
 				'And this is the second one',
 				'Yes, I am bad at writing dummy texts'
 			]} />
-		<AlertBox
+		<Alert.Box
 			level={'warning'}
 			alerts={[
 				'This is my alert number 1',
 				'And this is the second one',
 				'Yes, I am bad at writing dummy texts'
 			]} />
-		<AlertBox
+		<Alert.Box
 			level={'error'}
 			alerts={[
 				'This is my alert number 1',
 				'And this is the second one',
 				'Yes, I am bad at writing dummy texts'
 			]} />
-		<AlertBox
+		<Alert.Box
 			level={'critical'}
 			alerts={[
 				'This is my alert number 1',
@@ -89,11 +89,11 @@ Indicate the type of box to display, aka mostly the colors. Default is set to in
 
 ```tsx {7}
 import React from 'react';
-import {AlertBox} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBox
+		<Alert.Box
 			level={'critical'}
 			alerts={[
 				'This is my alert number 1',
@@ -109,11 +109,11 @@ List of message to display.
 
 ```tsx {8-12}
 import React from 'react';
-import {AlertBox} from '@yearn-finance/web-lib/components';
+import {Alert} from '@yearn-finance/web-lib/components';
 
 function App(): React.ReactElement {
 	return (
-		<AlertBox
+		<Alert.Box
 			level={'critical'}
 			alerts={[
 				'This is my alert number 1',

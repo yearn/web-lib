@@ -15,8 +15,10 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import type * as useWeb3Types from '@yearn-finance/web-lib/contexts/useWeb3.d';
+import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
+import type {Provider} from '@web3-react/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
+import type {TWeb3Context, TWeb3Options} from './types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
@@ -36,21 +38,21 @@ const defaultState = {
 	openLoginModal: (): void => undefined,
 	onDesactivate: (): void => undefined
 };
-const	defaultOptions: useWeb3Types.TWeb3Options = {
+const	defaultOptions: TWeb3Options = {
 	shouldUseWallets: true,
 	defaultChainID: 1,
 	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 1337, 31337, 42161]
 };
 
-const Web3Context = createContext<useWeb3Types.TWeb3Context>(defaultState);
+const Web3Context = createContext<TWeb3Context>(defaultState);
 export const Web3ContextApp = ({
 	children,
 	options = defaultOptions
 }: {
 	children: ReactElement,
-	options?: useWeb3Types.TWeb3Options
+	options?: TWeb3Options
 }): ReactElement => {
-	const	web3Options = deepMerge(defaultOptions, options) as useWeb3Types.TWeb3Options;
+	const	web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const	web3 = useWeb3React();
 	const   {connector, isActive, provider, account, chainId} = web3;
 	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
@@ -217,9 +219,11 @@ export const Web3ContextApp = ({
 	useClientEffect((): void => {
 		if (isIframe()) {
 			const params = new Proxy(new URLSearchParams(window.location.search), {
-				get: (searchParams, prop): unknown => searchParams.get(prop as string)
+				get: (searchParams, prop): string | null => searchParams.get(prop.toString())
 			});
-			const	{origin} = params as any;
+
+			// TODO Are we sure that `params` has an `origin` prop?
+			const	{origin} = params as URLSearchParams & {origin: string};
 			const	partnerInformation = getPartner(origin);
 
 			/* 🔵 - Yearn Finance **************************************************
@@ -229,8 +233,8 @@ export const Web3ContextApp = ({
 			**	and try to connect.
 			**********************************************************************/
 			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI}) as any;
-				const	frameWeb3Provider = frameProvider;
+				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI});
+				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
 				connectors.eip1193.connector.init(frameWeb3Provider);
 				connectors.eip1193.connector.activate();
@@ -255,7 +259,7 @@ export const Web3ContextApp = ({
 					// 
 				}
 			}
-		} else if (((window as any)?.ethereum as any)?.isCoinbaseBrowser) {
+		} else if ((window.ethereum as CoinbaseWalletProvider).isCoinbaseBrowser) {
 			connectors.coinbase.connector.activate().then((): void => {
 				set_lastWallet(walletType.COINBASE);
 			});
@@ -319,5 +323,5 @@ export const Web3ContextApp = ({
 	);
 };
 
-export const useWeb3 = (): useWeb3Types.TWeb3Context => useContext(Web3Context);
+export const useWeb3 = (): TWeb3Context => useContext(Web3Context);
 export default useWeb3;

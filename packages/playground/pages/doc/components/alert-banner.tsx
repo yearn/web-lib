@@ -1,18 +1,18 @@
 import	React, {ReactElement}			from	'react';
-import	{Card, AlertBanner}				from	'@yearn-finance/web-lib/components';
+import	{Card, Alert}				from	'@yearn-finance/web-lib/components';
 import	VariantSelectors				from	'components/documentation/VariantSelectors';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
 import	CodeExample						from	'components/CodeExample';
-import type {TAlertLevels}				from	'@yearn-finance/web-lib/components/Alert.d';
+import type {TAlertLevels}				from	'@yearn-finance/web-lib/components/Alert';
 
 const code = `
 import	React			from	'react';
-import	{AlertBanner}	from	'@yearn-finance/web-lib/components';
+import	{Alert}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (
-		<AlertBanner
+		<Alert.Banner
 			title={'Spend your time wisely'}
 			maxHeight={'max-h-[600px] md:max-h-[300px]'}>
 			<div>
@@ -20,7 +20,7 @@ export default function	App(): React.ReactElement {
 				<p className={'block mt-4'}>{'Custody, and responsibility, for your holdings remains yours.'}</p>
 				<p className={'block mt-4'}>{'You can withdraw anytime.'}</p>
 			</div>
-		</AlertBanner>
+		</Alert.Banner>
 	);
 }`.trim();
 
@@ -28,13 +28,13 @@ export function	AlertBannerComponent(): ReactElement {
 	return (
 		<div className={'relative w-full flex-center'}>
 			<div className={'z-10'}>
-				<AlertBanner
+				<Alert.Banner
 					title={'Spend your time wisely'}
 					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 					<div>
 						<p>{'Yearn Vaults are a way to use technology to help manage your holdings.'}</p>
 					</div>
-				</AlertBanner>
+				</Alert.Banner>
 			</div>
 		</div>
 	);
@@ -47,7 +47,7 @@ function	VariantLevel(): ReactElement {
 	function	renderAlertBanner(): ReactElement {
 		if (variant === 4) {
 			return (
-				<AlertBanner
+				<Alert.Banner
 					title={'Spend your time wisely (multi)'}
 					maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
 					<div>
@@ -64,11 +64,11 @@ function	VariantLevel(): ReactElement {
 						<p>{'Exercitationem ab sed dolor dolorum omnis. Qui laudantium voluptatem possimus excepturi aliquid vel necessitatibus et. Iste similique illum cumque mollitia aut voluptatibus quia nam. Nemo atque vel vero est. Perspiciatis officiis veritatis animi libero.'}</p>
 						<p className={'block mt-4'}>{'Quis repellendus est pariatur est eos et autem qui. '}</p>
 					</div>
-				</AlertBanner>
+				</Alert.Banner>
 			);
 		}
 		return (
-			<AlertBanner
+			<Alert.Banner
 				title={`Spend your time wisely (${variantType[variant]})`}
 				level={variantType[variant] as TAlertLevels}
 				maxHeight={'max-h-[600px] md:max-h-[300px] alertBanner--wrapper'}>
@@ -77,7 +77,7 @@ function	VariantLevel(): ReactElement {
 					<p className={'block mt-4'}>{'Custody, and responsibility, for your holdings remains yours.'}</p>
 					<p className={'block mt-4'}>{'You can withdraw anytime.'}</p>
 				</div>
-			</AlertBanner>
+			</Alert.Banner>
 		);
 	}
 

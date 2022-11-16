@@ -1,6 +1,6 @@
 import	React		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {AlertBanner}    from '@yearn-finance/web-lib/components';
+import {Alert}    from '@yearn-finance/web-lib/components';
 
 function	AlertBannerExample(): React.ReactElement {
 	const	[isVisible, set_isVisible] = React.useState(true);
@@ -8,7 +8,7 @@ function	AlertBannerExample(): React.ReactElement {
 	return (
 		<CodeExample>
 			<div className={'w-3/4'}>
-				<AlertBanner
+				<Alert.Banner
 					isVisible={isVisible}
 					title={'Spend your time wisely'}
 					onClose={(): void => {
@@ -20,7 +20,7 @@ function	AlertBannerExample(): React.ReactElement {
 						<p className={'block mt-4'}>{'Custody, and responsibility, for your holdings remains yours.'}</p>
 						<p className={'block mt-4'}>{'You can withdraw anytime.'}</p>
 					</div>
-				</AlertBanner>
+				</Alert.Banner>
 			</div>
 		</CodeExample>
 	);

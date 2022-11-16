@@ -1,14 +1,14 @@
 import	{useWeb3}				from	'@yearn-finance/web-lib/contexts/useWeb3';
 
-import	type {TUseAccountRes}	from	'./types.d';
+import	type {TUseAccountRes}	from	'./types';
 
 /* 🔵 - Yearn Finance ******************************************************
 ** This hook is really just a remapping of the useWeb3 context, providing
 ** a more friendly limited interface for dev experience.
 **************************************************************************/
-function useAccount(): TUseAccountRes {
+export function useAccount(): TUseAccountRes {
 	const {address, ens, isActive, isConnecting, isDisconnected, provider} = useWeb3();
-  
+
 	return ({
 		address: address,
 		ens: ens,
@@ -25,5 +25,3 @@ function useAccount(): TUseAccountRes {
 		)
 	});
 }
-
-export default useAccount;

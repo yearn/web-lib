@@ -10,7 +10,8 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import * as providers from '@yearn-finance/web-lib/utils/providers';
 import {toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import type * as Types from './types.d';
+import type {TDict} from '../utils';
+import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from './types';
 
 const		defaultStatus = {
 	isLoading: false,
@@ -24,12 +25,12 @@ const		defaultStatus = {
 /* 🔵 - Yearn Finance ******************************************************
 ** This hook can be used to fetch balance information for any ERC20 tokens.
 **************************************************************************/
-function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
+export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const	{networks} = useSettings();
 	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
-	const	[rawData, set_rawData] = useState<{[key: string]: Types.TBalanceData}>({});
-	const	[data, set_data] = useState<{[key: string]: Types.TBalanceData}>({});
-	const	[status, set_status] = useState<Types.TDefaultStatus>(defaultStatus);
+	const	[rawData, set_rawData] = useState<TDict<TBalanceData>>({});
+	const	[data, set_data] = useState<TDict<TBalanceData>>({});
+	const	[status, set_status] = useState<TDefaultStatus>(defaultStatus);
 	const	[error, set_error] = useState<Error | undefined>(undefined);
 	const	interval = useRef<NodeJS.Timer>();
 	const	effectDependencies = props?.effectDependencies || [];
@@ -79,7 +80,7 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 			}
 		}
 
-		const	_data: {[key: string]: Types.TBalanceData} = {};
+		const	_data: TDict<TBalanceData> = {};
 		try {
 			const	results = await ethcallProvider.tryAll(calls);
 			let		rIndex = 0;
@@ -206,5 +207,3 @@ function	useBalances(props?: Types.TUseBalancesReq): Types.TUseBalancesRes {
 		)
 	});
 }
-
-export default useBalances;

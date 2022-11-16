@@ -7,9 +7,10 @@ import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask'
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {chains, truncateHex} from '@yearn-finance/web-lib/utils';
 
-import type {TModalMobileMenu} from './ModalMenu.d';
+import type {TModal} from './Modal';
+import type {TModalMobileMenu} from './ModalMenu';
 
-function	Modal(props: any): ReactElement {
+function	Modal(props: TModal): ReactElement {
 	const	{isOpen, onClose, className = '', children} = props;
 	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
