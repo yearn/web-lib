@@ -1,6 +1,6 @@
 import	React, {ReactElement}		from	'react';
 import	{Card, AddressWithActions}	from	'@yearn-finance/web-lib/components';
-import	{toAddress}					from	'@yearn-finance/web-lib/utils';
+import	{toAddress}					from	'@yearn-finance/web-lib/utils/utils';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
 import	CodeExample					from	'components/CodeExample';

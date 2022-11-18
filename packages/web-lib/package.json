@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.15.23",
+  "version": "0.16.1",
   "files": [
     "."
   ],
@@ -9,6 +9,7 @@
     "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i style.css -o dist/build.css --minify && sed -i -e 's/rem/em/g' dist/build.css",
     "prebuild": "rm -rf dist",
     "build": "bump && tsc --module es2022 --outDir dist --jsx react",
+    "buildNoBump": "tsc --module es2022 --outDir dist --jsx react",
     "postbuild": "sh ./scripts/postbuild.sh && npm run exportStyle",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
