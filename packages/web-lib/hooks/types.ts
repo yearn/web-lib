@@ -100,7 +100,7 @@ export type	TUseBalancesReq = {
 
 export type	TUseBalancesRes = {
 	data: TDict<TBalanceData>,
-	update: () => Promise<void>,
+	update: () => Promise<TDict<TBalanceData>>,
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown'
 } & TDefaultStatus 
