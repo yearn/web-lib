@@ -37,8 +37,8 @@ export type	TSettingsContextApp = {
 }
 
 export type TUIOptions = {
-	shouldUseDefaultToaster: boolean,
-	shouldUseThemes: boolean
+	shouldUseDefaultToaster?: boolean,
+	shouldUseThemes?: boolean
 }
 
 export type TPossibleThemes = 'dark' | 'light';
