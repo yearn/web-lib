@@ -22,7 +22,7 @@ export type	TSettingsContext = {
 	networks: {
 		[key: number]: TSettingsForNetwork,
 	},
-	onUpdateNetworks: (newNetworkSettings: TSettingsContext) => void,
+	onUpdateNetworks: (newNetworkSettings: TSettingsOptions) => void,
 	onUpdateBaseSettings: (newBaseSettings: TSettingsBase) => void,
 }
 
