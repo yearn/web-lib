@@ -18,7 +18,7 @@ import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
 import type {Provider} from '@web3-react/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
-import type {TWeb3Context, TWeb3Options} from './types';
+import type {TWalletProvider, TWeb3Context, TWeb3Options} from './types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
@@ -32,6 +32,7 @@ const defaultState = {
 	isActive: false,
 	isConnecting: false,
 	hasProvider: false,
+	detectedWalletProvider: 'frame',
 	provider: getProvider(),
 	currentPartner: undefined,
 	onConnect: async (): Promise<void> => undefined,
@@ -67,6 +68,21 @@ export const Web3ContextApp = ({
 	const	[currentPartner, set_currentPartner] = useState<TPartnersInfo>();
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
+
+	const	detectedWalletProvider = useMemo((): string => {
+		if (typeof(window) === 'undefined') {
+			return 'frame';
+		}
+		if ((window?.ethereum as CoinbaseWalletProvider)?.isCoinbaseBrowser) {
+			return ('coinbase');
+		} else if ((window?.ethereum as TWalletProvider)?.isFrame) {
+			return ('frame');
+		} else if ((window?.ethereum as TWalletProvider)?.isMetaMask) {
+			return ('metamask');
+		}
+		return ('frame');
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof(window)]);
 
 	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
 		if (newChainID === debouncedChainID) {
@@ -307,6 +323,7 @@ export const Web3ContextApp = ({
 				provider: provider as ethers.providers.BaseProvider,
 				onConnect: connect,
 				currentPartner,
+				detectedWalletProvider,
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {

@@ -3,6 +3,7 @@ import {toast} from 'react-hot-toast';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
+import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
@@ -17,7 +18,7 @@ export type	TModalLogin = {
 
 function ModalLogin(props: TModalLogin): ReactElement {
 	const	{isOpen, onClose, walletType} = props;
-	const	{onConnect} = useWeb3();
+	const	{onConnect, detectedWalletProvider} = useWeb3();
 
 	return (
 		<Modal
@@ -33,8 +34,17 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					<div><IconWalletMetamask /></div>
-					<b>{'Metamask'}</b>
+					{detectedWalletProvider === 'metamask' ? (
+						<>
+							<div><IconWalletMetamask /></div>
+							<b>{'Metamask'}</b>
+						</>
+					) : (
+						<>
+							<div><IconWalletFrame className={'text-neutral-900'} /></div>
+							<b>{'Frame'}</b>
+						</>
+					)}
 				</div>
 				<div
 					onClick={(): void => {

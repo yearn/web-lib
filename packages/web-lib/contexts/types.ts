@@ -74,9 +74,16 @@ export type TWeb3Context = {
 	hasProvider: boolean,
 	provider: ethers.providers.Provider,
 	currentPartner?: TPartnersInfo,
+	detectedWalletProvider: string,
 	onConnect: (p: number, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
 	options?: TWeb3Options
+}
+
+export type TWalletProvider = {
+	isFrame?: boolean,
+	isCoinbaseBrowser?: boolean,
+	isMetaMask?: boolean,
 }
