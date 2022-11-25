@@ -2,7 +2,7 @@ import	{Provider}		from	'ethcall';
 import	{ethers}		from	'ethers';
 
 const	defaultRPCURI: {[key: number]: string} = {
-	1: 'https://rpc.flashbots.net',
+	1: 'https://api.securerpc.com/v1',
 	4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
 	5: `https://goerli.infura.io/v3/${process.env.INFURA_KEY}`,
 	10: 'https://mainnet.optimism.io',

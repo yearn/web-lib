@@ -1,6 +1,8 @@
 import	{ReactNode}	from 'react';
 import	{ethers}	from 'ethers';
 
+import {TPartnersInfo} from '../utils';
+
 export type TSettingsBase = {
 	yDaemonBaseURI: string,
 	metaBaseURI: string,
@@ -71,6 +73,7 @@ export type TWeb3Context = {
 	isConnecting: boolean,
 	hasProvider: boolean,
 	provider: ethers.providers.Provider,
+	currentPartner?: TPartnersInfo,
 	onConnect: (p: number, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
 	openLoginModal: () => void,

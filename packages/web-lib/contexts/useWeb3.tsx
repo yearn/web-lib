@@ -33,6 +33,7 @@ const defaultState = {
 	isConnecting: false,
 	hasProvider: false,
 	provider: getProvider(),
+	currentPartner: undefined,
 	onConnect: async (): Promise<void> => undefined,
 	onSwitchChain: (): void => undefined,
 	openLoginModal: (): void => undefined,
@@ -63,7 +64,7 @@ export const Web3ContextApp = ({
 	const   [isDisconnected, set_isDisconnected] = useState(false);
 	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
 	const	[isModalLoginOpen, set_isModalLoginOpen] = useState(false);
-	const	[, set_currentPartner] = useState<TPartnersInfo>();
+	const	[currentPartner, set_currentPartner] = useState<TPartnersInfo>();
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
 
@@ -305,6 +306,7 @@ export const Web3ContextApp = ({
 				hasProvider: !!provider,
 				provider: provider as ethers.providers.BaseProvider,
 				onConnect: connect,
+				currentPartner,
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
