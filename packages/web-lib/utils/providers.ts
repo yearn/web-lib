@@ -48,10 +48,10 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 			ethcallProvider.multicall = {address: '0xeefba1e63905ef1d7acba5a8513c70307c1ce441', block: 0};
 			ethcallProvider.multicall2 = {address: '0x5ba1e12693dc8f9c48aad8770482f4739beed696', block: 0};
 		}
-
 		return ethcallProvider;
 	}
 	await	ethcallProvider.init(provider as ethers.providers.BaseProvider);
+	ethcallProvider.multicall = null; //Remove multicall1 dependency
 	return	ethcallProvider;
 }
 

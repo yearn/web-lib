@@ -7,27 +7,33 @@ export type TSettingsBase = {
 	apiBaseURI: string,
 }
 export type	TSettingsForNetwork = {
-	rpcURI?: string,
-	yDaemonURI?: string,
-	graphURI?: string,
-	metaURI?: string,
-	apiURI?: string,
-	explorerBaseURI?: string,
-	lensAddress?: string,
-	partnerContractAddress?: string
+	rpcURI: string,
+	yDaemonURI: string,
+	graphURI: string,
+	metaURI: string,
+	apiURI: string,
+	explorerBaseURI: string,
+	lensAddress: string,
+	partnerContractAddress: string
 }
 
 export type	TSettingsContext = {
 	settings: TSettingsBase,
-	networks: {
-		[key: number]: TSettingsForNetwork,
-	},
+	networks: TSettingsBaseOptions & TSettingsOptions,
 	onUpdateNetworks: (newNetworkSettings: TSettingsOptions) => void,
 	onUpdateBaseSettings: (newBaseSettings: TSettingsBase) => void,
 }
 
+export type TSettingsBaseOptions = {
+	1: TSettingsForNetwork,
+	10: TSettingsForNetwork,
+	250: TSettingsForNetwork,
+	1337: TSettingsForNetwork,
+	42161: TSettingsForNetwork,
+}
+
 export type TSettingsOptions = {
-	[key: number]: TSettingsForNetwork,
+	[key: number]: Partial<TSettingsForNetwork>,
 }
 
 export type	TSettingsContextApp = {

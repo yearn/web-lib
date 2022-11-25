@@ -5,8 +5,7 @@ import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
 
-import type {TDict} from '../utils';
-import type {TSettingsBase, TSettingsContext, TSettingsContextApp, TSettingsForNetwork, TSettingsOptions} from './types';
+import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from './types';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
@@ -84,7 +83,7 @@ export const SettingsContextApp = ({
 	networksOptions = {}
 }: TSettingsContextApp): React.ReactElement => {
 	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as TSettingsBase);
-	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as TSettingsOptions);
+	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as TSettingsBaseOptions & TSettingsOptions);
 
 	useEffect((): void => {
 		const	_networks = networks as TSettingsOptions;
@@ -99,7 +98,7 @@ export const SettingsContextApp = ({
 	**	the new ones will be added.
 	******************************************************************************************/
 	function	onUpdateNetworks(newNetworkSettings: TSettingsOptions): void {
-		const	_networks = deepMerge(networks, newNetworkSettings) as TSettingsOptions;
+		const	_networks = deepMerge(networks, newNetworkSettings) as TSettingsBaseOptions & TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
 		});
@@ -114,13 +113,14 @@ export const SettingsContextApp = ({
 	function	onUpdateBaseSettings(newSettings: TSettingsBase): void {
 		performBatchedUpdates((): void => {
 			set_baseSettings(newSettings);
-			set_networks((_networks: TDict<TSettingsForNetwork>): unknown => {
-				Object.keys(_networks).forEach((key): void => {
-					_networks[key].yDaemonURI = `${newSettings.yDaemonBaseURI}/${key}`;
-					_networks[key].metaURI = `${newSettings.metaBaseURI}/api/${key}`;
-					_networks[key].apiURI = `${newSettings.apiBaseURI}/v1/chains/${key}`;
+
+			set_networks((prevNetworks): TSettingsBaseOptions & TSettingsOptions => {
+				Object.keys(prevNetworks).forEach((key: string | number): void => {
+					prevNetworks[Number(key)].yDaemonURI = `${newSettings.yDaemonBaseURI}/${key}`;
+					prevNetworks[Number(key)].metaURI = `${newSettings.metaBaseURI}/api/${key}`;
+					prevNetworks[Number(key)].apiURI = `${newSettings.apiBaseURI}/v1/chains/${key}`;
 				});
-				return _networks;
+				return prevNetworks;
 			});
 		});
 	}
@@ -133,7 +133,7 @@ export const SettingsContextApp = ({
 		<SettingsContext.Provider
 			value={{
 				settings: baseSettings as TSettingsBase,
-				networks: networks as TSettingsOptions,
+				networks: networks,
 				onUpdateNetworks: onUpdateNetworks,
 				onUpdateBaseSettings: onUpdateBaseSettings
 			}}>

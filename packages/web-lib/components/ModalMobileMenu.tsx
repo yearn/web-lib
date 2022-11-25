@@ -22,7 +22,7 @@ function	Modal(props: TModal): ReactElement {
 				style={{zIndex: 9999}}
 				initialFocus={ref}
 				onClose={onClose}>
-				<div className={`${className} flex min-h-screen items-end justify-end px-0 pt-4 pb-0 text-center sm:block sm:p-0`}>
+				<div className={`${className} flex min-h-screen items-end justify-end px-0 pt-4 pb-0 text-center sm:block sm:p-0 relative`}>
 					<Transition.Child
 						as={Fragment}
 						enter={'ease-out duration-300'}
@@ -45,7 +45,7 @@ function	Modal(props: TModal): ReactElement {
 						leave={'ease-in duration-200'}
 						leaveFrom={'opacity-100 translate-y-0'}
 						leaveTo={'opacity-0 translate-y-full'}>
-						<div ref={ref} className={`${className} yearn--modal`}>
+						<div ref={ref} className={`${className} yearn--modal fixed bottom-0`}>
 							{children}
 						</div>
 					</Transition.Child>

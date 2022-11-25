@@ -223,7 +223,10 @@ export const Web3ContextApp = ({
 			});
 
 			// TODO Are we sure that `params` has an `origin` prop?
-			const	{origin} = params as URLSearchParams & {origin: string};
+			let	{origin} = params as URLSearchParams & {origin: string};
+			if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
+				origin = window.location?.ancestorOrigins[0];
+			}
 			const	partnerInformation = getPartner(origin);
 
 			/* 🔵 - Yearn Finance **************************************************
@@ -256,10 +259,11 @@ export const Web3ContextApp = ({
 						}
 					});
 				} catch (error) {
+					console.error(error);
 					// 
 				}
 			}
-		} else if ((window.ethereum as CoinbaseWalletProvider).isCoinbaseBrowser) {
+		} else if ((window?.ethereum as CoinbaseWalletProvider)?.isCoinbaseBrowser) {
 			connectors.coinbase.connector.activate().then((): void => {
 				set_lastWallet(walletType.COINBASE);
 			});

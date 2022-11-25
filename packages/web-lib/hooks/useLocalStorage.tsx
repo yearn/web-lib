@@ -1,11 +1,10 @@
 import {useState} from 'react';
 import {ethers} from 'ethers';
 
-export function useLocalStorage(key: string, initialValue: unknown): [unknown, (value: unknown) => void] {
-	
+export function useLocalStorage<T>(key: string, initialValue: T): [T, React.Dispatch<React.SetStateAction<T>>] {
 	// State to store our value
 	// Pass initial state function to useState so logic is only executed once
-	const [storedValue, set_storedValue] = useState((): unknown => {
+	const [storedValue, set_storedValue] = useState<T>((): T => {
 		try {
 			if (typeof window === 'undefined') {
 				return initialValue;
@@ -36,7 +35,7 @@ export function useLocalStorage(key: string, initialValue: unknown): [unknown, (
 
 	// Return a wrapped version of useState's setter function that ...
 	// ... persists the new value to localStorage.
-	const set_value = (value: unknown): void => {
+	const set_value = (value: T | ((val: T) => T)): void => {
 		try {
 			// Allow value to be a function so we have same API as useState
 			const valueToStore = value instanceof Function ? value(storedValue) : value;
