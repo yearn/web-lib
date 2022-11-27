@@ -21,7 +21,7 @@ import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {TWalletProvider, TWeb3Context, TWeb3Options} from './types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const walletType = {NONE: -1, METAMASK: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
+const walletType = {NONE: -1, INJECTED: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
 
 const defaultState = {
 	address: undefined,
@@ -156,13 +156,13 @@ export const Web3ContextApp = ({
 			return;
 		}
 		set_isConnecting(true);
-		if (_providerType === walletType.METAMASK) {
+		if (_providerType === walletType.INJECTED) {
 			if (isActive) {
 				await connectors.metamask.connector.deactivate?.();
 			}
 			try {
 				await connectors.metamask.connector.activate();
-				set_lastWallet(walletType.METAMASK);	
+				set_lastWallet(walletType.INJECTED);	
 				if (onSuccess) {
 					onSuccess();
 				}

@@ -28,7 +28,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 				<div
 					onClick={(): void => {
 						onConnect(
-							walletType.METAMASK,
+							walletType.INJECTED,
 							(): string => toast.error('Unsupported network. Please use Ethereum mainnet.'),
 							(): void => onClose()
 						);

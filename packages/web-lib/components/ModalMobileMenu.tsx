@@ -3,6 +3,7 @@ import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
+import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {chains, truncateHex} from '@yearn-finance/web-lib/utils';
@@ -57,7 +58,7 @@ function	Modal(props: TModal): ReactElement {
 
 function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const	{isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
-	const	{chainID, onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options} = useWeb3();
+	const	{chainID, onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options, detectedWalletProvider} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const	[optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
 
@@ -90,8 +91,17 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 							);
 						}}
 						className={'yearn--modalMobileMenu-walletCard'}>
-						<IconWalletMetamask style={{width: 40, height: 40}} />
-						<b className={'mt-4 text-sm text-neutral-500'}>{'Metamask'}</b>
+						{detectedWalletProvider === 'metamask' ? (
+							<>
+								<IconWalletMetamask style={{width: 40, height: 40}} />
+								<b className={'mt-4 text-sm text-neutral-500'}>{'Metamask'}</b>
+							</>
+						) : (
+							<>
+								<IconWalletFrame className={'text-neutral-900'} style={{width: 40, height: 40}} />
+								<b className={'mt-4 text-sm text-neutral-500'}>{'Frame'}</b>
+							</>
+						)}
 					</div>
 					<div
 						onClick={(): void => {
