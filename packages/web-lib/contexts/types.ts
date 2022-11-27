@@ -41,7 +41,7 @@ export type TSettingsOptions = {
 export type	TSettingsContextApp = {
 	children: ReactNode,
 	networksOptions?: TSettingsOptions,
-	baseOptions?: TSettingsBase,
+	baseOptions?: Partial<TSettingsBase>,
 }
 
 export type TUIOptions = {

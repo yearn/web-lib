@@ -14,7 +14,7 @@ function	WithYearn({children, options}: {
 		ui?: TUIOptions,
 		web3?: TWeb3Options,
 		networks?: TSettingsOptions,
-		baseSettings?: TSettingsBase,
+		baseSettings?: Partial<TSettingsBase>,
 	}
 }): ReactElement {
 	const web3Connectors: [Connector, Web3ReactHooks][] = [

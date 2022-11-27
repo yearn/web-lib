@@ -82,8 +82,16 @@ export const SettingsContextApp = ({
 	baseOptions = defaultSettings,
 	networksOptions = {}
 }: TSettingsContextApp): React.ReactElement => {
-	const	[baseSettings, set_baseSettings] = useLocalStorage('yearnSettingsBase', deepMerge(defaultSettings, baseOptions) as TSettingsBase);
-	const	[networks, set_networks] = useLocalStorage('yearnSettingsNetworks', deepMerge(defaultNetworks, networksOptions) as TSettingsBaseOptions & TSettingsOptions);
+	const	[baseSettings, set_baseSettings] = useLocalStorage(
+		'yearnSettingsBase',
+		deepMerge(defaultSettings, baseOptions) as TSettingsBase,
+		{currentVersion: 1, shouldMigratePreviousVersion: true}
+	);
+	const	[networks, set_networks] = useLocalStorage(
+		'yearnSettingsNetworks',
+		deepMerge(defaultNetworks, networksOptions) as TSettingsBaseOptions & TSettingsOptions,
+		{currentVersion: 1, shouldMigratePreviousVersion: true}
+	);
 
 	useEffect((): void => {
 		const	_networks = networks as TSettingsOptions;
