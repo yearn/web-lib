@@ -1,3 +1,75 @@
 @import './style.light.css';
 @import './style.dark.css';
 @tailwind base;
+
+@layer base {
+    .ds-h1 {
+        @apply font-normal text-3xl;
+    }
+    .ds-h1-bold {
+        @apply font-bold text-3xl;
+    }
+    .ds-h1-mono-bold {
+        @apply font-mono font-bold text-3xl;
+    }
+    
+    .ds-h2 {
+        @apply font-normal text-xl;
+    }
+    .ds-h2-bold {
+        @apply font-bold text-xl;
+    }
+    .ds-h2-mono-bold {
+        @apply font-mono font-bold text-xl;
+    }
+
+    .ds-h3 {
+        @apply font-normal text-lg;
+    }
+    .ds-h3-bold {
+        @apply font-bold text-lg;
+    }
+    .ds-h3-mono-bold {
+        @apply font-mono font-bold text-lg;
+    }
+
+    .ds-body {
+        @apply font-normal text-base;
+    }
+    .ds-body-bold {
+        @apply font-bold text-base;
+    }
+    .ds-body-underlined {
+        @apply font-normal text-base underline underline-offset-4;
+    }
+
+    .ds-caption {
+        @apply font-normal text-xs;
+    }
+    .ds-caption-bold {
+        @apply font-bold text-xs;
+    }
+    .ds-caption-underlined {
+        @apply font-normal text-xs underline underline-offset-4;
+    }
+
+    .ds-body-mono {
+        @apply font-mono text-base;
+    }
+    .ds-body-mono-bold {
+        @apply font-mono font-bold text-base;
+    }
+    .ds-body-mono-underlined {
+        @apply font-mono text-base underline underline-offset-4;
+    }
+
+    .ds-caption-mono {
+        @apply font-normal text-xs;
+    }
+    .ds-caption-mono-bold {
+        @apply font-bold text-xs;
+    }
+    .ds-caption-mono-underlined {
+        @apply font-normal text-xs underline underline-offset-4;
+    }
+}
