@@ -94,6 +94,28 @@ function AlertBanner(props: TAlertBanner): ReactElement {
 						<IconCross className={'h-6 w-6 cursor-pointer'} />
 					</button>
 				) : null}
+				<h1 className={'ds-h1'}>{'Testing H1'}</h1>
+				<h1 className={'ds-h1-bold'}>{'Testing H1'}</h1>
+				<h1 className={'ds-h1-mono-bold'}>{'Testing H1'}</h1>
+				<h2 className={'ds-h2'}>{'Testing h2'}</h2>
+				<h2 className={'ds-h2-bold'}>{'Testing h2'}</h2>
+				<h2 className={'ds-h2-mono-bold'}>{'Testing h2'}</h2>
+				<h3 className={'ds-h3'}>{'Testing h3'}</h3>
+				<h3 className={'ds-h3-bold'}>{'Testing h3'}</h3>
+				<h3 className={'ds-h3-mono-bold'}>{'Testing h3'}</h3>
+				<p className={'ds-text-body'}>{'This is ds-text-body'}</p>
+				<p className={'ds-body-bold'}>{'This is ds-body-bold'}</p>
+				<p className={'ds-body-underlined'}>{'This is ds-body-underlined'}</p>
+				<p className={'ds-caption'}>{'This is ds-caption'}</p>
+				<p className={'ds-caption-bold'}>{'This is ds-caption-bold'}</p>
+				<p className={'ds-caption-underlined'}>{'This is ds-caption-underlined'}</p>
+				<p className={'ds-body-mono'}>{'This is ds-body-mono'}</p>
+				<p className={'ds-body-mono-bold'}>{'This is ds-body-mono-bold'}</p>
+				<p className={'ds-body-mono-underlined'}>{'This is ds-body-mono-underlined'}</p>
+				<p className={'ds-caption-mono'}>{'This is ds-caption-mono'}</p>
+				<p className={'ds-caption-mono-bold'}>{'This is ds-caption-mono-bold'}</p>
+				<p className={'ds-caption-mono-underlined'}>{'This is ds-caption-mono-underlined'}</p>
+
 				<h4 className={'mb-6 text-inherit'}>{title}</h4>
 				{hasSlide ? (children as ReactElement[])[currentSlide] : children}
 				{hasSlide ? (
