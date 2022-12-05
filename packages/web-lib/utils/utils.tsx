@@ -1,4 +1,3 @@
-import {toast} from 'react-hot-toast';
 import {ethers} from 'ethers';
 
 import type {TDict} from './types';
@@ -79,9 +78,8 @@ export function	parseMarkdown(markdownText: string): string {
 ** A toast is displayed to inform the user that the address has been
 ** copied.
 **************************************************************************/
-export function	copyToClipboard(value: string, toastMessage = 'Copied to clipboard!'): void {
+export function	copyToClipboard(value: string): void {
 	navigator.clipboard.writeText(value);
-	toast.success(toastMessage);
 }
 
 /* 🔵 - Yearn Finance ******************************************************

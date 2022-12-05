@@ -146,7 +146,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 			<div className={'yearn--modalMobileMenu-content'}>
 				{shouldUseWallets ? (
 					<h4 className={'yearn--modalMobileMenu-title'}>
-						{walletIdentity === 'Connect a wallet' ? walletIdentity : `Hello ${walletIdentity}`}
+						{walletIdentity === 'Connect a wallet' ? walletIdentity : walletIdentity}
 					</h4>
 				): null}
 				{shouldUseNetworks ? (

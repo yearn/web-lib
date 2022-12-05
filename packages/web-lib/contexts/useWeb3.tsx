@@ -128,7 +128,7 @@ export const Web3ContextApp = ({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
 
-	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID, [chainID]);
+	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID || 1, [chainID]);
 
 	useEffect((): void => {
 		onSwitchChain(web3Options?.defaultChainID || 1);
@@ -302,25 +302,26 @@ export const Web3ContextApp = ({
 	}, [chainId]);
 
 	useClientEffect((): void => {
-		if (account) {
+		if (account && isActive) {
 			const	provider = getProvider(1);
 			provider.lookupAddress(toAddress(account)).then((_ens: string | null): void => set_ens(_ens || ''));
 		}
 	}, [account, chainID]);
 
+	const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
 	return (
 		<Web3Context.Provider
 			value={{
 				address: account,
-				ens,
+				ens: isReallyActive ? ens : '',
 				chainID: Number(chainID || web3Options.defaultChainID || 0),
 				safeChainID,
-				onSwitchChain,
-				isActive: isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0)),
+				isActive: isReallyActive,
 				isDisconnected,
 				isConnecting,
 				hasProvider: !!provider,
 				provider: provider as ethers.providers.BaseProvider,
+				onSwitchChain,
 				onConnect: connect,
 				currentPartner,
 				detectedWalletProvider,
