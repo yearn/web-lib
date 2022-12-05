@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {toast} from 'react-hot-toast';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {useWeb3} from '@yearn-finance/web-lib/contexts';
@@ -6,8 +6,10 @@ import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase'
 import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
+import type {ReactElement} from 'react';
 import type {TDict} from '../utils';
 
 export type	TModalLogin = {
@@ -38,6 +40,11 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						<>
 							<div><IconWalletMetamask /></div>
 							<b>{'Metamask'}</b>
+						</>
+					) : detectedWalletProvider === 'trustWallet' ? (
+						<>
+							<div><IconWalletTrustWallet /></div>
+							<b>{'TrustWallet'}</b>
 						</>
 					) : (
 						<>
