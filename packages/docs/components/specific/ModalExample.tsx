@@ -1,9 +1,9 @@
-import	React		    		from 'react';
+import	React, {useState}		    		from 'react';
 import {CodeExample}    		from 'components/CodeExample';
-import {Card, Button, Modal}	from '@yearn-finance/web-lib/components';
+import {Button, Card, Modal}	from '@yearn-finance/web-lib/components';
 
 function	ModalExample(): React.ReactElement {
-	const	[isOpen, set_isOpen] = React.useState(false);
+	const	[isOpen, set_isOpen] = useState(false);
 
 	return (
 		<CodeExample>

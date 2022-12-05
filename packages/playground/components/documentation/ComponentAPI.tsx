@@ -1,4 +1,6 @@
-import	React, {ReactElement}		from	'react';
+import	React		from	'react';
+
+import type {ReactElement} from 'react';
 
 type 		TComponentAPI = {
 	elements: {
@@ -11,15 +13,15 @@ function	ComponentAPI({elements}: TComponentAPI): ReactElement {
 	return (
 		<section aria-label={'component API'} className={'mt-6'}>
 			<h4>{'Component API'}</h4>
-			<dl className={'mt-4 space-y-4 w-full'}>
+			<dl className={'mt-4 w-full space-y-4'}>
 				{elements.map((element, index): ReactElement => (
 					<dd
 						key={`${element.title}_${index}`}
-						className={'grid grid-cols-12 p-4 space-y-4 bg-neutral-200 md:space-y-0 rounded-default'}>
+						className={'rounded-default grid grid-cols-12 space-y-4 bg-neutral-200 p-4 md:space-y-0'}>
 						<div className={'col-span-12 md:col-span-2'}>
-							<b className={'font-mono break-words'}>{element.title}</b>
+							<b className={'break-words font-mono'}>{element.title}</b>
 						</div>
-						<div className={'col-span-12 pl-0 whitespace-pre md:col-span-4 md:pl-2'}>
+						<div className={'col-span-12 whitespace-pre pl-0 md:col-span-4 md:pl-2'}>
 							<p className={'font-mono'}>{element.type}</p>
 						</div>
 						<div className={'col-span-12 pl-0 md:col-span-6 md:pl-4'}>

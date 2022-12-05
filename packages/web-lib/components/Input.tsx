@@ -1,6 +1,9 @@
-import React, {ReactElement, useRef} from 'react';
-import {BigNumber, ethers} from 'ethers';
+import React, {useRef} from 'react';
+import {ethers} from 'ethers';
 import {format, performBatchedUpdates} from '@yearn-finance/web-lib/utils';
+
+import type {BigNumber} from 'ethers';
+import type {ReactElement} from 'react';
 
 export type	TInput = {
 	value: string | number,

@@ -1,4 +1,4 @@
-import	React		    from 'react';
+import	React, {useState}		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
 import {Dropdown}       from '@yearn-finance/web-lib/components';
 import	* as Icons	    from '@yearn-finance/web-lib/icons';
@@ -11,7 +11,7 @@ function	DropdownExample(): React.ReactElement {
 		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
-	const	[selectedOption, set_selectedOption] = React.useState(options[0]);
+	const	[selectedOption, set_selectedOption] = useState(options[0]);
 
 	return (
 		<CodeExample>

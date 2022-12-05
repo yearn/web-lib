@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@yearn-finance/web-lib/components';
+import	React		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React	from	'react';
@@ -79,21 +81,23 @@ function	DocumentationCard(): ReactElement {
 					<p className={'mb-4'}>{'This component can be divided in two distincts parts: the Details and the Summary. The Summary represents the always-visible-part, kind of the header of the card. The Details is the Wrapper, and it\'s child will be the expandable part.'}</p>
 
 					<ComponentAPI
-						elements={[{
-							title: 'summary',
-							type: 'Card.Detail.Summary',
-							description: 'See below'
-						},
-						{
-							title: 'variant?',
-							type: 'surface | background',
-							description: 'Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.'
-						},
-						{
-							title: 'isSticky?',
-							type: 'boolean',
-							description: 'Indicate if the Summary should be sticky on scroll, aka if this should stay on top of the screen if you scroll and if you are still in the expanded details. Has no effect on mobile. Default set to true.'
-						}]} />
+						elements={[
+							{
+								title: 'summary',
+								type: 'Card.Detail.Summary',
+								description: 'See below'
+							},
+							{
+								title: 'variant?',
+								type: 'surface | background',
+								description: 'Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.'
+							},
+							{
+								title: 'isSticky?',
+								type: 'boolean',
+								description: 'Indicate if the Summary should be sticky on scroll, aka if this should stay on top of the screen if you scroll and if you are still in the expanded details. Has no effect on mobile. Default set to true.'
+							}
+						]} />
 				</section>
 
 				<section aria-label={'extra-code-part'} className={'mt-10'}>
@@ -105,16 +109,18 @@ function	DocumentationCard(): ReactElement {
 						<p className={'mb-4'}>{'The arrow on the end part with it\'s rotation is set in the lib.'}</p>
 
 						<ComponentAPI
-							elements={[{
-								title: 'startChildren',
-								type: 'ReactNode',
-								description: 'Children displayed on the start part.'
-							},
-							{
-								title: 'endChildren',
-								type: 'ReactNode',
-								description: 'Children displayed on the end part.'
-							}]} />
+							elements={[
+								{
+									title: 'startChildren',
+									type: 'ReactNode',
+									description: 'Children displayed on the start part.'
+								},
+								{
+									title: 'endChildren',
+									type: 'ReactNode',
+									description: 'Children displayed on the end part.'
+								}
+							]} />
 					</section>
 				</section>
 

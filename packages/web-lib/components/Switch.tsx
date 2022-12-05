@@ -1,5 +1,7 @@
-import React, {ReactElement, useState} from 'react';
+import React, {useState} from 'react';
 import {Switch as HeadlessSwitch} from '@headlessui/react';
+
+import type {ReactElement} from 'react';
 
 export type TSwitch = {
 	isEnabled: boolean;

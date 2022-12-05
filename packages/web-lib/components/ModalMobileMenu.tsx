@@ -7,7 +7,8 @@ import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
-import {chains, truncateHex} from '@yearn-finance/web-lib/utils';
+import {chains} from '@yearn-finance/web-lib/utils';
+import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from './Modal';

@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, Button, Modal}		from	'@yearn-finance/web-lib/components';
+import	React, {useState}		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Button, Card, Modal}		from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React					from	'react';
@@ -30,10 +32,10 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function	ModalComponent(): ReactElement {
-	const	[isOpen, set_isOpen] = React.useState(false);
+	const	[isOpen, set_isOpen] = useState(false);
 
 	return (
-		<div className={'relative w-full flex-center'}>
+		<div className={'flex-center relative w-full'}>
 			<Button
 				variant={'light'}
 				onClick={(): void => set_isOpen(true)}
@@ -67,16 +69,18 @@ function	DocumentationModal(): ReactElement {
 				<p className={'mb-2'}>{'The Modal component will open a portal displayed on top of the UI. The content will be centered and a light background will be put over the app. The scroll will be disable and any click outside of that modal will close it.'}</p>
 				<p className={'mb-4'}>{'You can put anything inside this modal, but keep in mind the fact that it comes unstyled.'}</p>
 				<ComponentAPI
-					elements={[{
-						title: 'isOpen',
-						type: 'boolean',
-						description: 'Should the modal be displayed or not. The modal is displayed and rendered on true, and removed from the DOM on false.'
-					},
-					{
-						title: 'onClose',
-						type: 'function',
-						description: 'Action to perform in order to close the modal. Will be triggered by any action supposed to close that modal (escape, background click, etc.)'
-					}]} />
+					elements={[
+						{
+							title: 'isOpen',
+							type: 'boolean',
+							description: 'Should the modal be displayed or not. The modal is displayed and rendered on true, and removed from the DOM on false.'
+						},
+						{
+							title: 'onClose',
+							type: 'function',
+							description: 'Action to perform in order to close the modal. Will be triggered by any action supposed to close that modal (escape, background click, etc.)'
+						}
+					]} />
 			</Card>
 		</section>
 	);

@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@yearn-finance/web-lib/components';
-import	* as Icons					from	'@yearn-finance/web-lib/icons';
+import	React, {createElement}		from	'react';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	* as Icons					from	'@yearn-finance/web-lib/icons';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React		from	'react';
@@ -20,10 +22,10 @@ function	DocumentationSwitch(): ReactElement {
 			<Card>
 				<h1 className={'mb-2 text-3xl text-neutral-700'}>{'Icons'}</h1>
 				<div className={'box-gradient-default'}>
-					<div className={'grid grid-cols-6 gap-10 w-full'}>
+					<div className={'grid w-full grid-cols-6 gap-10'}>
 						{Object.entries(Icons).map(([name, icon]): ReactElement => (
-							<div key={name} className={'flex-col flex-center'}>
-								{React.createElement(icon as any, {className: 'text-white w-6 h-6'})}
+							<div key={name} className={'flex-center flex-col'}>
+								{createElement(icon as any, {className: 'text-white w-6 h-6'})}
 								<p className={'mt-1 text-xs text-white'}>{name}</p>
 							</div>
 						))}
@@ -36,11 +38,13 @@ function	DocumentationSwitch(): ReactElement {
 				<p className={'mb-4'}>{'Any props available to SVG can be used.'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: 'className?',
-						type: 'string',
-						description: 'Custom className to provide to alter the style of the Icon.'
-					}]} />
+					elements={[
+						{
+							title: 'className?',
+							type: 'string',
+							description: 'Custom className to provide to alter the style of the Icon.'
+						}
+					]} />
 
 			</Card>
 		</section>

@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card}						from	'@yearn-finance/web-lib/components';
-import	{Header}					from	'@yearn-finance/web-lib/layouts';
+import	React		from	'react';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
+import	{Card}						from	'@yearn-finance/web-lib/components';
+import	{Header}					from	'@yearn-finance/web-lib/layouts';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React		from	'react';
@@ -36,11 +38,13 @@ function	DocumentationCard(): ReactElement {
 				<p className={'mb-4'}>{'On the end part of the header, the network selector will be displayed. Next to it, if the correct env variable is set, the wallet connect button will be set too.'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: '-',
-						type: '-',
-						description: '-'
-					}]} />
+					elements={[
+						{
+							title: '-',
+							type: '-',
+							description: '-'
+						}
+					]} />
 			</Card>
 		</section>
 	);

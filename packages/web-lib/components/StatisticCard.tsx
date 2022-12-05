@@ -1,5 +1,7 @@
-import React, {ReactElement, ReactNode} from 'react';
+import React from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
+
+import type {ReactElement, ReactNode} from 'react';
 
 export type TStatisticCard = {
 	label: string;

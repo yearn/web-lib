@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CodeExample} from 'components/CodeExample';
 import {Card, Input} from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function	InputExample(): React.ReactElement {
-	const	[amount, set_amount] = React.useState('');
+	const	[amount, set_amount] = useState('');
 	const	userBalance = format.BN('2564145567845456084456');
 	const	priceOfToken = format.BN('1451454');
 

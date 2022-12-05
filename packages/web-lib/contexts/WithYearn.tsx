@@ -1,10 +1,12 @@
-import	React, {ReactElement}					from	'react';
-import	{Web3ReactHooks, Web3ReactProvider}		from	'@web3-react/core';
+import	React					from	'react';
+import	{Web3ReactProvider}		from	'@web3-react/core';
 import	{SettingsContextApp}					from	'@yearn-finance/web-lib/contexts/useSettings';
 import	{UIContextApp}							from	'@yearn-finance/web-lib/contexts/useUI';
 import	{Web3ContextApp}						from	'@yearn-finance/web-lib/contexts/useWeb3';
-import	{connectors}							from	'@yearn-finance/web-lib/utils/connectors';
+import	{connectors}							from	'@yearn-finance/web-lib/utils/web3/connectors';
 
+import type {ReactElement} from 'react';
+import type {Web3ReactHooks} from '@web3-react/core';
 import	type {Connector}						from	'@web3-react/types';
 import type {TSettingsBase, TSettingsOptions, TUIOptions, TWeb3Options} from './types';
 

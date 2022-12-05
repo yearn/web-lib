@@ -1,9 +1,10 @@
-import React, {createContext, ReactElement, useCallback, useContext, useRef, useState} from 'react';
+import React, {createContext, useCallback, useContext, useRef, useState} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 
+import type {ReactElement} from 'react';
 import type {TPossibleThemes, TUIContext, TUIOptions} from './types';
 
 const	defaultOptions: TUIOptions = {

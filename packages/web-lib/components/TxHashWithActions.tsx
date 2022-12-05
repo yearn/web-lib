@@ -1,8 +1,11 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
-import {copyToClipboard, truncateHex} from '@yearn-finance/web-lib/utils';
+import {copyToClipboard} from '@yearn-finance/web-lib/utils';
+import {truncateHex} from '@yearn-finance/web-lib/utils/address';
+
+import type {ReactElement} from 'react';
 
 export type TTxHashWithActions = {
 	txHash: string;

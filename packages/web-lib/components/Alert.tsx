@@ -1,10 +1,12 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
 import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
 import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 import {performBatchedUpdates} from '@yearn-finance/web-lib/utils';
+
+import type {ReactElement} from 'react';
 
 export type	TAlertLevels = 'none' | 'info' | 'warning' | 'error' | 'critical';
 

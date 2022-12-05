@@ -1,9 +1,11 @@
-import	React, {ReactElement}			from	'react';
-import	{Card, Alert}				from	'@yearn-finance/web-lib/components';
-import	VariantSelectors				from	'components/documentation/VariantSelectors';
+import	React, {useState}			from	'react';
+import	CodeExample						from	'components/CodeExample';
 import	ComponentAPI					from	'components/documentation/ComponentAPI';
 import	Highlight						from	'components/documentation/Highlight';
-import	CodeExample						from	'components/CodeExample';
+import	VariantSelectors				from	'components/documentation/VariantSelectors';
+import	{Alert, Card}				from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 import type * as AlertTypes				from	'@yearn-finance/web-lib/components/Alert';
 
 const code = `
@@ -38,7 +40,7 @@ export function	AlertBoxComponent(): ReactElement {
 }
 
 function	DocumentationAlertBox(): ReactElement {
-	const	[variant, set_variant] = React.useState(0);
+	const	[variant, set_variant] = useState(0);
 	const	variantType = ['info', 'warning', 'error', 'critical'];
 
 	return (
@@ -69,16 +71,18 @@ function	DocumentationAlertBox(): ReactElement {
 					<p className={'mb-4'}>{'The Alert Box component is used to display a group of alerts with the icon matching the alert level aside. This should be used to display, for example, a list of warnings related to a specific situation. See usage on Yearn Watch.'}</p>
 
 					<ComponentAPI
-						elements={[{
-							title: 'level',
-							type: 'info | warning | error | critical',
-							description: 'Indicate the type of banner to display, aka mostly the colors. Default is set to info'
-						},
-						{
-							title: 'alerts',
-							type: 'string[]',
-							description: 'List of message to display.'
-						}]} />
+						elements={[
+							{
+								title: 'level',
+								type: 'info | warning | error | critical',
+								description: 'Indicate the type of banner to display, aka mostly the colors. Default is set to info'
+							},
+							{
+								title: 'alerts',
+								type: 'string[]',
+								description: 'List of message to display.'
+							}
+						]} />
 				</section>
 			</Card>
 		</section>

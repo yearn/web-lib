@@ -1,6 +1,7 @@
-import React from 'react';
 import {toast} from 'react-hot-toast';
-import {ethers} from 'ethers';
+
+import type {ethers} from 'ethers';
+import type React from 'react';
 
 const		timeout = 3000;
 const		defaultTxStatus = {none: true, pending: false, success: false, error: false};

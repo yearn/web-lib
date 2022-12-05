@@ -1,15 +1,17 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, Switch}				from	'@yearn-finance/web-lib/components';
+import	React, {useState}		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Card, Switch}				from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 
 const code = `
-import	React		from	'react';
-import	{Dropdown}	from	'@yearn-finance/web-lib/components';
+import React, {useState} from 'react';
+import {Dropdown} from '@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
-	const	[isEnabled, set_isEnabled] = React.useState(false);
+	const	[isEnabled, set_isEnabled] = useState(false);
 
 	return (
 		<Switch
@@ -19,7 +21,7 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function	SwitchComponent(): ReactElement {
-	const	[isEnabled, set_isEnabled] = React.useState(false);
+	const	[isEnabled, set_isEnabled] = useState(false);
 
 	return (
 		<Switch
@@ -43,16 +45,18 @@ function	DocumentationSwitch(): ReactElement {
 				<p className={'mb-4'}>{'The component has headless states, meaning you have to send him the useState and you can controle the callback.'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: 'isEnabled',
-						type: 'boolean',
-						description: 'Should the switch be in the enabled mode (true)'
-					},
-					{
-						title: 'onSwitch',
-						type: 'function',
-						description: 'Callback when the switch is pressed. The function will send the new value (false if this was true, true if this was false).'
-					}]} />
+					elements={[
+						{
+							title: 'isEnabled',
+							type: 'boolean',
+							description: 'Should the switch be in the enabled mode (true)'
+						},
+						{
+							title: 'onSwitch',
+							type: 'function',
+							description: 'Callback when the switch is pressed. The function will send the new value (false if this was true, true if this was false).'
+						}
+					]} />
 
 			</Card>
 		</section>

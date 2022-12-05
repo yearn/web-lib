@@ -1,6 +1,8 @@
-import React, {cloneElement, ReactElement, ReactNode, useState} from 'react';
+import React, {cloneElement, useState} from 'react';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
+
+import type {ReactElement, ReactNode} from 'react';
 
 export type TBanner = {
 	title: string,

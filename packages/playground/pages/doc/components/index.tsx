@@ -1,26 +1,28 @@
-import	React, {ReactElement}			from	'react';
+import	React			from	'react';
 import	Link							from	'next/link';
 import	{RadialBackground}				from	'components/RadialBackground';
-import	{Card, Alert, Button}		from	'@yearn-finance/web-lib/components';
-import	{CardComponent}					from	'pages/doc/components/cards';
-import	{CardTabsComponent}				from	'pages/doc/components/cards-tabs';
-import	{CardDetailsComponent}			from	'pages/doc/components/cards-details';
-import	{SwitchComponent}				from	'pages/doc/components/switch';
-import	{SwitchThemeComponent}			from	'pages/doc/components/switch-theme';
-import	{ButtonsComponent}				from	'pages/doc/components/button';
-import	{DropdownComponent}				from	'pages/doc/components/dropdown';
-import	{SearchBoxComponent}			from	'pages/doc/components/search-box';
-import	{StatsCardComponent}			from	'pages/doc/components/statistic-card';
-import	{DescriptionListComponent}		from	'pages/doc/components/description-list';
 import	{AddressActionComponent}		from	'pages/doc/components/address-with-actions';
-import	{HashActionComponent}			from	'pages/doc/components/txhash-with-actions';
 import	{AlertBannerComponent}			from	'pages/doc/components/alert-banner';
 import	{AlertBoxComponent}				from	'pages/doc/components/alert-box';
-import	{ModalComponent}				from	'pages/doc/components/modal';
 import	{BannerComponent}				from	'pages/doc/components/banner';
 import	{BannerWithControlsComponent}	from	'pages/doc/components/banner-with-controls';
-import	{TokenCardComponent}			from	'pages/doc/components/token-card';
+import	{ButtonsComponent}				from	'pages/doc/components/button';
+import	{CardComponent}					from	'pages/doc/components/cards';
+import	{CardDetailsComponent}			from	'pages/doc/components/cards-details';
+import	{CardTabsComponent}				from	'pages/doc/components/cards-tabs';
+import	{DescriptionListComponent}		from	'pages/doc/components/description-list';
+import	{DropdownComponent}				from	'pages/doc/components/dropdown';
 import	{InputComponent}				from	'pages/doc/components/input';
+import	{ModalComponent}				from	'pages/doc/components/modal';
+import	{SearchBoxComponent}			from	'pages/doc/components/search-box';
+import	{StatsCardComponent}			from	'pages/doc/components/statistic-card';
+import	{SwitchComponent}				from	'pages/doc/components/switch';
+import	{SwitchThemeComponent}			from	'pages/doc/components/switch-theme';
+import	{TokenCardComponent}			from	'pages/doc/components/token-card';
+import	{HashActionComponent}			from	'pages/doc/components/txhash-with-actions';
+import	{Alert, Button, Card}		from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 
 const		ElementListCards = [
 	{
@@ -192,7 +194,10 @@ function	Element({children, title, version, description, href}: TElement): React
 				</p>
 				<div className={'mt-auto flex items-end justify-end pt-6'}>
 					<Link href={href} passHref>
-						<Button variant={'outlined'} className={'h-10'} as={'a'}>
+						<Button
+							variant={'outlined'}
+							className={'h-10'}
+							as={'a'}>
 							{'Access documentation'}
 						</Button>
 					</Link>

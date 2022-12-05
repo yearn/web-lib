@@ -1,5 +1,6 @@
-// eslint-disable-next-line @next/next/no-server-import-in-page
-import {NextRequest, NextResponse} from 'next/server';
+import {NextResponse} from 'next/server';
+
+import type {NextRequest} from 'next/server';
 
 export const config = {
 	matcher: [

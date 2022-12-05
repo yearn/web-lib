@@ -1,16 +1,18 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, Input}				from	'@yearn-finance/web-lib/components';
-import	{format}					from	'@yearn-finance/web-lib/utils';
+import	React, {useEffect, useState}		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Card, Input}				from	'@yearn-finance/web-lib/components';
+import	{format}					from	'@yearn-finance/web-lib/utils';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React			from	'react';
 import	{Input}	from	'@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
-	const	[amount, set_amount] = React.useState('');
+	const	[amount, set_amount] = useState('');
 	const	userBalance = format.BN('2564145567845456084456');
 	const	priceOfToken = format.BN('1451454');
 
@@ -26,18 +28,18 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function	InputComponent(): ReactElement {
-	const	[shouldRender, set_shouldRender] = React.useState(false);
-	const	[amount, set_amount] = React.useState('');
+	const	[shouldRender, set_shouldRender] = useState(false);
+	const	[amount, set_amount] = useState('');
 	const	userBalance = format.BN('2564145567845456084456');
 	const	priceOfToken = format.BN('1451454');
 
-	React.useEffect((): void => set_shouldRender(true), []);
+	useEffect((): void => set_shouldRender(true), []);
 
 	if (!shouldRender) {
 		return <div />;
 	}
 	return (
-		<div className={'py-2 px-4 mx-auto w-full max-w-[400px] h-24 bg-neutral-200 md:py-4 md:px-6 md:h-32 rounded-default'}>
+		<div className={'rounded-default mx-auto h-24 w-full max-w-[400px] bg-neutral-200 py-2 px-4 md:h-32 md:py-4 md:px-6'}>
 			<Input.BigNumber
 				balance={format.toNormalizedAmount(userBalance, 18)}
 				price={format.toNormalizedValue(priceOfToken, 6)}
@@ -65,46 +67,48 @@ function	DocumentationInput(): ReactElement {
 				<p className={'mb-4'}>{'All default <input> props are supported and a few extra must be used:'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: 'value',
-						type: 'string',
-						description: 'It\'s what the user will type. It is not a big number, just plain humanized number, not scaled with the decimals. 1 USDC = 1000000 wei. This should be a React.useState value.'
-					},
-					{
-						title: 'onSetValue',
-						type: 'function',
-						description: 'Trigger a change in the value. It will be a string, not a big number. This should be a React.useState setter. This is triggered everytime the user type something or when he clicks MAX.'
-					},
-					{
-						title: 'onValueChange?',
-						type: 'function',
-						description: 'Callback to trigger a custom update when the value changes. Ommited by default.'
-					},
-					{
-						title: 'withMax',
-						type: 'boolean',
-						description: 'Do we want to use the Max feature. The max feature will display a Max button for the user to click to set the value to the max value. If withMax is enabled, the error management will also be enabled.'
-					},
-					{
-						title: 'maxValue',
-						type: 'BigNumber',
-						description: 'BigNumber matching the maximum allowed value. This is the value that will be used when the user click on the Max button. If withMax is disabled, this value will be ignored.'
-					},
-					{
-						title: 'decimals',
-						type: 'number',
-						description: 'How many decimals are required to scale the number for plain humanized value to wei ones. This is used with the maxValue feature to set and check the correct input.'
-					},
-					{
-						title: 'balance',
-						type: 'string',
-						description: 'It will display the user\'s balance above the value. This is a string, not a big number. The displayed string will be: "You have [balance]".'
-					},
-					{
-						title: 'price',
-						type: 'number',
-						description: 'It will display the value matching the amount typed. Value will be formated for USD display.'
-					}]} />
+					elements={[
+						{
+							title: 'value',
+							type: 'string',
+							description: 'It\'s what the user will type. It is not a big number, just plain humanized number, not scaled with the decimals. 1 USDC = 1000000 wei. This should be a useState value.'
+						},
+						{
+							title: 'onSetValue',
+							type: 'function',
+							description: 'Trigger a change in the value. It will be a string, not a big number. This should be a useState setter. This is triggered everytime the user type something or when he clicks MAX.'
+						},
+						{
+							title: 'onValueChange?',
+							type: 'function',
+							description: 'Callback to trigger a custom update when the value changes. Ommited by default.'
+						},
+						{
+							title: 'withMax',
+							type: 'boolean',
+							description: 'Do we want to use the Max feature. The max feature will display a Max button for the user to click to set the value to the max value. If withMax is enabled, the error management will also be enabled.'
+						},
+						{
+							title: 'maxValue',
+							type: 'BigNumber',
+							description: 'BigNumber matching the maximum allowed value. This is the value that will be used when the user click on the Max button. If withMax is disabled, this value will be ignored.'
+						},
+						{
+							title: 'decimals',
+							type: 'number',
+							description: 'How many decimals are required to scale the number for plain humanized value to wei ones. This is used with the maxValue feature to set and check the correct input.'
+						},
+						{
+							title: 'balance',
+							type: 'string',
+							description: 'It will display the user\'s balance above the value. This is a string, not a big number. The displayed string will be: "You have [balance]".'
+						},
+						{
+							title: 'price',
+							type: 'number',
+							description: 'It will display the value matching the amount typed. Value will be formated for USD display.'
+						}
+					]} />
 			</Card>
 		</section>
 	);

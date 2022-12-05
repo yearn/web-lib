@@ -3,11 +3,11 @@ import {Contract} from 'ethcall';
 import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import * as format from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import * as providers from '@yearn-finance/web-lib/utils/providers';
-import {toAddress} from '@yearn-finance/web-lib/utils/utils';
+import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {BigNumber} from 'ethers';
 import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from '@yearn-finance/web-lib/hooks/types';
@@ -111,19 +111,19 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
 
 	useEffect((): VoidFunction => {
-		let active = true;
-		const executeGetBalances = async () => {
+		let isActive = true;
+		const executeGetBalances = async (): Promise<void> => {
 			const	rawData = await getBalances();
-			if (active) {
+			if (isActive) {
 				performBatchedUpdates((): void => {
 					set_rawData(rawData);
 					set_status({...defaultStatus, isSuccess: true, isFetched: true});
 				});
 			}
-		}
+		};
 		executeGetBalances();
 		return (): void => {
-			active = false;
+			isActive = false;
 		};
 	}, [getBalances]);
 
@@ -197,7 +197,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	return ({
 		data,
-		update: async () => {
+		update: async (): Promise<TDict<TBalanceData>> => {
 			const	rawData = await getBalances();
 			performBatchedUpdates((): void => {
 				set_rawData(rawData);

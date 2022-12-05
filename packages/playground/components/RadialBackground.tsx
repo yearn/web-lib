@@ -1,10 +1,12 @@
-import	React, {ReactElement}		from	'react';
+import	React		from	'react';
+
+import type {ReactElement} from 'react';
 
 function	RadialBackground(): ReactElement {
 	return (
-		<div className={'overflow-hidden absolute inset-0 z-[-1]'}>
+		<div className={'absolute inset-0 z-[-1] overflow-hidden'}>
 			<div
-				className={'aspect-square absolute inset-0 bg-[#0657F9] animate-rotate-center'}
+				className={'animate-rotate-center absolute inset-0 aspect-square bg-[#0657F9]'}
 				style={{
 					backgroundImage: `
 								radial-gradient(at 21% 33%, #5189fb 0px, transparent 50%),

@@ -3,7 +3,7 @@ import	{ethers} from 'ethers';
 import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
+import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from './types';
 

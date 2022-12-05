@@ -1,10 +1,12 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, Button}				from	'@yearn-finance/web-lib/components';
-import	VariantSelectors			from	'components/documentation/VariantSelectors';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
-import	type * as ButtonTypes		from	'@yearn-finance/web-lib/components/Button.d';
+import React, {useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import VariantSelectors from 'components/documentation/VariantSelectors';
+import {Button, Card} from '@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
+import type * as ButtonTypes from '@yearn-finance/web-lib/components/Button';
 
 const code = `
 import	React		from	'react';
@@ -36,8 +38,8 @@ export function	ButtonsComponent(): ReactElement {
 }
 
 function	DocumentationButton(): ReactElement {
-	const	[isDisabled, set_isDisabled] = React.useState(false);
-	const	[variant, set_variant] = React.useState(0);
+	const	[isDisabled, set_isDisabled] = useState(false);
+	const	[variant, set_variant] = useState(0);
 	const	variantType: ButtonTypes.TButtonVariant[] = ['outlined', 'filled', 'light'];
 
 	return (
@@ -71,16 +73,18 @@ function	DocumentationButton(): ReactElement {
 				<p className={'mb-4'}>{'Well it\'s nothing more than a button. It comes in 3 variants for each theme: filled (default), outlined and light. All the default props for the buttons HTML components are available and some extra are exposed.'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: 'variant?',
-						type: 'filled | outlined | light',
-						description: 'Used to indicate which kind of button we want to use. Default is set to filled.'
-					},
-					{
-						title: 'as?',
-						type: 'button | a',
-						description: 'Indicate if we should use a <a> element or a <button> element. In some case, <a> is best suited (when the onClick action is a routing), allowing the right-click/open in new tab action. Default set to button.'
-					}]} />
+					elements={[
+						{
+							title: 'variant?',
+							type: 'filled | outlined | light',
+							description: 'Used to indicate which kind of button we want to use. Default is set to filled.'
+						},
+						{
+							title: 'as?',
+							type: 'button | a',
+							description: 'Indicate if we should use a <a> element or a <button> element. In some case, <a> is best suited (when the onClick action is a routing), allowing the right-click/open in new tab action. Default set to button.'
+						}
+					]} />
 
 			</Card>
 		</section>

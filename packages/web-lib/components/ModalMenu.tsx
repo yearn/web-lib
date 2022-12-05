@@ -1,4 +1,4 @@
-import React, {cloneElement, Fragment, ReactElement, ReactNode, useRef} from 'react';
+import React, {cloneElement, Fragment, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
 import {useUI} from '@yearn-finance/web-lib/contexts';
@@ -7,6 +7,8 @@ import IconSocialDiscord from '@yearn-finance/web-lib/icons/IconSocialDiscord';
 import IconSocialGithub from '@yearn-finance/web-lib/icons/IconSocialGithub';
 import IconSocialMedium from '@yearn-finance/web-lib/icons/IconSocialMedium';
 import IconSocialTwitter from '@yearn-finance/web-lib/icons/IconSocialTwitter';
+
+import type {ReactElement, ReactNode} from 'react';
 
 export type TNavbarOption = {
 	route: string;

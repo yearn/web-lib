@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, StatisticCard}		from	'@yearn-finance/web-lib/components';
+import	React		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Card, StatisticCard}		from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React			from	'react';
@@ -67,26 +69,28 @@ function	DocumentationStatCard(): ReactElement {
 				<p className={'mb-2'}>{'The StatisticCard is a simple component used to display, in a Card, a label and a value. This is mostly used to highlight some important numbers or informations.'}</p>
 				<p className={'mb-4'}>{'A subcomponent, the StatisticCard.Wrapper, is also available in order to wrap a bunch of StatisticCard together. Size of each card and grid should be controlled with the className props. The wrapper is just a div with `grid grid-cols-12 gap-4` as className.'}</p>
 				<ComponentAPI
-					elements={[{
-						title: 'variant?',
-						type: 'surface | background',
-						description: 'Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.'
-					},
-					{
-						title: 'label',
-						type: 'string',
-						description: 'Small displayed text to indicate what the statistic is about.'
-					},
-					{
-						title: 'value',
-						type: 'string',
-						description: 'Statistic to display with a bolder and bigger font.'
-					},
-					{
-						title: 'className?',
-						type: 'string',
-						description: 'Custom className to provide to alter the style of the Card. This could be useful to define the size of the card in the grid. Default is `col-span-12 md:col-span-4` with a `grid-cols-12` wrapper.'
-					}]} />
+					elements={[
+						{
+							title: 'variant?',
+							type: 'surface | background',
+							description: 'Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.'
+						},
+						{
+							title: 'label',
+							type: 'string',
+							description: 'Small displayed text to indicate what the statistic is about.'
+						},
+						{
+							title: 'value',
+							type: 'string',
+							description: 'Statistic to display with a bolder and bigger font.'
+						},
+						{
+							title: 'className?',
+							type: 'string',
+							description: 'Custom className to provide to alter the style of the Card. This could be useful to define the size of the card in the grid. Default is `col-span-12 md:col-span-4` with a `grid-cols-12` wrapper.'
+						}
+					]} />
 			</Card>
 		</section>
 	);

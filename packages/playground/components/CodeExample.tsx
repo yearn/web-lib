@@ -1,5 +1,7 @@
-import	React, {ReactElement, ReactNode}	from	'react';
+import	React	from	'react';
 import	{RadialBackground}					from	'components/RadialBackground';
+
+import type {ReactElement, ReactNode} from 'react';
 
 
 function	CodeExample({children}: {children: ReactNode}): ReactElement {

@@ -1,9 +1,11 @@
-import	React, {ReactElement, ReactNode}	from	'react';
+import	React	from	'react';
 import	{RadialBackground}					from	'components/RadialBackground';
+
+import type {ReactElement, ReactNode} from 'react';
 
 function	CodeExample({children}: {children: ReactNode}): ReactElement {
 	return (
-		<div className={'mt-6 box-gradient-default'}>
+		<div className={'box-gradient-default mt-6'}>
 			{children}
 			<RadialBackground />
 		</div>

@@ -1,10 +1,12 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
-import {copyToClipboard, toENS} from '@yearn-finance/web-lib/utils';
+import {copyToClipboard} from '@yearn-finance/web-lib/utils';
+import {toENS} from '@yearn-finance/web-lib/utils/address';
 
-import type {TAddress} from '@yearn-finance/web-lib/utils';
+import type {ReactElement} from 'react';
+import type {TAddress} from '@yearn-finance/web-lib/utils/address';
 
 export type TAddressWithActions = {
 	address: TAddress;

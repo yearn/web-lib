@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, DescriptionList}		from	'@yearn-finance/web-lib/components';
+import	React		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Card, DescriptionList}		from	'@yearn-finance/web-lib/components';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React					from	'react';
@@ -63,16 +65,18 @@ function	DocumentationDescriptionList(): ReactElement {
 				<p className={'mb-2'}>{'The DescriptionList component is a mimic of the <dl> HTML element. The element encloses a list of groups of terms (provided by the title element) and descriptions (provided by the details elements). Common uses for this element are to implement a glossary or to display metadata (a list of key-value pairs).'}</p>
 				<p className={'mb-4'}>{'Note: The Card element is used on this representation to give a structure to the list, but the raw component has no background.'}</p>
 				<ComponentAPI
-					elements={[{
-						title: 'variant?',
-						type: 'surface | background',
-						description: 'Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.'
-					},
-					{
-						title: 'options',
-						type: '[{\n\ttitle: string,\n\tdetails: string\n}]',
-						description: 'Array of pairs to display. This will be the displayed elements of this list, with the title on the left part and the details as value in bold. Elements are separated by 16px.'
-					}]} />
+					elements={[
+						{
+							title: 'variant?',
+							type: 'surface | background',
+							description: 'Used to indicate if the Card is displayed on the Background (use surface) or on a Surface (use background). Default set to surface.'
+						},
+						{
+							title: 'options',
+							type: '[{\n\ttitle: string,\n\tdetails: string\n}]',
+							description: 'Array of pairs to display. This will be the displayed elements of this list, with the title on the left part and the details as value in bold. Elements are separated by 16px.'
+						}
+					]} />
 			</Card>
 		</section>
 	);

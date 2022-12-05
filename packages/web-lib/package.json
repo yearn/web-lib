@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.16.34",
+  "version": "0.17.00",
   "files": [
     "."
   ],
@@ -30,11 +30,14 @@
     "@web3-react/metamask": "8.0.28-beta.0",
     "@web3-react/types": "8.0.20-beta.0",
     "@web3-react/walletconnect": "8.0.36-beta.0",
+    "axios": "^1.2.0",
     "dayjs": "^1.11.6",
     "ethcall": "^4.8.7",
     "ethers": "5.7.2",
     "eventemitter3": "^4.0.7",
     "framer-motion": "7.6.2",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.0.0",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
