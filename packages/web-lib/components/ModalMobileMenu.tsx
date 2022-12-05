@@ -1,13 +1,15 @@
-import React, {Fragment, ReactElement, ReactNode, useEffect, useRef, useState} from 'react';
+import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
 import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {chains, truncateHex} from '@yearn-finance/web-lib/utils';
 
+import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from './Modal';
 import type {TModalMobileMenu} from './ModalMenu';
 
@@ -23,7 +25,7 @@ function	Modal(props: TModal): ReactElement {
 				style={{zIndex: 9999}}
 				initialFocus={ref}
 				onClose={onClose}>
-				<div className={`${className} flex min-h-screen items-end justify-end px-0 pt-4 pb-0 text-center sm:block sm:p-0 relative`}>
+				<div className={`${className} relative flex min-h-screen items-end justify-end px-0 pt-4 pb-0 text-center sm:block sm:p-0`}>
 					<Transition.Child
 						as={Fragment}
 						enter={'ease-out duration-300'}
@@ -95,6 +97,11 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 							<>
 								<IconWalletMetamask style={{width: 40, height: 40}} />
 								<b className={'mt-4 text-sm text-neutral-500'}>{'Metamask'}</b>
+							</>
+						) : detectedWalletProvider === 'trustWallet' ? (
+							<>
+								<IconWalletTrustWallet style={{width: 40, height: 40}} />
+								<b className={'mt-4 text-sm text-neutral-500'}>{'TrustWallet'}</b>
 							</>
 						) : (
 							<>

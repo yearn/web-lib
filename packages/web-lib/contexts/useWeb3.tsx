@@ -1,4 +1,4 @@
-import	React, {createContext, ErrorInfo, ReactElement, useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
@@ -15,13 +15,14 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import {getProvider} from '@yearn-finance/web-lib/utils/providers';
 import {isIframe, toAddress} from '@yearn-finance/web-lib/utils/utils';
 
+import type {ErrorInfo, ReactElement} from 'react';
+import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
 import type {Provider} from '@web3-react/types';
-import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {TWalletProvider, TWeb3Context, TWeb3Options} from './types';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const walletType = {NONE: -1, INJECTED: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4};
+const walletType = {NONE: -1, INJECTED: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4, EMBED_TRUSTWALLET: 5};
 
 const defaultState = {
 	address: undefined,
@@ -79,6 +80,8 @@ export const Web3ContextApp = ({
 			return ('frame');
 		} else if ((window?.ethereum as TWalletProvider)?.isMetaMask) {
 			return ('metamask');
+		} else if ((window?.ethereum as TWalletProvider)?.isTrustWallet) {
+			return ('trustWallet');
 		}
 		return ('frame');
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -230,6 +233,24 @@ export const Web3ContextApp = ({
 				}
 				set_isConnecting(false);
 			}
+		} else if (_providerType === walletType.EMBED_TRUSTWALLET) {
+			if (isActive) {
+				await connectors.metamask.connector.deactivate?.();
+			}
+			try {
+				await connectors.metamask.connector.activate(1);
+				set_lastWallet(walletType.EMBED_TRUSTWALLET);	
+				if (onSuccess) {
+					onSuccess();
+				}
+				set_isConnecting(false);
+			} catch (error) {
+				set_lastWallet(walletType.NONE);
+				if (onError) {
+					onError(error as Error);
+				}
+				set_isConnecting(false);
+			}
 		} 
 	}, [isActive, web3Options.shouldUseWallets, set_lastWallet]);
 
@@ -280,12 +301,16 @@ export const Web3ContextApp = ({
 					// 
 				}
 			}
-		} else if ((window?.ethereum as CoinbaseWalletProvider)?.isCoinbaseBrowser) {
+		} else if (detectedWalletProvider === 'coinbase') {
 			connectors.coinbase.connector.activate().then((): void => {
 				set_lastWallet(walletType.COINBASE);
 			});
+		} else if (detectedWalletProvider === 'trustWallet') {
+			connectors.metamask.connector.activate().then((): void => {
+				set_lastWallet(walletType.EMBED_TRUSTWALLET);
+			});
 		}
-	}, []);
+	}, [detectedWalletProvider]);
 
 	useClientEffect((): void => {
 		if (!isActive && lastWallet !== walletType.NONE) {
