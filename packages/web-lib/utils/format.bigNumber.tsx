@@ -1,5 +1,5 @@
 import {BigNumber, ethers} from 'ethers';
-import {formatAmout} from '@yearn-finance/web-lib/utils/format.number';
+import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
 import type {BigNumberish} from 'ethers';
 
@@ -52,7 +52,7 @@ export	const	toNormalizedValue = (v: BigNumberish, d?: number): number => (
 );
 
 export const	toNormalizedAmount = (v: BigNumberish, d?: number): string => (
-	formatAmout(toNormalizedValue(v, d || 18), 6, 6)
+	formatAmount(toNormalizedValue(v, d || 18), 6, 6)
 );
 
 export {units as formatUnits};

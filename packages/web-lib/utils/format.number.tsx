@@ -44,6 +44,6 @@ export function withUnit(amount: number, minimumFractionDigits = 2, maximumFract
 	}).format(amount));
 }
 
-export {amount as formatAmout};
+export {amount as formatAmount};
 export {currency as formatCurrency};
 export {withUnit as formatWithUnit};

@@ -700,3 +700,22 @@ label[aria-invalid="true"] {
 .text-caption-mono-underlined {
 	@apply font-normal text-xs underline underline-offset-4;
 }
+
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+	outline: none;
+	box-shadow: none;
+}
