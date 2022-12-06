@@ -627,3 +627,76 @@ label[aria-invalid="true"] {
 	background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
 	@apply absolute inset-0 w-full h-full;
 }
+
+/* 🔵 - Yearn Finance ******************************************************
+** Some custom css for the components
+**************************************************************************/
+.text-h1 {
+	@apply font-normal text-3xl;
+}
+.text-h1-bold {
+	@apply font-bold text-3xl;
+}
+.text-h1-mono-bold {
+	@apply font-mono font-bold text-3xl;
+}
+
+.text-h2 {
+	@apply font-normal text-xl;
+}
+.text-h2-bold {
+	@apply font-bold text-xl;
+}
+.text-h2-mono-bold {
+	@apply font-mono font-bold text-xl;
+}
+
+.text-h3 {
+	@apply font-normal text-lg;
+}
+.text-h3-bold {
+	@apply font-bold text-lg;
+}
+.text-h3-mono-bold {
+	@apply font-mono font-bold text-lg;
+}
+
+.text-body {
+	@apply font-normal text-base;
+}
+.text-body-bold {
+	@apply font-bold text-base;
+}
+.text-body-underlined {
+	@apply font-normal text-base underline underline-offset-4;
+}
+
+.text-caption {
+	@apply font-normal text-xs;
+}
+.text-caption-bold {
+	@apply font-bold text-xs;
+}
+.text-caption-underlined {
+	@apply font-normal text-xs underline underline-offset-4;
+}
+
+.text-body-mono {
+	@apply font-mono text-base;
+}
+.text-body-mono-bold {
+	@apply font-mono font-bold text-base;
+}
+.text-body-mono-underlined {
+	@apply font-mono text-base underline underline-offset-4;
+}
+
+.text-caption-mono {
+	@apply font-normal text-xs;
+}
+.text-caption-mono-bold {
+	@apply font-bold text-xs;
+}
+.text-caption-mono-underlined {
+	@apply font-normal text-xs underline underline-offset-4;
+}
