@@ -33,4 +33,5 @@ export {default as WalletCoinbase} from './IconWalletCoinbase';
 export {default as WalletFrame} from './IconWalletFrame';
 export {default as WalletGnosis} from './IconWalletGnosis';
 export {default as WalletMetamask} from './IconWalletMetamask';
+export {default as WalletTrustWallet} from './IconWalletTrustWallet';
 export {default as WalletWalletConnect} from './IconWalletWalletConnect';

@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {Contract} from 'ethcall';
-import {BigNumber, ethers} from 'ethers';
-import {useSettings} from '@yearn-finance/web-lib/contexts/useSettings';
+import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
@@ -10,8 +9,9 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import * as providers from '@yearn-finance/web-lib/utils/providers';
 import {toAddress} from '@yearn-finance/web-lib/utils/utils';
 
-import type {TDict} from '../utils';
-import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from './types';
+import type {BigNumber} from 'ethers';
+import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from '@yearn-finance/web-lib/hooks/types';
+import type {TDict} from '@yearn-finance/web-lib/utils';
 
 const		defaultStatus = {
 	isLoading: false,
@@ -26,7 +26,6 @@ const		defaultStatus = {
 ** This hook can be used to fetch balance information for any ERC20 tokens.
 **************************************************************************/
 export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
-	const	{networks} = useSettings();
 	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
 	const	[rawData, set_rawData] = useState<TDict<TBalanceData>>({});
 	const	[data, set_data] = useState<TDict<TBalanceData>>({});
@@ -44,7 +43,6 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		if (!isActive || !web3Address || (props?.tokens || []).length === 0) {
 			return {};
 		}
-
 		set_status({
 			...defaultStatus,
 			isLoading: true,
@@ -104,24 +102,29 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(rawPrice, 6))
 				};
 			}
-			performBatchedUpdates((): void => {
-				set_rawData(_data);
-				set_error(undefined);
-				set_status({...defaultStatus, isSuccess: true, isFetched: true});
-			});
+			set_error(undefined);
 			return _data;
 		} catch (_error) {
-			performBatchedUpdates((): void => {
-				set_rawData({});
-				set_error(_error as Error);
-				set_status({...defaultStatus, isError: true, isFetched: true});
-			});
+			set_error(_error as Error);
 			return {};
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isActive, web3Address, props?.chainID, web3ChainID, provider, networks, props?.key, ...effectDependencies]);
-	useEffect((): void => {
-		getBalances();
+	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
+
+	useEffect((): VoidFunction => {
+		let active = true;
+		const executeGetBalances = async () => {
+			const	rawData = await getBalances();
+			if (active) {
+				performBatchedUpdates((): void => {
+					set_rawData(rawData);
+					set_status({...defaultStatus, isSuccess: true, isFetched: true});
+				});
+			}
+		}
+		executeGetBalances();
+		return (): void => {
+			active = false;
+		};
 	}, [getBalances]);
 
 
@@ -194,7 +197,14 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	return ({
 		data,
-		update: getBalances,
+		update: async () => {
+			const	rawData = await getBalances();
+			performBatchedUpdates((): void => {
+				set_rawData(rawData);
+				set_status({...defaultStatus, isSuccess: true, isFetched: true});
+			});
+			return rawData;
+		},
 		error,
 		isLoading: status.isLoading,
 		isFetching: status.isFetching,

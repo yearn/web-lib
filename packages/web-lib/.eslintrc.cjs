@@ -65,7 +65,6 @@ module.exports = {
 		'import/first': 2,
 		'import/newline-after-import': 2,
 		'import/no-duplicates': 2,
-
 		'curly': ['error', 'all'],
 		'object-curly-newline': [
 			'error', {
@@ -77,8 +76,13 @@ module.exports = {
 		],
 		'object-property-newline': ['error', {'allowAllPropertiesOnSameLine': true}],
 		'prefer-destructuring': ['error', {'array': true, 'object': true}, {'enforceForRenamedProperties': false}],
-
-
+		'@typescript-eslint/consistent-type-imports': [
+			2, {
+				'prefer': 'type-imports',
+				'disallowTypeAnnotations': true,
+				'fixStyle': 'separate-type-imports'
+			}
+		],
 		'@typescript-eslint/no-var-requires': 0,
 		'@typescript-eslint/no-unused-vars': 2,
 		'@typescript-eslint/array-type': ['error', {'default': 'array'}],
@@ -169,16 +173,27 @@ module.exports = {
 							[
 								'^react',
 								'^next',
-								'^eth.*',
+								'^(ethers|ethcall)?\\w',
 								'^axios', '^swr',
 								'^tailwindcss', '^framer-motion', '^nprogress',
-								'^(!.+\\u0000)(@yearn-finance|@yearn-finance)(/.*|$)',
-								'^@?\\w'
+								'^@?\\w',
+								'^(@yearn-finance/.*)?\\w',
+								'^(@common/.*)?\\w',
+								'^(@y.*)?\\w'
 							],
 							// Parent imports.
 							['^\\u0000', '^\\.\\.(?!/?$)', '^\\.\\./?$', '^\\./?$', '^\\.(?!/?$)', '^\\./(?=.*/)(?!/?$)'],
 							//Types imports.
-							['^node:.*\\u0000$', '^@?\\w.*\\u0000$', '^[^.].*\\u0000$', '^\\..*\\u0000$'],
+							[
+								'^node:.*\\u0000$',
+								'^(@yearn-finance)?\\w.*\\u0000$',
+								'^(@common)?\\w.*\\u0000$',
+								'^(@y.*)?\\w.*\\u0000$',
+								'^@?\\w.*\\u0000$',
+								'^[^.].*\\u0000$',
+								'^\\..*\\u0000$'
+							],
+
 							// Style imports.
 							['^.+\\.s?css$']
 						]

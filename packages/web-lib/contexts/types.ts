@@ -1,7 +1,6 @@
-import	{ReactNode}	from 'react';
-import	{ethers}	from 'ethers';
-
-import {TPartnersInfo} from '../utils';
+import type	{ethers}	from 'ethers';
+import type	{ReactNode}	from 'react';
+import type {TPartnersInfo} from '../utils';
 
 export type TSettingsBase = {
 	yDaemonBaseURI: string,
@@ -86,4 +85,5 @@ export type TWalletProvider = {
 	isFrame?: boolean,
 	isCoinbaseBrowser?: boolean,
 	isMetaMask?: boolean,
+	isTrustWallet?: boolean,
 }
