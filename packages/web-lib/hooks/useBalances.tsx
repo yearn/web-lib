@@ -2,6 +2,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import {Contract} from 'ethcall';
 import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
@@ -26,7 +27,8 @@ const		defaultStatus = {
 ** This hook can be used to fetch balance information for any ERC20 tokens.
 **************************************************************************/
 export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
-	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
+	const	{address: web3Address, isActive, provider} = useWeb3();
+	const	{chainID: web3ChainID} = useChainID();
 	const	[rawData, set_rawData] = useState<TDict<TBalanceData>>({});
 	const	[data, set_data] = useState<TDict<TBalanceData>>({});
 	const	[status, set_status] = useState<TDefaultStatus>(defaultStatus);

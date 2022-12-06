@@ -1,10 +1,12 @@
-import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import	React, {createContext, useCallback, useContext, useEffect, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
+import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
@@ -18,23 +20,16 @@ import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ErrorInfo, ReactElement} from 'react';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
-import type {CoinbaseWalletProvider} from '@coinbase/wallet-sdk';
 import type {Provider} from '@web3-react/types';
-import type {TWalletProvider, TWeb3Context, TWeb3Options} from './types';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const walletType = {NONE: -1, INJECTED: 0, WALLET_CONNECT: 1, EMBED_LEDGER: 2, EMBED_GNOSIS_SAFE: 3, COINBASE: 4, EMBED_TRUSTWALLET: 5};
+import type {TWeb3Context, TWeb3Options} from './types';
 
 const defaultState = {
 	address: undefined,
 	ens: undefined,
-	chainID: 0,
-	safeChainID: 0,
 	isDisconnected: false,
 	isActive: false,
 	isConnecting: false,
 	hasProvider: false,
-	detectedWalletProvider: 'frame',
 	provider: getProvider(),
 	currentPartner: undefined,
 	onConnect: async (): Promise<void> => undefined,
@@ -57,36 +52,19 @@ export const Web3ContextApp = ({
 	options?: TWeb3Options
 }): ReactElement => {
 	const	web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
-	const	web3 = useWeb3React();
-	const   {connector, isActive, provider, account, chainId} = web3;
-	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
-	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', walletType.NONE) as [number, (n: number) => void];
-	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
+	const   {connector, isActive, provider, account, chainId} = useWeb3React();
+	const	{chainID, updateChainID} = useChainID(web3Options?.defaultChainID);
+	const	debouncedChainID = useDebounce(chainId, 500);
+	const	hasWindowInFocus = useWindowInFocus();
+	const	detectedWalletProvider = useInjectedWallet();
 
+	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
+	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
 	const   [isConnecting, set_isConnecting] = useState(false);
 	const   [isDisconnected, set_isDisconnected] = useState(false);
 	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
 	const	[isModalLoginOpen, set_isModalLoginOpen] = useState(false);
 	const	[currentPartner, set_currentPartner] = useState<TPartnersInfo>();
-	const	debouncedChainID = useDebounce(chainId, 500);
-	const	hasWindowInFocus = useWindowInFocus();
-
-	const	detectedWalletProvider = useMemo((): string => {
-		if (typeof(window) === 'undefined') {
-			return 'frame';
-		}
-		if ((window?.ethereum as CoinbaseWalletProvider)?.isCoinbaseBrowser) {
-			return ('coinbase');
-		} else if ((window?.ethereum as TWalletProvider)?.isFrame) {
-			return ('frame');
-		} else if ((window?.ethereum as TWalletProvider)?.isMetaMask) {
-			return ('metamask');
-		} else if ((window?.ethereum as TWalletProvider)?.isTrustWallet) {
-			return ('trustWallet');
-		}
-		return ('frame');
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof(window)]);
 
 	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
 		if (newChainID === debouncedChainID) {
@@ -104,7 +82,7 @@ export const Web3ContextApp = ({
 			return;
 		}
 		if (!provider || !isActive) {
-			set_chainID(newChainID);
+			updateChainID(newChainID);
 			return;
 		}
 		if (web3Options.shouldUseWallets) {
@@ -132,8 +110,6 @@ export const Web3ContextApp = ({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
 
-	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID || 1, [chainID]);
-
 	useEffect((): void => {
 		onSwitchChain(web3Options?.defaultChainID || 1);
 	}, [hasWindowInFocus, onSwitchChain, web3Options.defaultChainID]);
@@ -152,7 +128,7 @@ export const Web3ContextApp = ({
 	**	or changeChain).
 	**************************************************************************/
 	const connect = useCallback(async (
-		_providerType: number,
+		providerType: string,
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
 	): Promise<void> => {
@@ -160,100 +136,100 @@ export const Web3ContextApp = ({
 			return;
 		}
 		set_isConnecting(true);
-		if (_providerType === walletType.INJECTED) {
+		if (providerType === 'INJECTED') {
 			if (isActive) {
 				await connectors.metamask.connector.deactivate?.();
 			}
 			try {
 				await connectors.metamask.connector.activate();
-				set_lastWallet(walletType.INJECTED);	
+				set_lastWallet('INJECTED');	
 				if (onSuccess) {
 					onSuccess();
 				}
 				set_isConnecting(false);
 			} catch (error) {
-				set_lastWallet(walletType.NONE);
+				set_lastWallet('NONE');
 				if (onError) {
 					onError(error as Error);
 				}
 				set_isConnecting(false);
 			}
-		} else if (_providerType === walletType.WALLET_CONNECT) {
+		} else if (providerType === 'WALLET_CONNECT') {
 			if (isActive) {
 				await connectors.walletConnect.connector.deactivate();
 			}
 			try {
 				await connectors.walletConnect.connector.activate(1);
-				set_lastWallet(walletType.WALLET_CONNECT);	
+				set_lastWallet('WALLET_CONNECT');	
 				if (onSuccess) {
 					onSuccess();
 				}
 				set_isConnecting(false);
 			} catch (error) {
-				set_lastWallet(walletType.NONE);
+				set_lastWallet('NONE');
 				if (onError) {
 					onError(error as Error);
 				}
 				set_isConnecting(false);
 			}
-		} else if (_providerType === walletType.EMBED_LEDGER) {
-			set_lastWallet(walletType.EMBED_LEDGER);
-		} else if (_providerType === walletType.EMBED_GNOSIS_SAFE) {
+		} else if (providerType === 'EMBED_LEDGER') {
+			set_lastWallet('EMBED_LEDGER');
+		} else if (providerType === 'EMBED_GNOSIS_SAFE') {
 			if (isActive) {
 				await connectors.gnosisSafe.connector.deactivate?.();
 			}
 			try {
 				await connectors.gnosisSafe.connector.activate();
-				set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
+				set_lastWallet('EMBED_GNOSIS_SAFE');
 				if (onSuccess) {
 					onSuccess();
 				}
 				set_isConnecting(false);
 			} catch (error) {
-				set_lastWallet(walletType.NONE);
+				set_lastWallet('NONE');
 				if (onError) {
 					onError(error as Error);
 				}
 				set_isConnecting(false);
 			}
-		} else if (_providerType === walletType.COINBASE) {
+		} else if (providerType === 'EMBED_COINBASE') {
 			if (isActive) {
 				await connectors.coinbase.connector.deactivate?.();
 			}
 			try {
 				await connectors.coinbase.connector.activate(1);
-				set_lastWallet(walletType.COINBASE);	
+				set_lastWallet('EMBED_COINBASE');	
 				if (onSuccess) {
 					onSuccess();
 				}
 				set_isConnecting(false);
 			} catch (error) {
-				set_lastWallet(walletType.NONE);
+				set_lastWallet('NONE');
 				if (onError) {
 					onError(error as Error);
 				}
 				set_isConnecting(false);
 			}
-		} else if (_providerType === walletType.EMBED_TRUSTWALLET) {
+		} else if (providerType === 'EMBED_TRUSTWALLET') {
 			if (isActive) {
 				await connectors.metamask.connector.deactivate?.();
 			}
 			try {
 				await connectors.metamask.connector.activate(1);
-				set_lastWallet(walletType.EMBED_TRUSTWALLET);	
+				set_lastWallet('EMBED_TRUSTWALLET');	
 				if (onSuccess) {
 					onSuccess();
 				}
 				set_isConnecting(false);
 			} catch (error) {
-				set_lastWallet(walletType.NONE);
+				set_lastWallet('NONE');
 				if (onError) {
 					onError(error as Error);
 				}
 				set_isConnecting(false);
 			}
 		} 
-	}, [isActive, web3Options.shouldUseWallets, set_lastWallet]);
+	}, [isActive, web3Options.shouldUseWallets, detectedWalletProvider]);
 
 	useClientEffect((): void => {
 		if (isIframe()) {
@@ -291,9 +267,9 @@ export const Web3ContextApp = ({
 							signer.getAddress().then((signerAddress: string): void => {
 								set_currentPartner({
 									id: signerAddress,
-									walletType: walletType.EMBED_GNOSIS_SAFE
+									walletType: 'EMBED_GNOSIS_SAFE'
 								});
-								set_lastWallet(walletType.EMBED_GNOSIS_SAFE);
+								set_lastWallet('EMBED_GNOSIS_SAFE');
 							});
 						}
 					});
@@ -302,30 +278,22 @@ export const Web3ContextApp = ({
 					// 
 				}
 			}
-		} else if (detectedWalletProvider === 'coinbase') {
+		} else if (detectedWalletProvider.type === 'EMBED_COINBASE') {
 			connectors.coinbase.connector.activate().then((): void => {
-				set_lastWallet(walletType.COINBASE);
+				set_lastWallet('EMBED_COINBASE');
 			});
-		} else if (detectedWalletProvider === 'trustWallet') {
+		} else if (detectedWalletProvider.name === 'EMBED_TRUSTWALLET') {
 			connectors.metamask.connector.activate().then((): void => {
-				set_lastWallet(walletType.EMBED_TRUSTWALLET);
+				set_lastWallet('EMBED_TRUSTWALLET');
 			});
 		}
 	}, [detectedWalletProvider]);
 
 	useClientEffect((): void => {
-		if (!isActive && lastWallet !== walletType.NONE) {
+		if (!isActive && lastWallet !== 'NONE') {
 			connect(lastWallet);
 		}
 	}, [isActive]);
-
-	useClientEffect((): void => {
-		if ((chainId || 0) > 0) {
-			set_chainID(Number(chainId));
-		} else if (chainId === 0) {
-			set_chainID(Number(web3Options.defaultChainID));
-		}
-	}, [chainId]);
 
 	useClientEffect((): void => {
 		if (account && isActive) {
@@ -340,8 +308,6 @@ export const Web3ContextApp = ({
 			value={{
 				address: account,
 				ens: isReallyActive ? ens : '',
-				chainID: Number(chainID || web3Options.defaultChainID || 0),
-				safeChainID,
 				isActive: isReallyActive,
 				isDisconnected,
 				isConnecting,
@@ -350,12 +316,11 @@ export const Web3ContextApp = ({
 				onSwitchChain,
 				onConnect: connect,
 				currentPartner,
-				detectedWalletProvider,
 				openLoginModal: (): void => set_isModalLoginOpen(true),
 				onDesactivate: (): void => {
 					performBatchedUpdates((): void => {
 						set_ens('');
-						set_lastWallet(walletType.NONE);
+						set_lastWallet('NONE');
 						set_isDisconnected(true);
 						connector.deactivate?.();
 						connector.resetState?.();
@@ -366,7 +331,6 @@ export const Web3ContextApp = ({
 			}}>
 			{children}
 			<ModalLogin
-				walletType={walletType}
 				isOpen={isModalLoginOpen}
 				onClose={(): void => set_isModalLoginOpen(false)} />
 		</Web3Context.Provider>

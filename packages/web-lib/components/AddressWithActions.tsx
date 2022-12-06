@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {useSettings, useWeb3} from '@yearn-finance/web-lib/contexts';
+import {useSettings} from '@yearn-finance/web-lib/contexts';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
 import {copyToClipboard} from '@yearn-finance/web-lib/utils';
@@ -19,16 +20,16 @@ export type TAddressWithActions = {
 function	AddressWithActions(props: TAddressWithActions): ReactElement {
 	const	{address, explorer = '', truncate = 5, wrapperClassName, className = ''} = props;
 	const	{networks} = useSettings();
-	const	{chainID} = useWeb3();
+	const	{safeChainID} = useChainID();
 	const	[explorerURI, set_explorerURI] = useState('');
 
 	useEffect((): void => {
 		if (explorer !== '') {
 			set_explorerURI(explorer);
-		} else if (networks[chainID]?.explorerBaseURI) {
-			set_explorerURI(networks[chainID].explorerBaseURI as string);
+		} else if (networks[safeChainID]?.explorerBaseURI) {
+			set_explorerURI(networks[safeChainID].explorerBaseURI as string);
 		}
-	}, [chainID, explorer, networks]);
+	}, [safeChainID, explorer, networks]);
 
 	return (
 		<span className={`yearn--elementWithActions-wrapper ${wrapperClassName}`}>

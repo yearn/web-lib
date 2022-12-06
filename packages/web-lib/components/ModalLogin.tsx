@@ -1,26 +1,23 @@
-import React from 'react';
+import React, {cloneElement} from 'react';
 import {toast} from 'react-hot-toast';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
-import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
-import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
-import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
 import type {ReactElement} from 'react';
-import type {TDict} from '../utils';
 
 export type	TModalLogin = {
 	isOpen: boolean,
 	onClose: () => void
-	walletType: TDict<number>;
 };
 
 function ModalLogin(props: TModalLogin): ReactElement {
-	const	{isOpen, onClose, walletType} = props;
-	const	{onConnect, detectedWalletProvider} = useWeb3();
+	const	{isOpen, onClose} = props;
+	const	{onConnect} = useWeb3();
+	const	detectedWalletProvider = useInjectedWallet();
 
 	return (
 		<Modal
@@ -30,33 +27,19 @@ function ModalLogin(props: TModalLogin): ReactElement {
 				<div
 					onClick={(): void => {
 						onConnect(
-							walletType.INJECTED,
+							'INJECTED',
 							(): string => toast.error('Unsupported network. Please use Ethereum mainnet.'),
 							(): void => onClose()
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					{detectedWalletProvider === 'metamask' ? (
-						<>
-							<div><IconWalletMetamask /></div>
-							<b>{'Metamask'}</b>
-						</>
-					) : detectedWalletProvider === 'trustWallet' ? (
-						<>
-							<div><IconWalletTrustWallet /></div>
-							<b>{'TrustWallet'}</b>
-						</>
-					) : (
-						<>
-							<div><IconWalletFrame className={'text-neutral-900'} /></div>
-							<b>{'Frame'}</b>
-						</>
-					)}
+					<div>{cloneElement(detectedWalletProvider.icon)}</div>
+					<b>{detectedWalletProvider.name}</b>
 				</div>
 				<div
 					onClick={(): void => {
 						onConnect(
-							walletType.WALLET_CONNECT,
+							'WALLET_CONNECT',
 							(): string => toast.error('Invalid chain'),
 							(): void => onClose()
 						);
@@ -68,7 +51,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 				<div
 					onClick={(): void => {
 						onConnect(
-							walletType.COINBASE,
+							'EMBED_COINBASE',
 							(): string => toast.error('Invalid chain'),
 							(): void => onClose()
 						);
@@ -80,7 +63,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 				<div
 					onClick={(): void => {
 						onConnect(
-							walletType.EMBED_GNOSIS_SAFE,
+							'EMBED_GNOSIS_SAFE',
 							(): string => toast.error('Invalid chain'),
 							(): void => onClose()
 						);

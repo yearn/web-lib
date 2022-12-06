@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 import {Dropdown} from '@yearn-finance/web-lib/components/Dropdown';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconNetworkArbitrum from '@yearn-finance/web-lib/icons/IconNetworkArbitrum';
 import IconNetworkEthereum from '@yearn-finance/web-lib/icons/IconNetworkEthereum';
 import IconNetworkFantom from '@yearn-finance/web-lib/icons/IconNetworkFantom';
@@ -28,7 +29,8 @@ function	Header({
 	shouldUseNetworks = true,
 	children
 }: THeader): ReactElement {
-	const	{chainID, onSwitchChain, isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
+	const	{onSwitchChain, isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
+	const	{chainID} = useChainID();
 	const	[walletIdentity, set_walletIdentity] = useState('Connect wallet');
 	const	[selectedOption, set_selectedOption] = useState(options[0]);
 
