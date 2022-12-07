@@ -1,14 +1,15 @@
-import	React		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{Card, DescriptionList}		from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {DescriptionList} from '@yearn-finance/web-lib/components/DescriptionList';
 
 import type {ReactElement} from 'react';
 
 const code = `
-import	React					from	'react';
-import	{Card, DescriptionList}	from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import {Card, DescriptionList} from '@yearn-finance/web-lib/components';
 
 export default function	App(): React.ReactElement {
 	return (

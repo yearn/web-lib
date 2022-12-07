@@ -1,4 +1,4 @@
-import	React, {createContext, useCallback, useContext, useEffect, useState} from 'react';
+import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
@@ -127,7 +127,7 @@ export const Web3ContextApp = ({
 	**	Moreover, we are starting to listen to events (disconnect, changeAccount
 	**	or changeChain).
 	**************************************************************************/
-	const connect = useCallback(async (
+	const onConnect = useCallback(async (
 		providerType: string,
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
@@ -229,7 +229,7 @@ export const Web3ContextApp = ({
 				set_isConnecting(false);
 			}
 		} 
-	}, [isActive, web3Options.shouldUseWallets, detectedWalletProvider]);
+	}, [isActive, web3Options.shouldUseWallets, detectedWalletProvider]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useClientEffect((): void => {
 		if (isIframe()) {
@@ -257,7 +257,7 @@ export const Web3ContextApp = ({
 				connectors.eip1193.connector.init(frameWeb3Provider);
 				connectors.eip1193.connector.activate();
 				set_currentPartner(partnerInformation);
-				connect(partnerInformation.walletType);
+				onConnect(partnerInformation.walletType);
 			} else {
 				try {
 					connectors.gnosisSafe.connector.activate().then((): void => {
@@ -291,7 +291,7 @@ export const Web3ContextApp = ({
 
 	useClientEffect((): void => {
 		if (!isActive && lastWallet !== 'NONE') {
-			connect(lastWallet);
+			onConnect(lastWallet);
 		}
 	}, [isActive]);
 
@@ -302,33 +302,51 @@ export const Web3ContextApp = ({
 		}
 	}, [account, chainID]);
 
-	const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
+	/* 💙 - Yearn Finance *********************************************************************
+	**	Used to fully disconnect a wallet from the UI. Will reset the state, the ENS and the
+	**	lastWallet.
+	******************************************************************************************/
+	const onDesactivate = useCallback((): void  => {
+		performBatchedUpdates((): void => {
+			set_ens('');
+			set_lastWallet('NONE');
+			set_isDisconnected(true);
+			connector.deactivate?.();
+			connector.resetState?.();
+		});
+		setTimeout((): void => set_isDisconnected(false), 100);	
+	}, [connector]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	/* 💙 - Yearn Finance *********************************************************************
+	**	Used to open the login modal.
+	******************************************************************************************/
+	const openLoginModal = useCallback((): void => set_isModalLoginOpen(true), []);
+
+	/* 💙 - Yearn Finance *********************************************************************
+	**	Render the Web3Context with it's parameters.
+	**	The parameters will be accessible to the children via the useWeb3 hook.
+	******************************************************************************************/
+	const	contextValue = useMemo((): TWeb3Context => {
+		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
+		return ({
+			address: account,
+			ens: isReallyActive ? ens : '',
+			isDisconnected,
+			isActive: isReallyActive,
+			isConnecting,
+			hasProvider: !!provider,
+			provider: provider as ethers.providers.BaseProvider,
+			currentPartner,
+			onConnect,
+			onSwitchChain,
+			openLoginModal,
+			onDesactivate: onDesactivate,
+			options: web3Options
+		});
+	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId]);
+
 	return (
-		<Web3Context.Provider
-			value={{
-				address: account,
-				ens: isReallyActive ? ens : '',
-				isActive: isReallyActive,
-				isDisconnected,
-				isConnecting,
-				hasProvider: !!provider,
-				provider: provider as ethers.providers.BaseProvider,
-				onSwitchChain,
-				onConnect: connect,
-				currentPartner,
-				openLoginModal: (): void => set_isModalLoginOpen(true),
-				onDesactivate: (): void => {
-					performBatchedUpdates((): void => {
-						set_ens('');
-						set_lastWallet('NONE');
-						set_isDisconnected(true);
-						connector.deactivate?.();
-						connector.resetState?.();
-					});
-					setTimeout((): void => set_isDisconnected(false), 100);					
-				},
-				options: web3Options
-			}}>
+		<Web3Context.Provider value={contextValue}>
 			{children}
 			<ModalLogin
 				isOpen={isModalLoginOpen}

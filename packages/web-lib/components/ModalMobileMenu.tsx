@@ -1,11 +1,11 @@
 import React, {cloneElement, Fragment, useEffect, useRef, useState} from 'react';
 import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';
-import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
-import {chains} from '@yearn-finance/web-lib/utils';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
+import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 
 import {useInjectedWallet} from '../hooks/useInjectedWallet';
 
@@ -85,7 +85,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	function	renderNotActive(): ReactNode {
 		if (shouldUseWallets && !isActive && !address) {
 			return (
-				<div className={'grid grid-cols-3 gap-2 p-2'}>
+				<div className={'grid grid-cols-2 gap-2 p-2'}>
 					<div
 						onClick={(): void => {
 							onConnect(

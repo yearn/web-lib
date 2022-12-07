@@ -23,6 +23,7 @@ export const VLYCRV_TOKEN_ADDRESS = toAddress('0x0000000000000000000000000000000
 
 // Theses constants are used by the yVault app
 export const ZAP_ETH_WETH_CONTRACT = toAddress('0xd1791428c38e25d459d5b01fb25e942d4ad83a25');
+export const ZAP_FTM_WFTM_CONTRACT = toAddress('0xfCE6CbeF3867102da383465cc237B49fF4B9d48F');
 
 // Theses constants are used by the yBribe app
 export const CURVE_BRIBE_V2_ADDRESS = toAddress('0x7893bbb46613d7a4FbcC31Dab4C9b823FfeE1026');

@@ -1,8 +1,10 @@
-import	React, {useState}			from	'react';
-import	CodeExample						from	'components/CodeExample';
-import	ComponentAPI					from	'components/documentation/ComponentAPI';
-import	Highlight						from	'components/documentation/Highlight';
-import	{Banner, Button, Card}			from	'@yearn-finance/web-lib/components';
+import React, {useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Banner} from '@yearn-finance/web-lib/components/Banner';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
 import type {ReactElement} from 'react';
 
@@ -67,7 +69,7 @@ function	VariantLevel(): ReactElement {
 					): null}
 				</div>
 				<div className={'absolute z-0'}>
-					<div onClick={(): void => set_isClosed(false)} className={'rounded-default flex-center flex h-8 cursor-pointer bg-neutral-0 px-2 font-bold transition-colors hover:bg-neutral-100'}>{'Reset'}</div>
+					<div onClick={(): void => set_isClosed(false)} className={'rounded-default flex-center bg-neutral-0 flex h-8 cursor-pointer px-2 font-bold transition-colors hover:bg-neutral-100'}>{'Reset'}</div>
 				</div>
 			</div>
 		);

@@ -12,7 +12,7 @@ import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {BigNumber} from 'ethers';
 import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from '@yearn-finance/web-lib/hooks/types';
-import type {TDict} from '@yearn-finance/web-lib/utils';
+import type {TDict} from '@yearn-finance/web-lib/utils/types';
 
 const		defaultStatus = {
 	isLoading: false,
@@ -110,7 +110,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_error(_error as Error);
 			return {};
 		}
-	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
+	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, props?.tokens, ...effectDependencies]);
 
 	useEffect((): VoidFunction => {
 		let isActive = true;

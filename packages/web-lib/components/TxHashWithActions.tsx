@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {useSettings} from '@yearn-finance/web-lib/contexts';
+import {useSettings} from '@yearn-finance/web-lib/contexts/useSettings';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconCopy from '@yearn-finance/web-lib/icons/IconCopy';
 import IconLinkOut from '@yearn-finance/web-lib/icons/IconLinkOut';
-import {copyToClipboard} from '@yearn-finance/web-lib/utils';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
+import {copyToClipboard} from '@yearn-finance/web-lib/utils/helpers';
 
 import type {ReactElement} from 'react';
 

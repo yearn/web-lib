@@ -1,6 +1,6 @@
 import	React	from	'react';
 import	DocIndex				from	'pages/doc/components/index';
-import	{Card}					from	'@yearn-finance/web-lib/components';
+import	{Card}					from	'@yearn-finance/web-lib/components/Card';
 
 import type {ReactElement} from 'react';
 

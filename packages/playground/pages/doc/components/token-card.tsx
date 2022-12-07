@@ -1,7 +1,8 @@
-import	React	from	'react';
-import	ComponentAPI			from	'components/documentation/ComponentAPI';
-import	Highlight				from	'components/documentation/Highlight';
-import	{Card, TokenCard}		from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {TokenCard} from '@yearn-finance/web-lib/components/TokenCard';
 
 import type {ReactElement} from 'react';
 

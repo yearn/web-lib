@@ -1,9 +1,10 @@
-import	React, {useEffect, useState}		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{Card, Input}				from	'@yearn-finance/web-lib/components';
-import	{format}					from	'@yearn-finance/web-lib/utils';
+import React, {useEffect, useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {Input} from '@yearn-finance/web-lib/components/Input';
+import {formatBN, formatToNormalizedAmount, formatToNormalizedValue} from '@yearn-finance/web-lib/utils/format.bigNumber';
 
 import type {ReactElement} from 'react';
 
@@ -30,8 +31,8 @@ export default function	App(): React.ReactElement {
 export function	InputComponent(): ReactElement {
 	const	[shouldRender, set_shouldRender] = useState(false);
 	const	[amount, set_amount] = useState('');
-	const	userBalance = format.BN('2564145567845456084456');
-	const	priceOfToken = format.BN('1451454');
+	const	userBalance = formatBN('2564145567845456084456');
+	const	priceOfToken = formatBN('1451454');
 
 	useEffect((): void => set_shouldRender(true), []);
 
@@ -41,8 +42,8 @@ export function	InputComponent(): ReactElement {
 	return (
 		<div className={'rounded-default mx-auto h-24 w-full max-w-[400px] bg-neutral-200 py-2 px-4 md:h-32 md:py-4 md:px-6'}>
 			<Input.BigNumber
-				balance={format.toNormalizedAmount(userBalance, 18)}
-				price={format.toNormalizedValue(priceOfToken, 6)}
+				balance={formatToNormalizedAmount(userBalance, 18)}
+				price={formatToNormalizedValue(priceOfToken, 6)}
 				value={amount}
 				onSetValue={(s: string): void => set_amount(s)}
 				maxValue={userBalance}

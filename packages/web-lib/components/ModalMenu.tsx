@@ -1,7 +1,7 @@
 import React, {cloneElement, Fragment, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
-import {useUI} from '@yearn-finance/web-lib/contexts';
+import {useUI} from '@yearn-finance/web-lib/contexts/useUI';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 import IconSocialDiscord from '@yearn-finance/web-lib/icons/IconSocialDiscord';
 import IconSocialGithub from '@yearn-finance/web-lib/icons/IconSocialGithub';

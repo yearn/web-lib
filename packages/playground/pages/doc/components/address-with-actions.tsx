@@ -1,9 +1,10 @@
-import	React		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{AddressWithActions, Card}	from	'@yearn-finance/web-lib/components';
-import	{toAddress}					from	'@yearn-finance/web-lib/utils/address';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {AddressWithActions} from '@yearn-finance/web-lib/components/AddressWithActions';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement} from 'react';
 

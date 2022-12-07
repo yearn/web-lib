@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useClientEffect} from '@yearn-finance/web-lib/hooks';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import IconThemeDark from '@yearn-finance/web-lib/icons/IconThemeDark';
 import IconThemeLight from '@yearn-finance/web-lib/icons/IconThemeLight';
 

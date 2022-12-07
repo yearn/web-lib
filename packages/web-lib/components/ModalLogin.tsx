@@ -1,7 +1,7 @@
 import React, {cloneElement} from 'react';
 import {toast} from 'react-hot-toast';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
-import {useWeb3} from '@yearn-finance/web-lib/contexts';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
 import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';

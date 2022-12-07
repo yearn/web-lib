@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import {ethers} from 'ethers';
 
+import type {Dispatch, SetStateAction} from 'react';
+
 export function useLocalStorage<T>(
 	key: string,
 	initialValue: T,
@@ -9,7 +11,7 @@ export function useLocalStorage<T>(
 		previousVersion?: number;
 		shouldMigratePreviousVersion?: boolean;
 	}
-): [T, React.Dispatch<React.SetStateAction<T>>] {
+): [T, Dispatch<SetStateAction<T>>] {
 	// State to store our value
 	// Pass initial state function to useState so logic is only executed once
 	const [storedValue, set_storedValue] = useState<T>((): T => {

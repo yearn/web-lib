@@ -1,6 +1,10 @@
 import React, {useRef} from 'react';
 import {ethers} from 'ethers';
-import {format, performBatchedUpdates} from '@yearn-finance/web-lib/utils';
+import {toSafeValue} from '@yearn-finance/web-lib/utils/format';
+import {formatToNormalizedValue} from '@yearn-finance/web-lib/utils/format.bigNumber';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
+
+import {formatAmount} from '../utils/format.number';
 
 import type {BigNumber} from 'ethers';
 import type {ReactElement} from 'react';
@@ -82,10 +86,10 @@ function	InputBigNumber(props: TInputBigNumber): ReactElement {
 		});
 	}
 
-	const	safeValue = format.toSafeValue(value);
+	const	safeValue = toSafeValue(value);
 	return (
 		<label
-			aria-invalid={withMax && (safeValue !== 0 && (safeValue > format.toNormalizedValue(maxValue, decimals)))}
+			aria-invalid={withMax && (safeValue !== 0 && (safeValue > formatToNormalizedValue(maxValue, decimals)))}
 			className={'yearn--input'}>
 			<p>{`You have ${balance}`}</p>
 			<Input
@@ -95,15 +99,15 @@ function	InputBigNumber(props: TInputBigNumber): ReactElement {
 				onChange={(s: unknown): void => onChange(s as string)}
 				onSearch={(s: unknown): void => onChange(s as string)}
 				placeholder={'0.00000000'}
-				max={format.toNormalizedValue(maxValue, decimals)}
+				max={formatToNormalizedValue(maxValue, decimals)}
 				onMaxClick={(): void => {
 					if (!maxValue.isZero()) {
-						onChange(format.toNormalizedValue(maxValue, decimals).toString());
+						onChange(formatToNormalizedValue(maxValue, decimals).toString());
 					}
 				}}
 				withMax={withMax}
 				disabled={props.disabled} />
-			<p>{`$ ${format.amount(safeValue * price, 2, 2)}`}</p>
+			<p>{`$ ${formatAmount(safeValue * price, 2, 2)}`}</p>
 		</label>
 	);
 }

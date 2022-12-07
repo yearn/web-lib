@@ -1,8 +1,10 @@
-import	React			from	'react';
-import	CodeExample						from	'components/CodeExample';
-import	ComponentAPI					from	'components/documentation/ComponentAPI';
-import	Highlight						from	'components/documentation/Highlight';
-import	{Banner, Button, Card}			from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Banner} from '@yearn-finance/web-lib/components/Banner';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
 import type {ReactElement} from 'react';
 

@@ -1,8 +1,8 @@
-import	React		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{Card}						from	'@yearn-finance/web-lib/components';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
 import type {ReactElement} from 'react';
 

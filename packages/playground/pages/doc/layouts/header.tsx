@@ -1,8 +1,8 @@
 import	React		from	'react';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	{Card}						from	'@yearn-finance/web-lib/components';
-import	{Header}					from	'@yearn-finance/web-lib/layouts';
+import	{Card}						from	'@yearn-finance/web-lib/components/Card';
+import	{Header}					from	'@yearn-finance/web-lib/layouts/Header';
 
 import type {ReactElement} from 'react';
 

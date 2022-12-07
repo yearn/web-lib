@@ -1,9 +1,10 @@
-import	React, {useState}			from	'react';
-import	CodeExample						from	'components/CodeExample';
-import	ComponentAPI					from	'components/documentation/ComponentAPI';
-import	Highlight						from	'components/documentation/Highlight';
-import	VariantSelectors				from	'components/documentation/VariantSelectors';
-import	{Alert, Card}				from	'@yearn-finance/web-lib/components';
+import React, {useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import VariantSelectors from 'components/documentation/VariantSelectors';
+import {Alert} from '@yearn-finance/web-lib/components/Alert';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
 import type {ReactElement} from 'react';
 import type * as AlertTypes				from	'@yearn-finance/web-lib/components/Alert';

@@ -4,7 +4,7 @@ import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
 import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
-import {performBatchedUpdates} from '@yearn-finance/web-lib/utils';
+import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 
 import type {ReactElement} from 'react';
 

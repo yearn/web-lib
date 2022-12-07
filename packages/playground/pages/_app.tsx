@@ -1,15 +1,15 @@
-import	React, {useState}		from	'react';
-import	Head						from	'next/head';
-import	Link						from	'next/link';
-import	{DefaultSeo}				from	'next-seo';
-import	LogoYearn					from	'components/icons/LogoYearn';
-import	Footer						from	'components/StandardFooter';
-import	{WithYearn}					from	'@yearn-finance/web-lib/contexts';
-import	{useBalances}				from	'@yearn-finance/web-lib/hooks';
-import	{Header}					from	'@yearn-finance/web-lib/layouts';
+import React, {useState} from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import {DefaultSeo} from 'next-seo';
+import LogoYearn from 'components/icons/LogoYearn';
+import Footer from 'components/StandardFooter';
+import {WithYearn} from '@yearn-finance/web-lib/contexts/WithYearn';
+import {useBalances} from '@yearn-finance/web-lib/hooks/useBalances';
+import {Header} from '@yearn-finance/web-lib/layouts/Header';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
-import type	{AppProps}					from	'next/app';
+import type {AppProps} 				from	'next/app';
 import type {ReactElement} from 'react';
 
 import	'../style.css';

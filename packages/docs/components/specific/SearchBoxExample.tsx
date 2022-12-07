@@ -1,8 +1,8 @@
 import	React, {useState}		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {SearchBox} from '@yearn-finance/web-lib/components';
+import {SearchBox} from '@yearn-finance/web-lib/components/SearchBox';
 
-import type {TSearchBox} from '@yearn-finance/web-lib/components';
+import type {TSearchBox} from '@yearn-finance/web-lib/components/SearchBox';
 
 function	SearchBoxExample(props: TSearchBox): React.ReactElement {
 	const	[searchTerm, set_searchTerm] = useState('');

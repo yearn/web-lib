@@ -3,7 +3,8 @@ import CodeExample from 'components/CodeExample';
 import ComponentAPI from 'components/documentation/ComponentAPI';
 import Highlight from 'components/documentation/Highlight';
 import VariantSelectors from 'components/documentation/VariantSelectors';
-import {Button, Card} from '@yearn-finance/web-lib/components';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 
 import type {ReactElement} from 'react';
 import type * as ButtonTypes from '@yearn-finance/web-lib/components/Button';

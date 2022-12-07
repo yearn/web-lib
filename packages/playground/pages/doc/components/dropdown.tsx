@@ -1,9 +1,13 @@
-import	React, {useState}		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{Card, Dropdown}			from	'@yearn-finance/web-lib/components';
-import	* as Icons					from	'@yearn-finance/web-lib/icons';
+import React, {useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {Dropdown} from '@yearn-finance/web-lib/components/Dropdown';
+import IconNetworkArbitrum from '@yearn-finance/web-lib/icons/IconNetworkArbitrum';
+import IconNetworkEthereum from '@yearn-finance/web-lib/icons/IconNetworkEthereum';
+import IconNetworkFantom from '@yearn-finance/web-lib/icons/IconNetworkFantom';
+import IconNetworkOptimism from '@yearn-finance/web-lib/icons/IconNetworkOptimism';
 
 import type {ReactElement} from 'react';
 
@@ -33,10 +37,10 @@ export default function	App(): React.ReactElement {
 
 export function	DropdownComponent(): ReactElement {
 	const	options = [
-		{icon: <Icons.NetworkEthereum />, label: 'Ethereum', value: 1},
-		{icon: <Icons.NetworkOptimism />, label: 'Optimism', value: 10},
-		{icon: <Icons.NetworkFantom />, label: 'Fantom', value: 250},
-		{icon: <Icons.NetworkArbitrum />, label: 'Arbitrum', value: 42161},
+		{icon: <IconNetworkEthereum />, label: 'Ethereum', value: 1},
+		{icon: <IconNetworkOptimism />, label: 'Optimism', value: 10},
+		{icon: <IconNetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <IconNetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
 	const	[selectedOption, set_selectedOption] = useState(options[0]);

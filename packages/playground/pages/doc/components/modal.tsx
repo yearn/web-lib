@@ -2,7 +2,9 @@ import	React, {useState}		from	'react';
 import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	{Button, Card, Modal}		from	'@yearn-finance/web-lib/components';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {Modal} from '@yearn-finance/web-lib/components/Modal';
 
 import type {ReactElement} from 'react';
 

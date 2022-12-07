@@ -1,8 +1,9 @@
-import	React, {useState}		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{Card, SearchBox}			from	'@yearn-finance/web-lib/components';
+import React, {useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {SearchBox} from '@yearn-finance/web-lib/components/SearchBox';
 
 import type {ReactElement} from 'react';
 

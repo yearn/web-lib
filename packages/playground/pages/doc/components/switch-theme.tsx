@@ -1,9 +1,10 @@
-import	React		from	'react';
-import	CodeExample					from	'components/CodeExample';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	{Card, SwitchTheme}			from	'@yearn-finance/web-lib/components';
-import	{useUI}						from	'@yearn-finance/web-lib/contexts';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
+import {useUI} from '@yearn-finance/web-lib/contexts/useUI';
 
 import type {ReactElement} from 'react';
 

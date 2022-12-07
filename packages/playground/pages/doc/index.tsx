@@ -1,5 +1,5 @@
 import	React	from	'react';
-import	{useBalances}	from	'@yearn-finance/web-lib/hooks';
+import	{useBalances}	from	'@yearn-finance/web-lib/hooks/useBalances';
 
 import type {ReactElement} from 'react';
 

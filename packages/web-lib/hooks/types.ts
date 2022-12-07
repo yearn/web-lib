@@ -1,6 +1,6 @@
 import type {BigNumber, ethers} from 'ethers';
 import type {DependencyList} from 'react';
-import type {TDict} from '../utils';
+import type {TDict} from '@yearn-finance/web-lib/utils/types';
 
 type	TDefaultReqArgs = {
 	chainID?: number,
