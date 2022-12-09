@@ -111,7 +111,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		switchTheme,
 		toast
 	}), [theme, switchTheme]);
-
+	
 	return (
 		<UI.Provider value={contextValue}>
 			{uiOptions.shouldUseDefaultToaster ? <Toaster

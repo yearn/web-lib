@@ -4,12 +4,13 @@ import	{ethers}		from	'ethers';
 const	defaultRPCURI: {[key: number]: string} = {
 	1: 'https://api.securerpc.com/v1',
 	4: `https://rinkeby.infura.io/v3/${process.env.INFURA_KEY}`,
-	5: `https://goerli.infura.io/v3/${process.env.INFURA_KEY}`,
+	5: 'https://eth-goerli.public.blastapi.io',
 	10: 'https://mainnet.optimism.io',
 	56: 'https://bscrpc.com',
 	100: 'https://rpc.gnosischainID.com',
 	137: 'https://polygon-rpc.com',
 	250: 'https://rpc.ftm.tools',
+	420: 'https://goerli.optimism.io',
 	1337: 'http://localhost:8545',
 	31337: 'http://localhost:8545',
 	42161: 'https://arbitrum.public-rpc.com'
@@ -23,6 +24,7 @@ export const	envRPCURI: {[key: number]: string} = {
 	100: process.env.JSON_RPC_URL?.[100] || defaultRPCURI[100],
 	137: process.env.JSON_RPC_URL?.[137] || defaultRPCURI[137],
 	250: process.env.JSON_RPC_URL?.[250] || defaultRPCURI[250],
+	420: process.env.JSON_RPC_URL?.[420] || defaultRPCURI[420],
 	1337: process.env.JSON_RPC_URL?.[1337] || defaultRPCURI[1337],
 	31337: process.env.JSON_RPC_URL?.[31337] || defaultRPCURI[31337],
 	42161: process.env.JSON_RPC_URL?.[42161] || defaultRPCURI[42161]
