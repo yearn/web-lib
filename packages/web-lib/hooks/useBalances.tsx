@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Contract} from 'ethcall';
 import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
@@ -41,8 +41,11 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	** specified list of tokens. If no props are specified, the default values
 	** will be used.
 	**************************************************************************/
+	const stringifiedTokens = useMemo((): string => JSON.stringify(props?.tokens || []), [props?.tokens]);
+
 	const getBalances = useCallback(async (): Promise<TDict<TBalanceData>> => {
-		if (!isActive || !web3Address || (props?.tokens || []).length === 0) {
+		const	tokens = JSON.parse(stringifiedTokens) || [];
+		if (!isActive || !web3Address || tokens.length === 0) {
 			return {};
 		}
 		set_status({
@@ -59,7 +62,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 		const	calls = [];
 		const	ethcallProvider = await providers.newEthCallProvider(currentProvider);
-		for (const element of (props?.tokens || [])) {
+		for (const element of tokens) {
 			const	{token} = element;
 			const	ownerAddress = (element?.for || web3Address) as string;
 			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
@@ -84,7 +87,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		try {
 			const	results = await ethcallProvider.tryAll(calls);
 			let		rIndex = 0;
-			for (const element of (props?.tokens || [])) {
+			for (const element of tokens) {
 				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
 				const	decimals = results[rIndex++] as number;
@@ -110,7 +113,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_error(_error as Error);
 			return {};
 		}
-	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, props?.tokens, ...effectDependencies]);
+	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, stringifiedTokens, ...effectDependencies]);
 
 	useEffect((): VoidFunction => {
 		let isActive = true;
