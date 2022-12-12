@@ -1,52 +1,56 @@
-import React, { ReactElement } from 'react';
-import { Button, Card } from '@yearn-finance/web-lib/components';
-import ComponentAPI from 'components/documentation/ComponentAPI';
-import Highlight from 'components/documentation/Highlight';
+import React from 'react';
 import CodeExample from 'components/CodeExample';
-import { toast } from 'react-hot-toast';
-import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
-import IconCross from '@yearn-finance/web-lib/icons/IconCross';
+import Highlight from 'components/documentation/Highlight';
+import {Button, Card} from '@yearn-finance/web-lib/components';
+import {useToast} from '@yearn-finance/web-lib/hooks/useToast';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React		from	'react';
+import {useToast} 	from 	'@yearn-finance/web-lib/hooks';
 
 export default function	App(): React.ReactElement {
-	// Todo
+	const toast = useToast({type: 'success', content: 'Success toast'});
+
+	return (
+		<Button
+			variant={'light'}
+			onClick={toast}
+			{'Success toast'}
+		</Button>
+	);
 }`.trim();
 
 export function ToastComponent(): ReactElement {
-
-
+	const successToast = useToast({type: 'success', content: 'Success toast'});
+	const errorToast = useToast({type: 'error', content: 'Error toast'});
+	const warningToast = useToast({type: 'warning', content: 'Warning toast'});
+	const infoToast = useToast({type: 'info', content: 'Info toast'});
+	
 	return (
 		<div className={'grid grid-cols-4 gap-4'}>
-
 			<Button
 				variant={'light'}
-				onClick={(): string => toast.success('Success toast')}
+				onClick={successToast}
 				className={'min-w-[132px]'}>
 				{'Success toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={(): string => toast.error('Error toast')}
+				onClick={errorToast}
 				className={'min-w-[132px]'}>
 				{'Error toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={(): string => toast((t) => (
-					<span className='flex flex-row items-start'>
-						<IconAlertWarning />
-						Incorrect Network selected. Please change your wallet to Optimism Network
-						<IconCross onClick={() => toast.dismiss(t.id)} />
-					</span>
-				))}
+				onClick={warningToast}
 				className={'min-w-[132px]'}>
 				{'Warning toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={(): void => {}}
+				onClick={infoToast}
 				className={'min-w-[132px]'}>
 				{'Info toast'}
 			</Button>
@@ -54,7 +58,7 @@ export function ToastComponent(): ReactElement {
 	);
 }
 
-function DocumentationSwitch(): ReactElement {
+function DocumentationToast(): ReactElement {
 	return (
 		<section aria-label={'some default section'}>
 			<Card>
@@ -72,4 +76,4 @@ function DocumentationSwitch(): ReactElement {
 	);
 }
 
-export default DocumentationSwitch;
+export default DocumentationToast;
