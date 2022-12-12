@@ -17,21 +17,17 @@ type TUseToast = {
 	cta?: TCTA;
 }
 
-function getMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>) {
-	if (!cta) {
-		return content;
-	}
-
+function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>) {
 	return (
 		<div className='flex gap-2 items-center'>
 			{content}
-			<button className={'text-xs text-primary-500 bg-primary-100 ml-10 py-1 px-2'} onClick={cta.onClick}>{cta.label}</button>
+			<button className={'text-xs text-primary-500 bg-primary-100 ml-10 py-1 px-2'} onClick={cta?.onClick}>{cta?.label}</button>
 		</div>
 	);
 }
 
 export function useToast({content, type, cta}: TUseToast): () => string {
-	const message = getMessage({content, cta});
+	const message = cta ? buildMessage({content, cta}) : content;
 
 	switch (type) {
 	case 'error':
