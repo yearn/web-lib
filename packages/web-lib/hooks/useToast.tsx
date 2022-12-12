@@ -1,10 +1,11 @@
 import React from 'react';
 import {toast} from 'react-hot-toast';
+import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
+import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
+import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
+import IconCheckmark from '@yearn-finance/web-lib/icons/IconCheckmark';
 
-import IconAlertCritical from '../icons/IconAlertCritical';
-import IconAlertError from '../icons/IconAlertError';
-import IconAlertWarning from '../icons/IconAlertWarning';
-import IconCheckmark from '../icons/IconCheckmark';
+import type {ReactElement} from 'react';
 
 type TCTA = {
 	label: string;
@@ -17,11 +18,11 @@ type TUseToast = {
 	cta?: TCTA;
 }
 
-function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>) {
+function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>): ReactElement {
 	return (
-		<div className='flex gap-2 items-center'>
+		<div className={'flex items-center gap-2'}>
 			{content}
-			<button className={'text-xs text-primary-500 bg-primary-100 ml-10 py-1 px-2'} onClick={cta?.onClick}>{cta?.label}</button>
+			<button className={'text-primary-500 bg-primary-100 ml-10 py-1 px-2 text-xs'} onClick={cta?.onClick}>{cta?.label}</button>
 		</div>
 	);
 }

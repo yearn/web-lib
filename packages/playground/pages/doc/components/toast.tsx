@@ -1,7 +1,8 @@
 import React from 'react';
 import CodeExample from 'components/CodeExample';
 import Highlight from 'components/documentation/Highlight';
-import {Button, Card} from '@yearn-finance/web-lib/components';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
 import {useToast} from '@yearn-finance/web-lib/hooks/useToast';
 
 import type {ReactElement} from 'react';
@@ -38,7 +39,7 @@ export function ToastComponent(): ReactElement {
 	const infoToast = useToast({
 		type: 'info',
 		content: 'This is old vault, migrate from here',
-		cta: { label: 'Add +', onClick: () => alert('You\'ve clicked the button!')}
+		cta: {label: 'Add +', onClick: (): void => alert('You\'ve clicked the button!')}
 	});
 	
 	return (
