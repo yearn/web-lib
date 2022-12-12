@@ -16,7 +16,7 @@ export default function	App(): React.ReactElement {
 	return (
 		<Button
 			variant={'light'}
-			onClick={toast}
+			onClick={toast}>
 			{'Success toast'}
 		</Button>
 	);
