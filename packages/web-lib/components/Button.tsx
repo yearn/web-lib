@@ -3,7 +3,7 @@ import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
 import type {ReactElement, ReactNode} from 'react';
 
-export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit';
+export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit' | string;
 
 export type	TButton = {
 	children: ReactNode,
