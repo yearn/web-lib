@@ -23,10 +23,23 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function ToastComponent(): ReactElement {
-	const successToast = useToast({type: 'success', content: 'Transaction succeed'});
-	const errorToast = useToast({type: 'error', content: 'Transaction failed. Insufficient balance'});
-	const warningToast = useToast({type: 'warning', content: 'Incorrect Network selected. Please change your wallet to Optimism'});
-	const infoToast = useToast({type: 'info', content: 'This is old vault, migrate from here'});
+	const successToast = useToast({
+		type: 'success',
+		content: 'Transaction succeed'
+	});
+	const errorToast = useToast({
+		type: 'error',
+		content: 'Transaction failed. Insufficient balance'
+	});
+	const warningToast = useToast({
+		type: 'warning',
+		content: 'Incorrect Network selected. Please change your wallet to Optimism'
+	});
+	const infoToast = useToast({
+		type: 'info',
+		content: 'This is old vault, migrate from here',
+		cta: { label: 'Add +', onClick: () => alert('You\'ve clicked the button!')}
+	});
 	
 	return (
 		<div className={'grid grid-cols-4 gap-4'}>
