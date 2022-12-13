@@ -131,14 +131,14 @@ function	CardWithTabs(props: TCardWithTabs): ReactElement {
 }
 
 function	CardBase(props: TCard): ReactElement {
-	const {children, onClick, padding = 'regular', variant = 'surface', ...rest} = props;
+	const {children, onClick, padding = 'regular', variant = 'surface', className, ...rest} = props;
 
 	return (
 		<section
 			role={onClick ? 'button' : undefined}
 			data-variant={variant}
 			data-padding={padding}
-			className={`yearn--card ${rest.className ? rest.className : ''}`}
+			className={`yearn--card ${className ? className : ''}`}
 			onClick={onClick}
 			{...rest}>
 			{children}

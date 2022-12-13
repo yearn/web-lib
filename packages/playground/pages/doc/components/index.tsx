@@ -24,6 +24,8 @@ import {Alert} from '@yearn-finance/web-lib/components/Alert';
 import {Button} from '@yearn-finance/web-lib/components/Button';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 
+import {ToastComponent} from './toast';
+
 import type {ReactElement} from 'react';
 
 const		ElementListCards = [
@@ -168,6 +170,13 @@ const		ElementListFeedback = [
 		href: '/doc/components/banner-with-controls',
 		description: 'The Banner With Controls component is used to display a banner with some controls.',
 		children: <BannerWithControlsComponent />
+	},
+	{
+		title: 'Toast',
+		version: '0.4.0',
+		href: '/doc/components/toggle',
+		description: 'The Toast component is used to show live, time-sensitive feedback to users.',
+		children: <ToastComponent />
 	}
 ];
 
@@ -198,8 +207,7 @@ function	Element({children, title, version, description, href}: TElement): React
 					<Link href={href} passHref>
 						<Button
 							variant={'outlined'}
-							className={'h-10'}
-							as={'a'}>
+							className={'h-10'}>
 							{'Access documentation'}
 						</Button>
 					</Link>

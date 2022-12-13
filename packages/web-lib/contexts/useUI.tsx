@@ -1,10 +1,13 @@
-import React, {createContext, useCallback, useContext, useMemo, useRef, useState} from 'react';
-import {toast, Toaster} from 'react-hot-toast';
+import React, {createContext, Fragment, useCallback, useContext, useMemo, useRef, useState} from 'react';
+import {toast, ToastBar, Toaster} from 'react-hot-toast';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 
+import IconCross from '../icons/IconCross';
+
 import type {ReactElement} from 'react';
+import type {Toast} from 'react-hot-toast';
 import type {TPossibleThemes, TUIContext, TUIOptions} from './types';
 
 const	defaultOptions: TUIOptions = {
@@ -102,6 +105,46 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		}
 	}, [theme]);
 
+	function	renderToaster(): ReactElement {
+		if (uiOptions.shouldUseDefaultToaster) {
+			return (
+				<Toaster 
+					containerClassName={'!z-[1000000]'}
+					gutter={0}
+					position={'bottom-center'}
+					containerStyle={{
+						zIndex: 1000000,
+						width: '100%',
+						bottom: 0,
+						left: 0,
+						right: 0
+					}}
+					toastOptions={{
+						className: 'yearn--toast-options'
+					}}>
+					{(t: Toast): ReactElement => (
+						<ToastBar toast={t}>
+							{({icon, message}): ReactElement => (
+								<>
+									{icon}
+									{message}
+									{t.type !== 'loading' ? (
+										<IconCross
+											width={16}
+											height={16}
+											onClick={(): void => toast.dismiss(t.id)}
+											className={'mr-3 cursor-pointer'} />
+									) : null}
+								</>
+							)}
+						</ToastBar>
+					)}
+				</Toaster>
+			);
+		}
+		return <Fragment />;
+	}
+
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the UIContext with it's parameters.
 	**	The parameters will be accessible to the children via the useUI hook.
@@ -114,14 +157,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	
 	return (
 		<UI.Provider value={contextValue}>
-			{uiOptions.shouldUseDefaultToaster ? <Toaster
-				position={'bottom-right'}
-				containerClassName={'!z-[1000000]'}
-				containerStyle={{zIndex: 1000000}}
-				toastOptions={{
-					className: 'text-sm text-neutral-700',
-					style: {borderRadius: '0.5rem'}
-				}} /> : null}
+			{renderToaster()}
 			{children}
 		</UI.Provider>
 	);
