@@ -1,5 +1,4 @@
 export {useAccount} from './useAccount';
-export {useBalance} from './useBalance';
 export {useBalances} from './useBalances';
 export {useBlock} from './useBlock';
 export {useClientEffect} from './useClientEffect';
