@@ -40,7 +40,7 @@ const defaultState = {
 const	defaultOptions: TWeb3Options = {
 	shouldUseWallets: true,
 	defaultChainID: 1,
-	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 1337, 31337, 42161]
+	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 420, 1337, 31337, 42161]
 };
 
 const Web3Context = createContext<TWeb3Context>(defaultState);

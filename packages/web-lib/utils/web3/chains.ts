@@ -153,6 +153,24 @@ const CHAINS = {
 			}
 		}
 	},
+	420: {
+		'chainID': '420',
+		'name': 'Optimism Goerli Testnet',
+		'displayName': 'Goerli Optimism',
+		'coin': 'oETH',
+		'block_explorer': 'goerli-optimism.etherscan.io',
+		'chain_swap': {
+			'chainId': '0x1A4',
+			'blockExplorerUrls': ['goerli-optimism.etherscan.io'],
+			'chainName': 'Goerli Optimism',
+			'rpcUrls': ['https://goerli.optimism.io'],
+			'nativeCurrency': {
+				'name': 'oEthereum',
+				'symbol': 'ETH',
+				'decimals': 18
+			}
+		}
+	},
 	42161: {
 		'chainID': '42161',
 		'name': 'Arbitrum One',
