@@ -40,7 +40,8 @@ export	function	replaceEnvRPCURI(key: number, value: string): void {
 ** Some specific rules are added in order to support test networks.
 **************************************************************************/
 export async function newEthCallProvider(provider: ethers.providers.Provider): Promise<Provider> {
-	const	ethcallProvider = new Provider();
+	const ethcallProvider = new Provider();
+	const network = await provider.getNetwork();
 	if (process.env.IS_TEST) {
 		await	ethcallProvider.init(new ethers.providers.JsonRpcProvider(defaultRPCURI[1337]));
 		if (Number(process.env.TESTED_NETWORK) === 250) {
@@ -52,7 +53,12 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 		}
 		return ethcallProvider;
 	}
+
 	await	ethcallProvider.init(provider as ethers.providers.BaseProvider);
+	if (network.chainId === 420) {
+		ethcallProvider.multicall2 = {address: '0xcA11bde05977b3631167028862bE2a173976CA11', block: 0};
+		ethcallProvider.multicall3 = {address: '0xcA11bde05977b3631167028862bE2a173976CA11', block: 0};
+	}
 	ethcallProvider.multicall = null; //Remove multicall1 dependency
 	return	ethcallProvider;
 }
