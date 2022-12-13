@@ -12,12 +12,12 @@ import	React		from	'react';
 import {useToast} 	from 	'@yearn-finance/web-lib/hooks';
 
 export default function	App(): React.ReactElement {
-	const toast = useToast({type: 'success', content: 'Success toast'});
+	const toast = useToast();
 
 	return (
 		<Button
 			variant={'light'}
-			onClick={toast}>
+			onClick={(): string => toast({type: 'success', content: 'Transaction succeed'})}>
 			{'Success toast'}
 		</Button>
 	);
