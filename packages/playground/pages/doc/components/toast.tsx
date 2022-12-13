@@ -41,6 +41,7 @@ export function ToastComponent(): ReactElement {
 		content: 'This is old vault, migrate from here',
 		cta: {label: 'Add +', onClick: (): void => alert('You\'ve clicked the button!')}
 	});
+	const eternalToast = useToast({ type: 'info', content: 'This toast needs to be closed explicitly', duration: Infinity});
 	
 	return (
 		<div className={'grid grid-cols-4 gap-4'}>
@@ -67,6 +68,12 @@ export function ToastComponent(): ReactElement {
 				onClick={infoToast}
 				className={'min-w-[132px]'}>
 				{'Info toast'}
+			</Button>
+			<Button
+				variant={'light'}
+				onClick={eternalToast}
+				className={'min-w-[132px]'}>
+				{'Eternal toast'}
 			</Button>
 		</div>
 	);
