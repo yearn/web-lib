@@ -23,7 +23,7 @@ function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>): React
 	return (
 		<div className={'flex items-center gap-2'}>
 			{content}
-			<button className={'text-primary-500 bg-primary-100 ml-10 py-1 px-2 text-xs'} onClick={cta?.onClick}>{cta?.label}</button>
+			<button className={'yearn--toast-button'} onClick={cta?.onClick}>{cta?.label}</button>
 		</div>
 	);
 }
