@@ -120,14 +120,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 						right: 0
 					}}
 					toastOptions={{
-						className: 'w-screen text-sm text-neutral-700 w-full px-3',
-						style: {
-							maxWidth: '100vw',
-							borderRadius: 0,
-							boxShadow: 'none',
-							padding: 0,
-							height: 32
-						}
+						className: 'yearn--toast-options'
 					}}>
 					{(t: Toast): ReactElement => (
 						<ToastBar toast={t}>
