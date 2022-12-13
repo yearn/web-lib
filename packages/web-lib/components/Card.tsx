@@ -34,9 +34,7 @@ export type TCardDetail = {
 	children?: React.ReactNode;
 } & React.ComponentPropsWithoutRef<'div'>;
 
-function	CardDetailsSummary(props: TCardDetailSummary): ReactElement{
-	const {startChildren, endChildren} = props;
-
+function	CardDetailsSummary({startChildren, endChildren, open, ...props}: TCardDetailSummary): ReactElement{
 	return (
 		<div
 			className={'rounded-default flex w-full cursor-pointer flex-col items-start justify-between p-6 md:flex-row md:items-center'}
@@ -48,7 +46,7 @@ function	CardDetailsSummary(props: TCardDetailSummary): ReactElement{
 				{endChildren}
 				<div className={'ml-auto'}>
 					<IconChevron
-						className={`text-primary-500 h-6 w-6 transition-transform ${props.open ? '-rotate-90' : '-rotate-180'}`} />
+						className={`text-primary-500 h-6 w-6 transition-transform ${open ? '-rotate-90' : '-rotate-180'}`} />
 				</div>
 			</div>
 		</div>
