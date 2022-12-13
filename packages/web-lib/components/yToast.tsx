@@ -1,5 +1,5 @@
 import React from 'react';
-import {toast, useToasterStore} from 'react-hot-toast';
+import {toast as toastMaster, useToasterStore} from 'react-hot-toast';
 import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
 import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
 import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
@@ -13,13 +13,13 @@ type TCTA = {
 	onClick: () => void
 };
 
-type TUseToast = {
+type TYToast = {
     content: string;
     type: 'error' | 'warning' | 'success' | 'info';
 	cta?: TCTA;
 } & ToastOptions;
 
-function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>): ReactElement {
+function buildMessage({content, cta}: Pick<TYToast, 'content' | 'cta'>): ReactElement {
 	return (
 		<div className={'flex items-center gap-2'}>
 			{content}
@@ -28,14 +28,18 @@ function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>): React
 	);
 }
 
-export function yToast(): {toast: (props: TUseToast) => string, useToasterStore: typeof useToasterStore} {
+export function yToast(): {
+	toast: (props: TYToast) => string,
+	useToasterStore: typeof useToasterStore,
+	toastMaster: typeof toastMaster
+	} {
 	return {
-		toast: ({content, type, cta, ...toastOptions}: TUseToast): string => {
+		toast: ({content, type, cta, ...toastOptions}: TYToast): string => {
 			const message = cta ? buildMessage({content, cta}) : content;
 
 			switch (type) {
 			case 'error':
-				return toast(message, {
+				return toastMaster(message, {
 					icon: <IconAlertCritical className={'ml-3'} />,
 					style: {
 						backgroundColor: '#C73203',
@@ -44,7 +48,7 @@ export function yToast(): {toast: (props: TUseToast) => string, useToasterStore:
 					...toastOptions
 				});
 			case 'warning':
-				return toast(message, {
+				return toastMaster(message, {
 					icon: <IconAlertWarning className={'ml-3'} />,
 					style: {
 						backgroundColor: '#FFDC53'
@@ -52,7 +56,7 @@ export function yToast(): {toast: (props: TUseToast) => string, useToasterStore:
 					...toastOptions
 				});
 			case 'success':
-				return toast(message, {
+				return toastMaster(message, {
 					icon: <IconCheckmark className={'ml-3'} />,
 					style: {
 						backgroundColor: '#00796D',
@@ -61,7 +65,7 @@ export function yToast(): {toast: (props: TUseToast) => string, useToasterStore:
 					...toastOptions
 				});
 			case 'info':
-				return toast(message, {
+				return toastMaster(message, {
 					icon: <IconAlertError className={'ml-3'} />,
 					style: {
 						backgroundColor: '#0657F9',
@@ -70,9 +74,10 @@ export function yToast(): {toast: (props: TUseToast) => string, useToasterStore:
 					...toastOptions
 				});
 			default:
-				return toast.success(content);
+				return toastMaster.success(content);
 			}
 		},
-		useToasterStore
+		useToasterStore,
+		toastMaster
 	};
 }
