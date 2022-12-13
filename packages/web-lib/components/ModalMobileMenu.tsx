@@ -1,6 +1,6 @@
 import React, {cloneElement, Fragment, useEffect, useRef, useState} from 'react';
-import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';
+import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
@@ -65,6 +65,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const	[optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
 	const	detectedWalletProvider = useInjectedWallet();
 	const	{chainID} = useChainID();
+	const 	{toast} = yToast();
 
 	useEffect((): void => {
 		if (!isActive && address) {
@@ -90,7 +91,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 						onClick={(): void => {
 							onConnect(
 								'INJECTED',
-								(): string => toast.error('Impossible to connect to your wallet'),
+								(): string => toast({content: 'Impossible to connect to your wallet', type: 'error'}),
 								(): void => undefined
 							);
 						}}
@@ -102,7 +103,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 						onClick={(): void => {
 							onConnect(
 								'WALLET_CONNECT',
-								(): string => toast.error('Impossible to connect to your wallet'),
+								(): string => toast({content: 'Impossible to connect to your wallet', type: 'error'}),
 								(): void => undefined
 							);
 						}}

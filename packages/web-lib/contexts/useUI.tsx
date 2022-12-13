@@ -123,7 +123,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 						className: 'yearn--toast-options'
 					}}>
 					{(t: Toast): ReactElement => (
-						<ToastBar toast={t}>
+						<ToastBar toast={t} position={'bottom-center'}>
 							{({icon, message}): ReactElement => (
 								<>
 									{icon}
