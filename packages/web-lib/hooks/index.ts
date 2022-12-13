@@ -5,5 +5,4 @@ export {useClientEffect} from './useClientEffect';
 export {useDebounce} from './useDebounce';
 export {useInterval} from './useInterval';
 export {useLocalStorage} from './useLocalStorage';
-export {useToast} from './useToast';
 export {useWindowInFocus} from './useWindowInFocus';

@@ -3,16 +3,16 @@ import CodeExample from 'components/CodeExample';
 import Highlight from 'components/documentation/Highlight';
 import {Button} from '@yearn-finance/web-lib/components/Button';
 import {Card} from '@yearn-finance/web-lib/components/Card';
-import {useToast} from '@yearn-finance/web-lib/hooks/useToast';
+import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
 import type {ReactElement} from 'react';
 
 const code = `
 import	React		from	'react';
-import {useToast} 	from 	'@yearn-finance/web-lib/hooks';
+import {yToast} 	from 	'@yearn-finance/web-lib/components/yToast';
 
 export default function	App(): React.ReactElement {
-	const toast = useToast();
+	const toast = yToast();
 
 	return (
 		<Button
@@ -24,8 +24,8 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function ToastComponent(): ReactElement {
-	const toast = useToast();
-	
+	const {toast} = yToast();
+
 	return (
 		<div className={'grid grid-cols-4 gap-4'}>
 			<Button

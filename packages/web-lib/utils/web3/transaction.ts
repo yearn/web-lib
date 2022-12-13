@@ -1,4 +1,5 @@
-import {toast} from 'react-hot-toast';
+
+import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
 import type {ethers} from 'ethers';
 import type React from 'react';
@@ -38,6 +39,8 @@ class Transaction {
 	}
 
 	async perform(): Promise<boolean> {
+		const {toast} = yToast();
+		
 		this.onStatus(pendingTxStatus);
 		try {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -47,18 +50,18 @@ class Transaction {
 				if (this.successCall) {
 					await this.successCall();
 				}
-				toast.success('Transaction successful');
+				toast({content: 'Transaction successful', type: 'success'});
 				this.onStatus(successTxStatus);
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 				return true;
 			} else {
-				toast.error('Transaction failed');
+				toast({content: 'Transaction failed', type: 'error'});
 				this.onStatus(errorTxStatus);
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 				return false;
 			}
 		} catch(error) {
-			toast.error('Transaction failed');
+			toast({content: 'Transaction failed', type: 'error'});
 			this.onStatus(errorTxStatus);
 			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 			return false;
