@@ -723,7 +723,7 @@ label[aria-invalid="true"] {
 
 
 .yearn--toast-options {
-	@apply !w-screen text-sm text-neutral-700 !px-4 !rounded-none !shadow-none !py-2 !max-w-full h-8;
+	@apply !w-screen text-sm text-neutral-700 !px-4 !rounded-none !shadow-none !py-2 !max-w-full;
 }
 
 .yearn--toast-button {
