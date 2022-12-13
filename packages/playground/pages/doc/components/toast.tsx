@@ -24,54 +24,45 @@ export default function	App(): React.ReactElement {
 }`.trim();
 
 export function ToastComponent(): ReactElement {
-	const successToast = useToast({
-		type: 'success',
-		content: 'Transaction succeed'
-	});
-	const errorToast = useToast({
-		type: 'error',
-		content: 'Transaction failed. Insufficient balance'
-	});
-	const warningToast = useToast({
-		type: 'warning',
-		content: 'Incorrect Network selected. Please change your wallet to Optimism'
-	});
-	const infoToast = useToast({
-		type: 'info',
-		content: 'This is old vault, migrate from here',
-		cta: {label: 'Add +', onClick: (): void => alert('You\'ve clicked the button!')}
-	});
-	const eternalToast = useToast({ type: 'info', content: 'This toast needs to be closed explicitly', duration: Infinity});
+	const toast = useToast();
 	
 	return (
 		<div className={'grid grid-cols-4 gap-4'}>
 			<Button
 				variant={'light'}
-				onClick={successToast}
+				onClick={(): string => toast({type: 'success', content: 'Transaction succeed'})}
 				className={'min-w-[132px]'}>
 				{'Success toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={errorToast}
+				onClick={(): string => toast({type: 'error', content: 'Transaction failed. Insufficient balance'})}
 				className={'min-w-[132px]'}>
 				{'Error toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={warningToast}
+				onClick={(): string => toast({type: 'warning', content: 'Incorrect Network selected. Please change your wallet to Optimism'})}
 				className={'min-w-[132px]'}>
 				{'Warning toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={infoToast}
+				onClick={(): string =>toast({
+					type: 'info',
+					content: 'This is old vault, migrate from here',
+					cta: {label: 'Add +', onClick: (): void => alert('You\'ve clicked the button!')}
+				})}
 				className={'min-w-[132px]'}>
 				{'Info toast'}
 			</Button>
 			<Button
 				variant={'light'}
-				onClick={eternalToast}
+				onClick={(): string => toast({
+					type: 'info',
+					content: 'This toast needs to be closed explicitly',
+					duration: Infinity
+				})}
 				className={'min-w-[132px]'}>
 				{'Eternal toast'}
 			</Button>

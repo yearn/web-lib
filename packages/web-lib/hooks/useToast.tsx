@@ -1,11 +1,12 @@
 import React from 'react';
-import {toast, ToastOptions} from 'react-hot-toast';
+import {toast} from 'react-hot-toast';
 import IconAlertCritical from '@yearn-finance/web-lib/icons/IconAlertCritical';
 import IconAlertError from '@yearn-finance/web-lib/icons/IconAlertError';
 import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 import IconCheckmark from '@yearn-finance/web-lib/icons/IconCheckmark';
 
 import type {ReactElement} from 'react';
+import type {ToastOptions} from 'react-hot-toast';
 
 type TCTA = {
 	label: string;
@@ -27,46 +28,48 @@ function buildMessage({content, cta}: Pick<TUseToast, 'content' | 'cta'>): React
 	);
 }
 
-export function useToast({content, type, cta, ...toastOptions}: TUseToast): () => string {
-	const message = cta ? buildMessage({content, cta}) : content;
+export function useToast(): (props: TUseToast) => string {
+	return ({content, type, cta, ...toastOptions}: TUseToast): string => {
+		const message = cta ? buildMessage({content, cta}) : content;
 
-	switch (type) {
-	case 'error':
-		return (): string => toast(message, {
-			icon: <IconAlertCritical className={'ml-3'} />,
-			style: {
-				backgroundColor: '#C73203',
-				color: 'white'
-			},
-			...toastOptions
-		});
-	case 'warning':
-		return (): string => toast(message, {
-			icon: <IconAlertWarning className={'ml-3'} />,
-			style: {
-				backgroundColor: '#FFDC53'
-			},
-			...toastOptions
-		});
-	case 'success':
-		return (): string => toast(message, {
-			icon: <IconCheckmark className={'ml-3'} />,
-			style: {
-				backgroundColor: '#00796D',
-				color: 'white'
-			},
-			...toastOptions
-		});
-	case 'info':
-		return (): string => toast(message, {
-			icon: <IconAlertError className={'ml-3'} />,
-			style: {
-				backgroundColor: '#0657F9',
-				color: 'white'
-			},
-			...toastOptions
-		});
-	default:
-		return (): string => toast.success(content);
-	}
+		switch (type) {
+		case 'error':
+			return toast(message, {
+				icon: <IconAlertCritical className={'ml-3'} />,
+				style: {
+					backgroundColor: '#C73203',
+					color: 'white'
+				},
+				...toastOptions
+			});
+		case 'warning':
+			return toast(message, {
+				icon: <IconAlertWarning className={'ml-3'} />,
+				style: {
+					backgroundColor: '#FFDC53'
+				},
+				...toastOptions
+			});
+		case 'success':
+			return toast(message, {
+				icon: <IconCheckmark className={'ml-3'} />,
+				style: {
+					backgroundColor: '#00796D',
+					color: 'white'
+				},
+				...toastOptions
+			});
+		case 'info':
+			return toast(message, {
+				icon: <IconAlertError className={'ml-3'} />,
+				style: {
+					backgroundColor: '#0657F9',
+					color: 'white'
+				},
+				...toastOptions
+			});
+		default:
+			return toast.success(content);
+		}
+	};
 }
