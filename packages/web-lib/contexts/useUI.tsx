@@ -1,9 +1,10 @@
-import React, {createContext, ReactElement, useCallback, useContext, useRef, useState} from 'react';
+import React, {createContext, useCallback, useContext, useMemo, useRef, useState} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 
+import type {ReactElement} from 'react';
 import type {TPossibleThemes, TUIContext, TUIOptions} from './types';
 
 const	defaultOptions: TUIOptions = {
@@ -21,10 +22,10 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	children: ReactElement,
 	options?: TUIOptions
 }): ReactElement => {
-	const	uiOptions = deepMerge(defaultOptions, options) as TUIOptions;
-	const	userPrefersColorScheme = useRef<TPossibleThemes>();
-	const	[themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
-	const	[theme, set_theme] = useState(themeFromLs) as [string, (value: string) => void];
+	const uiOptions = deepMerge(defaultOptions, options) as TUIOptions;
+	const userPrefersColorScheme = useRef<TPossibleThemes>();
+	const [themeFromLs, set_themeFromLs] = useLocalStorage('theme', 'system-prefs');
+	const [theme, set_theme] = useState(themeFromLs) as [string, (value: string) => void];
 
 	const switchTheme = useCallback((): void => {
 		if (uiOptions.shouldUseThemes) {
@@ -101,8 +102,18 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		}
 	}, [theme]);
 
+	/* 💙 - Yearn Finance *********************************************************************
+	**	Render the UIContext with it's parameters.
+	**	The parameters will be accessible to the children via the useUI hook.
+	******************************************************************************************/
+	const	contextValue = useMemo((): TUIContext => ({
+		theme,
+		switchTheme,
+		toast
+	}), [theme, switchTheme]);
+	
 	return (
-		<UI.Provider value={{theme, switchTheme, toast}}>
+		<UI.Provider value={contextValue}>
 			{uiOptions.shouldUseDefaultToaster ? <Toaster
 				position={'bottom-right'}
 				containerClassName={'!z-[1000000]'}

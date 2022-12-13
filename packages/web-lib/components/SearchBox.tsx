@@ -1,5 +1,7 @@
-import React, {ReactElement} from 'react';
+import React from 'react';
 import IconSearch from '@yearn-finance/web-lib/icons/IconSearch';
+
+import type {ReactElement} from 'react';
 
 export type TSearchBox = {
 	searchTerm: string;

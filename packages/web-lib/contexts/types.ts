@@ -1,6 +1,6 @@
 import type	{ethers}	from 'ethers';
 import type	{ReactNode}	from 'react';
-import type {TPartnersInfo} from '../utils';
+import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 
 export type TSettingsBase = {
 	yDaemonBaseURI: string,
@@ -65,25 +65,15 @@ export type TWeb3Options = {
 export type TWeb3Context = {
 	address: string | null | undefined,
 	ens: string | undefined,
-	chainID: number,
-	safeChainID: number,
 	isDisconnected: boolean,
 	isActive: boolean,
 	isConnecting: boolean,
 	hasProvider: boolean,
 	provider: ethers.providers.Provider,
 	currentPartner?: TPartnersInfo,
-	detectedWalletProvider: string,
-	onConnect: (p: number, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
+	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
 	options?: TWeb3Options
-}
-
-export type TWalletProvider = {
-	isFrame?: boolean,
-	isCoinbaseBrowser?: boolean,
-	isMetaMask?: boolean,
-	isTrustWallet?: boolean,
 }

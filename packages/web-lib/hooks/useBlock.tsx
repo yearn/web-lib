@@ -1,8 +1,9 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import {getProvider} from '@yearn-finance/web-lib/utils/providers';
+import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type * as Types from './types';
 
@@ -31,7 +32,8 @@ const	defaultData = {
 ** able to trigger events based on that.
 **************************************************************************/
 export function useBlock(props?: Types.TUseBlockReq): Types.TUseBlockRes {
-	const	{provider, chainID: web3ChainID} = useWeb3();
+	const	{provider} = useWeb3();
+	const	{chainID: web3ChainID} = useChainID();
 	const	lastBlock = useRef<number>(0);
 	const	[data, set_data] = useState<Types.TBlock>(defaultData);
 	const	[status, set_status] = useState<Types.TDefaultMinimalStatus>(defaultStatus);

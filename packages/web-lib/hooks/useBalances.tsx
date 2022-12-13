@@ -1,17 +1,18 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Contract} from 'ethcall';
 import {ethers} from 'ethers';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import * as format from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import * as providers from '@yearn-finance/web-lib/utils/providers';
-import {toAddress} from '@yearn-finance/web-lib/utils/utils';
+import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {BigNumber} from 'ethers';
 import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from '@yearn-finance/web-lib/hooks/types';
-import type {TDict} from '@yearn-finance/web-lib/utils';
+import type {TDict} from '@yearn-finance/web-lib/utils/types';
 
 const		defaultStatus = {
 	isLoading: false,
@@ -26,7 +27,8 @@ const		defaultStatus = {
 ** This hook can be used to fetch balance information for any ERC20 tokens.
 **************************************************************************/
 export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
-	const	{address: web3Address, chainID: web3ChainID, isActive, provider} = useWeb3();
+	const	{address: web3Address, isActive, provider} = useWeb3();
+	const	{chainID: web3ChainID} = useChainID();
 	const	[rawData, set_rawData] = useState<TDict<TBalanceData>>({});
 	const	[data, set_data] = useState<TDict<TBalanceData>>({});
 	const	[status, set_status] = useState<TDefaultStatus>(defaultStatus);
@@ -39,8 +41,11 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	** specified list of tokens. If no props are specified, the default values
 	** will be used.
 	**************************************************************************/
+	const stringifiedTokens = useMemo((): string => JSON.stringify(props?.tokens || []), [props?.tokens]);
+
 	const getBalances = useCallback(async (): Promise<TDict<TBalanceData>> => {
-		if (!isActive || !web3Address || (props?.tokens || []).length === 0) {
+		const	tokens = JSON.parse(stringifiedTokens) || [];
+		if (!isActive || !web3Address || tokens.length === 0) {
 			return {};
 		}
 		set_status({
@@ -57,7 +62,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 		const	calls = [];
 		const	ethcallProvider = await providers.newEthCallProvider(currentProvider);
-		for (const element of (props?.tokens || [])) {
+		for (const element of tokens) {
 			const	{token} = element;
 			const	ownerAddress = (element?.for || web3Address) as string;
 			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
@@ -82,7 +87,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		try {
 			const	results = await ethcallProvider.tryAll(calls);
 			let		rIndex = 0;
-			for (const element of (props?.tokens || [])) {
+			for (const element of tokens) {
 				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
 				const	decimals = results[rIndex++] as number;
@@ -108,22 +113,22 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_error(_error as Error);
 			return {};
 		}
-	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
+	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, stringifiedTokens, ...effectDependencies]);
 
 	useEffect((): VoidFunction => {
-		let active = true;
-		const executeGetBalances = async () => {
+		let isActive = true;
+		const executeGetBalances = async (): Promise<void> => {
 			const	rawData = await getBalances();
-			if (active) {
+			if (isActive) {
 				performBatchedUpdates((): void => {
 					set_rawData(rawData);
 					set_status({...defaultStatus, isSuccess: true, isFetched: true});
 				});
 			}
-		}
+		};
 		executeGetBalances();
 		return (): void => {
-			active = false;
+			isActive = false;
 		};
 	}, [getBalances]);
 
@@ -197,7 +202,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	return ({
 		data,
-		update: async () => {
+		update: async (): Promise<TDict<TBalanceData>> => {
 			const	rawData = await getBalances();
 			performBatchedUpdates((): void => {
 				set_rawData(rawData);

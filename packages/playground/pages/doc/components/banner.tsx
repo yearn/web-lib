@@ -1,8 +1,12 @@
-import	React, {ReactElement}			from	'react';
-import	{Card, Banner, Button}			from	'@yearn-finance/web-lib/components';
-import	ComponentAPI					from	'components/documentation/ComponentAPI';
-import	Highlight						from	'components/documentation/Highlight';
-import	CodeExample						from	'components/CodeExample';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Banner} from '@yearn-finance/web-lib/components/Banner';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+
+import type {ReactElement} from 'react';
 
 const code = `<Banner
 	title={'Welcome to banner'}
@@ -68,31 +72,33 @@ function	DocumentationBanner(): ReactElement {
 					<p className={'mb-4'}>{'Note: the component uses the localStorage to save the user choice, aka once dismissed, the banner with the provided id will no longer be displayed.'}</p>
 
 					<ComponentAPI
-						elements={[{
-							title: 'title',
-							type: 'string',
-							description: 'Title displayed on the top of the banner. Not used with image variant'
-						},
-						{
-							title: 'children',
-							type: 'string',
-							description: 'Text displayed. Not used with image variant.'
-						},
-						{
-							title: 'primaryButton?',
-							type: 'ReactElement',
-							description: 'Button to display as primary action. Not used with image variant.'
-						},
-						{
-							title: 'secondaryButton?',
-							type: 'ReactElement',
-							description: 'Button to display as secondary action. Not used with image variant.'
-						},
-						{
-							title: 'children',
-							type: 'ReactElement | ReactElement[]',
-							description: 'Worth a mention: can be a single ReactElement or an array of ReactElement. If it is an array, this will enable the multi-page banner.'
-						}]} />
+						elements={[
+							{
+								title: 'title',
+								type: 'string',
+								description: 'Title displayed on the top of the banner. Not used with image variant'
+							},
+							{
+								title: 'children',
+								type: 'string',
+								description: 'Text displayed. Not used with image variant.'
+							},
+							{
+								title: 'primaryButton?',
+								type: 'ReactElement',
+								description: 'Button to display as primary action. Not used with image variant.'
+							},
+							{
+								title: 'secondaryButton?',
+								type: 'ReactElement',
+								description: 'Button to display as secondary action. Not used with image variant.'
+							},
+							{
+								title: 'children',
+								type: 'ReactElement | ReactElement[]',
+								description: 'Worth a mention: can be a single ReactElement or an array of ReactElement. If it is an array, this will enable the multi-page banner.'
+							}
+						]} />
 				</section>
 			</Card>
 		</section>

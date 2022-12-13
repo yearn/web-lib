@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {useTheme} from 'next-themes';
-import {useClientEffect} from '@yearn-finance/web-lib/hooks';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
+
 import type {AppProps} from 'next/app';
+
 import	'../style.css';
 
 function	WrappedApp({Component, pageProps}: AppProps): React.ReactElement {

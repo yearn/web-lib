@@ -172,5 +172,5 @@ const CHAINS = {
 		}
 	}
 };
-
+export {CHAINS as chains};
 export default CHAINS;

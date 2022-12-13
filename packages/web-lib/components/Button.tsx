@@ -1,7 +1,9 @@
-import React, {forwardRef, ReactElement, ReactNode} from 'react';
+import React, {forwardRef} from 'react';
 import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
-export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit';
+import type {ReactElement, ReactNode} from 'react';
+
+export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit' | string;
 
 export type	TButton = {
 	children: ReactNode,

@@ -1,13 +1,13 @@
-import React, {Fragment, useEffect, useRef, useState} from 'react';
+import React, {cloneElement, Fragment, useEffect, useRef, useState} from 'react';
 import {toast} from 'react-hot-toast';
 import {Dialog, Transition} from '@headlessui/react';
-import {useWeb3} from '@yearn-finance/web-lib/contexts';
-import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
-import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
-import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
-import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
-import {chains, truncateHex} from '@yearn-finance/web-lib/utils';
+import {truncateHex} from '@yearn-finance/web-lib/utils/address';
+import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
+
+import {useInjectedWallet} from '../hooks/useInjectedWallet';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from './Modal';
@@ -60,9 +60,11 @@ function	Modal(props: TModal): ReactElement {
 
 function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const	{isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
-	const	{chainID, onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options, detectedWalletProvider} = useWeb3();
+	const	{onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const	[optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
+	const	detectedWalletProvider = useInjectedWallet();
+	const	{chainID} = useChainID();
 
 	useEffect((): void => {
 		if (!isActive && address) {
@@ -83,56 +85,30 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	function	renderNotActive(): ReactNode {
 		if (shouldUseWallets && !isActive && !address) {
 			return (
-				<div className={'grid grid-cols-3 gap-2 p-2'}>
+				<div className={'grid grid-cols-2 gap-2 p-2'}>
 					<div
 						onClick={(): void => {
 							onConnect(
-								0,
-								(): string => toast.error('Unsupported network. Please use Ethereum mainnet.'),
+								'INJECTED',
+								(): string => toast.error('Impossible to connect to your wallet'),
 								(): void => undefined
 							);
 						}}
 						className={'yearn--modalMobileMenu-walletCard'}>
-						{detectedWalletProvider === 'metamask' ? (
-							<>
-								<IconWalletMetamask style={{width: 40, height: 40}} />
-								<b className={'mt-4 text-sm text-neutral-500'}>{'Metamask'}</b>
-							</>
-						) : detectedWalletProvider === 'trustWallet' ? (
-							<>
-								<IconWalletTrustWallet style={{width: 40, height: 40}} />
-								<b className={'mt-4 text-sm text-neutral-500'}>{'TrustWallet'}</b>
-							</>
-						) : (
-							<>
-								<IconWalletFrame className={'text-neutral-900'} style={{width: 40, height: 40}} />
-								<b className={'mt-4 text-sm text-neutral-500'}>{'Frame'}</b>
-							</>
-						)}
+						<div>{cloneElement(detectedWalletProvider.icon, {style: {width: 40, height: 40}})}</div>
+						<b className={'mt-4 text-sm text-neutral-500'}>{detectedWalletProvider.name}</b>
 					</div>
 					<div
 						onClick={(): void => {
 							onConnect(
-								1,
-								(): string => toast.error('Unsupported network. Please use Ethereum mainnet.'),
+								'WALLET_CONNECT',
+								(): string => toast.error('Impossible to connect to your wallet'),
 								(): void => undefined
 							);
 						}}
 						className={'yearn--modalMobileMenu-walletCard'}>
 						<IconWalletWalletConnect style={{width: 40, height: 40}} />
 						<b className={'mt-4 text-sm text-neutral-500'}>{'Wallet Connect'}</b>
-					</div>
-					<div
-						onClick={(): void => {
-							onConnect(
-								4,
-								(): string => toast.error('Unsupported network. Please use Ethereum mainnet.'),
-								(): void => undefined
-							);
-						}}
-						className={'yearn--modalMobileMenu-walletCard'}>
-						<IconWalletCoinbase style={{width: 40, height: 40}} />
-						<b className={'mt-4 text-sm text-neutral-500'}>{'Coinbase'}</b>
 					</div>
 				</div>
 			);

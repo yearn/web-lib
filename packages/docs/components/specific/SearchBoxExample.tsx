@@ -1,11 +1,11 @@
-import	React		    from 'react';
+import	React, {useState}		    from 'react';
 import {CodeExample}    from 'components/CodeExample';
-import {SearchBox} from '@yearn-finance/web-lib/components';
+import {SearchBox} from '@yearn-finance/web-lib/components/SearchBox';
 
-import type {TSearchBox} from '@yearn-finance/web-lib/components';
+import type {TSearchBox} from '@yearn-finance/web-lib/components/SearchBox';
 
 function	SearchBoxExample(props: TSearchBox): React.ReactElement {
-	const	[searchTerm, set_searchTerm] = React.useState('');
+	const	[searchTerm, set_searchTerm] = useState('');
 
 	return (
 		<CodeExample>
@@ -13,7 +13,7 @@ function	SearchBoxExample(props: TSearchBox): React.ReactElement {
 				{...props}
 				searchTerm={searchTerm}
 				onChange={set_searchTerm}
-				/>
+			/>
 		</CodeExample>
 	);
 }

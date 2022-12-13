@@ -1,8 +1,12 @@
-import	React, {ReactElement}			from	'react';
-import	{Card, Banner, Button}			from	'@yearn-finance/web-lib/components';
-import	ComponentAPI					from	'components/documentation/ComponentAPI';
-import	Highlight						from	'components/documentation/Highlight';
-import	CodeExample						from	'components/CodeExample';
+import React, {useState} from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Banner} from '@yearn-finance/web-lib/components/Banner';
+import {Button} from '@yearn-finance/web-lib/components/Button';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+
+import type {ReactElement} from 'react';
 
 const code = `
 <Banner.WithControls>
@@ -49,21 +53,23 @@ function	BannerComponentDefault(props: any): ReactElement {
 }
 
 function	VariantLevel(): ReactElement {
-	const	[isClosed, set_isClosed] = React.useState(false);
+	const	[isClosed, set_isClosed] = useState(false);
 
 	function	renderBanner(): ReactElement {
 		return (
-			<div className={'relative w-full flex-center'}>
+			<div className={'flex-center relative w-full'}>
 				<div className={'z-10'}>
-					{!isClosed ? <Banner.WithControls onClose={(): void => set_isClosed(true)}>
-						<BannerComponentDefault />
-						<BannerComponentDefault />
-						<BannerComponentDefault />
-						<BannerComponentDefault />
-					</Banner.WithControls> : null}
+					{!isClosed ? (
+						<Banner.WithControls onClose={(): void => set_isClosed(true)}>
+							<BannerComponentDefault />
+							<BannerComponentDefault />
+							<BannerComponentDefault />
+							<BannerComponentDefault />
+						</Banner.WithControls>
+					): null}
 				</div>
 				<div className={'absolute z-0'}>
-					<div onClick={(): void => set_isClosed(false)} className={'flex px-2 h-8 font-bold hover:bg-neutral-100 transition-colors cursor-pointer rounded-default bg-neutral-0 flex-center'}>{'Reset'}</div>
+					<div onClick={(): void => set_isClosed(false)} className={'rounded-default flex-center bg-neutral-0 flex h-8 cursor-pointer px-2 font-bold transition-colors hover:bg-neutral-100'}>{'Reset'}</div>
 				</div>
 			</div>
 		);

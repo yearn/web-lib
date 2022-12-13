@@ -21,7 +21,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -53,13 +53,13 @@ type TDropdown = {
 ```
 
 ### `value`
-It is what the user will type. It is not a big number, just plain humanized number, not scaled with the decimals. 1 USDC = 1000000 wei. This should be a `React.useState` value.
+It is what the user will type. It is not a big number, just plain humanized number, not scaled with the decimals. 1 USDC = 1000000 wei. This should be a `useState` value.
 ```tsx {11}
 import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -72,13 +72,13 @@ function App() {
 ```
 
 ### `onSetValue`
-Trigger a change in the value. It will be a string, not a big number. This should be a React.useState setter. This is triggered everytime the user type something or when he clicks MAX.
+Trigger a change in the value. It will be a string, not a big number. This should be a useState setter. This is triggered everytime the user type something or when he clicks MAX.
 ```tsx {12}
 import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -98,7 +98,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -119,7 +119,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -140,7 +140,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -161,7 +161,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -183,7 +183,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 
@@ -206,7 +206,7 @@ import {Input}  from '@yearn-finance/web-lib/components';
 import {format} from '@yearn-finance/web-lib/utils';
 
 function App() {
-	const [amount, set_amount] = React.useState('');
+	const [amount, set_amount] = useState('');
 	const userBalance = format.BN('2564145567845456084456');
 	const priceOfToken = format.BN('1451454');
 

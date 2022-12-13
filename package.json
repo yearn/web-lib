@@ -11,6 +11,7 @@
 	"scripts": {
 		"bootstrap": "lerna bootstrap --hoist",
 		"start": "lerna run dev --stream",
-		"watch": "lerna run watch --stream"
+		"watch": "lerna run watch --stream",
+		"lint": "lerna run lint --stream"
 	}
 }

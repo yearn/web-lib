@@ -1,7 +1,6 @@
-import {DependencyList} from 'react';
-import {BigNumber, ethers} from 'ethers';
-
-import type {TDict} from '../utils';
+import type {BigNumber, ethers} from 'ethers';
+import type {DependencyList} from 'react';
+import type {TDict} from '@yearn-finance/web-lib/utils/types';
 
 type	TDefaultReqArgs = {
 	chainID?: number,
@@ -67,20 +66,6 @@ export type	TBalanceData = {
 	normalizedValue: number
 }
 
-export type	TUseBalanceReq = {
-	for?: string,
-	token?: string,
-	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number | undefined
-} & TDefaultReqArgs
-
-export type	TUseBalanceRes = {
-	data: TBalanceData,
-	update: () => Promise<TBalanceData>,
-	error?: Error,
-	status: 'error' | 'loading' | 'success' | 'unknown'
-} & TDefaultStatus 
-
-
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalances hook.
 ******************************************************************************/
@@ -89,13 +74,13 @@ export type	TUseBalancesTokens = {
 	for?: string,
 }
 export type	TUseBalancesReq = {
-	key: string | number,
+	key?: string | number,
 	tokens: TUseBalancesTokens[]
 	prices?: {
 		[token: string]: string,
 	}
 	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
-	effectDependencies: DependencyList
+	effectDependencies?: DependencyList
 } & TDefaultReqArgs
 
 export type	TUseBalancesRes = {

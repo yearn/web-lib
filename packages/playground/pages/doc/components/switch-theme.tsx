@@ -1,9 +1,12 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, SwitchTheme}			from	'@yearn-finance/web-lib/components';
-import	{useUI}						from	'@yearn-finance/web-lib/contexts';
-import	ComponentAPI				from	'components/documentation/ComponentAPI';
-import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import React from 'react';
+import CodeExample from 'components/CodeExample';
+import ComponentAPI from 'components/documentation/ComponentAPI';
+import Highlight from 'components/documentation/Highlight';
+import {Card} from '@yearn-finance/web-lib/components/Card';
+import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
+import {useUI} from '@yearn-finance/web-lib/contexts/useUI';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React			from	'react';
@@ -45,16 +48,18 @@ function	DocumentationSwitchTheme(): ReactElement {
 				<p className={'mb-4'}>{'The component has headless states, meaning you have to send him the useState and you can controle the callback.'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: 'theme',
-						type: 'light | dark',
-						description: 'Current theme used. You should use useUI in order to get it.'
-					},
-					{
-						title: 'switchTheme',
-						type: 'function',
-						description: 'Function to trigger the theme switch. You should use useUI in order to get it.'
-					}]} />
+					elements={[
+						{
+							title: 'theme',
+							type: 'light | dark',
+							description: 'Current theme used. You should use useUI in order to get it.'
+						},
+						{
+							title: 'switchTheme',
+							type: 'function',
+							description: 'Function to trigger the theme switch. You should use useUI in order to get it.'
+						}
+					]} />
 
 			</Card>
 		</section>

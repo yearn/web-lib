@@ -1,7 +1,9 @@
-import React, {ReactElement, useState} from 'react';
-import {useClientEffect} from '@yearn-finance/web-lib/hooks';
+import React, {useState} from 'react';
+import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import IconThemeDark from '@yearn-finance/web-lib/icons/IconThemeDark';
 import IconThemeLight from '@yearn-finance/web-lib/icons/IconThemeLight';
+
+import type {ReactElement} from 'react';
 
 export type TSwitchTheme = {
 	theme: string;

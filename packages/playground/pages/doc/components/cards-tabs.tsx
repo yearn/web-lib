@@ -1,8 +1,10 @@
-import	React, {ReactElement}		from	'react';
-import	{Card, CardWithTabs}		from	'@yearn-finance/web-lib/components/Card';
+import	React		from	'react';
+import	CodeExample					from	'components/CodeExample';
 import	ComponentAPI				from	'components/documentation/ComponentAPI';
 import	Highlight					from	'components/documentation/Highlight';
-import	CodeExample					from	'components/CodeExample';
+import	{Card, CardWithTabs}		from	'@yearn-finance/web-lib/components/Card';
+
+import type {ReactElement} from 'react';
 
 const code = `
 import	React	from	'react';
@@ -48,11 +50,13 @@ function	DocumentationCard(): ReactElement {
 				<p className={'mb-4'}>{'The Card.Tabs is a variant of Card that will display the Card with some available Tabs.'}</p>
 
 				<ComponentAPI
-					elements={[{
-						title: 'tabs',
-						type: '[{\n\tlabel: string,\n\tchildren: ReactElement\n}]',
-						description: 'Array of object containing a label, aka the title of the tab, and a children for each tab. You can have as many tab as you want, until the UI breaks (recommanded with 2/3 tabs max)'
-					}]} />
+					elements={[
+						{
+							title: 'tabs',
+							type: '[{\n\tlabel: string,\n\tchildren: ReactElement\n}]',
+							description: 'Array of object containing a label, aka the title of the tab, and a children for each tab. You can have as many tab as you want, until the UI breaks (recommanded with 2/3 tabs max)'
+						}
+					]} />
 
 			</Card>
 		</section>

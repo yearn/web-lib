@@ -1,6 +1,8 @@
-import	React, {ReactElement, ReactNode}	from	'react';
+import	React	from	'react';
 import	PrismHighlight, {defaultProps}		from	'prism-react-renderer';
 import	vsDark								from	'prism-react-renderer/themes/vsDark';
+
+import type {ReactElement, ReactNode} from 'react';
 
 function	Highlight({code}: {code: string}): ReactElement {
 	return (

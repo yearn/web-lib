@@ -1,7 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {ReactElement} from 'react';
+import React from 'react';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 import IconChevron from '@yearn-finance/web-lib/icons/IconChevron';
+
+import type {ReactElement} from 'react';
 
 export type TTokenCard = {
 	label: string;

@@ -1,9 +1,9 @@
-import	React, {createContext, useContext, useEffect} from 'react';
+import	React, {createContext, useCallback, useContext, useEffect, useMemo} from 'react';
 import	{ethers} from 'ethers';
 import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/providers';
+import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from './types';
 
@@ -105,20 +105,20 @@ export const SettingsContextApp = ({
 	**	merged with the existing ones, aka the existing declarations will be overwritten but
 	**	the new ones will be added.
 	******************************************************************************************/
-	function	onUpdateNetworks(newNetworkSettings: TSettingsOptions): void {
+	const onUpdateNetworks = useCallback((newNetworkSettings: TSettingsOptions): void  => {
 		const	_networks = deepMerge(networks, newNetworkSettings) as TSettingsBaseOptions & TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
 		});
 		set_networks(_networks);
-	}
+	}, [networks]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	The app can provide a new list of base options. They will be deep merged with the
 	**	existing ones, aka the existing declarations will be overwritten but the new ones will
 	**	be added. Networks settings are updated accordingly.
 	******************************************************************************************/
-	function	onUpdateBaseSettings(newSettings: TSettingsBase): void {
+	const onUpdateBaseSettings = useCallback((newSettings: TSettingsBase): void  => {
 		performBatchedUpdates((): void => {
 			set_baseSettings(newSettings);
 
@@ -131,20 +131,21 @@ export const SettingsContextApp = ({
 				return prevNetworks;
 			});
 		});
-	}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the SettingContext with it's parameters.
 	**	The parameters will be accessible to the children via the useSettings hook.
 	******************************************************************************************/
+	const	contextValue = useMemo((): TSettingsContext => ({
+		settings: baseSettings as TSettingsBase,
+		networks: networks,
+		onUpdateNetworks: onUpdateNetworks,
+		onUpdateBaseSettings: onUpdateBaseSettings
+	}), [baseSettings, networks, onUpdateNetworks, onUpdateBaseSettings]);
+
 	return (
-		<SettingsContext.Provider
-			value={{
-				settings: baseSettings as TSettingsBase,
-				networks: networks,
-				onUpdateNetworks: onUpdateNetworks,
-				onUpdateBaseSettings: onUpdateBaseSettings
-			}}>
+		<SettingsContext.Provider value={contextValue}>
 			{children}
 		</SettingsContext.Provider>
 	);

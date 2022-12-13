@@ -6,9 +6,7 @@ const withTM = require('next-transpile-modules')(['@yearn-finance/web-lib']);
  */
 module.exports = withTM({
 	images: {
-		domains: [
-			'rawcdn.githack.com'
-		]
+		domains: ['rawcdn.githack.com']
 	},
 	env: {
 		/* 🔵 - Yearn Finance **************************************************
@@ -37,9 +35,7 @@ module.exports = withTM({
 		**********************************************************************/
 		USE_PRICES: true,
 		CG_IDS: ['yearn-finance'],
-		TOKENS: [
-			['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]
-		],
+		TOKENS: [['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e', 18, 1]],
 
 		/* 🔵 - Yearn Finance **************************************************
 		** Config over the RPC

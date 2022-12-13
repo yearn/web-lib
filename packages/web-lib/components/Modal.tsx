@@ -1,5 +1,7 @@
-import React, {Fragment, ReactElement, ReactNode, useRef} from 'react';
+import React, {Fragment, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
+
+import type {ReactElement, ReactNode} from 'react';
 
 export type TModal = {
 	isOpen: boolean;

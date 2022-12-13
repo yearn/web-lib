@@ -1,6 +1,9 @@
-import React, {ReactElement} from 'react';
-import Document, {DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript} from 'next/document';
+import React from 'react';
+import Document, {Head, Html, Main, NextScript} from 'next/document';
 import {SkipNavLink} from '@reach/skip-nav';
+
+import type {DocumentContext, DocumentInitialProps} from 'next/document';
+import type {ReactElement} from 'react';
 
 const modeScript = `
   let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
