@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "rootDirs": ["."],
+    "rootDirs": [
+      "."
+    ],
     "baseUrl": ".",
+    /* Basic Options */
     "target": "esnext",
     "module": "esnext",
     "lib": [
-    "es6",
-    "es7",
-    "esnext",
-    "dom"
+      "es6",
+      "es7",
+      "esnext",
+      "dom"
     ],
     "allowJs": true,
     "jsx": "preserve",
@@ -34,22 +37,28 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+	"_app"
   ],
   "include": [
     "**/*.css",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.mdx",
     "**/*.d.tsx",
     "public",
     "postcss.config.js",
     "tailwind.config.js",
     "next.config.js",
     "theme.config.js",
-    ".eslintrc.js"
+    ".eslintrc.js",
+    ".next/types/**/*.ts"
   ]
 }

@@ -273,8 +273,8 @@ label[aria-invalid="true"] {
 	@apply shadow-none transition-all;
 	border-radius: var(--default-rounded);
 	&[role="button"] {@apply cursor-pointer hover:bg-neutral-0 shadow-lg;}
-	&[data-variant="background"] {@apply bg-neutral-100;}
-	&[data-variant="surface"] {@apply bg-neutral-0;}
+	&[data-variant="background"] {@apply bg-neutral-0;}
+	&[data-variant="surface"] {@apply bg-neutral-100;}
 	&[data-padding="narrow"] {@apply p-2 md:p-4;}
 	&[data-padding="regular"] {@apply p-4 md:p-6;}
 	&[data-padding="relaxed"] {@apply p-8;}

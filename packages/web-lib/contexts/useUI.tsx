@@ -1,4 +1,4 @@
-import React, {createContext, useCallback, useContext, useMemo, useRef, useState} from 'react';
+import React, {createContext, Fragment, useCallback, useContext, useMemo, useRef, useState} from 'react';
 import {toast, ToastBar, Toaster} from 'react-hot-toast';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
@@ -105,31 +105,22 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		}
 	}, [theme]);
 
-	/* 💙 - Yearn Finance *********************************************************************
-	**	Render the UIContext with it's parameters.
-	**	The parameters will be accessible to the children via the useUI hook.
-	******************************************************************************************/
-	const	contextValue = useMemo((): TUIContext => ({
-		theme,
-		switchTheme,
-		toast
-	}), [theme, switchTheme]);
-	
-	return (
-		<UI.Provider value={contextValue}>
-			{uiOptions.shouldUseDefaultToaster ?
+	function	renderToaster(): ReactElement {
+		if (uiOptions.shouldUseDefaultToaster) {
+			return (
 				<Toaster 
 					containerClassName={'!z-[1000000]'}
 					gutter={0}
 					position={'bottom-center'}
 					containerStyle={{
 						zIndex: 1000000,
+						width: '100%',
 						bottom: 0,
 						left: 0,
 						right: 0
 					}}
 					toastOptions={{
-						className: 'w-screen text-sm text-neutral-700',
+						className: 'w-screen text-sm text-neutral-700 w-full px-3',
 						style: {
 							maxWidth: '100vw',
 							borderRadius: 0,
@@ -144,18 +135,36 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 								<>
 									{icon}
 									{message}
-									{t.type !== 'loading' && (
+									{t.type !== 'loading' ? (
 										<IconCross
 											width={16}
 											height={16}
 											onClick={(): void => toast.dismiss(t.id)}
 											className={'mr-3 cursor-pointer'} />
-									)}
+									) : null}
 								</>
 							)}
 						</ToastBar>
 					)}
-				</Toaster> : null}
+				</Toaster>
+			);
+		}
+		return <Fragment />;
+	}
+
+	/* 💙 - Yearn Finance *********************************************************************
+	**	Render the UIContext with it's parameters.
+	**	The parameters will be accessible to the children via the useUI hook.
+	******************************************************************************************/
+	const	contextValue = useMemo((): TUIContext => ({
+		theme,
+		switchTheme,
+		toast
+	}), [theme, switchTheme]);
+	
+	return (
+		<UI.Provider value={contextValue}>
+			{renderToaster()}
 			{children}
 		</UI.Provider>
 	);

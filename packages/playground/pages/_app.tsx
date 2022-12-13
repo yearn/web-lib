@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import {DefaultSeo} from 'next-seo';
 import LogoYearn from 'components/icons/LogoYearn';
-import Footer from 'components/StandardFooter';
+import localFont from '@next/font/local';
 import {WithYearn} from '@yearn-finance/web-lib/contexts/WithYearn';
 import {useBalances} from '@yearn-finance/web-lib/hooks/useBalances';
 import {Header} from '@yearn-finance/web-lib/layouts/Header';
@@ -13,6 +13,22 @@ import type {AppProps} 				from	'next/app';
 import type {ReactElement} from 'react';
 
 import	'../style.css';
+
+const aeonik = localFont({
+	variable: '--font-aeonik',
+	src: [
+		{
+			path: '../public/fonts/Aeonik-Regular.woff2',
+			weight: '400',
+			style: 'normal'
+		}, {
+			path: '../public/fonts/Aeonik-Bold.woff2',
+			weight: '700',
+			style: 'normal'
+		}
+	]
+});
+
 
 function	AppHead(): ReactElement {
 	return (
@@ -133,14 +149,13 @@ function	AppWrapper(props: AppProps): ReactElement {
 	return (
 		<>
 			<AppHead />
-			<div id={'app'} className={'mx-auto mb-0 grid max-w-[1200px] grid-cols-12 flex-col gap-x-4 md:flex-row'}>
-				<div className={'col-span-12 flex min-h-[100vh] w-full max-w-6xl flex-col md:col-span-12'}>
+			<div id={'app'} className={'font-aeonik mx-auto mb-0 flex max-w-6xl'}>
+				<div className={'block min-h-[100vh] w-full'}>
 					<AppHeader />
 					<Component
 						key={router.route}
 						router={props.router}
 						{...pageProps} />
-					<Footer />
 				</div>
 			</div>
 		</>
@@ -151,23 +166,25 @@ function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
 	
 	return (
-		<WithYearn
-			options={{
-				networks: {
-					250: {rpcURI: 'https://rpc.ftm.tools'},
-					137: {rpcURI: 'https://polygon-rpc.com'}
-				},
-				web3: {
-					shouldUseWallets: true,
-					defaultChainID: 1,
-					supportedChainID: [1, 10, 250, 42161, 1337, 31337]
-				}
-			}}>
-			<AppWrapper
-				Component={Component}
-				pageProps={pageProps}
-				router={props.router} />
-		</WithYearn>
+		<main className={aeonik.className}>
+			<WithYearn
+				options={{
+					networks: {
+						250: {rpcURI: 'https://rpc.ftm.tools'},
+						137: {rpcURI: 'https://polygon-rpc.com'}
+					},
+					web3: {
+						shouldUseWallets: true,
+						defaultChainID: 1,
+						supportedChainID: [1, 10, 250, 42161, 1337, 31337]
+					}
+				}}>
+				<AppWrapper
+					Component={Component}
+					pageProps={pageProps}
+					router={props.router} />
+			</WithYearn>
+		</main>
 	);
 }
 

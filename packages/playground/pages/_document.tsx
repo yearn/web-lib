@@ -13,7 +13,7 @@ const modeScript = `
 
   function updateMode() {
     let isSystemDarkMode = darkModeMediaQuery.matches
-    let isDarkMode = true
+    let isDarkMode = window.localStorage.isDarkMode === 'true' || (!('isDarkMode' in window.localStorage) && isSystemDarkMode)
 
     if (isDarkMode) {
       document.documentElement.classList.add('dark')
@@ -39,16 +39,11 @@ class MyDocument extends Document {
 
 	render(): ReactElement {
 		return (
-			<Html lang={'en'} className={'dark'}>
+			<Html lang={'en'}>
 				<Head>
-					<link
-						rel={'preconnect'}
-						href={'https://brand.yearn.finance'}
-						crossOrigin={'true'} />
-					<link href={'https://brand.yearn.finance/fonts/fonts.css'} rel={'stylesheet'} />
 					<script dangerouslySetInnerHTML={{__html: modeScript}} />
 				</Head>
-				<body className={'bg-neutral-200 transition-colors duration-150'} data-theme={'dark'}>
+				<body className={'bg-neutral-0 transition-colors duration-150'}>
 					<Main />
 					<NextScript />
 				</body>

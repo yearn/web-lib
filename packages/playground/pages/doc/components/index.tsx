@@ -207,8 +207,7 @@ function	Element({children, title, version, description, href}: TElement): React
 					<Link href={href} passHref>
 						<Button
 							variant={'outlined'}
-							className={'h-10'}
-							as={'a'}>
+							className={'h-10'}>
 							{'Access documentation'}
 						</Button>
 					</Link>
