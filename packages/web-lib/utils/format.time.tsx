@@ -9,11 +9,27 @@ extend(dayjsDuration);
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format date
 **************************************************************************/
-export function	date(value: number, withDate = true): string {
-	if (withDate) {
-		return (new Intl.DateTimeFormat('fr', {dateStyle: 'short', timeStyle: 'short', hourCycle: 'h24'}).format(value));
+export function	date(value: number, withDate = true, separator = '/'): string {
+	let		locale = 'fr-FR';
+	if (typeof(navigator) !== 'undefined') {
+		locale = navigator.language || 'fr-FR';
 	}
-	return (new Intl.DateTimeFormat('fr', {dateStyle: 'short', hourCycle: 'h24'}).format(value));
+
+	let	formatedDate = new Intl.DateTimeFormat(locale, {
+		dateStyle: 'short',
+		timeStyle: 'short',
+		hourCycle: 'h24'
+	}).format(value);
+	if (!withDate) {
+		formatedDate = (new Intl.DateTimeFormat(locale, {
+			dateStyle: 'short',
+			hourCycle: 'h24'
+		}).format(value));
+	}
+	if (separator !== '/') {
+		formatedDate = formatedDate.replace(/\//g, separator);
+	}
+	return formatedDate;
 }
 
 export function	since(value: number): string {
