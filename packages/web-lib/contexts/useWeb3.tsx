@@ -3,20 +3,20 @@ import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
-import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
-import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import CHAINS from '@yearn-finance/web-lib/utils/web3/chains';
+import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 import {connectors} from '@yearn-finance/web-lib/utils/web3/connectors';
 import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193.ledger';
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
+
+import {useWindowInFocus} from '../hooks';
 
 import type {ErrorInfo, ReactElement} from 'react';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
@@ -26,6 +26,7 @@ import type {TWeb3Context, TWeb3Options} from './types';
 const defaultState = {
 	address: undefined,
 	ens: undefined,
+	chainID: 1,
 	isDisconnected: false,
 	isActive: false,
 	isConnecting: false,
@@ -53,7 +54,7 @@ export const Web3ContextApp = ({
 }): ReactElement => {
 	const	web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const   {connector, isActive, provider, account, chainId} = useWeb3React();
-	const	{chainID, updateChainID} = useChainID(web3Options?.defaultChainID);
+	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
 	const	detectedWalletProvider = useInjectedWallet();
@@ -82,7 +83,7 @@ export const Web3ContextApp = ({
 			return;
 		}
 		if (!provider || !isActive) {
-			updateChainID(newChainID);
+			set_chainID(newChainID);
 			return;
 		}
 		if (web3Options.shouldUseWallets) {
@@ -99,8 +100,8 @@ export const Web3ContextApp = ({
 					.send('wallet_switchEthereumChain', [{chainId: '0x5'}])
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else {
-				if (newChainID in CHAINS) {
-					const chainSwap = CHAINS[newChainID as keyof typeof CHAINS].chain_swap;
+				if (newChainID in chains) {
+					const chainSwap = chains[newChainID]?.chain_swap;
 					provider
 						.send('wallet_addEthereumChain', [chainSwap, account])
 						.catch((error: ErrorInfo): void => console.error(error));
@@ -109,6 +110,14 @@ export const Web3ContextApp = ({
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
+
+	useClientEffect((): void => {
+		if ((chainId || 0) > 0) {
+			set_chainID(Number(chainId));
+		} else if (chainId === 0) {
+			set_chainID(Number(options?.defaultChainID || 1));
+		}
+	}, [chainId]);
 
 	useEffect((): void => {
 		onSwitchChain(web3Options?.defaultChainID || 1);
@@ -336,6 +345,7 @@ export const Web3ContextApp = ({
 			isConnecting,
 			hasProvider: !!provider,
 			provider: provider as ethers.providers.BaseProvider,
+			chainID,
 			currentPartner,
 			onConnect,
 			onSwitchChain,
@@ -343,7 +353,7 @@ export const Web3ContextApp = ({
 			onDesactivate: onDesactivate,
 			options: web3Options
 		});
-	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId]);
+	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID]);
 
 	return (
 		<Web3Context.Provider value={contextValue}>

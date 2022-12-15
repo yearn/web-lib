@@ -1,8 +1,5 @@
 import {useMemo} from 'react';
-import {useWeb3React} from '@web3-react/core';
-
-import {useClientEffect} from './useClientEffect';
-import {useLocalStorage} from './useLocalStorage';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 
 export type TUseChainIDRes = {
 	chainID: number;
@@ -15,21 +12,12 @@ export type TUseChainIDRes = {
 ** It will return the name and icon of the wallet provider.
 **************************************************************************/
 export function useChainID(defaultChainID?: number): TUseChainIDRes {
-	const   {chainId} = useWeb3React();
-	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
+	const   {chainID, onSwitchChain} = useWeb3();
 	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID || 1, [chainID]);
-
-	useClientEffect((): void => {
-		if ((chainId || 0) > 0) {
-			set_chainID(Number(chainId));
-		} else if (chainId === 0) {
-			set_chainID(Number(defaultChainID || 1));
-		}
-	}, [chainId]);
 
 	return ({
 		chainID: Number(chainID || defaultChainID || 1),
-		updateChainID: set_chainID,
+		updateChainID: onSwitchChain,
 		safeChainID
 	});
 }

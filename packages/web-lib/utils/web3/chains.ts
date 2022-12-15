@@ -1,12 +1,31 @@
-const CHAINS = {
+import type {TNDict} from '../types';
+
+export type TChain = {
+	chainID: string;
+	name: string;
+	displayName: string;
+	coin: string;
+	block_explorer: string;
+	chain_swap?: {
+		chainId: string;
+		blockExplorerUrls: string[];
+		chainName: string;
+		rpcUrls: string[];
+		nativeCurrency: {
+			name: string;
+			symbol: string;
+			decimals: number;
+		};
+	};
+}
+
+const CHAINS: TNDict<TChain> = {
 	1: {
 		'chainID': '1',
 		'name': 'ETH Mainnet',
 		'displayName': 'Ethereum',
 		'coin': 'ETH',
-		'block_explorer': 'https://etherscan.io',
-		'chain_swap': {
-		}
+		'block_explorer': 'https://etherscan.io'
 	},
 	4: {
 		'chainID': '4',
@@ -33,7 +52,7 @@ const CHAINS = {
 		'coin': 'gETH',
 		'block_explorer': 'https://goerli.etherscan.io/',
 		'chain_swap': {
-			'chainId': '0x4',
+			'chainId': '0x5',
 			'blockExplorerUrls': ['https://goerli.etherscan.io/'],
 			'chainName': 'Goerli Testnet',
 			'rpcUrls': ['https://goerli.infura.io/v3/'],

@@ -150,7 +150,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 											key={id}
 											selected={chainID === id}
 											value={id}>
-											{chains[id as keyof typeof chains]?.displayName || `Unknown chain (${id})`}
+											{chains[id]?.displayName || `Unknown chain (${id})`}
 										</option>
 									))}
 								</select>

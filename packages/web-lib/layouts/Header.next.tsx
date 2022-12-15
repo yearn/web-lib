@@ -5,7 +5,7 @@ import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
 import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
-import CHAINS from '@yearn-finance/web-lib/utils/web3/chains';
+import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 
@@ -50,7 +50,7 @@ function	NetworkSelector(): ReactElement {
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (
-			{value: chainID, label: (CHAINS as any)[chainID]?.displayName || `Chain ${chainID}`}
+			{value: chainID, label: chains[chainID]?.displayName || `Chain ${chainID}`}
 		));
 	}, [supportedChainID]);
 
