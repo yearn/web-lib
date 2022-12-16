@@ -1,8 +1,14 @@
 import request from 'graphql-request';
 import axios from 'axios';
 
-import type {AxiosResponse} from 'axios';
-import type {GraphQLResponse} from 'graphql-request/dist/types';
+export async function curveFetcher<T>(url: string): Promise<T> {
+	return axios.get(url).then((res): T => res.data?.data);
+}
 
-export const baseFetcher = async (url: string): Promise<AxiosResponse> => axios.get(url).then((res): AxiosResponse => res.data);
-export const graphFetcher = async (url: string, query: string): Promise<GraphQLResponse> => request(url, query);
+export async function baseFetcher<T>(url: string): Promise<T> {
+	return axios.get(url).then((res): T => res.data);
+}
+
+export async function graphFetcher<T>(url: string, query: string): Promise<T> {
+	return request(url, query);
+}
