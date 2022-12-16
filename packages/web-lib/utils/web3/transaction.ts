@@ -14,6 +14,7 @@ export type	TTxStatus = {none: boolean, pending: boolean, success: boolean, erro
 class Transaction {
 	provider: ethers.providers.Web3Provider | ethers.providers.Provider;
 	onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>;
+	options?: {shouldIgnoreSuccessTxStatusChange: boolean};
 	txArgs?: unknown[];
 	funcCall: (...props: never) => Promise<boolean>;
 	successCall?: () => Promise<void>;
@@ -21,11 +22,13 @@ class Transaction {
 	constructor(
 		provider: ethers.providers.Web3Provider | ethers.providers.Provider,
 		funcCall: (...props: never) => Promise<boolean>,
-		onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>
+		onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>,
+		options?: {shouldIgnoreSuccessTxStatusChange: boolean}
 	) {
 		this.provider = provider;
 		this.funcCall = funcCall;
 		this.onStatus = onStatus;
+		this.options = options;
 	}
 
 	populate(...txArgs: unknown[]): Transaction {
@@ -51,6 +54,9 @@ class Transaction {
 					await this.successCall();
 				}
 				toast({content: 'Transaction successful', type: 'success'});
+				if (this?.options?.shouldIgnoreSuccessTxStatusChange) {
+					return true;
+				}
 				this.onStatus(successTxStatus);
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 				return true;

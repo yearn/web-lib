@@ -15,7 +15,7 @@ const Link = (props: (DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>,
 	return Element;
 };
 
-export type TMenu = {path: string, label: string};
+export type TMenu = {path: string, label: string | ReactElement};
 export type TNavbar = {
 	nav: TMenu[],
 	linkComponent?: ReactElement,

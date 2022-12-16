@@ -11,7 +11,7 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {BigNumber} from 'ethers';
-import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes} from '@yearn-finance/web-lib/hooks/types';
+import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes, TUseBalancesTokens} from '@yearn-finance/web-lib/hooks/types';
 import type {TDict} from '@yearn-finance/web-lib/utils/types';
 
 const		defaultStatus = {
@@ -43,8 +43,8 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	**************************************************************************/
 	const stringifiedTokens = useMemo((): string => JSON.stringify(props?.tokens || []), [props?.tokens]);
 
-	const getBalances = useCallback(async (): Promise<TDict<TBalanceData>> => {
-		const	tokens = JSON.parse(stringifiedTokens) || [];
+	const getBalances = useCallback(async (tokenList: string): Promise<TDict<TBalanceData>> => {
+		const	tokens = JSON.parse(tokenList) || [];
 		if (!isActive || !web3Address || tokens.length === 0) {
 			return {};
 		}
@@ -113,15 +113,15 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_error(_error as Error);
 			return {};
 		}
-	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, stringifiedTokens, ...effectDependencies]);
+	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
 
 	useEffect((): VoidFunction => {
 		let isActive = true;
 		const executeGetBalances = async (): Promise<void> => {
-			const	rawData = await getBalances();
+			const	_rawData = await getBalances(stringifiedTokens);
 			if (isActive) {
 				performBatchedUpdates((): void => {
-					set_rawData(rawData);
+					set_rawData(_rawData);
 					set_status({...defaultStatus, isSuccess: true, isFetched: true});
 				});
 			}
@@ -130,7 +130,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		return (): void => {
 			isActive = false;
 		};
-	}, [getBalances]);
+	}, [getBalances, stringifiedTokens]);
 
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -172,12 +172,12 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				delay = 60 * 60 * 1000;
 			}
 			interval.current = setInterval((): void => {
-				getBalances();
+				getBalances(stringifiedTokens);
 			}, delay as number);
 			return (): void => clearInterval(interval.current);
 		}
 		return (): void => undefined;
-	}, [getBalances, props?.refreshEvery]);
+	}, [getBalances, props?.refreshEvery, stringifiedTokens]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X block, based on the
@@ -193,23 +193,42 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
-		currentProvider.on('block', async (): Promise<TDict<TBalanceData>> => getBalances());
+		currentProvider.on('block', async (): Promise<TDict<TBalanceData>> => getBalances(stringifiedTokens));
 
 		return (): void => {
-			currentProvider.off('block', async (): Promise<TDict<TBalanceData>> => getBalances());
+			currentProvider.off('block', async (): Promise<TDict<TBalanceData>> => getBalances(stringifiedTokens));
 		};
-	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalances]);
+	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalances, stringifiedTokens]);
+
+	const	onUpdate = useCallback(async (): Promise<TDict<TBalanceData>> => {
+		const	_rawData = await getBalances(stringifiedTokens);
+		performBatchedUpdates((): void => {
+			set_rawData(_rawData);
+			set_status({...defaultStatus, isSuccess: true, isFetched: true});
+		});
+		return _rawData;
+	}, [getBalances, stringifiedTokens]);
+
+	const	onUpdateSome = useCallback(async (tokenList: TUseBalancesTokens[]): Promise<TDict<TBalanceData>> => {
+		const	stringifiedTokens = JSON.stringify(tokenList);
+		const	newRawData = await getBalances(stringifiedTokens);
+		const	_rawData = {...rawData};
+		for (const token of tokenList) {
+			_rawData[toAddress(token.token)] = newRawData[toAddress(token.token)];
+		}
+
+		performBatchedUpdates((): void => {
+			set_rawData(_rawData);
+			set_status({...defaultStatus, isSuccess: true, isFetched: true});
+		});
+		console.warn(_rawData);
+		return _rawData;
+	}, [getBalances, rawData]);
 
 	return ({
 		data,
-		update: async (): Promise<TDict<TBalanceData>> => {
-			const	rawData = await getBalances();
-			performBatchedUpdates((): void => {
-				set_rawData(rawData);
-				set_status({...defaultStatus, isSuccess: true, isFetched: true});
-			});
-			return rawData;
-		},
+		update: onUpdate,
+		updateSome: onUpdateSome,
 		error,
 		isLoading: status.isLoading,
 		isFetching: status.isFetching,

@@ -1,3 +1,4 @@
+import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Yearn Meta uses some markdown for some rich content. Instead of using
@@ -21,7 +22,9 @@ export function	parseMarkdown(markdownText: string): string {
 ** copied.
 **************************************************************************/
 export function	copyToClipboard(value: string): void {
+	const {toast} = yToast();
 	navigator.clipboard.writeText(value);
+	toast({content: 'Copied to clipboard!', type: 'info'});
 }
 
 /* 🔵 - Yearn Finance ******************************************************
