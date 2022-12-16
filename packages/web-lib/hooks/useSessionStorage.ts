@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {BigNumber} from 'ethers';
 
 type TSessionStorage<T> = readonly [T, (value: T | ((val: T) => T)) => void];
 
@@ -6,18 +7,18 @@ export function useSessionStorage<T>(key: string, initialValue: T): TSessionStor
 	const [storedValue, set_storedValue] = useState<T>((): T => {
 		try {
 			const item = window.sessionStorage.getItem(key);
-			if (item) {
-				return (
-					JSON.parse(previousItem, (_key: any, value: any): any => {
-						if (value?.type === 'BigNumber') {
-							return ethers.BigNumber.from(value);
-						}
-						return value;
-					})
-				)
+			if (!item) {
+				return initialValue;
 			}
-			return initialValue;
-			
+
+			return (
+				JSON.parse(item, (_: string, value: T & { type?: string}): T | BigNumber => {
+					if (value?.type === 'BigNumber') {
+						return BigNumber.from(value);
+					}
+					return value;
+				})
+			);
 		} catch (error) {
 			console.log(error);
 			return initialValue;
