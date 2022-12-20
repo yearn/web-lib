@@ -15,7 +15,7 @@ const Link = (props: (DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>,
 	return Element;
 };
 
-export type TMenu = {path: string, label: string | ReactElement};
+export type TMenu = {path: string, label: string | ReactElement, target?: string};
 export type TNavbar = {
 	nav: TMenu[],
 	linkComponent?: ReactElement,
@@ -28,6 +28,7 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 				<Link
 					tag={linkComponent}
 					key={option.path}
+					target={option.target}
 					href={option.path}>
 					<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : '' }`}>
 						{option.label}
