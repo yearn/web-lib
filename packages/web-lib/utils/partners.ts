@@ -11,7 +11,7 @@ export type TPartnersInfo = {
 ** Get specific partner informations
 **************************************************************************/
 export function getPartner(partnerKey: string): TPartnersInfo {
-	const isLedger = /ledger.com/.test(partnerKey);
+	const isLedger = partnerKey.includes('ledger');
 	if (partnerKey === 'ledger-live' || isLedger) {
 		return ({
 			id: '0x558247e365be655f9144e1a0140D793984372Ef3',

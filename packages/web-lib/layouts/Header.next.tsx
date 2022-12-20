@@ -40,14 +40,10 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 }
 
 export type TNetwork = {value: number, label: string};
-function	NetworkSelector(): ReactElement {
+function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): ReactElement {
 	const {safeChainID} = useChainID();
-	const {options, onSwitchChain} = useWeb3();
+	const {onSwitchChain} = useWeb3();
 	
-	const supportedChainID = useMemo((): number[] => (
-		options?.supportedChainID || [1, 10, 250, 42161]
-	), [options?.supportedChainID]);
-
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (
@@ -60,13 +56,24 @@ function	NetworkSelector(): ReactElement {
 	), [safeChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
-		return (
-			<div
-				className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
-				<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
-					{supportedNetworks[0]?.label || 'Ethereum'}
+		if (currentNetwork?.value === supportedNetworks[0]?.value) {
+			return (
+				<div
+					className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
+					<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
+						{supportedNetworks[0]?.label || 'Ethereum'}
+					</div>
 				</div>
-			</div>
+			);
+		}
+		return (
+			<button
+				onClick={(): void => onSwitchChain(supportedNetworks[0].value, true)}
+				className={'yearn--header-nav-item mr-4 hidden cursor-pointer flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
+				<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
+					{'Invalid Network'}
+				</div>
+			</button>
 		);
 	}
 
@@ -164,10 +171,25 @@ export type THeader = {
 	extra?: ReactElement,
 	linkComponent?: ReactElement,
 	nav: TMenu[],
+	supportedNetworks?: number[],
 	currentPathName: string,
 	onOpenMenuMobile: () => void
 }
-function	Header({logo, extra, linkComponent, nav, currentPathName, onOpenMenuMobile}: THeader): ReactElement {
+function	Header({
+	logo,
+	extra,
+	linkComponent,
+	nav,
+	currentPathName,
+	supportedNetworks,
+	onOpenMenuMobile
+}: THeader): ReactElement {
+	const {options} = useWeb3();
+
+	const supportedChainID = useMemo((): number[] => (
+		supportedNetworks || options?.supportedChainID || [1, 10, 250, 42161]
+	), [supportedNetworks, options?.supportedChainID]);
+
 	return (
 		<header className={'yearn--header'}>
 			<Navbar
@@ -197,7 +219,7 @@ function	Header({logo, extra, linkComponent, nav, currentPathName, onOpenMenuMob
 				</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
-				<NetworkSelector />
+				<NetworkSelector supportedChainID={supportedChainID} />
 				<WalletSelector />
 				{extra}
 			</div>

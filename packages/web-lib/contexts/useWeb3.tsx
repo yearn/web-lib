@@ -90,20 +90,52 @@ export const Web3ContextApp = ({
 			if (Number(newChainID) === 1) {
 				provider
 					.send('wallet_switchEthereumChain', [{chainId: '0x1'}])
+					.then((): void => {
+						try {
+							connector.activate({chainId: 1});
+						} catch (error) {
+							console.error(error);
+						}
+					})
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else if (Number(newChainID) === 4) {
 				provider
 					.send('wallet_switchEthereumChain', [{chainId: '0x4'}])
+					.then((): void => {
+						try {
+							connector.activate({chainId: 4});
+						} catch (error) {
+							console.error(error);
+						}
+					})
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else if (Number(newChainID) === 5) {
 				provider
 					.send('wallet_switchEthereumChain', [{chainId: '0x5'}])
+					.then((): void => {
+						try {
+							connector.activate({chainId: 5});
+						} catch (error) {
+							console.error(error);
+						}
+					})
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else {
 				if (newChainID in chains) {
 					const chainSwap = chains[newChainID]?.chain_swap;
 					provider
 						.send('wallet_addEthereumChain', [chainSwap, account])
+						.then((): void => {
+							try {
+								connector
+									.activate({
+										...chainSwap,
+										chainId: Number(chainSwap?.chainId)
+									});
+							} catch (error) {
+								console.error(error);
+							}
+						})
 						.catch((error: ErrorInfo): void => console.error(error));
 				}
 			}
