@@ -1,6 +1,7 @@
 import type	{ethers}	from 'ethers';
 import type	{ReactNode}	from 'react';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
+import type {TAddress} from '../utils/address';
 
 export type TSettingsBase = {
 	yDaemonBaseURI: string,
@@ -14,8 +15,8 @@ export type	TSettingsForNetwork = {
 	metaURI: string,
 	apiURI: string,
 	explorerBaseURI: string,
-	lensAddress: string,
-	partnerContractAddress: string
+	lensAddress: TAddress,
+	partnerContractAddress: TAddress
 }
 
 export type	TSettingsContext = {
