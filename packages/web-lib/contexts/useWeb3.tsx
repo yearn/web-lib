@@ -329,7 +329,57 @@ export const Web3ContextApp = ({
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Used to open the login modal.
 	******************************************************************************************/
-	const openLoginModal = useCallback((): void => set_isModalLoginOpen(true), []);
+	const openLoginModal = useCallback((): void => {
+		if (isIframe()) {
+			//TODO: REFACTOR TO EXPORT FROM HERE
+			const params = new Proxy(new URLSearchParams(window.location.search), {
+				get: (searchParams, prop): string | null => searchParams.get(prop.toString())
+			});
+
+			let	{origin} = params as URLSearchParams & {origin: string};
+			if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
+				origin = window.location?.ancestorOrigins[0];
+			}
+			const	partnerInformation = getPartner(origin);
+
+			/* 🔵 - Yearn Finance **************************************************
+			**	First, do we have a way to know that we are working with a known
+			**	provider (aka Ledger for example).
+			**	If we don't know the provider, we will suppose it's a Gnosis Safe
+			**	and try to connect.
+			**********************************************************************/
+			if (partnerInformation.id !== ethers.constants.AddressZero) {
+				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI});
+				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
+				frameWeb3Provider.request = frameProvider.request;
+				connectors.eip1193.connector.init(frameWeb3Provider);
+				connectors.eip1193.connector.activate();
+				set_currentPartner(partnerInformation);
+				onConnect(partnerInformation.walletType);
+			} else {
+				try {
+					connectors.gnosisSafe.connector.activate().then((): void => {
+						if (connectors.gnosisSafe.connector.provider) {
+							const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
+							const	signer = web3Provider.getSigner();
+							signer.getAddress().then((signerAddress: string): void => {
+								set_currentPartner({
+									id: signerAddress,
+									walletType: 'EMBED_GNOSIS_SAFE'
+								});
+								set_lastWallet('EMBED_GNOSIS_SAFE');
+							});
+						}
+					});
+				} catch (error) {
+					console.error(error);
+					// 
+				}
+			}
+		} else {
+			set_isModalLoginOpen(true);
+		}
+	}, [onConnect, set_lastWallet]);
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the Web3Context with it's parameters.
