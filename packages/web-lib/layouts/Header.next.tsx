@@ -58,13 +58,14 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 	if (supportedNetworks.length === 1) {
 		if (currentNetwork?.value === supportedNetworks[0]?.value) {
 			return (
-				<div
+				<button
+					disabled
 					suppressHydrationWarning
 					className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
 					<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
 						{supportedNetworks[0]?.label || 'Ethereum'}
 					</div>
-				</div>
+				</button>
 			);
 		}
 		return (
