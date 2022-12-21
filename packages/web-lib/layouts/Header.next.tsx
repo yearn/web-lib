@@ -59,6 +59,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		if (currentNetwork?.value === supportedNetworks[0]?.value) {
 			return (
 				<div
+					suppressHydrationWarning
 					className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
 					<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
 						{supportedNetworks[0]?.label || 'Ethereum'}
@@ -68,6 +69,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		}
 		return (
 			<button
+				suppressHydrationWarning
 				onClick={(): void => onSwitchChain(supportedNetworks[0].value, true)}
 				className={'yearn--header-nav-item mr-4 hidden cursor-pointer flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
 				<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
@@ -85,6 +87,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 				{({open}): ReactElement => (
 					<>
 						<Listbox.Button
+							suppressHydrationWarning
 							className={'yearn--header-nav-item hidden flex-row items-center border-0 p-0 text-sm md:flex'}>
 							<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
 								{currentNetwork?.label || 'Ethereum'}
