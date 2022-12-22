@@ -55,9 +55,9 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			isRefetching: defaultStatus.isFetched
 		});
 
-		let		currentProvider = providers.getProvider(props?.chainID || web3ChainID || 1);
-		if (props?.chainID === web3ChainID && provider) {
-			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
+		let		currentProvider = provider || providers.getProvider(props?.chainID || web3ChainID || 1);
+		if (props?.chainID !== web3ChainID) {
+			currentProvider = providers.getProvider(props?.chainID);
 		}
 
 		const	calls = [];
@@ -110,6 +110,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_error(undefined);
 			return _data;
 		} catch (_error) {
+			console.error(_error);
 			set_error(_error as Error);
 			return {};
 		}
