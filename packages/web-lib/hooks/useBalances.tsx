@@ -56,7 +56,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		});
 
 		let		currentProvider = provider || providers.getProvider(props?.chainID || web3ChainID || 1);
-		if (props?.chainID !== web3ChainID) {
+		if (props?.chainID && props.chainID !== web3ChainID) {
 			currentProvider = providers.getProvider(props?.chainID);
 		}
 
