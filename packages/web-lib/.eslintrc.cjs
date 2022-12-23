@@ -44,6 +44,7 @@ module.exports = {
 		'object-curly-spacing': [2, 'never'],
 		'array-bracket-spacing': [2, 'never'],
 		'semi': 'error',
+		'no-else-return': 'error',
 		'import/no-named-as-default-member': 2,
 		'tailwindcss/no-custom-classname': 0,
 		'array-bracket-newline': ['error', {'multiline': true}],
