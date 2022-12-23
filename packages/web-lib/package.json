@@ -1,11 +1,12 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.17.70",
+  "version": "0.17.76",
   "files": [
     "."
   ],
   "type": "module",
   "scripts": {
+    "dev": "tsc --watch",
     "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i style.css -o dist/build.css --minify && sed -i -e 's/rem/em/g' dist/build.css",
     "exportNextStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i style.next.css -o dist/build.next.css --minify && sed -i -e 's/rem/em/g' dist/build.css",
     "prebuild": "rm -rf dist",

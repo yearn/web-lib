@@ -1,7 +1,5 @@
 import React, {cloneElement, Fragment, useRef} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
-import {SwitchTheme} from '@yearn-finance/web-lib/components/SwitchTheme';
-import {useUI} from '@yearn-finance/web-lib/contexts/useUI';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 import IconSocialDiscord from '@yearn-finance/web-lib/icons/IconSocialDiscord';
 import IconSocialGithub from '@yearn-finance/web-lib/icons/IconSocialGithub';
@@ -50,7 +48,6 @@ function	MobileMenuItem({option}: {option: TNavbarOption}): ReactElement {
 
 function	Menu(props: TMobileMenu): ReactElement {
 	const	{options, wrapper, set_selected} = props;
-	const	{theme, switchTheme} = useUI();
 
 	return (
 		<div className={'flex h-screen flex-col justify-between pt-20'}>
@@ -114,9 +111,6 @@ function	Menu(props: TMobileMenu): ReactElement {
 							<span className={'sr-only'}>{'Medium'}</span>
 							<IconSocialMedium />
 						</a>
-					</div>
-					<div>
-						<SwitchTheme theme={theme} switchTheme={switchTheme} />
 					</div>
 				</div>
 			</div>

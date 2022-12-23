@@ -45,31 +45,36 @@ export function useInjectedWallet(): TInjectedWallet {
 					icon: <IconWalletCoinbase />,
 					type: 'EMBED_COINBASE'
 				});
-			} else if (ethereum?.isCoinbaseWallet) {
+			}
+			if (ethereum?.isCoinbaseWallet) {
 				return ({
 					name: 'Coinbase',
 					icon: <IconWalletCoinbase />,
 					type: 'INJECTED'
 				});
-			} else if (ethereum?.isFrame) {
+			}
+			if (ethereum?.isFrame) {
 				return ({
 					name: 'Frame',
 					icon: <IconWalletFrame />,
 					type: 'INJECTED'
 				});
-			} else if (ethereum?.isMetaMask) {
+			}
+			if (ethereum?.isMetaMask) {
 				return ({
 					name: 'Metamask',
 					icon: <IconWalletMetamask />,
 					type: 'INJECTED'
 				});
-			} else if (ethereum?.isTrustWallet) {
+			}
+			if (ethereum?.isTrustWallet) {
 				return ({
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,
 					type: 'INJECTED'
 				});
-			} else if (ethereum?.isTrust) {
+			}
+			if (ethereum?.isTrust) {
 				return ({
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,

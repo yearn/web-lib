@@ -52,9 +52,9 @@ export type TUIOptions = {
 export type TPossibleThemes = 'dark' | 'light';
 
 export type	TUIContext = {
-	theme: string,
-	switchTheme: () => void,
-	toast: unknown
+	toast: unknown,
+	onLoadStart: () => void,
+	onLoadDone: () => void,
 }
 
 export type TWeb3Options = {
