@@ -533,6 +533,11 @@ label[aria-invalid="true"] {
 	@apply grid grid-cols-2;
 }
 
+/* -- ModalMenu.tsx ---------------------------------------------------------- */
+.yearn--modal-menu-dialog {
+	@apply  flex min-h-screen items-start justify-center text-center backdrop-blur transition-opacity;
+}
+
 /* -- ModalMobileMenu.tsx ---------------------------------------------------- */
 .yearn--modalMobileMenu-content {
 	@apply relative flex w-full flex-col items-center justify-center space-y-1 pt-4;
