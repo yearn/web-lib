@@ -238,6 +238,18 @@ label[aria-invalid="true"] {
 }
 
 /* -- Card.tsx --------------------------------------------------------- */
+.yearn--card-details {
+	@apply rounded-default w-full;
+}
+.yearn--card-details-summary {
+	@apply flex cursor-pointer flex-col items-start justify-between;
+}
+.yearn--card-details-disclosure {
+	@apply cursor-pointer p-0 shadow-none;
+}
+.yearn--card-details-disclosure-button {
+	@apply h-full justify-between text-justify transition-colors;
+}
 .yearn--card-tab-item {
 	--card-tab-color-active: hsl(var(--color-primary-500));
 	--card-tab-color: hsl(var(--color-neutral-400));
@@ -519,6 +531,11 @@ label[aria-invalid="true"] {
 }
 .yearn--modalLogin {
 	@apply grid grid-cols-2;
+}
+
+/* -- ModalMenu.tsx ---------------------------------------------------------- */
+.yearn--modal-menu-dialog {
+	@apply  flex min-h-screen items-start justify-center text-center backdrop-blur transition-opacity;
 }
 
 /* -- ModalMobileMenu.tsx ---------------------------------------------------- */

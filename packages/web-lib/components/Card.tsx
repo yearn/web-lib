@@ -39,7 +39,7 @@ export type TCardDetail = {
 function	CardDetailsSummary({startChildren, endChildren, open, ...props}: TCardDetailSummary): ReactElement{
 	return (
 		<div
-			className={'rounded-default flex w-full cursor-pointer flex-col items-start justify-between p-6 md:flex-row md:items-center'}
+			className={'yearn--card-details yearn--card-details-summary p-6 md:flex-row md:items-center'}
 			{...props}>
 			<div className={'w-inherit'}>
 				{startChildren}
@@ -61,12 +61,12 @@ function	CardDetails(props: TCardDetail): ReactElement {
 	return (
 		<Disclosure>
 			{({open}): ReactElement => (
-				<div className={`w-full cursor-pointer ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} rounded-default p-0 shadow-none`}>
+				<div className={`yearn--card-details yearn--card-details-disclosure ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'}`}>
 					<Disclosure.Button
 						as={'div'}
 						role={'button'}
 						tabIndex={0}
-						className={`rounded-default h-full w-full justify-between text-justify transition-colors ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} ${open ? '' : 'hover:bg-neutral-100'} ${isSticky ? 'relative top-0 md:sticky' : ''}`}>
+						className={`yearn--card-details yearn--card-details-disclosure-button ${variant === 'background' ? 'bg-neutral-200' : 'bg-neutral-0'} ${open ? '' : 'hover:bg-neutral-100'} ${isSticky ? 'relative top-0 md:sticky' : ''}`}>
 						{summary}
 					</Disclosure.Button>
 					<AnimatePresence initial={false}>

@@ -138,7 +138,7 @@ function	ModalMenu(props: TModalMenu): ReactElement {
 				open={isOpen}
 				onClose={set_isOpen}>
 				<div
-					className={'flex min-h-screen items-start justify-center text-center backdrop-blur transition-opacity'}
+					className={'yearn--modal-menu-dialog'}
 					style={{background: 'rgba(255,255,255,0.68)'}}>
 					<Transition.Child
 						as={Fragment}
