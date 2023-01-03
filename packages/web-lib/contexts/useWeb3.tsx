@@ -283,7 +283,7 @@ export const Web3ContextApp = ({
 			if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
 				origin = window.location?.ancestorOrigins[0];
 			}
-			const	partnerInformation = getPartner(origin);
+			const	partnerInformation = getPartner(origin || '');
 
 			/* 🔵 - Yearn Finance **************************************************
 			**	First, do we have a way to know that we are working with a known
@@ -372,7 +372,7 @@ export const Web3ContextApp = ({
 			if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
 				origin = window.location?.ancestorOrigins[0];
 			}
-			const	partnerInformation = getPartner(origin);
+			const	partnerInformation = getPartner(origin || '');
 
 			/* 🔵 - Yearn Finance **************************************************
 			**	First, do we have a way to know that we are working with a known

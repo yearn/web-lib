@@ -10,7 +10,7 @@ export type TPartnersInfo = {
 /* 🔵 - Yearn Finance ******************************************************
 ** Get specific partner informations
 **************************************************************************/
-export function getPartner(partnerKey: string): TPartnersInfo {
+export function getPartner(partnerKey = ''): TPartnersInfo {
 	const isLedger = partnerKey.includes('ledger');
 	if (partnerKey === 'ledger-live' || isLedger) {
 		return ({
