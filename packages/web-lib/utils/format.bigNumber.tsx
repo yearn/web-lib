@@ -34,7 +34,8 @@ export function	bigNumberAsAmount(
 	bnAmount = BN(bnAmount);
 	if (bnAmount.isZero()) {
 		return (`0${symbolWithPrefix}`);
-	} else if (bnAmount.eq(ethers.constants.MaxUint256)) {
+	}
+	if (bnAmount.eq(ethers.constants.MaxUint256)) {
 		return (`∞${symbolWithPrefix}`);
 	}
 

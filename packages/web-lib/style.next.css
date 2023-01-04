@@ -673,7 +673,7 @@ label[aria-invalid="true"] {
 	@apply flex overflow-y-auto absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 scrollbar-none text-neutral-400 border border-neutral-300 bg-neutral-100;
 }
 .yearn--dropdown-menu-item {
-	@apply w-40 md:w-full flex flex-row items-center cursor-pointer py-2 pr-4 pl-3 transition-colors;
+	@apply w-full flex flex-row items-center cursor-pointer py-2 pr-4 pl-3 transition-colors;
 	&[data-active='true'] {
 		@apply bg-neutral-0/40;
 	}

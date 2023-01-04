@@ -15,15 +15,16 @@ export function	date(value: number, withDate = true, separator = '/'): string {
 		locale = navigator.language || 'fr-FR';
 	}
 
-	let	formatedDate = new Intl.DateTimeFormat(locale, {
+	let	formatedDate = new Intl.DateTimeFormat([locale, 'en-US'], {
 		dateStyle: 'short',
 		timeStyle: 'short',
 		hourCycle: 'h24'
 	}).format(value);
 	if (!withDate) {
-		formatedDate = (new Intl.DateTimeFormat(locale, {
-			dateStyle: 'short',
-			hourCycle: 'h24'
+		formatedDate = (new Intl.DateTimeFormat([locale, 'en-US'], {
+			year: 'numeric',
+			month: 'numeric',
+			day: 'numeric'
 		}).format(value));
 	}
 	if (separator !== '/') {

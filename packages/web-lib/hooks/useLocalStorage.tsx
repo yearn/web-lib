@@ -37,7 +37,7 @@ export function useLocalStorage<T>(
 				window.localStorage.setItem(_key, JSON.stringify(initialValue));
 				window.localStorage.removeItem(key);
 				return resp;
-			} else if (item !== null) { // Parse stored json or if none return initialValue
+			} if (item !== null) { // Parse stored json or if none return initialValue
 				return (
 					JSON.parse(item, (_key: string, value: T & { type?: string}): T | BigNumber => {
 						if (value?.type === 'BigNumber') {
