@@ -11,7 +11,7 @@ export const BN = (amount?: BigNumberish): BigNumber => {
 	return BigNumber.from(amount || 0);
 };
 
-export function units(value: BigNumberish, unitName?: BigNumberish | undefined): string {
+export function units(value?: BigNumberish, unitName?: BigNumberish | undefined): string {
 	return (ethers.utils.formatUnits(BN(value), unitName));
 }
 
