@@ -11,9 +11,50 @@ import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {BigNumber} from 'ethers';
-import type {TBalanceData, TDefaultStatus, TUseBalancesReq, TUseBalancesRes, TUseBalancesTokens} from '@yearn-finance/web-lib/hooks/types';
+import type {DependencyList} from 'react';
+import type {TBalanceData, TDefaultStatus} from '@yearn-finance/web-lib/hooks/types';
+import type {TAddress} from '@yearn-finance/web-lib/utils/address';
 import type {TDict} from '@yearn-finance/web-lib/utils/types';
 
+/* 🔵 - Yearn Finance **********************************************************
+** Request, Response and helpers for the useBalances hook.
+******************************************************************************/
+type	TDefaultReqArgs = {
+	chainID?: number,
+	provider?: ethers.providers.Provider,
+}
+export type	TUseBalancesTokens = {
+	token: string,
+	for?: string,
+}
+export type	TUseBalancesReq = {
+	key?: string | number,
+	tokens: TUseBalancesTokens[]
+	prices?: {
+		[token: string]: string,
+	}
+	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
+	effectDependencies?: DependencyList
+} & TDefaultReqArgs
+
+export type	TUseBalancesRes = {
+	data: TDict<TBalanceData>,
+	update: () => Promise<TDict<TBalanceData>>,
+	updateSome: (token: TUseBalancesTokens[]) => Promise<TDict<TBalanceData>>,
+	error?: Error,
+	status: 'error' | 'loading' | 'success' | 'unknown',
+	nonce: number
+} & TDefaultStatus 
+
+type TDataRef = {
+	nonce: number,
+	address: TAddress,
+	balances: TDict<TBalanceData>,
+}
+
+/* 🔵 - Yearn Finance **********************************************************
+** Default status for the loading state.
+******************************************************************************/
 const		defaultStatus = {
 	isLoading: false,
 	isFetching: false,
@@ -29,10 +70,11 @@ const		defaultStatus = {
 export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const	{address: web3Address, isActive, provider} = useWeb3();
 	const	{chainID: web3ChainID} = useChainID();
-	const	[rawData, set_rawData] = useState<TDict<TBalanceData>>({});
-	const	[data, set_data] = useState<TDict<TBalanceData>>({});
+	const	[nonce, set_nonce] = useState(0);
 	const	[status, set_status] = useState<TDefaultStatus>(defaultStatus);
 	const	[error, set_error] = useState<Error | undefined>(undefined);
+	const	[balances, set_balances] = useState<TDict<TBalanceData>>({});
+	const	data = useRef<TDataRef>({nonce: 0, address: toAddress(), balances: {}});
 	const	interval = useRef<NodeJS.Timer>();
 	const	effectDependencies = props?.effectDependencies || [];
 
@@ -43,17 +85,11 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	**************************************************************************/
 	const stringifiedTokens = useMemo((): string => JSON.stringify(props?.tokens || []), [props?.tokens]);
 
-	const getBalances = useCallback(async (tokenList: string): Promise<TDict<TBalanceData>> => {
+	const getBalances = useCallback(async (tokenList: string): Promise<[TDict<TBalanceData>, Error | undefined]> => {
 		const	tokens = JSON.parse(tokenList) || [];
 		if (!isActive || !web3Address || tokens.length === 0) {
-			return {};
+			return [{}, undefined];
 		}
-		set_status({
-			...defaultStatus,
-			isLoading: true,
-			isFetching: true,
-			isRefetching: defaultStatus.isFetched
-		});
 
 		let		currentProvider = provider || providers.getProvider(props?.chainID || web3ChainID || 1);
 		if (props?.chainID && props.chainID !== web3ChainID) {
@@ -107,55 +143,11 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(rawPrice, 6))
 				};
 			}
-			set_error(undefined);
-			return _data;
+			return [_data, undefined];
 		} catch (_error) {
-			console.error(_error);
-			set_error(_error as Error);
-			return {};
+			return [{}, _error as Error];
 		}
 	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
-
-	useEffect((): VoidFunction => {
-		let isActive = true;
-		const executeGetBalances = async (): Promise<void> => {
-			const	_rawData = await getBalances(stringifiedTokens);
-			if (isActive) {
-				performBatchedUpdates((): void => {
-					set_rawData(_rawData);
-					set_status({...defaultStatus, isSuccess: true, isFetched: true});
-				});
-			}
-		};
-		executeGetBalances();
-		return (): void => {
-			isActive = false;
-		};
-	}, [getBalances, stringifiedTokens]);
-
-
-	/* 🔵 - Yearn Finance ******************************************************
-	** Once the prices are available, we can update each balance with the price
-	** information.
-	**************************************************************************/
-	const updatePriceInformation = useCallback(async (): Promise<void> => {
-		const _data = {...rawData};
-		for (const key of Object.keys(rawData)) {
-			const	tokenAddress = toAddress(key);
-			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
-			_data[tokenAddress] = {
-				..._data[tokenAddress],
-				rawPrice,
-				normalizedPrice: format.toNormalizedValue(rawPrice, 6),
-				normalizedValue: (_data[tokenAddress].normalized * format.toNormalizedValue(rawPrice, 6))
-			};
-		}
-		set_data(_data);
-	}, [rawData, props?.prices]);
-
-	useEffect((): void => {
-		updatePriceInformation();
-	}, [updatePriceInformation]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X time, based on the
@@ -194,40 +186,87 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		if (!props?.provider && props?.chainID === web3ChainID && provider) {
 			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
 		}
-		currentProvider.on('block', async (): Promise<TDict<TBalanceData>> => getBalances(stringifiedTokens));
+		currentProvider.on('block', async (): Promise<unknown> => getBalances(stringifiedTokens));
 
 		return (): void => {
-			currentProvider.off('block', async (): Promise<TDict<TBalanceData>> => getBalances(stringifiedTokens));
+			currentProvider.off('block', async (): Promise<unknown> => getBalances(stringifiedTokens));
 		};
 	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalances, stringifiedTokens]);
 
 	const	onUpdate = useCallback(async (): Promise<TDict<TBalanceData>> => {
-		const	_rawData = await getBalances(stringifiedTokens);
-		performBatchedUpdates((): void => {
-			set_rawData(_rawData);
-			set_status({...defaultStatus, isSuccess: true, isFetched: true});
-		});
-		return _rawData;
-	}, [getBalances, stringifiedTokens]);
+		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched});
 
-	const	onUpdateSome = useCallback(async (tokenList: TUseBalancesTokens[]): Promise<TDict<TBalanceData>> => {
-		const	stringifiedTokens = JSON.stringify(tokenList);
-		const	newRawData = await getBalances(stringifiedTokens);
-		const	_rawData = {...rawData};
-		for (const token of tokenList) {
-			_rawData[toAddress(token.token)] = newRawData[toAddress(token.token)];
+		const	[newRawData, err] = await getBalances(stringifiedTokens);
+		if (toAddress(web3Address as string) !== data.current.address) {
+			data.current.balances = {};
 		}
+		data.current.address = toAddress(web3Address as string);
+
+		for (const [address, element] of Object.entries(newRawData)) {
+			data.current.balances[address] = {
+				...data.current.balances[address],
+				...element
+			};
+		}
+		data.current.nonce += 1;
 
 		performBatchedUpdates((): void => {
-			set_rawData(_rawData);
+			set_nonce((n): number => n + 1);
+			set_balances(data.current.balances);
+			set_error(err as Error);
 			set_status({...defaultStatus, isSuccess: true, isFetched: true});
 		});
-		console.warn(_rawData);
-		return _rawData;
-	}, [getBalances, rawData]);
+		return data.current.balances;
+	}, [getBalances, stringifiedTokens, web3Address]);
+		
+	const	onUpdateSome = useCallback(async (tokenList: TUseBalancesTokens[]): Promise<TDict<TBalanceData>> => {
+		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched});
 
-	return ({
-		data,
+		const	stringifiedSomeTokens = JSON.stringify(tokenList);
+		const	[newRawData, err] = await getBalances(stringifiedSomeTokens);
+		if (toAddress(web3Address as string) !== data.current.address) {
+			data.current.balances = {};
+		}
+		data.current.address = toAddress(web3Address as string);
+
+		for (const [address, element] of Object.entries(newRawData)) {
+			data.current.balances[address] = {
+				...data.current.balances[address],
+				...element
+			};
+		}
+		data.current.nonce += 1;
+
+		performBatchedUpdates((): void => {
+			set_nonce((n): number => n + 1);
+			set_balances(data.current.balances);
+			set_error(err as Error);
+			set_status({...defaultStatus, isSuccess: true, isFetched: true});
+		});
+		return data.current.balances;
+	}, [getBalances, web3Address]);
+
+	const assignPrices = useCallback((_rawData: TDict<TBalanceData>): TDict<TBalanceData> => {
+		for (const key of Object.keys(_rawData)) {
+			const	tokenAddress = toAddress(key);
+			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
+			_rawData[tokenAddress] = {
+				..._rawData[tokenAddress],
+				rawPrice,
+				normalizedPrice: format.toNormalizedValue(rawPrice, 6),
+				normalizedValue: ((_rawData?.[tokenAddress] || 0).normalized * format.toNormalizedValue(rawPrice, 6))
+			};
+		}
+		return _rawData;
+	}, [props?.prices]);
+
+	useEffect((): void => {
+		onUpdate();
+	}, [onUpdate]);
+
+	const	contextValue = useMemo((): TUseBalancesRes => ({
+		data: assignPrices(balances),
+		nonce,
 		update: onUpdate,
 		updateSome: onUpdateSome,
 		error,
@@ -242,5 +281,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				(status.isLoading || status.isFetching) ? 'loading' :
 					(status.isSuccess) ? 'success' : 'unknown'
 		)
-	});
+	}), [assignPrices, balances, error, nonce, onUpdate, onUpdateSome, status.isError, status.isFetched, status.isFetching, status.isLoading, status.isRefetching, status.isSuccess]);
+
+	return (contextValue);
 }
