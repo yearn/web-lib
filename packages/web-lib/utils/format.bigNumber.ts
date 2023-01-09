@@ -56,16 +56,16 @@ export function	bigNumberAsAmount(
 }
 
 export	const	toNormalizedValue = (v: BigNumberish, d?: number): number => (
-	Number(units(v || 0, d || 18))
+	Number(units(v || 0, d ?? 18))
 );
 
 export const	toNormalizedAmount = (v: BigNumberish, d?: number): string => (
-	formatAmount(toNormalizedValue(v, d || 18), 6, 6)
+	formatAmount(toNormalizedValue(v, d ?? 18), 6, 6)
 );
 
-export const	toNormalizedBN = ({value, decimals}: {value: BigNumberish, decimals?: number}): TNormalizedBN => ({
+export const	toNormalizedBN = (value: BigNumberish, decimals?: number): TNormalizedBN => ({
 	raw: BN(value),
-	normalized: toNormalizedValue(BN(value), decimals || 18)
+	normalized: toNormalizedValue(BN(value), decimals ?? 18)
 });
 
 export {units as formatUnits};
