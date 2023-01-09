@@ -64,7 +64,7 @@ export type TWeb3Options = {
 }
 
 export type TWeb3Context = {
-	address: string | null | undefined,
+	address: TAddress | undefined,
 	ens: string | undefined,
 	chainID: number,
 	isDisconnected: boolean,
