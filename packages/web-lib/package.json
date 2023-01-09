@@ -13,7 +13,8 @@
     "build": "bump && tsc --module es2022 --outDir dist --jsx react",
     "buildNoBump": "tsc --module es2022 --outDir dist --jsx react",
     "postbuild": "sh ./scripts/postbuild.sh && npm run exportStyle && npm run exportNextStyle",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "jest"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.4",
@@ -22,6 +23,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.7",
+    "@types/jest": "^29.2.5",
     "@walletconnect/ethereum-provider": "^1.7.8",
     "@walletconnect/jsonrpc-http-connection": "^1.0.3",
     "@walletconnect/jsonrpc-provider": "^1.0.5",
@@ -68,12 +70,14 @@
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-tailwindcss": "^3.6.2",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^29.3.1",
     "postcss": "^8.4.18",
     "postcss-import": "^15.0.0",
     "postcss-nesting": "^10.2.0",
     "sass": "^1.55.0",
     "sharp": "^0.31.1",
     "tailwindcss": "^3.2.1",
+    "ts-jest": "^29.0.3",
     "ts-loader": "^9.4.1",
     "tsup": "^6.3.0",
     "typescript": "^4.8.4"
