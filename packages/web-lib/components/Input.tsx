@@ -112,4 +112,6 @@ function	InputBigNumber(props: TInputBigNumber): ReactElement {
 	);
 }
 
-export const Input = Object.assign(InputBase, {BigNumber: InputBigNumber});
+InputBase.BigNumber = InputBigNumber;
+
+export const Input = InputBase;
