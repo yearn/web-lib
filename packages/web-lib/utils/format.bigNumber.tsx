@@ -3,6 +3,13 @@ import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
 import type {BigNumberish} from 'ethers';
 
+export type	TNormalizedBN = {
+	raw: BigNumber,
+	normalized: number | string,
+}
+
+export const DefaultTNormalizedBN: TNormalizedBN = {raw: ethers.constants.Zero, normalized: 0};
+
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format bigNumbers, currency and date
@@ -56,8 +63,14 @@ export const	toNormalizedAmount = (v: BigNumberish, d?: number): string => (
 	formatAmount(toNormalizedValue(v, d || 18), 6, 6)
 );
 
+export const	toNormalizedBN = ({value, decimals}: {value: BigNumberish, decimals?: number}): TNormalizedBN => ({
+	raw: BN(value),
+	normalized: toNormalizedValue(BN(value), decimals || 18)
+});
+
 export {units as formatUnits};
 export {toNormalizedAmount as formatToNormalizedAmount};
 export {toNormalizedValue as formatToNormalizedValue};
+export {toNormalizedBN as formatToNormalizedBN};
 export {bigNumberAsAmount as formatBigNumberAsAmount};
 export {BN as formatBN};
