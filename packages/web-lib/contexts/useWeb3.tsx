@@ -22,6 +22,7 @@ import type {ErrorInfo, ReactElement} from 'react';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
 import type {TWeb3Context, TWeb3Options} from './types';
+import { isTAddress } from '../utils/isTAddress';
 
 const defaultState = {
 	address: undefined,
@@ -419,6 +420,11 @@ export const Web3ContextApp = ({
 	******************************************************************************************/
 	const	contextValue = useMemo((): TWeb3Context => {
 		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
+
+		if (!isTAddress(account)) {
+			throw new Error(`Invalid address: ${account}`)
+		}
+		
 		return ({
 			address: account,
 			ens: isReallyActive ? ens : '',
