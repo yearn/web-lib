@@ -1,10 +1,13 @@
-import {chains, TChain} from '@yearn-finance/web-lib/utils/web3/chains';
-import { TNDict } from '../utils/types';
-import { useChainID } from './useChainID';
+import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
+
+import {useChainID} from './useChainID';
+
+import type {TChain} from '@yearn-finance/web-lib/utils/web3/chains';
+import type {TNDict} from '../utils/types';
 
 type TUseChainReturn = {
-	get: (chainID: number) => TChain;
-	getCurrent: () => TChain;
+	get: (chainID: number) => TChain | null;
+	getCurrent: () => TChain | null;
 	getAll: () => TNDict<TChain>;
 }
 
@@ -14,22 +17,14 @@ type TUseChainReturn = {
 **************************************************************************/
 export function useChain(): TUseChainReturn {
 	const {safeChainID} = useChainID();
-
+	
 	return {
-		get: (chainID: number): TChain => {
-			if(!chains[chainID]) {
-				throw new Error(`Chain with id ${chainID} is not available`)
-			}
-
-			return chains[chainID];
+		get: (chainID: number): TChain | null => {
+			return chains[chainID] ? chains[chainID] : null;
 		},
-		getCurrent: (): TChain => {
-			if(!chains[safeChainID]) {
-				throw new Error(`Chain with id ${safeChainID} is not available`)
-			}
-
-			return chains[safeChainID];
+		getCurrent: (): TChain | null => {
+			return chains[safeChainID] ? chains[safeChainID] : null;
 		},
-		getAll: () => chains
+		getAll: (): TNDict<TChain>  => chains
 	};
 }

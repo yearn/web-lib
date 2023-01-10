@@ -1,11 +1,11 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
 import {Listbox, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
 import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
-import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 
