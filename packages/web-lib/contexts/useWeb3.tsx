@@ -54,16 +54,16 @@ export const Web3ContextApp = ({
 	options?: TWeb3Options
 }): ReactElement => {
 	const	web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
-	const   {connector, isActive, provider, account, chainId} = useWeb3React();
+	const {connector, isActive, provider, account, chainId} = useWeb3React();
 	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
 	const	debouncedChainID = useDebounce(chainId, 500);
 	const	hasWindowInFocus = useWindowInFocus();
 	const	detectedWalletProvider = useInjectedWallet();
 
-	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
-	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
-	const   [isConnecting, set_isConnecting] = useState(false);
-	const   [isDisconnected, set_isDisconnected] = useState(false);
+	const [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
+	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
+	const [isConnecting, set_isConnecting] = useState(false);
+	const [isDisconnected, set_isDisconnected] = useState(false);
 	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
 	const	[isModalLoginOpen, set_isModalLoginOpen] = useState(false);
 	const	[currentPartner, set_currentPartner] = useState<TPartnersInfo>();
@@ -184,7 +184,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.metamask.connector.activate();
-				set_lastWallet('INJECTED');	
+				set_lastWallet('INJECTED');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -202,7 +202,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.walletConnect.connector.activate(1);
-				set_lastWallet('WALLET_CONNECT');	
+				set_lastWallet('WALLET_CONNECT');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -240,7 +240,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.coinbase.connector.activate(1);
-				set_lastWallet('EMBED_COINBASE');	
+				set_lastWallet('EMBED_COINBASE');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -258,7 +258,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.metamask.connector.activate(1);
-				set_lastWallet('EMBED_TRUSTWALLET');	
+				set_lastWallet('EMBED_TRUSTWALLET');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -270,7 +270,7 @@ export const Web3ContextApp = ({
 				}
 				set_isConnecting(false);
 			}
-		} 
+		}
 	}, [isActive, web3Options.shouldUseWallets, detectedWalletProvider]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useClientEffect((): void => {
@@ -317,7 +317,7 @@ export const Web3ContextApp = ({
 					});
 				} catch (error) {
 					console.error(error);
-					// 
+					//
 				}
 			}
 		} else if (detectedWalletProvider.type === 'EMBED_COINBASE') {
@@ -348,7 +348,7 @@ export const Web3ContextApp = ({
 	**	Used to fully disconnect a wallet from the UI. Will reset the state, the ENS and the
 	**	lastWallet.
 	******************************************************************************************/
-	const onDesactivate = useCallback((): void  => {
+	const onDesactivate = useCallback((): void => {
 		performBatchedUpdates((): void => {
 			set_ens('');
 			set_lastWallet('NONE');
@@ -356,7 +356,7 @@ export const Web3ContextApp = ({
 			connector.deactivate?.();
 			connector.resetState?.();
 		});
-		setTimeout((): void => set_isDisconnected(false), 100);	
+		setTimeout((): void => set_isDisconnected(false), 100);
 	}, [connector]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/* 💙 - Yearn Finance *********************************************************************
@@ -406,7 +406,7 @@ export const Web3ContextApp = ({
 					});
 				} catch (error) {
 					console.error(error);
-					// 
+					//
 				}
 			}
 		} else {

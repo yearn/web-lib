@@ -35,7 +35,6 @@ module.exports = {
 	},
 	'rules': {
 		'import/default': 0,
-		'indent': [2, 'tab'],
 		'no-mixed-spaces-and-tabs': 2,
 		'react/prop-types': 0,
 		'no-async-promise-executor': 0,
@@ -85,6 +84,7 @@ module.exports = {
 				'fixStyle': 'separate-type-imports'
 			}
 		],
+		'no-multi-spaces': ['error', {ignoreEOLComments: false}],
 		'@typescript-eslint/no-var-requires': 0,
 		'@typescript-eslint/no-unused-vars': 2,
 		'@typescript-eslint/array-type': ['error', {'default': 'array'}],
@@ -105,7 +105,7 @@ module.exports = {
 			'error',
 			{'selector': 'default', 'format': ['camelCase']},
 			{'selector': 'function', 'format': ['camelCase', 'PascalCase']},
-			
+
 			{'selector': 'variableLike', 'format': ['camelCase', 'PascalCase', 'UPPER_CASE'], 'leadingUnderscore': 'allow'},
 			{'selector': 'variable', 'types': ['boolean'], 'format': ['PascalCase'], 'prefix': ['is', 'should', 'has', 'can', 'did', 'will', 'with']},
 			{
@@ -162,7 +162,9 @@ module.exports = {
 		'comma-spacing': 'off',
 		'@typescript-eslint/comma-spacing': ['error'],
 		'dot-notation': 'off',
-		'@typescript-eslint/dot-notation': ['error']
+		'@typescript-eslint/dot-notation': ['error'],
+		'indent': 'off',
+		'@typescript-eslint/indent': ['error', 'tab']
 	},
 	overrides: [
 		{
