@@ -3,6 +3,7 @@ import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
@@ -12,7 +13,6 @@ import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 import {connectors} from '@yearn-finance/web-lib/utils/web3/connectors';
 import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193.ledger';
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
@@ -58,6 +58,7 @@ export const Web3ContextApp = ({
 	const debouncedChainID = useDebounce(chainId, 500);
 	const hasWindowInFocus = useWindowInFocus();
 	const detectedWalletProvider = useInjectedWallet();
+	const chains = useChain();
 
 	const [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
 	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
@@ -121,8 +122,8 @@ export const Web3ContextApp = ({
 					})
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else {
-				if (newChainID in chains) {
-					const chainSwap = chains[newChainID]?.chain_swap;
+				if (newChainID in chains.getAll()) {
+					const chainSwap = chains.get(newChainID)?.chain_swap;
 					provider
 						.send('wallet_addEthereumChain', [chainSwap, account])
 						.then((): void => {

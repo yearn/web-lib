@@ -5,7 +5,7 @@ import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
 import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
-import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
+import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 
@@ -41,13 +41,14 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 
 export type TNetwork = {value: number, label: string};
 function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): ReactElement {
+	const chains = useChain();
 	const {safeChainID} = useChainID();
 	const {onSwitchChain} = useWeb3();
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (
-			{value: chainID, label: chains[chainID]?.displayName || `Chain ${chainID}`}
+			{value: chainID, label: chains.get(chainID)?.displayName || `Chain ${chainID}`}
 		));
 	}, [supportedChainID]);
 
