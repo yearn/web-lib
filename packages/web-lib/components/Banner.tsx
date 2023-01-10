@@ -90,7 +90,7 @@ function	BannerControlable(props: TBannerPagination): ReactElement {
 			) : null}
 
 			{cloneElement(children[currentSlide])}
-			
+
 			{children.length > 1 ? (
 				<div className={'yearn--banner-with-controls-pagination'}>
 					{renderPreviousChevron()}

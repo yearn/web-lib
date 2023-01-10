@@ -9,78 +9,78 @@ const JSON_RPC_VERSION = '2.0';
 
 // The interface for the source of the events, typically the window.
 export type TMinimalEventSourceInterface = {
-  addEventListener(
-    eventType: 'message',
-    handler: (message: MessageEvent) => void
-  ): void;
+	addEventListener(
+		eventType: 'message',
+		handler: (message: MessageEvent) => void
+	): void;
 }
 
 // The interface for the target of our events, typically the parent window.
 export type TMinimalEventTargetInterface = {
-  postMessage(message: any, targetOrigin?: string): void;
+	postMessage(message: any, targetOrigin?: string): void;
 }
 
 /**
  * Options for constructing the iframe ethereum provider.
  */
 type TIFrameEthereumProviderOptions = {
-  // The origin to communicate with. Default '*'
-  targetOrigin?: string;
-  // How long to time out waiting for responses. Default 60 seconds.
-  timeoutMilliseconds?: number;
+	// The origin to communicate with. Default '*'
+	targetOrigin?: string;
+	// How long to time out waiting for responses. Default 60 seconds.
+	timeoutMilliseconds?: number;
 
-  // The event source. By default we use the window. This can be mocked for tests, or it can wrap
-  // a different interface, e.g. workers.
-  eventSource?: TMinimalEventSourceInterface;
+	// The event source. By default we use the window. This can be mocked for tests, or it can wrap
+	// a different interface, e.g. workers.
+	eventSource?: TMinimalEventSourceInterface;
 
-  // The event target. By default we use the window parent. This can be mocked for tests, or it can wrap
-  // a different interface, e.g. workers.
-  eventTarget?: TMinimalEventTargetInterface;
+	// The event target. By default we use the window parent. This can be mocked for tests, or it can wrap
+	// a different interface, e.g. workers.
+	eventTarget?: TMinimalEventTargetInterface;
 }
 
 /**
  * This is what we store in the state to keep track of pending promises.
  */
 type TPromiseCompleter<TResult, TErrorData> = {
-  // A response was received (either error or result response).
-  resolve(
-    result:
-      | TJsonRpcSucessfulResponseMessage<TResult>
-      | TJsonRpcErrorResponseMessage<TErrorData>
-  ): void;
+	// A response was received (either error or result response).
+	resolve(
+		result:
+		| TJsonRpcSucessfulResponseMessage<TResult>
+		| TJsonRpcErrorResponseMessage<TErrorData>
+	): void;
 
-  // An error with executing the request was encountered.
-  reject(error: Error): void;
+	// An error with executing the request was encountered.
+	reject(error: Error): void;
 }
 
 type TMessageId = number | string | null;
 
 type TJsonRpcRequestMessage<TParams = any> = {
-  jsonrpc: '2.0';
-  // Optional in the request.
-  id?: TMessageId;
-  method: string;
-  params?: TParams;
+	jsonrpc: '2.0';
+	// Optional in the request.
+	id?: TMessageId;
+	method: string;
+	params?: TParams;
 }
 
 type TBaseJsonRpcResponseMessage = {
-  // Required but null if not identified in request
-  id: TMessageId;
-  jsonrpc: '2.0';
+	// Required but null if not identified in request
+	id: TMessageId;
+	jsonrpc: '2.0';
 }
 
 type TJsonRpcSucessfulResponseMessage<TResult = any> = {
-  result: TResult;
+	result: TResult;
 } & TBaseJsonRpcResponseMessage
 
 type TJsonRpcError<TData = any> = {
-  code: number;
-  message: string;
-  data?: TData;
+	code: number;
+	message: string;
+	data?: TData;
 }
 
 type TJsonRpcErrorResponseMessage<TErrorData = any> = {
-  error: TJsonRpcError<TErrorData>;
+	error: TJsonRpcError<TErrorData>;
 } & TBaseJsonRpcResponseMessage
 
 type TReceivedMessageType =
@@ -108,17 +108,17 @@ export type TIFrameEthereumProviderEventTypes =
  * Export the type information about the different events that are emitted.
  */
 export type TIFrameEthereumProvider = {
-  on(event: 'connect', handler: () => void): unknown;
+	on(event: 'connect', handler: () => void): unknown;
 
-  on(event: 'close', handler: (code: number, reason: string) => void): unknown;
+	on(event: 'close', handler: (code: number, reason: string) => void): unknown;
 
-  on(event: 'notification', handler: (result: any) => void): unknown;
+	on(event: 'notification', handler: (result: any) => void): unknown;
 
-  on(event: 'chainChanged', handler: (chainId: string) => void): unknown;
+	on(event: 'chainChanged', handler: (chainId: string) => void): unknown;
 
-  on(event: 'networkChanged', handler: (networkId: string) => void): unknown;
+	on(event: 'networkChanged', handler: (networkId: string) => void): unknown;
 
-  on(event: 'accountsChanged', handler: (accounts: string[]) => void): unknown;
+	on(event: 'accountsChanged', handler: (accounts: string[]) => void): unknown;
 }
 
 /**
@@ -163,8 +163,8 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 	private eventSource: TMinimalEventSourceInterface | undefined;
 	private eventTarget: TMinimalEventTargetInterface | undefined;
 	private readonly completers: {
-    [id: string]: TPromiseCompleter<any, any>;
-  } = {};
+		[id: string]: TPromiseCompleter<any, any>;
+	} = {};
 
 	public constructor({
 		targetOrigin = DEFAULT_TARGET_ORIGIN,
@@ -195,9 +195,9 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 		params?: TParams,
 		requestId?: TMessageId
 	): Promise<
-    | TJsonRpcSucessfulResponseMessage<TResult>
-    | TJsonRpcErrorResponseMessage<TErrorData>
-  > {
+		| TJsonRpcSucessfulResponseMessage<TResult>
+		| TJsonRpcErrorResponseMessage<TErrorData>
+		> {
 		const id = requestId ? requestId : getUniqueId();
 		const payload: TJsonRpcRequestMessage = {
 			jsonrpc: JSON_RPC_VERSION,
@@ -207,9 +207,9 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 		};
 
 		const promise = new Promise<
-      | TJsonRpcSucessfulResponseMessage<TResult>
-      | TJsonRpcErrorResponseMessage<TErrorData>
-    >((resolve, reject): unknown => (this.completers[id] = {resolve, reject}));
+		| TJsonRpcSucessfulResponseMessage<TResult>
+		| TJsonRpcErrorResponseMessage<TErrorData>
+		>((resolve, reject): unknown => (this.completers[id] = {resolve, reject}));
 
 		// Send the JSON RPC to the event source.
 		if (this.eventTarget) {
@@ -289,9 +289,9 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 	public async sendAsync(
 		payload: { method: string; params?: any[]; id?: TMessageId },
 		callback: (
-      error: string | null,
-      result: { method: string; params?: any[]; result: any } | any
-    ) => void
+			error: string | null,
+			result: { method: string; params?: any[]; result: any } | any
+		) => void
 	): Promise<void> {
 		try {
 			const result = await this.execute(
@@ -347,29 +347,29 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 		// If the method is a request from the parent window, it is likely a subscription.
 		if ('method' in message) {
 			switch (message.method) {
-			case 'notification':
-				this.emitNotification(message.params);
-				break;
+				case 'notification':
+					this.emitNotification(message.params);
+					break;
 
-			case 'connect':
-				this.emitConnect();
-				break;
+				case 'connect':
+					this.emitConnect();
+					break;
 
-			case 'close':
-				this.emitClose(message.params[0], message.params[1]);
-				break;
+				case 'close':
+					this.emitClose(message.params[0], message.params[1]);
+					break;
 
-			case 'chainChanged':
-				this.emitChainChanged(message.params[0]);
-				break;
+				case 'chainChanged':
+					this.emitChainChanged(message.params[0]);
+					break;
 
-			case 'networkChanged':
-				this.emitNetworkChanged(message.params[0]);
-				break;
+				case 'networkChanged':
+					this.emitNetworkChanged(message.params[0]);
+					break;
 
-			case 'accountsChanged':
-				this.emitAccountsChanged(message.params[0]);
-				break;
+				case 'accountsChanged':
+					this.emitAccountsChanged(message.params[0]);
+					break;
 			}
 		}
 	};

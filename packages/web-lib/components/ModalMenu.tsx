@@ -52,7 +52,7 @@ function	Menu(props: TMobileMenu): ReactElement {
 	return (
 		<div className={'flex h-screen flex-col justify-between pt-20'}>
 			<nav className={'flex flex-col pt-2'}>
-				{options.map((option): ReactElement  => {
+				{options.map((option): ReactElement => {
 					if (wrapper) {
 						return (
 							<div key={option.route}>

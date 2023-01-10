@@ -7,8 +7,10 @@ import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
+import {isTAddress} from '@yearn-finance/web-lib/utils/isTAddress';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
@@ -16,13 +18,10 @@ import {connectors} from '@yearn-finance/web-lib/utils/web3/connectors';
 import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193.ledger';
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
-import {useWindowInFocus} from '../hooks';
-
 import type {ErrorInfo, ReactElement} from 'react';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
 import type {TWeb3Context, TWeb3Options} from './types';
-import { isTAddress } from '../utils/isTAddress';
 
 const defaultState = {
 	address: undefined,
@@ -422,9 +421,9 @@ export const Web3ContextApp = ({
 		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
 
 		if (!isTAddress(account)) {
-			throw new Error(`Invalid address: ${account}`)
+			throw new Error(`Invalid address: ${account}`);
 		}
-		
+
 		return ({
 			address: account,
 			ens: isReallyActive ? ens : '',

@@ -32,7 +32,7 @@ export function	bigNumberAsAmount(
 	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
-	
+
 	let	symbolWithPrefix = symbol;
 	if (symbol.length > 0 && symbol !== '%') {
 		symbolWithPrefix = ` ${symbol}`;

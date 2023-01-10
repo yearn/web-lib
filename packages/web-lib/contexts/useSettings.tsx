@@ -107,7 +107,7 @@ export const SettingsContextApp = ({
 	**	merged with the existing ones, aka the existing declarations will be overwritten but
 	**	the new ones will be added.
 	******************************************************************************************/
-	const onUpdateNetworks = useCallback((newNetworkSettings: TSettingsOptions): void  => {
+	const onUpdateNetworks = useCallback((newNetworkSettings: TSettingsOptions): void => {
 		const	_networks = deepMerge(networks, newNetworkSettings) as TSettingsBaseOptions & TSettingsOptions;
 		Object.keys(_networks).forEach((key): void => {
 			replaceEnvRPCURI(Number(key), _networks[Number(key)]?.rpcURI || '');
@@ -120,7 +120,7 @@ export const SettingsContextApp = ({
 	**	existing ones, aka the existing declarations will be overwritten but the new ones will
 	**	be added. Networks settings are updated accordingly.
 	******************************************************************************************/
-	const onUpdateBaseSettings = useCallback((newSettings: TSettingsBase): void  => {
+	const onUpdateBaseSettings = useCallback((newSettings: TSettingsBase): void => {
 		performBatchedUpdates((): void => {
 			set_baseSettings(newSettings);
 

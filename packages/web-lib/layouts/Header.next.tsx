@@ -43,7 +43,7 @@ export type TNetwork = {value: number, label: string};
 function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): ReactElement {
 	const {safeChainID} = useChainID();
 	const {onSwitchChain} = useWeb3();
-	
+
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (

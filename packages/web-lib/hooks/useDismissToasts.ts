@@ -1,4 +1,4 @@
-import { yToast } from "../components/yToast";
+import {yToast} from '../components/yToast';
 
 type TUseDismissToasts = {
 	dismissAllToasts: () => void;
@@ -8,7 +8,7 @@ type TUseDismissToasts = {
 export function useDismissToasts(): TUseDismissToasts {
 	const {toastMaster, useToasterStore} = yToast();
 	const {toasts} = useToasterStore();
-    
+
 	return {
 		dismissAllToasts: (): void => toasts.filter(({visible}): boolean => visible).forEach(({id}): void => toastMaster.dismiss(id)),
 		dismissToast: (toastId?: string): void => toastMaster.dismiss(toastId)

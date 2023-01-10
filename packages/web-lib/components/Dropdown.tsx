@@ -15,8 +15,8 @@ export type TDropdownProps = {
 	defaultOption: TDropdownOption;
 	selected: TDropdownOption;
 	onSelect:
-		| React.Dispatch<React.SetStateAction<TDropdownOption>>
-		| ((option: TDropdownOption) => void);
+	| React.Dispatch<React.SetStateAction<TDropdownOption>>
+	| ((option: TDropdownOption) => void);
 };
 
 function Dropdown(props: TDropdownProps): ReactElement {

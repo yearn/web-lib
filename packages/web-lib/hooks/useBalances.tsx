@@ -44,7 +44,7 @@ export type	TUseBalancesRes = {
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown',
 	nonce: number
-} & TDefaultStatus 
+} & TDefaultStatus
 
 type TDataRef = {
 	nonce: number,
@@ -151,7 +151,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X time, based on the
-	** refreshEvery prop. This specific effect is not used if the refresh is 
+	** refreshEvery prop. This specific effect is not used if the refresh is
 	** not set or if it is set to 'block'.
 	**************************************************************************/
 	useEffect((): () => void => {
@@ -174,7 +174,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X block, based on the
-	** refreshEvery prop. This specific effect is not used if the refresh is 
+	** refreshEvery prop. This specific effect is not used if the refresh is
 	** not set or if it is NOT set to 'block'.
 	**************************************************************************/
 	useEffect((): () => void => {
@@ -218,7 +218,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		});
 		return data.current.balances;
 	}, [getBalances, stringifiedTokens, web3Address]);
-		
+
 	const	onUpdateSome = useCallback(async (tokenList: TUseBalancesTokens[]): Promise<TDict<TBalanceData>> => {
 		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched});
 

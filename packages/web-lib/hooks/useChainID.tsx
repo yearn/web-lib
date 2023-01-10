@@ -12,7 +12,7 @@ export type TUseChainIDRes = {
 ** It will return the name and icon of the wallet provider.
 **************************************************************************/
 export function useChainID(defaultChainID?: number): TUseChainIDRes {
-	const   {chainID, onSwitchChain} = useWeb3();
+	const {chainID, onSwitchChain} = useWeb3();
 	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID || 1, [chainID]);
 
 	return ({

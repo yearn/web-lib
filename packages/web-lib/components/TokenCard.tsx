@@ -20,7 +20,7 @@ function TokenCardBase(props: TTokenCard): ReactElement {
 		<Card
 			className={cardClassname}
 			padding={'none'}
-			{...rest}>	
+			{...rest}>
 			<button
 				className={`rounded-default flex h-full w-full p-2 md:p-4 ${onClick ? 'hover:bg-neutral-100' : 'cursor-default'}`}
 				onClick={onClick}

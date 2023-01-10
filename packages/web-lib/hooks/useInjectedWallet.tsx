@@ -83,7 +83,7 @@ export function useInjectedWallet(): TInjectedWallet {
 			}
 		}
 
-		//Non supported yet: 
+		//Non supported yet:
 		// if (ethereum?.isAvalanche) 'Core Wallet'
 		// if (ethereum?.isBitKeep) 'BitKeep'
 		// if (ethereum?.isBraveWallet) 'Brave Wallet'

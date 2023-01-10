@@ -5,16 +5,16 @@ import {useDismissToasts} from './useDismissToasts';
 declare let window: any;
 
 type TWatchAssetOptions = {
-    address: string; // The address of the token contract
-    symbol: string; // A ticker symbol or shorthand, up to 11 characters
-    decimals: number; // The number of token decimals
-    image: string; // A string url of the token logo
+	address: string; // The address of the token contract
+	symbol: string; // A ticker symbol or shorthand, up to 11 characters
+	decimals: number; // The number of token decimals
+	image: string; // A string url of the token logo
 }
 
 export function useAddToken(): (options: TWatchAssetOptions) => void {
 	const {toast} = yToast();
 	const {dismissAllToasts} = useDismissToasts();
-    
+
 	return (options: TWatchAssetOptions): void => {
 
 		window.ethereum.request({
