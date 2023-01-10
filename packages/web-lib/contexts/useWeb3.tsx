@@ -10,7 +10,6 @@ import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
-import {isTAddress} from '@yearn-finance/web-lib/utils/isTAddress';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
@@ -420,12 +419,8 @@ export const Web3ContextApp = ({
 	const	contextValue = useMemo((): TWeb3Context => {
 		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
 
-		if (!isTAddress(account)) {
-			throw new Error(`Invalid address: ${account}`);
-		}
-
 		return ({
-			address: account,
+			address: toAddress(account),
 			ens: isReallyActive ? ens : '',
 			isDisconnected,
 			isActive: isReallyActive,
