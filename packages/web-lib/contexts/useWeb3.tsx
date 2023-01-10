@@ -18,6 +18,7 @@ import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connecto
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ErrorInfo, ReactElement} from 'react';
+import type {TAddress} from '@yearn-finance/web-lib/utils/address';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
 import type {TWeb3Context, TWeb3Options} from './types';
@@ -420,7 +421,7 @@ export const Web3ContextApp = ({
 		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
 
 		return ({
-			address: toAddress(account),
+			address: account as TAddress,
 			ens: isReallyActive ? ens : '',
 			isDisconnected,
 			isActive: isReallyActive,
