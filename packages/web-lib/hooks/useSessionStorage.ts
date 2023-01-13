@@ -94,4 +94,5 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 	return [storedValue, assignValue];
 }
 
+export {useSessionStorage};
 export default useSessionStorage;
