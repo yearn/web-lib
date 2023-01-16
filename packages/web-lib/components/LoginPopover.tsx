@@ -118,7 +118,7 @@ function	LoginPopover(): ReactElement {
 
 			<div className={'relative z-50'}>
 				<Popover
-					onMouseEnter={(): void => set_isShowing(true)}
+					onMouseEnter={(): void => !isActive ? set_isShowing(true) : undefined}
 					onMouseLeave={(): void => !isFocused ? set_isShowing(false) : undefined}>
 					<div suppressHydrationWarning className={'yearn--header-nav-item'}>
 						<Popover.Button
