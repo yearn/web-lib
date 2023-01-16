@@ -2,9 +2,8 @@ import React, {useMemo} from 'react';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
 import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletPhantom from '@yearn-finance/web-lib/icons/IconWalletPhantom';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
-
-import IconWalletPhantom from '../icons/IconWalletPhantom';
 
 import type {ReactElement} from 'react';
 
@@ -63,10 +62,10 @@ export function useInjectedWallet(): TInjectedWallet {
 					type: 'INJECTED'
 				});
 			}
-			if (ethereum?.isMetaMask) {
+			if (ethereum?.isPhantom) {
 				return ({
-					name: 'Metamask',
-					icon: <IconWalletMetamask />,
+					name: 'Phantom',
+					icon: <IconWalletPhantom />,
 					type: 'INJECTED'
 				});
 			}
@@ -84,10 +83,10 @@ export function useInjectedWallet(): TInjectedWallet {
 					type: 'EMBED_TRUSTWALLET'
 				});
 			}
-			if (ethereum?.isPhantom) {
+			if (ethereum?.isMetaMask) {
 				return ({
-					name: 'Phantom',
-					icon: <IconWalletPhantom />,
+					name: 'Metamask',
+					icon: <IconWalletMetamask />,
 					type: 'INJECTED'
 				});
 			}
