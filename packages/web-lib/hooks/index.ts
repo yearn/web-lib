@@ -5,4 +5,4 @@ export {useClientEffect} from './useClientEffect';
 export {useInterval} from './useInterval';
 export {useLocalStorage} from './useLocalStorage';
 export {useWindowInFocus} from './useWindowInFocus';
-export * as Hooks from '@react-hookz/web';
+export * as hooks from '@react-hookz/web';

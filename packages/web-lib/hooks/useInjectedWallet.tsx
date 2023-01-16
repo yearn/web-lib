@@ -4,6 +4,8 @@ import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 
+import IconWalletPhantom from '../icons/IconWalletPhantom';
+
 import type {ReactElement} from 'react';
 
 export type TWalletProvider = {
@@ -13,6 +15,7 @@ export type TWalletProvider = {
 	isMetaMask?: boolean,
 	isTrustWallet?: boolean,
 	isTrust?: boolean, //trustWallet for mobile
+	isPhantom?: boolean,
 }
 
 export type TInjectedWallet = {
@@ -79,6 +82,13 @@ export function useInjectedWallet(): TInjectedWallet {
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,
 					type: 'EMBED_TRUSTWALLET'
+				});
+			}
+			if (ethereum?.isPhantom) {
+				return ({
+					name: 'Phantom',
+					icon: <IconWalletPhantom />,
+					type: 'INJECTED'
 				});
 			}
 		}
