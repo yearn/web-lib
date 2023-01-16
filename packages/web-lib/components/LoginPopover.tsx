@@ -144,7 +144,7 @@ function	LoginPopover(): ReactElement {
 						leave={'transition ease-in duration-200'}
 						leaveFrom={'opacity-100 translate-y-0'}
 						leaveTo={'opacity-0 translate-y-1'}>
-						<Popover.Panel className={'absolute right-0 top-4 z-[1000] mt-3 w-screen max-w-[300px] md:-right-4 md:pt-2'}>
+						<Popover.Panel className={'absolute right-0 top-0 z-[1000] w-screen max-w-[300px] md:-right-4 md:pt-10'}>
 							{!isActive ? (
 								<LoginStepWallet onFocus={(): void => set_isFocused(true)} />
 							) : null}
