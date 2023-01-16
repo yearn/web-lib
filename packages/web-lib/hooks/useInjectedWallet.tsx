@@ -108,7 +108,7 @@ export function useInjectedWallet(): TInjectedWallet {
 		// if (ethereum?.isTokenary) 'Tokenary'
 
 		return ({
-			name: 'frame',
+			name: 'Frame',
 			icon: <IconWalletFrame className={'text-neutral-900'} />,
 			type: 'INJECTED'
 		});
