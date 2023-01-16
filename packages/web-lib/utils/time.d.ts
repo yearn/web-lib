@@ -1,0 +1,14 @@
+export type TSeconds = number;
+export type TMilliseconds = number;
+export type TWeeks = number;
+export declare const SECOND: TMilliseconds;
+export declare const DAY: TMilliseconds;
+export declare const WEEK: TMilliseconds;
+export declare const YEAR: TMilliseconds;
+export declare function toTime(time: number | string | undefined): TMilliseconds;
+export declare function toMilliseconds(time?: TSeconds): TMilliseconds;
+export declare function toSeconds(time?: TMilliseconds, floor?: boolean): TSeconds;
+export declare function toWeeks(time?: TMilliseconds, floor?: boolean): TWeeks;
+export declare function fromWeeks(time?: TWeeks): TMilliseconds;
+export declare function getTimeUntil(time?: TMilliseconds): TMilliseconds;
+export declare function roundToWeek(time?: TMilliseconds): TMilliseconds;

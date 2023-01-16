@@ -1,11 +1,11 @@
-import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
+import React, {cloneElement, Fragment, useMemo} from 'react';
 import {Listbox, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
-import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
-import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
+
+import LoginPopover from '../components/LoginPopover';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 
@@ -128,48 +128,6 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 	);
 }
 
-function	WalletSelector(): ReactElement {
-	const	{options, isActive, address, ens, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
-	const	[walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
-
-	useEffect((): void => {
-		if (!isActive && address) {
-			set_walletIdentity('Invalid Network');
-		} else if (ens) {
-			set_walletIdentity(ens);
-		} else if (address) {
-			set_walletIdentity(truncateHex(address, 4));
-		} else {
-			set_walletIdentity(undefined);
-		}
-	}, [ens, address, isActive]);
-
-	return (
-		<div
-			onClick={(): void => {
-				if (isActive) {
-					onDesactivate();
-				} else if (!isActive && address) {
-					onSwitchChain(options?.defaultChainID || 1, true);
-				} else {
-					openLoginModal();
-				}
-			}}>
-			<p className={'yearn--header-nav-item text-sm'}>
-				{walletIdentity ? walletIdentity : (
-					<span>
-						<IconWallet
-							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-						<span className={'hidden md:block'}>
-							{'Connect wallet'}
-						</span>
-					</span>
-				)}
-			</p>
-		</div>
-	);
-}
-
 export type THeader = {
 	logo: ReactElement,
 	extra?: ReactElement,
@@ -224,7 +182,7 @@ function	Header({
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
 				<NetworkSelector supportedChainID={supportedChainID} />
-				<WalletSelector />
+				<LoginPopover />
 				{extra}
 			</div>
 		</header>

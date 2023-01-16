@@ -75,7 +75,7 @@
 	--color-error-200: 328 100% 90%;
 	--color-red-900: 0 100% 45%;
 	--color-red-300: 0 100% 95%;
-	--color-red-200: 0 100% 90%;	
+	--color-red-200: 0 100% 90%;
 
 	--default-rounded: 0rem;
 }
@@ -107,7 +107,7 @@ h4 {@apply text-lg font-bold text-neutral-700;}
 input::placeholder {@apply text-neutral-400 not-italic}
 textarea::placeholder {@apply text-neutral-400 not-italic}
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
@@ -509,7 +509,7 @@ label[aria-invalid="true"] {
 :root.dark {
 	& .yearn--modal-overlay {
 		@apply bg-neutral-100/90;
-	}	
+	}
 }
 
 .yearn--modal {
@@ -523,7 +523,7 @@ label[aria-invalid="true"] {
 }
 .yearn--modalLogin-card {
 	@apply flex flex-col justify-center items-center p-6 text-center transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-100;
-	
+
 	border-radius: var(--default-rounded);
 	& > div > svg {@apply w-12 h-12;}
 	& > b {@apply mt-2 text-lg text-neutral-700;}
@@ -745,6 +745,17 @@ label[aria-invalid="true"] {
 
 .yearn--toast-button {
 	@apply text-xs px-3 py-1 text-[#0657F9] bg-white;
+}
+
+
+.yearn--shadow {
+	box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
+}
+
+:root.dark {
+	& .yearn--shadow {
+		@apply border border-neutral-100;
+	}
 }
 
 /* 🔵 - Yearn Finance ******************************************************
