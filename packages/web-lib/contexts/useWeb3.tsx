@@ -52,20 +52,20 @@ export const Web3ContextApp = ({
 	children: ReactElement,
 	options?: TWeb3Options
 }): ReactElement => {
-	const	web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
+	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const {connector, isActive, provider, account, chainId} = useWeb3React();
-	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
-	const	debouncedChainID = useDebounce(chainId, 500);
-	const	hasWindowInFocus = useWindowInFocus();
-	const	detectedWalletProvider = useInjectedWallet();
+	const [chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
+	const debouncedChainID = useDebounce(chainId, 500);
+	const hasWindowInFocus = useWindowInFocus();
+	const detectedWalletProvider = useInjectedWallet();
 
 	const [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
 	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
 	const [isConnecting, set_isConnecting] = useState(false);
 	const [isDisconnected, set_isDisconnected] = useState(false);
-	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
-	const	[isModalLoginOpen, set_isModalLoginOpen] = useState(false);
-	const	[currentPartner, set_currentPartner] = useState<TPartnersInfo>();
+	const [hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
+	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+	const [currentPartner, set_currentPartner] = useState<TPartnersInfo>();
 
 	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
 		if (newChainID === debouncedChainID) {

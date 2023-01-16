@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.17.94",
+  "version": "0.17.95",
   "files": [
     "."
   ],
@@ -20,6 +20,8 @@
     "@coinbase/wallet-sdk": "^3.5.4",
     "@ethersproject/experimental": "^5.7.0",
     "@headlessui/react": "1.7.3",
+    "@react-hookz/deep-equal": "^1.0.4",
+    "@react-hookz/web": "^22.0.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.7",
