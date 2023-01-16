@@ -8,7 +8,6 @@ import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 
 import type {ReactElement} from 'react';
-import { hooks } from '../hooks';
 
 function	LoginStepWallet({onFocus}: {onFocus: VoidFunction}): ReactElement {
 	const	{onConnect} = useWeb3();
@@ -76,7 +75,7 @@ function	LoginPopover(): ReactElement {
 	const	{isActive, address, ens, onSwitchChain, onDesactivate} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
 	const	[isFocused, set_isFocused] = useState(false);
-	const	[isShowing, set_isShowing] = hooks.useDebouncedState(false, 400, 0);
+	const	[isShowing, set_isShowing] = useState(false);
 	const	[isInit, set_isInit] = useState(false);
 
 	useEffect((): void => {
@@ -100,7 +99,6 @@ function	LoginPopover(): ReactElement {
 	function onDisconnect(): void {
 		performBatchedUpdates((): void => {
 			set_isFocused(false);
-			set_isShowing(false);
 			onDesactivate();
 		});
 	}
