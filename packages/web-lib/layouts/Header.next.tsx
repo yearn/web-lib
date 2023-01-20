@@ -3,13 +3,11 @@ import {Listbox, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
+import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
+import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 
-import LoginPopover from '../components/LoginPopover';
-
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
-import IconWallet from '../icons/IconWallet';
-import { truncateHex } from '../utils/address';
 
 const Link = (props: (DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) & {tag: ReactElement}): ReactElement => {
 	const {tag, ...rest} = props;
@@ -130,7 +128,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 	);
 }
 
-function	MobileWalletSelector(): ReactElement {
+function	WalletSelector(): ReactElement {
 	const	{options, isActive, address, ens, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
 
@@ -140,7 +138,7 @@ function	MobileWalletSelector(): ReactElement {
 		} else if (ens) {
 			set_walletIdentity(ens);
 		} else if (address) {
-			set_walletIdentity(truncateHex(address, 6));
+			set_walletIdentity(truncateHex(address, 4));
 		} else {
 			set_walletIdentity(undefined);
 		}
@@ -226,12 +224,7 @@ function	Header({
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
 				<NetworkSelector supportedChainID={supportedChainID} />
-				<div className='flex md:hidden'>
-					<MobileWalletSelector />
-				</div>
-				<div className='hidden md:flex'>
-					<LoginPopover />
-				</div>
+				<WalletSelector />
 				{extra}
 			</div>
 		</header>
