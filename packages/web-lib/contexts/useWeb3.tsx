@@ -427,7 +427,7 @@ export const Web3ContextApp = ({
 			isActive: isReallyActive,
 			isConnecting,
 			hasProvider: !!provider,
-			provider: provider as ethers.providers.BaseProvider,
+			provider: provider as ethers.providers.Web3Provider,
 			chainID,
 			currentPartner,
 			onConnect,

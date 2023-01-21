@@ -71,7 +71,7 @@ export type TWeb3Context = {
 	isActive: boolean,
 	isConnecting: boolean,
 	hasProvider: boolean,
-	provider: ethers.providers.Provider | ethers.providers.Web3Provider,
+	provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,
 	currentPartner?: TPartnersInfo,
 	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
