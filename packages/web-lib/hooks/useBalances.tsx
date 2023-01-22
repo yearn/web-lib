@@ -5,7 +5,7 @@ import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import * as format from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
@@ -103,7 +103,9 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			const	ownerAddress = (element?.for || web3Address) as string;
 			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
-				const	tokenContract = new Contract(WETH_TOKEN_ADDRESS, ERC20_ABI);
+				const	tokenContract = web3ChainID === 250
+					? new Contract(WFTM_TOKEN_ADDRESS, ERC20_ABI)
+					: new Contract(WETH_TOKEN_ADDRESS, ERC20_ABI);
 				calls.push(
 					ethcallProvider.getEthBalance(ownerAddress),
 					tokenContract.decimals(),
