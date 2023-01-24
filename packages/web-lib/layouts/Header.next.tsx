@@ -160,7 +160,7 @@ function	WalletSelector(): ReactElement {
 					<span>
 						<IconWallet
 							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-						<span className={'hidden md:block'}>
+						<span className={'text-neutral-0 relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal transition-all hover:bg-neutral-800 md:flex'}>
 							{'Connect wallet'}
 						</span>
 					</span>
