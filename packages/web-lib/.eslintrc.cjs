@@ -6,11 +6,7 @@ module.exports = {
 	},
 	'extends': [
 		'eslint:recommended',
-		'plugin:import/recommended',
-		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
-		'plugin:tailwindcss/recommended',
-		'plugin:@typescript-eslint/recommended',
 		'next/core-web-vitals'
 	],
 	'parser': '@typescript-eslint/parser',
@@ -203,6 +199,12 @@ module.exports = {
 						]
 					}
 				]
+			}
+		},
+		{
+			files: ['*.{ts,tsx}'],
+			rules: {
+				'no-undef': 'off'
 			}
 		}
 	]

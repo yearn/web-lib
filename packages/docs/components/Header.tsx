@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 import type {ReactElement} from 'react';
 
@@ -32,9 +33,11 @@ export function Header(): ReactElement {
 					aria-label={'Version'}
 					href={'https://www.npmjs.com/package/@yearn-finance/web-lib'}
 					className={'h-5'}>
-					<img
+					<Image
 						alt={''}
 						src={'https://img.shields.io/npm/v/@yearn-finance/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Version'}
+						width={'118'}
+						height={'20'}
 					/>
 				</a>
 
@@ -42,9 +45,11 @@ export function Header(): ReactElement {
 					aria-label={'Downloads'}
 					href={'https://www.npmjs.com/package/@yearn-finance/web-lib'}
 					className={'h-5'}>
-					<img
+					<Image
 						alt={''}
 						src={'https://img.shields.io/npm/dm/@yearn-finance/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Downloads'}
+						width={'146'}
+						height={'20'}
 					/>
 				</a>
 
@@ -52,9 +57,11 @@ export function Header(): ReactElement {
 					aria-label={'Stars'}
 					href={'https://github.com/yearn/web-lib'}
 					className={'h-5'}>
-					<img
+					<Image
 						alt={''}
 						src={'https://img.shields.io/github/stars/yearn/web-lib?colorA=2B323B&colorB=1e2329&style=flat&label=Stars'}
+						width={'62'}
+						height={'20'}
 					/>
 				</a>
 			</div>

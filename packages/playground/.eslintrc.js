@@ -1,5 +1,5 @@
 module.exports = {
-	'extends': ['../../node_modules/@yearn-finance/web-lib/.eslintrc.cjs'],
+	'extends': ['../web-lib/.eslintrc.cjs'],
 	'parser': '@typescript-eslint/parser',
 	'parserOptions': {
 		'ecmaFeatures': {
