@@ -8,7 +8,8 @@ export type	TNormalizedBN = {
 	normalized: number | string,
 }
 
-export const DefaultTNormalizedBN: TNormalizedBN = {raw: ethers.constants.Zero, normalized: 0};
+export const Zero = ethers.constants.Zero;
+export const DefaultTNormalizedBN: TNormalizedBN = {raw: Zero, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
@@ -23,7 +24,7 @@ export function units(value?: BigNumberish, unitName?: BigNumberish | undefined)
 }
 
 export function	bigNumberAsAmount(
-	bnAmount = ethers.constants.Zero,
+	bnAmount = Zero,
 	decimals = 18,
 	decimalsToDisplay = 2,
 	symbol = ''

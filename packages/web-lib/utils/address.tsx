@@ -5,6 +5,8 @@ import type {TDict} from './types';
 //cf: https://github.com/ethers-io/ethers.js/discussions/1429
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
+export const addressZero = toAddress(ethers.constants.AddressZero)
+
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
 ** always be sure they are correct. An address should not be a string, it
@@ -48,7 +50,7 @@ export function toENS(address: string | undefined, format?: boolean, size?: numb
 ** isZeroAddress is used to check if an address is the zero address.
 **************************************************************************/
 export function isZeroAddress(address?: string): boolean {
-	return toAddress(address) === ethers.constants.AddressZero as TAddress;
+	return toAddress(address) === addressZero;
 }
 
 /* 🔵 - Yearn Finance ******************************************************
