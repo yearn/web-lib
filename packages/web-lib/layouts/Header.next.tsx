@@ -107,7 +107,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							leave={'transition duration-75 ease-out'}
 							leaveFrom={'transform scale-100 opacity-100'}
 							leaveTo={'transform scale-95 opacity-0'}>
-							<Listbox.Options className={'yearn--listbox-menu yearn--shadow -ml-1 bg-neutral-0'}>
+							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
 								{supportedNetworks.map((network): ReactElement => (
 									<Listbox.Option key={network.value} value={network}>
 										{({active}): ReactElement => (

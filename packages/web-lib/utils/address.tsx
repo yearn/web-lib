@@ -5,7 +5,7 @@ import type {TDict} from './types';
 //cf: https://github.com/ethers-io/ethers.js/discussions/1429
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
-export const addressZero = toAddress(ethers.constants.AddressZero)
+export const addressZero = toAddress(ethers.constants.AddressZero);
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to

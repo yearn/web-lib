@@ -8,7 +8,7 @@ export type	TNormalizedBN = {
 	normalized: number | string,
 }
 
-export const Zero = ethers.constants.Zero;
+export const {Zero} = ethers.constants;
 export const DefaultTNormalizedBN: TNormalizedBN = {raw: Zero, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
