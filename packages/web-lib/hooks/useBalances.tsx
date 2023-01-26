@@ -147,6 +147,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		} catch (_error) {
 			return [{}, _error as Error];
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
 
 	/* 🔵 - Yearn Finance ******************************************************

@@ -15,6 +15,9 @@ const config = {
 	typescript: {
 		// Disable type checking since eslint handles this
 		ignoreBuildErrors: true
+	},
+	images: {
+		domains: ['img.shields.io']
 	}
 };
 
