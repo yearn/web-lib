@@ -21,7 +21,7 @@ export function toAddress(address?: string): TAddress {
 		return ethers.constants.AddressZero as TAddress;
 	}
 	try {
-		return ethers.utils.getAddress(address) as TAddress;
+		return ethers.utils.getAddress(address.toUpperCase().replace('0X', '0x')) as TAddress;
 	} catch (error) {
 		return ethers.constants.AddressZero as TAddress;
 	}
