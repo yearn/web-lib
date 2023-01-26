@@ -2,11 +2,10 @@ import React, {cloneElement, Fragment, useEffect, useRef, useState} from 'react'
 import {Dialog, Transition} from '@headlessui/react';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
-import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
+import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
-import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from './Modal';
@@ -63,7 +62,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const	[walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const	[optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
 	const	detectedWalletProvider = useInjectedWallet();
-	const	{chainID} = useChainID();
+	const	chains = useChain();
 	const 	{toast} = yToast();
 
 	useEffect((): void => {
@@ -147,9 +146,9 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 									{optionsForSelect.map((id: number): ReactElement => (
 										<option
 											key={id}
-											selected={chainID === id}
+											selected={Number(chains.getCurrent()) === id}
 											value={id}>
-											{chains[id]?.displayName || `Unknown chain (${id})`}
+											{chains.get(id)?.displayName || `Unknown chain (${id})`}
 										</option>
 									))}
 								</select>
