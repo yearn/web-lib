@@ -33,6 +33,7 @@ const defaultState = {
 	hasProvider: false,
 	provider: getProvider(),
 	currentPartner: undefined,
+	walletType: 'NONE',
 	onConnect: async (): Promise<void> => undefined,
 	onSwitchChain: (): void => undefined,
 	openLoginModal: (): void => undefined,
@@ -435,9 +436,10 @@ export const Web3ContextApp = ({
 			onSwitchChain,
 			openLoginModal,
 			onDesactivate: onDesactivate,
-			options: web3Options
+			options: web3Options,
+			walletType: lastWallet
 		});
-	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID]);
+	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, lastWallet]);
 
 	return (
 		<Web3Context.Provider value={contextValue}>
