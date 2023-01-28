@@ -293,7 +293,7 @@ export const Web3ContextApp = ({
 			**	and try to connect.
 			**********************************************************************/
 			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI});
+				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
 				connectors.eip1193.connector.init(frameWeb3Provider);
@@ -382,7 +382,7 @@ export const Web3ContextApp = ({
 			**	and try to connect.
 			**********************************************************************/
 			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI});
+				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
 				connectors.eip1193.connector.init(frameWeb3Provider);
