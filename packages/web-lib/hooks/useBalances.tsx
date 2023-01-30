@@ -5,7 +5,7 @@ import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {ETH_TOKEN_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import * as format from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
@@ -128,12 +128,15 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			for (const element of tokens) {
 				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
-				const	decimals = results[rIndex++] as number;
+				let		decimals = results[rIndex++] as number;
 				const	rawPrice = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
 				let symbol = results[rIndex++] as string;
 
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
 					symbol = 'ETH';
+				}
+				if (toAddress(token) === VLYCRV_TOKEN_ADDRESS) {
+					decimals = 18;
 				}
 				_data[toAddress(token)] = {
 					decimals: Number(decimals),

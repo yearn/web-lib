@@ -1,10 +1,10 @@
-import	{CoinbaseWallet}						from	'@web3-react/coinbase-wallet';
-import	{initializeConnector}	from	'@web3-react/core';
-import	{GnosisSafe}							from	'@web3-react/gnosis-safe';
-import	{MetaMask}								from	'@web3-react/metamask';
-import	{WalletConnect}							from	'@web3-react/walletconnect';
-import	{EIP1193}								from	'@yearn-finance/web-lib/utils/web3/connectors.eip1193';
-import	{getRPC}								from	'@yearn-finance/web-lib/utils/web3/providers';
+import {CoinbaseWallet} from '@web3-react/coinbase-wallet';
+import {initializeConnector} from '@web3-react/core';
+import {GnosisSafe} from '@web3-react/gnosis-safe';
+import {MetaMask} from '@web3-react/metamask';
+import {WalletConnect} from '@web3-react/walletconnect';
+import {EIP1193} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193';
+import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {Web3ReactHooks} from '@web3-react/core';
 
