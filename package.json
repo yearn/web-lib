@@ -6,7 +6,7 @@
 		"packages/*"
 	],
 	"devDependencies": {
-		"lerna": "5.1.6"
+		"lerna": "6.4.1"
 	},
 	"scripts": {
 		"bootstrap": "lerna bootstrap --hoist",
