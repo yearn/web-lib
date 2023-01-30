@@ -18,6 +18,7 @@ import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connecto
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ErrorInfo, ReactElement} from 'react';
+import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import type {TAddress} from '@yearn-finance/web-lib/utils/address';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
@@ -180,22 +181,43 @@ export const Web3ContextApp = ({
 		}
 		set_isConnecting(true);
 		if (providerType === 'INJECTED') {
-			if (isActive) {
-				await connectors.metamask.connector.deactivate?.();
-			}
-			try {
-				await connectors.metamask.connector.activate();
-				set_lastWallet('INJECTED');
-				if (onSuccess) {
-					onSuccess();
+			const	ethereum = (window?.ethereum as TWalletProvider);
+			if (ethereum?.isFrame) {
+				if (isActive) {
+					await connectors.frame.connector.deactivate?.();
 				}
-				set_isConnecting(false);
-			} catch (error) {
-				set_lastWallet('NONE');
-				if (onError) {
-					onError(error as Error);
+				try {
+					await connectors.frame.connector.activate();
+					set_lastWallet('INJECTED');
+					if (onSuccess) {
+						onSuccess();
+					}
+					set_isConnecting(false);
+				} catch (error) {
+					set_lastWallet('NONE');
+					if (onError) {
+						onError(error as Error);
+					}
+					set_isConnecting(false);
 				}
-				set_isConnecting(false);
+			} else {
+				if (isActive) {
+					await connectors.metamask.connector.deactivate?.();
+				}
+				try {
+					await connectors.metamask.connector.activate();
+					set_lastWallet('INJECTED');
+					if (onSuccess) {
+						onSuccess();
+					}
+					set_isConnecting(false);
+				} catch (error) {
+					set_lastWallet('NONE');
+					if (onError) {
+						onError(error as Error);
+					}
+					set_isConnecting(false);
+				}
 			}
 		} else if (providerType === 'WALLET_CONNECT') {
 			if (isActive) {
