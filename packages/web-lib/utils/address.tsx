@@ -13,7 +13,7 @@ export const addressZero = toAddress(ethers.constants.AddressZero);
 ** should be a specific type address, which does not exists, so any address
 ** should always be called by toAddress(0x...).
 **************************************************************************/
-export function toAddress(address?: string): TAddress {
+export function toAddress(address?: string | null | undefined): TAddress {
 	if (!address) {
 		return ethers.constants.AddressZero as TAddress;
 	}
@@ -31,7 +31,7 @@ export function toAddress(address?: string): TAddress {
 ** toENS is used to find the ENS name of an address. It will return the
 ** address if no ENS name is found.
 **************************************************************************/
-export function toENS(address: string | undefined, format?: boolean, size?: number): string {
+export function toENS(address: string | null | undefined, format?: boolean, size?: number): string {
 	if (!address) {
 		return address || '';
 	}
