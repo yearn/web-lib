@@ -34,7 +34,7 @@ function Dropdown(props: TDropdownProps): ReactElement {
 								{selected?.icon ? cloneElement(selected.icon, {className: 'w-5 h-5 mr-2 min-w-[24px]'}) : null}
 								<p className={'font-roboto font-normal text-inherit'}>{selected?.label || defaultOption.label}</p>
 							</div>
-							<IconChevron className={`ml-3 h-4 w-4 transition-transform${open ? '-rotate-90' : '-rotate-180'}`} />
+							<IconChevron className={`ml-3 h-4 w-4 transition-transform ${open ? '-rotate-90' : '-rotate-180'}`} />
 						</Menu.Button>
 						<Transition
 							as={Fragment}
