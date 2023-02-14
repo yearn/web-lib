@@ -29,7 +29,7 @@ const Button = forwardRef((props: TButton): ReactElement => {
 					{children}
 				</button>
 			</a>
-		);	
+		);
 	}
 	return (
 		<button

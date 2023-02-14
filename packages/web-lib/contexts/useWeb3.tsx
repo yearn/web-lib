@@ -3,22 +3,23 @@ import {ethers} from 'ethers';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 import {useClientEffect} from '@yearn-finance/web-lib/hooks/useClientEffect';
 import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 import {connectors} from '@yearn-finance/web-lib/utils/web3/connectors';
 import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193.ledger';
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
-import {useWindowInFocus} from '../hooks';
-
 import type {ErrorInfo, ReactElement} from 'react';
+import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
+import type {TAddress} from '@yearn-finance/web-lib/utils/address';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
 import type {TWeb3Context, TWeb3Options} from './types';
@@ -33,6 +34,7 @@ const defaultState = {
 	hasProvider: false,
 	provider: getProvider(),
 	currentPartner: undefined,
+	walletType: 'NONE',
 	onConnect: async (): Promise<void> => undefined,
 	onSwitchChain: (): void => undefined,
 	openLoginModal: (): void => undefined,
@@ -52,20 +54,21 @@ export const Web3ContextApp = ({
 	children: ReactElement,
 	options?: TWeb3Options
 }): ReactElement => {
-	const	web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
-	const   {connector, isActive, provider, account, chainId} = useWeb3React();
-	const	[chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
-	const	debouncedChainID = useDebounce(chainId, 500);
-	const	hasWindowInFocus = useWindowInFocus();
-	const	detectedWalletProvider = useInjectedWallet();
+	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
+	const {connector, isActive, provider, account, chainId} = useWeb3React();
+	const [chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
+	const debouncedChainID = useDebounce(chainId, 500);
+	const hasWindowInFocus = useWindowInFocus();
+	const detectedWalletProvider = useInjectedWallet();
+	const chains = useChain();
 
-	const   [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
-	const   [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
-	const   [isConnecting, set_isConnecting] = useState(false);
-	const   [isDisconnected, set_isDisconnected] = useState(false);
-	const	[hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
-	const	[isModalLoginOpen, set_isModalLoginOpen] = useState(false);
-	const	[currentPartner, set_currentPartner] = useState<TPartnersInfo>();
+	const [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
+	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
+	const [isConnecting, set_isConnecting] = useState(false);
+	const [isDisconnected, set_isDisconnected] = useState(false);
+	const [hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
+	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+	const [currentPartner, set_currentPartner] = useState<TPartnersInfo>();
 
 	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
 		if (newChainID === debouncedChainID) {
@@ -121,8 +124,8 @@ export const Web3ContextApp = ({
 					})
 					.catch((): void => set_hasDisableAutoChainChange(true));
 			} else {
-				if (newChainID in chains) {
-					const chainSwap = chains[newChainID]?.chain_swap;
+				if (newChainID in chains.getAll()) {
+					const chainSwap = chains.get(newChainID)?.chain_swap;
 					provider
 						.send('wallet_addEthereumChain', [chainSwap, account])
 						.then((): void => {
@@ -178,22 +181,43 @@ export const Web3ContextApp = ({
 		}
 		set_isConnecting(true);
 		if (providerType === 'INJECTED') {
-			if (isActive) {
-				await connectors.metamask.connector.deactivate?.();
-			}
-			try {
-				await connectors.metamask.connector.activate();
-				set_lastWallet('INJECTED');	
-				if (onSuccess) {
-					onSuccess();
+			const	ethereum = (window?.ethereum as TWalletProvider);
+			if (ethereum?.isFrame) {
+				if (isActive) {
+					await connectors.frame.connector.deactivate?.();
 				}
-				set_isConnecting(false);
-			} catch (error) {
-				set_lastWallet('NONE');
-				if (onError) {
-					onError(error as Error);
+				try {
+					await connectors.frame.connector.activate();
+					set_lastWallet('INJECTED');
+					if (onSuccess) {
+						onSuccess();
+					}
+					set_isConnecting(false);
+				} catch (error) {
+					set_lastWallet('NONE');
+					if (onError) {
+						onError(error as Error);
+					}
+					set_isConnecting(false);
 				}
-				set_isConnecting(false);
+			} else {
+				if (isActive) {
+					await connectors.metamask.connector.deactivate?.();
+				}
+				try {
+					await connectors.metamask.connector.activate();
+					set_lastWallet('INJECTED');
+					if (onSuccess) {
+						onSuccess();
+					}
+					set_isConnecting(false);
+				} catch (error) {
+					set_lastWallet('NONE');
+					if (onError) {
+						onError(error as Error);
+					}
+					set_isConnecting(false);
+				}
 			}
 		} else if (providerType === 'WALLET_CONNECT') {
 			if (isActive) {
@@ -201,7 +225,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.walletConnect.connector.activate(1);
-				set_lastWallet('WALLET_CONNECT');	
+				set_lastWallet('WALLET_CONNECT');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -239,7 +263,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.coinbase.connector.activate(1);
-				set_lastWallet('EMBED_COINBASE');	
+				set_lastWallet('EMBED_COINBASE');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -257,7 +281,7 @@ export const Web3ContextApp = ({
 			}
 			try {
 				await connectors.metamask.connector.activate(1);
-				set_lastWallet('EMBED_TRUSTWALLET');	
+				set_lastWallet('EMBED_TRUSTWALLET');
 				if (onSuccess) {
 					onSuccess();
 				}
@@ -269,7 +293,7 @@ export const Web3ContextApp = ({
 				}
 				set_isConnecting(false);
 			}
-		} 
+		}
 	}, [isActive, web3Options.shouldUseWallets, detectedWalletProvider]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useClientEffect((): void => {
@@ -292,7 +316,7 @@ export const Web3ContextApp = ({
 			**	and try to connect.
 			**********************************************************************/
 			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI});
+				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
 				connectors.eip1193.connector.init(frameWeb3Provider);
@@ -316,7 +340,7 @@ export const Web3ContextApp = ({
 					});
 				} catch (error) {
 					console.error(error);
-					// 
+					//
 				}
 			}
 		} else if (detectedWalletProvider.type === 'EMBED_COINBASE') {
@@ -347,7 +371,7 @@ export const Web3ContextApp = ({
 	**	Used to fully disconnect a wallet from the UI. Will reset the state, the ENS and the
 	**	lastWallet.
 	******************************************************************************************/
-	const onDesactivate = useCallback((): void  => {
+	const onDesactivate = useCallback((): void => {
 		performBatchedUpdates((): void => {
 			set_ens('');
 			set_lastWallet('NONE');
@@ -355,7 +379,7 @@ export const Web3ContextApp = ({
 			connector.deactivate?.();
 			connector.resetState?.();
 		});
-		setTimeout((): void => set_isDisconnected(false), 100);	
+		setTimeout((): void => set_isDisconnected(false), 100);
 	}, [connector]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	/* 💙 - Yearn Finance *********************************************************************
@@ -381,7 +405,7 @@ export const Web3ContextApp = ({
 			**	and try to connect.
 			**********************************************************************/
 			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider({targetOrigin: partnerInformation.originURI});
+				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
 				connectors.eip1193.connector.init(frameWeb3Provider);
@@ -405,7 +429,7 @@ export const Web3ContextApp = ({
 					});
 				} catch (error) {
 					console.error(error);
-					// 
+					//
 				}
 			}
 		} else {
@@ -419,23 +443,25 @@ export const Web3ContextApp = ({
 	******************************************************************************************/
 	const	contextValue = useMemo((): TWeb3Context => {
 		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
+
 		return ({
-			address: account,
+			address: account as TAddress,
 			ens: isReallyActive ? ens : '',
 			isDisconnected,
 			isActive: isReallyActive,
 			isConnecting,
 			hasProvider: !!provider,
-			provider: provider as ethers.providers.BaseProvider,
+			provider: provider as ethers.providers.Web3Provider,
 			chainID,
 			currentPartner,
 			onConnect,
 			onSwitchChain,
 			openLoginModal,
 			onDesactivate: onDesactivate,
-			options: web3Options
+			options: web3Options,
+			walletType: lastWallet
 		});
-	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID]);
+	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, lastWallet]);
 
 	return (
 		<Web3Context.Provider value={contextValue}>

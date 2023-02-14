@@ -67,7 +67,7 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 ** Connect to the RPC of the specific chain we want. Not all chains are
 ** supported and default is chain 1, aka ethereum mainnet.
 **************************************************************************/
-export function getProvider(chain = 1): ethers.providers.BaseProvider | ethers.providers.Web3Provider {
+export function getProvider(chain = 1): ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider {
 	if (envRPCURI?.[chain]) {
 		return new ethers.providers.JsonRpcProvider(envRPCURI?.[chain]);
 	}

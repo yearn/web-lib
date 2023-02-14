@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
 import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletPhantom from '@yearn-finance/web-lib/icons/IconWalletPhantom';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 
 import type {ReactElement} from 'react';
@@ -13,6 +14,7 @@ export type TWalletProvider = {
 	isMetaMask?: boolean,
 	isTrustWallet?: boolean,
 	isTrust?: boolean, //trustWallet for mobile
+	isPhantom?: boolean,
 }
 
 export type TInjectedWallet = {
@@ -60,10 +62,10 @@ export function useInjectedWallet(): TInjectedWallet {
 					type: 'INJECTED'
 				});
 			}
-			if (ethereum?.isMetaMask) {
+			if (ethereum?.isPhantom) {
 				return ({
-					name: 'Metamask',
-					icon: <IconWalletMetamask />,
+					name: 'Phantom',
+					icon: <IconWalletPhantom />,
 					type: 'INJECTED'
 				});
 			}
@@ -81,9 +83,16 @@ export function useInjectedWallet(): TInjectedWallet {
 					type: 'EMBED_TRUSTWALLET'
 				});
 			}
+			if (ethereum?.isMetaMask) {
+				return ({
+					name: 'Metamask',
+					icon: <IconWalletMetamask />,
+					type: 'INJECTED'
+				});
+			}
 		}
 
-		//Non supported yet: 
+		//Non supported yet:
 		// if (ethereum?.isAvalanche) 'Core Wallet'
 		// if (ethereum?.isBitKeep) 'BitKeep'
 		// if (ethereum?.isBraveWallet) 'Brave Wallet'
@@ -98,7 +107,7 @@ export function useInjectedWallet(): TInjectedWallet {
 		// if (ethereum?.isTokenary) 'Tokenary'
 
 		return ({
-			name: 'frame',
+			name: 'Frame',
 			icon: <IconWalletFrame className={'text-neutral-900'} />,
 			type: 'INJECTED'
 		});

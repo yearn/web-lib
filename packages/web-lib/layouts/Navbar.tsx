@@ -86,7 +86,7 @@ function	Navbar({
 					</div>
 				</a>
 				<nav className={'scrollbar-none mt-12 flex max-h-[75vh] flex-col space-y-4 overflow-y-auto'}>
-					{options.map((option): ReactElement  => {
+					{options.map((option): ReactElement => {
 						if (wrapper) {
 							return (
 								<div key={option.route} className={'space-y-2'}>

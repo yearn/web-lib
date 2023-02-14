@@ -1,11 +1,11 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
 import {Listbox, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
+import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
 import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
-import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 
@@ -41,13 +41,14 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 
 export type TNetwork = {value: number, label: string};
 function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): ReactElement {
+	const chains = useChain();
 	const {safeChainID} = useChainID();
 	const {onSwitchChain} = useWeb3();
-	
+
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (
-			{value: chainID, label: chains[chainID]?.displayName || `Chain ${chainID}`}
+			{value: chainID, label: chains.get(chainID)?.displayName || `Chain ${chainID}`}
 		));
 	}, [supportedChainID]);
 
@@ -107,7 +108,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							leave={'transition duration-75 ease-out'}
 							leaveFrom={'transform scale-100 opacity-100'}
 							leaveTo={'transform scale-95 opacity-0'}>
-							<Listbox.Options className={'yearn--listbox-menu -ml-1 !bg-neutral-100'}>
+							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
 								{supportedNetworks.map((network): ReactElement => (
 									<Listbox.Option key={network.value} value={network}>
 										{({active}): ReactElement => (
@@ -160,7 +161,7 @@ function	WalletSelector(): ReactElement {
 					<span>
 						<IconWallet
 							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-						<span className={'hidden md:block'}>
+						<span className={'text-neutral-0 relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal transition-all hover:bg-neutral-800 md:flex'}>
 							{'Connect wallet'}
 						</span>
 					</span>

@@ -64,18 +64,19 @@ export type TWeb3Options = {
 }
 
 export type TWeb3Context = {
-	address: string | null | undefined,
+	address: TAddress | null | undefined,
 	ens: string | undefined,
 	chainID: number,
 	isDisconnected: boolean,
 	isActive: boolean,
 	isConnecting: boolean,
 	hasProvider: boolean,
-	provider: ethers.providers.Provider,
+	provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,
 	currentPartner?: TPartnersInfo,
 	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
-	options?: TWeb3Options
+	options?: TWeb3Options,
+	walletType: string,
 }

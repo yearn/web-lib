@@ -20,6 +20,7 @@ function	WithYearn({children, options}: {
 	}
 }): ReactElement {
 	const web3Connectors: [Connector, Web3ReactHooks][] = [
+		[connectors.frame.connector, connectors.frame.hooks],
 		[connectors.metamask.connector, connectors.metamask.hooks],
 		[connectors.walletConnect.connector, connectors.walletConnect.hooks],
 		[connectors.eip1193.connector, connectors.eip1193.hooks],

@@ -46,7 +46,7 @@ module.exports = {
 			'red-900': withOpacityValue('--color-red-900'),
 			'red-300': withOpacityValue('--color-red-300'),
 			'red-200': withOpacityValue('--color-red-200'),
-			
+
 
 			/* 🔵 - Yearn Finance ******************************************************
 			** Colors for the next Yearn design system

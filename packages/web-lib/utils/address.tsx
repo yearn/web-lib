@@ -5,13 +5,15 @@ import type {TDict} from './types';
 //cf: https://github.com/ethers-io/ethers.js/discussions/1429
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
+export const addressZero = toAddress(ethers.constants.AddressZero);
+
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
 ** always be sure they are correct. An address should not be a string, it
 ** should be a specific type address, which does not exists, so any address
 ** should always be called by toAddress(0x...).
 **************************************************************************/
-export function toAddress(address?: string): TAddress {
+export function toAddress(address?: string | null | undefined): TAddress {
 	if (!address) {
 		return ethers.constants.AddressZero as TAddress;
 	}
@@ -19,7 +21,7 @@ export function toAddress(address?: string): TAddress {
 		return ethers.constants.AddressZero as TAddress;
 	}
 	try {
-		return ethers.utils.getAddress(address) as TAddress;
+		return ethers.utils.getAddress(address.toUpperCase().replace('0X', '0x')) as TAddress;
 	} catch (error) {
 		return ethers.constants.AddressZero as TAddress;
 	}
@@ -29,7 +31,7 @@ export function toAddress(address?: string): TAddress {
 ** toENS is used to find the ENS name of an address. It will return the
 ** address if no ENS name is found.
 **************************************************************************/
-export function toENS(address: string | undefined, format?: boolean, size?: number): string {
+export function toENS(address: string | null | undefined, format?: boolean, size?: number): string {
 	if (!address) {
 		return address || '';
 	}
@@ -48,7 +50,7 @@ export function toENS(address: string | undefined, format?: boolean, size?: numb
 ** isZeroAddress is used to check if an address is the zero address.
 **************************************************************************/
 export function isZeroAddress(address?: string): boolean {
-	return toAddress(address) === ethers.constants.AddressZero as TAddress;
+	return toAddress(address) === addressZero;
 }
 
 /* 🔵 - Yearn Finance ******************************************************

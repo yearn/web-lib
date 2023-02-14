@@ -5,7 +5,7 @@ import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {ETH_TOKEN_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import * as format from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
@@ -44,7 +44,7 @@ export type	TUseBalancesRes = {
 	error?: Error,
 	status: 'error' | 'loading' | 'success' | 'unknown',
 	nonce: number
-} & TDefaultStatus 
+} & TDefaultStatus
 
 type TDataRef = {
 	nonce: number,
@@ -103,7 +103,9 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			const	ownerAddress = (element?.for || web3Address) as string;
 			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
-				const	tokenContract = new Contract(WETH_TOKEN_ADDRESS, ERC20_ABI);
+				const	tokenContract = web3ChainID === 250
+					? new Contract(WFTM_TOKEN_ADDRESS, ERC20_ABI)
+					: new Contract(WETH_TOKEN_ADDRESS, ERC20_ABI);
 				calls.push(
 					ethcallProvider.getEthBalance(ownerAddress),
 					tokenContract.decimals(),
@@ -126,12 +128,15 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			for (const element of tokens) {
 				const	{token} = element;
 				const	balanceOf = results[rIndex++] as BigNumber;
-				const	decimals = results[rIndex++] as number;
+				let		decimals = results[rIndex++] as number;
 				const	rawPrice = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
 				let symbol = results[rIndex++] as string;
 
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
 					symbol = 'ETH';
+				}
+				if (toAddress(token) === VLYCRV_TOKEN_ADDRESS) {
+					decimals = 18;
 				}
 				_data[toAddress(token)] = {
 					decimals: Number(decimals),
@@ -147,11 +152,12 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		} catch (_error) {
 			return [{}, _error as Error];
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isActive, web3Address, props?.chainID, props?.prices, web3ChainID, provider, ...effectDependencies]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X time, based on the
-	** refreshEvery prop. This specific effect is not used if the refresh is 
+	** refreshEvery prop. This specific effect is not used if the refresh is
 	** not set or if it is set to 'block'.
 	**************************************************************************/
 	useEffect((): () => void => {
@@ -174,7 +180,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** Add an interval to update the balance every X block, based on the
-	** refreshEvery prop. This specific effect is not used if the refresh is 
+	** refreshEvery prop. This specific effect is not used if the refresh is
 	** not set or if it is NOT set to 'block'.
 	**************************************************************************/
 	useEffect((): () => void => {
@@ -218,7 +224,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		});
 		return data.current.balances;
 	}, [getBalances, stringifiedTokens, web3Address]);
-		
+
 	const	onUpdateSome = useCallback(async (tokenList: TUseBalancesTokens[]): Promise<TDict<TBalanceData>> => {
 		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched});
 

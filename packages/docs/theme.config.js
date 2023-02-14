@@ -3,7 +3,7 @@
 
 const GITHUB_URI = 'https://github.com/yearn/web-lib';
 
-export default {
+const themeConfig = {
 	docsRepositoryBase: GITHUB_URI,
 	feedbackLabels: 'feedback',
 	feedbackLink: 'Question? Give us feedback →',
@@ -98,3 +98,5 @@ export default {
 	titleSuffix: ' – Yearn',
 	unstable_flexsearch: true
 };
+
+export default themeConfig;

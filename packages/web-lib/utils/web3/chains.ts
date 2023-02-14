@@ -19,6 +19,9 @@ export type TChain = {
 	};
 }
 
+/**
+ * @deprecated Use the hook `useChain` instead
+ */
 const CHAINS: TNDict<TChain> = {
 	1: {
 		'chainID': '1',

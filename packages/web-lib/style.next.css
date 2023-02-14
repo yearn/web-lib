@@ -75,7 +75,7 @@
 	--color-error-200: 328 100% 90%;
 	--color-red-900: 0 100% 45%;
 	--color-red-300: 0 100% 95%;
-	--color-red-200: 0 100% 90%;	
+	--color-red-200: 0 100% 90%;
 
 	--default-rounded: 0rem;
 }
@@ -107,7 +107,7 @@ h4 {@apply text-lg font-bold text-neutral-700;}
 input::placeholder {@apply text-neutral-400 not-italic}
 textarea::placeholder {@apply text-neutral-400 not-italic}
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
@@ -197,6 +197,14 @@ label[aria-invalid="true"] {
 		@apply text-neutral-900 bg-transparent border border-neutral-900;
 		&:disabled {@apply opacity-40;}
 		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-900 text-neutral-0;}
+	}
+	&[data-variant="reverted"] {
+		@apply text-neutral-900 bg-neutral-0 font-normal border border-transparent;
+		&:disabled {@apply bg-neutral-200 opacity-40;}
+		&:not(:disabled):not([aria-busy="true"]):hover {@apply bg-neutral-200;}
+		&[aria-busy="true"] svg {
+			@apply text-neutral-900;
+		}
 	}
 	&[aria-busy="true"] {
 		@apply cursor-wait;
@@ -509,7 +517,7 @@ label[aria-invalid="true"] {
 :root.dark {
 	& .yearn--modal-overlay {
 		@apply bg-neutral-100/90;
-	}	
+	}
 }
 
 .yearn--modal {
@@ -523,7 +531,7 @@ label[aria-invalid="true"] {
 }
 .yearn--modalLogin-card {
 	@apply flex flex-col justify-center items-center p-6 text-center transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-100;
-	
+
 	border-radius: var(--default-rounded);
 	& > div > svg {@apply w-12 h-12;}
 	& > b {@apply mt-2 text-lg text-neutral-700;}
@@ -680,7 +688,6 @@ label[aria-invalid="true"] {
 }
 .yearn--listbox-menu {
 	@apply flex overflow-y-auto absolute left-0 flex-col mt-1 w-full min-w-fit max-h-60 scrollbar-none text-neutral-900 bg-neutral-0;
-	box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
 }
 .yearn--listbox-menu-item {
 	@apply w-full flex flex-row items-center cursor-pointer py-2 pr-4 pl-3 transition-colors;
@@ -745,6 +752,17 @@ label[aria-invalid="true"] {
 
 .yearn--toast-button {
 	@apply text-xs px-3 py-1 text-[#0657F9] bg-white;
+}
+
+
+.yearn--shadow {
+	box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
+}
+
+:root.dark {
+	& .yearn--shadow {
+		@apply border-solid border border-neutral-200;
+	}
 }
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -820,6 +838,10 @@ label[aria-invalid="true"] {
 	@apply font-normal text-xs underline underline-offset-4;
 }
 
+.font-number {
+	@apply font-mono tabular-nums;
+}
+
 [type='text']:focus,
 [type='email']:focus,
 [type='url']:focus,
@@ -837,4 +859,10 @@ textarea:focus,
 select:focus {
 	outline: none;
 	box-shadow: none;
+}
+
+[type='checkbox'],
+[type='checkbox']:focus {
+	@apply outline-none focus:border-0 focus:outline-none focus:ring-0 active:border-0 active:ring-0;
+	box-shadow: none !important;
 }

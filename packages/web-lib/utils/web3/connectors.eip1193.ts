@@ -47,9 +47,9 @@ export class EIP1193 extends Connector {
 		const cancelActivation = this.actions.startActivation();
 
 		return Promise.all([
-		this.provider?.request({method: 'eth_chainId'}) as Promise<string>,
-		this.provider?.request({method: 'eth_requestAccounts'})
-			.catch(async (): Promise<unknown> => this.provider?.request({method: 'eth_accounts'})) as Promise<string[]>
+			this.provider?.request({method: 'eth_chainId'}) as Promise<string>,
+			this.provider?.request({method: 'eth_requestAccounts'})
+				.catch(async (): Promise<unknown> => this.provider?.request({method: 'eth_accounts'})) as Promise<string[]>
 		]).then(([chainId, accounts]): void => {
 			this.actions.update({chainId: parseChainId(chainId), accounts});
 		}).catch((error): void => {

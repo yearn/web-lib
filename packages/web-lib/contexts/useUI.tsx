@@ -30,7 +30,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	function	renderToaster(): ReactElement {
 		if (uiOptions.shouldUseDefaultToaster) {
 			return (
-				<Toaster 
+				<Toaster
 					containerClassName={'!z-[1000000]'}
 					gutter={0}
 					position={'bottom-center'}
@@ -74,7 +74,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 
 		nsRefCount.current += 1;
 	}, []);
-		
+
 	const	onLoadDone = useCallback((): void => {
 		if (nsRefCount.current === 0) {
 			NProgress.done();
@@ -95,7 +95,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		onLoadStart,
 		onLoadDone
 	}), [onLoadStart, onLoadDone]);
-	
+
 	return (
 		<UI.Provider value={contextValue}>
 			{renderToaster()}

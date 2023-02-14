@@ -31,4 +31,4 @@ export function getTimeUntil(time?: TMilliseconds): TMilliseconds {
 export function roundToWeek(time?: TMilliseconds): TMilliseconds {
 	return Math.floor(toTime(time) / WEEK) * WEEK;
 }
-	
+

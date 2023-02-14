@@ -1,5 +1,5 @@
-import React, {useState}      from 'react';
-import {CodeExample}     from 'components/CodeExample';
+import React, {useState} from 'react';
+import {CodeExample} from 'components/CodeExample';
 import {Button} from '@yearn-finance/web-lib/components/Button';
 import {Card} from '@yearn-finance/web-lib/components/Card';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
