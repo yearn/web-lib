@@ -62,7 +62,7 @@ export const Web3ContextApp = ({
 	const detectedWalletProvider = useInjectedWallet();
 	const chains = useChain();
 
-	const [ens, set_ens] = useLocalStorage('ens', '') as [string, (s: string) => void];
+	const [ens, set_ens] = useState('');
 	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
 	const [isConnecting, set_isConnecting] = useState(false);
 	const [isDisconnected, set_isDisconnected] = useState(false);
@@ -335,6 +335,7 @@ export const Web3ContextApp = ({
 									walletType: 'EMBED_GNOSIS_SAFE'
 								});
 								set_lastWallet('EMBED_GNOSIS_SAFE');
+								connectors.gnosisSafe.connector.activate();
 							});
 						}
 					});

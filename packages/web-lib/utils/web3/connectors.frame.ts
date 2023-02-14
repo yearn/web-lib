@@ -34,7 +34,7 @@ export class Frame extends Connector {
 	private readonly options?: TFrameConnectorArguments;
 	private eagerConnection?: Promise<void>;
 
-	constructor(actions: TActions, options?: TFrameConnectorArguments, connectEagerly = true) {
+	constructor(actions: TActions, options?: TFrameConnectorArguments, connectEagerly = false) {
 		super(actions);
 		this.options = options;
 

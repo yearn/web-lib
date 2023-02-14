@@ -156,7 +156,7 @@ function	WalletSelector(): ReactElement {
 					openLoginModal();
 				}
 			}}>
-			<p className={'yearn--header-nav-item text-sm'}>
+			<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
 				{walletIdentity ? walletIdentity : (
 					<span>
 						<IconWallet
