@@ -54,7 +54,7 @@ Then, setup your `tailwind.config.js` file to enable detection of your style and
 ```js
 const {join} = require('path');
 module.exports = {
-	presets: [require('@yearn-finance/web-lib/tailwind.config.cjs')],
+	presets: [require('@yearn-finance/web-lib/config/tailwind.plugin.cjs')],
 	content: [
 		join(__dirname, 'pages', '**', '*.{js,jsx,ts,tsx}'),
 		join(__dirname, 'components', 'icons', '**', '*.{js,jsx,ts,tsx}'),
