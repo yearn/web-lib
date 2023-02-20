@@ -2109,9 +2109,9 @@
     glob "7.1.7"
 
 "@next/font@^13.0.6":
-  version "13.0.6"
-  resolved "https://registry.yarnpkg.com/@next/font/-/font-13.0.6.tgz#078f9929f3bae56c37046ebadd45179c57ed9154"
-  integrity sha512-5vxNmvnV0CbYjQGtztD5Axft9C7npKihbQpiFhnDwdb99f9K/QSFfcJqxz0E5QBkf67O2niVGJ5lApJDu78w0w==
+  version "13.1.6"
+  resolved "https://registry.yarnpkg.com/@next/font/-/font-13.1.6.tgz#2bf99e3321ec9b4d65781c0d0ebff072e8752e1a"
+  integrity sha512-AITjmeb1RgX1HKMCiA39ztx2mxeAyxl4ljv2UoSBUGAbFFMg8MO7YAvjHCgFhD39hL7YTbFjol04e/BPBH5RzQ==
 
 "@next/swc-android-arm-eabi@12.3.4":
   version "12.3.4"
