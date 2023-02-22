@@ -56,6 +56,13 @@ export function useInjectedWallet(): TInjectedWallet {
 					type: 'EMBED_COINBASE'
 				});
 			}
+			if (okxwallet?.isOkxWallet || okxwallet?.isOKExWallet) {
+				return ({
+					name: 'OKX Wallet',
+					icon: <IconWalletOKX />,
+					type: 'INJECTED'
+				});
+			}
 			if (ethereum?.isCoinbaseWallet) {
 				return ({
 					name: 'Coinbase',
@@ -89,13 +96,6 @@ export function useInjectedWallet(): TInjectedWallet {
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,
 					type: 'EMBED_TRUSTWALLET'
-				});
-			}
-			if (okxwallet?.isOkxWallet || okxwallet?.isOKExWallet) {
-				return ({
-					name: 'OKX Wallet',
-					icon: <IconWalletOKX />,
-					type: 'INJECTED'
 				});
 			}
 			if (ethereum?.isMetaMask) {
