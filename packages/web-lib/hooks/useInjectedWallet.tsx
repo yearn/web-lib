@@ -59,7 +59,7 @@ export function useInjectedWallet(): TInjectedWallet {
 			if (okxwallet?.isOkxWallet || okxwallet?.isOKExWallet) {
 				return ({
 					name: 'OKX Wallet',
-					icon: <IconWalletOKX />,
+					icon: <IconWalletOKX className={'text-neutral-900'} />,
 					type: 'INJECTED'
 				});
 			}
