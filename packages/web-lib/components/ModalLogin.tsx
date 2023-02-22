@@ -34,7 +34,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					<div>{cloneElement(detectedWalletProvider.icon)}</div>
+					<div>{cloneElement(detectedWalletProvider.icon, {className: 'w-12 h-12'})}</div>
 					<b>{detectedWalletProvider.name}</b>
 				</div>
 				<div
@@ -46,7 +46,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					<div><IconWalletWalletConnect /></div>
+					<div><IconWalletWalletConnect className={'h-12 w-12'} /></div>
 					<b>{'WalletConnect'}</b>
 				</div>
 				<div
@@ -58,7 +58,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					<div><IconWalletCoinbase /></div>
+					<div><IconWalletCoinbase className={'h-12 w-12'} /></div>
 					<b>{'Coinbase'}</b>
 				</div>
 				<div
@@ -70,7 +70,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					<div><IconWalletGnosis /></div>
+					<div><IconWalletGnosis className={'h-12 w-12'} /></div>
 					<b>{'Gnosis'}</b>
 				</div>
 			</div>

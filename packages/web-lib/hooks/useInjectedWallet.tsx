@@ -5,6 +5,8 @@ import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask'
 import IconWalletPhantom from '@yearn-finance/web-lib/icons/IconWalletPhantom';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 
+import IconWalletOKX from '../icons/IconWalletOKX';
+
 import type {ReactElement} from 'react';
 
 export type TWalletProvider = {
@@ -15,6 +17,12 @@ export type TWalletProvider = {
 	isTrustWallet?: boolean,
 	isTrust?: boolean, //trustWallet for mobile
 	isPhantom?: boolean,
+	isOKExWallet?: boolean,
+	isOkxWallet?: boolean,
+}
+export type TWindowWalletProvider = {
+	ethereum?: TWalletProvider,
+	okxwallet?: TWalletProvider,
 }
 
 export type TInjectedWallet = {
@@ -40,7 +48,7 @@ export function useInjectedWallet(): TInjectedWallet {
 
 	const	detectedWalletProvider = useMemo((): TInjectedWallet => {
 		if (typeof(window) !== 'undefined') {
-			const	ethereum = (window?.ethereum as TWalletProvider);
+			const	{ethereum, okxwallet} = (window as TWindowWalletProvider);
 			if (ethereum?.isCoinbaseBrowser) {
 				return ({
 					name: 'Coinbase',
@@ -81,6 +89,13 @@ export function useInjectedWallet(): TInjectedWallet {
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,
 					type: 'EMBED_TRUSTWALLET'
+				});
+			}
+			if (okxwallet?.isOkxWallet || okxwallet?.isOKExWallet) {
+				return ({
+					name: 'OKX Wallet',
+					icon: <IconWalletOKX />,
+					type: 'INJECTED'
 				});
 			}
 			if (ethereum?.isMetaMask) {
