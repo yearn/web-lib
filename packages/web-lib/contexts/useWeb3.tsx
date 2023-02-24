@@ -1,5 +1,6 @@
 import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
+import {useUpdateEffect} from '@react-hookz/web';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
@@ -10,6 +11,7 @@ import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet'
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
+import {lensProtocolFetcher} from '@yearn-finance/web-lib/utils/fetchers';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
@@ -19,7 +21,7 @@ import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ErrorInfo, ReactElement} from 'react';
 import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
-import type {TAddress} from '@yearn-finance/web-lib/utils/address';
+import type {TAddress} from '@yearn-finance/web-lib/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
 import type {TWeb3Context, TWeb3Options} from './types';
@@ -27,6 +29,7 @@ import type {TWeb3Context, TWeb3Options} from './types';
 const defaultState = {
 	address: undefined,
 	ens: undefined,
+	lensProtocolHandle: undefined,
 	chainID: 1,
 	isDisconnected: false,
 	isActive: false,
@@ -63,6 +66,7 @@ export const Web3ContextApp = ({
 	const chains = useChain();
 
 	const [ens, set_ens] = useState('');
+	const [lensProtocolHandle, set_lensProtocolHandle] = useState('');
 	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
 	const [isConnecting, set_isConnecting] = useState(false);
 	const [isDisconnected, set_isDisconnected] = useState(false);
@@ -361,10 +365,16 @@ export const Web3ContextApp = ({
 		}
 	}, [isActive]);
 
-	useClientEffect((): void => {
+	useUpdateEffect((): void => {
 		if (account && isActive) {
-			const	provider = getProvider(1);
-			provider.lookupAddress(toAddress(account)).then((_ens: string | null): void => set_ens(_ens || ''));
+			getProvider(1).lookupAddress(toAddress(account))
+				.then((_ens: string | null): void => {
+					set_ens(_ens || '');
+					lensProtocolFetcher(`{defaultProfile(request: {ethereumAddress: "${account?.toLowerCase()}"}) {handle}}`)
+						.then(({defaultProfile}: {defaultProfile: {handle: string}}): void => {
+							set_lensProtocolHandle(defaultProfile?.handle || '');
+						});
+				});
 		}
 	}, [account, chainID]);
 
@@ -375,6 +385,7 @@ export const Web3ContextApp = ({
 	const onDesactivate = useCallback((): void => {
 		performBatchedUpdates((): void => {
 			set_ens('');
+			set_lensProtocolHandle('');
 			set_lastWallet('NONE');
 			set_isDisconnected(true);
 			connector.deactivate?.();
@@ -448,6 +459,7 @@ export const Web3ContextApp = ({
 		return ({
 			address: account as TAddress,
 			ens: isReallyActive ? ens : '',
+			lensProtocolHandle: isReallyActive ? lensProtocolHandle : '',
 			isDisconnected,
 			isActive: isReallyActive,
 			isConnecting,
@@ -462,7 +474,7 @@ export const Web3ContextApp = ({
 			options: web3Options,
 			walletType: lastWallet
 		});
-	}, [account, ens, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, lastWallet]);
+	}, [account, ens, lensProtocolHandle, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, lastWallet]);
 
 	return (
 		<Web3Context.Provider value={contextValue}>

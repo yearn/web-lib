@@ -44,6 +44,16 @@ export function withUnit(amount: number, minimumFractionDigits = 2, maximumFract
 	}).format(amount));
 }
 
+export const formatUSD = (n: number, min = 2, max = 2): string => `$ ${amount(n || 0, min, max)}`;
+
+export const formatPercent = (n: number, min = 2, max = 2, upperLimit = 500): string => {
+	const	safeN = n || 0;
+	if (safeN > upperLimit) {
+		return `≧ ${amount(upperLimit, min, max)}%`;
+	}
+	return `${amount(safeN || 0, min, max)}%`;
+};
+
 export {amount as formatAmount};
 export {currency as formatCurrency};
 export {withUnit as formatWithUnit};

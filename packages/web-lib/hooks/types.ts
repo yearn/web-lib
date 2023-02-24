@@ -1,6 +1,6 @@
 import type {BigNumber, ethers} from 'ethers';
 import type {DependencyList} from 'react';
-import type {TDict} from '@yearn-finance/web-lib/utils/types';
+import type {TDict} from '@yearn-finance/web-lib/types';
 
 type	TDefaultReqArgs = {
 	chainID?: number,
@@ -98,6 +98,7 @@ export type	TUseBalancesRes = {
 export type	TUseAccountRes = {
 	address: string | null | undefined,
 	ens: string | undefined,
+	lensProtocolHandle: string | undefined,
 	provider: ethers.providers.Provider,
 	isConnecting: boolean,
 	isReconnecting: boolean,

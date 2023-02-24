@@ -9,7 +9,14 @@ import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from './Modal';
-import type {TModalMobileMenu} from './ModalMenu';
+
+type	TModalMobileMenu = {
+	isOpen: boolean
+	shouldUseWallets: boolean
+	shouldUseNetworks: boolean
+	onClose: () => void
+	children: ReactNode
+};
 
 function	Modal(props: TModal): ReactElement {
 	const	{isOpen, onClose, className = '', children} = props;
@@ -58,7 +65,7 @@ function	Modal(props: TModal): ReactElement {
 
 function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const	{isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
-	const	{onSwitchChain, isActive, address, ens, onDesactivate, onConnect, options} = useWeb3();
+	const	{onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect, options} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const	[optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
 	const	detectedWalletProvider = useInjectedWallet();
@@ -69,17 +76,21 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 		if (!isActive && address) {
 			if (ens) {
 				set_walletIdentity(ens);
+			} else if (lensProtocolHandle) {
+				set_walletIdentity(lensProtocolHandle);
 			} else {
 				set_walletIdentity(truncateHex(address, 4));
 			}
 		} else if (ens) {
 			set_walletIdentity(ens);
+		} else if (lensProtocolHandle) {
+			set_walletIdentity(lensProtocolHandle);
 		} else if (address) {
 			set_walletIdentity(truncateHex(address, 4));
 		} else {
 			set_walletIdentity('Connect a wallet');
 		}
-	}, [ens, address, isActive]);
+	}, [ens, lensProtocolHandle, address, isActive]);
 
 	function	renderNotActive(): ReactNode {
 		if (shouldUseWallets && !isActive && !address) {

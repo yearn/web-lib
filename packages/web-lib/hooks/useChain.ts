@@ -2,8 +2,8 @@ import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 
 import {useChainID} from './useChainID';
 
+import type {TNDict} from '@yearn-finance/web-lib/types';
 import type {TChain} from '@yearn-finance/web-lib/utils/web3/chains';
-import type {TNDict} from '../utils/types';
 
 type TUseChainReturn = {
 	get: (chainID: number) => TChain | null;
@@ -17,7 +17,7 @@ type TUseChainReturn = {
 **************************************************************************/
 export function useChain(): TUseChainReturn {
 	const {safeChainID} = useChainID();
-	
+
 	return {
 		get: (chainID: number): TChain | null => {
 			return chains[chainID] ? chains[chainID] : null;
@@ -25,6 +25,6 @@ export function useChain(): TUseChainReturn {
 		getCurrent: (): TChain | null => {
 			return chains[safeChainID] ? chains[safeChainID] : null;
 		},
-		getAll: (): TNDict<TChain>  => chains
+		getAll: (): TNDict<TChain> => chains
 	};
 }
