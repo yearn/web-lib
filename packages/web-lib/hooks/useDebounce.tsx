@@ -20,7 +20,3 @@ export function useDebounce(value: unknown, delay: number): unknown {
 
 	return debouncedValue;
 }
-
-export {useDebouncedCallback} from '@react-hookz/web/cjs/useDebouncedCallback';
-export {useDebouncedEffect} from '@react-hookz/web/cjs/useDebouncedEffect';
-export {useDebouncedState} from '@react-hookz/web/cjs/useDebouncedState';

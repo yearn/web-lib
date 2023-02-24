@@ -1,9 +1,6 @@
 import {ethers} from 'ethers';
 
-import type {TDict} from './types';
-
-//cf: https://github.com/ethers-io/ethers.js/discussions/1429
-export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
+import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
 
 export const addressZero = toAddress(ethers.constants.AddressZero);
 

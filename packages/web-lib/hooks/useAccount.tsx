@@ -7,11 +7,12 @@ import	type {TUseAccountRes}	from	'./types';
 ** a more friendly limited interface for dev experience.
 **************************************************************************/
 export function useAccount(): TUseAccountRes {
-	const {address, ens, isActive, isConnecting, isDisconnected, provider} = useWeb3();
+	const {address, ens, lensProtocolHandle, isActive, isConnecting, isDisconnected, provider} = useWeb3();
 
 	return ({
 		address: address,
 		ens: ens,
+		lensProtocolHandle: lensProtocolHandle,
 		provider: provider,
 		isConnecting: isConnecting,
 		isReconnecting: isActive && isConnecting,

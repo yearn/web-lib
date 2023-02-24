@@ -13,8 +13,7 @@ import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 import type {BigNumber} from 'ethers';
 import type {DependencyList} from 'react';
 import type {TBalanceData, TDefaultStatus} from '@yearn-finance/web-lib/hooks/types';
-import type {TAddress} from '@yearn-finance/web-lib/utils/address';
-import type {TDict} from '@yearn-finance/web-lib/utils/types';
+import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
 
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalances hook.

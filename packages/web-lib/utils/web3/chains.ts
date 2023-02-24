@@ -1,4 +1,4 @@
-import type {TNDict} from '../types';
+import type {TNDict} from '@yearn-finance/web-lib/types';
 
 export type TChain = {
 	chainID: string;

@@ -130,7 +130,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 }
 
 function	WalletSelector(): ReactElement {
-	const	{options, isActive, address, ens, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
+	const	{options, isActive, address, ens, lensProtocolHandle, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
 
 	useEffect((): void => {
@@ -138,12 +138,14 @@ function	WalletSelector(): ReactElement {
 			set_walletIdentity('Invalid Network');
 		} else if (ens) {
 			set_walletIdentity(ens);
+		} else if (lensProtocolHandle) {
+			set_walletIdentity(lensProtocolHandle);
 		} else if (address) {
 			set_walletIdentity(truncateHex(address, 4));
 		} else {
 			set_walletIdentity(undefined);
 		}
-	}, [ens, address, isActive]);
+	}, [ens, lensProtocolHandle, address, isActive]);
 
 	return (
 		<div

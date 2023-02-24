@@ -13,3 +13,8 @@ export async function baseFetcher<T>(url: string): Promise<T> {
 export async function graphFetcher<T>(url: string, query: string): Promise<T> {
 	return request(url, query);
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function lensProtocolFetcher(query: string): Promise<any> {
+	return request('https://api.lens.dev/playground', query);
+}

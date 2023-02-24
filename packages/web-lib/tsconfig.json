@@ -5,8 +5,6 @@
 		"paths": {
 			"@yearn-finance/web-lib/components/*": ["components/*"],
 			"@yearn-finance/web-lib/components": ["components"],
-			"@yearn-finance/web-lib/layouts/*": ["layouts/*"],
-			"@yearn-finance/web-lib/layouts": ["layouts"],
 			"@yearn-finance/web-lib/contexts/*": ["contexts/*"],
 			"@yearn-finance/web-lib/contexts": ["contexts"],
 			"@yearn-finance/web-lib/hooks/*": ["hooks/*"],
@@ -15,6 +13,8 @@
 			"@yearn-finance/web-lib/icons": ["icons"],
 			"@yearn-finance/web-lib/utils": ["utils"],
 			"@yearn-finance/web-lib/utils/*": ["utils/*"],
+			"@yearn-finance/web-lib/types/*": ["types/*"],
+			"@yearn-finance/web-lib/types": ["types"],
 		},
 		"jsx": "react",
 		"target": "esnext",
@@ -51,7 +51,7 @@
 		"contexts/**/*",
 		"hooks/**/*",
 		"icons/**/*",
-		"layouts/**/*",
 		"utils/**/*",
+		"types/**/*",
 	]
 }
