@@ -27,7 +27,7 @@ function	Modal(props: TModal): ReactElement {
 			<Dialog
 				as={'div'}
 				className={'fixed inset-0 overflow-y-auto'}
-				style={{zIndex: 9999}}
+				style={{zIndex: 88}}
 				initialFocus={ref}
 				onClose={onClose}>
 				<div className={`${className} relative flex min-h-screen items-end justify-end px-0 pt-4 pb-0 text-center sm:block sm:p-0`}>
