@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "@reach/skip-nav": "^0.17.0",
+    "@reach/skip-nav": "^0.18.0",
     "@yearn-finance/web-lib": "*",
     "ethers": "^5.6.9",
     "next": "^12.2.3",
