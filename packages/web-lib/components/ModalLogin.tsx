@@ -29,7 +29,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					onClick={(): void => {
 						onConnect(
 							'INJECTED',
-							(): string => toast({content: 'Unsupported network. Please use Ethereum mainnet.', type: 'error'}),
+							(error): string => toast({content: error.message ?? 'Unsupported network. Please use Ethereum mainnet.', type: 'error'}),
 							(): void => onClose()
 						);
 					}}
@@ -41,7 +41,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					onClick={(): void => {
 						onConnect(
 							'WALLET_CONNECT',
-							(): string => toast({content: 'Invalid chain', type: 'error'}),
+							(error): string => toast({content: error.message ?? 'Invalid chain', type: 'error'}),
 							(): void => onClose()
 						);
 					}}
@@ -53,7 +53,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					onClick={(): void => {
 						onConnect(
 							'EMBED_COINBASE',
-							(): string => toast({content: 'Invalid chain', type: 'error'}),
+							(error): string => toast({content: error.message ??'Invalid chain', type: 'error'}),
 							(): void => onClose()
 						);
 					}}
@@ -65,7 +65,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					onClick={(): void => {
 						onConnect(
 							'EMBED_GNOSIS_SAFE',
-							(): string => toast({content: 'Invalid chain', type: 'error'}),
+							(error): string => toast({content: error.message ?? 'Invalid chain', type: 'error'}),
 							(): void => onClose()
 						);
 					}}
