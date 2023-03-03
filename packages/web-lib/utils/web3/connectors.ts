@@ -2,8 +2,8 @@ import {CoinbaseWallet} from '@web3-react/coinbase-wallet';
 import {initializeConnector} from '@web3-react/core';
 import {GnosisSafe} from '@web3-react/gnosis-safe';
 import {MetaMask} from '@web3-react/metamask';
+import {WalletConnect} from '@web3-react/walletconnect';
 import {EIP1193} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193';
-import {WalletConnect} from '@yearn-finance/web-lib/utils/web3/connectors.walletconnect';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import {Frame} from './connectors.frame';
@@ -23,20 +23,10 @@ const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletC
 	(actions): WalletConnect =>
 		new WalletConnect({
 			actions,
-			defaultChainId: 1,
 			options: {
-				projectId: 'f45bf22b301cfb68cf9cda57d3efa666',
-				chains: [1, 4, 10, 250, 420, 1337, 31337],
+				// projectId: 'f45bf22b301cfb68cf9cda57d3efa666',
+				// chains: [1, 4, 10, 250, 420, 1337, 31337],
 				rpc: {
-					1: getRPC(1),
-					4: getRPC(4),
-					10: getRPC(10),
-					250: getRPC(250),
-					420: getRPC(420),
-					1337: getRPC(1337),
-					31337: getRPC(31337)
-				},
-				rpcMap: {
 					1: getRPC(1),
 					4: getRPC(4),
 					10: getRPC(10),
