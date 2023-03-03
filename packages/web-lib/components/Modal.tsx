@@ -18,7 +18,7 @@ function	Modal(props: TModal): ReactElement {
 			<Dialog
 				as={'div'}
 				className={'fixed inset-0 overflow-y-auto'}
-				style={{zIndex: 9999}}
+				style={{zIndex: 88}}
 				initialFocus={ref}
 				onClose={onClose}>
 				<div className={`${className} yearn--modal-wrapper`}>
