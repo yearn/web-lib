@@ -1,4 +1,4 @@
-import type	{BrowserProvider, JsonRpcProvider, Provider, WebSocketProvider}	from 'ethers';
+import type	{BrowserProvider, JsonRpcProvider, WebSocketProvider}	from 'ethers';
 import type	{ReactNode}	from 'react';
 import type {TAddress} from '@yearn-finance/web-lib/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
@@ -57,7 +57,7 @@ export type	TUIContext = {
 	onLoadDone: () => void,
 }
 
-export type TWeb3Provider = BrowserProvider | JsonRpcProvider | WebSocketProvider | Provider;
+export type TWeb3Provider = BrowserProvider | JsonRpcProvider | WebSocketProvider;
 
 export type TWeb3Options = {
 	shouldUseWallets?: boolean,
