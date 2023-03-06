@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import EventEmitter from 'eventemitter3';
 
-// By default post to any origin
-const DEFAULT_TARGET_ORIGIN = '*';
-// By default timeout is 60 seconds
-const DEFAULT_TIMEOUT_MILLISECONDS = 240000;
-
+const DEFAULT_TARGET_ORIGIN = '*'; // By default post to any origin
+const DEFAULT_TIMEOUT_MILLISECONDS = 240000; // By default timeout is 60 seconds
 const JSON_RPC_VERSION = '2.0';
 
 // The interface for the source of the events, typically the window.
@@ -24,18 +23,10 @@ export type TMinimalEventTargetInterface = {
  * Options for constructing the iframe ethereum provider.
  */
 type TIFrameEthereumProviderOptions = {
-	// The origin to communicate with. Default '*'
-	targetOrigin?: string;
-	// How long to time out waiting for responses. Default 60 seconds.
-	timeoutMilliseconds?: number;
-
-	// The event source. By default we use the window. This can be mocked for tests, or it can wrap
-	// a different interface, e.g. workers.
-	eventSource?: TMinimalEventSourceInterface;
-
-	// The event target. By default we use the window parent. This can be mocked for tests, or it can wrap
-	// a different interface, e.g. workers.
-	eventTarget?: TMinimalEventTargetInterface;
+	targetOrigin?: string; // The origin to communicate with. Default '*'
+	timeoutMilliseconds?: number; // How long to time out waiting for responses. Default 60 seconds.
+	eventSource?: TMinimalEventSourceInterface; // The event source. By default we use the window.
+	eventTarget?: TMinimalEventTargetInterface; // The event target.
 }
 
 /**

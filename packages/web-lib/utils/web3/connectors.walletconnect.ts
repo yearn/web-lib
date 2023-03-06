@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import EventEmitter3 from 'eventemitter3';
 import {Connector} from '@web3-react/types';
 import {getBestUrlMap, getChainsWithDefault} from '@yearn-finance/web-lib/utils/web3/connectors.utils';

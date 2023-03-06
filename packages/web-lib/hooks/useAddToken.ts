@@ -2,6 +2,7 @@ import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
 import {useDismissToasts} from './useDismissToasts';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;
 
 type TWatchAssetOptions = {
