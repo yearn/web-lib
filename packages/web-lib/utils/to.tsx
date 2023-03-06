@@ -1,6 +1,6 @@
 import {formatUnits, parseUnits} from 'ethers';
 
-import type {TBigNumberish} from '../types';
+import type {TBigNumberish} from '@yearn-finance/web-lib/types';
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions

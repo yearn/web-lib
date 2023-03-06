@@ -4,12 +4,11 @@ import {GnosisSafe} from '@web3-react/gnosis-safe';
 import {MetaMask} from '@web3-react/metamask';
 import {WalletConnect} from '@web3-react/walletconnect';
 import {EIP1193} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193';
+import {Frame} from '@yearn-finance/web-lib/utils/web3/connectors.frame';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
-import {Frame} from './connectors.frame';
-
+import type {TActions} from '@yearn-finance/web-lib/utils/web3/connectors.frame';
 import type {Web3ReactHooks} from '@web3-react/core';
-import type {TActions} from './connectors.frame';
 
 const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask>(
 	(actions): MetaMask => new MetaMask({actions})

@@ -1,6 +1,6 @@
 import {parseUnits} from 'ethers';
 
-import type {TNormalizedBN} from '../format';
+import type {TNormalizedBN} from '@yearn-finance/web-lib/utils/format';
 
 export function handleInputChangeEventValue(value: string, decimals?: number): TNormalizedBN {
 	let		amount = value.replace(/,/g, '.').replace(/[^0-9.]/g, '');

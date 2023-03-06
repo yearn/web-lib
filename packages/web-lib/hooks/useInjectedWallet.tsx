@@ -2,10 +2,9 @@ import React, {useMemo} from 'react';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
 import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletOKX from '@yearn-finance/web-lib/icons/IconWalletOKX';
 import IconWalletPhantom from '@yearn-finance/web-lib/icons/IconWalletPhantom';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
-
-import IconWalletOKX from '../icons/IconWalletOKX';
 
 import type {ReactElement} from 'react';
 

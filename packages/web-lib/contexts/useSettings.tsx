@@ -1,12 +1,11 @@
 import	React, {createContext, useCallback, useContext, useEffect, useMemo} from 'react';
 import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import {addressZero, toAddress} from '@yearn-finance/web-lib/utils/address';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/web3/providers';
 
-import {addressZero, toAddress} from '../utils/address';
-
-import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from './types';
+import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from '@yearn-finance/web-lib/contexts/types';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',

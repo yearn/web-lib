@@ -1,6 +1,5 @@
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
-
-import {useDismissToasts} from './useDismissToasts';
+import {useDismissToasts} from '@yearn-finance/web-lib/hooks/useDismissToasts';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare let window: any;

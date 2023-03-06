@@ -1,4 +1,4 @@
-import {yToast} from '../components/yToast';
+import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
 type TUseDismissToasts = {
 	dismissAllToasts: () => void;

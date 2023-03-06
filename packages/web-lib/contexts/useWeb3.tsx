@@ -20,11 +20,11 @@ import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connecto
 import {getProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ErrorInfo, ReactElement} from 'react';
+import type {TWeb3Context, TWeb3Options, TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import type {TAddress} from '@yearn-finance/web-lib/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
-import type {TWeb3Context, TWeb3Options, TWeb3Provider} from './types';
 
 const defaultState = {
 	address: undefined,

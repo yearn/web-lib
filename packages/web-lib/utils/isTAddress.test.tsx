@@ -1,4 +1,4 @@
-import {isTAddress} from './isTAddress';
+import {isTAddress} from '@yearn-finance/web-lib/utils/isTAddress';
 
 describe('isTAddress', (): void => {
 	it('should return true for a valid TAddress', (): void => {

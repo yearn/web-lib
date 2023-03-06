@@ -8,7 +8,7 @@ import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWall
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement, ReactNode} from 'react';
-import type {TModal} from './Modal';
+import type {TModal} from '@yearn-finance/web-lib/components/Modal';
 
 type	TModalMobileMenu = {
 	isOpen: boolean
