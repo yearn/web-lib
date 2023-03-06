@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import type {BrowserProvider} from 'ethers';
 import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 
 // Maybe types are used to represent optional values
@@ -18,6 +19,9 @@ export type VoidPromiseFunction = () => Promise<void>;
 
 // TAddress is used to represent a checksummed address
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
+
+// TBrowserProvider is just an alias for the BrowserProvider type from ethers
+export type TBrowserProvider = BrowserProvider;
 
 // TMetamaskInjectedProvider is used to represent a Metamask injected provider
 export type TMetamaskInjectedProvider = TWeb3Provider & {
