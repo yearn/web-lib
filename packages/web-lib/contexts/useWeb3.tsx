@@ -1,5 +1,5 @@
 import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
-import {ethers} from 'ethers';
+import {BrowserProvider} from 'ethers';
 import {useUpdateEffect} from '@react-hookz/web';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
@@ -10,7 +10,7 @@ import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
-import {toAddress} from '@yearn-finance/web-lib/utils/address';
+import {addressZero, toAddress} from '@yearn-finance/web-lib/utils/address';
 import {lensProtocolFetcher} from '@yearn-finance/web-lib/utils/fetchers';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
@@ -24,7 +24,7 @@ import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWall
 import type {TAddress} from '@yearn-finance/web-lib/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
-import type {TWeb3Context, TWeb3Options} from './types';
+import type {TWeb3Context, TWeb3Options, TWeb3Provider} from './types';
 
 const defaultState = {
 	address: undefined,
@@ -319,7 +319,7 @@ export const Web3ContextApp = ({
 			**	If we don't know the provider, we will suppose it's a Gnosis Safe
 			**	and try to connect.
 			**********************************************************************/
-			if (partnerInformation.id !== ethers.constants.AddressZero) {
+			if (partnerInformation.id !== addressZero) {
 				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
@@ -329,18 +329,17 @@ export const Web3ContextApp = ({
 				onConnect(partnerInformation.walletType);
 			} else {
 				try {
-					connectors.gnosisSafe.connector.activate().then((): void => {
+					connectors.gnosisSafe.connector.activate().then(async (): Promise<void> => {
 						if (connectors.gnosisSafe.connector.provider) {
-							const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
-							const	signer = web3Provider.getSigner();
-							signer.getAddress().then((signerAddress: string): void => {
-								set_currentPartner({
-									id: signerAddress,
-									walletType: 'EMBED_GNOSIS_SAFE'
-								});
-								set_lastWallet('EMBED_GNOSIS_SAFE');
-								connectors.gnosisSafe.connector.activate();
+							const	web3Provider = new BrowserProvider(connectors.gnosisSafe.connector.provider);
+							const	signer = await web3Provider.getSigner();
+							const	signerAddress = await signer.getAddress();
+							set_currentPartner({
+								id: signerAddress,
+								walletType: 'EMBED_GNOSIS_SAFE'
 							});
+							set_lastWallet('EMBED_GNOSIS_SAFE');
+							connectors.gnosisSafe.connector.activate();
 						}
 					});
 				} catch (error) {
@@ -416,7 +415,7 @@ export const Web3ContextApp = ({
 			**	If we don't know the provider, we will suppose it's a Gnosis Safe
 			**	and try to connect.
 			**********************************************************************/
-			if (partnerInformation.id !== ethers.constants.AddressZero) {
+			if (partnerInformation.id !== addressZero) {
 				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
 				frameWeb3Provider.request = frameProvider.request;
@@ -426,17 +425,17 @@ export const Web3ContextApp = ({
 				onConnect(partnerInformation.walletType);
 			} else {
 				try {
-					connectors.gnosisSafe.connector.activate().then((): void => {
+					connectors.gnosisSafe.connector.activate().then(async (): Promise<void> => {
 						if (connectors.gnosisSafe.connector.provider) {
-							const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
-							const	signer = web3Provider.getSigner();
-							signer.getAddress().then((signerAddress: string): void => {
-								set_currentPartner({
-									id: signerAddress,
-									walletType: 'EMBED_GNOSIS_SAFE'
-								});
-								set_lastWallet('EMBED_GNOSIS_SAFE');
+							const	web3Provider = new BrowserProvider(connectors.gnosisSafe.connector.provider);
+							const	signer = await web3Provider.getSigner();
+							const	signerAddress = await signer.getAddress();
+							set_currentPartner({
+								id: signerAddress,
+								walletType: 'EMBED_GNOSIS_SAFE'
 							});
+							set_lastWallet('EMBED_GNOSIS_SAFE');
+							connectors.gnosisSafe.connector.activate();
 						}
 					});
 				} catch (error) {
@@ -464,7 +463,7 @@ export const Web3ContextApp = ({
 			isActive: isReallyActive,
 			isConnecting,
 			hasProvider: !!provider,
-			provider: provider as ethers.providers.Web3Provider,
+			provider: provider as unknown as TWeb3Provider,
 			chainID,
 			currentPartner,
 			onConnect,

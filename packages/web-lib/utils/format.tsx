@@ -1,13 +1,13 @@
-import {ethers} from 'ethers';
+import {parseUnits} from 'ethers';
 import {formatBN, formatUnits} from '@yearn-finance/web-lib/utils/format.bigNumber';
 
-import type {BigNumber, BigNumberish} from 'ethers';
+import type {TBigNumberish} from '@yearn-finance/web-lib/types';
 
-export const	toSafeAmount = (v: string, m: BigNumberish, d = 18): BigNumber => {
+export const	toSafeAmount = (v: string, m: TBigNumberish, d = 18): bigint => {
 	if (v === formatUnits(m || 0, d)) {
 		return formatBN(m);
 	}
-	return ethers.utils.parseUnits(v || '0', d);
+	return parseUnits(v || '0', d);
 };
 
 export const	toSafeValue = (v: string | number): number => {

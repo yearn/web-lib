@@ -1,17 +1,10 @@
-import type {BigNumber, ethers} from 'ethers';
 import type {DependencyList} from 'react';
+import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 import type {TDict} from '@yearn-finance/web-lib/types';
 
 type	TDefaultReqArgs = {
 	chainID?: number,
-	provider?: ethers.providers.Provider,
-}
-
-type	TDefaultResArgs = {
-	error?: Error,
-	isLoading: boolean,
-	isSuccess: boolean,
-	isError: boolean,
+	provider?: TWeb3Provider,
 }
 
 export type	TDefaultMinimalStatus = {
@@ -26,41 +19,13 @@ export type	TDefaultStatus = {
 } & TDefaultMinimalStatus
 
 /* 🔵 - Yearn Finance **********************************************************
-** Request, Response and helpers for the useBlock hook.
-******************************************************************************/
-export type	TBlock = {
-	hash: string;
-	parentHash: string;
-	miner: string;
-	extraData: string;
-	nonce: string;
-	number: number;
-	timestamp: number;
-	difficulty: number;
-	gasLimit: BigNumber;
-	gasUsed: BigNumber;
-	baseFeePerGas?: null | BigNumber;
-}
-
-export type	TUseBlockReq = {
-	blockHashOrBlockTag?: ethers.providers.BlockTag,
-	shouldWatch?: boolean,
-	shouldShallowWatch?: boolean,
-	shallowCallback?: (block: TBlock, error?: Error) => void
-} & TDefaultReqArgs;
-
-export type	TUseBlockRes = {
-	data: TBlock
-} & TDefaultResArgs;
-
-/* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalance hook.
 ******************************************************************************/
 export type	TBalanceData = {
 	decimals: number,
 	symbol: string,
-	raw: BigNumber,
-	rawPrice: BigNumber,
+	raw: bigint,
+	rawPrice: bigint,
 	normalized: number,
 	normalizedPrice: number,
 	normalizedValue: number
@@ -99,7 +64,7 @@ export type	TUseAccountRes = {
 	address: string | null | undefined,
 	ens: string | undefined,
 	lensProtocolHandle: string | undefined,
-	provider: ethers.providers.Provider,
+	provider: TWeb3Provider,
 	isConnecting: boolean,
 	isReconnecting: boolean,
 	isConnected: boolean,

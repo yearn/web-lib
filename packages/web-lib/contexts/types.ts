@@ -1,4 +1,4 @@
-import type	{ethers}	from 'ethers';
+import type	{BrowserProvider, JsonRpcProvider, Provider, WebSocketProvider}	from 'ethers';
 import type	{ReactNode}	from 'react';
 import type {TAddress} from '@yearn-finance/web-lib/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
@@ -57,6 +57,8 @@ export type	TUIContext = {
 	onLoadDone: () => void,
 }
 
+export type TWeb3Provider = BrowserProvider | JsonRpcProvider | WebSocketProvider | Provider;
+
 export type TWeb3Options = {
 	shouldUseWallets?: boolean,
 	defaultChainID?: number,
@@ -72,7 +74,7 @@ export type TWeb3Context = {
 	isActive: boolean,
 	isConnecting: boolean,
 	hasProvider: boolean,
-	provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,
+	provider: TWeb3Provider,
 	currentPartner?: TPartnersInfo,
 	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,

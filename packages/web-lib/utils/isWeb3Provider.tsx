@@ -1,5 +1,6 @@
-import type {ethers} from 'ethers';
+import type {BrowserProvider} from 'ethers';
+import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 
-export function isWeb3Provider(provider: ethers.providers.Provider | ethers.providers.Web3Provider): provider is ethers.providers.Web3Provider {
-	return (provider as ethers.providers.Web3Provider).getSigner !== undefined;
+export function isWeb3Provider(provider: TWeb3Provider): provider is TWeb3Provider {
+	return (provider as BrowserProvider).getSigner !== undefined;
 }

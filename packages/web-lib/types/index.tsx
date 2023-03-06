@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type {ethers} from 'ethers';
+import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 
 // Maybe types are used to represent optional values
 export type MaybeBoolean = boolean | undefined;
@@ -20,6 +20,11 @@ export type VoidPromiseFunction = () => Promise<void>;
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
 // TMetamaskInjectedProvider is used to represent a Metamask injected provider
-export type TMetamaskInjectedProvider = ethers.providers.BaseProvider & {
+export type TMetamaskInjectedProvider = TWeb3Provider & {
 	send: (...args: any[]) => void;
 }
+
+//Mapping for the old bignumber from ethers to the new ones.
+export type TBigNumber = bigint;
+export type BigNumber = TBigNumber;
+export type TBigNumberish = string | number | bigint;
