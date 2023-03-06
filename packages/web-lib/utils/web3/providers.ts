@@ -46,7 +46,7 @@ export async function newEthCallProvider(provider: TWeb3Provider): Promise<Provi
 	const ethcallProvider = new EthCallProvider();
 	const network = await provider.getNetwork();
 	if (process.env.IS_TEST) {
-		await	ethcallProvider.init(new JsonRpcProvider(defaultRPCURI[1337]) as any);
+		await	ethcallProvider.init(new JsonRpcProvider(defaultRPCURI[1337]) as never);
 		if (Number(process.env.TESTED_NETWORK) === 250) {
 			ethcallProvider.multicall = {address: '0xc04d660976c923ddba750341fe5923e47900cf24', block: 0};
 			ethcallProvider.multicall2 = {address: '0x470ADB45f5a9ac3550bcFFaD9D990Bf7e2e941c9', block: 0};
@@ -57,7 +57,7 @@ export async function newEthCallProvider(provider: TWeb3Provider): Promise<Provi
 		return ethcallProvider;
 	}
 
-	await	ethcallProvider.init(provider as any);
+	await	ethcallProvider.init(provider as never);
 	if (network.chainId === BigInt(420)) {
 		ethcallProvider.multicall2 = {address: '0xcA11bde05977b3631167028862bE2a173976CA11', block: 0};
 		ethcallProvider.multicall3 = {address: '0xcA11bde05977b3631167028862bE2a173976CA11', block: 0};

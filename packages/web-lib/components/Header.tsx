@@ -50,7 +50,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		return noTestnet.map((chainID: number): TNetwork => (
 			{value: chainID, label: chains.get(chainID)?.displayName || `Chain ${chainID}`}
 		));
-	}, [supportedChainID]);
+	}, [chains, supportedChainID]);
 
 	const	currentNetwork = useMemo((): TNetwork | undefined => (
 		supportedNetworks.find((network): boolean => network.value === safeChainID)
@@ -85,7 +85,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: any): void => onSwitchChain(value.value, true)}>
+				onChange={(value: unknown): void => onSwitchChain((value as TNetwork).value, true)}>
 				{({open}): ReactElement => (
 					<>
 						<Listbox.Button

@@ -21,7 +21,7 @@ export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
 // TMetamaskInjectedProvider is used to represent a Metamask injected provider
 export type TMetamaskInjectedProvider = TWeb3Provider & {
-	send: (...args: any[]) => void;
+	send: (...args: any[]) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 //Mapping for the old bignumber from ethers to the new ones.

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import type {Dispatch, RefObject, SetStateAction} from 'react';
