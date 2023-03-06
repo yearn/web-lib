@@ -1,8 +1,13 @@
-import type {TBigNumberish} from '@yearn-finance/web-lib/types';
+import {addressZero} from '@yearn-finance/web-lib/utils/address';
 
-export function isZero(value: TBigNumberish | undefined | null): boolean {
+import type {TAddress, TBigNumberish} from '@yearn-finance/web-lib/types';
+
+export function isZero(value: TBigNumberish | TAddress | undefined | null): boolean {
 	if (value === undefined || value === null) {
 		return true;
+	}
+	if (typeof value === 'string' && value.startsWith('0x') && value.length === 42) {
+		return value === addressZero;
 	}
 	if (typeof value === 'string') {
 		return value === '0';
