@@ -1,4 +1,4 @@
-import {ethers} from 'ethers';
+import {parseUnits} from 'ethers';
 
 import type {TNormalizedBN} from '../format';
 
@@ -14,6 +14,6 @@ export function handleInputChangeEventValue(value: string, decimals?: number): T
 		amount = amountParts[0] + '.' + amountParts[1].slice(0, decimals);
 	}
 
-	const	raw = ethers.utils.parseUnits(amount || '0', decimals);
+	const	raw = parseUnits(amount || '0', decimals);
 	return ({raw: raw, normalized: amount || '0'});
 }

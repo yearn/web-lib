@@ -1,8 +1,8 @@
 
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
-import type {ethers} from 'ethers';
-import type React from 'react';
+import type {TransactionReceipt, TransactionResponse} from 'ethers';
+import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 
 const		timeout = 3000;
 const		defaultTxStatus = {none: true, pending: false, success: false, error: false};
@@ -11,18 +11,18 @@ const		pendingTxStatus = {none: false, pending: true, success: false, error: fal
 const		successTxStatus = {none: false, pending: false, success: true, error: false};
 
 export type	TTxStatus = {none: boolean, pending: boolean, success: boolean, error: boolean}
-export type TTxResponse = {isSuccessful: boolean, receipt?: ethers.providers.TransactionReceipt, error?: Error};
+export type TTxResponse = {isSuccessful: boolean, receipt?: TransactionReceipt, error?: Error};
 
 class Transaction {
-	provider: ethers.providers.Web3Provider | ethers.providers.Provider;
+	provider: TWeb3Provider;
 	onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>;
 	options?: {shouldIgnoreSuccessTxStatusChange: boolean};
 	txArgs?: unknown[];
 	funcCall: (...props: never) => Promise<TTxResponse>;
-	successCall?: (receipt?: ethers.providers.TransactionReceipt) => Promise<void>;
+	successCall?: (receipt?: TransactionReceipt) => Promise<void>;
 
 	constructor(
-		provider: ethers.providers.Web3Provider | ethers.providers.Provider,
+		provider: TWeb3Provider,
 		funcCall: (...props: never) => Promise<TTxResponse>,
 		onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>,
 		options?: {shouldIgnoreSuccessTxStatusChange: boolean}
@@ -38,7 +38,7 @@ class Transaction {
 		return this;
 	}
 
-	onSuccess(onSuccess: (receipt?: ethers.providers.TransactionReceipt) => Promise<void>): Transaction {
+	onSuccess(onSuccess: (receipt?: TransactionReceipt) => Promise<void>): Transaction {
 		this.successCall = onSuccess;
 		return this;
 	}
@@ -78,11 +78,11 @@ class Transaction {
 	}
 }
 
-async function handleTx(txPromise: Promise<ethers.providers.TransactionResponse>): Promise<TTxResponse> {
+async function handleTx(txPromise: Promise<TransactionResponse>): Promise<TTxResponse> {
 	try {
 		const tx = await txPromise;
 		const receipt = await tx.wait();
-		if (receipt.status === 0) {
+		if (!receipt || receipt?.status === 0) {
 			console.error('Fail to perform transaction');
 			return {isSuccessful: false};
 		}

@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {BigNumber} from 'ethers';
 
 import type {Dispatch, RefObject, SetStateAction} from 'react';
 
@@ -103,9 +102,9 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 
 		try {
 			const item = window.sessionStorage.getItem(key);
-			return item ? (JSON.parse(item, (_: string, value: T & { type?: string}): T | BigNumber => {
-				if (value?.type === 'BigNumber') {
-					return BigNumber.from(value);
+			return item ? (JSON.parse(item, (_: string, value: T & { type?: string}): T | bigint => {
+				if (value?.type === 'BigInt') {
+					return BigInt(String(value));
 				}
 				return value;
 			}) as T) : initialValue;

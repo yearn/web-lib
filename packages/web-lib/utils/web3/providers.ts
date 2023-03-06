@@ -1,5 +1,8 @@
-import	{Provider}		from	'ethcall';
-import	{ethers}		from	'ethers';
+import {Provider as EthCallProvider} from 'ethcall';
+import {AlchemyProvider, InfuraProvider, JsonRpcProvider, WebSocketProvider} from 'ethers';
+
+import type {Provider} from 'ethcall';
+import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 
 const	defaultRPCURI: {[key: number]: string} = {
 	1: 'https://api.securerpc.com/v1',
@@ -39,11 +42,11 @@ export	function	replaceEnvRPCURI(key: number, value: string): void {
 ** at the same time.
 ** Some specific rules are added in order to support test networks.
 **************************************************************************/
-export async function newEthCallProvider(provider: ethers.providers.Provider): Promise<Provider> {
-	const ethcallProvider = new Provider();
+export async function newEthCallProvider(provider: TWeb3Provider): Promise<Provider> {
+	const ethcallProvider = new EthCallProvider();
 	const network = await provider.getNetwork();
 	if (process.env.IS_TEST) {
-		await	ethcallProvider.init(new ethers.providers.JsonRpcProvider(defaultRPCURI[1337]));
+		await	ethcallProvider.init(new JsonRpcProvider(defaultRPCURI[1337]) as any);
 		if (Number(process.env.TESTED_NETWORK) === 250) {
 			ethcallProvider.multicall = {address: '0xc04d660976c923ddba750341fe5923e47900cf24', block: 0};
 			ethcallProvider.multicall2 = {address: '0x470ADB45f5a9ac3550bcFFaD9D990Bf7e2e941c9', block: 0};
@@ -54,8 +57,8 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 		return ethcallProvider;
 	}
 
-	await	ethcallProvider.init(provider as ethers.providers.BaseProvider);
-	if (network.chainId === 420) {
+	await	ethcallProvider.init(provider as any);
+	if (network.chainId === BigInt(420)) {
 		ethcallProvider.multicall2 = {address: '0xcA11bde05977b3631167028862bE2a173976CA11', block: 0};
 		ethcallProvider.multicall3 = {address: '0xcA11bde05977b3631167028862bE2a173976CA11', block: 0};
 	}
@@ -67,37 +70,37 @@ export async function newEthCallProvider(provider: ethers.providers.Provider): P
 ** Connect to the RPC of the specific chain we want. Not all chains are
 ** supported and default is chain 1, aka ethereum mainnet.
 **************************************************************************/
-export function getProvider(chain = 1): ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider {
+export function getProvider(chain = 1): TWeb3Provider {
 	if (envRPCURI?.[chain]) {
-		return new ethers.providers.JsonRpcProvider(envRPCURI?.[chain]);
+		return new JsonRpcProvider(envRPCURI?.[chain]);
 	}
 	if (process.env.WEB_SOCKET_URL?.[chain]) {
-		return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[chain]);
+		return new WebSocketProvider(process.env.WEB_SOCKET_URL?.[chain]);
 	}
 	if (process.env.ALCHEMY_KEY && chain === 1) {
-		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
+		return new AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
 	}
 	if (process.env.INFURA_KEY && chain === 1) {
-		return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
+		return new InfuraProvider('homestead', process.env.INFURA_KEY);
 	}
 	if (defaultRPCURI?.[chain]) {
-		return new ethers.providers.JsonRpcProvider(defaultRPCURI[chain]);
+		return new JsonRpcProvider(defaultRPCURI[chain]);
 	}
 
 	//Fallback to chain 1
 	if (envRPCURI?.[1]) {
-		return new ethers.providers.JsonRpcProvider(envRPCURI?.[1]);
+		return new JsonRpcProvider(envRPCURI?.[1]);
 	}
 	if (process.env.WEB_SOCKET_URL?.[1]) {
-		return new ethers.providers.WebSocketProvider(process.env.WEB_SOCKET_URL?.[1]);
+		return new WebSocketProvider(process.env.WEB_SOCKET_URL?.[1]);
 	}
 	if (process.env.ALCHEMY_KEY) {
-		return new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
+		return new AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
 	}
 	if (process.env.INFURA_KEY) {
-		return new ethers.providers.InfuraProvider('homestead', process.env.INFURA_KEY);
+		return new InfuraProvider('homestead', process.env.INFURA_KEY);
 	}
-	return new ethers.providers.JsonRpcProvider(defaultRPCURI?.[1] || '');
+	return new JsonRpcProvider(defaultRPCURI?.[1] || '');
 }
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -117,9 +120,9 @@ export function getRPC(chainID = 1): string {
 /* 🔵 - Yearn Finance ******************************************************
 ** Connect to the RPC from a specific RPC
 **************************************************************************/
-export function fromRPC(rpcURI: string): ethers.providers.BaseProvider | ethers.providers.Web3Provider {
+export function fromRPC(rpcURI: string): TWeb3Provider {
 	if (rpcURI) {
-		return new ethers.providers.JsonRpcProvider(rpcURI);
+		return new JsonRpcProvider(rpcURI);
 	}
-	return (new ethers.providers.AlchemyProvider('homestead', process.env.ALCHEMY_KEY));
+	return (new AlchemyProvider('homestead', process.env.ALCHEMY_KEY));
 }

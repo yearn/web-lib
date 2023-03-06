@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {BigNumber} from 'ethers';
 
 import type {Dispatch, SetStateAction} from 'react';
 
@@ -27,9 +26,9 @@ export function useLocalStorage<T>(
 
 			if (previousItem && options?.shouldMigratePreviousVersion) {
 				const resp = (
-					JSON.parse(previousItem, (_key: string, value: T & { type?: string}): T | BigNumber => {
-						if (value?.type === 'BigNumber') {
-							return BigNumber.from(value);
+					JSON.parse(previousItem, (_key: string, value: T & { type?: string}): T | bigint => {
+						if (value?.type === 'BigInt') {
+							return BigInt(String(value));
 						}
 						return value;
 					})
@@ -39,9 +38,9 @@ export function useLocalStorage<T>(
 				return resp;
 			} if (item !== null) { // Parse stored json or if none return initialValue
 				return (
-					JSON.parse(item, (_key: string, value: T & { type?: string}): T | BigNumber => {
-						if (value?.type === 'BigNumber') {
-							return BigNumber.from(value);
+					JSON.parse(item, (_key: string, value: T & { type?: string}): T | bigint => {
+						if (value?.type === 'BigInt') {
+							return BigInt(String(value));
 						}
 						return value;
 					})

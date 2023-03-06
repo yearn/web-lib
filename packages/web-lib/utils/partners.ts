@@ -1,4 +1,4 @@
-import	{ethers}	from	'ethers';
+import {addressZero} from '@yearn-finance/web-lib/utils/address';
 
 export type TPartnersInfo = {
 	id: string,
@@ -21,7 +21,7 @@ export function getPartner(partnerKey = ''): TPartnersInfo {
 		});
 	}
 	return ({
-		id: ethers.constants.AddressZero,
+		id: addressZero,
 		originKey: '',
 		originURI: '',
 		walletType: 'NONE'

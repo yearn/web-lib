@@ -24,7 +24,7 @@ import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWall
 import type {TAddress} from '@yearn-finance/web-lib/types';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
 import type {Provider} from '@web3-react/types';
-import type {TWeb3Context, TWeb3Options} from './types';
+import type {TWeb3Context, TWeb3Options, TWeb3Provider} from './types';
 
 const defaultState = {
 	address: undefined,
@@ -229,7 +229,7 @@ const Web3ContextAppWrapper = ({
 			isActive: isReallyActive,
 			isConnecting,
 			hasProvider: !!provider,
-			provider: provider as ethers.providers.Web3Provider,
+			provider: provider as unknown as TWeb3Provider,
 			chainID,
 			currentPartner,
 			onConnect,

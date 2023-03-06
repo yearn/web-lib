@@ -1,8 +1,8 @@
-import {ethers} from 'ethers';
+import {getAddress} from 'ethers';
 
 import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
 
-export const addressZero = toAddress(ethers.constants.AddressZero);
+export const addressZero = toAddress('0x0000000000000000000000000000000000000000');
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
@@ -12,15 +12,15 @@ export const addressZero = toAddress(ethers.constants.AddressZero);
 **************************************************************************/
 export function toAddress(address?: string | null | undefined): TAddress {
 	if (!address) {
-		return ethers.constants.AddressZero as TAddress;
+		return addressZero;
 	}
 	if (address === 'GENESIS') {
-		return ethers.constants.AddressZero as TAddress;
+		return addressZero;
 	}
 	try {
-		return ethers.utils.getAddress(address.toUpperCase().replace('0X', '0x')) as TAddress;
+		return getAddress(address.toLowerCase()) as TAddress;
 	} catch (error) {
-		return ethers.constants.AddressZero as TAddress;
+		return addressZero;
 	}
 }
 
@@ -63,7 +63,7 @@ export function truncateHex(address: string | undefined, size: number): string {
 		return `${address.slice(0, size)}...${address.slice(-size)}`;
 	}
 	if (size === 0) {
-		return ethers.constants.AddressZero;
+		return addressZero;
 	}
 	return '0x000...0000';
 }
