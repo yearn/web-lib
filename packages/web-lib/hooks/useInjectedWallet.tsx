@@ -1,12 +1,11 @@
 import React, {useMemo} from 'react';
 import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
 import IconWalletFrame from '@yearn-finance/web-lib/icons/IconWalletFrame';
+import IconWalletLedger from '@yearn-finance/web-lib/icons/IconWalletLedger';
 import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask';
+import IconWalletOKX from '@yearn-finance/web-lib/icons/IconWalletOKX';
 import IconWalletPhantom from '@yearn-finance/web-lib/icons/IconWalletPhantom';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
-
-import IconWalletLedger from '../icons/IconWalletLedger';
-import IconWalletOKX from '../icons/IconWalletOKX';
 
 import type {ReactElement} from 'react';
 

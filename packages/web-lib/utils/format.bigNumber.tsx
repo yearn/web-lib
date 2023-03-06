@@ -1,7 +1,7 @@
 import {formatUnits as formatUnitsFromEthers, parseUnits as parseUnitsFromEthers} from 'ethers';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
-import type {TBigNumberish} from '../types';
+import type {TBigNumberish} from '@yearn-finance/web-lib/types';
 
 export type	TNormalizedBN = {
 	raw: bigint,

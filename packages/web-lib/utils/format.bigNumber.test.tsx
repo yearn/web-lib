@@ -1,4 +1,4 @@
-import {toNormalizedBN} from './format.bigNumber';
+import {toNormalizedBN} from '@yearn-finance/web-lib/utils/format.bigNumber';
 
 describe('toNormalizedBN', (): void => {
 	it('returns correct normalized and raw values for input with 0 decimals', (): void => {

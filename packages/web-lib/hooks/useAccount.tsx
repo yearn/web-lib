@@ -1,6 +1,6 @@
-import	{useWeb3}				from	'@yearn-finance/web-lib/contexts/useWeb3';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 
-import	type {TUseAccountRes}	from	'./types';
+import type {TUseAccountRes} from '@yearn-finance/web-lib/hooks/types';
 
 /* 🔵 - Yearn Finance ******************************************************
 ** This hook is really just a remapping of the useWeb3 context, providing
