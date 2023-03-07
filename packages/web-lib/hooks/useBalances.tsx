@@ -6,7 +6,7 @@ import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import * as format from '@yearn-finance/web-lib/utils/format';
-import {Zero} from '@yearn-finance/web-lib/utils/format';
+import {toBigInt} from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
@@ -126,9 +126,9 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			let		rIndex = 0;
 			for (const element of tokens) {
 				const	{token} = element;
-				const	balanceOf = results[rIndex++] as bigint;
+				const	balanceOf = toBigInt(results[rIndex++] as bigint);
 				let		decimals = results[rIndex++] as number;
-				const	rawPrice = format.BN(props?.prices?.[toAddress(token)] || Zero);
+				const	rawPrice = toBigInt(props?.prices?.[toAddress(token)]);
 				let symbol = results[rIndex++] as string;
 
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
@@ -254,7 +254,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const assignPrices = useCallback((_rawData: TDict<TBalanceData>): TDict<TBalanceData> => {
 		for (const key of Object.keys(_rawData)) {
 			const	tokenAddress = toAddress(key);
-			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || Zero);
+			const	rawPrice = toBigInt(props?.prices?.[tokenAddress]);
 			_rawData[tokenAddress] = {
 				..._rawData[tokenAddress],
 				rawPrice,
