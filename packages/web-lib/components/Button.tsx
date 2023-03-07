@@ -1,7 +1,7 @@
 import React, {forwardRef} from 'react';
 import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
-import type {ReactElement, ReactNode} from 'react';
+import type {ForwardedRef, ReactElement, ReactNode} from 'react';
 
 export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit' | string;
 
@@ -17,13 +17,14 @@ export type	TButton = {
 export type TMouseEvent = React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLAnchorElement>;
 
 // eslint-disable-next-line react/display-name
-const Button = forwardRef((props: TButton): ReactElement => {
+const Button = forwardRef((props: TButton, ref: ForwardedRef<HTMLButtonElement | null>): ReactElement => {
 	const	{children, variant = 'filled', shouldStopPropagation = false, isBusy = false, isDisabled = false, ...rest} = props;
 
 	if (rest.as === 'a') {
 		return (
 			<a tabIndex={-1} {...rest as React.ComponentPropsWithoutRef<'a'>}>
 				<button
+					ref={ref}
 					data-variant={variant}
 					className={`yearn--button flex-center ${rest.className}`}>
 					{children}
@@ -34,6 +35,7 @@ const Button = forwardRef((props: TButton): ReactElement => {
 	return (
 		<button
 			{...(rest as React.ComponentPropsWithoutRef<'button'>)}
+			ref={ref}
 			data-variant={variant}
 			className={`yearn--button ${rest.className}`}
 			aria-busy={isBusy}
