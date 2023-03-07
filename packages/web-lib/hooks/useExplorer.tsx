@@ -9,5 +9,5 @@ import {chains} from '@yearn-finance/web-lib/utils/web3/chains';
 export function useExplorer(): string {
 	const {safeChainID} = useChainID();
 
-	return useMemo((): string => chains[safeChainID].block_explorer, [safeChainID]);
+	return useMemo((): string => chains?.[safeChainID]?.block_explorer || 'https://etherscan.io', [safeChainID]);
 }

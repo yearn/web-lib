@@ -13,9 +13,9 @@ export type MaybeTAddress = TAddress | undefined;
 export type Maybe<T> = T | undefined;
 
 // Dict types are used to represent objects with string/number keys
-export type TDict<T> = {[key: string]: T};
+export type TDict<T> = {[key: string]: Maybe<T>};
 export type Dict<T> = TDict<T>;
-export type TNDict<T> = {[key: number]: T};
+export type TNDict<T> = {[key: number]: Maybe<T>};
 export type NDict<T> = TNDict<T>;
 
 // VoidPromiseFunction is used to represent a function that returns a Promise<void>
