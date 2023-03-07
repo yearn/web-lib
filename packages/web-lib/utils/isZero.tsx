@@ -2,7 +2,7 @@ import {addressZero} from '@yearn-finance/web-lib/utils/address';
 
 import type {TAddress, TBigNumberish} from '@yearn-finance/web-lib/types';
 
-export function isZero(value: TBigNumberish | TAddress | undefined | null): boolean {
+export function isZero(value?: bigint | TBigNumberish | TAddress): boolean {
 	if (value === undefined || value === null) {
 		return true;
 	}
@@ -16,4 +16,17 @@ export function isZero(value: TBigNumberish | TAddress | undefined | null): bool
 		return value === BigInt(0);
 	}
 	return value === 0;
+}
+
+export function isGreaterThanZero(value?: bigint | TBigNumberish): boolean {
+	if (value === undefined || value === null) {
+		return false;
+	}
+	if (typeof value === 'string' && (value === '0' || value.trim().startsWith('-'))) {
+		return false;
+	}
+	if (typeof value === 'bigint') {
+		return value > BigInt(0);
+	}
+	return value > 0;
 }

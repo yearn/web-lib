@@ -1,13 +1,10 @@
-import {parseUnits} from 'ethers';
-import {formatBN, formatUnits} from '@yearn-finance/web-lib/utils/format.bigNumber';
+import {formatUnits, parseUnits} from '@yearn-finance/web-lib/utils/format.bigNumber';
 
-import type {TBigNumberish} from '@yearn-finance/web-lib/types';
-
-export const	toSafeAmount = (v: string, m: TBigNumberish, d = 18): bigint => {
-	if (v === formatUnits(m || 0, d)) {
-		return formatBN(m);
+export const	toSafeAmount = (v: string, m: bigint, d = 18): bigint => {
+	if (v === formatUnits(m, d)) {
+		return m;
 	}
-	return parseUnits(v || '0', d);
+	return parseUnits(v, d);
 };
 
 export const	toSafeValue = (v: string | number): number => {

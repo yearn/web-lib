@@ -1,6 +1,6 @@
 import {handleInputChangeEventValue} from '@yearn-finance/web-lib/utils/handlers/handleInputChangeEventValue';
 
-import type {TNormalizedBN} from '@yearn-finance/web-lib/utils/format.bigNumber';
+import type {TNormalizedBN} from '@yearn-finance/web-lib/types';
 
 describe('handleInputChangeEventValue', (): void => {
 	it('returns correct normalized and raw values for input with 0 decimals', (): void => {

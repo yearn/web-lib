@@ -1,4 +1,7 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
+
 import type {BrowserProvider} from 'ethers';
 import type {TWeb3Provider} from '@yearn-finance/web-lib/contexts/types';
 
@@ -7,6 +10,7 @@ export type MaybeBoolean = boolean | undefined;
 export type MaybeString = string | undefined;
 export type MaybeNumber = number | undefined;
 export type MaybeTAddress = TAddress | undefined;
+export type Maybe<T> = T | undefined;
 
 // Dict types are used to represent objects with string/number keys
 export type TDict<T> = {[key: string]: T};
@@ -29,6 +33,11 @@ export type TMetamaskInjectedProvider = TWeb3Provider & {
 }
 
 //Mapping for the old bignumber from ethers to the new ones.
-export type TBigNumber = bigint;
-export type BigNumber = TBigNumber;
-export type TBigNumberish = string | number | bigint;
+export type TBigInt = bigint;
+export type BigNumber = TBigInt;
+export type TBigNumberish = string | number | bigint | bigint;
+export type	TNormalizedBN = {
+	raw: bigint,
+	normalized: number | string,
+}
+

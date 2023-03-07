@@ -1,34 +1,35 @@
-import {formatUnits} from 'ethers';
+import {formatUnits as ethersFormatUnits, parseUnits as ethersParseUnits} from 'ethers';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
-import type {TBigNumberish} from '@yearn-finance/web-lib/types';
+import type {TBigNumberish, TNormalizedBN} from '@yearn-finance/web-lib/types';
 
-export type	TNormalizedBN = {
-	raw: bigint,
-	normalized: number | string,
-}
-
-export const Zero = BigInt(0);
-export const WeiPerEther = BigInt('1000000000000000000');
-export const MaxUint256 = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
-export const MinInt256 = BigInt('0x8000000000000000000000000000000000000000000000000000000000000000') * BigInt(-1);
-export const MaxInt256 = BigInt('0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+export const Zero = toBigInt(0);
+export const WeiPerEther = toBigInt('1000000000000000000');
+export const MaxUint256 = toBigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+export const MinInt256 = toBigInt(BigInt('0x8000000000000000000000000000000000000000000000000000000000000000') * BigInt(-1));
+export const MaxInt256 = toBigInt('0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
 export const DefaultTNormalizedBN: TNormalizedBN = {raw: Zero, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format bigNumbers, currency and date
 **************************************************************************/
-export const BN = (amount?: TBigNumberish): bigint => {
-	return BigInt(amount || 0);
-};
+export function toBigInt(value?: TBigNumberish): bigint {
+	return BigInt(value || 0);
+}
+export function toNumber(value?: TBigNumberish, fallback = 0): number {
+	return Number(value || fallback);
+}
 
-export function units(value?: TBigNumberish, unitName?: TBigNumberish | undefined): string {
-	return (formatUnits(BN(value), unitName));
+export function formatUnits(value?: bigint, unitName?: TBigNumberish | undefined): string {
+	return (ethersFormatUnits((value || 0n).valueOf(), unitName));
+}
+export function parseUnits(value: string, unitName?: TBigNumberish | undefined): bigint {
+	return (toBigInt(ethersParseUnits(value.valueOf(), unitName)));
 }
 
 export function	bigNumberAsAmount(
-	bnAmount = Zero,
+	bnAmount: TBigNumberish = 0n,
 	decimals = 18,
 	decimalsToDisplay = 2,
 	symbol = ''
@@ -43,15 +44,15 @@ export function	bigNumberAsAmount(
 		symbolWithPrefix = ` ${symbol}`;
 	}
 
-	bnAmount = BN(bnAmount);
-	if (bnAmount === Zero) {
+	const	amount = toBigInt(bnAmount);
+	if (amount === Zero) {
 		return (`0${symbolWithPrefix}`);
 	}
-	if (bnAmount === MaxUint256) {
+	if (amount === MaxUint256) {
 		return (`∞${symbolWithPrefix}`);
 	}
 
-	const	formatedAmount = units(bnAmount, decimals);
+	const	formatedAmount = ethersFormatUnits(bnAmount, decimals);
 	return (`${
 		new Intl.NumberFormat([locale, 'en-US'], {
 			minimumFractionDigits: 0,
@@ -60,22 +61,23 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`);
 }
 
-export	const	toNormalizedValue = (v: TBigNumberish, d?: number): number => (
-	Number(units(v || 0, d ?? 18))
+export	const	toNormalizedValue = (v: bigint, d?: number): number => (
+	Number(ethersFormatUnits(v.valueOf(), d ?? 18))
 );
 
-export const	toNormalizedAmount = (v: TBigNumberish, d?: number): string => (
+export const	toNormalizedAmount = (v: bigint, d?: number): string => (
 	formatAmount(toNormalizedValue(v, d ?? 18), 6, 6)
 );
 
-export const	toNormalizedBN = (value: TBigNumberish, decimals?: number): TNormalizedBN => ({
-	raw: BN(value),
-	normalized: toNormalizedValue(BN(value), decimals ?? 18)
-});
+export const	toNormalizedBN = (value: TBigNumberish, decimals?: number): TNormalizedBN => {
+	const	bigValue = toBigInt(value as TBigNumberish);
+	return ({
+		raw: bigValue,
+		normalized: toNormalizedValue(bigValue, decimals ?? 18)
+	});
+};
 
-export {units as formatUnits};
 export {toNormalizedAmount as formatToNormalizedAmount};
 export {toNormalizedValue as formatToNormalizedValue};
 export {toNormalizedBN as formatToNormalizedBN};
 export {bigNumberAsAmount as formatBigNumberAsAmount};
-export {BN as formatBN};

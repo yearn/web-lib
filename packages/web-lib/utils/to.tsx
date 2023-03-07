@@ -1,4 +1,5 @@
 import {formatUnits, parseUnits} from 'ethers';
+import {toBigInt} from '@yearn-finance/web-lib/utils/format.bigNumber';
 
 import type {TBigNumberish} from '@yearn-finance/web-lib/types';
 
@@ -7,11 +8,11 @@ import type {TBigNumberish} from '@yearn-finance/web-lib/types';
 ** to correctly format bigNumbers, currency and date
 **************************************************************************/
 export const toBN = (amount?: TBigNumberish): bigint => {
-	return BigInt(amount || 0);
+	return toBigInt(amount);
 };
 
-export function toUnits(value?: TBigNumberish, unitName?: TBigNumberish | undefined): string {
-	return (formatUnits(toBN(value), unitName));
+export function toUnits(value: TBigNumberish, unitName?: TBigNumberish | undefined): string {
+	return (formatUnits((value || 0n).valueOf(), unitName));
 }
 
 export function toRaw(value?: string, unitName?: TBigNumberish | undefined): bigint {
