@@ -65,6 +65,7 @@ module.exports = {
 		'import/first': 2,
 		'import/newline-after-import': 2,
 		'import/no-duplicates': 2,
+		'no-extra-parens': 2,
 		'curly': ['error', 'all'],
 		'object-curly-newline': [
 			'error', {

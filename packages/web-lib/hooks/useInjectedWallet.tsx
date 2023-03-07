@@ -48,70 +48,70 @@ export type TInjectedWallet = {
 export function useInjectedWallet(): TInjectedWallet {
 
 	const	detectedWalletProvider = useMemo((): TInjectedWallet => {
-		if (typeof(window) !== 'undefined') {
-			const	{ethereum, okxwallet} = (window as TWindowWalletProvider);
+		if (typeof window !== 'undefined') {
+			const	{ethereum, okxwallet} = window as TWindowWalletProvider;
 			if (ethereum?.isLedgerConnect) {
-				return ({
+				return {
 					name: 'Ledger Connect',
 					icon: <IconWalletLedger className={'text-neutral-900'} />,
 					type: 'INJECTED'
-				});
+				};
 			}
 			if (ethereum?.isCoinbaseBrowser) {
-				return ({
+				return {
 					name: 'Coinbase',
 					icon: <IconWalletCoinbase />,
 					type: 'EMBED_COINBASE'
-				});
+				};
 			}
 			if (okxwallet?.isOkxWallet || okxwallet?.isOKExWallet) {
-				return ({
+				return {
 					name: 'OKX Wallet',
 					icon: <IconWalletOKX className={'text-neutral-900'} />,
 					type: 'INJECTED'
-				});
+				};
 			}
 			if (ethereum?.isCoinbaseWallet) {
-				return ({
+				return {
 					name: 'Coinbase',
 					icon: <IconWalletCoinbase />,
 					type: 'INJECTED'
-				});
+				};
 			}
 			if (ethereum?.isFrame) {
-				return ({
+				return {
 					name: 'Frame',
 					icon: <IconWalletFrame />,
 					type: 'INJECTED'
-				});
+				};
 			}
 			if (ethereum?.isPhantom) {
-				return ({
+				return {
 					name: 'Phantom',
 					icon: <IconWalletPhantom />,
 					type: 'INJECTED'
-				});
+				};
 			}
 			if (ethereum?.isTrustWallet) {
-				return ({
+				return {
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,
 					type: 'INJECTED'
-				});
+				};
 			}
 			if (ethereum?.isTrust) {
-				return ({
+				return {
 					name: 'TrustWallet',
 					icon: <IconWalletTrustWallet />,
 					type: 'EMBED_TRUSTWALLET'
-				});
+				};
 			}
 			if (ethereum?.isMetaMask) {
-				return ({
+				return {
 					name: 'Metamask',
 					icon: <IconWalletMetamask />,
 					type: 'INJECTED'
-				});
+				};
 			}
 		}
 
@@ -129,12 +129,12 @@ export function useInjectedWallet(): TInjectedWallet {
 		// if (ethereum?.isTokenPocket) 'TokenPocket'
 		// if (ethereum?.isTokenary) 'Tokenary'
 
-		return ({
+		return {
 			name: 'Frame',
 			icon: <IconWalletFrame className={'text-neutral-900'} />,
 			type: 'INJECTED'
-		});
-	}, [typeof(window)]); // eslint-disable-line react-hooks/exhaustive-deps
+		};
+	}, [typeof window]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	return (detectedWalletProvider);
+	return detectedWalletProvider;
 }

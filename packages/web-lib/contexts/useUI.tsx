@@ -2,6 +2,7 @@ import React, {createContext, Fragment, useCallback, useContext, useMemo, useRef
 import {toast, ToastBar, Toaster} from 'react-hot-toast';
 // eslint-disable-next-line import/no-named-as-default
 import NProgress from 'nprogress';
+import ChildWithCondition from '@yearn-finance/web-lib/components/ChildWithCondition';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 
@@ -43,23 +44,23 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 					toastOptions={{
 						className: 'yearn--toast-options'
 					}}>
-					{(t: Toast): ReactElement => (
+					{(t: Toast): ReactElement =>
 						<ToastBar toast={t} position={'bottom-center'}>
-							{({icon, message}): ReactElement => (
+							{({icon, message}): ReactElement =>
 								<>
 									{icon}
 									{message}
-									{t.type !== 'loading' ? (
+									<ChildWithCondition shouldRender={t.type !== 'loading'}>
 										<IconCross
 											width={16}
 											height={16}
 											onClick={(): void => toast.dismiss(t.id)}
 											className={'mr-3 cursor-pointer'} />
-									) : null}
+									</ChildWithCondition>
 								</>
-							)}
+							}
 						</ToastBar>
-					)}
+					}
 				</Toaster>
 			);
 		}

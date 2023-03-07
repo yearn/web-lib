@@ -24,7 +24,7 @@ export type TNavbar = {
 function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactElement {
 	return (
 		<nav className={'yearn--nav'}>
-			{nav.map((option): ReactElement => (
+			{nav.map((option): ReactElement =>
 				<Link
 					tag={linkComponent}
 					key={option.path}
@@ -34,7 +34,7 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 						{option.label}
 					</p>
 				</Link>
-			))}
+			)}
 		</nav>
 	);
 }
@@ -52,9 +52,9 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		));
 	}, [chains, supportedChainID]);
 
-	const	currentNetwork = useMemo((): TNetwork | undefined => (
+	const	currentNetwork = useMemo((): TNetwork | undefined =>
 		supportedNetworks.find((network): boolean => network.value === safeChainID)
-	), [safeChainID, supportedNetworks]);
+	, [safeChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
 		if (currentNetwork?.value === supportedNetworks[0]?.value) {
@@ -85,8 +85,8 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: unknown): void => onSwitchChain((value as TNetwork).value, true)}>
-				{({open}): ReactElement => (
+				onChange={({value}: never): void => onSwitchChain(value, true)}>
+				{({open}): ReactElement =>
 					<>
 						<Listbox.Button
 							suppressHydrationWarning
@@ -109,21 +109,21 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							leaveFrom={'transform scale-100 opacity-100'}
 							leaveTo={'transform scale-95 opacity-0'}>
 							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
-								{supportedNetworks.map((network): ReactElement => (
+								{supportedNetworks.map((network): ReactElement =>
 									<Listbox.Option key={network.value} value={network}>
-										{({active}): ReactElement => (
+										{({active}): ReactElement =>
 											<div
 												data-active={active}
 												className={'yearn--listbox-menu-item text-sm'}>
 												{network?.label || 'Ethereum'}
 											</div>
-										)}
+										}
 									</Listbox.Option>
-								))}
+								)}
 							</Listbox.Options>
 						</Transition>
 					</>
-				)}
+				}
 			</Listbox>
 		</div>
 	);
@@ -159,7 +159,7 @@ function	WalletSelector(): ReactElement {
 				}
 			}}>
 			<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
-				{walletIdentity ? walletIdentity : (
+				{walletIdentity ? walletIdentity :
 					<span>
 						<IconWallet
 							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
@@ -167,7 +167,7 @@ function	WalletSelector(): ReactElement {
 							{'Connect wallet'}
 						</span>
 					</span>
-				)}
+				}
 			</p>
 		</div>
 	);
@@ -193,9 +193,9 @@ function	Header({
 }: THeader): ReactElement {
 	const {options} = useWeb3();
 
-	const supportedChainID = useMemo((): number[] => (
+	const supportedChainID = useMemo((): number[] =>
 		supportedNetworks || options?.supportedChainID || [1, 10, 250, 42161]
-	), [supportedNetworks, options?.supportedChainID]);
+	, [supportedNetworks, options?.supportedChainID]);
 
 	return (
 		<header className={'yearn--header'}>

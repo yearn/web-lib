@@ -44,7 +44,7 @@ export function slugify(text: string): string {
 ** Detect is we are running from an Iframe
 **************************************************************************/
 export function	isIframe(): boolean {
-	if (typeof(window) === 'undefined') {
+	if (typeof window === 'undefined') {
 		return false;
 	}
 	if (window !== window.top || window.parent.frames.length > 0) {

@@ -4,44 +4,44 @@
 **************************************************************************/
 export function	amount(amount: number, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined') {
+	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
 	if (maximumFractionDigits < minimumFractionDigits) {
 		maximumFractionDigits = minimumFractionDigits;
 	}
-	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount));
+	return new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount);
 }
 
 export function	currency(amount: number, decimals = 2): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined') {
+	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
-	return (new Intl.NumberFormat([locale, 'en-US'], {
+	return new Intl.NumberFormat([locale, 'en-US'], {
 		style: 'currency',
 		currency: 'USD',
 		currencyDisplay: 'symbol',
 		minimumFractionDigits: 0,
 		maximumFractionDigits: decimals
-	}).format(amount));
+	}).format(amount);
 }
 
 export function withUnit(amount: number, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined') {
+	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
 	if (maximumFractionDigits < minimumFractionDigits) {
 		maximumFractionDigits = minimumFractionDigits;
 	}
-	return (new Intl.NumberFormat([locale, 'en-US'], {
+	return new Intl.NumberFormat([locale, 'en-US'], {
 		minimumFractionDigits,
 		maximumFractionDigits,
 		notation: 'compact',
 		compactDisplay: 'short',
 		unitDisplay: 'short'
-	}).format(amount));
+	}).format(amount);
 }
 
 export const formatUSD = (n: number, min = 2, max = 2): string => `$ ${amount(n || 0, min, max)}`;

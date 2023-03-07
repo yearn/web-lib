@@ -22,10 +22,10 @@ export function toNumber(value?: TBigNumberish, fallback = 0): number {
 }
 
 export function formatUnits(value?: bigint, unitName?: TBigNumberish | undefined): string {
-	return (ethersFormatUnits((value || 0n).valueOf(), unitName));
+	return ethersFormatUnits((value || 0n).valueOf(), unitName);
 }
 export function parseUnits(value: string, unitName?: TBigNumberish | undefined): bigint {
-	return (toBigInt(ethersParseUnits(value.valueOf(), unitName)));
+	return toBigInt(ethersParseUnits(value.valueOf(), unitName));
 }
 
 export function	bigNumberAsAmount(
@@ -35,7 +35,7 @@ export function	bigNumberAsAmount(
 	symbol = ''
 ): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined') {
+	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
 
@@ -46,35 +46,30 @@ export function	bigNumberAsAmount(
 
 	const	amount = toBigInt(bnAmount);
 	if (amount === Zero) {
-		return (`0${symbolWithPrefix}`);
+		return `0${symbolWithPrefix}`;
 	}
 	if (amount === MaxUint256) {
-		return (`∞${symbolWithPrefix}`);
+		return `∞${symbolWithPrefix}`;
 	}
 
 	const	formatedAmount = ethersFormatUnits(bnAmount, decimals);
-	return (`${
+	return `${
 		new Intl.NumberFormat([locale, 'en-US'], {
 			minimumFractionDigits: 0,
 			maximumFractionDigits: decimalsToDisplay
 		}).format(Number(formatedAmount))
-	}${symbolWithPrefix}`);
+	}${symbolWithPrefix}`;
 }
 
-export	const	toNormalizedValue = (v: bigint, d?: number): number => (
-	Number(ethersFormatUnits(v.valueOf(), d ?? 18))
-);
-
-export const	toNormalizedAmount = (v: bigint, d?: number): string => (
-	formatAmount(toNormalizedValue(v, d ?? 18), 6, 6)
-);
+export	const	toNormalizedValue = (v: bigint, d?: number): number => Number(ethersFormatUnits(v.valueOf(), d ?? 18));
+export const	toNormalizedAmount = (v: bigint, d?: number): string => formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
 
 export const	toNormalizedBN = (value: TBigNumberish, decimals?: number): TNormalizedBN => {
 	const	bigValue = toBigInt(value as TBigNumberish);
-	return ({
+	return {
 		raw: bigValue,
 		normalized: toNormalizedValue(bigValue, decimals ?? 18)
-	});
+	};
 };
 
 export {toNormalizedAmount as formatToNormalizedAmount};

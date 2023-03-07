@@ -9,7 +9,7 @@ import type {TUseAccountRes} from '@yearn-finance/web-lib/hooks/types';
 export function useAccount(): TUseAccountRes {
 	const {address, ens, lensProtocolHandle, isActive, isConnecting, isDisconnected, provider} = useWeb3();
 
-	return ({
+	return {
 		address: address,
 		ens: ens,
 		lensProtocolHandle: lensProtocolHandle,
@@ -18,11 +18,11 @@ export function useAccount(): TUseAccountRes {
 		isReconnecting: isActive && isConnecting,
 		isConnected: isActive,
 		isDisconnected: isDisconnected,
-		status: (
+		status:
 			isActive && isConnecting ? 'reconnecting' :
 				isConnecting ? 'connecting' :
 					isActive ? 'connected' :
 						'disconnected'
-		)
-	});
+
+	};
 }

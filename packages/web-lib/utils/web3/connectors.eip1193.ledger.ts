@@ -194,13 +194,13 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 			jsonrpc: JSON_RPC_VERSION,
 			id,
 			method,
-			...(typeof params === 'undefined' ? null : {params})
+			...typeof params === 'undefined' ? null : {params}
 		};
 
 		const promise = new Promise<
 		| TJsonRpcSucessfulResponseMessage<TResult>
 		| TJsonRpcErrorResponseMessage<TErrorData>
-		>((resolve, reject): unknown => (this.completers[id] = {resolve, reject}));
+		>((resolve, reject): unknown => this.completers[id] = {resolve, reject});
 
 		// Send the JSON RPC to the event source.
 		if (this.eventTarget) {
@@ -258,7 +258,7 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
    */
 	public async enable(): Promise<string[]> {
 		if (this.enabled === null) {
-			const promise = (this.enabled = this.send('enable').catch((error): void => {
+			const promise = this.enabled = this.send('enable').catch((error): void => {
 				// Clear this.enabled if it's this promise so we try again next call.
 				// this.enabled might be set from elsewhere if, e.g. the accounts changed event is emitted
 				if (this.enabled === promise) {
@@ -266,7 +266,7 @@ export class IFrameEthereumProvider extends EventEmitter<TIFrameEthereumProvider
 				}
 				// Rethrow the error.
 				throw error;
-			}));
+			});
 		}
 
 		return this.enabled;

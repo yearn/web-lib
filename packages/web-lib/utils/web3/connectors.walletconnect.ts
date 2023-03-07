@@ -100,12 +100,12 @@ export class WalletConnect extends Connector {
 		const rpcMap = this.rpcMap ? getBestUrlMap(this.rpcMap, this.timeout) : undefined;
 		const chains = desiredChainId ? getChainsWithDefault(this.chains, desiredChainId) : this.chains;
 
-		return (this.eagerConnection = import('@walletconnect/ethereum-provider').then(async (ethProviderModule): Promise<any> => {
-			const provider = (this.provider = await ethProviderModule.default.init({
+		return this.eagerConnection = import('@walletconnect/ethereum-provider').then(async (ethProviderModule): Promise<any> => {
+			const provider = this.provider = await ethProviderModule.default.init({
 				...this.options,
 				chains,
 				rpcMap: await rpcMap
-			}));
+			});
 
 			/**
 			 * TODO(INFRA-137):
@@ -120,7 +120,7 @@ export class WalletConnect extends Connector {
 				.on('display_uri', this.URIListener);
 
 			return provider;
-		}));
+		});
 	}
 
 	/** {@inheritdoc Connector.connectEagerly} */

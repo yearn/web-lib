@@ -103,7 +103,7 @@ async function performCall(
 			rawPrice,
 			normalized: formatToNormalizedValue(balanceOf, decimals),
 			normalizedPrice: formatToNormalizedValue(rawPrice, 6),
-			normalizedValue: (formatToNormalizedValue(balanceOf, decimals) * formatToNormalizedValue(rawPrice, 6))
+			normalizedValue: formatToNormalizedValue(balanceOf, decimals) * formatToNormalizedValue(rawPrice, 6)
 		};
 	}
 	return [_data, undefined];
@@ -197,7 +197,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_balances((b): TNDict<TDict<TBalanceData>> => ({
 				...b,
 				[chainID]: {
-					...(b[chainID] || {}),
+					...b[chainID] || {},
 					...currentState.balances
 				}
 			}));
@@ -263,7 +263,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				set_balances((b): TNDict<TDict<TBalanceData>> => ({
 					...b,
 					[web3ChainID]: {
-						...(b[web3ChainID] || {}),
+						...b[web3ChainID] || {},
 						...currentState.balances
 					}
 				}));
@@ -318,7 +318,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			set_balances((b): TNDict<TDict<TBalanceData>> => ({
 				...b,
 				[web3ChainID]: {
-					...(b[web3ChainID] || {}),
+					...b[web3ChainID] || {},
 					...currentState.balances
 				}
 			}));
@@ -339,7 +339,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					..._rawData[tokenAddress],
 					rawPrice,
 					normalizedPrice: formatToNormalizedValue(rawPrice, 6),
-					normalizedValue: ((_rawData?.[tokenAddress] || 0).normalized * formatToNormalizedValue(rawPrice, 6))
+					normalizedValue: (_rawData?.[tokenAddress] || 0).normalized * formatToNormalizedValue(rawPrice, 6)
 				};
 			} else {
 				_rawData[tokenAddress] = {
@@ -392,12 +392,12 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		isError: status.isError,
 		isFetched: status.isFetched,
 		isRefetching: status.isRefetching,
-		status: (
+		status:
 			status.isError ? 'error' :
-				(status.isLoading || status.isFetching) ? 'loading' :
-					(status.isSuccess) ? 'success' : 'unknown'
-		)
+				status.isLoading || status.isFetching ? 'loading' :
+					status.isSuccess ? 'success' : 'unknown'
+
 	}), [assignPrices, balances, error, nonce, onUpdate, onUpdateSome, status.isError, status.isFetched, status.isFetching, status.isLoading, status.isRefetching, status.isSuccess, web3ChainID]);
 
-	return (contextValue);
+	return contextValue;
 }

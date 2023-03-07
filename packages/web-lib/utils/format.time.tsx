@@ -11,7 +11,7 @@ extend(dayjsDuration);
 **************************************************************************/
 export function	date(value: number, withDate = true, separator = '/'): string {
 	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined') {
+	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
 
@@ -21,11 +21,11 @@ export function	date(value: number, withDate = true, separator = '/'): string {
 		hourCycle: 'h24'
 	}).format(value);
 	if (!withDate) {
-		formatedDate = (new Intl.DateTimeFormat([locale, 'en-US'], {
+		formatedDate = new Intl.DateTimeFormat([locale, 'en-US'], {
 			year: 'numeric',
 			month: 'numeric',
 			day: 'numeric'
-		}).format(value));
+		}).format(value);
 	}
 	if (separator !== '/') {
 		formatedDate = formatedDate.replace(/\//g, separator);

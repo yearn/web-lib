@@ -30,4 +30,3 @@ export type	TNormalizedBN = {
 	raw: bigint,
 	normalized: number | string,
 }
-

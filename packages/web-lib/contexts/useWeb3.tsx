@@ -10,7 +10,7 @@ import {useDebounce} from '@yearn-finance/web-lib/hooks/useDebounce';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import {useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
 import {useWindowInFocus} from '@yearn-finance/web-lib/hooks/useWindowInFocus';
-import {toAddress} from '@yearn-finance/web-lib/utils/address';
+import {addressZero, toAddress} from '@yearn-finance/web-lib/utils/address';
 import {lensProtocolFetcher} from '@yearn-finance/web-lib/utils/fetchers';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {getPartner} from '@yearn-finance/web-lib/utils/partners';
@@ -221,7 +221,7 @@ const Web3ContextAppWrapper = ({
 	const	contextValue = useMemo((): TWeb3Context => {
 		const	isReallyActive = isActive && (web3Options?.supportedChainID || defaultOptions.supportedChainID || []).includes(Number(chainId || 0));
 
-		return ({
+		return {
 			address: account as TAddress,
 			ens: isReallyActive ? ens : '',
 			lensProtocolHandle: isReallyActive ? lensProtocolHandle : '',
@@ -238,7 +238,7 @@ const Web3ContextAppWrapper = ({
 			onDesactivate: onDesactivate,
 			options: web3Options,
 			walletType
-		});
+		};
 	}, [account, ens, lensProtocolHandle, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, walletType]);
 
 	return (
@@ -270,7 +270,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
 	): Promise<boolean> => {
-		const	ethereum = (window?.ethereum as TWalletProvider);
+		const	ethereum = window?.ethereum as TWalletProvider;
 		const	connector = ethereum?.isFrame ? connectors.frame.connector : connectors.metamask.connector;
 		if (isActive) {
 			await connector.deactivate?.();
@@ -324,7 +324,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		**	If we don't know the provider, we will suppose it's a Gnosis Safe
 		**	and try to connect.
 		**********************************************************************/
-		if (partnerInformation.id !== ethers.constants.AddressZero && partnerInformation.walletType === 'EMBED_LEDGER') {
+		if (partnerInformation.id !== addressZero && partnerInformation.walletType === 'EMBED_LEDGER') {
 			try {
 				const	frameProvider = new IFrameEthereumProvider();
 				const	frameWeb3Provider = frameProvider as unknown as Provider;
@@ -355,8 +355,8 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		try {
 			await connectors.gnosisSafe.connector.activate();
 			if (connectors.gnosisSafe.connector.provider) {
-				const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
-				const	signer = web3Provider.getSigner();
+				const	web3Provider = new ethers.BrowserProvider(connectors.gnosisSafe.connector.provider);
+				const	signer = await web3Provider.getSigner();
 				const	signerAddress = await signer.getAddress();
 				performBatchedUpdates((): void => {
 					set_currentPartner({id: signerAddress, walletType: 'EMBED_GNOSIS_SAFE'});
@@ -430,9 +430,9 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 			}
 		}
 
-		onError = ((error: Error): void => {
+		onError = (error: Error): void => {
 			console.error(error);
-		});
+		};
 
 		set_isConnecting(true);
 		if (providerType === 'INJECTED') {

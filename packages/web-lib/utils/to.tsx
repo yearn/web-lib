@@ -12,11 +12,11 @@ export const toBN = (amount?: TBigNumberish): bigint => {
 };
 
 export function toUnits(value: TBigNumberish, unitName?: TBigNumberish | undefined): string {
-	return (formatUnits((value || 0n).valueOf(), unitName));
+	return formatUnits((value || 0n).valueOf(), unitName);
 }
 
 export function toRaw(value?: string, unitName?: TBigNumberish | undefined): bigint {
-	return (parseUnits(value || '0', unitName));
+	return parseUnits(value || '0', unitName);
 }
 
 

@@ -61,19 +61,19 @@ class Transaction {
 				}
 				this.onStatus(successTxStatus);
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
-				return ({isSuccessful, receipt});
+				return {isSuccessful, receipt};
 			}
 			toast({content: 'Transaction failed', type: 'error'});
 			this.onStatus(errorTxStatus);
 			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
-			return ({isSuccessful: false});
+			return {isSuccessful: false};
 
 		} catch(error) {
 			console.error(error);
 			toast({content: 'Transaction failed', type: 'error'});
 			this.onStatus(errorTxStatus);
 			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
-			return ({isSuccessful: false});
+			return {isSuccessful: false};
 		}
 	}
 }

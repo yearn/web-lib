@@ -1,4 +1,5 @@
 import React, {forwardRef} from 'react';
+import ChildWithCondition from '@yearn-finance/web-lib/components/ChildWithCondition';
 import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
 import type {ForwardedRef, ReactElement, ReactNode} from 'react';
@@ -12,7 +13,7 @@ export type	TButton = {
 	shouldStopPropagation?: boolean,
 	isBusy?: boolean,
 	isDisabled?: boolean,
-} & React.ComponentPropsWithoutRef<'button' | 'a'>
+} & React.ComponentPropsWithoutRef<'button'>
 
 export type TMouseEvent = React.MouseEvent<HTMLButtonElement> & React.MouseEvent<HTMLAnchorElement>;
 
@@ -20,18 +21,6 @@ export type TMouseEvent = React.MouseEvent<HTMLButtonElement> & React.MouseEvent
 const Button = forwardRef((props: TButton, ref: ForwardedRef<HTMLButtonElement | null>): ReactElement => {
 	const	{children, variant = 'filled', shouldStopPropagation = false, isBusy = false, isDisabled = false, ...rest} = props;
 
-	if (rest.as === 'a') {
-		return (
-			<a tabIndex={-1} {...rest as React.ComponentPropsWithoutRef<'a'>}>
-				<button
-					ref={ref}
-					data-variant={variant}
-					className={`yearn--button flex-center ${rest.className}`}>
-					{children}
-				</button>
-			</a>
-		);
-	}
 	return (
 		<button
 			{...(rest as React.ComponentPropsWithoutRef<'button'>)}
@@ -39,7 +28,7 @@ const Button = forwardRef((props: TButton, ref: ForwardedRef<HTMLButtonElement |
 			data-variant={variant}
 			className={`yearn--button ${rest.className}`}
 			aria-busy={isBusy}
-			disabled={isDisabled || (rest as React.ComponentPropsWithoutRef<'button'>).disabled}
+			disabled={isDisabled || rest.disabled}
 			onClick={(event: TMouseEvent): void => {
 				if (shouldStopPropagation) {
 					event.stopPropagation();
@@ -49,11 +38,11 @@ const Button = forwardRef((props: TButton, ref: ForwardedRef<HTMLButtonElement |
 				}
 			}}>
 			{children}
-			{isBusy ? (
+			<ChildWithCondition shouldRender={isBusy}>
 				<div className={'absolute inset-0 flex items-center justify-center'}>
 					<IconLoader className={'text-neutral-0 h-6 w-6 animate-spin'} />
 				</div>
-			) : null}
+			</ChildWithCondition>
 		</button>
 	);
 });

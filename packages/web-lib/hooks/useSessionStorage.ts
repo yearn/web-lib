@@ -75,7 +75,7 @@ function useEventListener<
 	useEffect((): void | VoidFunction => {
 		// Define the listening target
 		const targetElement: T | Window = element?.current || window;
-		if (!(targetElement?.addEventListener)) {
+		if (!targetElement?.addEventListener) {
 			return;
 		}
 
@@ -103,12 +103,12 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 
 		try {
 			const item = window.sessionStorage.getItem(key);
-			return item ? (JSON.parse(item, (_: string, value: T & { type?: string}): T | bigint => {
+			return item ? JSON.parse(item, (_: string, value: T & { type?: string}): T | bigint => {
 				if (value?.type === 'BigInt') {
 					return BigInt(String(value));
 				}
 				return value;
-			}) as T) : initialValue;
+			}) as T : initialValue;
 		} catch (error) {
 			console.warn(`Error reading sessionStorage key “${key}”:`, error);
 			return initialValue;
@@ -151,15 +151,13 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const handleStorageChange = useCallback(
-		(event: StorageEvent | CustomEvent): void => {
-			if ((event as StorageEvent)?.key && (event as StorageEvent).key !== key) {
-				return;
-			}
-			set_storedValue(readValue());
-		},
-		[key, readValue]
-	);
+	const handleStorageChange = useCallback((event: StorageEvent | CustomEvent): void => {
+		const	currentEvent = event as StorageEvent;
+		if (currentEvent.key !== key) {
+			return;
+		}
+		set_storedValue(readValue());
+	}, [key, readValue]);
 
 	// this only works for other documents, not the current one
 	useEventListener('storage', handleStorageChange);

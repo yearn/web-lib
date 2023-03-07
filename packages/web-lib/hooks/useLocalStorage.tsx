@@ -25,14 +25,14 @@ export function useLocalStorage<T>(
 			const item = window.localStorage.getItem(_key);
 
 			if (previousItem && options?.shouldMigratePreviousVersion) {
-				const resp = (
+				const resp =
 					JSON.parse(previousItem, (_key: string, value: T & { type?: string}): T | bigint => {
 						if (value?.type === 'BigInt') {
 							return BigInt(String(value));
 						}
 						return value;
 					})
-				);
+				;
 				window.localStorage.setItem(_key, JSON.stringify(initialValue));
 				window.localStorage.removeItem(key);
 				return resp;

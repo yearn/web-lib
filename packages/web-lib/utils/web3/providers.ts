@@ -108,12 +108,12 @@ export function getProvider(chain = 1): TWeb3Provider {
 **************************************************************************/
 export function getRPC(chainID = 1): string {
 	if (process.env.JSON_RPC_URL?.[chainID]) {
-		return (process.env.JSON_RPC_URL[chainID]);
+		return process.env.JSON_RPC_URL[chainID];
 	}
 	if (defaultRPCURI?.[chainID]) {
 		return defaultRPCURI?.[chainID];
 	}
-	return (defaultRPCURI[1]);
+	return defaultRPCURI[1];
 }
 
 
@@ -124,5 +124,5 @@ export function fromRPC(rpcURI: string): TWeb3Provider {
 	if (rpcURI) {
 		return new JsonRpcProvider(rpcURI);
 	}
-	return (new AlchemyProvider('homestead', process.env.ALCHEMY_KEY));
+	return new AlchemyProvider('homestead', process.env.ALCHEMY_KEY);
 }

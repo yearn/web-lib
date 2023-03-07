@@ -38,7 +38,7 @@ export function toENS(address: string | null | undefined, format?: boolean, size
 		return knownENS[_address];
 	}
 	if (format) {
-		return (truncateHex(_address, size || 4));
+		return truncateHex(_address, size || 4);
 	}
 	return address;
 }

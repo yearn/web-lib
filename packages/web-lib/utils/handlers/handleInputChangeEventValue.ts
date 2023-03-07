@@ -16,5 +16,5 @@ export function handleInputChangeEventValue(value: string, decimals?: number): T
 	}
 
 	const	raw = toBigInt(parseUnits(amount || '0', decimals));
-	return ({raw: raw, normalized: amount || '0'});
+	return {raw: raw, normalized: amount || '0'};
 }
