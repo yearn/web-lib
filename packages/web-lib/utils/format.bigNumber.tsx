@@ -61,9 +61,9 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`);
 }
 
-export	const	toNormalizedValue = (v: bigint, d?: number): number => (
-	Number(ethersFormatUnits(v.valueOf(), d ?? 18))
-);
+export	const	toNormalizedValue = (v: bigint, d?: number): number => {
+	return v ? Number(ethersFormatUnits(v.valueOf(), d ?? 18)) : 0;
+};
 
 export const	toNormalizedAmount = (v: bigint, d?: number): string => (
 	formatAmount(toNormalizedValue(v, d ?? 18), 6, 6)
