@@ -2,7 +2,7 @@ import React, {createContext, Fragment, useCallback, useContext, useMemo, useRef
 import {toast, ToastBar, Toaster} from 'react-hot-toast';
 // eslint-disable-next-line import/no-named-as-default
 import NProgress from 'nprogress';
-import ChildWithCondition from '@yearn-finance/web-lib/components/ChildWithCondition';
+import Childable from '@yearn-finance/web-lib/components/Childable';
 import {deepMerge} from '@yearn-finance/web-lib/contexts//utils';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 
@@ -50,13 +50,13 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 								<>
 									{icon}
 									{message}
-									<ChildWithCondition shouldRender={t.type !== 'loading'}>
+									<Childable shouldRender={t.type !== 'loading'}>
 										<IconCross
 											width={16}
 											height={16}
 											onClick={(): void => toast.dismiss(t.id)}
 											className={'mr-3 cursor-pointer'} />
-									</ChildWithCondition>
+									</Childable>
 								</>
 							}
 						</ToastBar>

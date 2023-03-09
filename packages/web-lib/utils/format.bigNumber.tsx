@@ -29,8 +29,8 @@ export function parseUnits(value: string, unitName?: TBigNumberish | undefined):
 }
 
 export function	bigNumberAsAmount(
-	bnAmount: TBigNumberish = 0n,
-	decimals = 18,
+	bnAmount = 0n,
+	decimals = 18n,
 	decimalsToDisplay = 2,
 	symbol = ''
 ): string {
@@ -61,13 +61,14 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`;
 }
 
-export	const	toNormalizedValue = (v: bigint, d?: number): number => Number(ethersFormatUnits((v || 0n).valueOf(), d ?? 18));
-export const	toNormalizedAmount = (v: bigint, d?: number): string => formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
-export const	toNormalizedBN = (value: TBigNumberish, decimals?: number): TNormalizedBN => {
-	const	bigValue = toBigInt(value as TBigNumberish);
+export	const	toNormalizedValue = (v: bigint, d?: TBigNumberish): number => Number(ethersFormatUnits((v || 0n).valueOf(), d ?? 18));
+export const	toNormalizedAmount = (v: bigint, d?: TBigNumberish): string => formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
+export const	toNormalizedBN = (value: TBigNumberish, decimals?: TBigNumberish): TNormalizedBN => {
+	const	bigValue = toBigInt(value);
+	const	bigDecimals = toBigInt(decimals || 18);
 	return {
 		raw: bigValue,
-		normalized: toNormalizedValue(bigValue, decimals ?? 18)
+		normalized: toNormalizedValue(bigValue, bigDecimals)
 	};
 };
 

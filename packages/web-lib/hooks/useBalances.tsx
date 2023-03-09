@@ -8,7 +8,7 @@ import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
 import {isZeroAddress, toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
-import {formatToNormalizedValue, toBigInt, toNumber} from '@yearn-finance/web-lib/utils/format';
+import {formatToNormalizedValue, toBigInt} from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import {getProvider, newEthCallProvider} from '@yearn-finance/web-lib/utils/web3/providers';
 
@@ -55,10 +55,10 @@ type TGetBatchBalancesResp = {balances: TDict<TBalanceData>, chainID: number};
 
 
 export const VoidTBalanceData: TBalanceData = {
+	symbol: '',
 	raw: toBigInt(0),
 	rawPrice: toBigInt(0),
-	symbol: '',
-	decimals: 0,
+	decimals: toBigInt(0),
 	normalized: 0,
 	normalizedPrice: 0,
 	normalizedValue: 0
@@ -89,7 +89,7 @@ async function performCall(
 	for (const element of tokens) {
 		const	{token} = element;
 		const	balanceOf = toBigInt(results[rIndex++] as bigint);
-		const	decimals = toNumber(results[rIndex++] as number, 18);
+		const	decimals = toBigInt(results[rIndex++] as bigint);
 		const	rawPrice = toBigInt(prices?.[toAddress(token)]);
 		let symbol = results[rIndex++] as string;
 

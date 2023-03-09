@@ -7,7 +7,7 @@ declare let window: any;
 type TWatchAssetOptions = {
 	address: string; // The address of the token contract
 	symbol: string; // A ticker symbol or shorthand, up to 11 characters
-	decimals: number; // The number of token decimals
+	decimals: bigint; // The number of token decimals
 	image: string; // A string url of the token logo
 }
 

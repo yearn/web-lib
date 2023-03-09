@@ -22,8 +22,8 @@ export type	TDefaultStatus = {
 ** Request, Response and helpers for the useBalance hook.
 ******************************************************************************/
 export type	TBalanceData = {
-	decimals: number,
 	symbol: string,
+	decimals: bigint,
 	raw: bigint,
 	rawPrice: bigint,
 	normalized: number,

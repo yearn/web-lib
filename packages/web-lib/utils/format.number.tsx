@@ -13,7 +13,7 @@ export function	amount(amount: number, minimumFractionDigits = 2, maximumFractio
 	return new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount);
 }
 
-export function	currency(amount: number, decimals = 2): string {
+export function	currency(amount: number, decimals = 2n): string {
 	let		locale = 'fr-FR';
 	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
@@ -23,7 +23,7 @@ export function	currency(amount: number, decimals = 2): string {
 		currency: 'USD',
 		currencyDisplay: 'symbol',
 		minimumFractionDigits: 0,
-		maximumFractionDigits: decimals
+		maximumFractionDigits: Number(decimals)
 	}).format(amount);
 }
 
