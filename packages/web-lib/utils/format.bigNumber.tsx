@@ -14,9 +14,15 @@ export const DefaultTNormalizedBN: TNormalizedBN = {raw: Zero, normalized: 0};
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format bigNumbers, currency and date
 **************************************************************************/
-export function toBigInt(value?: TBigNumberish): bigint {
-	return BigInt(value || 0);
+export function toBigInt(value?: TBigNumberish, debugVarName?: string): bigint {
+	try {
+		return BigInt(value || 0);
+	} catch (error) {
+		console.error(`Error converting ${debugVarName || 'value'} to BigInt`, error);
+		return BigInt(0);
+	}
 }
+
 export function toNumber(value?: TBigNumberish, fallback = 0): number {
 	return Number(value || fallback);
 }
@@ -24,6 +30,7 @@ export function toNumber(value?: TBigNumberish, fallback = 0): number {
 export function formatUnits(value?: bigint, unitName?: TBigNumberish | undefined): string {
 	return ethersFormatUnits((value || 0n).valueOf(), unitName);
 }
+
 export function parseUnits(value: string, unitName?: TBigNumberish | undefined): bigint {
 	return toBigInt(ethersParseUnits(value.valueOf(), unitName));
 }
@@ -61,9 +68,9 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`;
 }
 
-export	const	toNormalizedValue = (v: bigint, d?: TBigNumberish): number => Number(ethersFormatUnits((v || 0n).valueOf(), d ?? 18));
-export const	toNormalizedAmount = (v: bigint, d?: TBigNumberish): string => formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
-export const	toNormalizedBN = (value: TBigNumberish, decimals?: TBigNumberish): TNormalizedBN => {
+export const toNormalizedValue = (v: bigint, d?: TBigNumberish): number => Number(ethersFormatUnits((v || 0n).valueOf(), d ?? 18));
+export const toNormalizedAmount = (v: bigint, d?: TBigNumberish): string => formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
+export const toNormalizedBN = (value: TBigNumberish, decimals?: TBigNumberish): TNormalizedBN => {
 	const	bigValue = toBigInt(value);
 	const	bigDecimals = toBigInt(decimals || 18);
 	return {
