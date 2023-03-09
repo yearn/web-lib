@@ -3,13 +3,13 @@ import React, {Fragment} from 'react';
 
 import type {ReactElement, ReactNode} from 'react';
 
-export type TChildWithCondition = {
+export type TChildable = {
 	shouldRender: boolean;
 	children: ReactNode[] | ReactNode | ReactElement | null;
 	fallback?: ReactNode[] | ReactNode | ReactElement | null;
 };
 
-function	ChildWithCondition({shouldRender, children, fallback = null}: TChildWithCondition): ReactElement | null {
+function	Childable({shouldRender, children, fallback = null}: TChildable): ReactElement | null {
 	if (shouldRender) {
 		return (
 			<Fragment>
@@ -26,4 +26,4 @@ function	ChildWithCondition({shouldRender, children, fallback = null}: TChildWit
 		</Fragment>
 	);
 }
-export default ChildWithCondition;
+export default Childable;
