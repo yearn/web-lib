@@ -15,6 +15,9 @@ export type TNDict<T> = {[key: number]: Maybe<T>};
 // VoidPromiseFunction is used to represent a function that returns a Promise<void>
 export type VoidPromiseFunction = () => Promise<void>;
 
+// UnknownPromiseFunction is used to represent a function that returns a Promise<void>
+export type UnknownPromiseFunction = () => Promise<unknown>;
+
 // TAddress is used to represent a checksummed address
 export type	TAddress = '/^0x([0-9a-f][0-9a-f])*$/I'
 
