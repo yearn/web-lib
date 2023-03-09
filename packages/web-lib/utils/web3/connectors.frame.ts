@@ -45,25 +45,26 @@ export class Frame extends Connector {
 
 	private async initialize(connectEagerly: boolean): Promise<void> {
 		const ethProvider = await import('eth-provider').then((m: { default: TFrameProvider }): TFrameProvider => m.default);
+		const actionWithReport = this.actions as TActions;
 
 		try {
 			this.provider = ethProvider('frame', this.options);
 		} catch (error) {
-			(this.actions as TActions).reportError(error as Error);
+			console.error(error as Error);
 		}
 
 		if (this.provider) {
 			this.provider.on('connect', ({chainId}: ProviderConnectInfo): void => {
-				(this.actions as TActions).update({chainId: parseChainId(chainId)});
+				actionWithReport.update({chainId: parseChainId(chainId)});
 			});
 			this.provider.on('disconnect', (error: ProviderRpcError): void => {
-				(this.actions as TActions).reportError(error);
+				console.error(error);
 			});
 			this.provider.on('chainChanged', (chainId: string): void => {
-				(this.actions as TActions).update({chainId: parseChainId(chainId)});
+				actionWithReport.update({chainId: parseChainId(chainId)});
 			});
 			this.provider.on('accountsChanged', (accounts: string[]): void => {
-				(this.actions as TActions).update({accounts});
+				actionWithReport.update({accounts});
 			});
 
 			if (connectEagerly) {
@@ -73,7 +74,7 @@ export class Frame extends Connector {
 				])
 					.then(([chainId, accounts]): void => {
 						if (accounts?.length > 0) {
-							(this.actions as TActions).update({chainId: parseChainId(chainId), accounts});
+							actionWithReport.update({chainId: parseChainId(chainId), accounts});
 						}
 					})
 					.catch((error): void => {
@@ -84,7 +85,8 @@ export class Frame extends Connector {
 	}
 
 	public async activate(): Promise<void> {
-		(this.actions as TActions).startActivation();
+		const actionWithReport = this.actions as TActions;
+		actionWithReport.startActivation();
 
 		if (!this.eagerConnection) {
 			this.eagerConnection = this.initialize(false);
@@ -92,7 +94,7 @@ export class Frame extends Connector {
 		await this.eagerConnection;
 
 		if (!this.provider) {
-			return (this.actions as TActions).reportError(new NoFrameError());
+			return console.error(new NoFrameError());
 		}
 
 		return Promise.all([
@@ -102,10 +104,10 @@ export class Frame extends Connector {
 			.then(([chainId, accounts]): void => {
 				const receivedChainId = parseChainId(chainId);
 
-				(this.actions as TActions).update({chainId: receivedChainId, accounts});
+				actionWithReport.update({chainId: receivedChainId, accounts});
 			})
 			.catch((error: Error): void => {
-				(this.actions as TActions).reportError(error);
+				console.error(error);
 			});
 	}
 }
