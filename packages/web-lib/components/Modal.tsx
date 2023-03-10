@@ -17,7 +17,7 @@ function	Modal(props: TModal): ReactElement {
 		<Transition.Root show={isOpen} as={Fragment}>
 			<Dialog
 				as={'div'}
-				className={'fixed inset-0 overflow-y-auto'}
+				className={'fixed inset-0 isolate overflow-y-auto'}
 				style={{zIndex: 88}}
 				initialFocus={ref}
 				onClose={onClose}>

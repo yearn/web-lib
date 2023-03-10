@@ -5,6 +5,7 @@ import IconWalletMetamask from '@yearn-finance/web-lib/icons/IconWalletMetamask'
 import IconWalletPhantom from '@yearn-finance/web-lib/icons/IconWalletPhantom';
 import IconWalletTrustWallet from '@yearn-finance/web-lib/icons/IconWalletTrustWallet';
 
+import IconWalletLedger from '../icons/IconWalletLedger';
 import IconWalletOKX from '../icons/IconWalletOKX';
 
 import type {ReactElement} from 'react';
@@ -19,6 +20,7 @@ export type TWalletProvider = {
 	isPhantom?: boolean,
 	isOKExWallet?: boolean,
 	isOkxWallet?: boolean,
+	isLedgerConnect?: boolean,
 }
 export type TWindowWalletProvider = {
 	ethereum?: TWalletProvider,
@@ -49,6 +51,13 @@ export function useInjectedWallet(): TInjectedWallet {
 	const	detectedWalletProvider = useMemo((): TInjectedWallet => {
 		if (typeof(window) !== 'undefined') {
 			const	{ethereum, okxwallet} = (window as TWindowWalletProvider);
+			if (ethereum?.isLedgerConnect) {
+				return ({
+					name: 'Ledger Connect',
+					icon: <IconWalletLedger className={'text-neutral-900'} />,
+					type: 'INJECTED'
+				});
+			}
 			if (ethereum?.isCoinbaseBrowser) {
 				return ({
 					name: 'Coinbase',

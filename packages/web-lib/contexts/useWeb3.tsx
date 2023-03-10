@@ -1,6 +1,6 @@
 import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
-import {useUpdateEffect} from '@react-hookz/web';
+import {useMountEffect, useUpdateEffect} from '@react-hookz/web';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
@@ -149,6 +149,11 @@ export const Web3ContextApp = ({
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
+
+
+	useMountEffect((): void => {
+		console.log(window);
+	});
 
 	useClientEffect((): void => {
 		if ((chainId || 0) > 0) {
