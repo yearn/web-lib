@@ -3,13 +3,13 @@ import React, {Fragment} from 'react';
 
 import type {ReactElement, ReactNode} from 'react';
 
-export type TChildable = {
+export type TRenderable = {
 	shouldRender: boolean;
 	children: ReactNode[] | ReactNode | ReactElement | null;
 	fallback?: ReactNode[] | ReactNode | ReactElement | null;
 };
 
-function	Childable({shouldRender, children, fallback = null}: TChildable): ReactElement | null {
+function	Renderable({shouldRender, children, fallback = null}: TRenderable): ReactElement | null {
 	if (shouldRender) {
 		return (
 			<Fragment>
@@ -26,4 +26,4 @@ function	Childable({shouldRender, children, fallback = null}: TChildable): React
 		</Fragment>
 	);
 }
-export default Childable;
+export default Renderable;
