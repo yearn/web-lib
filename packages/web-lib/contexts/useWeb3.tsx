@@ -1,6 +1,6 @@
 import	React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {ethers} from 'ethers';
-import {useMountEffect, useUpdateEffect} from '@react-hookz/web';
+import {useLocalStorageValue, useMountEffect, useUpdateEffect} from '@react-hookz/web';
 import {useWeb3React} from '@web3-react/core';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
@@ -50,29 +50,38 @@ const	defaultOptions: TWeb3Options = {
 };
 
 const Web3Context = createContext<TWeb3Context>(defaultState);
-export const Web3ContextApp = ({
+type TWeb3ContextAppWrapperProps = {
+	children: ReactElement;
+	options?: TWeb3Options;
+	currentPartner?: TPartnersInfo;
+	isConnecting: boolean;
+	walletType: string;
+	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>;
+	onInteractiveConnect?: () => Promise<boolean>;
+	onDisconnect: () => void;
+}
+const Web3ContextAppWrapper = ({
 	children,
-	options = defaultOptions
-}: {
-	children: ReactElement,
-	options?: TWeb3Options
-}): ReactElement => {
+	options = defaultOptions,
+	currentPartner,
+	isConnecting,
+	walletType,
+	onConnect,
+	onInteractiveConnect,
+	onDisconnect
+}: TWeb3ContextAppWrapperProps): ReactElement => {
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const {connector, isActive, provider, account, chainId} = useWeb3React();
 	const [chainID, set_chainID] = useLocalStorage('chainId', chainId) as [number, (n: number) => void];
 	const debouncedChainID = useDebounce(chainId, 500);
 	const hasWindowInFocus = useWindowInFocus();
-	const detectedWalletProvider = useInjectedWallet();
 	const chains = useChain();
 
 	const [ens, set_ens] = useState('');
 	const [lensProtocolHandle, set_lensProtocolHandle] = useState('');
-	const [lastWallet, set_lastWallet] = useLocalStorage('lastWallet', 'NONE') as [string, (n: string) => void];
-	const [isConnecting, set_isConnecting] = useState(false);
 	const [isDisconnected, set_isDisconnected] = useState(false);
 	const [hasDisableAutoChainChange, set_hasDisableAutoChainChange] = useState(false);
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
-	const [currentPartner, set_currentPartner] = useState<TPartnersInfo>();
 
 	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
 		if (newChainID === debouncedChainID) {
@@ -150,11 +159,6 @@ export const Web3ContextApp = ({
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedChainID, isActive, hasDisableAutoChainChange, web3Options.supportedChainID, provider, account]);
 
-
-	useMountEffect((): void => {
-		console.log(window);
-	});
-
 	useClientEffect((): void => {
 		if ((chainId || 0) > 0) {
 			set_chainID(Number(chainId));
@@ -167,218 +171,21 @@ export const Web3ContextApp = ({
 		onSwitchChain(web3Options?.defaultChainID || 1);
 	}, [hasWindowInFocus, onSwitchChain, web3Options.defaultChainID]);
 
-	/**************************************************************************
-	**	connect
-	**	What should we do when the user choose to connect it's wallet ?
-	**	Based on the providerType (AKA Metamask or WalletConnect), differents
-	**	actions should be done.
-	**	Then, depending on the providerType, a similar action, but different
-	**	code is executed to set :
-	**	- The provider for the web3 actions
-	**	- The current address/account
-	**	- The current chain
-	**	Moreover, we are starting to listen to events (disconnect, changeAccount
-	**	or changeChain).
-	**************************************************************************/
-	const onConnect = useCallback(async (
-		providerType: string,
-		onError?: ((error: Error) => void) | undefined,
-		onSuccess?: (() => void) | undefined
-	): Promise<void> => {
-		if (!web3Options.shouldUseWallets) {
-			return;
-		}
-		set_isConnecting(true);
-		if (providerType === 'INJECTED') {
-			const	ethereum = (window?.ethereum as TWalletProvider);
-			if (ethereum?.isFrame) {
-				if (isActive) {
-					await connectors.frame.connector.deactivate?.();
-				}
-				try {
-					await connectors.frame.connector.activate();
-					set_lastWallet('INJECTED');
-					if (onSuccess) {
-						onSuccess();
-					}
-					set_isConnecting(false);
-				} catch (error) {
-					set_lastWallet('NONE');
-					if (onError) {
-						onError(error as Error);
-					}
-					set_isConnecting(false);
-				}
-			} else {
-				if (isActive) {
-					await connectors.metamask.connector.deactivate?.();
-				}
-				try {
-					await connectors.metamask.connector.activate();
-					set_lastWallet('INJECTED');
-					if (onSuccess) {
-						onSuccess();
-					}
-					set_isConnecting(false);
-				} catch (error) {
-					set_lastWallet('NONE');
-					if (onError) {
-						onError(error as Error);
-					}
-					set_isConnecting(false);
-				}
-			}
-		} else if (providerType === 'WALLET_CONNECT') {
-			if (isActive) {
-				await connectors.walletConnect.connector.deactivate();
-			}
-			try {
-				await connectors.walletConnect.connector.activate(1);
-				set_lastWallet('WALLET_CONNECT');
-				if (onSuccess) {
-					onSuccess();
-				}
-				set_isConnecting(false);
-			} catch (error) {
-				set_lastWallet('NONE');
-				if (onError) {
-					onError(error as Error);
-				}
-				set_isConnecting(false);
-			}
-		} else if (providerType === 'EMBED_LEDGER') {
-			set_lastWallet('EMBED_LEDGER');
-		} else if (providerType === 'EMBED_GNOSIS_SAFE') {
-			if (isActive) {
-				await connectors.gnosisSafe.connector.deactivate?.();
-			}
-			try {
-				await connectors.gnosisSafe.connector.activate();
-				set_lastWallet('EMBED_GNOSIS_SAFE');
-				if (onSuccess) {
-					onSuccess();
-				}
-				set_isConnecting(false);
-			} catch (error) {
-				set_lastWallet('NONE');
-				if (onError) {
-					onError(error as Error);
-				}
-				set_isConnecting(false);
-			}
-		} else if (providerType === 'EMBED_COINBASE') {
-			if (isActive) {
-				await connectors.coinbase.connector.deactivate?.();
-			}
-			try {
-				await connectors.coinbase.connector.activate(1);
-				set_lastWallet('EMBED_COINBASE');
-				if (onSuccess) {
-					onSuccess();
-				}
-				set_isConnecting(false);
-			} catch (error) {
-				set_lastWallet('NONE');
-				if (onError) {
-					onError(error as Error);
-				}
-				set_isConnecting(false);
-			}
-		} else if (providerType === 'EMBED_TRUSTWALLET') {
-			if (isActive) {
-				await connectors.metamask.connector.deactivate?.();
-			}
-			try {
-				await connectors.metamask.connector.activate(1);
-				set_lastWallet('EMBED_TRUSTWALLET');
-				if (onSuccess) {
-					onSuccess();
-				}
-				set_isConnecting(false);
-			} catch (error) {
-				set_lastWallet('NONE');
-				if (onError) {
-					onError(error as Error);
-				}
-				set_isConnecting(false);
-			}
-		}
-	}, [isActive, web3Options.shouldUseWallets, detectedWalletProvider]); // eslint-disable-line react-hooks/exhaustive-deps
-
-	useClientEffect((): void => {
-		if (isIframe()) {
-			const params = new Proxy(new URLSearchParams(window.location.search), {
-				get: (searchParams, prop): string | null => searchParams.get(prop.toString())
-			});
-
-			// TODO Are we sure that `params` has an `origin` prop?
-			let	{origin} = params as URLSearchParams & {origin: string};
-			if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
-				origin = window.location?.ancestorOrigins[0];
-			}
-			const	partnerInformation = getPartner(origin || '');
-
-			/* 🔵 - Yearn Finance **************************************************
-			**	First, do we have a way to know that we are working with a known
-			**	provider (aka Ledger for example).
-			**	If we don't know the provider, we will suppose it's a Gnosis Safe
-			**	and try to connect.
-			**********************************************************************/
-			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider();
-				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
-				frameWeb3Provider.request = frameProvider.request;
-				connectors.eip1193.connector.init(frameWeb3Provider);
-				connectors.eip1193.connector.activate();
-				set_currentPartner(partnerInformation);
-				onConnect(partnerInformation.walletType);
-			} else {
-				try {
-					connectors.gnosisSafe.connector.activate().then((): void => {
-						if (connectors.gnosisSafe.connector.provider) {
-							const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
-							const	signer = web3Provider.getSigner();
-							signer.getAddress().then((signerAddress: string): void => {
-								set_currentPartner({
-									id: signerAddress,
-									walletType: 'EMBED_GNOSIS_SAFE'
-								});
-								set_lastWallet('EMBED_GNOSIS_SAFE');
-								connectors.gnosisSafe.connector.activate();
-							});
-						}
-					});
-				} catch (error) {
-					console.error(error);
-					//
-				}
-			}
-		} else if (detectedWalletProvider.type === 'EMBED_COINBASE') {
-			connectors.coinbase.connector.activate().then((): void => {
-				set_lastWallet('EMBED_COINBASE');
-			});
-		} else if (detectedWalletProvider.name === 'EMBED_TRUSTWALLET') {
-			connectors.metamask.connector.activate().then((): void => {
-				set_lastWallet('EMBED_TRUSTWALLET');
-			});
-		}
-	}, [detectedWalletProvider]);
-
-	useClientEffect((): void => {
-		if (!isActive && lastWallet !== 'NONE') {
-			onConnect(lastWallet);
-		}
-	}, [isActive]);
-
 	useUpdateEffect((): void => {
 		if (account && isActive) {
 			getProvider(1).lookupAddress(toAddress(account))
 				.then((_ens: string | null): void => {
 					set_ens(_ens || '');
-					lensProtocolFetcher(`{defaultProfile(request: {ethereumAddress: "${account?.toLowerCase()}"}) {handle}}`)
-						.then(({defaultProfile}: {defaultProfile: {handle: string}}): void => {
-							set_lensProtocolHandle(defaultProfile?.handle || '');
-						});
+					if (!_ens) {
+						try {
+							lensProtocolFetcher(`{defaultProfile(request: {ethereumAddress: "${account?.toLowerCase()}"}) {handle}}`)
+								.then(({defaultProfile}: {defaultProfile: {handle: string}}): void => {
+									set_lensProtocolHandle(defaultProfile?.handle || '');
+								});
+						} catch (error) {
+							//
+						}
+					}
 				});
 		}
 	}, [account, chainID]);
@@ -391,10 +198,8 @@ export const Web3ContextApp = ({
 		performBatchedUpdates((): void => {
 			set_ens('');
 			set_lensProtocolHandle('');
-			set_lastWallet('NONE');
 			set_isDisconnected(true);
-			connector.deactivate?.();
-			connector.resetState?.();
+			onDisconnect();
 		});
 		setTimeout((): void => set_isDisconnected(false), 100);
 	}, [connector]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -402,57 +207,12 @@ export const Web3ContextApp = ({
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Used to open the login modal.
 	******************************************************************************************/
-	const openLoginModal = useCallback((): void => {
-		if (isIframe()) {
-			//TODO: REFACTOR TO EXPORT FROM HERE
-			const params = new Proxy(new URLSearchParams(window.location.search), {
-				get: (searchParams, prop): string | null => searchParams.get(prop.toString())
-			});
-
-			let	{origin} = params as URLSearchParams & {origin: string};
-			if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
-				origin = window.location?.ancestorOrigins[0];
-			}
-			const	partnerInformation = getPartner(origin || '');
-
-			/* 🔵 - Yearn Finance **************************************************
-			**	First, do we have a way to know that we are working with a known
-			**	provider (aka Ledger for example).
-			**	If we don't know the provider, we will suppose it's a Gnosis Safe
-			**	and try to connect.
-			**********************************************************************/
-			if (partnerInformation.id !== ethers.constants.AddressZero) {
-				const	frameProvider = new IFrameEthereumProvider();
-				const	frameWeb3Provider = frameProvider as unknown as Provider; // TODO Are we sure these are equivalent?
-				frameWeb3Provider.request = frameProvider.request;
-				connectors.eip1193.connector.init(frameWeb3Provider);
-				connectors.eip1193.connector.activate();
-				set_currentPartner(partnerInformation);
-				onConnect(partnerInformation.walletType);
-			} else {
-				try {
-					connectors.gnosisSafe.connector.activate().then((): void => {
-						if (connectors.gnosisSafe.connector.provider) {
-							const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
-							const	signer = web3Provider.getSigner();
-							signer.getAddress().then((signerAddress: string): void => {
-								set_currentPartner({
-									id: signerAddress,
-									walletType: 'EMBED_GNOSIS_SAFE'
-								});
-								set_lastWallet('EMBED_GNOSIS_SAFE');
-							});
-						}
-					});
-				} catch (error) {
-					console.error(error);
-					//
-				}
-			}
-		} else {
+	const openLoginModal = useCallback(async (): Promise<void> => {
+		const	shouldSkipModal = await onInteractiveConnect?.();
+		if (!shouldSkipModal) {
 			set_isModalLoginOpen(true);
 		}
-	}, [onConnect, set_lastWallet]);
+	}, [onInteractiveConnect]);
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the Web3Context with it's parameters.
@@ -477,9 +237,9 @@ export const Web3ContextApp = ({
 			openLoginModal,
 			onDesactivate: onDesactivate,
 			options: web3Options,
-			walletType: lastWallet
+			walletType
 		});
-	}, [account, ens, lensProtocolHandle, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, lastWallet]);
+	}, [account, ens, lensProtocolHandle, isDisconnected, isActive, isConnecting, provider, currentPartner, onConnect, onSwitchChain, openLoginModal, onDesactivate, web3Options, chainId, chainID, walletType]);
 
 	return (
 		<Web3Context.Provider value={contextValue}>
@@ -488,6 +248,266 @@ export const Web3ContextApp = ({
 				isOpen={isModalLoginOpen}
 				onClose={(): void => set_isModalLoginOpen(false)} />
 		</Web3Context.Provider>
+	);
+};
+
+export const Web3ContextApp = ({children, options = defaultOptions}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
+	const {connector, isActive, provider} = useWeb3React();
+	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
+	const detectedWalletProvider = useInjectedWallet();
+	const {value: lastWalletValue, set: set_lastWallet} = useLocalStorageValue('web3/last-wallet', {defaultValue: 'NONE'});
+	const [currentPartner, set_currentPartner] = useState<TPartnersInfo>();
+	const [isConnecting, set_isConnecting] = useState(false);
+	const lastWallet = lastWalletValue || 'NONE';
+
+	const onDisconnect = useCallback(async (): Promise<void> => {
+		set_lastWallet('NONE');
+		connector.deactivate?.();
+		connector.resetState?.();
+	}, [connector, set_lastWallet]);
+
+	const	onConnectInjected = useCallback(async (
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<boolean> => {
+		const	ethereum = (window?.ethereum as TWalletProvider);
+		const	connector = ethereum?.isFrame ? connectors.frame.connector : connectors.metamask.connector;
+		if (isActive) {
+			await connector.deactivate?.();
+		}
+		try {
+			await connector.activate();
+			set_lastWallet('INJECTED');
+			onSuccess?.();
+			return true;
+		} catch (error) {
+			onDisconnect();
+			onError?.(error as Error);
+			return false;
+		}
+	}, [isActive, onDisconnect, set_lastWallet]);
+	const	onConnectWalletConnect1 = useCallback(async (
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<boolean> => {
+		if (isActive) {
+			await connectors.walletConnect.connector.deactivate();
+		}
+		try {
+			await connectors.walletConnect.connector.activate(1);
+			set_lastWallet('WALLET_CONNECT');
+			onSuccess?.();
+			return true;
+		} catch (error) {
+			onDisconnect();
+			onError?.(error as Error);
+			return false;
+		}
+	}, [isActive, onDisconnect, set_lastWallet]);
+	const	onConnectEmbedLedger = useCallback(async (
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<boolean> => {
+		const params = new Proxy(new URLSearchParams(window.location.search), {
+			get: (searchParams, prop): string | null => searchParams.get(prop.toString())
+		});
+
+		let	{origin} = params as URLSearchParams & {origin: string};
+		if (!origin && window?.location?.ancestorOrigins?.length > 0 ) {
+			origin = window.location?.ancestorOrigins[0];
+		}
+		const	partnerInformation = getPartner(origin || '');
+
+		/* 🔵 - Yearn Finance **************************************************
+		**	First, do we have a way to know that we are working with a known
+		**	provider (aka Ledger for example).
+		**	If we don't know the provider, we will suppose it's a Gnosis Safe
+		**	and try to connect.
+		**********************************************************************/
+		if (partnerInformation.id !== ethers.constants.AddressZero && partnerInformation.walletType === 'EMBED_LEDGER') {
+			try {
+				const	frameProvider = new IFrameEthereumProvider();
+				const	frameWeb3Provider = frameProvider as unknown as Provider;
+				frameWeb3Provider.request = frameProvider.request;
+				connectors.eip1193.connector.init(frameWeb3Provider);
+				await connectors.eip1193.connector.activate();
+				performBatchedUpdates((): void => {
+					set_currentPartner(partnerInformation);
+					set_lastWallet(partnerInformation.walletType);
+				});
+				onSuccess?.();
+				return true;
+			} catch (error) {
+				onError?.(error as Error);
+				onDisconnect();
+				return false;
+			}
+		}
+		return false;
+	}, [onDisconnect, set_lastWallet]);
+	const	onConnectEmbedGnosisSafe = useCallback(async (
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<boolean> => {
+		if (isActive) {
+			await connectors.gnosisSafe.connector.deactivate?.();
+		}
+		try {
+			await connectors.gnosisSafe.connector.activate();
+			if (connectors.gnosisSafe.connector.provider) {
+				const	web3Provider = new ethers.providers.Web3Provider(connectors.gnosisSafe.connector.provider);
+				const	signer = web3Provider.getSigner();
+				const	signerAddress = await signer.getAddress();
+				performBatchedUpdates((): void => {
+					set_currentPartner({id: signerAddress, walletType: 'EMBED_GNOSIS_SAFE'});
+					set_lastWallet('EMBED_GNOSIS_SAFE');
+				});
+				onSuccess?.();
+				return true;
+			}
+			return false;
+		} catch (error) {
+			onError?.(error as Error);
+			onDisconnect();
+			return false;
+		}
+	}, [isActive, onDisconnect, set_lastWallet]);
+	const	onConnectEmbedCoinbase = useCallback(async (
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<boolean> => {
+		if (isActive) {
+			await connectors.coinbase.connector.deactivate?.();
+		}
+		try {
+			await connectors.coinbase.connector.activate(1);
+			set_lastWallet('EMBED_COINBASE');
+			onSuccess?.();
+			return true;
+		} catch (error) {
+			onDisconnect();
+			onError?.(error as Error);
+			return false;
+		}
+	}, [isActive, onDisconnect, set_lastWallet]);
+	const	onConnectEmbedTrustwallet = useCallback(async (
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<boolean> => {
+		if (isActive) {
+			await connectors.metamask.connector.deactivate?.();
+		}
+		try {
+			await connectors.metamask.connector.activate(1);
+			set_lastWallet('EMBED_TRUSTWALLET');
+			onSuccess?.();
+			return true;
+		} catch (error) {
+			onDisconnect();
+			onError?.(error as Error);
+			return false;
+		}
+	}, [isActive, onDisconnect, set_lastWallet]);
+
+	const onConnect = useCallback(async (
+		providerType: string,
+		onError?: ((error: Error) => void) | undefined,
+		onSuccess?: (() => void) | undefined
+	): Promise<void> => {
+		if (!web3Options.shouldUseWallets) {
+			return;
+		}
+		if (isIframe()) {
+			const	isConnectedWithLedger = await onConnectEmbedLedger();
+			if (isConnectedWithLedger) {
+				set_isConnecting(false);
+				return;
+			}
+			const isConnectedWithGnosis = await onConnectEmbedGnosisSafe();
+			if (isConnectedWithGnosis) {
+				set_isConnecting(false);
+				return;
+			}
+		}
+
+		onError = ((error: Error): void => {
+			console.error(error);
+		});
+
+		console.log(`ON CONNECT WITH ${providerType}`);
+		set_isConnecting(true);
+		if (providerType === 'INJECTED') {
+			await onConnectInjected(onError, onSuccess);
+		} else if (providerType === 'WALLET_CONNECT') {
+			await onConnectWalletConnect1(onError, onSuccess);
+		} else if (providerType === 'EMBED_LEDGER') {
+			await onConnectEmbedLedger(onError, onSuccess);
+		} else if (providerType === 'EMBED_GNOSIS_SAFE') {
+			await onConnectEmbedGnosisSafe(onError, onSuccess);
+		} else if (providerType === 'EMBED_COINBASE') {
+			await onConnectEmbedCoinbase(onError, onSuccess);
+		} else if (providerType === 'EMBED_TRUSTWALLET') {
+			await onConnectEmbedTrustwallet(onError, onSuccess);
+		}
+		set_isConnecting(false);
+	}, [onConnectEmbedCoinbase, onConnectEmbedGnosisSafe, onConnectEmbedLedger, onConnectEmbedTrustwallet, onConnectInjected, onConnectWalletConnect1, web3Options.shouldUseWallets]);
+
+	const onEagerConnect = useCallback(async (): Promise<void> => {
+		if (isIframe()) {
+			const	isConnectedWithLedger = await onConnectEmbedLedger();
+			if (!isConnectedWithLedger) {
+				await onConnectEmbedGnosisSafe();
+			}
+		} else if (detectedWalletProvider.type === 'EMBED_COINBASE') {
+			await onConnectEmbedCoinbase();
+		} else if (detectedWalletProvider.name === 'EMBED_TRUSTWALLET') {
+			await onConnectEmbedTrustwallet();
+		} else if (isActive && lastWallet !== 'NONE') {
+			await onConnect(lastWallet);
+		}
+	}, [detectedWalletProvider.name, detectedWalletProvider.type, isActive, lastWallet, onConnect, onConnectEmbedCoinbase, onConnectEmbedGnosisSafe, onConnectEmbedLedger, onConnectEmbedTrustwallet]);
+
+	const onInteractiveConnect = useCallback(async (): Promise<boolean> => {
+		if (isIframe()) {
+			const	isConnectedWithLedger = await onConnectEmbedLedger();
+			if (isConnectedWithLedger) {
+				return true;
+			}
+			const	isConnectedGnosis = await onConnectEmbedGnosisSafe();
+			if (isConnectedGnosis) {
+				return true;
+			}
+		}
+		return false;
+	}, [onConnectEmbedGnosisSafe, onConnectEmbedLedger]);
+
+	useMountEffect((): void => {
+		onEagerConnect();
+	});
+
+	useEffect((): void => {
+		if (!isActive && lastWallet !== 'NONE' && connector) {
+			onInteractiveConnect().then((isConnected): void => {
+				if (!isConnected) {
+					onConnect(lastWallet);
+				}
+			});
+		}
+	}, [isActive, connector, lastWallet, onConnect, onInteractiveConnect]);
+
+	console.warn(lastWallet, isActive, connector, provider);
+
+	return (
+		<Web3ContextAppWrapper
+			currentPartner={currentPartner}
+			isConnecting={isConnecting}
+			walletType={lastWallet}
+			onConnect={onConnect}
+			onInteractiveConnect={onInteractiveConnect}
+			onDisconnect={onDisconnect}
+			options={options}>
+			{children}
+		</Web3ContextAppWrapper>
 	);
 };
 
