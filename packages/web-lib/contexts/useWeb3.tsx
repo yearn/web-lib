@@ -252,7 +252,7 @@ const Web3ContextAppWrapper = ({
 };
 
 export const Web3ContextApp = ({children, options = defaultOptions}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
-	const {connector, isActive, provider} = useWeb3React();
+	const {connector, isActive} = useWeb3React();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const detectedWalletProvider = useInjectedWallet();
 	const {value: lastWalletValue, set: set_lastWallet} = useLocalStorageValue('web3/last-wallet', {defaultValue: 'NONE'});
@@ -434,7 +434,6 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 			console.error(error);
 		});
 
-		console.log(`ON CONNECT WITH ${providerType}`);
 		set_isConnecting(true);
 		if (providerType === 'INJECTED') {
 			await onConnectInjected(onError, onSuccess);
@@ -494,8 +493,6 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 			});
 		}
 	}, [isActive, connector, lastWallet, onConnect, onInteractiveConnect]);
-
-	console.warn(lastWallet, isActive, connector, provider);
 
 	return (
 		<Web3ContextAppWrapper
