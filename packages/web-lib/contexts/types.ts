@@ -69,7 +69,7 @@ export type TWeb3Context = {
 	lensProtocolHandle: string | undefined,
 	chainID: number,
 	isDisconnected: boolean,
-	isActive: boolean,
+	isActive: boolean
 	isConnecting: boolean,
 	hasProvider: boolean,
 	provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,

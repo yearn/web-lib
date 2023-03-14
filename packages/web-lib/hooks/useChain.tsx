@@ -1,4 +1,5 @@
 import {chains, TChain} from '@yearn-finance/web-lib/utils/web3/chains';
+import { useCallback } from 'react';
 import { TNDict } from '../utils/types';
 import { useChainID } from './useChainID';
 
@@ -16,8 +17,8 @@ export function useChain(): TUseChainReturn {
 	const {safeChainID} = useChainID();
 
 	return {
-		get: (chainID: number): TChain => chains[chainID],
-		getCurrent: (): TChain => chains[safeChainID],
-		getAll: () => chains
+		get: useCallback((chainID: number): TChain => chains[chainID], []),
+		getCurrent: useCallback((): TChain => chains[safeChainID], [safeChainID]),
+		getAll: () => useCallback(() => chains, []),
 	};
 }
