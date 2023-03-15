@@ -10,11 +10,11 @@ const themeConfig = {
 	floatTOC: true,
 	defaultMenuCollapsed: true,
 	footerEditLink: 'Edit this page on GitHub',
-	footerText: () => (
-		<div className={'text-current text-sm'}>
+	footerText: () => 
+		<div className={'text-sm text-current'}>
 			{'Yearn Finance '}{new Date().getFullYear()}
 		</div>
-	),
+	,
 	GITHUB_URI,
 	head: ({meta, title}) => {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -84,7 +84,7 @@ const themeConfig = {
 						<path d={'M688.242 392.992L623.888 474.764C654.602 503.969 673.616 545.585 673.616 590.852C673.616 679.925 601.218 752.206 512 752.206C422.782 752.206 350.384 679.925 350.384 590.852C350.384 544.855 370.129 503.239 400.844 474.034L337.221 391.532C280.912 439.719 245.81 511.27 245.81 590.852C245.81 737.604 365.01 856.612 512 856.612C658.99 856.612 778.191 737.604 778.191 590.852C778.191 512 743.089 441.179 688.242 392.992Z'} fill={'white'}/>
 					</svg>
 				</div>
-				<span className={'hidden font-roboto text-xl font-bold text-neutral-0 md:inline'}>
+				<span className={'font-roboto text-neutral-0 hidden text-xl font-bold md:inline'}>
 					{'Yearn Web Lib'}
 				</span>
 			</>
