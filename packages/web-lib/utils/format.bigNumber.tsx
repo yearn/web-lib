@@ -19,8 +19,11 @@ export const BN = (amount?: BigNumberish): BigNumber => {
 	return BigNumber.from(amount || 0);
 };
 
-export function units(value?: BigNumberish, unitName?: BigNumberish | undefined): string {
+export function formatUnits(value?: BigNumberish, unitName?: BigNumberish | undefined): string {
 	return (ethers.utils.formatUnits(BN(value), unitName));
+}
+export function parseUnits(value: string, unitName?: BigNumberish | undefined): BigNumber {
+	return (ethers.utils.parseUnits(value, unitName));
 }
 
 export function	bigNumberAsAmount(
@@ -57,7 +60,7 @@ export function	bigNumberAsAmount(
 }
 
 export	const	toNormalizedValue = (v: BigNumberish, d?: number): number => (
-	Number(units(v || 0, d ?? 18))
+	Number(formatUnits(v || 0, d ?? 18))
 );
 
 export const	toNormalizedAmount = (v: BigNumberish, d?: number): string => (
@@ -69,7 +72,6 @@ export const	toNormalizedBN = (value: BigNumberish, decimals?: number): TNormali
 	normalized: toNormalizedValue(BN(value), decimals ?? 18)
 });
 
-export {units as formatUnits};
 export {toNormalizedAmount as formatToNormalizedAmount};
 export {toNormalizedValue as formatToNormalizedValue};
 export {toNormalizedBN as formatToNormalizedBN};
