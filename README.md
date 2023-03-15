@@ -2,8 +2,8 @@
 ![](../../.github/og.jpeg)
 
 
-Yearn web Lib is a library of standard components used through Yearn's Projects.    
-This library is made for React projects with the idea to be light, efficient and easy to use.  
+Yearn web Lib is a library of standard components used through Yearn's Projects.
+This library is made for React projects with the idea to be light, efficient and easy to use.
 We are using React + Tailwindcss + ethersjs for the web3 package, and some contexts are available to correctly wrap your app.
 
 Please check @yearn/web-template for documentation and usage.
@@ -27,18 +27,9 @@ yarn add @yearn-finance/web-lib
 ### Useful Commands
 - `yarn dev` - Run all packages locally
 
-### Apps & Packages
-The following packages and applications are available
-
-- `package/docs`: Documentation site for the library
-- `package/playground`: A playground for testing components
-- `packages/web-lib`: Actual library for Yearn's projects
-
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
-
 
 ### Releasing
-When running `yarn build` in the `package/web-lib` folder, the library will be bumped to the next minor version, the code will be compiled and the various files will be copied in the `package/web-lib/dist` folder.  
+When running `yarn build` in the `package/web-lib` folder, the library will be bumped to the next minor version, the code will be compiled and the various files will be copied in the `package/web-lib/dist` folder.
 From there the library can be published to NPM via the `yarn publish ./dist` command.
 
 ### How to setup
@@ -116,7 +107,7 @@ import	{WithYearn}		from	'@yearn-finance/web-lib/contexts';
 
 function	MyApp(props: AppProps): ReactElement {
 	const	{Component, pageProps} = props;
-	
+
 	return (
 		<WithYearn>
 			<AppWrapper
