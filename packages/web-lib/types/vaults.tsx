@@ -50,6 +50,7 @@ export type TStrategyRisk = {
 export type TStrategy = {
 	address: TAddress,
 	name: string,
+	displayName: string,
 	description: string,
 	details: TStrategyDetails,
 	risk: TStrategyRisk

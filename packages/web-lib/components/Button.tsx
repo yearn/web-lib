@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import Childable from '@yearn-finance/web-lib/components/Childable';
+import Renderable from '@yearn-finance/web-lib/components/Renderable';
 import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
 import type {ForwardedRef, ReactElement, ReactNode} from 'react';
@@ -38,11 +38,11 @@ const Button = forwardRef((props: TButton, ref: ForwardedRef<HTMLButtonElement |
 				}
 			}}>
 			{children}
-			<Childable shouldRender={isBusy}>
+			<Renderable shouldRender={isBusy}>
 				<div className={'absolute inset-0 flex items-center justify-center'}>
 					<IconLoader className={'text-neutral-0 h-6 w-6 animate-spin'} />
 				</div>
-			</Childable>
+			</Renderable>
 		</button>
 	);
 });
