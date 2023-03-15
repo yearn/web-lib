@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.19.2",
+  "version": "0.19.4",
   "files": [
     "."
   ],
@@ -25,10 +25,6 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
-    "@walletconnect/ethereum-provider": "^2.4.10",
-    "@walletconnect/jsonrpc-http-connection": "^1.0.6",
-    "@walletconnect/jsonrpc-provider": "^1.0.9",
-    "@walletconnect/signer-connection": "^2.4.10",
     "@web3-react/coinbase-wallet": "8.0.35-beta.0",
     "@web3-react/core": "8.0.35-beta.0",
     "@web3-react/eip1193": "8.0.27-beta.0",
