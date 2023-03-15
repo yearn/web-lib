@@ -1,5 +1,5 @@
 {
-	"name": "@yearn-finance/web-lib-root",
+	"name": "@yearn-finance/web-lib",
 	"version": "0.13.28",
 	"private": true,
 	"workspaces": [
