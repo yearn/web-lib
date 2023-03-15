@@ -50,7 +50,7 @@ export function	bigNumberAsAmount(
 		return (`∞${symbolWithPrefix}`);
 	}
 
-	const	formatedAmount = units(bnAmount, decimals);
+	const	formatedAmount = formatUnits(bnAmount, decimals);
 	return (`${
 		new Intl.NumberFormat([locale, 'en-US'], {
 			minimumFractionDigits: 0,
