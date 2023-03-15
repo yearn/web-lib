@@ -1,7 +1,6 @@
 import React, {forwardRef} from 'react';
-
-import IconLoader from '../icons/IconLoader';
-import Renderable from './Renderable';
+import Renderable from '@yearn-finance/web-lib/components/Renderable';
+import IconLoader from '@yearn-finance/web-lib/icons/IconLoader';
 
 import type {ForwardedRef, ReactElement, ReactNode} from 'react';
 
