@@ -2,8 +2,9 @@ import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
 export function	counterValue(amount: number | string, price: number): string {
 	if (!amount || !price) {
-		return ('$0.00');
+		return ('$0,00');
 	}
+
 	const value = (Number(amount) || 0) * (price || 0);
 	if (value > 10000) {
 		return (`$${formatAmount(value, 0, 0)}`);
