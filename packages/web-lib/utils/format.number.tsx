@@ -2,13 +2,22 @@
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format numbers, currency and date
 **************************************************************************/
-export function	amount(amount: number, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
+export function	amount(amount: number | string, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
 	let		locale = 'fr-FR';
 	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
 	if (maximumFractionDigits < minimumFractionDigits) {
 		maximumFractionDigits = minimumFractionDigits;
+	}
+	if (!amount) {
+		amount = 0;
+	}
+	if (typeof(amount) === 'string') {
+		amount = Number(amount);
+	}
+	if (isNaN(amount)) {
+		amount = 0;
 	}
 	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount));
 }
