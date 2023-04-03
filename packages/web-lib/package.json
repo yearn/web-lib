@@ -39,7 +39,7 @@
     "dayjs": "^1.11.7",
     "eth-provider": "^0.13.6",
     "ethcall": "^4.8.13",
-    "ethers": "5.7.2",
+    "ethers": "6.2.3",
     "eventemitter3": "^5.0.0",
     "graphql": "^16.6.0",
     "graphql-request": "^5.1.0",
