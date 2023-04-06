@@ -272,12 +272,13 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 	): Promise<boolean> => {
 		const	ethereum = (window?.ethereum as TWalletProvider);
 		const	connector = ethereum?.isFrame ? connectors.frame.connector : connectors.metamask.connector;
+		const	isLedger = ethereum?.isLedgerConnect;
 		if (isActive) {
 			await connector.deactivate?.();
 		}
 		try {
 			await connector.activate();
-			set_lastWallet('INJECTED');
+			set_lastWallet(isLedger ? 'INJECTED_LEDGER' : 'INJECTED');
 			onSuccess?.();
 			return true;
 		} catch (error) {
@@ -435,7 +436,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		});
 
 		set_isConnecting(true);
-		if (providerType === 'INJECTED') {
+		if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
 			await onConnectInjected(onError, onSuccess);
 		} else if (providerType === 'WALLET_CONNECT') {
 			await onConnectWalletConnect1(onError, onSuccess);

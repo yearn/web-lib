@@ -8,6 +8,7 @@ import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWall
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement, ReactNode} from 'react';
+import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import type {TModal} from './Modal';
 
 type	TModalMobileMenu = {
@@ -98,8 +99,10 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 				<div className={'grid grid-cols-2 gap-2 p-2'}>
 					<div
 						onClick={(): void => {
+							const	ethereum = (window?.ethereum as TWalletProvider);
+							const	isLedger = ethereum?.isLedgerConnect;
 							onConnect(
-								'INJECTED',
+								isLedger ? 'INJECTED_LEDGER' : 'INJECTED',
 								(): string => toast({content: 'Impossible to connect to your wallet', type: 'error'}),
 								(): void => undefined
 							);

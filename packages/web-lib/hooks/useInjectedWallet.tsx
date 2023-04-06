@@ -34,6 +34,7 @@ export type TInjectedWallet = {
 		'NONE' |
 		'INJECTED' |
 		'INJECTED_COINBASE' |
+		'INJECTED_LEDGER' |
 		'WALLET_CONNECT' |
 		'EMBED_LEDGER' |
 		'EMBED_GNOSIS_SAFE' |
@@ -55,7 +56,7 @@ export function useInjectedWallet(): TInjectedWallet {
 				return ({
 					name: 'Ledger Connect',
 					icon: <IconWalletLedger className={'text-neutral-900'} />,
-					type: 'INJECTED'
+					type: 'INJECTED_LEDGER'
 				});
 			}
 			if (ethereum?.isCoinbaseBrowser) {
