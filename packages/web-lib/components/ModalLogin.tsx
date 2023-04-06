@@ -8,7 +8,6 @@ import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
 import type {ReactElement} from 'react';
-import type {TWalletProvider} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 
 export type	TModalLogin = {
 	isOpen: boolean,
@@ -28,10 +27,8 @@ function ModalLogin(props: TModalLogin): ReactElement {
 			<div className={'yearn--modalLogin'}>
 				<div
 					onClick={(): void => {
-						const	ethereum = (window?.ethereum as TWalletProvider);
-						const	isLedger = ethereum?.isLedgerConnect;
 						onConnect(
-							isLedger ? 'INJECTED_LEDGER' : 'INJECTED',
+							detectedWalletProvider.type,
 							(error): string => toast({content: error.message ?? 'Unsupported network. Please use Ethereum mainnet.', type: 'error'}),
 							(): void => onClose()
 						);
