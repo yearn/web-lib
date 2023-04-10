@@ -43,4 +43,6 @@ export const VEYFI_POSITION_HELPER_ADDRESS = toAddress('0x5A70cD937bA3Daec8188E9
 export const SOLVER_COW_VAULT_RELAYER_ADDRESS = toAddress('0xC92E8bdf79f0507f65a392b0ab4667716BFE0110');
 export const SOLVER_WIDO_RELAYER_ADDRESS = toAddress('0x7Fb69e8fb1525ceEc03783FFd8a317bafbDfD394');
 
-
+// Optimism staking rewards contract addresses used on yVault app
+export const STAKING_REWARDS_REGISTRY_ADDRESS = toAddress('0x8ED9F6343f057870F1DeF47AaE7CD88dfAA049A8');
+export const STAKING_REWARDS_ZAP_ADDRESS = toAddress('0xd155F5bF8a475007Fa369e6314C3673e4Bb1e292');
