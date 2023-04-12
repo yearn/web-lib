@@ -3,8 +3,6 @@ import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
-import IconWalletCoinbase from '@yearn-finance/web-lib/icons/IconWalletCoinbase';
-import IconWalletGnosis from '@yearn-finance/web-lib/icons/IconWalletGnosis';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
 import type {ReactElement} from 'react';
@@ -49,7 +47,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					<div><IconWalletWalletConnect className={'h-12 w-12'} /></div>
 					<b>{'WalletConnect'}</b>
 				</div>
-				<div
+				{/* <div
 					onClick={(): void => {
 						onConnect(
 							'EMBED_COINBASE',
@@ -70,9 +68,9 @@ function ModalLogin(props: TModalLogin): ReactElement {
 						);
 					}}
 					className={'yearn--modalLogin-card'}>
-					<div><IconWalletGnosis className={'h-12 w-12'} /></div>
-					<b>{'Gnosis'}</b>
-				</div>
+					<div><IconWalletSafe className={'h-12 w-12'} /></div>
+					<b>{'Safe'}</b>
+				</div> */}
 			</div>
 		</Modal>
 	);
