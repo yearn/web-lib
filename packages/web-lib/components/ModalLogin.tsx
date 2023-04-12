@@ -22,7 +22,15 @@ function ModalLogin(props: TModalLogin): ReactElement {
 		<Modal
 			isOpen={isOpen}
 			onClose={(): void => onClose()}>
-			<div className={'yearn--modalLogin'}>
+			<div className={'p-6'}>
+				<div className={'w-full md:w-3/4'}>
+					<b>{'Connect your wallet'}</b>
+					<p className={'text-sm text-neutral-500'}>
+						{'Select your wallet from the options to get started.'}
+					</p>
+				</div>
+			</div>
+			<div className={'yearn--modalLogin gap-6 px-6 pb-6'}>
 				<div
 					onClick={(): void => {
 						onConnect(
@@ -31,7 +39,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 							(): void => onClose()
 						);
 					}}
-					className={'yearn--modalLogin-card'}>
+					className={'yearn--modalLogin-card !bg-neutral-100/40 hover:!bg-neutral-100'}>
 					<div>{cloneElement(detectedWalletProvider.icon, {className: 'w-12 h-12'})}</div>
 					<b>{detectedWalletProvider.name}</b>
 				</div>
@@ -43,7 +51,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 							(): void => onClose()
 						);
 					}}
-					className={'yearn--modalLogin-card'}>
+					className={'yearn--modalLogin-card !bg-neutral-100/40 hover:!bg-neutral-100'}>
 					<div><IconWalletWalletConnect className={'h-12 w-12'} /></div>
 					<b>{'WalletConnect'}</b>
 				</div>

@@ -431,9 +431,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 			}
 		}
 
-		onError = ((error: Error): void => {
-			console.error(error);
-		});
+		onError = ((error: Error): void => console.error(error));
 
 		set_isConnecting(true);
 		if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
@@ -481,9 +479,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		return false;
 	}, [onConnectEmbedGnosisSafe, onConnectEmbedLedger]);
 
-	useMountEffect((): void => {
-		onEagerConnect();
-	});
+	useMountEffect(onEagerConnect);
 
 	useEffect((): void => {
 		if (!isActive && lastWallet !== 'NONE' && connector) {
