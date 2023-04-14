@@ -72,7 +72,7 @@ export function truncateHex(address: string | undefined, size: number): string {
 ** allowanceKey is used to access the unique allowance key matching one
 ** token with one spender
 **************************************************************************/
-export function allowanceKey(token: unknown, spender: unknown): string {
-	return `${toAddress(token as string)}_${toAddress(spender as string)}`;
+export function allowanceKey(chainID: number, token: TAddress, spender: TAddress, owner: TAddress): string {
+	return `${chainID}_${token}_${spender}_${owner}`;
 }
 
