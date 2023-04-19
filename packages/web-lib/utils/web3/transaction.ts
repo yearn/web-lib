@@ -43,7 +43,7 @@ class Transaction {
 		return this;
 	}
 
-	async perform({successMessage = 'Transaction successful', errorMessage = 'Transaction failed'}): Promise<TTxResponse> {
+	async perform(): Promise<TTxResponse> {
 		const {toast} = yToast();
 
 		this.onStatus(pendingTxStatus);
@@ -55,7 +55,7 @@ class Transaction {
 				if (this.successCall && receipt) {
 					await this.successCall(receipt);
 				}
-				toast({content: successMessage, type: 'success'});
+				toast({content: 'Transaction successful', type: 'success'});
 				if (this?.options?.shouldIgnoreSuccessTxStatusChange) {
 					return {isSuccessful, receipt};
 				}
@@ -63,7 +63,7 @@ class Transaction {
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 				return ({isSuccessful, receipt});
 			}
-			toast({content: errorMessage, type: 'error'});
+			toast({content: 'Transaction failed', type: 'error'});
 			this.onStatus(errorTxStatus);
 			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 			return ({isSuccessful: false});
@@ -73,7 +73,7 @@ class Transaction {
 			if (((error as any)?.message || '').includes('User declined transaction')) {
 				toast({content: 'User declined transaction', type: 'error'});
 			} else {
-				toast({content: errorMessage, type: 'error'});
+				toast({content: 'Transaction failed', type: 'error'});
 			}
 			this.onStatus(errorTxStatus);
 			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
