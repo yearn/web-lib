@@ -136,7 +136,7 @@ const CHAINS: TNDict<TChain> = {
 	},
 	137: {
 		'chainID': '137',
-		'name': 'Matic Mainnet',
+		'name': 'Polygon Mainnet',
 		'displayName': 'Polygon',
 		'coin': 'MATIC',
 		'block_explorer': 'https://polygonscan.com',
