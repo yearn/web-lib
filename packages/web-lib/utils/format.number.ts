@@ -2,7 +2,7 @@
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format numbers, currency and date
 **************************************************************************/
-export function	amount(amount: number | string, minimumFractionDigits = 2, maximumFractionDigits = 2): string {
+export function	amount(amount: number | string, minimumFractionDigits = 2, maximumFractionDigits = 2, displayDigits = 0): string {
 	let		locale = 'fr-FR';
 	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
@@ -19,7 +19,15 @@ export function	amount(amount: number | string, minimumFractionDigits = 2, maxim
 	if (isNaN(amount)) {
 		amount = 0;
 	}
-	return (new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount));
+	let formattedAmount = new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount);
+	
+	if (displayDigits && displayDigits > 0 && formattedAmount.length > displayDigits) {
+		const leftSide = formattedAmount.slice(0, Math.ceil(displayDigits / 2));
+		const rightSide = formattedAmount.slice(-Math.floor(displayDigits / 2));
+		formattedAmount = `${leftSide}...${rightSide}`;
+	}
+	
+	return formattedAmount;
 }
 
 export function	currency(amount: number, decimals = 2): string {
