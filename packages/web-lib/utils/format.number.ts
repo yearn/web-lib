@@ -21,7 +21,7 @@ export function	amount(amount: number | string, minimumFractionDigits = 2, maxim
 	}
 	let formattedAmount = new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount);
 	
-	if (displayDigits && displayDigits > 0 && formattedAmount.length > displayDigits) {
+	if (displayDigits > 0 && formattedAmount.length > displayDigits) {
 		const leftSide = formattedAmount.slice(0, Math.ceil(displayDigits / 2));
 		const rightSide = formattedAmount.slice(-Math.floor(displayDigits / 2));
 		formattedAmount = `${leftSide}...${rightSide}`;
