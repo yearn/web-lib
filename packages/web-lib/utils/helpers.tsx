@@ -8,7 +8,7 @@ import {yToast} from '@yearn-finance/web-lib/components/yToast';
 export function	parseMarkdown(markdownText: string): string {
 	const htmlText = markdownText
 		.replace(/\[(.*?)\]\((.*?)\)/gim, "<a class='link' target='_blank' href='$2'>$1</a>")
-		.replace(/~~(.*?)~~/gim, "<span class='text-primary-500'>$1</span>")
+		.replace(/~~(.*?)~~/gim, "<span class='line-through'>$1</span>")
 		.replace(/\*\*(.*?)\*\*/gim, "<span class='font-bold'>$1</span>")
 		;
 
