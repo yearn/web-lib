@@ -17,7 +17,7 @@ const	defaultSettings = {
 const	defaultNetworks = {
 	1: {
 		rpcURI: getRPC(1),
-		graphURI: 'https://api.thegraph.com/subgraphs/name/0xkofee/yearn-vaults-v2',
+		graphURI: 'https://api.thegraph.com/subgraphs/name/rareweasel/yearn-vaults-v2-subgraph-mainnet',
 		yDaemonURI: `${defaultSettings.yDaemonBaseURI}/1`,
 		metaURI: `${defaultSettings.metaBaseURI}/api/1`,
 		apiURI: `${defaultSettings.apiBaseURI}/v1/chains/1`,
