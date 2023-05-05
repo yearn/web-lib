@@ -176,17 +176,16 @@ const Web3ContextAppWrapper = ({
 			getProvider(1).lookupAddress(toAddress(account))
 				.then((_ens: string | null): void => {
 					set_ens(_ens || '');
-					if (!_ens) {
-						try {
-							lensProtocolFetcher(`{defaultProfile(request: {ethereumAddress: "${account?.toLowerCase()}"}) {handle}}`)
-								.then(({defaultProfile}: {defaultProfile: {handle: string}}): void => {
-									set_lensProtocolHandle(defaultProfile?.handle || '');
-								});
-						} catch (error) {
-							//
-						}
-					}
 				});
+
+			try {
+				lensProtocolFetcher(`{defaultProfile(request: {ethereumAddress: "${account?.toLowerCase()}"}) {handle}}`)
+					.then(({defaultProfile}: {defaultProfile: {handle: string}}): void => {
+						set_lensProtocolHandle(defaultProfile?.handle || '');
+					});
+			} catch (error) {
+				//
+			}
 		}
 	}, [account, chainID]);
 
