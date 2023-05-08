@@ -28,7 +28,7 @@
     "@walletconnect/ethereum-provider": "^1.7.8",
     "@walletconnect/jsonrpc-http-connection": "^1.0.6",
     "@walletconnect/jsonrpc-provider": "^1.0.8",
-    "@web3-react/coinbase-wallet": "8.0.35-beta.0",
+    "@web3-react/coinbase-wallet": "8.2.0",
     "@web3-react/core": "8.0.35-beta.0",
     "@web3-react/eip1193": "8.0.27-beta.0",
     "@web3-react/gnosis-safe": "8.0.6-beta.0",
