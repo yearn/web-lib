@@ -154,14 +154,21 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 									id={'network'}
 									onChange={(e): void => onSwitchChain(Number(e?.target?.value), true)}
 									className={'yearn--select-no-arrow yearn--select-reset !pr-6 text-sm'}>
-									{optionsForSelect.map((id: number): ReactElement => (
-										<option
-											key={id}
-											selected={Number(chains.getCurrent()) === id}
-											value={id}>
-											{chains.get(id)?.displayName || `Unknown chain (${id})`}
-										</option>
-									))}
+									{optionsForSelect.map((id: number): ReactElement => {
+										const label = chains.get(id)?.displayName || `Unknown chain (${id})`;
+										
+										const {chainID} = chains.getCurrent() || {};
+										const isSelected = Number(chainID) === id;
+
+										return (
+											<option
+												key={id}
+												selected={isSelected}
+												value={id}>
+												{label}
+											</option>
+										);
+									})}
 								</select>
 								<div className={'yearn--modalMobileMenu-chevron'}>
 									<svg xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 448 512'}>
