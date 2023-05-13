@@ -1,4 +1,4 @@
-import React, {cloneElement} from 'react';
+import React, {cloneElement, useCallback} from 'react';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
@@ -18,6 +18,14 @@ function ModalLogin(props: TModalLogin): ReactElement {
 	const	detectedWalletProvider = useInjectedWallet();
 	const 	{toast} = yToast();
 
+	const onInjectedConnect = useCallback((): void => {
+		onConnect(
+			detectedWalletProvider.type,
+			(error): string => toast({content: error.message ?? 'Unsupported network. Please use Ethereum mainnet.', type: 'error'}),
+			(): void => onClose()
+		);
+	}, [detectedWalletProvider, onConnect, onClose, toast]);
+
 	return (
 		<Modal
 			isOpen={isOpen}
@@ -32,13 +40,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 			</div>
 			<div className={'yearn--modalLogin gap-6 px-6 pb-6'}>
 				<div
-					onClick={(): void => {
-						onConnect(
-							detectedWalletProvider.type,
-							(error): string => toast({content: error.message ?? 'Unsupported network. Please use Ethereum mainnet.', type: 'error'}),
-							(): void => onClose()
-						);
-					}}
+					onClick={onInjectedConnect}
 					className={'yearn--modalLogin-card !bg-neutral-100/40 hover:!bg-neutral-100'}>
 					<div>{cloneElement(detectedWalletProvider.icon, {className: 'w-12 h-12'})}</div>
 					<b>{detectedWalletProvider.name}</b>

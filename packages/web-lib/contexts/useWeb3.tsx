@@ -440,6 +440,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		} else if (providerType === 'EMBED_GNOSIS_SAFE') {
 			await onConnectEmbedGnosisSafe(onError, onSuccess);
 		} else if (providerType === 'EMBED_COINBASE') {
+			alert(`Manual connect to ${providerType}`);
 			await onConnectEmbedCoinbase(onError, onSuccess);
 		} else if (providerType === 'EMBED_TRUSTWALLET') {
 			await onConnectEmbedTrustwallet(onError, onSuccess);
@@ -456,6 +457,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 				await onConnectEmbedGnosisSafe();
 			}
 		} else if (detectedWalletProvider.type === 'EMBED_COINBASE') {
+			alert(`Eager connect to ${detectedWalletProvider.type}`);
 			await onConnectEmbedCoinbase();
 		} else if (detectedWalletProvider.name === 'EMBED_TRUSTWALLET') {
 			await onConnectEmbedTrustwallet();
