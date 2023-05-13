@@ -57,30 +57,6 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					<div><IconWalletWalletConnect className={'h-12 w-12'} /></div>
 					<b>{'WalletConnect'}</b>
 				</div>
-				{/* <div
-					onClick={(): void => {
-						onConnect(
-							'EMBED_COINBASE',
-							(error): string => toast({content: error.message ??'Invalid chain', type: 'error'}),
-							(): void => onClose()
-						);
-					}}
-					className={'yearn--modalLogin-card'}>
-					<div><IconWalletCoinbase className={'h-12 w-12'} /></div>
-					<b>{'Coinbase'}</b>
-				</div>
-				<div
-					onClick={(): void => {
-						onConnect(
-							'EMBED_GNOSIS_SAFE',
-							(error): string => toast({content: error.message ?? 'Invalid chain', type: 'error'}),
-							(): void => onClose()
-						);
-					}}
-					className={'yearn--modalLogin-card'}>
-					<div><IconWalletSafe className={'h-12 w-12'} /></div>
-					<b>{'Safe'}</b>
-				</div> */}
 			</div>
 		</Modal>
 	);

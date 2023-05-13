@@ -251,7 +251,7 @@ const Web3ContextAppWrapper = ({
 };
 
 export const Web3ContextApp = ({children, options = defaultOptions}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
-	const {connector, isActive} = useWeb3React();
+	const {connector, isActive, chainId} = useWeb3React();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const detectedWalletProvider = useInjectedWallet();
 	const {value: lastWalletValue, set: set_lastWallet} = useLocalStorageValue('web3/last-wallet', {defaultValue: 'NONE'});
@@ -381,7 +381,8 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 				await connectors.coinbase.connector.deactivate?.();
 			}
 			try {
-				await connectors.coinbase.connector.activate(1);
+				await connectors.coinbase.connector.activate?.(chainId);
+				await connectors.coinbase.connector.connectEagerly?.();
 				set_lastWallet('EMBED_COINBASE');
 				onSuccess?.();
 				return true;
@@ -393,7 +394,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		} catch (error) {
 			return await onConnectInjected(onError, onSuccess);
 		}
-	}, [isActive, onDisconnect, set_lastWallet, onConnectInjected]);
+	}, [isActive, onDisconnect, set_lastWallet, onConnectInjected, chainId]);
 	const	onConnectEmbedTrustwallet = useCallback(async (
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
