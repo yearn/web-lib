@@ -77,7 +77,7 @@ export function useInjectedWallet(): TInjectedWallet {
 				return ({
 					name: 'Coinbase',
 					icon: <IconWalletCoinbase />,
-					type: 'INJECTED'
+					type: 'EMBED_COINBASE'
 				});
 			}
 			if (ethereum?.isFrame) {

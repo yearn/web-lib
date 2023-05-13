@@ -212,7 +212,6 @@ const Web3ContextAppWrapper = ({
 			set_isModalLoginOpen(true);
 		}
 	}, [onInteractiveConnect]);
-	console.log('hehee');
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the Web3Context with it's parameters.
@@ -434,9 +433,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		onError = ((error: Error): void => console.error(error));
 
 		set_isConnecting(true);
-		if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
-			await onConnectInjected(onError, onSuccess);
-		} else if (providerType === 'WALLET_CONNECT') {
+		if (providerType === 'WALLET_CONNECT') {
 			await onConnectWalletConnect1(onError, onSuccess);
 		} else if (providerType === 'EMBED_LEDGER') {
 			await onConnectEmbedLedger(onError, onSuccess);
@@ -446,6 +443,8 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 			await onConnectEmbedCoinbase(onError, onSuccess);
 		} else if (providerType === 'EMBED_TRUSTWALLET') {
 			await onConnectEmbedTrustwallet(onError, onSuccess);
+		} else if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
+			await onConnectInjected(onError, onSuccess);
 		}
 		set_isConnecting(false);
 	}, [onConnectEmbedCoinbase, onConnectEmbedGnosisSafe, onConnectEmbedLedger, onConnectEmbedTrustwallet, onConnectInjected, onConnectWalletConnect1, web3Options.shouldUseWallets]);
