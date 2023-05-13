@@ -15,7 +15,7 @@ const	[metaMaskConnector, metaMaskHooks] = initializeConnector<MetaMask>(
 	(actions): MetaMask => new MetaMask({actions})
 );
 
-const	[frameConnector, frameHooks] = initializeConnector<Frame>(
+const	[frameConnector, frameHooks] = initializeConnector<any>(
 	(actions): Frame => new Frame(actions as unknown as TActions)
 );
 
@@ -39,7 +39,7 @@ const	[walletConnectConnector, walletConnectHooks] = initializeConnector<WalletC
 		})
 );
 
-const	[eip1193Connector, eip1193Hooks] = initializeConnector<EIP1193>(
+const	[eip1193Connector, eip1193Hooks] = initializeConnector<any>(
 	(actions): EIP1193 => new EIP1193({
 		actions,
 		provider: undefined

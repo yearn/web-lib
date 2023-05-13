@@ -212,6 +212,7 @@ const Web3ContextAppWrapper = ({
 			set_isModalLoginOpen(true);
 		}
 	}, [onInteractiveConnect]);
+	console.log('hehee');
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the Web3Context with it's parameters.
