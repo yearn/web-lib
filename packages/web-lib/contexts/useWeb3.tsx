@@ -376,21 +376,24 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
 	): Promise<boolean> => {
-		if (isActive) {
-			await connectors.coinbase.connector.deactivate?.();
-		}
 		try {
-			await connectors.coinbase.connector.activate(1);
-			set_lastWallet('EMBED_COINBASE');
-			onSuccess?.();
-			return true;
+			if (isActive) {
+				await connectors.coinbase.connector.deactivate?.();
+			}
+			try {
+				await connectors.coinbase.connector.activate(1);
+				set_lastWallet('EMBED_COINBASE');
+				onSuccess?.();
+				return true;
+			} catch (error) {
+				onDisconnect();
+				onError?.(error as Error);
+				return false;
+			}
 		} catch (error) {
-			alert(error);
-			onDisconnect();
-			onError?.(error as Error);
-			return false;
+			return await onConnectInjected(onError, onSuccess);
 		}
-	}, [isActive, onDisconnect, set_lastWallet]);
+	}, [isActive, onDisconnect, set_lastWallet, onConnectInjected]);
 	const	onConnectEmbedTrustwallet = useCallback(async (
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
@@ -482,7 +485,7 @@ export const Web3ContextApp = ({children, options = defaultOptions}: {children: 
 	useMountEffect(onEagerConnect);
 
 	useEffect((): void => {
-		if (!isActive && ['INJECTED', 'INJECTED_LEDGER'].includes(lastWallet) && connector) {
+		if (!isActive && lastWallet && connector) {
 			onInteractiveConnect().then((isConnected): void => {
 				if (!isConnected) {
 					onConnect(lastWallet);
