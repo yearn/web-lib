@@ -1,5 +1,7 @@
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
+export const MULTICALL3_ADDRESS = toAddress('0xcA11bde05977b3631167028862bE2a173976CA11');
+
 // Various tokens that are used in the app
 export const YFI_ADDRESS = toAddress('0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e');
 export const ETH_TOKEN_ADDRESS = toAddress('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');

@@ -4,7 +4,7 @@ import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import AGGREGATE3_ABI from '@yearn-finance/web-lib/utils/abi/aggregate.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ETH_TOKEN_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {ETH_TOKEN_ADDRESS, MULTICALL3_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '@yearn-finance/web-lib/utils/decoder';
 import {toBigInt, toNormalizedValue} from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
@@ -97,7 +97,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			const isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
 				const tokenAddress = web3ChainID === 250 ? WFTM_TOKEN_ADDRESS : WETH_TOKEN_ADDRESS;
-				calls.push({address: '0xcA11bde05977b3631167028862bE2a173976CA11', abi: AGGREGATE3_ABI, functionName: 'getEthBalance', args: [ownerAddress]});
+				calls.push({address: MULTICALL3_ADDRESS, abi: AGGREGATE3_ABI, functionName: 'getEthBalance', args: [ownerAddress]});
 				calls.push({address: tokenAddress, abi: erc20ABI, functionName: 'decimals'});
 				calls.push({address: tokenAddress, abi: erc20ABI, functionName: 'symbol'});
 			} else {
