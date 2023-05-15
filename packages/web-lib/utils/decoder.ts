@@ -13,7 +13,10 @@ export function decodeAsBigInt(value: TUnknowValueType, defaultValue = 0n): bigi
 		return defaultValue;
 	}
 	try {
-		return BigInt(value.result as bigint);
+		if (typeof value.result !== 'bigint') {
+			return defaultValue;
+		}
+		return BigInt(value.result);
 	} catch (error) {
 		return defaultValue;
 	}
@@ -24,7 +27,10 @@ export function decodeAsString(value: TUnknowValueType, defaultValue = ''): stri
 		return defaultValue;
 	}
 	try {
-		return value.result as string;
+		if (typeof value.result !== 'string') {
+			return defaultValue;
+		}
+		return value.result;
 	} catch (error) {
 		return defaultValue;
 	}
@@ -35,6 +41,9 @@ export function decodeAsNumber(value: TUnknowValueType, defaultValue = 0): numbe
 		return defaultValue;
 	}
 	try {
+		if (typeof value.result !== 'number') {
+			return defaultValue;
+		}
 		return Number(value.result as number);
 	} catch (error) {
 		return defaultValue;
