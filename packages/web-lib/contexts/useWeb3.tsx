@@ -1,5 +1,5 @@
 import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
-import {arbitrum, fantom, gnosis, localhost, optimism, polygon} from 'viem/chains';
+import {arbitrum, fantom, gnosis, optimism, polygon} from 'viem/chains';
 import {configureChains, createConfig, mainnet, useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 import {InjectedConnector} from 'wagmi/connectors/injected';
@@ -10,11 +10,41 @@ import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy
 import {publicProvider} from 'wagmi/providers/public';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useAutoConnect} from '@yearn-finance/web-lib/hooks/useAutoConnect';
+import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ReactElement} from 'react';
+import type {Chain} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
 
+const localhost = {
+	id: 1_337,
+	name: 'Localhost',
+	network: 'localhost',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'Ether',
+		symbol: 'ETH'
+	},
+	rpcUrls: {
+		default: {http: ['http://127.0.0.1:8545']},
+		public: {http: ['http://127.0.0.1:8545']}
+	},
+	contracts: {
+		ensRegistry: {
+			address: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
+		},
+		ensUniversalResolver: {
+			address: '0xE4Acdd618deED4e6d2f03b9bf62dc6118FC9A4da',
+			blockCreated: 16773775
+		},
+		multicall3: {
+			address: '0xca11bde05977b3631167028862be2a173976ca11',
+			blockCreated: 14353601
+		}
+	}
+} as const satisfies Chain;
 
 const defaultState = {
 	address: undefined,
@@ -45,13 +75,13 @@ const {chains, publicClient, webSocketPublicClient} = configureChains(
 	[publicProvider()]
 );
 const config = createConfig({
-	autoConnect: true,
+	autoConnect: false,
 	publicClient,
 	webSocketPublicClient,
 	connectors: [
 		new InjectedConnector({chains}),
 		new MetaMaskConnector(),
-		new LedgerConnector({chains: [mainnet]}),
+		new IFrameEthereumConnector({chains, options: {}}),
 		new WalletConnectLegacyConnector({options: {qrcode: true}}),
 		new CoinbaseWalletConnector({
 			options: {
@@ -61,11 +91,9 @@ const config = createConfig({
 		}),
 		new SafeConnector({
 			chains,
-			options: {
-				allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-				debug: false
-			}
-		})
+			options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}
+		}),
+		new LedgerConnector({chains: [mainnet]})
 	]
 });
 
@@ -80,6 +108,8 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const publicClient = usePublicClient();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+
+	useAutoConnect();
 
 	const onConnect = useCallback(async (
 		providerType: string,
@@ -153,10 +183,10 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	);
 };
 
-export const Web3ContextApp = ({children}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
+export const Web3ContextApp = ({children, options}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
 	return (
 		<WagmiConfig config={config}>
-			<Web3ContextAppWrapper>
+			<Web3ContextAppWrapper options={options}>
 				{children}
 			</Web3ContextAppWrapper>
 		</WagmiConfig>

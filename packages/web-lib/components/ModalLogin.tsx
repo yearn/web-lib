@@ -1,7 +1,7 @@
 import React, {cloneElement} from 'react';
-import {useWeb3} from 'contexts/useWeb3';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 

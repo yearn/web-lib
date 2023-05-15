@@ -47,7 +47,7 @@ export function toENS(address: string | null | undefined, format?: boolean, size
 /* 🔵 - Yearn Finance ******************************************************
 ** isZeroAddress is used to check if an address is the zero address.
 **************************************************************************/
-export function isZeroAddresse(address?: string): boolean {
+export function isZeroAddress(address?: string): boolean {
 	return toAddress(address) === zeroAddress;
 }
 
