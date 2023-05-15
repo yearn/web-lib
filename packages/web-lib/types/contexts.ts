@@ -1,7 +1,7 @@
-import type	{ethers}	from 'ethers';
 import type	{ReactNode}	from 'react';
-import type {TAddress} from '@yearn-finance/web-lib/types';
+import type {Connector} from 'wagmi';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
+import type {Maybe, TAddress} from '.';
 
 export type TSettingsBase = {
 	yDaemonBaseURI: string,
@@ -72,7 +72,7 @@ export type TWeb3Context = {
 	isActive: boolean
 	isConnecting: boolean,
 	hasProvider: boolean,
-	provider: ethers.providers.Web3Provider | ethers.providers.JsonRpcProvider,
+	provider: Maybe<Connector>,
 	currentPartner?: TPartnersInfo,
 	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,

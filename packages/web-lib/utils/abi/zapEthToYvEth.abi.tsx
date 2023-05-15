@@ -30,6 +30,6 @@ const ZAP_ETH_TO_YVETH_ABI = [
 		'stateMutability': 'payable',
 		'type': 'fallback'
 	}
-];
+] as const;
 
 export default ZAP_ETH_TO_YVETH_ABI;

@@ -8,7 +8,7 @@ import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWall
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement, ReactNode} from 'react';
-import type {TModal} from './Modal';
+import type {TModal} from '@yearn-finance/web-lib/components/Modal';
 
 type	TModalMobileMenu = {
 	isOpen: boolean
@@ -156,7 +156,7 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 									className={'yearn--select-no-arrow yearn--select-reset !pr-6 text-sm'}>
 									{optionsForSelect.map((id: number): ReactElement => {
 										const label = chains.get(id)?.displayName || `Unknown chain (${id})`;
-										
+
 										const {chainID} = chains.getCurrent() || {};
 										const isSelected = Number(chainID) === id;
 

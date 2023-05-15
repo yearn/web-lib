@@ -1,29 +1,31 @@
-
+import {waitForTransaction, writeContract} from '@wagmi/core';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 
-import type {ethers} from 'ethers';
 import type React from 'react';
+import type {BaseError, TransactionReceipt} from 'viem';
+import type {Connector} from 'wagmi';
+import type {PrepareWriteContractResult} from '@wagmi/core';
 
-const		timeout = 3000;
-const		defaultTxStatus = {none: true, pending: false, success: false, error: false};
-const		errorTxStatus = {none: false, pending: false, success: false, error: true};
-const		pendingTxStatus = {none: false, pending: true, success: false, error: false};
-const		successTxStatus = {none: false, pending: false, success: true, error: false};
+const timeout = 3000;
+const defaultTxStatus = {none: true, pending: false, success: false, error: false};
+const errorTxStatus = {none: false, pending: false, success: false, error: true};
+const pendingTxStatus = {none: false, pending: true, success: false, error: false};
+const successTxStatus = {none: false, pending: false, success: true, error: false};
 
 export type	TTxStatus = {none: boolean, pending: boolean, success: boolean, error: boolean}
-export type TTxResponse = {isSuccessful: boolean, receipt?: ethers.providers.TransactionReceipt, error?: Error};
+export type TTxResponse = {isSuccessful: boolean, receipt?: TransactionReceipt, error?: BaseError};
 
 class Transaction {
-	provider: ethers.providers.Web3Provider | ethers.providers.Provider;
+	provider: Connector;
 	onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>;
 	options?: {shouldIgnoreSuccessTxStatusChange: boolean};
 	txArgs?: unknown[];
-	funcCall: (...props: never) => Promise<TTxResponse>;
-	successCall?: (receipt?: ethers.providers.TransactionReceipt) => Promise<void>;
+	funcCall: (provider: Connector, ...rest: never[]) => Promise<TTxResponse>;
+	successCall?: (receipt?: TransactionReceipt) => Promise<void>;
 
 	constructor(
-		provider: ethers.providers.Web3Provider | ethers.providers.Provider,
-		funcCall: (...props: never) => Promise<TTxResponse>,
+		provider: Connector,
+		funcCall: (provider: Connector, ...rest: never[]) => Promise<TTxResponse>,
 		onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>,
 		options?: {shouldIgnoreSuccessTxStatusChange: boolean}
 	) {
@@ -38,23 +40,28 @@ class Transaction {
 		return this;
 	}
 
-	onSuccess(onSuccess: (receipt?: ethers.providers.TransactionReceipt) => Promise<void>): Transaction {
+	onSuccess(onSuccess: (receipt?: TransactionReceipt) => Promise<void>): Transaction {
 		this.successCall = onSuccess;
 		return this;
 	}
 
-	async perform(): Promise<TTxResponse> {
+	onHandleError(error: string): void {
 		const {toast} = yToast();
+		toast({content: error, type: 'error'});
+		this.onStatus(errorTxStatus);
+		setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
+	}
 
+	async perform(): Promise<TTxResponse> {
 		this.onStatus(pendingTxStatus);
 		try {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			const	{isSuccessful, receipt} = await this.funcCall(this.provider, ...this.txArgs);
+			const args = (this.txArgs || []) as never[];
+			const {isSuccessful, receipt, error} = await this.funcCall(this.provider, ...args);
 			if (isSuccessful) {
 				if (this.successCall && receipt) {
 					await this.successCall(receipt);
 				}
+				const {toast} = yToast();
 				toast({content: 'Transaction successful', type: 'success'});
 				if (this?.options?.shouldIgnoreSuccessTxStatusChange) {
 					return {isSuccessful, receipt};
@@ -63,37 +70,27 @@ class Transaction {
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 				return ({isSuccessful, receipt});
 			}
-			toast({content: 'Transaction failed', type: 'error'});
-			this.onStatus(errorTxStatus);
-			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
+			this.onHandleError(error?.shortMessage || 'Transaction failed');
 			return ({isSuccessful: false});
-
 		} catch(error) {
-			console.error(error);
-			if (((error as any)?.message || '').includes('User declined transaction')) {
-				toast({content: 'User declined transaction', type: 'error'});
-			} else {
-				toast({content: 'Transaction failed', type: 'error'});
-			}
-			this.onStatus(errorTxStatus);
-			setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
+			const err = error as BaseError;
+			this.onHandleError(err?.shortMessage || err?.message || err?.message || 'Transaction failed');
 			return ({isSuccessful: false});
 		}
 	}
 }
 
-async function handleTx(txPromise: Promise<ethers.providers.TransactionResponse>): Promise<TTxResponse> {
+async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse> {
 	try {
-		const tx = await txPromise;
-		const receipt = await tx.wait();
-		if (receipt.status === 0) {
-			console.error('Fail to perform transaction');
-			return {isSuccessful: false};
-		}
+		const {hash} = await writeContract(config.request);
+		const receipt = await waitForTransaction({
+			chainId: config.request.chainId,
+			hash: hash
+		});
 		return {isSuccessful: true, receipt};
 	} catch (error) {
 		console.error(error);
-		return {isSuccessful: false, error: error as Error};
+		return {isSuccessful: false, error: error as BaseError};
 	}
 }
 

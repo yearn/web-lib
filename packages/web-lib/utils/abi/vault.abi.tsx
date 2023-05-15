@@ -1419,6 +1419,6 @@ const VAULT_ABI = [
 		],
 		'gas': '4338'
 	}
-];
+] as const;
 
 export default VAULT_ABI;

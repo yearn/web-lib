@@ -1,8 +1,6 @@
-import {ethers} from 'ethers';
+import {getAddress, isAddress, zeroAddress} from 'viem';
 
 import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
-
-export const addressZero = toAddress(ethers.constants.AddressZero);
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
@@ -12,16 +10,19 @@ export const addressZero = toAddress(ethers.constants.AddressZero);
 **************************************************************************/
 export function toAddress(address?: string | null | undefined): TAddress {
 	if (!address) {
-		return ethers.constants.AddressZero as TAddress;
+		return zeroAddress;
 	}
 	if (address === 'GENESIS') {
-		return ethers.constants.AddressZero as TAddress;
+		return zeroAddress;
 	}
 	try {
-		return ethers.utils.getAddress(address.toUpperCase().replace('0X', '0x')) as TAddress;
+		if (isAddress(address)) {
+			return getAddress(address);
+		}
 	} catch (error) {
-		return ethers.constants.AddressZero as TAddress;
+		return zeroAddress;
 	}
+	return zeroAddress;
 }
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -46,8 +47,8 @@ export function toENS(address: string | null | undefined, format?: boolean, size
 /* 🔵 - Yearn Finance ******************************************************
 ** isZeroAddress is used to check if an address is the zero address.
 **************************************************************************/
-export function isZeroAddress(address?: string): boolean {
-	return toAddress(address) === addressZero;
+export function isZeroAddresse(address?: string): boolean {
+	return toAddress(address) === zeroAddress;
 }
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -63,7 +64,7 @@ export function truncateHex(address: string | undefined, size: number): string {
 		return `${address.slice(0, size)}...${address.slice(-size)}`;
 	}
 	if (size === 0) {
-		return ethers.constants.AddressZero;
+		return zeroAddress;
 	}
 	return '0x000...0000';
 }

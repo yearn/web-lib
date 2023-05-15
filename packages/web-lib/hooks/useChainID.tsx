@@ -13,7 +13,7 @@ export type TUseChainIDRes = {
 **************************************************************************/
 export function useChainID(defaultChainID?: number): TUseChainIDRes {
 	const {chainID, onSwitchChain} = useWeb3();
-	const	safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID || 1, [chainID]);
+	const safeChainID = useMemo((): number => [1337, 31337].includes(chainID) ? 1 : chainID || 1, [chainID]);
 
 	return ({
 		chainID: Number(chainID || defaultChainID || 1),
