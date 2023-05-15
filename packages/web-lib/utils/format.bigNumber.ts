@@ -6,8 +6,8 @@ export type	TNormalizedBN = {
 	normalized: number | string,
 }
 
-export const Zero = 0n;
-export const DefaultTNormalizedBN: TNormalizedBN = {raw: Zero, normalized: 0};
+export const BigZero = 0n;
+export const DefaultTNormalizedBN: TNormalizedBN = {raw: BigZero, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
@@ -18,7 +18,7 @@ export const toBigInt = (amount?: `${number}` | string | bigint): bigint => {
 };
 
 export function	bigNumberAsAmount(
-	bnAmount = Zero,
+	bnAmount = BigZero,
 	decimals = 18,
 	decimalsToDisplay = 2,
 	symbol = ''
@@ -33,7 +33,7 @@ export function	bigNumberAsAmount(
 		symbolWithPrefix = ` ${symbol}`;
 	}
 
-	if (bnAmount === Zero) {
+	if (bnAmount === BigZero) {
 		return (`0${symbolWithPrefix}`);
 	}
 	if (bnAmount === 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) {
