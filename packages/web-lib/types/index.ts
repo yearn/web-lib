@@ -13,4 +13,6 @@ export type NDict<T> = TNDict<T>;
 export type VoidPromiseFunction = () => Promise<void>;
 
 // TAddress is used to represent a checksummed address
-export type	TAddress = `0x${string}`
+export type TAddressYearn = '/^0x[0-9a-f]{40}$/i';
+export type	TAddressWagmi = `0x${string}`
+export type TAddress = TAddressWagmi;

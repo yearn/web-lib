@@ -64,7 +64,7 @@ export type TWeb3Options = {
 }
 
 export type TWeb3Context = {
-	address: TAddress | null | undefined,
+	address: TAddress | undefined,
 	ens: string | undefined,
 	lensProtocolHandle: string | undefined,
 	chainID: number,
