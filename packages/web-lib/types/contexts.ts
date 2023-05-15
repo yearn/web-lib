@@ -1,7 +1,7 @@
 import type	{ReactNode}	from 'react';
 import type {Connector} from 'wagmi';
 import type {TPartnersInfo} from '@yearn-finance/web-lib/utils/partners';
-import type {Maybe, TAddress} from '.';
+import type {TAddress} from '.';
 
 export type TSettingsBase = {
 	yDaemonBaseURI: string,
@@ -72,7 +72,7 @@ export type TWeb3Context = {
 	isActive: boolean
 	isConnecting: boolean,
 	hasProvider: boolean,
-	provider: Maybe<Connector>,
+	provider?: Connector,
 	currentPartner?: TPartnersInfo,
 	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
 	onSwitchChain: (newChainID: number, force?: boolean) => void,

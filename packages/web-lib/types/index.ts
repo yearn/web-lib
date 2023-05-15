@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 // Maybe types are used to represent optional values
-export type Maybe<T> = T | null | undefined;
-export type MaybeBoolean = boolean | undefined;
-export type MaybeString = string | undefined;
-export type MaybeNumber = number | undefined;
-export type MaybeTAddress = TAddress | undefined;
+export type Maybe<T> = T | undefined;
 
 // Dict types are used to represent objects with string/number keys
 export type TDict<T> = {[key: string]: T};
