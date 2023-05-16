@@ -1,10 +1,9 @@
 import {formatUnits, parseUnits} from 'viem';
-import {toBigInt} from '@yearn-finance/web-lib/utils/format.bigNumber';
 
 
 export const	toSafeAmount = (value: `${number}`, max: bigint, d = 18): bigint => {
 	if (value === formatUnits(max || 0n, d)) {
-		return toBigInt(max);
+		return max;
 	}
 	return parseUnits(value || '0', d);
 };

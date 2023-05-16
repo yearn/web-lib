@@ -1,6 +1,31 @@
-import {getAddress, isAddress, zeroAddress} from 'viem';
+import {getAddress, isAddress, zeroAddress as wZeroAddress} from 'viem';
 
-import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
+import type {TAddress, TAddressLike, TAddressWagmi, TDict} from '@yearn-finance/web-lib/types';
+
+const ADDRESS_REGEX = new RegExp(/^0x[0-9a-f]{40}$/i);
+
+export const zeroAddress = wZeroAddress as TAddress;
+
+/* 🔵 - Yearn Finance ******************************************************
+** Wagmi only requires a 0xString as a valid address. To use your safest
+** version, we need to convert it between types, and the other way around.
+**************************************************************************/
+export function toWagmiAddress(address?: TAddressLike): TAddressWagmi {
+	if (!address) {
+		return wZeroAddress;
+	}
+	return getAddress(address?.valueOf());
+}
+export function fromWagmiAddress(address?: TAddressLike): TAddress {
+	if (!address) {
+		return zeroAddress;
+	}
+	const checksummedAddress = getAddress(address);
+	if (ADDRESS_REGEX.test(checksummedAddress)) {
+		return checksummedAddress as TAddress;
+	}
+	return zeroAddress;
+}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
@@ -11,7 +36,10 @@ import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
 export function toAddress(address?: string | null | undefined): TAddress {
 	try {
 		if (address && address !== 'GENESIS' && isAddress(address)) {
-			return getAddress(address);
+			const checksummedAddress = getAddress(address);
+			if (ADDRESS_REGEX.test(checksummedAddress)) {
+				return checksummedAddress as TAddress;
+			}
 		}
 	} catch (error) {
 		// TODO - Send error to Sentry
