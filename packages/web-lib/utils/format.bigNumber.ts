@@ -65,8 +65,8 @@ export const	toNormalizedBN = (value: TNumberish, decimals?: number): TNormalize
 });
 
 export function	parseUnits(value: TNumberish, decimals = 18): bigint {
-	const valueAsNumber = value as `${number}`;
-	return vParseUnits(valueAsNumber, decimals);
+	const valueAsNumber = Number(value);
+	return vParseUnits(`${valueAsNumber}`, decimals);
 }
 
 export {toNormalizedAmount as formatToNormalizedAmount};
