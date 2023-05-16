@@ -6,7 +6,7 @@ import AGGREGATE3_ABI from '@yearn-finance/web-lib/utils/abi/aggregate.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, MULTICALL3_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '@yearn-finance/web-lib/utils/decoder';
-import {toBigInt, toNormalizedValue} from '@yearn-finance/web-lib/utils/format';
+import {toNormalizedValue} from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 
 import type {DependencyList} from 'react';
@@ -29,9 +29,7 @@ export type	TUseBalancesTokens = {
 export type	TUseBalancesReq = {
 	key?: string | number,
 	tokens: TUseBalancesTokens[]
-	prices?: {
-		[token: string]: string,
-	}
+	prices?: TDict<bigint>,
 	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
 	effectDependencies?: DependencyList
 } & TDefaultReqArgs
@@ -117,7 +115,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				const decimalsResult = results[rIndex++];
 				const symbolResult = results[rIndex++];
 				const balanceOf = decodeAsBigInt(balanceOfResult);
-				const rawPrice = toBigInt(props?.prices?.[toAddress(token)] || 0n);
+				const rawPrice = props?.prices?.[toAddress(token)] || 0n;
 				let decimals = decodeAsNumber(decimalsResult);
 				let symbol = decodeAsString(symbolResult);
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
@@ -222,7 +220,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const assignPrices = useCallback((_rawData: TDict<TBalanceData>): TDict<TBalanceData> => {
 		for (const key of Object.keys(_rawData)) {
 			const	tokenAddress = toAddress(key);
-			const	rawPrice = toBigInt(props?.prices?.[tokenAddress] || 0n);
+			const	rawPrice = props?.prices?.[tokenAddress] || 0n;
 			_rawData[tokenAddress] = {
 				..._rawData[tokenAddress],
 				rawPrice,

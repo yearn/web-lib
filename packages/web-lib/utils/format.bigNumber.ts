@@ -1,6 +1,7 @@
 import {formatUnits, parseUnits as vParseUnits} from 'viem';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
+export type TNumberish = number | string | `${number}` //wagmi weird type
 export type	TNormalizedBN = {
 	raw: bigint,
 	normalized: number | string,
@@ -14,7 +15,7 @@ export const DefaultTNormalizedBN: TNormalizedBN = {raw: BigZero, normalized: 0}
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format bigNumbers, currency and date
 **************************************************************************/
-export const toBigInt = (amount?: `${number}` | string | bigint): bigint => {
+export const toBigInt = (amount?: TNumberish): bigint => {
 	return BigInt(amount || 0);
 };
 
@@ -50,21 +51,20 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`);
 }
 
-export	const	toNormalizedValue = (v: `${number}` | string | bigint, d?: number): number => {
-	const vAsBigint = toBigInt(v);
-	return Number(formatUnits(vAsBigint, d ?? 18));
+export	const	toNormalizedValue = (v: bigint, d?: number): number => {
+	return Number(formatUnits(v, d ?? 18));
 };
 
-export const	toNormalizedAmount = (v: `${number}`, d?: number): string => {
+export const	toNormalizedAmount = (v: bigint, d?: number): string => {
 	return formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
 };
 
-export const	toNormalizedBN = (value: `${number}` | string | bigint, decimals?: number): TNormalizedBN => ({
+export const	toNormalizedBN = (value: TNumberish, decimals?: number): TNormalizedBN => ({
 	raw: toBigInt(value),
-	normalized: toNormalizedValue(value, decimals ?? 18)
+	normalized: toNormalizedValue(toBigInt(value), decimals ?? 18)
 });
 
-export function	parseUnits(value: `${number}` | string, decimals = 18): bigint {
+export function	parseUnits(value: TNumberish, decimals = 18): bigint {
 	const valueAsNumber = value as `${number}`;
 	return vParseUnits(valueAsNumber, decimals);
 }
