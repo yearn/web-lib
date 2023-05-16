@@ -7,6 +7,7 @@ export type	TNormalizedBN = {
 }
 
 export const BigZero = 0n;
+export const MaxUint256 = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn;
 export const DefaultTNormalizedBN: TNormalizedBN = {raw: BigZero, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -36,7 +37,7 @@ export function	bigNumberAsAmount(
 	if (bnAmount === BigZero) {
 		return (`0${symbolWithPrefix}`);
 	}
-	if (bnAmount === 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn) {
+	if (bnAmount === MaxUint256) {
 		return (`∞${symbolWithPrefix}`);
 	}
 
