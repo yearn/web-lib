@@ -9,18 +9,13 @@ import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
 ** should always be called by toAddress(0x...).
 **************************************************************************/
 export function toAddress(address?: string | null | undefined): TAddress {
-	if (!address) {
-		return zeroAddress;
-	}
-	if (address === 'GENESIS') {
-		return zeroAddress;
-	}
 	try {
-		if (isAddress(address)) {
+		if (address && address !== 'GENESIS' && isAddress(address)) {
 			return getAddress(address);
 		}
 	} catch (error) {
-		return zeroAddress;
+		// TODO - Send error to Sentry
+		console.error(error);
 	}
 	return zeroAddress;
 }
