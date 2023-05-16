@@ -16,16 +16,6 @@ export function toWagmiAddress(address?: TAddressLike): TAddressWagmi {
 	}
 	return getAddress(address?.valueOf());
 }
-export function toTAddress(address?: TAddressLike): TAddress {
-	if (!address) {
-		return zeroAddress;
-	}
-	const checksummedAddress = getAddress(address);
-	if (isTAddress(checksummedAddress)) {
-		return checksummedAddress as TAddress;
-	}
-	return zeroAddress;
-}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
