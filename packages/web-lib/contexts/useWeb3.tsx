@@ -14,7 +14,7 @@ import {useAutoConnect} from '@yearn-finance/web-lib/hooks/useAutoConnect';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
-import {fromWagmiAddress} from '../utils/address';
+import {toTAddress} from '../utils/address';
 
 import type {ReactElement} from 'react';
 import type {Chain} from 'wagmi';
@@ -157,7 +157,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 
 	const	contextValue = useMemo((): TWeb3Context => {
 		return ({
-			address: fromWagmiAddress(address),
+			address: toTAddress(address),
 			isConnecting,
 			isDisconnected,
 			ens: ensName || '',

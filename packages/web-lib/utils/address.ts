@@ -16,7 +16,7 @@ export function toWagmiAddress(address?: TAddressLike): TAddressWagmi {
 	}
 	return getAddress(address?.valueOf());
 }
-export function fromWagmiAddress(address?: TAddressWagmi): TAddress {
+export function toTAddress(address?: TAddressLike): TAddress {
 	if (!address) {
 		return zeroAddress;
 	}
