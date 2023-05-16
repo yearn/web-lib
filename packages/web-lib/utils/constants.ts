@@ -34,6 +34,7 @@ export const VLYCRV_TOKEN_ADDRESS = toAddress('0xCCBD4579495cD78280e4900CB482C8E
 // Theses constants are used by the yBal app
 export const YBAL_VOTER_ADDRESS = toAddress('0xBA11E7024cbEB1dd2B401C70A83E0d964144686C');
 export const YBAL_BALANCER_POOL_ADDRESS = toAddress('0xD61e198e139369a40818FE05F5d5e6e045Cd6eaF');
+export const VLYBAL_TOKEN_ADDRESS = toAddress('0x0000000000000000000000000000000000000000');
 
 // Theses constants are used by the yVault app
 export const ZAP_ETH_WETH_CONTRACT = toAddress('0xd1791428c38e25d459d5b01fb25e942d4ad83a25');
