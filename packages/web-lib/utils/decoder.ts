@@ -44,7 +44,7 @@ export function decodeAsNumber(value: TUnknowValueType, defaultValue = 0): numbe
 		if (typeof value.result !== 'number') {
 			return defaultValue;
 		}
-		return Number(value.result as number);
+		return value.result;
 	} catch (error) {
 		return defaultValue;
 	}
