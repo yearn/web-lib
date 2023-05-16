@@ -74,7 +74,7 @@ class Transaction {
 			return ({isSuccessful: false});
 		} catch(error) {
 			const err = error as BaseError;
-			this.onHandleError(err?.shortMessage || err?.message || err?.message || 'Transaction failed');
+			this.onHandleError(err?.shortMessage || err?.message || 'Transaction failed');
 			return ({isSuccessful: false});
 		}
 	}
