@@ -88,7 +88,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		}
 		const accounts = await provider.send('eth_requestAccounts');
 		// return checksum address
-		return toWagmiAddress(accounts[0] as string);
+		return toWagmiAddress(accounts[0]);
 	}
 
 	async getChainId() {
