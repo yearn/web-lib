@@ -1,8 +1,8 @@
 import {getAddress, isAddress, zeroAddress as wZeroAddress} from 'viem';
 
-import type {TAddress, TAddressLike, TAddressWagmi, TDict} from '@yearn-finance/web-lib/types';
+import {isTAddress} from './isTAddress';
 
-const ADDRESS_REGEX = new RegExp(/^0x[0-9a-f]{40}$/i);
+import type {TAddress, TAddressLike, TAddressWagmi, TDict} from '@yearn-finance/web-lib/types';
 
 export const zeroAddress = wZeroAddress as TAddress;
 
@@ -21,7 +21,7 @@ export function fromWagmiAddress(address?: TAddressLike): TAddress {
 		return zeroAddress;
 	}
 	const checksummedAddress = getAddress(address);
-	if (ADDRESS_REGEX.test(checksummedAddress)) {
+	if (isTAddress(checksummedAddress)) {
 		return checksummedAddress as TAddress;
 	}
 	return zeroAddress;
@@ -37,8 +37,8 @@ export function toAddress(address?: string | null | undefined): TAddress {
 	try {
 		if (address && address !== 'GENESIS' && isAddress(address)) {
 			const checksummedAddress = getAddress(address);
-			if (ADDRESS_REGEX.test(checksummedAddress)) {
-				return checksummedAddress as TAddress;
+			if (isTAddress(checksummedAddress)) {
+				return checksummedAddress;
 			}
 		}
 	} catch (error) {
