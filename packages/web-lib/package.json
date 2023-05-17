@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.20.22",
+  "version": "0.20.24",
   "files": [
     "."
   ],
@@ -20,6 +20,8 @@
     "@ledgerhq/iframe-provider": "^0.4.3",
     "@react-hookz/deep-equal": "^1.0.4",
     "@react-hookz/web": "^22.0.0",
+    "@safe-global/safe-apps-provider": "^0.17.0",
+    "@safe-global/safe-apps-sdk": "^7.11.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
