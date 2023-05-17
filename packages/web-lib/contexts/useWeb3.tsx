@@ -160,17 +160,12 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 
 	const openLoginModal = useCallback(async (): Promise<void> => {
 		if (isIframe()) {
-			try {
-				await connectAsync({connector: connectors[1]});
+			const r = await Promise.race([
+				connectAsync({connector: connectors[0]}),
+				connectAsync({connector: connectors[1]})
+			]);
+			if (r?.account) {
 				return;
-			} catch (error) {
-				//
-			}
-			try {
-				await connectAsync({connector: connectors[0]});
-				return;
-			} catch (error) {
-				//
 			}
 		}
 		set_isModalLoginOpen(true);
