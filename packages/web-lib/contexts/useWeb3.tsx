@@ -82,10 +82,10 @@ const config = createConfig({
 	webSocketPublicClient,
 	connectors: [
 		new SafeConnector({chains, options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}}),
-		new LedgerConnector({chains: [mainnet]}),
+		new IFrameEthereumConnector({chains, options: {}}),
 		new InjectedConnector({chains}),
 		new MetaMaskConnector(),
-		new IFrameEthereumConnector({chains, options: {}}),
+		new LedgerConnector({chains}),
 		new WalletConnectLegacyConnector({options: {qrcode: true}}),
 		new CoinbaseWalletConnector({
 			options: {
@@ -132,8 +132,10 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 				}
 			}
 
-			if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
+			if (providerType === 'INJECTED') {
 				await connectAsync({connector: connectors[2]});
+			} else if (providerType === 'INJECTED_LEDGER') {
+				await connectAsync({connector: connectors[4]});
 			} else if (providerType === 'WALLET_CONNECT') {
 				await connectAsync({connector: connectors[5]});
 			} else if (providerType === 'EMBED_LEDGER') {
