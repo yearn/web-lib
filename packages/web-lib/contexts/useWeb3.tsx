@@ -10,11 +10,11 @@ import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy
 import {publicProvider} from 'wagmi/providers/public';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
-import {useAutoConnect} from '@yearn-finance/web-lib/hooks/useAutoConnect';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import {toAddress} from '../utils/address';
+import {isIframe} from '../utils/helpers';
 
 import type {ReactElement} from 'react';
 import type {Chain} from 'wagmi';
@@ -108,14 +108,30 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
 
-	useAutoConnect();
-
 	const onConnect = useCallback(async (
 		providerType: string,
 		onError?: ((error: Error) => void) | undefined,
 		onSuccess?: (() => void) | undefined
 	): Promise<void> => {
 		try {
+			if (isIframe()) {
+				try {
+					await connectAsync({connector: connectors[0]});
+					onSuccess?.();
+					return;
+				} catch (error) {
+					//
+				}
+
+				try {
+					await connectAsync({connector: connectors[1]});
+					onSuccess?.();
+					return;
+				} catch (error) {
+					//
+				}
+			}
+
 			if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
 				await connectAsync({connector: connectors[2]});
 			} else if (providerType === 'WALLET_CONNECT') {
