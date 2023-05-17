@@ -154,7 +154,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 
 	const	contextValue = useMemo((): TWeb3Context => {
 		return ({
-			address: toAddress(address),
+			address: address ? toAddress(address) : undefined,
 			isConnecting,
 			isDisconnected,
 			ens: ensName || '',
