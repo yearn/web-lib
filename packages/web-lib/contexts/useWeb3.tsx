@@ -165,8 +165,23 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	}, [switchNetwork]);
 
 	const openLoginModal = useCallback(async (): Promise<void> => {
+		if (isIframe()) {
+			try {
+				await connectAsync({connector: connectors[0]});
+				return;
+			} catch (error) {
+				//
+			}
+
+			try {
+				await connectAsync({connector: connectors[1]});
+				return;
+			} catch (error) {
+				//
+			}
+		}
 		set_isModalLoginOpen(true);
-	}, []);
+	}, [connectAsync, connectors]);
 
 	const	contextValue = useMemo((): TWeb3Context => {
 		return ({
