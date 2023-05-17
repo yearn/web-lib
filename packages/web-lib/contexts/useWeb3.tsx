@@ -77,10 +77,12 @@ const {chains, publicClient, webSocketPublicClient} = configureChains(
 	[publicProvider()]
 );
 const config = createConfig({
-	autoConnect: false,
+	autoConnect: true,
 	publicClient,
 	webSocketPublicClient,
 	connectors: [
+		new SafeConnector({chains, options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}}),
+		new LedgerConnector({chains: [mainnet]}),
 		new InjectedConnector({chains}),
 		new MetaMaskConnector(),
 		new IFrameEthereumConnector({chains, options: {}}),
@@ -90,12 +92,7 @@ const config = createConfig({
 				jsonRpcUrl: getRPC(1),
 				appName: process.env.WEBSITE_TITLE as string
 			}
-		}),
-		new SafeConnector({
-			chains,
-			options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}
-		}),
-		new LedgerConnector({chains: [mainnet]})
+		})
 	]
 });
 
@@ -120,19 +117,19 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	): Promise<void> => {
 		try {
 			if (providerType === 'INJECTED' || providerType === 'INJECTED_LEDGER') {
-				await connectAsync({connector: connectors[0]});
-			} else if (providerType === 'WALLET_CONNECT') {
-				await connectAsync({connector: connectors[3]});
-			} else if (providerType === 'EMBED_LEDGER') {
 				await connectAsync({connector: connectors[2]});
-			} else if (providerType === 'EMBED_GNOSIS_SAFE') {
+			} else if (providerType === 'WALLET_CONNECT') {
 				await connectAsync({connector: connectors[5]});
+			} else if (providerType === 'EMBED_LEDGER') {
+				await connectAsync({connector: connectors[1]});
+			} else if (providerType === 'EMBED_GNOSIS_SAFE') {
+				await connectAsync({connector: connectors[0]});
 			} else if (providerType === 'EMBED_COINBASE') {
-				await connectAsync({connector: connectors[4]});
+				await connectAsync({connector: connectors[6]});
 			} else if (providerType === 'EMBED_TRUSTWALLET') {
-				await connectAsync({connector: connectors[0]});
+				await connectAsync({connector: connectors[2]});
 			} else {
-				await connectAsync({connector: connectors[0]});
+				await connectAsync({connector: connectors[2]});
 			}
 			onSuccess?.();
 		} catch (error) {
