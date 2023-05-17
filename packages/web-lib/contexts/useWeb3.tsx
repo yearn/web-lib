@@ -5,14 +5,13 @@ import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 import {InjectedConnector} from 'wagmi/connectors/injected';
 import {LedgerConnector} from 'wagmi/connectors/ledger';
 import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
+import {SafeConnector} from 'wagmi/connectors/safe';
 import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy';
 import {publicProvider} from 'wagmi/providers/public';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
-// import {SafeConnector} from 'wagmi/connectors/safe';
-import {SafeConnector} from '@yearn-finance/web-lib/utils/web3/safeConnector';
 
 import {toAddress} from '../utils/address';
 import {isIframe} from '../utils/helpers';
