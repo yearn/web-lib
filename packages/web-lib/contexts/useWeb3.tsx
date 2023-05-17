@@ -115,20 +115,12 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	): Promise<void> => {
 		try {
 			if (isIframe()) {
-				try {
-					await connectAsync({connector: connectors[1]});
-					onSuccess?.();
-					return;
-				} catch (error) {
-					//
-				}
-
-				try {
-					await connectAsync({connector: connectors[0]});
-					onSuccess?.();
-					return;
-				} catch (error) {
-					//
+				const r = await Promise.race([
+					connectAsync({connector: connectors[0]}),
+					connectAsync({connector: connectors[1]})
+				]);
+				if (r?.account) {
+					return onSuccess?.();
 				}
 			}
 
