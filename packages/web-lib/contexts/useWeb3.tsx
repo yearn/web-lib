@@ -177,7 +177,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			isConnecting,
 			isDisconnected,
 			ens: ensName || '',
-			isActive: isConnected && (web3Options.supportedChainID || defaultOptions.supportedChainID).includes(chain?.id || -1),
+			isActive: isConnected && [...(web3Options.supportedChainID || defaultOptions.supportedChainID), 1337, 31337].includes(chain?.id || -1),
 			lensProtocolHandle: '',
 			hasProvider: !!(walletClient || publicClient),
 			provider: connector,
