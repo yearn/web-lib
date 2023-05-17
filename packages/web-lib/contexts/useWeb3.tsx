@@ -65,7 +65,7 @@ const defaultState = {
 	openLoginModal: (): void => undefined,
 	onDesactivate: (): void => undefined
 };
-const	defaultOptions: TWeb3Options = {
+const	defaultOptions = {
 	shouldUseWallets: true,
 	defaultChainID: 1,
 	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 420, 1337, 31337, 42161]
@@ -158,7 +158,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			isConnecting,
 			isDisconnected,
 			ens: ensName || '',
-			isActive: isConnected,
+			isActive: isConnected && (web3Options.supportedChainID || defaultOptions.supportedChainID).includes(chain?.id || -1),
 			lensProtocolHandle: '',
 			hasProvider: !!(walletClient || publicClient),
 			provider: connector,
