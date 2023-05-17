@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.20.20",
+  "version": "0.20.22",
   "files": [
     "."
   ],
@@ -23,7 +23,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
-    "@wagmi/core": "^1.0.4",
+    "@wagmi/core": "^1.0.5",
     "axios": "^1.3.3",
     "dayjs": "^1.11.7",
     "graphql": "^16.6.0",
@@ -33,8 +33,8 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "2.4.0",
     "tailwindcss": "^3.2.7",
-    "viem": "^0.3.24",
-    "wagmi": "^1.0.4",
+    "viem": "^0.3.28",
+    "wagmi": "^1.0.5",
     "zod": "^3.21.4"
   },
   "devDependencies": {
