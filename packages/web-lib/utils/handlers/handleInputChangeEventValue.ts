@@ -1,8 +1,12 @@
-import {ethers} from 'ethers';
+import {constants, ethers} from 'ethers';
 
 import type {TNormalizedBN} from '../format';
 
 export function handleInputChangeEventValue(value: string, decimals?: number): TNormalizedBN {
+	if (value === '') {
+		return {raw: constants.Zero, normalized: ''};
+	}
+
 	let		amount = value.replace(/,/g, '.').replace(/[^0-9.]/g, '');
 	const	amountParts = amount.split('.');
 

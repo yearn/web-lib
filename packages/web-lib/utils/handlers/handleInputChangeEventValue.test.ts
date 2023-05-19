@@ -33,10 +33,10 @@ describe('handleInputChangeEventValue', (): void => {
 		expect(normalized).toBe('10.123456');
 	});
 
-	it('returns 0 for empty input', (): void => {
+	it('returns raw Zero and normalized empty string for empty input', (): void => {
 		const {raw, normalized} = handleInputChangeEventValue('', 18);
 		expect(raw.toString()).toBe('0');
-		expect(normalized).toBe('0');
+		expect(normalized).toBe('');
 	});
 
 	it('replaces comma with period in input value', (): void => {

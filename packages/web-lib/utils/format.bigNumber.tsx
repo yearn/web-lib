@@ -5,7 +5,7 @@ import type {BigNumberish} from 'ethers';
 
 export type	TNormalizedBN = {
 	raw: BigNumber,
-	normalized: number | string,
+	normalized: number | string | '',
 }
 
 export const {Zero} = ethers.constants;
