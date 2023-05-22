@@ -25,7 +25,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
-    "@walletconnect/ethereum-provider": "^1.7.8",
+    "@walletconnect/ethereum-provider": "^2.7.5",
     "@walletconnect/jsonrpc-http-connection": "^1.0.6",
     "@walletconnect/jsonrpc-provider": "^1.0.8",
     "@web3-react/coinbase-wallet": "8.2.0",
