@@ -12,7 +12,13 @@ const errorTxStatus = {none: false, pending: false, success: false, error: true}
 const pendingTxStatus = {none: false, pending: true, success: false, error: false};
 const successTxStatus = {none: false, pending: false, success: true, error: false};
 
-export type	TTxStatus = {none: boolean, pending: boolean, success: boolean, error: boolean}
+export type	TTxStatus = {
+	none: boolean,
+	pending: boolean,
+	success: boolean,
+	error: boolean,
+	errorMessage?: string
+}
 export type TTxResponse = {isSuccessful: boolean, receipt?: TransactionReceipt, error?: BaseError};
 
 class Transaction {
