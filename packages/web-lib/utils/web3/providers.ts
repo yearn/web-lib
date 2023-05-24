@@ -13,7 +13,7 @@ const	defaultRPCURI: {[key: number]: string} = {
 	420: 'https://goerli.optimism.io',
 	1337: 'http://localhost:8545',
 	31337: 'http://localhost:8545',
-	42161: 'https://arbitrum.public-rpc.com'
+	42161: 'https://arb1.croswap.com/rpc'
 };
 export const	envRPCURI: {[key: number]: string} = {
 	1: process.env.JSON_RPC_URL?.[1] || defaultRPCURI[1],
