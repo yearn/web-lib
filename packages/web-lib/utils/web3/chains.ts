@@ -203,7 +203,7 @@ const CHAINS: TNDict<TChain> = {
 			'chainId': '0xA4B1',
 			'blockExplorerUrls': ['https://arbiscan.io'],
 			'chainName': 'Arbitrum One',
-			'rpcUrls': ['https://arbitrum.public-rpc.com'],
+			'rpcUrls': ['https://arb1.croswap.com/rpc'],
 			'nativeCurrency': {
 				'name': 'AETH',
 				'symbol': 'AETH',
