@@ -16,9 +16,10 @@
 			"@yearn-finance/web-lib/types/*": ["types/*"],
 			"@yearn-finance/web-lib/types": ["types"],
 		},
+		"outDir": "dist",
 		"jsx": "react",
-		"target": "esnext",
-		"module": "esnext",
+		"target": "ESNext",
+		"module": "CommonJS",
 		"lib": [
 			"es6",
 			"es7",
@@ -43,7 +44,7 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
+		"noFallthroughCasesInSwitch": true
 	},
 	"exclude": ["node_modules"],
 	"include": [
