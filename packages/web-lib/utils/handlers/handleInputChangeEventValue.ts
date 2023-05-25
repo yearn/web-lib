@@ -1,10 +1,10 @@
-import {parseUnits, Zero} from '@yearn-finance/web-lib/utils/format';
+import {parseUnits} from '@yearn-finance/web-lib/utils/format';
 
 import type {TNormalizedBN} from '@yearn-finance/web-lib/utils/format';
 
 export function handleInputChangeEventValue(value: string, decimals?: number): TNormalizedBN {
 	if (value === '') {
-		return {raw: Zero, normalized: ''};
+		return {raw: 0n, normalized: ''};
 	}
 
 	let		amount = value.replace(/,/g, '.').replace(/[^0-9.]/g, '');

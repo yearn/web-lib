@@ -1,7 +1,7 @@
 import {formatUnits, parseUnits as vParseUnits} from 'viem';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
-export type TNumberish = number | string | `${number}` //wagmi weird type
+export type TNumberish = bigint | number | string | `${number}` //wagmi weird type
 export type	TNormalizedBN = {
 	raw: bigint,
 	normalized: number | string,
