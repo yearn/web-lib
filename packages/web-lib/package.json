@@ -4,7 +4,7 @@
   "files": [
     "."
   ],
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "tsc --watch",
     "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i style.css -o dist/build.css --minify && sed -i -e 's/rem/em/g' dist/build.css",
