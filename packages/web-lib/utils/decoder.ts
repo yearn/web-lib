@@ -48,3 +48,17 @@ export function decodeAsNumber(value: TUnknowValueType, defaultValue = 0): numbe
 		return defaultValue;
 	}
 }
+
+export function decodeAsBoolean(value: TUnknowValueType, defaultValue = false): boolean {
+	if (value.status === 'failure') {
+		return defaultValue;
+	}
+	try {
+		if (typeof value.result !== 'boolean') {
+			return defaultValue;
+		}
+		return value.result;
+	} catch (error) {
+		return defaultValue;
+	}
+}
