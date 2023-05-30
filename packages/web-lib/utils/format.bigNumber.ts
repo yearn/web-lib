@@ -1,5 +1,6 @@
 import {formatUnits, parseUnits as vParseUnits} from 'viem';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
+import { MAX_UINT_256 } from './constants';
 
 export type TNumberish = bigint | number | string | `${number}` //wagmi weird type
 export type	TNormalizedBN = {
@@ -7,9 +8,7 @@ export type	TNormalizedBN = {
 	normalized: number | string,
 }
 
-export const BigZero = 0n;
-export const MaxUint256 = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn;
-export const DefaultTNormalizedBN: TNormalizedBN = {raw: BigZero, normalized: 0};
+export const DefaultTNormalizedBN: TNormalizedBN = {raw: 0n, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
@@ -20,7 +19,7 @@ export const toBigInt = (amount?: TNumberish): bigint => {
 };
 
 export function	bigNumberAsAmount(
-	bnAmount = BigZero,
+	bnAmount = 0n,
 	decimals = 18,
 	decimalsToDisplay = 2,
 	symbol = ''
@@ -35,10 +34,10 @@ export function	bigNumberAsAmount(
 		symbolWithPrefix = ` ${symbol}`;
 	}
 
-	if (bnAmount === BigZero) {
+	if (bnAmount === 0n) {
 		return (`0${symbolWithPrefix}`);
 	}
-	if (bnAmount === MaxUint256) {
+	if (bnAmount === MAX_UINT_256) {
 		return (`∞${symbolWithPrefix}`);
 	}
 

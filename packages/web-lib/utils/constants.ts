@@ -3,6 +3,7 @@ import {toAddress} from '@yearn-finance/web-lib/utils/address';
 export const MULTICALL3_ADDRESS = toAddress('0xcA11bde05977b3631167028862bE2a173976CA11');
 
 // Various tokens that are used in the app
+export const ZERO_ADDRESS = toAddress('0x0000000000000000000000000000000000000000');
 export const YFI_ADDRESS = toAddress('0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e');
 export const ETH_TOKEN_ADDRESS = toAddress('0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
 export const WETH_TOKEN_ADDRESS = toAddress('0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2');
@@ -64,3 +65,8 @@ export const SOLVER_WIDO_RELAYER_ADDRESS = toAddress('0x7Fb69e8fb1525ceEc03783FF
 // Optimism staking rewards contract addresses used on yVault app
 export const STAKING_REWARDS_REGISTRY_ADDRESS = toAddress('0x8ED9F6343f057870F1DeF47AaE7CD88dfAA049A8');
 export const STAKING_REWARDS_ZAP_ADDRESS = toAddress('0xd155F5bF8a475007Fa369e6314C3673e4Bb1e292');
+
+
+
+export const BIG_ZERO = 0n;
+export const MAX_UINT_256 = 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffn;
