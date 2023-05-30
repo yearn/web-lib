@@ -1,4 +1,3 @@
-ts
 type TUnknowValueType = {
 	error: Error;
 	result?: undefined;
