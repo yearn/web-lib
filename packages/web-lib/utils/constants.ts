@@ -63,4 +63,4 @@ export const SOLVER_WIDO_RELAYER_ADDRESS = toAddress('0x7Fb69e8fb1525ceEc03783FF
 
 // Optimism staking rewards contract addresses used on yVault app
 export const STAKING_REWARDS_REGISTRY_ADDRESS = toAddress('0x8ED9F6343f057870F1DeF47AaE7CD88dfAA049A8');
-export const STAKING_REWARDS_ZAP_ADDRESS = toAddress('0xd155F5bF8a475007Fa369e6314C3673e4Bb1e292');
+export const STAKING_REWARDS_ZAP_ADDRESS = toAddress('0x498d9dCBB1708e135bdc76Ef007f08CBa4477BE2');
