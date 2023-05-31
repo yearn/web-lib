@@ -8,13 +8,13 @@ import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
 import {SafeConnector} from 'wagmi/connectors/safe';
 import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy';
 import {publicProvider} from 'wagmi/providers/public';
+import {useIsMounted} from '@react-hookz/web';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
+import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
-
-import {toAddress} from '../utils/address';
-import {isIframe} from '../utils/helpers';
 
 import type {ReactElement} from 'react';
 import type {Chain} from 'wagmi';
@@ -105,6 +105,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const {data: walletClient} = useWalletClient();
 	const {chain} = useNetwork();
 	const publicClient = usePublicClient();
+	const isMounted = useIsMounted();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
 
@@ -176,7 +177,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		isConnecting,
 		isDisconnected,
 		ens: ensName || '',
-		isActive: isConnected && [...(web3Options.supportedChainID || defaultOptions.supportedChainID), 1337, 31337].includes(chain?.id || -1),
+		isActive: isConnected && [...(web3Options.supportedChainID || defaultOptions.supportedChainID), 1337, 31337].includes(chain?.id || -1) && isMounted(),
 		lensProtocolHandle: '',
 		hasProvider: !!(walletClient || publicClient),
 		provider: connector,
