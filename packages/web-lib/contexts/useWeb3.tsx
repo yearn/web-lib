@@ -1,4 +1,4 @@
-import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
+import	React, {createContext, useCallback, useContext, useState} from 'react';
 import {arbitrum, fantom, gnosis, optimism, polygon} from 'viem/chains';
 import {configureChains, createConfig, mainnet, useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
@@ -171,25 +171,23 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		set_isModalLoginOpen(true);
 	}, [connectAsync, connectors]);
 
-	const	contextValue = useMemo((): TWeb3Context => {
-		return ({
-			address: address ? toAddress(address) : undefined,
-			isConnecting,
-			isDisconnected,
-			ens: ensName || '',
-			isActive: isConnected && [...(web3Options.supportedChainID || defaultOptions.supportedChainID), 1337, 31337].includes(chain?.id || -1),
-			lensProtocolHandle: '',
-			hasProvider: !!(walletClient || publicClient),
-			provider: connector,
-			chainID: Number(chain?.id || 0),
-			onConnect,
-			onSwitchChain,
-			openLoginModal,
-			onDesactivate: onDesactivate,
-			options: web3Options,
-			walletType: 'NONE'
-		});
-	}, [address, chain?.id, connector, ensName, isConnected, isConnecting, isDisconnected, onConnect, onDesactivate, onSwitchChain, openLoginModal, publicClient, walletClient, web3Options]);
+	const contextValue = {
+		address: address ? toAddress(address) : undefined,
+		isConnecting,
+		isDisconnected,
+		ens: ensName || '',
+		isActive: isConnected && [...(web3Options.supportedChainID || defaultOptions.supportedChainID), 1337, 31337].includes(chain?.id || -1),
+		lensProtocolHandle: '',
+		hasProvider: !!(walletClient || publicClient),
+		provider: connector,
+		chainID: Number(chain?.id || 0),
+		onConnect,
+		onSwitchChain,
+		openLoginModal,
+		onDesactivate: onDesactivate,
+		options: web3Options,
+		walletType: 'NONE'
+	};
 
 	return (
 		<Web3Context.Provider value={contextValue}>
