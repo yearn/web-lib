@@ -4,7 +4,7 @@
 import {createWalletClient, custom, toHex} from 'viem';
 import {IFrameEthereumProvider} from '@ledgerhq/iframe-provider';
 import {ChainNotConfiguredError, Connector, ConnectorNotFoundError} from '@wagmi/core';
-import {toWagmiAddress} from '@yearn-finance/web-lib/utils/address';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
 import type {ProviderRpcError, RpcError} from 'viem';
 import type {Chain} from '@wagmi/core';
@@ -88,7 +88,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		}
 		const accounts = await provider.send('eth_requestAccounts');
 		// return checksum address
-		return toWagmiAddress(accounts[0]);
+		return toAddress(accounts[0]);
 	}
 
 	async getChainId() {
@@ -115,7 +115,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		if (!provider) {
 			throw new Error('provider is required.');
 		}
-		return createWalletClient({account: toWagmiAddress(account), chain, transport: custom(provider as any)});
+		return createWalletClient({account: toAddress(account), chain, transport: custom(provider as any)});
 	}
 
 	async isAuthorized() {
@@ -219,7 +219,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		if (accounts.length === 0 || !accounts[0]) {
 			this.emit('disconnect');
 		} else {
-			this.emit('change', {account: toWagmiAddress(accounts[0])});
+			this.emit('change', {account: toAddress(accounts[0])});
 		}
 	};
 

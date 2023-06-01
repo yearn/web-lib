@@ -3,7 +3,7 @@ import {erc20ABI, multicall} from '@wagmi/core';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import AGGREGATE3_ABI from '@yearn-finance/web-lib/utils/abi/aggregate.abi';
-import {toAddress, toWagmiAddress} from '@yearn-finance/web-lib/utils/address';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {ETH_TOKEN_ADDRESS, MULTICALL3_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '@yearn-finance/web-lib/utils/decoder';
 import {toNormalizedValue} from '@yearn-finance/web-lib/utils/format';
@@ -95,13 +95,13 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			const isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
 				const tokenAddress = web3ChainID === 250 ? WFTM_TOKEN_ADDRESS : WETH_TOKEN_ADDRESS;
-				calls.push({address: toWagmiAddress(MULTICALL3_ADDRESS), abi: AGGREGATE3_ABI, functionName: 'getEthBalance', args: [ownerAddress]});
-				calls.push({address: toWagmiAddress(tokenAddress), abi: erc20ABI, functionName: 'decimals'});
-				calls.push({address: toWagmiAddress(tokenAddress), abi: erc20ABI, functionName: 'symbol'});
+				calls.push({address: toAddress(MULTICALL3_ADDRESS), abi: AGGREGATE3_ABI, functionName: 'getEthBalance', args: [ownerAddress]});
+				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'decimals'});
+				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'symbol'});
 			} else {
-				calls.push({address: toWagmiAddress(token), abi: erc20ABI, functionName: 'balanceOf', args: [ownerAddress]});
-				calls.push({address: toWagmiAddress(token), abi: erc20ABI, functionName: 'decimals'});
-				calls.push({address: toWagmiAddress(token), abi: erc20ABI, functionName: 'symbol'});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'balanceOf', args: [ownerAddress]});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'decimals'});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'symbol'});
 			}
 		}
 

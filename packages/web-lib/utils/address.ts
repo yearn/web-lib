@@ -1,21 +1,9 @@
 import {getAddress, isAddress, zeroAddress as wZeroAddress} from 'viem';
+import {isTAddress} from '@yearn-finance/web-lib/utils/isTAddress';
 
-import {isTAddress} from './isTAddress';
-
-import type {TAddress, TAddressLike, TAddressWagmi, TDict} from '@yearn-finance/web-lib/types';
+import type {TAddress, TAddressLike, TAddressYearn, TDict} from '@yearn-finance/web-lib/types';
 
 export const zeroAddress = wZeroAddress as TAddress;
-
-/* 🔵 - Yearn Finance ******************************************************
-** Wagmi only requires a 0xString as a valid address. To use your safest
-** version, we need to convert it between types, and the other way around.
-**************************************************************************/
-export function toWagmiAddress(address?: TAddressLike): TAddressWagmi {
-	if (!address) {
-		return wZeroAddress;
-	}
-	return getAddress(address?.valueOf());
-}
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function used to format the addresses and work with them to
@@ -23,19 +11,30 @@ export function toWagmiAddress(address?: TAddressLike): TAddressWagmi {
 ** should be a specific type address, which does not exists, so any address
 ** should always be called by toAddress(0x...).
 **************************************************************************/
-export function toAddress(address?: string | null | undefined): TAddress {
+function checksumAddress(address?: string | null | undefined): TAddressYearn {
 	try {
 		if (address && address !== 'GENESIS' && isAddress(address)) {
 			const checksummedAddress = getAddress(address);
 			if (isTAddress(checksummedAddress)) {
-				return checksummedAddress;
+				return checksummedAddress as TAddressYearn;
 			}
 		}
 	} catch (error) {
 		// TODO - Send error to Sentry
 		console.error(error);
 	}
-	return zeroAddress;
+	return zeroAddress as TAddressYearn;
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Wagmi only requires a 0xString as a valid address. To use your safest
+** version, we need to convert it between types, and the other way around.
+**************************************************************************/
+export function toAddress(address?: TAddressLike): TAddress {
+	if (!address) {
+		return wZeroAddress;
+	}
+	return getAddress(checksumAddress(address)?.valueOf());
 }
 
 /* 🔵 - Yearn Finance ******************************************************
@@ -46,8 +45,8 @@ export function toENS(address: string | null | undefined, format?: boolean, size
 	if (!address) {
 		return address || '';
 	}
-	const	_address = toAddress(address);
-	const	knownENS = process.env.KNOWN_ENS as unknown as TDict<string>;
+	const _address = toAddress(address);
+	const knownENS = process.env.KNOWN_ENS as unknown as TDict<string>;
 	if (knownENS?.[_address]) {
 		return knownENS[_address];
 	}
@@ -61,7 +60,7 @@ export function toENS(address: string | null | undefined, format?: boolean, size
 ** isZeroAddress is used to check if an address is the zero address.
 **************************************************************************/
 export function isZeroAddress(address?: string): boolean {
-	return toAddress(address) === zeroAddress;
+	return toAddress(address) === toAddress(zeroAddress);
 }
 
 /* 🔵 - Yearn Finance ******************************************************
