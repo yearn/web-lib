@@ -1,6 +1,7 @@
 import {formatUnits, parseUnits as vParseUnits} from 'viem';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
-import { MAX_UINT_256 } from './constants';
+
+import {MAX_UINT_256} from './constants';
 
 export type TNumberish = bigint | number | string | `${number}` //wagmi weird type
 export type	TNormalizedBN = {

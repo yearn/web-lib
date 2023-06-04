@@ -3,24 +3,24 @@ import type {BlockTag} from 'viem';
 import type {Connector} from 'wagmi';
 import type {TDict} from '@yearn-finance/web-lib/types';
 
-type	TDefaultReqArgs = {
+type TDefaultReqArgs = {
 	chainID?: number,
 	provider?: Connector,
 }
 
-type	TDefaultResArgs = {
+type TDefaultResArgs = {
 	error?: Error,
 	isLoading: boolean,
 	isSuccess: boolean,
 	isError: boolean,
 }
 
-export type	TDefaultMinimalStatus = {
+export type TDefaultMinimalStatus = {
 	isLoading: boolean
 	isSuccess: boolean
 	isError: boolean
 }
-export type	TDefaultStatus = {
+export type TDefaultStatus = {
 	isFetching: boolean
 	isFetched: boolean
 	isRefetching: boolean
@@ -29,7 +29,7 @@ export type	TDefaultStatus = {
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBlock hook.
 ******************************************************************************/
-export type	TBlock = {
+export type TBlock = {
 	hash: string;
 	parentHash: string;
 	miner: string;
@@ -43,39 +43,41 @@ export type	TBlock = {
 	baseFeePerGas?: null | bigint;
 }
 
-export type	TUseBlockReq = {
+export type TUseBlockReq = {
 	blockHashOrBlockTag?: BlockTag,
 	shouldWatch?: boolean,
 	shouldShallowWatch?: boolean,
 	shallowCallback?: (block: TBlock, error?: Error) => void
 } & TDefaultReqArgs;
 
-export type	TUseBlockRes = {
+export type TUseBlockRes = {
 	data: TBlock
 } & TDefaultResArgs;
 
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalance hook.
 ******************************************************************************/
-export type	TBalanceData = {
+export type TBalanceData = {
 	decimals: number,
 	symbol: string,
 	name: string,
 	raw: bigint,
-	rawPrice: bigint,
 	normalized: number,
-	normalizedPrice: number,
-	normalizedValue: number
+	//Optional
+	rawPrice?: bigint,
+	normalizedPrice?: number,
+	normalizedValue?: number
+	force?: boolean,
 }
 
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalances hook.
 ******************************************************************************/
-export type	TUseBalancesTokens = {
+export type TUseBalancesTokens = {
 	token: string,
 	for?: string,
 }
-export type	TUseBalancesReq = {
+export type TUseBalancesReq = {
 	key?: string | number,
 	tokens: TUseBalancesTokens[]
 	prices?: {
@@ -85,7 +87,7 @@ export type	TUseBalancesReq = {
 	effectDependencies?: DependencyList
 } & TDefaultReqArgs
 
-export type	TUseBalancesRes = {
+export type TUseBalancesRes = {
 	data: TDict<TBalanceData>,
 	update: () => Promise<TDict<TBalanceData>>,
 	updateSome: (token: TUseBalancesTokens[]) => Promise<TDict<TBalanceData>>,
