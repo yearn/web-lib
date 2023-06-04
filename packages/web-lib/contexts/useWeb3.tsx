@@ -1,4 +1,4 @@
-import	React, {createContext, useCallback, useContext, useState} from 'react';
+import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import {arbitrum, fantom, gnosis, optimism, polygon} from 'viem/chains';
 import {configureChains, createConfig, mainnet, useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
@@ -66,7 +66,7 @@ const defaultState = {
 	openLoginModal: (): void => undefined,
 	onDesactivate: (): void => undefined
 };
-const	defaultOptions = {
+const defaultOptions = {
 	shouldUseWallets: true,
 	defaultChainID: 1,
 	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 420, 1337, 31337, 42161]
@@ -109,7 +109,6 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const isMounted = useIsMounted();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
-	const [walletType, set_walletType] = useState('NONE');
 
 	const onConnect = useCallback(async (
 		providerType: string,
@@ -123,7 +122,6 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 					connectAsync({connector: connectors[1]})
 				]);
 				if (r?.account) {
-					set_walletType(r.connector?.id === 'safe' ? 'EMBED_GNOSIS_SAFE' : 'EMBED_LEDGER');
 					return onSuccess?.();
 				}
 			}
@@ -145,11 +143,9 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			} else {
 				await connectAsync({connector: connectors[2]});
 			}
-			set_walletType(providerType);
 			onSuccess?.();
 		} catch (error) {
 			if ((error as BaseError).name === 'ConnectorAlreadyConnectedError') {
-				set_walletType(providerType);
 				return onSuccess?.();
 			}
 			onError?.(error as unknown as Error);
@@ -166,6 +162,24 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		}
 		switchNetwork?.(newChainID);
 	}, [switchNetwork]);
+
+	const walletType = useMemo((): string => {
+		if (!connector) {
+			return ('NONE');
+		}
+		switch (connector.id) {
+			case 'safe':
+				return ('EMBED_GNOSIS_SAFE');
+			case 'ledger':
+				return ('EMBED_LEDGER');
+			case 'walletConnectLegacy':
+				return ('WALLET_CONNECT');
+			case 'coinbaseWallet':
+				return ('EMBED_COINBASE');
+			default:
+				return ('INJECTED');
+		}
+	}, [connector]);
 
 	const openLoginModal = useCallback(async (): Promise<void> => {
 		if (isIframe()) {
