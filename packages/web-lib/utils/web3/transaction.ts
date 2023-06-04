@@ -26,7 +26,7 @@ export type TBaseError = {
 export type TTxResponse = {
 	isSuccessful: boolean,
 	receipt?: TransactionReceipt,
-	error?: TBaseError
+	error?: BaseError
 };
 
 class Transaction {
