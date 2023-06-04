@@ -17,6 +17,7 @@ import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerC
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ReactElement} from 'react';
+import type {BaseError} from 'viem';
 import type {Chain} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
 
@@ -144,6 +145,9 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			}
 			onSuccess?.();
 		} catch (error) {
+			if ((error as BaseError).name === 'ConnectorAlreadyConnectedError') {
+				return onSuccess?.();
+			}
 			onError?.(error as unknown as Error);
 		}
 	}, [connectAsync, connectors]);
