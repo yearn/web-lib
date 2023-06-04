@@ -60,6 +60,7 @@ export type	TUseBlockRes = {
 export type	TBalanceData = {
 	decimals: number,
 	symbol: string,
+	name: string,
 	raw: bigint,
 	rawPrice: bigint,
 	normalized: number,

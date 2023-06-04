@@ -98,10 +98,12 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				calls.push({address: toAddress(MULTICALL3_ADDRESS), abi: AGGREGATE3_ABI, functionName: 'getEthBalance', args: [ownerAddress]});
 				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'decimals'});
 				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'symbol'});
+				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'name'});
 			} else {
 				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'balanceOf', args: [ownerAddress]});
 				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'decimals'});
 				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'symbol'});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'name'});
 			}
 		}
 
@@ -114,12 +116,15 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				const balanceOfResult = results[rIndex++];
 				const decimalsResult = results[rIndex++];
 				const symbolResult = results[rIndex++];
+				const nameResult = results[rIndex++];
 				const balanceOf = decodeAsBigInt(balanceOfResult);
 				const rawPrice = props?.prices?.[toAddress(token)] || 0n;
 				let decimals = decodeAsNumber(decimalsResult);
 				let symbol = decodeAsString(symbolResult);
+				let name = decodeAsString(nameResult);
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
 					symbol = 'ETH';
+					name = 'Ether';
 				}
 				if (toAddress(token) === VLYCRV_TOKEN_ADDRESS) {
 					decimals = 18;
@@ -128,6 +133,7 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					decimals: Number(decimals),
 					symbol: symbol,
 					raw: balanceOf,
+					name: name,
 					rawPrice,
 					normalized: toNormalizedValue(balanceOf, Number(decimals)),
 					normalizedPrice: toNormalizedValue(rawPrice, 6),
