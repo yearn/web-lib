@@ -109,6 +109,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const isMounted = useIsMounted();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+	const [walletType, set_walletType] = useState('NONE');
 
 	const onConnect = useCallback(async (
 		providerType: string,
@@ -122,6 +123,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 					connectAsync({connector: connectors[1]})
 				]);
 				if (r?.account) {
+					set_walletType(r.connector?.id === 'safe' ? 'EMBED_GNOSIS_SAFE' : 'EMBED_LEDGER');
 					return onSuccess?.();
 				}
 			}
@@ -143,9 +145,11 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			} else {
 				await connectAsync({connector: connectors[2]});
 			}
+			set_walletType(providerType);
 			onSuccess?.();
 		} catch (error) {
 			if ((error as BaseError).name === 'ConnectorAlreadyConnectedError') {
+				set_walletType(providerType);
 				return onSuccess?.();
 			}
 			onError?.(error as unknown as Error);
@@ -191,7 +195,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		openLoginModal,
 		onDesactivate: onDesactivate,
 		options: web3Options,
-		walletType: 'NONE'
+		walletType: walletType
 	};
 
 	return (
