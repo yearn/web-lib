@@ -46,11 +46,11 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 	const {onSwitchChain} = useWeb3();
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
+		const noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (
 			{value: chainID, label: chains.get(chainID)?.displayName || `Chain ${chainID}`}
 		));
-	}, [supportedChainID]);
+	}, [chains, supportedChainID]);
 
 	const	currentNetwork = useMemo((): TNetwork | undefined => (
 		supportedNetworks.find((network): boolean => network.value === safeChainID)
@@ -72,7 +72,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		return (
 			<button
 				suppressHydrationWarning
-				onClick={(): void => onSwitchChain(supportedNetworks[0].value, true)}
+				onClick={(): void => onSwitchChain(supportedNetworks[0].value)}
 				className={'yearn--header-nav-item mr-4 hidden cursor-pointer flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
 				<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
 					{'Invalid Network'}
@@ -85,7 +85,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: any): void => onSwitchChain(value.value, true)}>
+				onChange={(value: any): void => onSwitchChain(value.value)}>
 				{({open}): ReactElement => (
 					<>
 						<Listbox.Button
@@ -153,7 +153,7 @@ function	WalletSelector(): ReactElement {
 				if (isActive) {
 					onDesactivate();
 				} else if (!isActive && address) {
-					onSwitchChain(options?.defaultChainID || 1, true);
+					onSwitchChain(options?.defaultChainID || 1);
 				} else {
 					openLoginModal();
 				}

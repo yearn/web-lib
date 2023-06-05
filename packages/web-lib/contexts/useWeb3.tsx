@@ -8,7 +8,7 @@ import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
 import {SafeConnector} from 'wagmi/connectors/safe';
 import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy';
 import {publicProvider} from 'wagmi/providers/public';
-import {useIsMounted} from '@react-hookz/web';
+import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
@@ -105,10 +105,15 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const {data: ensName} = useEnsName({address: address, chainId: 1});
 	const {data: walletClient} = useWalletClient();
 	const {chain} = useNetwork();
+	const [currentChainID, set_currentChainID] = useState(chain?.id);
 	const publicClient = usePublicClient();
 	const isMounted = useIsMounted();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+
+	useUpdateEffect((): void => {
+		set_currentChainID(chain?.id);
+	}, [chain]);
 
 	const onConnect = useCallback(async (
 		providerType: string,
@@ -156,12 +161,12 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		disconnect();
 	}, [disconnect]);
 
-	const	onSwitchChain = useCallback((newChainID: number, force?: boolean): void => {
-		if (force) {
-			console.warn('onSwitchChain with force parameter is deprecated');
+	const	onSwitchChain = useCallback((newChainID: number): void => {
+		set_currentChainID(newChainID);
+		if (isConnected) {
+			switchNetwork?.(newChainID);
 		}
-		switchNetwork?.(newChainID);
-	}, [switchNetwork]);
+	}, [switchNetwork, isConnected]);
 
 	const walletType = useMemo((): string => {
 		if (!connector) {
@@ -203,7 +208,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		lensProtocolHandle: '',
 		hasProvider: !!(walletClient || publicClient),
 		provider: connector,
-		chainID: Number(chain?.id || 0),
+		chainID: isConnected ? Number(chain?.id || 1) : Number(currentChainID || 1),
 		onConnect,
 		onSwitchChain,
 		openLoginModal,

@@ -75,7 +75,7 @@ export type TWeb3Context = {
 	provider?: Connector,
 	currentPartner?: TPartnersInfo,
 	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
-	onSwitchChain: (newChainID: number, force?: boolean) => void,
+	onSwitchChain: (newChainID: number) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
 	options?: TWeb3Options,
