@@ -123,8 +123,8 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		try {
 			if (isIframe()) {
 				const r = await Promise.race([
-					connectAsync({connector: connectors[0]}),
-					connectAsync({connector: connectors[1]})
+					connectAsync({connector: connectors[0], chainId: currentChainID}),
+					connectAsync({connector: connectors[1], chainId: currentChainID})
 				]);
 				if (r?.account) {
 					return onSuccess?.();
@@ -132,21 +132,21 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			}
 
 			if (providerType === 'INJECTED') {
-				await connectAsync({connector: connectors[2]});
+				await connectAsync({connector: connectors[2], chainId: currentChainID});
 			} else if (providerType === 'INJECTED_LEDGER') {
-				await connectAsync({connector: connectors[4]});
+				await connectAsync({connector: connectors[4], chainId: currentChainID});
 			} else if (providerType === 'WALLET_CONNECT') {
-				await connectAsync({connector: connectors[5]});
+				await connectAsync({connector: connectors[5], chainId: currentChainID});
 			} else if (providerType === 'EMBED_LEDGER') {
-				await connectAsync({connector: connectors[1]});
+				await connectAsync({connector: connectors[1], chainId: currentChainID});
 			} else if (providerType === 'EMBED_GNOSIS_SAFE') {
-				await connectAsync({connector: connectors[0]});
+				await connectAsync({connector: connectors[0], chainId: currentChainID});
 			} else if (providerType === 'EMBED_COINBASE') {
-				await connectAsync({connector: connectors[6]});
+				await connectAsync({connector: connectors[6], chainId: currentChainID});
 			} else if (providerType === 'EMBED_TRUSTWALLET') {
-				await connectAsync({connector: connectors[2]});
+				await connectAsync({connector: connectors[2], chainId: currentChainID});
 			} else {
-				await connectAsync({connector: connectors[2]});
+				await connectAsync({connector: connectors[2], chainId: currentChainID});
 			}
 			onSuccess?.();
 		} catch (error) {
