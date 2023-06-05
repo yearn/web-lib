@@ -17,8 +17,8 @@ import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerC
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
 import type {ReactElement} from 'react';
-import type {BaseError} from 'viem';
-import type {Chain} from 'wagmi';
+import type {BaseError, FallbackTransport} from 'viem';
+import type {Chain, Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
 
 const localhost = {
@@ -222,9 +222,13 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	);
 };
 
-export const Web3ContextApp = ({children, options}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
+export const Web3ContextApp = ({children, configOverwrite, options}: {
+	children: ReactElement,
+	configOverwrite?: Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>>,
+	options?: TWeb3Options
+}): ReactElement => {
 	return (
-		<WagmiConfig config={config}>
+		<WagmiConfig config={configOverwrite || config}>
 			<Web3ContextAppWrapper options={options}>
 				{children}
 			</Web3ContextAppWrapper>
