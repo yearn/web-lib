@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {BigNumber} from 'ethers';
+import {deserialize, serialize} from 'wagmi';
 
 import type {Dispatch, RefObject, SetStateAction} from 'react';
 
@@ -103,12 +103,7 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 
 		try {
 			const item = window.sessionStorage.getItem(key);
-			return item ? (JSON.parse(item, (_: string, value: T & { type?: string}): T | BigNumber => {
-				if (value?.type === 'BigNumber') {
-					return BigNumber.from(value);
-				}
-				return value;
-			}) as T) : initialValue;
+			return item ? deserialize(item) : initialValue;
 		} catch (error) {
 			console.warn(`Error reading sessionStorage key “${key}”:`, error);
 			return initialValue;
@@ -134,7 +129,7 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 			const newValue = value instanceof Function ? value(storedValue) : value;
 
 			// Save to session storage
-			window.sessionStorage.setItem(key, JSON.stringify(newValue));
+			window.sessionStorage.setItem(key, serialize(newValue));
 
 			// Save state
 			set_storedValue(newValue);

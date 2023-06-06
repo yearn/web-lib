@@ -1,26 +1,26 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {Contract} from 'ethcall';
-import {ethers} from 'ethers';
+import {erc20ABI, multicall} from '@wagmi/core';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
-import ERC20_ABI from '@yearn-finance/web-lib/utils/abi/erc20.abi';
+import AGGREGATE3_ABI from '@yearn-finance/web-lib/utils/abi/aggregate.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ETH_TOKEN_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
-import * as format from '@yearn-finance/web-lib/utils/format';
+import {ETH_TOKEN_ADDRESS, MULTICALL3_ADDRESS, VLYCRV_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '@yearn-finance/web-lib/utils/decoder';
+import {toNormalizedValue} from '@yearn-finance/web-lib/utils/format';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
-import * as providers from '@yearn-finance/web-lib/utils/web3/providers';
 
-import type {BigNumber} from 'ethers';
 import type {DependencyList} from 'react';
-import type {TBalanceData, TDefaultStatus} from '@yearn-finance/web-lib/hooks/types';
+import type {ContractFunctionConfig} from 'viem';
+import type {Connector} from 'wagmi';
 import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
+import type {TBalanceData, TDefaultStatus} from '@yearn-finance/web-lib/types/hooks';
 
 /* 🔵 - Yearn Finance **********************************************************
 ** Request, Response and helpers for the useBalances hook.
 ******************************************************************************/
 type	TDefaultReqArgs = {
 	chainID?: number,
-	provider?: ethers.providers.Provider,
+	provider?: Connector,
 }
 export type	TUseBalancesTokens = {
 	token: string,
@@ -29,9 +29,7 @@ export type	TUseBalancesTokens = {
 export type	TUseBalancesReq = {
 	key?: string | number,
 	tokens: TUseBalancesTokens[]
-	prices?: {
-		[token: string]: string,
-	}
+	prices?: TDict<bigint>,
 	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
 	effectDependencies?: DependencyList
 } & TDefaultReqArgs
@@ -90,49 +88,43 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			return [{}, undefined];
 		}
 
-		let		currentProvider = provider || providers.getProvider(props?.chainID || web3ChainID || 1);
-		if (props?.chainID && props.chainID !== web3ChainID) {
-			currentProvider = providers.getProvider(props?.chainID);
-		}
-
-		const	calls = [];
-		const	ethcallProvider = await providers.newEthCallProvider(currentProvider);
+		const	calls: ContractFunctionConfig[] = [];
 		for (const element of tokens) {
-			const	{token} = element;
-			const	ownerAddress = (element?.for || web3Address) as string;
-			const	isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
+			const {token} = element;
+			const ownerAddress = (element?.for || web3Address) as string;
+			const isEth = toAddress(token) === ETH_TOKEN_ADDRESS;
 			if (isEth) {
-				const	tokenContract = web3ChainID === 250
-					? new Contract(WFTM_TOKEN_ADDRESS, ERC20_ABI)
-					: new Contract(WETH_TOKEN_ADDRESS, ERC20_ABI);
-				calls.push(
-					ethcallProvider.getEthBalance(ownerAddress),
-					tokenContract.decimals(),
-					tokenContract.symbol()
-				);
+				const tokenAddress = web3ChainID === 250 ? WFTM_TOKEN_ADDRESS : WETH_TOKEN_ADDRESS;
+				calls.push({address: toAddress(MULTICALL3_ADDRESS), abi: AGGREGATE3_ABI, functionName: 'getEthBalance', args: [ownerAddress]});
+				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'decimals'});
+				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'symbol'});
+				calls.push({address: toAddress(tokenAddress), abi: erc20ABI, functionName: 'name'});
 			} else {
-				const	tokenContract = new Contract(token, ERC20_ABI);
-				calls.push(
-					tokenContract.balanceOf(ownerAddress),
-					tokenContract.decimals(),
-					tokenContract.symbol()
-				);
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'balanceOf', args: [ownerAddress]});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'decimals'});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'symbol'});
+				calls.push({address: toAddress(token), abi: erc20ABI, functionName: 'name'});
 			}
 		}
 
 		const	_data: TDict<TBalanceData> = {};
 		try {
-			const	results = await ethcallProvider.tryAll(calls);
-			let		rIndex = 0;
+			let	 rIndex = 0;
+			const results = await multicall({contracts: calls as never[]});
 			for (const element of tokens) {
-				const	{token} = element;
-				const	balanceOf = results[rIndex++] as BigNumber;
-				let		decimals = results[rIndex++] as number;
-				const	rawPrice = format.BN(props?.prices?.[toAddress(token)] || ethers.constants.Zero);
-				let symbol = results[rIndex++] as string;
-
+				const {token} = element;
+				const balanceOfResult = results[rIndex++];
+				const decimalsResult = results[rIndex++];
+				const symbolResult = results[rIndex++];
+				const nameResult = results[rIndex++];
+				const balanceOf = decodeAsBigInt(balanceOfResult);
+				const rawPrice = props?.prices?.[toAddress(token)] || 0n;
+				let decimals = decodeAsNumber(decimalsResult);
+				let symbol = decodeAsString(symbolResult);
+				let name = decodeAsString(nameResult);
 				if (toAddress(token) === ETH_TOKEN_ADDRESS) {
 					symbol = 'ETH';
+					name = 'Ether';
 				}
 				if (toAddress(token) === VLYCRV_TOKEN_ADDRESS) {
 					decimals = 18;
@@ -141,10 +133,11 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					decimals: Number(decimals),
 					symbol: symbol,
 					raw: balanceOf,
+					name: name,
 					rawPrice,
-					normalized: format.toNormalizedValue(balanceOf, Number(decimals)),
-					normalizedPrice: format.toNormalizedValue(rawPrice, 6),
-					normalizedValue: (format.toNormalizedValue(balanceOf, Number(decimals)) * format.toNormalizedValue(rawPrice, 6))
+					normalized: toNormalizedValue(balanceOf, Number(decimals)),
+					normalizedPrice: toNormalizedValue(rawPrice, 6),
+					normalizedValue: (toNormalizedValue(balanceOf, Number(decimals)) * toNormalizedValue(rawPrice, 6))
 				};
 			}
 			return [_data, undefined];
@@ -176,27 +169,6 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		}
 		return (): void => undefined;
 	}, [getBalances, props?.refreshEvery, stringifiedTokens]);
-
-	/* 🔵 - Yearn Finance ******************************************************
-	** Add an interval to update the balance every X block, based on the
-	** refreshEvery prop. This specific effect is not used if the refresh is
-	** not set or if it is NOT set to 'block'.
-	**************************************************************************/
-	useEffect((): () => void => {
-		if (!props?.refreshEvery || props?.refreshEvery !== 'block') {
-			return (): void => undefined;
-		}
-
-		let	currentProvider = props?.provider || providers.getProvider(props?.chainID || web3ChainID || 1);
-		if (!props?.provider && props?.chainID === web3ChainID && provider) {
-			currentProvider = provider as ethers.providers.BaseProvider | ethers.providers.Web3Provider;
-		}
-		currentProvider.on('block', async (): Promise<unknown> => getBalances(stringifiedTokens));
-
-		return (): void => {
-			currentProvider.off('block', async (): Promise<unknown> => getBalances(stringifiedTokens));
-		};
-	}, [provider, props?.chainID, props?.provider, props?.refreshEvery, web3ChainID, getBalances, stringifiedTokens]);
 
 	const	onUpdate = useCallback(async (): Promise<TDict<TBalanceData>> => {
 		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched});
@@ -254,12 +226,12 @@ export function	useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const assignPrices = useCallback((_rawData: TDict<TBalanceData>): TDict<TBalanceData> => {
 		for (const key of Object.keys(_rawData)) {
 			const	tokenAddress = toAddress(key);
-			const	rawPrice = format.BN(props?.prices?.[tokenAddress] || ethers.constants.Zero);
+			const	rawPrice = props?.prices?.[tokenAddress] || 0n;
 			_rawData[tokenAddress] = {
 				..._rawData[tokenAddress],
 				rawPrice,
-				normalizedPrice: format.toNormalizedValue(rawPrice, 6),
-				normalizedValue: ((_rawData?.[tokenAddress] || 0).normalized * format.toNormalizedValue(rawPrice, 6))
+				normalizedPrice: toNormalizedValue(rawPrice, 6),
+				normalizedValue: ((_rawData?.[tokenAddress] || 0).normalized * toNormalizedValue(rawPrice, 6))
 			};
 		}
 		return _rawData;

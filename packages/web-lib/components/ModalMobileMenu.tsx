@@ -8,7 +8,7 @@ import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWall
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {ReactElement, ReactNode} from 'react';
-import type {TModal} from './Modal';
+import type {TModal} from '@yearn-finance/web-lib/components/Modal';
 
 type	TModalMobileMenu = {
 	isOpen: boolean
@@ -19,8 +19,8 @@ type	TModalMobileMenu = {
 };
 
 function	Modal(props: TModal): ReactElement {
-	const	{isOpen, onClose, className = '', children} = props;
-	const	ref = useRef() as React.MutableRefObject<HTMLDivElement>;
+	const {isOpen, onClose, className = '', children} = props;
+	const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
 		<Transition.Root show={isOpen} as={Fragment}>
@@ -30,7 +30,7 @@ function	Modal(props: TModal): ReactElement {
 				style={{zIndex: 88}}
 				initialFocus={ref}
 				onClose={onClose}>
-				<div className={`${className} relative flex min-h-screen items-end justify-end px-0 pt-4 pb-0 text-center sm:block sm:p-0`}>
+				<div className={`${className} relative flex min-h-screen items-end justify-end px-0 pb-0 pt-4 text-center sm:block sm:p-0`}>
 					<Transition.Child
 						as={Fragment}
 						enter={'ease-out duration-300'}
@@ -64,13 +64,13 @@ function	Modal(props: TModal): ReactElement {
 }
 
 function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
-	const	{isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
-	const	{onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect, options} = useWeb3();
-	const	[walletIdentity, set_walletIdentity] = useState('Connect a wallet');
-	const	[optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
-	const	detectedWalletProvider = useInjectedWallet();
-	const	chains = useChain();
-	const 	{toast} = yToast();
+	const {isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
+	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect, options} = useWeb3();
+	const [walletIdentity, set_walletIdentity] = useState('Connect a wallet');
+	const [optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
+	const detectedWalletProvider = useInjectedWallet();
+	const chains = useChain();
+	const {toast} = yToast();
 
 	useEffect((): void => {
 		if (!isActive && address) {
@@ -127,8 +127,8 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	}
 
 	useEffect((): void => {
-		const	allChainsID = (options?.supportedChainID || [1]).filter((id: number): boolean => ![1337, 31337].includes(id));
-		const	noDuplicates = [...new Set(allChainsID)];
+		const allChainsID = (options?.supportedChainID || [1]).filter((id: number): boolean => ![1337, 31337].includes(id));
+		const noDuplicates = [...new Set(allChainsID)];
 		set_optionsForSelect(noDuplicates);
 	}, [options]);
 
@@ -152,11 +152,11 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 								<select
 									name={'network'}
 									id={'network'}
-									onChange={(e): void => onSwitchChain(Number(e?.target?.value), true)}
+									onChange={(e): void => onSwitchChain(Number(e?.target?.value))}
 									className={'yearn--select-no-arrow yearn--select-reset !pr-6 text-sm'}>
 									{optionsForSelect.map((id: number): ReactElement => {
 										const label = chains.get(id)?.displayName || `Unknown chain (${id})`;
-										
+
 										const {chainID} = chains.getCurrent() || {};
 										const isSelected = Number(chainID) === id;
 

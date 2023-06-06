@@ -1,6 +1,5 @@
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
-
-import {useDismissToasts} from './useDismissToasts';
+import {useDismissToasts} from '@yearn-finance/web-lib/hooks/useDismissToasts';
 
 declare let window: any;
 

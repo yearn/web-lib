@@ -1,33 +1,26 @@
-import {BigNumber, ethers} from 'ethers';
+import {formatUnits, parseUnits as vParseUnits} from 'viem';
 import {formatAmount} from '@yearn-finance/web-lib/utils/format.number';
 
-import type {BigNumberish} from 'ethers';
+import {MAX_UINT_256} from './constants';
 
+export type TNumberish = bigint | number | string | `${number}` //wagmi weird type
 export type	TNormalizedBN = {
-	raw: BigNumber,
-	normalized: number | string | '',
+	raw: bigint,
+	normalized: number | string,
 }
 
-export const {Zero} = ethers.constants;
-export const DefaultTNormalizedBN: TNormalizedBN = {raw: Zero, normalized: 0};
+export const DefaultTNormalizedBN: TNormalizedBN = {raw: 0n, normalized: 0};
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Bunch of function using the power of the browsers and standard functions
 ** to correctly format bigNumbers, currency and date
 **************************************************************************/
-export const BN = (amount?: BigNumberish): BigNumber => {
-	return BigNumber.from(amount || 0);
+export const toBigInt = (amount?: TNumberish): bigint => {
+	return BigInt(amount || 0);
 };
 
-export function formatUnits(value?: BigNumberish, unitName?: BigNumberish | undefined): string {
-	return (ethers.utils.formatUnits(BN(value), unitName));
-}
-export function parseUnits(value: string, unitName?: BigNumberish | undefined): BigNumber {
-	return (ethers.utils.parseUnits(value, unitName));
-}
-
 export function	bigNumberAsAmount(
-	bnAmount = Zero,
+	bnAmount = 0n,
 	decimals = 18,
 	decimalsToDisplay = 2,
 	symbol = ''
@@ -42,11 +35,10 @@ export function	bigNumberAsAmount(
 		symbolWithPrefix = ` ${symbol}`;
 	}
 
-	bnAmount = BN(bnAmount);
-	if (bnAmount.isZero()) {
+	if (bnAmount === 0n) {
 		return (`0${symbolWithPrefix}`);
 	}
-	if (bnAmount.eq(ethers.constants.MaxUint256)) {
+	if (bnAmount === MAX_UINT_256) {
 		return (`∞${symbolWithPrefix}`);
 	}
 
@@ -59,21 +51,25 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`);
 }
 
-export	const	toNormalizedValue = (v: BigNumberish, d?: number): number => (
-	Number(formatUnits(v || 0, d ?? 18))
-);
+export	const	toNormalizedValue = (v: bigint, d?: number): number => {
+	return Number(formatUnits(v, d ?? 18));
+};
 
-export const	toNormalizedAmount = (v: BigNumberish, d?: number): string => (
-	formatAmount(toNormalizedValue(v, d ?? 18), 6, 6)
-);
+export const	toNormalizedAmount = (v: bigint, d?: number): string => {
+	return formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
+};
 
-export const	toNormalizedBN = (value: BigNumberish, decimals?: number): TNormalizedBN => ({
-	raw: BN(value),
-	normalized: toNormalizedValue(BN(value), decimals ?? 18)
+export const	toNormalizedBN = (value: TNumberish, decimals?: number): TNormalizedBN => ({
+	raw: toBigInt(value),
+	normalized: toNormalizedValue(toBigInt(value), decimals ?? 18)
 });
+
+export function	parseUnits(value: TNumberish, decimals = 18): bigint {
+	const valueAsNumber = Number(value);
+	return vParseUnits(`${valueAsNumber}`, decimals);
+}
 
 export {toNormalizedAmount as formatToNormalizedAmount};
 export {toNormalizedValue as formatToNormalizedValue};
 export {toNormalizedBN as formatToNormalizedBN};
 export {bigNumberAsAmount as formatBigNumberAsAmount};
-export {BN as formatBN};
