@@ -19,7 +19,7 @@
 		"outDir": "dist",
 		"jsx": "react",
 		"target": "ESNext",
-		"module": "CommonJS",
+		"module": "ESNext",
 		"lib": [
 			"es6",
 			"es7",

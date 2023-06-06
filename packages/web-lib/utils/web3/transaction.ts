@@ -104,7 +104,7 @@ async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse
 		return {isSuccessful: true, receipt};
 	} catch (error) {
 		console.error(error);
-		return {isSuccessful: false, error: error as BaseError};
+		return {isSuccessful: false, error: error};
 	}
 }
 
