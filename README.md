@@ -31,7 +31,6 @@ yarn add @yearn-finance/web-lib
 The following packages and applications are available
 
 - `package/docs`: Documentation site for the library
-- `package/playground`: A playground for testing components
 - `packages/web-lib`: Actual library for Yearn's projects
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
