@@ -30,7 +30,7 @@ function checksumAddress(address?: string | null | undefined): TAddressYearn {
 ** Wagmi only requires a 0xString as a valid address. To use your safest
 ** version, we need to convert it between types, and the other way around.
 **************************************************************************/
-export function toAddress(address?: TAddressLike): TAddress {
+export function toAddress(address?: TAddressLike | null): TAddress {
 	if (!address) {
 		return wZeroAddress;
 	}

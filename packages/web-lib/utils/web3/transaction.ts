@@ -26,7 +26,7 @@ export type TBaseError = {
 export type TTxResponse = {
 	isSuccessful: boolean,
 	receipt?: TransactionReceipt,
-	error?: BaseError
+	error?: BaseError | unknown
 };
 
 class Transaction {
@@ -84,7 +84,7 @@ class Transaction {
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
 				return ({isSuccessful, receipt});
 			}
-			this.onHandleError(error?.message || 'Transaction failed');
+			this.onHandleError((error as TBaseError)?.message || 'Transaction failed');
 			return ({isSuccessful: false});
 		} catch(error) {
 			const err = error as BaseError;
