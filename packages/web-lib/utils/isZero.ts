@@ -1,7 +1,7 @@
 type TProps = bigint | number | string | null;
 
 export function isZero(value?: TProps): boolean {
-	if (value === null || value === undefined || value === "") {
+	if (value === null || value === undefined) {
 		return false;
 	}
 
