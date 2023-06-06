@@ -11,7 +11,7 @@ const		pendingTxStatus = {none: false, pending: true, success: false, error: fal
 const		successTxStatus = {none: false, pending: false, success: true, error: false};
 
 export type	TTxStatus = {none: boolean, pending: boolean, success: boolean, error: boolean}
-export type TTxResponse = {isSuccessful: boolean, receipt?: ethers.providers.TransactionReceipt, error?: Error};
+export type TTxResponse = {isSuccessful: boolean, receipt?: ethers.providers.TransactionReceipt, error?: Error | unknown};
 
 class Transaction {
 	provider: ethers.providers.Web3Provider | ethers.providers.Provider;
@@ -93,7 +93,7 @@ async function handleTx(txPromise: Promise<ethers.providers.TransactionResponse>
 		return {isSuccessful: true, receipt};
 	} catch (error) {
 		console.error(error);
-		return {isSuccessful: false, error: error as Error};
+		return {isSuccessful: false, error};
 	}
 }
 
