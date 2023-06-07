@@ -155,7 +155,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			}
 			onError?.(error as unknown as Error);
 		}
-	}, [connectAsync, connectors]);
+	}, [connectAsync, connectors, currentChainID]);
 
 	const onDesactivate = useCallback((): void => {
 		disconnect();
@@ -164,6 +164,9 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const	onSwitchChain = useCallback((newChainID: number): void => {
 		set_currentChainID(newChainID);
 		if (isConnected) {
+			if (!switchNetwork) {
+				console.error(new Error('Switch network function is not defined'));
+			}
 			switchNetwork?.(newChainID);
 		}
 	}, [switchNetwork, isConnected]);

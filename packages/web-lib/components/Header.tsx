@@ -86,7 +86,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 			<Listbox
 				value={safeChainID}
 				onChange={(value: any): void => onSwitchChain(value.value)}>
-				{({open}): ReactElement => (
+				{({open: isOpen}): ReactElement => (
 					<>
 						<Listbox.Button
 							suppressHydrationWarning
@@ -96,12 +96,12 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							</div>
 							<div className={'ml-2'}>
 								<IconChevronBottom
-									className={`h-5 w-4 transition-transform ${open ? '-rotate-180' : 'rotate-0'}`} />
+									className={`h-5 w-4 transition-transform ${isOpen ? '-rotate-180' : 'rotate-0'}`} />
 							</div>
 						</Listbox.Button>
 						<Transition
 							as={Fragment}
-							show={open}
+							show={isOpen}
 							enter={'transition duration-100 ease-out'}
 							enterFrom={'transform scale-95 opacity-0'}
 							enterTo={'transform scale-100 opacity-100'}
@@ -111,9 +111,9 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
 								{supportedNetworks.map((network): ReactElement => (
 									<Listbox.Option key={network.value} value={network}>
-										{({active}): ReactElement => (
+										{({active: isActive}): ReactElement => (
 											<div
-												data-active={active}
+												data-active={isActive}
 												className={'yearn--listbox-menu-item text-sm'}>
 												{network?.label || 'Ethereum'}
 											</div>
