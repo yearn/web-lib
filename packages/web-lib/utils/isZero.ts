@@ -6,7 +6,7 @@ export function isZero(value?: TProps): boolean {
 	}
 
 	if (typeof value === "string") {
-		value = value.trim();
+		value = value.trim().replace(',', '.');
 
 		if (value === "") {
 			return false;

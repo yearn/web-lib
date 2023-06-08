@@ -9,6 +9,7 @@ describe('isZero function', (): void => {
 		[0, true],
 		['0', true],
 		['0.0', true],
+		['0,0', true],
 		['000', true],
 		[0n, true],
 		[`${0}`, true],
