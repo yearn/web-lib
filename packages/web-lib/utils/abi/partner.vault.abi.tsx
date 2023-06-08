@@ -84,6 +84,6 @@ const PARTNER_VAULT_ABI = [
 		'stateMutability': 'view',
 		'type': 'function'
 	}
-];
+] as const;
 
 export default PARTNER_VAULT_ABI;

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {BigNumber} from 'ethers';
+import {deserialize, serialize} from 'wagmi';
 
 import type {Dispatch, SetStateAction} from 'react';
 
@@ -26,26 +26,12 @@ export function useLocalStorage<T>(
 			const item = window.localStorage.getItem(_key);
 
 			if (previousItem && options?.shouldMigratePreviousVersion) {
-				const resp = (
-					JSON.parse(previousItem, (_key: string, value: T & { type?: string}): T | BigNumber => {
-						if (value?.type === 'BigNumber') {
-							return BigNumber.from(value);
-						}
-						return value;
-					})
-				);
+				const resp = serialize(previousItem);
 				window.localStorage.setItem(_key, JSON.stringify(initialValue));
 				window.localStorage.removeItem(key);
-				return resp;
+				return deserialize(resp);
 			} if (item !== null) { // Parse stored json or if none return initialValue
-				return (
-					JSON.parse(item, (_key: string, value: T & { type?: string}): T | BigNumber => {
-						if (value?.type === 'BigNumber') {
-							return BigNumber.from(value);
-						}
-						return value;
-					})
-				);
+				return deserialize(item);
 			}
 			//TODO: Should we do that ?
 			// window.localStorage.setItem(key, JSON.stringify(initialValue));

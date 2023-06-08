@@ -46,11 +46,11 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 	const {onSwitchChain} = useWeb3();
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const	noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
+		const noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
 		return noTestnet.map((chainID: number): TNetwork => (
 			{value: chainID, label: chains.get(chainID)?.displayName || `Chain ${chainID}`}
 		));
-	}, [supportedChainID]);
+	}, [chains, supportedChainID]);
 
 	const	currentNetwork = useMemo((): TNetwork | undefined => (
 		supportedNetworks.find((network): boolean => network.value === safeChainID)
@@ -72,7 +72,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		return (
 			<button
 				suppressHydrationWarning
-				onClick={(): void => onSwitchChain(supportedNetworks[0].value, true)}
+				onClick={(): void => onSwitchChain(supportedNetworks[0].value)}
 				className={'yearn--header-nav-item mr-4 hidden cursor-pointer flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
 				<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
 					{'Invalid Network'}
@@ -85,8 +85,8 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: any): void => onSwitchChain(value.value, true)}>
-				{({open}): ReactElement => (
+				onChange={(value: any): void => onSwitchChain(value.value)}>
+				{({open: isOpen}): ReactElement => (
 					<>
 						<Listbox.Button
 							suppressHydrationWarning
@@ -96,24 +96,24 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							</div>
 							<div className={'ml-2'}>
 								<IconChevronBottom
-									className={`h-5 w-4 transition-transform ${open ? '-rotate-180' : 'rotate-0'}`} />
+									className={`h-5 w-4 transition-transform ${isOpen ? '-rotate-180' : 'rotate-0'}`} />
 							</div>
 						</Listbox.Button>
 						<Transition
 							as={Fragment}
-							show={open}
+							show={isOpen}
 							enter={'transition duration-100 ease-out'}
 							enterFrom={'transform scale-95 opacity-0'}
 							enterTo={'transform scale-100 opacity-100'}
 							leave={'transition duration-75 ease-out'}
 							leaveFrom={'transform scale-100 opacity-100'}
 							leaveTo={'transform scale-95 opacity-0'}>
-							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
+							<Listbox.Options className={'yearn--listbox-menu yearn--shadow -ml-1 bg-neutral-0'}>
 								{supportedNetworks.map((network): ReactElement => (
 									<Listbox.Option key={network.value} value={network}>
-										{({active}): ReactElement => (
+										{({active: isActive}): ReactElement => (
 											<div
-												data-active={active}
+												data-active={isActive}
 												className={'yearn--listbox-menu-item text-sm'}>
 												{network?.label || 'Ethereum'}
 											</div>
@@ -153,7 +153,7 @@ function	WalletSelector(): ReactElement {
 				if (isActive) {
 					onDesactivate();
 				} else if (!isActive && address) {
-					onSwitchChain(options?.defaultChainID || 1, true);
+					onSwitchChain(options?.defaultChainID || 1);
 				} else {
 					openLoginModal();
 				}
@@ -163,7 +163,7 @@ function	WalletSelector(): ReactElement {
 					<span>
 						<IconWallet
 							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-						<span className={'text-neutral-0 relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal transition-all hover:bg-neutral-800 md:flex'}>
+						<span className={'relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal text-neutral-0 transition-all hover:bg-neutral-800 md:flex'}>
 							{'Connect wallet'}
 						</span>
 					</span>

@@ -402,8 +402,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'string'
 			}
-		],
-		'gas': '5946'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -414,8 +413,7 @@ const VAULT_ABI = [
 				'type': 'string'
 			}
 		],
-		'outputs': [],
-		'gas': '108344'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -426,8 +424,7 @@ const VAULT_ABI = [
 				'type': 'string'
 			}
 		],
-		'outputs': [],
-		'gas': '73194'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -438,15 +435,13 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '37665'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
 		'name': 'acceptGovernance',
 		'inputs': [],
-		'outputs': [],
-		'gas': '38937'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -457,8 +452,7 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '39075'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -469,8 +463,7 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '39626'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -481,8 +474,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '37789'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -493,8 +485,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '39065'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -505,8 +496,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '39199'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -517,8 +507,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '39229'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -529,8 +518,7 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '41773'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -541,8 +529,7 @@ const VAULT_ABI = [
 				'type': 'bool'
 			}
 		],
-		'outputs': [],
-		'gas': '41844'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -553,8 +540,7 @@ const VAULT_ABI = [
 				'type': 'address[20]'
 			}
 		],
-		'outputs': [],
-		'gas': '1090134'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -573,8 +559,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '79308'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -596,8 +581,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '121671'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -616,8 +600,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '38241'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -636,8 +619,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '42882'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -656,8 +638,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '42906'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -685,8 +666,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '91494'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -697,8 +677,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '8698'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -755,8 +734,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '1576655'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -783,8 +761,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '77734'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -807,8 +784,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '1523989'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -822,8 +798,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '124263'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -837,8 +812,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '47611'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -852,8 +826,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '47641'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -867,8 +840,7 @@ const VAULT_ABI = [
 				'type': 'uint256'
 			}
 		],
-		'outputs': [],
-		'gas': '42854'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -882,8 +854,7 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '1190208'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -911,8 +882,7 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '1255644'
+		'outputs': []
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -923,8 +893,7 @@ const VAULT_ABI = [
 				'type': 'address'
 			}
 		],
-		'outputs': [],
-		'gas': '23636673'
+		'outputs': []
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -989,8 +958,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '21381'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1039,8 +1007,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '1239256'
+		]
 	}, {
 		'stateMutability': 'nonpayable',
 		'type': 'function',
@@ -1076,8 +1043,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'string'
 			}
-		],
-		'gas': '13920'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1088,8 +1054,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'string'
 			}
-		],
-		'gas': '11673'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1100,8 +1065,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '3678'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1117,8 +1081,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '3923'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1137,8 +1100,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4168'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1149,8 +1111,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '3768'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1161,8 +1122,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'address'
 			}
-		],
-		'gas': '3798'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1173,8 +1133,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'address'
 			}
-		],
-		'gas': '3828'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1185,8 +1144,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'address'
 			}
-		],
-		'gas': '3858'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1197,8 +1155,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'address'
 			}
-		],
-		'gas': '3888'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1238,8 +1195,7 @@ const VAULT_ABI = [
 				'name': 'totalLoss',
 				'type': 'uint256'
 			}
-		],
-		'gas': '22641'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1255,8 +1211,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'address'
 			}
-		],
-		'gas': '4057'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1267,8 +1222,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bool'
 			}
-		],
-		'gas': '3978'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1279,8 +1233,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4008'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1291,8 +1244,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4038'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1303,8 +1255,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4068'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1315,8 +1266,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4098'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1327,8 +1277,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4128'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1339,8 +1288,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4158'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1351,8 +1299,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4188'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1363,8 +1310,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'address'
 			}
-		],
-		'gas': '4218'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1375,8 +1321,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4248'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1387,8 +1332,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4278'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1404,8 +1348,7 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'uint256'
 			}
-		],
-		'gas': '4523'
+		]
 	}, {
 		'stateMutability': 'view',
 		'type': 'function',
@@ -1416,9 +1359,8 @@ const VAULT_ABI = [
 				'name': '',
 				'type': 'bytes32'
 			}
-		],
-		'gas': '4338'
+		]
 	}
-];
+] as const;
 
 export default VAULT_ABI;

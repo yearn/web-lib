@@ -1,4 +1,4 @@
-import	{ethers}	from	'ethers';
+import {zeroAddress} from 'viem';
 
 export type TPartnersInfo = {
 	id: string,
@@ -21,7 +21,7 @@ export function getPartner(partnerKey = ''): TPartnersInfo {
 		});
 	}
 	return ({
-		id: ethers.constants.AddressZero,
+		id: zeroAddress,
 		originKey: '',
 		originURI: '',
 		walletType: 'NONE'

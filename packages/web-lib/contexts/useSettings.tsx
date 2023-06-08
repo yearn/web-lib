@@ -1,13 +1,12 @@
 import	React, {createContext, useCallback, useContext, useEffect, useMemo} from 'react';
-import	{ethers} from 'ethers';
+import {zeroAddress} from 'viem';
 import	{deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import	{useLocalStorage} from '@yearn-finance/web-lib/hooks/useLocalStorage';
+import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/web3/providers';
 
-import {toAddress} from '../utils/address';
-
-import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from './types';
+import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from '@yearn-finance/web-lib/types/contexts';
 
 const	defaultSettings = {
 	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
@@ -33,7 +32,7 @@ const	defaultNetworks = {
 		apiURI: `${defaultSettings.apiBaseURI}/v1/chains/10`,
 		explorerBaseURI: 'https://optimistic.etherscan.io',
 		lensOracleAddress: toAddress('0xB082d9f4734c535D9d80536F7E87a6f4F471bF65'),
-		partnerContractAddress: toAddress(ethers.constants.AddressZero)
+		partnerContractAddress: toAddress(zeroAddress)
 	},
 	250: {
 		rpcURI: getRPC(250),
@@ -53,7 +52,7 @@ const	defaultNetworks = {
 		apiURI: `${defaultSettings.apiBaseURI}/v1/chains/42161`,
 		explorerBaseURI: 'https://arbiscan.io',
 		lensOracleAddress: toAddress('0x043518AB266485dC085a1DB095B8d9C2Fc78E9b9'),
-		partnerContractAddress: toAddress(ethers.constants.AddressZero)
+		partnerContractAddress: toAddress(zeroAddress)
 	},
 	1337: {
 		rpcURI: getRPC(1337),
