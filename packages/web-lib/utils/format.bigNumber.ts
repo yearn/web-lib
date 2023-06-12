@@ -69,6 +69,13 @@ export function	parseUnits(value: TNumberish, decimals = 18): bigint {
 	return vParseUnits(`${valueAsNumber}`, decimals);
 }
 
+export const formatBigNumberOver10K = (value: bigint): string => {
+	if (toBigInt(value) > (toBigInt(10000) * toBigInt(1e18))) {
+		return formatAmount(toNormalizedValue(toBigInt(value), 18), 0, 0) ?? '';
+	}
+	return formatAmount(toNormalizedValue(toBigInt(value), 18)) ?? '';
+};
+
 export {toNormalizedAmount as formatToNormalizedAmount};
 export {toNormalizedValue as formatToNormalizedValue};
 export {toNormalizedBN as formatToNormalizedBN};
