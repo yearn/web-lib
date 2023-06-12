@@ -155,8 +155,6 @@ module.exports = {
 				'overrides': {'colon': {'before': false, 'after': true}}
 			}
 		],
-		'brace-style': 'off',
-		'@typescript-eslint/brace-style': ['error', '1tbs'],
 		'comma-spacing': 'off',
 		'@typescript-eslint/comma-spacing': ['error'],
 		'dot-notation': 'off',
