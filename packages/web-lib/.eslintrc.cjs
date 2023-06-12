@@ -163,8 +163,6 @@ module.exports = {
 		'@typescript-eslint/comma-spacing': ['error'],
 		'dot-notation': 'off',
 		'@typescript-eslint/dot-notation': ['error'],
-		'indent': 'off',
-		'@typescript-eslint/indent': ['error', 'tab']
 	},
 	overrides: [
 		{
