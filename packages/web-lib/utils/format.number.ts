@@ -71,13 +71,6 @@ export const formatPercent = (n: number, min = 2, max = 2, upperLimit = 500): st
 	return `${amount(safeN || 0, min, max)}%`;
 };
 
-export const formatNumberOver10K = (n: number): string => {
-	if (n >= 10000) {
-		return amount(n, 0, 0) ?? '';
-	}
-	return amount(n) ?? '';
-};
-
 export {amount as formatAmount};
 export {currency as formatCurrency};
 export {withUnit as formatWithUnit};
