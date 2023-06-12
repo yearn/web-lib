@@ -27,25 +27,25 @@ describe('format.bigNumber', (): void => {
 		});
 	});
 
-	describe('formatBigNumberOver10K()', (): void => {
-		it('formats big numbers over 10K without decimal points', (): void => {
+	describe('formatBigNumberOver10K()', () => {
+		fit('formats big numbers over 10K without decimal points', () => {
 			const bigNum = BigInt(10001) * BigInt(Math.pow(10, 18));
 			console.log(bigNum);
 			
 			expect(formatBigNumberOver10K(bigNum)).toBe('10 001');
 		});
 
-		it('formats big numbers equal to 10K with decimal points', (): void => {
+		it('formats big numbers equal to 10K with decimal points', () => {
 			const bigNum = BigInt(10000) * BigInt(Math.pow(10, 18));
 			expect(formatBigNumberOver10K(bigNum)).toBe('10 000,00');
 		});
 
-		it('formats big numbers less than 10K with decimal points', (): void => {
+		it('formats big numbers less than 10K with decimal points', () => {
 			const bigNum = BigInt(9999) * BigInt(Math.pow(10, 18));
 			expect(formatBigNumberOver10K(bigNum)).toBe('9 999,00');
 		});
 
-		it('returns 0,00 for 0n', (): void => {
+		it('returns 0,00 for 0n', () => {
 			expect(formatBigNumberOver10K(0n)).toBe('0,00');
 		});
 	});
