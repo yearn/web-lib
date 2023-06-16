@@ -5,10 +5,10 @@ export function isZero(value?: TProps): boolean {
 		return false;
 	}
 
-	if (typeof value === "string") {
+	if (typeof value === 'string') {
 		value = value.trim().replace(',', '.');
 
-		if (value === "") {
+		if (value === '') {
 			return false;
 		}
 
