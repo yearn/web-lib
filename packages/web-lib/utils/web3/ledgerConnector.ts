@@ -115,7 +115,11 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		if (!provider) {
 			throw new Error('provider is required.');
 		}
-		return createWalletClient({account: toAddress(account), chain, transport: custom(provider as any)});
+		return createWalletClient({
+			account: toAddress(account),
+			chain,
+			transport: custom(window.ethereum as any)
+		});
 	}
 
 	async isAuthorized() {
