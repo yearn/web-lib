@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {createWalletClient, custom, toHex} from 'viem';
-import {IFrameEthereumProvider} from '@ledgerhq/iframe-provider';
 import {ChainNotConfiguredError, Connector, ConnectorNotFoundError} from '@wagmi/core';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
+import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193.ledger';
 
 import type {ProviderRpcError, RpcError} from 'viem';
 import type {Chain} from '@wagmi/core';
@@ -103,6 +103,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		if (!this.providerInstance) {
 			this.providerInstance = new IFrameEthereumProvider(this.options);
 		}
+
 		return this.providerInstance;
 	}
 
@@ -115,10 +116,11 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		if (!provider) {
 			throw new Error('provider is required.');
 		}
+
 		return createWalletClient({
 			account: toAddress(account),
 			chain,
-			transport: custom(window.ethereum as any)
+			transport: custom(provider)
 		});
 	}
 
