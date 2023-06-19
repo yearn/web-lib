@@ -2,6 +2,8 @@ import React from 'react';
 import IconAlertWarning from '@yearn-finance/web-lib/icons/IconAlertWarning';
 import IconCross from '@yearn-finance/web-lib/icons/IconCross';
 
+import {cl} from '../utils/cl';
+
 import type {ReactElement} from 'react';
 
 type TBannerProps = {
@@ -11,11 +13,10 @@ type TBannerProps = {
 };
 
 export function Banner({content, type, onClose}: TBannerProps): ReactElement {
-	const {backgroundColor, color} = getColors(type);
-	
+	const colorClassName = getClassName(type);
+
 	return (
-		// eslint-disable-next-line tailwindcss/classnames-order
-		<div className={`bg-[${backgroundColor}] flex justify-between p-2 text-${color}`}>
+		<div className={cl('flex justify-between p-2', colorClassName)}>
 			<IconAlertWarning className={'ml-3'} />
 			<p className={'text-base'}>{content}</p>
 			<IconCross
@@ -26,15 +27,15 @@ export function Banner({content, type, onClose}: TBannerProps): ReactElement {
 	);
 }
 
-function getColors(type: TBannerProps['type']): {backgroundColor: string; color: string} {
+function getClassName(type: TBannerProps['type']): string {
 	switch (type) {
 		case 'error':
-			return {backgroundColor: '#C73203', color: 'white'};
+			return 'bg-[#C73203] text-[#FFFFFF]';
 		case 'warning':
-			return {backgroundColor: '#FFDC53', color: 'black'};
+			return 'bg-[#FFDC53] text-[#000000]';
 		case 'success':
-			return {backgroundColor: '#00796D', color: 'white'};
+			return 'bg-[#00796D] text-[#FFFFFF]';
 		default:
-			return {backgroundColor: '#0657F9', color: 'white'};
+			return 'bg-[#0657F9] text-[#FFFFFF]';
 	}
 }
