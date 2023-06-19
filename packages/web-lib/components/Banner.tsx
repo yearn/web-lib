@@ -17,10 +17,10 @@ export function Banner({content, type, onClose}: TBannerProps): ReactElement {
 
 	return (
 		<div className={cl('flex justify-between p-2', colorClassName)}>
-			<IconAlertWarning className={'ml-3'} />
-			<p className={'text-base'}>{content}</p>
+			<IconAlertWarning className={'ml-3 mr-2 w-4 min-w-[16px] md:mr-0 md:w-6 md:min-w-[24px]'} />
+			<p className={'text-sm md:text-base'}>{content}</p>
 			<IconCross
-				className={'cursor-pointer text-white md:right-3 md:top-4'}
+				className={'hidden cursor-pointer text-white md:right-3 md:top-4 md:block'}
 				onClick={onClose}
 			/>
 		</div>
