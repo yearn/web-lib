@@ -9,7 +9,7 @@ import	{getRPC, replaceEnvRPCURI} from '@yearn-finance/web-lib/utils/web3/provid
 import type {TSettingsBase, TSettingsBaseOptions, TSettingsContext, TSettingsContextApp, TSettingsOptions} from '@yearn-finance/web-lib/types/contexts';
 
 const	defaultSettings = {
-	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
+	yDaemonBaseURI: 'https://ydaemon.ycorpo.com',
 	metaBaseURI: 'https://meta.yearn.finance',
 	apiBaseURI: 'https://api.yearn.finance'
 };
