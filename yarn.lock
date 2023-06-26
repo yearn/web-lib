@@ -2164,10 +2164,10 @@
   dependencies:
     glob "7.1.7"
 
-"@next/eslint-plugin-next@^12.2.0":
-  version "12.3.4"
-  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-12.3.4.tgz#e7dc00e2e89ed361f111d687b8534483ec15518b"
-  integrity sha512-BFwj8ykJY+zc1/jWANsDprDIu2MgwPOIKxNVnrKvPs+f5TPegrVnem8uScND+1veT4B7F6VeqgaNLFW1Hzl9Og==
+"@next/eslint-plugin-next@^13.4.7":
+  version "13.4.7"
+  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-13.4.7.tgz#7efeff2af76be0d9a176a957da21e3710b2e79cf"
+  integrity sha512-ANEPltxzXbyyG7CvqxdY4PmeM5+RyWdAJGufTHnU+LA/i3J6IDV2r8Z4onKwskwKEhwqzz5lMaSYGGXLyHX+mg==
   dependencies:
     glob "7.1.7"
 
