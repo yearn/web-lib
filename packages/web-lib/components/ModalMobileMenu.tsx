@@ -7,6 +7,8 @@ import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet'
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
+import {useSupportedChainsID} from '../hooks/useSupportedChainsID';
+
 import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from '@yearn-finance/web-lib/components/Modal';
 
@@ -65,10 +67,11 @@ function	Modal(props: TModal): ReactElement {
 
 function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const {isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
-	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect, options} = useWeb3();
+	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect} = useWeb3();
 	const [walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const [optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
 	const detectedWalletProvider = useInjectedWallet();
+	const supportedChainsID = useSupportedChainsID();
 	const chains = useChain();
 	const {toast} = yToast();
 
@@ -127,10 +130,8 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	}
 
 	useEffect((): void => {
-		const allChainsID = (options?.supportedChainID || [1]).filter((id: number): boolean => ![1337, 31337].includes(id));
-		const noDuplicates = [...new Set(allChainsID)];
-		set_optionsForSelect(noDuplicates);
-	}, [options]);
+		set_optionsForSelect(supportedChainsID);
+	}, [supportedChainsID]);
 
 	return (
 		<Modal

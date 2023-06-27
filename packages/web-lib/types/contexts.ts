@@ -59,8 +59,7 @@ export type	TUIContext = {
 
 export type TWeb3Options = {
 	shouldUseWallets?: boolean,
-	defaultChainID?: number,
-	supportedChainID?: number[]
+	defaultChainID?: number
 }
 
 export type TWeb3Context = {

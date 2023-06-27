@@ -16,6 +16,8 @@ import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
 import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
 
+import {useSupportedChainsID} from '../hooks/useSupportedChainsID';
+
 import type {ReactElement} from 'react';
 import type {BaseError, FallbackTransport} from 'viem';
 import type {Chain, Config, PublicClient, WebSocketPublicClient} from 'wagmi';
@@ -68,8 +70,7 @@ const defaultState = {
 };
 const defaultOptions = {
 	shouldUseWallets: true,
-	defaultChainID: 1,
-	supportedChainID: [1, 4, 5, 10, 56, 100, 137, 250, 420, 1337, 31337, 42161]
+	defaultChainID: 1
 };
 
 const Web3Context = createContext<TWeb3Context>(defaultState);
@@ -109,6 +110,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const publicClient = usePublicClient();
 	const isMounted = useIsMounted();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
+	const supportedChainsID = useSupportedChainsID();
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
 
 	useUpdateEffect((): void => {
@@ -207,7 +209,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		isConnecting,
 		isDisconnected,
 		ens: ensName || '',
-		isActive: isConnected && [...(web3Options.supportedChainID || defaultOptions.supportedChainID), 1337, 31337].includes(chain?.id || -1) && isMounted(),
+		isActive: isConnected && supportedChainsID.includes(chain?.id || -1) && isMounted(),
 		lensProtocolHandle: '',
 		hasProvider: !!(walletClient || publicClient),
 		provider: connector,

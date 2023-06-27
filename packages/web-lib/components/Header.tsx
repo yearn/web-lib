@@ -1,13 +1,14 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
+import {useNetwork} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
-import {useChain} from '@yearn-finance/web-lib/hooks/useChain';
 import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
 import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
+import type {Chain} from 'wagmi';
 
 const Link = (props: (DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) & {tag: ReactElement}): ReactElement => {
 	const {tag, ...rest} = props;
@@ -40,17 +41,17 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 }
 
 export type TNetwork = {value: number, label: string};
-function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): ReactElement {
-	const chains = useChain();
+function NetworkSelector(): ReactElement {
 	const {safeChainID} = useChainID();
 	const {onSwitchChain} = useWeb3();
+	const {chains} = useNetwork();
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const noTestnet = supportedChainID.filter((chainID: number): boolean => chainID !== 1337);
-		return noTestnet.map((chainID: number): TNetwork => (
-			{value: chainID, label: chains.get(chainID)?.displayName || `Chain ${chainID}`}
+		const noTestnet = chains.filter(({id}): boolean => id !== 1337);
+		return noTestnet.map((network: Chain): TNetwork => (
+			{value: network.id, label: network.name}
 		));
-	}, [chains, supportedChainID]);
+	}, [chains]);
 
 	const	currentNetwork = useMemo((): TNetwork | undefined => (
 		supportedNetworks.find((network): boolean => network.value === safeChainID)
@@ -108,7 +109,7 @@ function	NetworkSelector({supportedChainID}: {supportedChainID: number[]}): Reac
 							leave={'transition duration-75 ease-out'}
 							leaveFrom={'transform scale-100 opacity-100'}
 							leaveTo={'transform scale-95 opacity-0'}>
-							<Listbox.Options className={'yearn--listbox-menu yearn--shadow -ml-1 bg-neutral-0'}>
+							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
 								{supportedNetworks.map((network): ReactElement => (
 									<Listbox.Option key={network.value} value={network}>
 										{({active: isActive}): ReactElement => (
@@ -163,7 +164,7 @@ function	WalletSelector(): ReactElement {
 					<span>
 						<IconWallet
 							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-						<span className={'relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal text-neutral-0 transition-all hover:bg-neutral-800 md:flex'}>
+						<span className={'text-neutral-0 relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal transition-all hover:bg-neutral-800 md:flex'}>
 							{'Connect wallet'}
 						</span>
 					</span>
@@ -178,7 +179,6 @@ export type THeader = {
 	extra?: ReactElement,
 	linkComponent?: ReactElement,
 	nav: TMenu[],
-	supportedNetworks?: number[],
 	currentPathName: string,
 	onOpenMenuMobile: () => void
 }
@@ -188,15 +188,8 @@ function	Header({
 	linkComponent,
 	nav,
 	currentPathName,
-	supportedNetworks,
 	onOpenMenuMobile
 }: THeader): ReactElement {
-	const {options} = useWeb3();
-
-	const supportedChainID = useMemo((): number[] => (
-		supportedNetworks || options?.supportedChainID || [1, 10, 250, 42161]
-	), [supportedNetworks, options?.supportedChainID]);
-
 	return (
 		<header className={'yearn--header'}>
 			<Navbar
@@ -226,7 +219,7 @@ function	Header({
 				</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
-				<NetworkSelector supportedChainID={supportedChainID} />
+				<NetworkSelector />
 				<WalletSelector />
 				{extra}
 			</div>
