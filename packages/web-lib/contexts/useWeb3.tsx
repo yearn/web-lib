@@ -140,8 +140,8 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 				await connectAsync({connector: connectors[2], chainId: currentChainID});
 			} else if (providerType === 'INJECTED_LEDGER') {
 				await connectAsync({connector: connectors[4], chainId: currentChainID});
-			} else if (providerType === 'WALLET_CONNECT') {
-				await connectAsync({connector: connectors[5], chainId: currentChainID});
+			// } else if (providerType === 'WALLET_CONNECT') {
+				// await connectAsync({connector: connectors[5], chainId: currentChainID});
 			} else if (providerType === 'EMBED_LEDGER') {
 				await connectAsync({connector: connectors[1], chainId: currentChainID});
 			} else if (providerType === 'EMBED_GNOSIS_SAFE') {
@@ -186,9 +186,9 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			case 'ledger':
 				return ('EMBED_LEDGER');
 			case 'walletConnectLegacy':
-				return ('WALLET_CONNECT');
+				return ('NONE'); // return ('WALLET_CONNECT');
 			case 'walletConnect':
-				return ('WALLET_CONNECT');
+				return ('NONE'); // return ('WALLET_CONNECT');
 			case 'coinbaseWallet':
 				return ('EMBED_COINBASE');
 			default:
