@@ -8,9 +8,9 @@ import type {FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {TSettingsBase, TSettingsOptions, TUIOptions, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
 
-function	WithYearn({children, configOverwrite, options}: {
+function	WithYearn({children, config, options}: {
 	children: ReactElement
-	configOverwrite?: Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>>
+	config: Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>>
 	options?: {
 		ui?: TUIOptions,
 		web3?: TWeb3Options,
@@ -24,7 +24,7 @@ function	WithYearn({children, configOverwrite, options}: {
 				networksOptions={options?.networks}
 				baseOptions={options?.baseSettings}>
 				<Web3ContextApp
-					configOverwrite={configOverwrite}
+					config={config}
 					options={options?.web3}>
 					{children}
 				</Web3ContextApp>

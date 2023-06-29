@@ -1,54 +1,16 @@
 import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
-import {arbitrum, fantom, gnosis, optimism, polygon} from 'viem/chains';
-import {configureChains, createConfig, mainnet, useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
-import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
-import {InjectedConnector} from 'wagmi/connectors/injected';
-import {LedgerConnector} from 'wagmi/connectors/ledger';
-import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
-import {SafeConnector} from 'wagmi/connectors/safe';
-import {publicProvider} from 'wagmi/providers/public';
+import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
+import {useSupportedChainsID} from '@yearn-finance/web-lib/hooks/useSupportedChainsID';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
-import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
-import {getRPC} from '@yearn-finance/web-lib/utils/web3/providers';
-
-import {useSupportedChainsID} from '../hooks/useSupportedChainsID';
 
 import type {ReactElement} from 'react';
 import type {BaseError, FallbackTransport} from 'viem';
-import type {Chain, Config, PublicClient, WebSocketPublicClient} from 'wagmi';
+import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
-
-const localhost = {
-	id: 1_337,
-	name: 'Localhost',
-	network: 'localhost',
-	nativeCurrency: {
-		decimals: 18,
-		name: 'Ether',
-		symbol: 'ETH'
-	},
-	rpcUrls: {
-		default: {http: ['http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']},
-		public: {http: ['http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']}
-	},
-	contracts: {
-		ensRegistry: {
-			address: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e'
-		},
-		ensUniversalResolver: {
-			address: '0xE4Acdd618deED4e6d2f03b9bf62dc6118FC9A4da',
-			blockCreated: 16773775
-		},
-		multicall3: {
-			address: '0xca11bde05977b3631167028862be2a173976ca11',
-			blockCreated: 14353601
-		}
-	}
-} as const satisfies Chain;
 
 const defaultState = {
 	address: undefined,
@@ -73,33 +35,6 @@ const defaultOptions = {
 };
 
 const Web3Context = createContext<TWeb3Context>(defaultState);
-const {chains, publicClient, webSocketPublicClient} = configureChains(
-	[mainnet, optimism, polygon, gnosis, fantom, arbitrum, localhost],
-	[publicProvider()]
-);
-const config = createConfig({
-	autoConnect: true,
-	publicClient,
-	webSocketPublicClient,
-	connectors: [
-		new SafeConnector({chains, options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}}),
-		new IFrameEthereumConnector({chains, options: {}}),
-		new InjectedConnector({chains}),
-		new MetaMaskConnector(),
-		new LedgerConnector({chains}),
-		// new WalletConnectConnector({
-		// 	chains,
-		// 	options: {projectId: process.env.WALLETCONNECT_PROJECT_ID as string}
-		// }),
-		new CoinbaseWalletConnector({
-			options: {
-				jsonRpcUrl: getRPC(1),
-				appName: process.env.WEBSITE_TITLE as string
-			}
-		})
-	]
-});
-
 export const Web3ContextAppWrapper = ({children, options}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
 	const {address, isConnecting, isConnected, isDisconnected, connector} = useAccount();
 	const {connectAsync, connectors} = useConnect();
@@ -139,8 +74,8 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 				await connectAsync({connector: connectors[2], chainId: currentChainID});
 			} else if (providerType === 'INJECTED_LEDGER') {
 				await connectAsync({connector: connectors[4], chainId: currentChainID});
-			// } else if (providerType === 'WALLET_CONNECT') {
-				// await connectAsync({connector: connectors[5], chainId: currentChainID});
+			} else if (providerType === 'WALLET_CONNECT') {
+				await connectAsync({connector: connectors[5], chainId: currentChainID});
 			} else if (providerType === 'EMBED_LEDGER') {
 				await connectAsync({connector: connectors[1], chainId: currentChainID});
 			} else if (providerType === 'EMBED_GNOSIS_SAFE') {
@@ -185,9 +120,9 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			case 'ledger':
 				return ('EMBED_LEDGER');
 			case 'walletConnectLegacy':
-				return ('NONE'); // return ('WALLET_CONNECT');
+				return ('WALLET_CONNECT');
 			case 'walletConnect':
-				return ('NONE'); // return ('WALLET_CONNECT');
+				return ('WALLET_CONNECT');
 			case 'coinbaseWallet':
 				return ('EMBED_COINBASE');
 			default:
@@ -236,13 +171,13 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	);
 };
 
-export const Web3ContextApp = ({children, configOverwrite, options}: {
+export const Web3ContextApp = ({children, config, options}: {
 	children: ReactElement,
-	configOverwrite?: Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>>,
+	config: Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>>,
 	options?: TWeb3Options
 }): ReactElement => {
 	return (
-		<WagmiConfig config={configOverwrite || config}>
+		<WagmiConfig config={config}>
 			<Web3ContextAppWrapper options={options}>
 				{children}
 			</Web3ContextAppWrapper>

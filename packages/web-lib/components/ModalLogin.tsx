@@ -1,7 +1,7 @@
 import React, {cloneElement, useCallback} from 'react';
+import {useWeb3} from '@yearn-finance/web-lib//contexts/useWeb3';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
-import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
@@ -53,12 +53,10 @@ function ModalLogin(props: TModalLogin): ReactElement {
 							(): void => onClose()
 						);
 					}}
-					className={'yearn--modalLogin-card cursor-not-allowed !bg-neutral-100/40 !opacity-25'}>
+					className={'yearn--modalLogin-card !bg-neutral-100/40'}>
 					<div><IconWalletWalletConnect className={'h-12 w-12'} /></div>
 					<b>{'WalletConnect'}</b>
 				</div>
-				<p className={'col-span-2 text-center text-xs !text-neutral-500'}>{'WalletConnect is temporarily disabled due to a shutdown of their V1 services. As soon as we will be whitelisted on their V2, this functionality will be reenabled.'}</p>
-
 			</div>
 		</Modal>
 	);
