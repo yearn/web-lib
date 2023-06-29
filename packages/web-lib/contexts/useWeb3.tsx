@@ -6,7 +6,7 @@ import {InjectedConnector} from 'wagmi/connectors/injected';
 import {LedgerConnector} from 'wagmi/connectors/ledger';
 import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
 import {SafeConnector} from 'wagmi/connectors/safe';
-import {WalletConnectLegacyConnector} from 'wagmi/connectors/walletConnectLegacy';
+import {WalletConnectConnector} from 'wagmi/connectors/walletConnect';
 import {publicProvider} from 'wagmi/providers/public';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
@@ -88,7 +88,10 @@ const config = createConfig({
 		new InjectedConnector({chains}),
 		new MetaMaskConnector(),
 		new LedgerConnector({chains}),
-		new WalletConnectLegacyConnector({options: {qrcode: true}}),
+		new WalletConnectConnector({
+			chains,
+			options: {projectId: process.env.WALLETCONNECT_PROJECT_ID as string}
+		}),
 		new CoinbaseWalletConnector({
 			options: {
 				jsonRpcUrl: getRPC(1),
@@ -183,6 +186,8 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 			case 'ledger':
 				return ('EMBED_LEDGER');
 			case 'walletConnectLegacy':
+				return ('WALLET_CONNECT');
+			case 'walletConnect':
 				return ('WALLET_CONNECT');
 			case 'coinbaseWallet':
 				return ('EMBED_COINBASE');

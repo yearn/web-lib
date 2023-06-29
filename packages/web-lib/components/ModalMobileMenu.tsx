@@ -119,10 +119,11 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 								(): void => undefined
 							);
 						}}
-						className={'yearn--modalMobileMenu-walletCard'}>
+						className={'yearn--modalMobileMenu-walletCard !opacity-25'}>
 						<IconWalletWalletConnect style={{width: 40, height: 40}} />
 						<b className={'mt-4 text-sm text-neutral-500'}>{'Wallet Connect'}</b>
 					</div>
+					<p className={'col-span-2 text-center text-xs !text-neutral-500'}>{'WalletConnect is temporarily disabled due to a shutdown of their V1 services. As soon as we will be whitelisted on their V2, this functionality will be reenabled.'}</p>
 				</div>
 			);
 		}
