@@ -47,7 +47,7 @@ export function	isIframe(): boolean {
 	if (typeof(window) === 'undefined') {
 		return false;
 	}
-	if (window !== window.top || window.top !== window.self || document.location.ancestorOrigins.length !== 0) {
+	if ((window !== window.top) || (window.top !== window.self) || ((document?.location?.ancestorOrigins || []).length !== 0)) {
 		return true;
 	}
 	return false;
