@@ -6,7 +6,7 @@ type TAmount = {
 	amount: number | string;
 	fractionDigits?: {
 		min: number;
-		max: number;
+		max?: number;
 	},
 	displayDigits?: number;
 };
@@ -16,7 +16,7 @@ export function	amount({amount, fractionDigits = {min: 2, max: 2}, displayDigits
 	if (typeof(navigator) !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
-	if (fractionDigits.max < fractionDigits.min) {
+	if ((fractionDigits.max ?? 2) < fractionDigits.min) {
 		fractionDigits.max = fractionDigits.min;
 	}
 	if (!amount) {
@@ -33,11 +33,11 @@ export function	amount({amount, fractionDigits = {min: 2, max: 2}, displayDigits
 		fractionDigits.max = getSmallAmountFractionDigits(amount);
 	}
 
-	if (fractionDigits.max < fractionDigits.min) {
+	if (fractionDigits.max ?? 2 < fractionDigits.min) {
 		fractionDigits.max = fractionDigits.min;
 	}
 
-	if (fractionDigits.max < fractionDigits.min) {
+	if (fractionDigits.max ?? 2 < fractionDigits.min) {
 		fractionDigits.max = fractionDigits.min;
 	}
 

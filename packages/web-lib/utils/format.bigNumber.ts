@@ -56,7 +56,7 @@ export	const	toNormalizedValue = (v: bigint, d?: number): number => {
 };
 
 export const	toNormalizedAmount = (v: bigint, d?: number): string => {
-	return formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
+	return formatAmount({amount: toNormalizedValue(v, d ?? 18), fractionDigits: {min: 6, max: 6}});
 };
 
 export const	toNormalizedBN = (value: TNumberish, decimals?: number): TNormalizedBN => ({
@@ -71,9 +71,9 @@ export function	parseUnits(value: TNumberish, decimals = 18): bigint {
 
 export const formatBigNumberOver10K = (value: bigint): string => {
 	if (toBigInt(value) > (toBigInt(10000) * toBigInt(1e18))) {
-		return formatAmount(toNormalizedValue(toBigInt(value), 18), 0, 0) ?? '';
+		return formatAmount({amount: toNormalizedValue(toBigInt(value), 18), fractionDigits: {min: 0, max: 0}}) ?? '';
 	}
-	return formatAmount(toNormalizedValue(toBigInt(value), 18)) ?? '';
+	return formatAmount({amount: toNormalizedValue(toBigInt(value), 18)}) ?? '';
 };
 
 export {toNormalizedAmount as formatToNormalizedAmount};
