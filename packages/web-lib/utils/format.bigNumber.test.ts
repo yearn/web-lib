@@ -30,8 +30,6 @@ describe('format.bigNumber', (): void => {
 	describe('formatBigNumberOver10K()', (): void => {
 		it('formats big numbers over 10K without decimal points', (): void => {
 			const bigNum = BigInt(10001) * BigInt(Math.pow(10, 18));
-			console.log(bigNum);
-			
 			expect(formatBigNumberOver10K(bigNum)).toBe('10 001');
 		});
 
