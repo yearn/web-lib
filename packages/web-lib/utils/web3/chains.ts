@@ -210,6 +210,13 @@ const CHAINS: TNDict<TChain> = {
 				'decimals': 18
 			}
 		}
+	},
+	43114: {
+		'chainID': '43114',
+		'name': 'Avalanche Mainnet',
+		'displayName': 'Avalanche',
+		'coin': 'AVAX',
+		'block_explorer': 'https://snowtrace.io'
 	}
 };
 export {CHAINS as chains};
