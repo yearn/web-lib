@@ -1,4 +1,4 @@
-import {formatToNormalizedValue, toBigInt} from '@yearn-finance/web-lib/utils/format';
+import {formatToNormalizedValue, toBigInt} from '@yearn-finance/web-lib/utils/format.bigNumber';
 import {isZero} from '@yearn-finance/web-lib/utils/isZero';
 
 type TAmountOptions = {
