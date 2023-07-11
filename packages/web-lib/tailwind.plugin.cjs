@@ -225,7 +225,6 @@ module.exports = {
 	plugins: [
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/forms'),
-		require('@tailwindcss/line-clamp'),
 		plugin(function ({addBase, addUtilities, theme}) {
 			addBase({
 				':root': {
