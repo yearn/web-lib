@@ -11,6 +11,7 @@ import type {ReactElement} from 'react';
 import type {BaseError, FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
+import type {ConnectResult} from '@wagmi/core';
 
 const defaultState = {
 	address: undefined,
@@ -60,32 +61,46 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		onSuccess?: (() => void) | undefined
 	): Promise<void> => {
 		try {
-			if (isIframe()) {
-				const r = await Promise.race([
-					connectAsync({connector: connectors[0], chainId: currentChainID}),
-					connectAsync({connector: connectors[1], chainId: currentChainID})
-				]);
+			const ledgerConnector = connectors.find((c): boolean => c.id === 'ledgerLive');
+			const safeConnector = connectors.find((c): boolean => c.id === 'safe');
+			const injectedConnector = connectors.find((c): boolean => (c.id).toLocaleLowerCase() === 'injected');
+			const ledgerInjectedConnector = connectors.find((c): boolean => c.id === 'ledger');
+			const walletConnectConnector = connectors.find((c): boolean => c.id === 'walletConnect');
+			const coinbaseWalletConnector = connectors.find((c): boolean => c.id === 'coinbaseWallet');
+
+			if (isIframe() && (safeConnector || ledgerConnector)) {
+				let r: ConnectResult | undefined = undefined;
+				if (safeConnector && ledgerConnector) {
+					r = await Promise.race([
+						connectAsync({connector: safeConnector, chainId: currentChainID}),
+						connectAsync({connector: ledgerConnector, chainId: currentChainID})
+					]);
+				} else if (safeConnector) {
+					r = await connectAsync({connector: safeConnector, chainId: currentChainID});
+				} else if (ledgerConnector) {
+					r = await connectAsync({connector: ledgerConnector, chainId: currentChainID});
+				}
 				if (r?.account) {
 					return onSuccess?.();
 				}
 			}
 
-			if (providerType === 'INJECTED') {
-				await connectAsync({connector: connectors[2], chainId: currentChainID});
-			} else if (providerType === 'INJECTED_LEDGER') {
-				await connectAsync({connector: connectors[4], chainId: currentChainID});
-			} else if (providerType === 'WALLET_CONNECT') {
-				await connectAsync({connector: connectors[5], chainId: currentChainID});
-			} else if (providerType === 'EMBED_LEDGER') {
-				await connectAsync({connector: connectors[1], chainId: currentChainID});
-			} else if (providerType === 'EMBED_GNOSIS_SAFE') {
-				await connectAsync({connector: connectors[0], chainId: currentChainID});
-			} else if (providerType === 'EMBED_COINBASE') {
-				await connectAsync({connector: connectors[6], chainId: currentChainID});
-			} else if (providerType === 'EMBED_TRUSTWALLET') {
-				await connectAsync({connector: connectors[2], chainId: currentChainID});
+			if (providerType === 'INJECTED' && injectedConnector) {
+				await connectAsync({connector: injectedConnector, chainId: currentChainID});
+			} else if (providerType === 'INJECTED_LEDGER' && ledgerInjectedConnector) {
+				await connectAsync({connector: ledgerInjectedConnector, chainId: currentChainID});
+			} else if (providerType === 'WALLET_CONNECT' && walletConnectConnector) {
+				await connectAsync({connector: walletConnectConnector, chainId: currentChainID});
+			} else if (providerType === 'EMBED_LEDGER' && ledgerConnector) {
+				await connectAsync({connector: ledgerConnector, chainId: currentChainID});
+			} else if (providerType === 'EMBED_GNOSIS_SAFE' && safeConnector) {
+				await connectAsync({connector: safeConnector, chainId: currentChainID});
+			} else if (providerType === 'EMBED_COINBASE' && coinbaseWalletConnector) {
+				await connectAsync({connector: coinbaseWalletConnector, chainId: currentChainID});
+			} else if (providerType === 'EMBED_TRUSTWALLET' && injectedConnector) {
+				await connectAsync({connector: injectedConnector, chainId: currentChainID});
 			} else {
-				await connectAsync({connector: connectors[2], chainId: currentChainID});
+				await connectAsync({connector: injectedConnector, chainId: currentChainID});
 			}
 			onSuccess?.();
 		} catch (error) {
@@ -131,17 +146,27 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	}, [connector]);
 
 	const openLoginModal = useCallback(async (): Promise<void> => {
-		if (isIframe()) {
-			const r = await Promise.race([
-				connectAsync({connector: connectors[0]}),
-				connectAsync({connector: connectors[1]})
-			]);
+		const ledgerConnector = connectors.find((c): boolean => c.id === 'ledgerLive');
+		const safeConnector = connectors.find((c): boolean => c.id === 'safe');
+
+		if (isIframe() && (safeConnector || ledgerConnector)) {
+			let r: ConnectResult | undefined = undefined;
+			if (safeConnector && ledgerConnector) {
+				r = await Promise.race([
+					connectAsync({connector: safeConnector, chainId: currentChainID}),
+					connectAsync({connector: ledgerConnector, chainId: currentChainID})
+				]);
+			} else if (safeConnector) {
+				r = await connectAsync({connector: safeConnector, chainId: currentChainID});
+			} else if (ledgerConnector) {
+				r = await connectAsync({connector: ledgerConnector, chainId: currentChainID});
+			}
 			if (r?.account) {
 				return;
 			}
 		}
 		set_isModalLoginOpen(true);
-	}, [connectAsync, connectors]);
+	}, [connectAsync, connectors, currentChainID]);
 
 	const contextValue = {
 		address: address ? toAddress(address) : undefined,
