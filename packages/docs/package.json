@@ -12,7 +12,7 @@
     "@reach/skip-nav": "^0.17.0",
     "@yearn-finance/web-lib": "*",
     "ethers": "^5.6.9",
-    "next": "^12.2.3",
+    "next": "^13.4.12",
     "next-themes": "^0.2.0",
     "nextra": "2.0.0-alpha.56",
     "nextra-theme-docs": "2.0.0-alpha.59",
