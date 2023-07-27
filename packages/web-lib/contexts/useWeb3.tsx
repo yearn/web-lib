@@ -3,7 +3,6 @@ import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublic
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
-import {useSupportedChainsID} from '@yearn-finance/web-lib/hooks/useSupportedChainsID';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 
@@ -11,7 +10,8 @@ import type {ReactElement} from 'react';
 import type {BaseError, FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
-import type {ConnectResult} from '@wagmi/core';
+import type {Chain, ConnectResult} from '@wagmi/core';
+import assert from 'assert';
 
 const defaultState = {
 	address: undefined,
@@ -48,8 +48,15 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const publicClient = usePublicClient();
 	const isMounted = useIsMounted();
 	const web3Options = deepMerge(defaultOptions, options) as TWeb3Options;
-	const supportedChainsID = useSupportedChainsID();
 	const [isModalLoginOpen, set_isModalLoginOpen] = useState(false);
+
+	const supportedChainsID = useMemo((): number[] => {
+		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
+		assert(injectedConnector, 'No injected connector found');
+		const chainsForInjected = injectedConnector.chains;
+		const noTestnet = chainsForInjected.filter(({id}): boolean => id !== 1337);
+		return noTestnet.map((network: Chain): number => network.id);
+	}, [connectors]);
 
 	useUpdateEffect((): void => {
 		set_currentChainID(chain?.id);

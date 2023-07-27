@@ -1,16 +1,15 @@
-import React, {cloneElement, Fragment, useEffect, useRef, useState} from 'react';
-import {useNetwork} from 'wagmi';
+import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
+import {Chain, useConnect, useNetwork} from 'wagmi';
 import {Dialog, Transition} from '@headlessui/react';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
-
-import {useSupportedChainsID} from '../hooks/useSupportedChainsID';
-
 import type {ReactElement, ReactNode} from 'react';
 import type {TModal} from '@yearn-finance/web-lib/components/Modal';
+import { TNetwork } from './Header';
+import assert from 'assert';
 
 type	TModalMobileMenu = {
 	isOpen: boolean
@@ -68,12 +67,21 @@ function	Modal(props: TModal): ReactElement {
 function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const {isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
 	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect} = useWeb3();
-	const {chain, chains} = useNetwork();
+	const {chain} = useNetwork();
 	const [walletIdentity, set_walletIdentity] = useState('Connect a wallet');
-	const [optionsForSelect, set_optionsForSelect] = useState<number[]>([]);
 	const detectedWalletProvider = useInjectedWallet();
-	const supportedChainsID = useSupportedChainsID();
 	const {toast} = yToast();
+	const {connectors} = useConnect();
+
+	const supportedNetworks = useMemo((): TNetwork[] => {
+		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
+		assert(injectedConnector, 'No injected connector found');
+		const chainsForInjected = injectedConnector.chains;
+		const noTestnet = chainsForInjected.filter(({id}): boolean => id !== 1337);
+		return noTestnet.map((network: Chain): TNetwork => (
+			{value: network.id, label: network.name}
+		));
+	}, [connectors]);
 
 	useEffect((): void => {
 		if (!isActive && address) {
@@ -129,10 +137,6 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 		return null;
 	}
 
-	useEffect((): void => {
-		set_optionsForSelect(supportedChainsID);
-	}, [supportedChainsID]);
-
 	return (
 		<Modal
 			isOpen={isOpen}
@@ -155,15 +159,15 @@ function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 									id={'network'}
 									onChange={(e): void => onSwitchChain(Number(e?.target?.value))}
 									className={'yearn--select-no-arrow yearn--select-reset !pr-6 text-sm'}>
-									{optionsForSelect.map((id: number): ReactElement => {
-										const label = chains?.[id]?.name || `Unknown chain (${id})`;
+									{supportedNetworks.map((network): ReactElement => {
+										const label = network.label || `Unknown chain (${network.value})`;
 										const selectedID = chain?.id || 1;
-										const isSelected = selectedID === id;
+										const isSelected = selectedID === network.value;
 										return (
 											<option
-												key={id}
+												key={network.value}
 												selected={isSelected}
-												value={id}>
+												value={network.value}>
 												{label}
 											</option>
 										);
