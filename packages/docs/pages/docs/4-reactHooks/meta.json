@@ -1,7 +1,0 @@
-{
-	"useClientEffect": "useClientEffect",
-	"useDebounce": "useDebounce",
-	"useInterval": "useInterval",
-	"useLocalStorage": "useLocalStorage",
-	"useWindowInFocus": "useWindowInFocus"
-}
