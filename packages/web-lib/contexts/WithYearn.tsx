@@ -6,7 +6,7 @@ import {Web3ContextApp} from '@yearn-finance/web-lib/contexts/useWeb3';
 import type {ReactElement} from 'react';
 import type {FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
-import type {TSettingsBase, TSettingsOptions, TUIOptions, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
+import type {TSettingsBase, TUIOptions, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
 
 function	WithYearn({children, config, options}: {
 	children: ReactElement
@@ -14,15 +14,12 @@ function	WithYearn({children, config, options}: {
 	options?: {
 		ui?: TUIOptions,
 		web3?: TWeb3Options,
-		networks?: TSettingsOptions,
 		baseSettings?: Partial<TSettingsBase>,
 	}
 }): ReactElement {
 	return (
 		<UIContextApp options={options?.ui}>
-			<SettingsContextApp
-				networksOptions={options?.networks}
-				baseOptions={options?.baseSettings}>
+			<SettingsContextApp baseOptions={options?.baseSettings}>
 				<Web3ContextApp
 					config={config}
 					options={options?.web3}>
