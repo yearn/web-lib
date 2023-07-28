@@ -1,7 +1,5 @@
-import type {DependencyList} from 'react';
 import type {BlockTag} from 'viem';
 import type {Connector} from 'wagmi';
-import type {TDict} from '@yearn-finance/web-lib/types';
 
 type TDefaultReqArgs = {
 	chainID?: number,
@@ -69,28 +67,3 @@ export type TBalanceData = {
 	normalizedValue?: number
 	force?: boolean,
 }
-
-/* 🔵 - Yearn Finance **********************************************************
-** Request, Response and helpers for the useBalances hook.
-******************************************************************************/
-export type TUseBalancesTokens = {
-	token: string,
-	for?: string,
-}
-export type TUseBalancesReq = {
-	key?: string | number,
-	tokens: TUseBalancesTokens[]
-	prices?: {
-		[token: string]: string,
-	}
-	refreshEvery?: 'block' | 'second' | 'minute' | 'hour' | number,
-	effectDependencies?: DependencyList
-} & TDefaultReqArgs
-
-export type TUseBalancesRes = {
-	data: TDict<TBalanceData>,
-	update: () => Promise<TDict<TBalanceData>>,
-	updateSome: (token: TUseBalancesTokens[]) => Promise<TDict<TBalanceData>>,
-	error?: Error,
-	status: 'error' | 'loading' | 'success' | 'unknown'
-} & TDefaultStatus
