@@ -76,7 +76,7 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 
 		return (
 			chainsForInjected
-				.filter(({id}): boolean => id !== 1337 && networks.includes(id))
+				.filter(({id}): boolean => id !== 1337 && ((networks.length > 0 && networks.includes(id)) || true))
 				.map((network: Chain): TNetwork => (
 					{value: network.id, label: network.name}
 				))
@@ -283,7 +283,7 @@ function Header({
 				</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
-				<NetworkSelector networks={supportedNetworks || [1]} />
+				<NetworkSelector networks={supportedNetworks || []} />
 				<WalletSelector />
 				{extra}
 			</div>
