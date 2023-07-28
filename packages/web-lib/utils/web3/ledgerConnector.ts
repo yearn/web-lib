@@ -7,7 +7,7 @@ import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {IFrameEthereumProvider} from '@yearn-finance/web-lib/utils/web3/connectors.eip1193.ledger';
 
 import type {ProviderRpcError, RpcError} from 'viem';
-import type {Chain} from '@wagmi/core';
+import type {Chain, WalletClient} from '@wagmi/core';
 
 type IFrameEthereumProviderOptions = ConstructorParameters<
   typeof IFrameEthereumProvider
@@ -107,7 +107,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		return this.providerInstance;
 	}
 
-	async getWalletClient({chainId}: { chainId?: number } = {}): Promise<any> {
+	async getWalletClient({chainId}: { chainId?: number } = {}): Promise<WalletClient> {
 		const [provider, account] = await Promise.all([
 			this.getProvider(),
 			this.getAccount()
@@ -164,7 +164,9 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 			}
 
 			// Indicates chain is not added to provider
-			if ((error as ProviderRpcError).code === 4902 || (error as any)?.data?.originalError?.code === 4902) {
+			if ((error as ProviderRpcError).code === 4902 || (error as {
+				data?: {originalError?: {code?: number}};
+			})?.data?.originalError?.code === 4902) {
 				try {
 					await provider.send('wallet_addEthereumChain', [
 						{

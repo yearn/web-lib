@@ -55,5 +55,6 @@
 		"icons/**/*",
 		"utils/**/*",
 		"types/**/*",
+		".eslintrc.cjs"
 	]
 }

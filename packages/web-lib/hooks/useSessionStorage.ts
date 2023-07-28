@@ -15,7 +15,7 @@ type TSetValue<T> = Dispatch<SetStateAction<T>>
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
 function useEventCallback<TArgs extends unknown[], TR>(fn: (...args: TArgs) => TR): (...args: TArgs) => TR {
-	const ref = useRef<typeof fn>((): any => {
+	const ref = useRef<typeof fn>((): never => {
 		throw new Error('Cannot call an event handler while rendering.');
 	});
 
@@ -23,7 +23,7 @@ function useEventCallback<TArgs extends unknown[], TR>(fn: (...args: TArgs) => T
 		ref.current = fn;
 	}, [fn]);
 
-	return useCallback((...args: TArgs): any => ref.current(...args), [ref]);
+	return useCallback((...args: TArgs): TR => ref.current(...args), [ref]);
 }
 
 // Window Event based useEventListener interface
@@ -80,7 +80,7 @@ function useEventListener<
 		}
 
 		// Create event listener that calls handler function stored in ref
-		const eventListener: typeof handler = (event): any => savedHandler.current(event);
+		const eventListener: typeof handler = (event): unknown => savedHandler.current(event);
 
 		targetElement.addEventListener(eventName, eventListener, options);
 

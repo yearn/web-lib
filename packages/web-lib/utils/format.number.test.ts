@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {amount,
 	amountV2,
 	assertValidNumber,

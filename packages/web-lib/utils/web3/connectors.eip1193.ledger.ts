@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {EventEmitter} from 'eventemitter3';
 
 // By default post to any origin

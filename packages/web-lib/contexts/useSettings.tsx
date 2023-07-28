@@ -23,7 +23,7 @@ const	SettingsContext = createContext<TSettingsContext>({
 **********************************************************************************************/
 export const SettingsContextApp = ({
 	children,
-	baseOptions = defaultSettings,
+	baseOptions = defaultSettings
 }: TSettingsContextApp): React.ReactElement => {
 	const	[baseSettings, set_baseSettings] = useLocalStorage(
 		'yearnSettingsBase',

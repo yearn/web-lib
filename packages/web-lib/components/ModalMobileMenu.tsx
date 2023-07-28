@@ -1,15 +1,17 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
-import {Chain, useConnect, useNetwork} from 'wagmi';
+import assert from 'assert';
+import {useConnect, useNetwork} from 'wagmi';
 import {Dialog, Transition} from '@headlessui/react';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
+
 import type {ReactElement, ReactNode} from 'react';
+import type {Chain} from 'wagmi';
 import type {TModal} from '@yearn-finance/web-lib/components/Modal';
-import { TNetwork } from './Header';
-import assert from 'assert';
+import type {TNetwork} from './Header';
 
 type	TModalMobileMenu = {
 	isOpen: boolean

@@ -6,9 +6,6 @@ module.exports = {
 	},
 	'extends': [
 		'eslint:recommended',
-		'plugin:import/recommended',
-		'plugin:react/recommended',
-		'plugin:react-hooks/recommended',
 		'plugin:tailwindcss/recommended',
 		'plugin:@typescript-eslint/recommended',
 		'next/core-web-vitals'
@@ -35,7 +32,6 @@ module.exports = {
 	},
 	'rules': {
 		'import/default': 0,
-		'no-mixed-spaces-and-tabs': 2,
 		'react/prop-types': 0,
 		'no-async-promise-executor': 0,
 		'import/no-unresolved': 0, //Issue with package exports
@@ -50,7 +46,6 @@ module.exports = {
 		'array-bracket-newline': ['error', {'multiline': true}],
 		'react/jsx-curly-brace-presence': ['error', {'props': 'always', 'children': 'always'}],
 		'react/jsx-first-prop-new-line': ['error', 'multiline'],
-		'react/jsx-max-props-per-line': ['error', {'maximum': {'single': 2, 'multi': 1}}],
 		'react/jsx-closing-tag-location': 2,
 		'unused-imports/no-unused-imports': 'error',
 		'unused-imports/no-unused-vars': [
@@ -84,7 +79,6 @@ module.exports = {
 				'fixStyle': 'separate-type-imports'
 			}
 		],
-		'no-multi-spaces': ['error', {ignoreEOLComments: false}],
 		'@typescript-eslint/no-var-requires': 0,
 		'@typescript-eslint/no-unused-vars': 2,
 		'@typescript-eslint/array-type': ['error', {'default': 'array'}],
@@ -145,7 +139,6 @@ module.exports = {
 		'@typescript-eslint/prefer-for-of': 'error',
 		'@typescript-eslint/prefer-function-type': 'error',
 		'@typescript-eslint/prefer-includes': 'error',
-		'@typescript-eslint/prefer-optional-chain': 'error',
 		'@typescript-eslint/promise-function-async': 'error',
 		'@typescript-eslint/require-array-sort-compare': 'error',
 		'@typescript-eslint/type-annotation-spacing': [
@@ -159,12 +152,12 @@ module.exports = {
 		'@typescript-eslint/brace-style': ['error', '1tbs'],
 		'comma-dangle': 'off',
 		'@typescript-eslint/comma-dangle': ['error'],
-		'comma-spacing': 'off',
-		'@typescript-eslint/comma-spacing': ['error'],
-		'dot-notation': 'off',
-		'@typescript-eslint/dot-notation': ['error'],
+		'@typescript-eslint/prefer-optional-chain': 'error',
 		'indent': 'off',
-		'@typescript-eslint/indent': ['error', 'tab']
+		'@typescript-eslint/indent': ['error', 'tab'],
+		'no-multi-spaces': ['error', {ignoreEOLComments: false}],
+		'no-mixed-spaces-and-tabs': 'error',
+		'react/jsx-max-props-per-line': 'off'
 	},
 	overrides: [
 		{

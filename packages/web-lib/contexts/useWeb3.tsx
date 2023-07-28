@@ -1,4 +1,5 @@
 import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
+import assert from 'assert';
 import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
@@ -6,12 +7,14 @@ import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {isIframe} from '@yearn-finance/web-lib/utils/helpers';
 
+import {getConfig, getSupportedProviders} from '../utils/wagmi/config';
+import {configureChains} from '../utils/wagmi/configChain.tmp';
+
 import type {ReactElement} from 'react';
 import type {BaseError, FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {TWeb3Context, TWeb3Options} from '@yearn-finance/web-lib/types/contexts';
 import type {Chain, ConnectResult} from '@wagmi/core';
-import assert from 'assert';
 
 const defaultState = {
 	address: undefined,
@@ -203,11 +206,20 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	);
 };
 
-export const Web3ContextApp = ({children, config, options}: {
+export const Web3ContextApp = ({children, supportedChains, options}: {
 	children: ReactElement,
-	config: Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>>,
+	supportedChains: Chain[],
 	options?: TWeb3Options
 }): ReactElement => {
+
+	const config = useMemo((): Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>> => {
+		const {chains, publicClient, webSocketPublicClient} = configureChains(
+			supportedChains,
+			getSupportedProviders()
+		);
+		return getConfig({chains, publicClient, webSocketPublicClient});
+	}, [supportedChains]);
+
 	return (
 		<WagmiConfig config={config}>
 			<Web3ContextAppWrapper options={options}>

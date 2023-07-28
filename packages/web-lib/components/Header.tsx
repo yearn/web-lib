@@ -1,11 +1,15 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
-import {useNetwork} from 'wagmi';
+import assert from 'assert';
+import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
+import {useIsMounted} from '@react-hookz/web';
+import {Button} from '@yearn-finance/web-lib/components/Button';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
-import {useChainID} from '@yearn-finance/web-lib/hooks/useChainID';
+import {toSafeChainID} from '@yearn-finance/web-lib/hooks/useChainID';
 import IconChevronBottom from '@yearn-finance/web-lib/icons/IconChevronBottom';
 import IconWallet from '@yearn-finance/web-lib/icons/IconWallet';
 import {truncateHex} from '@yearn-finance/web-lib/utils/address';
+import {cl} from '@yearn-finance/web-lib/utils/cl';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 import type {Chain} from 'wagmi';
@@ -22,7 +26,7 @@ export type TNavbar = {
 	linkComponent?: ReactElement,
 	currentPathName: string
 };
-function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactElement {
+function Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactElement {
 	return (
 		<nav className={'yearn--nav'}>
 			{nav.map((option): ReactElement => (
@@ -40,45 +44,60 @@ function	Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 	);
 }
 
+function NetworkButton({label, isDisabled, onClick}: {
+	label: string,
+	isDisabled?: boolean,
+	onClick?: () => void,
+}): ReactElement {
+	return (
+		<button
+			disabled={isDisabled}
+			onClick={onClick}
+			suppressHydrationWarning
+			className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
+			<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
+				{label}
+			</div>
+		</button>
+	);
+}
+
 export type TNetwork = {value: number, label: string};
-function NetworkSelector(): ReactElement {
-	const {safeChainID} = useChainID();
+function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const {onSwitchChain} = useWeb3();
-	const {chains} = useNetwork();
+	const publicClient = usePublicClient();
+	const {connectors} = useConnect();
+	const safeChainID = toSafeChainID(publicClient?.chain.id, Number(process.env.BASE_CHAINID));
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const noTestnet = chains.filter(({id}): boolean => id !== 1337);
-		return noTestnet.map((network: Chain): TNetwork => (
-			{value: network.id, label: network.name}
-		));
-	}, [chains]);
+		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
+		assert(injectedConnector, 'No injected connector found');
+		const chainsForInjected = injectedConnector.chains;
+
+		return (
+			chainsForInjected
+				.filter(({id}): boolean => id !== 1337 && networks.includes(id))
+				.map((network: Chain): TNetwork => (
+					{value: network.id, label: network.name}
+				))
+		);
+	}, [connectors, networks]);
 
 	const	currentNetwork = useMemo((): TNetwork | undefined => (
 		supportedNetworks.find((network): boolean => network.value === safeChainID)
 	), [safeChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
+		if (publicClient?.chain.id === 1337) {
+			return <NetworkButton label={'Localhost'} isDisabled />;
+		}
 		if (currentNetwork?.value === supportedNetworks[0]?.value) {
-			return (
-				<button
-					disabled
-					suppressHydrationWarning
-					className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
-					<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
-						{supportedNetworks[0]?.label || 'Ethereum'}
-					</div>
-				</button>
-			);
+			return <NetworkButton label={supportedNetworks[0]?.label || 'Ethereum'} isDisabled />;
 		}
 		return (
-			<button
-				suppressHydrationWarning
-				onClick={(): void => onSwitchChain(supportedNetworks[0].value)}
-				className={'yearn--header-nav-item mr-4 hidden cursor-pointer flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
-				<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
-					{'Invalid Network'}
-				</div>
-			</button>
+			<NetworkButton
+				label={'Invalid Network'}
+				onClick={(): void => onSwitchChain(supportedNetworks[0].value)} />
 		);
 	}
 
@@ -86,42 +105,60 @@ function NetworkSelector(): ReactElement {
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: any): void => onSwitchChain(value.value)}>
-				{({open: isOpen}): ReactElement => (
+				onChange={(value: unknown): void => onSwitchChain((value as {value: number}).value)}>
+				{({open}): ReactElement => (
 					<>
 						<Listbox.Button
 							suppressHydrationWarning
-							className={'yearn--header-nav-item hidden flex-row items-center border-0 p-0 text-sm md:flex'}>
-							<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
+							className={'yearn--header-nav-item flex flex-row items-center border-0 p-0 text-xs md:flex md:text-sm'}>
+							<div suppressHydrationWarning className={'relative flex flex-row items-center truncate whitespace-nowrap text-xs md:text-sm'}>
 								{currentNetwork?.label || 'Ethereum'}
 							</div>
-							<div className={'ml-2'}>
+							<div className={'ml-1 md:ml-2'}>
 								<IconChevronBottom
-									className={`h-5 w-4 transition-transform ${isOpen ? '-rotate-180' : 'rotate-0'}`} />
+									className={`h-3 w-3 transition-transform md:h-5 md:w-4 ${open ? '-rotate-180' : 'rotate-0'}`} />
 							</div>
 						</Listbox.Button>
 						<Transition
-							as={Fragment}
-							show={isOpen}
-							enter={'transition duration-100 ease-out'}
-							enterFrom={'transform scale-95 opacity-0'}
-							enterTo={'transform scale-100 opacity-100'}
-							leave={'transition duration-75 ease-out'}
-							leaveFrom={'transform scale-100 opacity-100'}
-							leaveTo={'transform scale-95 opacity-0'}>
-							<Listbox.Options className={'yearn--listbox-menu yearn--shadow bg-neutral-0 -ml-1'}>
-								{supportedNetworks.map((network): ReactElement => (
-									<Listbox.Option key={network.value} value={network}>
-										{({active: isActive}): ReactElement => (
-											<div
-												data-active={isActive}
-												className={'yearn--listbox-menu-item text-sm'}>
-												{network?.label || 'Ethereum'}
-											</div>
-										)}
-									</Listbox.Option>
-								))}
-							</Listbox.Options>
+							appear
+							show={open}
+							as={Fragment}>
+							<div>
+								<Transition.Child
+									as={Fragment}
+									enter={'ease-out duration-300'}
+									enterFrom={'opacity-0'}
+									enterTo={'opacity-100'}
+									leave={'ease-in duration-200'}
+									leaveFrom={'opacity-100'}
+									leaveTo={'opacity-0'}>
+									<div className={'fixed inset-0 bg-neutral-0/60'} />
+								</Transition.Child>
+								<Transition.Child
+									as={Fragment}
+									enter={'transition duration-100 ease-out'}
+									enterFrom={'transform scale-95 opacity-0'}
+									enterTo={'transform scale-100 opacity-100'}
+									leave={'transition duration-75 ease-out'}
+									leaveFrom={'transform scale-100 opacity-100'}
+									leaveTo={'transform scale-95 opacity-0'}>
+									<Listbox.Options className={'absolute -inset-x-24 z-50 flex items-center justify-center pt-2 opacity-0 transition-opacity'}>
+										<div className={'text-xxs w-fit border border-neutral-300 bg-neutral-100 p-1 px-2 text-center text-neutral-900'}>
+											{supportedNetworks.map((network): ReactElement => (
+												<Listbox.Option key={network.value} value={network}>
+													{({active}): ReactElement => (
+														<div
+															data-active={active}
+															className={'yearn--listbox-menu-item text-sm'}>
+															{network?.label || 'Ethereum'}
+														</div>
+													)}
+												</Listbox.Option>
+											))}
+										</div>
+									</Listbox.Options>
+								</Transition.Child>
+							</div>
 						</Transition>
 					</>
 				)}
@@ -130,11 +167,15 @@ function NetworkSelector(): ReactElement {
 	);
 }
 
-function	WalletSelector(): ReactElement {
-	const	{options, isActive, address, ens, lensProtocolHandle, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
-	const	[walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
+function WalletSelector(): ReactElement {
+	const {options, isActive, address, ens, lensProtocolHandle, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
+	const [walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
+	const isMounted = useIsMounted();
 
 	useEffect((): void => {
+		if (!isMounted()) {
+			return;
+		}
 		if (!isActive && address) {
 			set_walletIdentity('Invalid Network');
 		} else if (ens) {
@@ -146,31 +187,52 @@ function	WalletSelector(): ReactElement {
 		} else {
 			set_walletIdentity(undefined);
 		}
-	}, [ens, lensProtocolHandle, address, isActive]);
+	}, [ens, lensProtocolHandle, address, isActive, isMounted]);
 
 	return (
-		<div
-			onClick={(): void => {
-				if (isActive) {
-					onDesactivate();
-				} else if (!isActive && address) {
-					onSwitchChain(options?.defaultChainID || 1);
-				} else {
-					openLoginModal();
-				}
-			}}>
-			<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
-				{walletIdentity ? walletIdentity : (
-					<span>
-						<IconWallet
-							className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-						<span className={'text-neutral-0 relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal transition-all hover:bg-neutral-800 md:flex'}>
-							{'Connect wallet'}
+		<>
+			<div
+				onClick={(): void => {
+					if (isActive) {
+						onDesactivate();
+					} else if (!isActive && address) {
+						onSwitchChain(options?.defaultChainID || 1);
+					} else {
+						openLoginModal();
+					}
+				}}>
+				<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
+					{walletIdentity ? walletIdentity : (
+						<span>
+							<IconWallet className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
+							<span className={'relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal text-neutral-0 transition-all hover:bg-neutral-800 md:flex'}>
+								{'Connect wallet'}
+							</span>
 						</span>
-					</span>
-				)}
-			</p>
-		</div>
+					)}
+				</p>
+			</div>
+			<div
+				onClick={(): void => {
+					if (isActive) {
+						onDesactivate();
+					} else if (!isActive && address) {
+						onSwitchChain(options?.defaultChainID || 1);
+					} else {
+						openLoginModal();
+					}
+				}}
+				className={cl('fixed inset-x-0 bottom-0 z-[87] border-t border-neutral-900 bg-neutral-0 md:hidden', walletIdentity ? 'hidden pointer-events-none' : '')}>
+				<div className={'flex flex-col items-center justify-center pb-6 pt-4 text-center'}>
+					{'You are not connected. Please connect to a wallet to continue.'}
+					<Button className={'mt-3 space-x-2'}>
+						<IconWallet className={'h-4 w-4'} />
+						<p>{'Connect wallet'}</p>
+					</Button>
+				</div>
+
+			</div>
+		</>
 	);
 }
 
@@ -179,15 +241,17 @@ export type THeader = {
 	extra?: ReactElement,
 	linkComponent?: ReactElement,
 	nav: TMenu[],
+	supportedNetworks?: number[],
 	currentPathName: string,
 	onOpenMenuMobile: () => void
 }
-function	Header({
+function Header({
 	logo,
 	extra,
 	linkComponent,
 	nav,
 	currentPathName,
+	supportedNetworks,
 	onOpenMenuMobile
 }: THeader): ReactElement {
 	return (
@@ -219,7 +283,7 @@ function	Header({
 				</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
-				<NetworkSelector />
+				<NetworkSelector networks={supportedNetworks || [1]} />
 				<WalletSelector />
 				{extra}
 			</div>

@@ -1,7 +1,7 @@
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
 import {useDismissToasts} from '@yearn-finance/web-lib/hooks/useDismissToasts';
 
-declare let window: any;
+declare let window: unknown;
 
 type TWatchAssetOptions = {
 	address: string; // The address of the token contract
@@ -16,13 +16,24 @@ export function useAddToken(): (options: TWatchAssetOptions) => void {
 
 	return (options: TWatchAssetOptions): void => {
 
-		window.ethereum.request({
-			method: 'wallet_watchAsset',
-			params: {
-				type: 'ERC20',
-				options
+		(window as {
+			ethereum: {
+				request: (args: {
+					method: 'wallet_watchAsset',
+					params: {
+						type: 'ERC20',
+						options: TWatchAssetOptions
+					}
+				}) => Promise<boolean>
 			}
-		})
+		}).ethereum
+			.request({
+				method: 'wallet_watchAsset',
+				params: {
+					type: 'ERC20',
+					options
+				}
+			})
 			.then((success: boolean): void => {
 				dismissAllToasts();
 

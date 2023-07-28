@@ -35,7 +35,7 @@ export class InjectedConnector extends WagmiInjectedConnector {
 					method: 'wallet_switchEthereumChain',
 					params: [{chainId: id}]
 				}),
-				new Promise<void>((res): any => {
+				new Promise<void>((res): void => {
 					this.onChainChanged(chainId);
 					this.on('change', ({chain}): void => {
 						if (chain?.id === chainId) {
