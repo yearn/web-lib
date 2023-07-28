@@ -2,7 +2,7 @@ import assert from 'assert';
 import {createPublicClient, http} from 'viem';
 import * as wagmiChains from '@wagmi/chains';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ZERO_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {ARB_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {isEth} from '@yearn-finance/web-lib/utils/isEth';
 import {isTAddress} from '@yearn-finance/web-lib/utils/isTAddress';
 import {localhost} from '@yearn-finance/web-lib/utils/wagmi/networks';
@@ -14,7 +14,9 @@ type TChainContract = {
 	address: TAddress
 	blockCreated?: number
 }
-
+/* 🔵 - Yearn Finance ******************************************************************************
+** partnerContractAddress contains the data for the partner contracts on each chain
+**************************************************************************************************/
 const partnerContractAddress: {[key: number]: TChainContract} = {
 	1: {
 		address: toAddress('0x8ee392a4787397126C163Cb9844d7c447da419D8'),
@@ -38,11 +40,102 @@ const partnerContractAddress: {[key: number]: TChainContract} = {
 	}
 };
 
+/* 🔵 - Yearn Finance ******************************************************************************
+** zapEthContractAddress contains the data for the zap eth contract used by the given chain
+**************************************************************************************************/
+const zapEthContractAddress: {[key: number]: TChainContract & {destinationVault: TAddress}} = {
+	1: {
+		address: ZAP_ETH_WETH_CONTRACT,
+		destinationVault: toAddress('0xa258C4606Ca8206D8aA700cE2143D7db854D168c'),
+		blockCreated: 15037920
+	},
+	10: {
+		address: ZAP_ETH_WETH_OPT_CONTRACT,
+		destinationVault: toAddress('0x5b977577eb8a480f63e11fc615d6753adb8652ae'),
+		blockCreated: 99238952
+	},
+	250: {
+		address: ZAP_FTM_WFTM_CONTRACT,
+		destinationVault: toAddress('0x0dec85e74a92c52b7f708c4b10207d9560cefaf0'),
+		blockCreated: 16994269
+	},
+	1337: {
+		address: ZAP_ETH_WETH_CONTRACT,
+		destinationVault: toAddress('0xa258C4606Ca8206D8aA700cE2143D7db854D168c'),
+		blockCreated: 15037920
+	}
+};
+
+/* 🔵 - Yearn Finance ******************************************************************************
+** wrappedChainTokens contains the data for the wrapped tokens used by the given chain, with the
+** name of the token, the symbol, the decimals, the address, the name of the coin, and the symbol
+** of the coin.
+**************************************************************************************************/
+type TWrappedChainToken = {
+	address: TAddress //Token address
+	decimals: number //Token decimals
+	symbol: string //Token symbol
+	name: string //Token name
+	coinName: string //Coin name (e.g. Ether)
+	coinSymbol: string //Coin symbol (e.g. ETH)
+}
+const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
+	1: {
+		address: WETH_TOKEN_ADDRESS,
+		decimals: 18,
+		symbol: 'wETH',
+		name: 'Wrapped Ether',
+		coinName: 'Ether',
+		coinSymbol: 'ETH'
+	},
+	10: {
+		address: OPT_WETH_TOKEN_ADDRESS,
+		decimals: 18,
+		symbol: 'wETH',
+		name: 'Wrapped Ether',
+		coinName: 'Ether',
+		coinSymbol: 'ETH'
+	},
+	250: {
+		address: WFTM_TOKEN_ADDRESS,
+		decimals: 18,
+		symbol: 'wFTM',
+		name: 'Wrapped Fantom',
+		coinName: 'Fantom',
+		coinSymbol: 'FTM'
+	},
+	42161: {
+		address: ARB_WETH_TOKEN_ADDRESS,
+		decimals: 18,
+		symbol: 'wETH',
+		name: 'Wrapped Ether',
+		coinName: 'Ether',
+		coinSymbol: 'ETH'
+	},
+	1337: {
+		address: WETH_TOKEN_ADDRESS,
+		decimals: 18,
+		symbol: 'wETH',
+		name: 'Wrapped Ether',
+		coinName: 'Ether',
+		coinSymbol: 'ETH'
+	}
+};
+
+/* 🔵 - Yearn Finance ******************************************************************************
+** Extended Chain type is used to add additional properties to the basic wagmi Chain type.
+** For Yearn's use case, we need to add:
+** - the default RPC and block explorer URLs for each chain.
+** - the address of the partner contract for each chain.
+** - the wrapped token data for each chain.
+**************************************************************************************************/
 type TExtendedChain = Chain & {
 	defaultRPC: string
 	defaultBlockExplorer: string
 	contracts: {
 		partnerContract?: TChainContract
+		zapEthContract?: TChainContract & {destinationVault: TAddress}
+		wrappedToken?: TWrappedChainToken
 	}
 }
 export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key: number]: TExtendedChain}, chain: Chain): {[key: number]: TExtendedChain} => {
@@ -53,7 +146,9 @@ export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key:
 
 	extendedChain.contracts = {
 		...chain.contracts,
-		partnerContract: partnerContractAddress[chain.id]
+		partnerContract: partnerContractAddress[chain.id],
+		zapEthContract: zapEthContractAddress[chain.id],
+		wrappedToken: wrappedChainTokens[chain.id]
 	};
 	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[chain.id] || chain.rpcUrls.public.http[0];
 	extendedChain.defaultBlockExplorer = chain.blockExplorers?.[0]?.url || 'https://etherscan.io';
