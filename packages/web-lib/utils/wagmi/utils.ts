@@ -138,10 +138,15 @@ type TExtendedChain = Chain & {
 		wrappedToken?: TWrappedChainToken
 	}
 }
+
 export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key: number]: TExtendedChain}, chain: Chain): {[key: number]: TExtendedChain} => {
 	if (!chain) {
 		return acc;
 	}
+	if (typeof chain !== 'object' || !chain.id) {
+		return acc;
+	}
+
 	let extendedChain = chain as TExtendedChain;
 	if (extendedChain.id === 1337) {
 		extendedChain = localhost as unknown as TExtendedChain;
