@@ -150,7 +150,7 @@ export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key:
 		zapEthContract: zapEthContractAddress[chain.id],
 		wrappedToken: wrappedChainTokens[chain.id]
 	};
-	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[chain.id] || chain.rpcUrls.public.http[0];
+	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[chain.id] || chain?.rpcUrls?.public?.http?.[0] || '';
 	extendedChain.defaultBlockExplorer = chain.blockExplorers?.[0]?.url || 'https://etherscan.io';
 	acc[chain.id] = extendedChain;
 	return acc;
@@ -167,7 +167,7 @@ export function getClient(chainID: number): PublicClient {
 	if (!indexedWagmiChains[chainID]) {
 		throw new Error(`Chain ${chainID} is not supported`);
 	}
-	let url = process.env.JSON_RPC_URL?.[chainID] || indexedWagmiChains[chainID].rpcUrls.public.http[0];
+	let url = process.env.JSON_RPC_URL?.[chainID] || indexedWagmiChains?.[chainID]?.rpcUrls?.public?.http?.[0] || '';
 	const urlAsNodeURL = new URL(url);
 	let headers = {};
 	if (urlAsNodeURL.username && urlAsNodeURL.password) {
