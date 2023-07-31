@@ -6,7 +6,7 @@ import {MULTICALL3_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '@yearn-finance/web-lib/utils/decoder';
 import {toNormalizedValue} from '@yearn-finance/web-lib/utils/format.bigNumber';
 import {isEth} from '@yearn-finance/web-lib/utils/isEth';
-import {getClient, getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
+import {getClient,getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
 
 import type {NextApiRequest, NextApiResponse} from 'next';
 import type {TUseBalancesTokens} from '@yearn-finance/web-lib/hooks/useBalances';
@@ -18,15 +18,16 @@ type TPerformCall = {
 	address: string,
 	tokens: TUseBalancesTokens[]
 }
-async function getBatchBalances({
+
+export async function getBatchBalances({
 	chainID,
 	address,
 	tokens
 }: TPerformCall): Promise<TDict<TBalanceData>> {
 	const data: TDict<TBalanceData> = {};
 	const chunks = [];
-	for (let i = 0; i < tokens.length; i += 5_000) {
-		chunks.push(tokens.slice(i, i + 5_000));
+	for (let i = 0; i < tokens.length; i += 1_000) {
+		chunks.push(tokens.slice(i, i + 1_000));
 	}
 
 	for (const chunkTokens of chunks) {
@@ -59,7 +60,7 @@ async function getBatchBalances({
 		try {
 			const client = getClient(chainID);
 			const multicallInstance = client.multicall;
-			const results = await multicallInstance({contracts: calls as never[]});
+			const results = await multicallInstance({contracts: calls as never[], batchSize: 4_096});
 			let rIndex = 0;
 			for (const element of tokens) {
 				const {token, decimals: injectedDecimals, name: injectedName, symbol: injectedSymbol} = element;
