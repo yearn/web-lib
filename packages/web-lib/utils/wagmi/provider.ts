@@ -65,7 +65,7 @@ export async function handleTx<
 			value: toBigInt(props.value)
 		});
 		const {hash} = await writeContract(config.request);
-		const receipt = await waitForTransaction({chainId: wagmiProvider.chainId, hash});
+		const receipt = await waitForTransaction({chainId: wagmiProvider.chainId, hash, confirmations: 2});
 		if (receipt.status === 'success') {
 			args.statusHandler?.({...defaultTxStatus, success: true});
 		} else if (receipt.status === 'reverted') {
