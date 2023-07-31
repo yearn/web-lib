@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {erc20ABI, useChainId} from 'wagmi';
-import axios from 'axios';
 import {deserialize, multicall, serialize} from '@wagmi/core';
 import {useUI} from '@yearn-finance/web-lib/contexts/useUI';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
@@ -14,13 +13,11 @@ import {isZero} from '@yearn-finance/web-lib/utils/isZero';
 import performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUpdates';
 import {getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
 
-import type {AxiosResponse} from 'axios';
 import type {DependencyList} from 'react';
 import type {ContractFunctionConfig} from 'viem';
 import type {Connector} from 'wagmi';
 import type {TAddress, TDict, TNDict} from '@yearn-finance/web-lib/types';
 import type {TBalanceData, TDefaultStatus} from '@yearn-finance/web-lib/types/hooks';
-import type {TGetBatchBalancesResp} from '@yearn-finance/web-lib/utils/getBatchBalances';
 import type {TYDaemonPrices} from '@yearn-finance/web-lib/utils/schemas/yDaemonPricesSchema';
 
 /* 🔵 - Yearn Finance **********************************************************
@@ -338,18 +335,16 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 		const tokens = JSON.parse(stringifiedTokens) || [];
 		const chunks = [];
-		for (let i = 0; i < tokens.length; i += 200) {
-			chunks.push(tokens.slice(i, i + 200));
+		for (let i = 0; i < tokens.length; i += 100) {
+			chunks.push(tokens.slice(i, i + 100));
 		}
 		const allPromises = [];
 		for (const chunkTokens of chunks) {
 			allPromises.push(
-				axios.post('/api/getBatchBalances', {chainID, address: web3Address, tokens: chunkTokens})
-					.then((res: AxiosResponse<TGetBatchBalancesResp>): void => {
-						updateBalancesCall(res.data.chainID, deserialize(res.data.balances));
-					})
-					.catch((err): void => {
-						console.error(err);
+				getBalances((chainID || 1), web3Address, chunkTokens)
+					.then(async ([newRawData, err]): Promise<void> => {
+						updateBalancesCall((chainID || 1), newRawData);
+						set_error(err);
 					})
 			);
 		}
