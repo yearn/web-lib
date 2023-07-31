@@ -1,13 +1,12 @@
 import {serialize} from 'wagmi';
-import {configureChains, erc20ABI} from '@wagmi/core';
+import {erc20ABI} from '@wagmi/core';
 import AGGREGATE3_ABI from '@yearn-finance/web-lib/utils/abi/aggregate.abi';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 import {MULTICALL3_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '@yearn-finance/web-lib/utils/decoder';
 import {toNormalizedValue} from '@yearn-finance/web-lib/utils/format.bigNumber';
 import {isEth} from '@yearn-finance/web-lib/utils/isEth';
-import {getConfig, getSupportedProviders} from '@yearn-finance/web-lib/utils/wagmi/config';
-import {getNetwork, indexedWagmiChains} from '@yearn-finance/web-lib/utils/wagmi/utils';
+import {getClient, getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
 
 import type {NextApiRequest, NextApiResponse} from 'next';
 import type {TUseBalancesTokens} from '@yearn-finance/web-lib/hooks/useBalances';
@@ -58,12 +57,8 @@ async function getBatchBalances({
 		}
 
 		try {
-			const {chains, publicClient, webSocketPublicClient} = configureChains(
-				Object.values(indexedWagmiChains),
-				getSupportedProviders()
-			);
-			const config = getConfig({chains, publicClient, webSocketPublicClient});
-			const multicallInstance = config.getPublicClient({chainId: chainID}).multicall;
+			const client = getClient(chainID);
+			const multicallInstance = client.multicall;
 			const results = await multicallInstance({contracts: calls as never[]});
 			let rIndex = 0;
 			for (const element of tokens) {

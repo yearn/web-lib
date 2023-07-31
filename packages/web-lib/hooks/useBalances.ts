@@ -1,7 +1,6 @@
-import {useCallback, useMemo, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {erc20ABI, useChainId} from 'wagmi';
 import axios from 'axios';
-import {useUpdateEffect} from '@react-hookz/web';
 import {deserialize, multicall, serialize} from '@wagmi/core';
 import {useUI} from '@yearn-finance/web-lib/contexts/useUI';
 import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
@@ -194,12 +193,9 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				}
 			}));
 			set_nonce((n): number => n + 1);
-			set_status({...defaultStatus, isSuccess: true, isFetched: true});
 		});
-		onLoadDone();
-
 		return data.current[chainID].balances;
-	}, [onLoadDone, web3Address]);
+	}, [web3Address]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	** onUpdate will take the stringified tokens and fetch the balances for each
@@ -333,35 +329,43 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		return _rawData;
 	}, [props?.prices]);
 
-	/* 🔵 - Yearn Finance ******************************************************
-	** Everytime the stringifiedTokens change, we need to update the balances.
-	** This is the main hook and is optimized for performance, using a worker
-	** to fetch the balances, preventing the UI to freeze.
-	**************************************************************************/
-	useUpdateEffect((): void => {
-		if (!web3Address || !provider) {
+	const asyncUseEffect = useCallback(async (): Promise<void> => {
+		if (!isActive || !web3Address || !provider) {
 			return;
 		}
 		set_status({...defaultStatus, isLoading: true, isFetching: true, isRefetching: defaultStatus.isFetched});
 		onLoadStart();
 
-		const tokens: TUseBalancesTokens[] = deserialize(stringifiedTokens) || [];
-		axios
-			.post('/api/getBatchBalances', {
-				chainID: chainID || 1,
-				address: web3Address,
-				tokens
-			})
-			.then((res: AxiosResponse<TGetBatchBalancesResp>): void => {
-				updateBalancesCall(res.data.chainID, deserialize(res.data.balances));
-			})
-			.catch((err): void => {
-				console.error(err);
-				onLoadDone();
-				onUpdateSome(tokens);
-			});
+		const tokens = JSON.parse(stringifiedTokens) || [];
+		const chunks = [];
+		for (let i = 0; i < tokens.length; i += 200) {
+			chunks.push(tokens.slice(i, i + 200));
+		}
+		const allPromises = [];
+		for (const chunkTokens of chunks) {
+			allPromises.push(
+				axios.post('/api/getBatchBalances', {chainID, address: web3Address, tokens: chunkTokens})
+					.then((res: AxiosResponse<TGetBatchBalancesResp>): void => {
+						updateBalancesCall(res.data.chainID, deserialize(res.data.balances));
+					})
+					.catch((err): void => {
+						console.error(err);
+					})
+			);
+		}
+		await Promise.all(allPromises);
+		onLoadDone();
+		set_status({...defaultStatus, isSuccess: true, isFetched: true});
+	}, [stringifiedTokens, isActive, web3Address, provider, onLoadStart, chainID, updateBalancesCall, onLoadDone]);
 
-	}, [stringifiedTokens, isActive, web3Address]);
+	/* 🔵 - Yearn Finance ******************************************************
+	** Everytime the stringifiedTokens change, we need to update the balances.
+	** This is the main hook and is optimized for performance, using a worker
+	** to fetch the balances, preventing the UI to freeze.
+	**************************************************************************/
+	useEffect((): void => {
+		asyncUseEffect();
+	}, [asyncUseEffect]);
 
 	const contextValue = useMemo((): TUseBalancesRes => ({
 		data: assignPrices(balances || {})?.[chainID] || {},

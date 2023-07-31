@@ -167,10 +167,20 @@ export function getClient(chainID: number): PublicClient {
 	if (!indexedWagmiChains[chainID]) {
 		throw new Error(`Chain ${chainID} is not supported`);
 	}
-	return createPublicClient({
-		chain: indexedWagmiChains[chainID],
-		transport: http(process.env.JSON_RPC_URL?.[chainID] || indexedWagmiChains[chainID].rpcUrls.public.http[0])
-	});
+	let url = process.env.JSON_RPC_URL?.[chainID] || indexedWagmiChains[chainID].rpcUrls.public.http[0];
+	const urlAsNodeURL = new URL(url);
+	let headers = {};
+	if (urlAsNodeURL.username && urlAsNodeURL.password) {
+		headers = {
+			'Authorization': `Basic ${btoa(urlAsNodeURL.username + ':' + urlAsNodeURL.password)}`
+		};
+		url = urlAsNodeURL.href.replace(`${urlAsNodeURL.username}:${urlAsNodeURL.password}@`, '');
+		return createPublicClient({
+			chain: indexedWagmiChains[chainID],
+			transport: http(url, {fetchOptions: {headers}}),
+		});
+	}
+	return createPublicClient({chain: indexedWagmiChains[chainID], transport: http(url)});
 }
 
 export function assertAddress(addr: string | TAddress | undefined, name?: string): asserts addr is TAddress {
