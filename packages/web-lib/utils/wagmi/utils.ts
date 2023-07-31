@@ -96,6 +96,22 @@ const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
 		coinName: 'Ether',
 		coinSymbol: 'ETH'
 	},
+	137: {
+		address: toAddress('0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'),
+		decimals: 18,
+		symbol: 'wMatic',
+		name: 'Wrapped Matic',
+		coinName: 'Matic',
+		coinSymbol: 'MATIC'
+	},
+	1101: {
+		address: toAddress('0x4F9A0e7FD2Bf6067db6994CF12E4495Df938E6e9'),
+		decimals: 18,
+		symbol: 'wETH',
+		name: 'Wrapped Ether',
+		coinName: 'Ether',
+		coinSymbol: 'ETH'
+	},
 	250: {
 		address: WFTM_TOKEN_ADDRESS,
 		decimals: 18,
