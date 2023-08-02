@@ -175,7 +175,7 @@ export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key:
 		wrappedToken: wrappedChainTokens[chain.id]
 	};
 	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[chain.id] || chain?.rpcUrls?.public?.http?.[0] || '';
-	extendedChain.defaultBlockExplorer = chain.blockExplorers?.[0]?.url || 'https://etherscan.io';
+	extendedChain.defaultBlockExplorer = chain.blockExplorers?.[0]?.url || chain.blockExplorers?.default.url || 'https://etherscan.io';
 	acc[chain.id] = extendedChain;
 	return acc;
 }, {});
@@ -201,7 +201,7 @@ export function getClient(chainID: number): PublicClient {
 		url = urlAsNodeURL.href.replace(`${urlAsNodeURL.username}:${urlAsNodeURL.password}@`, '');
 		return createPublicClient({
 			chain: indexedWagmiChains[chainID],
-			transport: http(url, {fetchOptions: {headers}}),
+			transport: http(url, {fetchOptions: {headers}})
 		});
 	}
 	return createPublicClient({chain: indexedWagmiChains[chainID], transport: http(url)});
