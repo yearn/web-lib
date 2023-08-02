@@ -145,7 +145,7 @@ const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
 ** - the address of the partner contract for each chain.
 ** - the wrapped token data for each chain.
 **************************************************************************************************/
-type TExtendedChain = Chain & {
+export type TExtendedChain = Chain & {
 	defaultRPC: string
 	defaultBlockExplorer: string
 	contracts: {
