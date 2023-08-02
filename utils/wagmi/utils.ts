@@ -10,7 +10,7 @@ import {localhost} from '@yearn-finance/web-lib/utils/wagmi/networks';
 import type {Chain, PublicClient} from 'viem';
 import type {TAddress} from '@yearn-finance/web-lib/types';
 
-type TChainContract = {
+export type TChainContract = {
 	address: TAddress
 	blockCreated?: number
 }
@@ -71,7 +71,7 @@ const zapEthContractAddress: {[key: number]: TChainContract & {destinationVault:
 ** name of the token, the symbol, the decimals, the address, the name of the coin, and the symbol
 ** of the coin.
 **************************************************************************************************/
-type TWrappedChainToken = {
+export type TWrappedChainToken = {
 	address: TAddress //Token address
 	decimals: number //Token decimals
 	symbol: string //Token symbol
