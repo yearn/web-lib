@@ -10,6 +10,7 @@ import {alchemyProvider} from 'wagmi/providers/alchemy';
 import {infuraProvider} from 'wagmi/providers/infura';
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {publicProvider} from 'wagmi/providers/public';
+import {noopStorage} from '@wagmi/core';
 import {getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
 import {InjectedConnector} from '@yearn-finance/web-lib/utils/web3/injectedConnector';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
@@ -45,7 +46,12 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 	webSocketPublicClient: ({chainId}: { chainId?: number | undefined; }) => WebSocketPublicClient<FallbackTransport> | undefined
 }): Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>> {
 	const config = createConfig({
-		storage: createStorage({storage: window.sessionStorage}),
+		storage: createStorage({
+			// eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+			storage: (typeof window !== 'undefined' && window.sessionStorage)
+				? window.sessionStorage
+				: noopStorage
+		}),
 		autoConnect: true,
 		publicClient,
 		webSocketPublicClient,
