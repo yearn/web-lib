@@ -1,4 +1,4 @@
-import {createConfig} from 'wagmi';
+import {createConfig, createStorage} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 import {LedgerConnector} from 'wagmi/connectors/ledger';
 import {MetaMaskConnector} from 'wagmi/connectors/metaMask';
@@ -43,6 +43,7 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 	webSocketPublicClient: ({chainId}: { chainId?: number | undefined; }) => WebSocketPublicClient<FallbackTransport> | undefined
 }): Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>> {
 	const config = createConfig({
+		storage: createStorage({storage: window.sessionStorage}),
 		autoConnect: true,
 		publicClient,
 		webSocketPublicClient,

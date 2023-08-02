@@ -93,6 +93,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 				if (r?.account) {
 					return onSuccess?.();
 				}
+				return;
 			}
 
 			if (providerType === 'INJECTED' && injectedConnector) {
