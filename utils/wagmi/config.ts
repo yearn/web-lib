@@ -1,3 +1,5 @@
+'use client';
+
 import {createConfig, createStorage} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 import {LedgerConnector} from 'wagmi/connectors/ledger';
