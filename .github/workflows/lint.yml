@@ -25,9 +25,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Move to dir
-        run: cd packages/web-lib
-
       - name: Install project dependencies
         run: yarn --prefer-offline
         id: install
