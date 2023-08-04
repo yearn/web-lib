@@ -24,20 +24,8 @@ This repo is mirrored on [NPM](https://www.npmjs.com/package/@yearn-finance/web-
 yarn add @yearn-finance/web-lib
 ```
 
-### Useful Commands
-- `yarn dev` - Run all packages locally
-
-### Apps & Packages
-The following packages and applications are available
-
-- `package/docs`: Documentation site for the library
-- `packages/web-lib`: Actual library for Yearn's projects
-
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-
 ### Releasing
-When running `yarn build` in the `package/web-lib` folder, the library will be bumped to the next minor version, the code will be compiled and the various files will be copied in the `package/web-lib/dist` folder.  
+When running `yarn build` in the root folder, the library will be bumped to the next minor version, the code will be compiled and the various files will be copied in the `dist` folder.  
 From there the library can be published to NPM via the `yarn publish ./dist` command.
 
 ### How to setup
