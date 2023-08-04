@@ -30,6 +30,4 @@ jobs:
         id: install
 
       - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
+        run: yarn lint

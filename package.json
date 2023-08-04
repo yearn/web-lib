@@ -13,7 +13,7 @@
     "build": "bump && tsc --module es2022 --outDir dist --jsx react",
     "buildNoBump": "tsc --module es2022 --outDir dist --jsx react",
     "postbuild": "sh ./scripts/postbuild.sh && npm run exportStyle && npm run exportNextStyle",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "dependencies": {
