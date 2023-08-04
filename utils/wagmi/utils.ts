@@ -169,14 +169,14 @@ export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key:
 	}
 
 	extendedChain.contracts = {
-		...chain.contracts,
-		partnerContract: partnerContractAddress[chain.id],
-		zapEthContract: zapEthContractAddress[chain.id],
-		wrappedToken: wrappedChainTokens[chain.id]
+		...extendedChain.contracts,
+		partnerContract: partnerContractAddress[extendedChain.id],
+		zapEthContract: zapEthContractAddress[extendedChain.id],
+		wrappedToken: wrappedChainTokens[extendedChain.id]
 	};
-	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[chain.id] || chain?.rpcUrls?.public?.http?.[0] || '';
-	extendedChain.defaultBlockExplorer = chain.blockExplorers?.[0]?.url || chain.blockExplorers?.default.url || 'https://etherscan.io';
-	acc[chain.id] = extendedChain;
+	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[extendedChain.id] || extendedChain?.rpcUrls?.public?.http?.[0] || '';
+	extendedChain.defaultBlockExplorer = extendedChain.blockExplorers?.[0]?.url || extendedChain.blockExplorers?.default.url || 'https://etherscan.io';
+	acc[extendedChain.id] = extendedChain;
 	return acc;
 }, {});
 
