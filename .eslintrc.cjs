@@ -8,7 +8,6 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:import/recommended',
 		'plugin:react/recommended',
-		'plugin:react-hooks/recommended',
 		'plugin:tailwindcss/recommended',
 		'plugin:@typescript-eslint/recommended',
 		'next/core-web-vitals'
@@ -87,6 +86,7 @@ module.exports = {
 		'no-multi-spaces': ['error', {ignoreEOLComments: false}],
 		'@typescript-eslint/no-var-requires': 0,
 		'@typescript-eslint/no-unused-vars': 2,
+		'@typescript-eslint/no-explicit-any': [1],
 		'@typescript-eslint/array-type': ['error', {'default': 'array'}],
 		'@typescript-eslint/consistent-type-assertions': ['error', {'assertionStyle': 'as', 'objectLiteralTypeAssertions': 'never'}],
 		'@typescript-eslint/consistent-type-definitions': ['error', 'type'],
