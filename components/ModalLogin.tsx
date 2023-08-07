@@ -1,7 +1,7 @@
 import React, {cloneElement, useCallback} from 'react';
-import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {Modal} from '@yearn-finance/web-lib/components/Modal';
 import {yToast} from '@yearn-finance/web-lib/components/yToast';
+import {useWeb3} from '@yearn-finance/web-lib/contexts/useWeb3';
 import {useInjectedWallet} from '@yearn-finance/web-lib/hooks/useInjectedWallet';
 import IconWalletWalletConnect from '@yearn-finance/web-lib/icons/IconWalletWalletConnect';
 
@@ -49,7 +49,12 @@ function ModalLogin(props: TModalLogin): ReactElement {
 					onClick={(): void => {
 						onConnect(
 							'WALLET_CONNECT',
-							(error): string => toast({content: error.message ?? 'Invalid chain', type: 'error'}),
+							(error: unknown): string => {
+								if (!error || typeof error !== 'object' || !('message' in error) || typeof error.message !== 'string') {
+									return toast({content: 'Impossible to connect wallet', type: 'error'});
+								}
+								return toast({content: error.message, type: 'error'});
+							},
 							(): void => onClose()
 						);
 					}}
