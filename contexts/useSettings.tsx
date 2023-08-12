@@ -6,7 +6,7 @@ import	performBatchedUpdates from '@yearn-finance/web-lib/utils/performBatchedUp
 import type {TSettingsBase, TSettingsContext, TSettingsContextApp} from '@yearn-finance/web-lib/types/contexts';
 
 const	defaultSettings = {
-	yDaemonBaseURI: 'https://ydaemon.ycorpo.com',
+	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
 	metaBaseURI: 'https://meta.yearn.finance',
 	apiBaseURI: 'https://api.yearn.finance'
 };
