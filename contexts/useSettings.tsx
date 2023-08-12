@@ -26,7 +26,7 @@ export const SettingsContextApp = ({
 	baseOptions = defaultSettings
 }: TSettingsContextApp): React.ReactElement => {
 	const	[baseSettings, set_baseSettings] = useLocalStorage(
-		'yearnSettingsBase',
+		'yearnSettingsBase_0.0.1',
 		deepMerge(defaultSettings, baseOptions) as TSettingsBase,
 		{currentVersion: 1, shouldMigratePreviousVersion: true}
 	);
