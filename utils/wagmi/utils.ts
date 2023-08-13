@@ -104,6 +104,14 @@ const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
 		coinName: 'Matic',
 		coinSymbol: 'MATIC'
 	},
+	250: {
+		address: WFTM_TOKEN_ADDRESS,
+		decimals: 18,
+		symbol: 'wFTM',
+		name: 'Wrapped Fantom',
+		coinName: 'Fantom',
+		coinSymbol: 'FTM'
+	},
 	1101: {
 		address: toAddress('0x4F9A0e7FD2Bf6067db6994CF12E4495Df938E6e9'),
 		decimals: 18,
@@ -112,13 +120,13 @@ const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
 		coinName: 'Ether',
 		coinSymbol: 'ETH'
 	},
-	250: {
-		address: WFTM_TOKEN_ADDRESS,
+	8453: {
+		address: OPT_WETH_TOKEN_ADDRESS,
 		decimals: 18,
-		symbol: 'wFTM',
-		name: 'Wrapped Fantom',
-		coinName: 'Fantom',
-		coinSymbol: 'FTM'
+		symbol: 'wETH',
+		name: 'Wrapped Ether',
+		coinName: 'Ether',
+		coinSymbol: 'ETH'
 	},
 	42161: {
 		address: ARB_WETH_TOKEN_ADDRESS,

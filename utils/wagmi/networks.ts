@@ -11,8 +11,8 @@ export const localhost = {
 		symbol: 'ETH'
 	},
 	rpcUrls: {
-		default: {http: ['http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']},
-		public: {http: ['http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']}
+		default: {http: ['', 'http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']},
+		public: {http: ['', 'http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']}
 	},
 	contracts: {
 		ensRegistry: {
