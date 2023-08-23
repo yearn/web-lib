@@ -2,7 +2,7 @@
 import type {Chain} from 'wagmi';
 
 export const localhost = {
-	id: 1_337,
+	id: 1337,
 	name: 'Localhost',
 	network: 'localhost',
 	nativeCurrency: {
@@ -11,8 +11,8 @@ export const localhost = {
 		symbol: 'ETH'
 	},
 	rpcUrls: {
-		default: {http: ['http://168.119.147.211:4200', 'http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']},
-		public: {http: ['http://168.119.147.211:4200', 'http://0.0.0.0:8545', 'http://127.0.0.1:8545', 'http://localhost:8545']}
+		default: {http: ['http://168.119.147.211:4200']},
+		public: {http: ['http://168.119.147.211:4200']}
 	},
 	contracts: {
 		ensRegistry: {
