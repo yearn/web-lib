@@ -11,8 +11,8 @@ export const localhost = {
 		symbol: 'ETH'
 	},
 	rpcUrls: {
-		default: {http: ['http://168.119.147.211:4200']},
-		public: {http: ['http://168.119.147.211:4200']}
+		default: {http: ['https://gate-confused-periodically-stranger.trycloudflare.com']},
+		public: {http: ['https://gate-confused-periodically-stranger.trycloudflare.com']}
 	},
 	contracts: {
 		ensRegistry: {
