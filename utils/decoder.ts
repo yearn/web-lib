@@ -1,3 +1,9 @@
+import {zeroAddress} from 'viem';
+
+import {toAddress} from './address';
+
+import type {TAddress} from '../types';
+
 type TUnknowValueType = {
 	error: Error;
 	result?: undefined;
@@ -8,7 +14,7 @@ type TUnknowValueType = {
 	status: 'success';
 }
 export function decodeAsBigInt(value: TUnknowValueType, defaultValue = 0n): bigint {
-	if (value.status === 'failure') {
+	if (!value?.status || value.status === 'failure') {
 		return defaultValue;
 	}
 	try {
@@ -22,7 +28,7 @@ export function decodeAsBigInt(value: TUnknowValueType, defaultValue = 0n): bigi
 }
 
 export function decodeAsString(value: TUnknowValueType, defaultValue = ''): string {
-	if (value.status === 'failure') {
+	if (!value?.status || value.status === 'failure') {
 		return defaultValue;
 	}
 	try {
@@ -35,8 +41,22 @@ export function decodeAsString(value: TUnknowValueType, defaultValue = ''): stri
 	}
 }
 
+export function decodeAsAddress(value: TUnknowValueType, defaultValue = zeroAddress): TAddress {
+	if (!value?.status || value.status === 'failure') {
+		return defaultValue;
+	}
+	try {
+		if (typeof value.result !== 'string') {
+			return defaultValue;
+		}
+		return toAddress(value.result);
+	} catch (error) {
+		return defaultValue;
+	}
+}
+
 export function decodeAsNumber(value: TUnknowValueType, defaultValue = 0): number {
-	if (value.status === 'failure') {
+	if (!value?.status || value.status === 'failure') {
 		return defaultValue;
 	}
 	try {
@@ -50,7 +70,7 @@ export function decodeAsNumber(value: TUnknowValueType, defaultValue = 0): numbe
 }
 
 export function decodeAsBoolean(value: TUnknowValueType, defaultValue = false): boolean {
-	if (value.status === 'failure') {
+	if (!value?.status || value.status === 'failure') {
 		return defaultValue;
 	}
 	try {
