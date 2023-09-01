@@ -85,8 +85,17 @@ import {getRPC} from '@yearn-finance/web-lib//utils/providers';
 	explorerBaseURI: 'https://ftmscan.com',
 	lensAddress: '0x57AA88A0810dfe3f9b71a9b179Dd8bF5F956C46A',
 	partnerContractAddress: '0x086865B2983320b36C42E48086DaDc786c9Ac73B'
-}, // Arbitrum
-42161: {
+},
+8453: { // Base
+	rpcURI: getRPC(8453),
+	graphURI: '',
+	metaURI: 'https://meta.yearn.finance/api/8453',
+	apiURI: 'https://api.yearn.finance/v1/chains/8453',
+	explorerBaseURI: 'https://basescan.org/',
+	lensAddress: '0xE0F3D78DB7bC111996864A32d22AB0F59Ca5Fa86',
+	partnerContractAddress: '0xD0F08E42A40569fF83D28AA783a5b6537462667c'
+}, 
+42161: { // Arbitrum
 	rpcURI: getRPC(42161),
 	graphURI: 'https://api.thegraph.com/subgraphs/name/yearn/yearn-vaults-v2-arbitrum',
 	metaURI: 'https://meta.yearn.finance/api/42161',
