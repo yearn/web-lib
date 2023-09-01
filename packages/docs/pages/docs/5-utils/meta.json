@@ -1,7 +1,0 @@
-{
-	"format": "format",
-	"providers": "providers",
-	"chains": "chains",
-	"ABI": "ABI",
-	"performBatchedUpdates": "performBatchedUpdates"
-}
