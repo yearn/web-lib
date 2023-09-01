@@ -1,5 +1,3 @@
-'use client';
-
 import {createConfig, createStorage} from 'wagmi';
 import {CoinbaseWalletConnector} from 'wagmi/connectors/coinbaseWallet';
 import {LedgerConnector} from 'wagmi/connectors/ledger';
@@ -11,6 +9,7 @@ import {infuraProvider} from 'wagmi/providers/infura';
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {publicProvider} from 'wagmi/providers/public';
 import {noopStorage} from '@wagmi/core';
+import {w3mConnectors} from '@web3modal/ethereum';
 import {getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
 import {InjectedConnector} from '@yearn-finance/web-lib/utils/web3/injectedConnector';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
@@ -56,6 +55,10 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 		publicClient,
 		webSocketPublicClient,
 		connectors: [
+			...w3mConnectors({
+				projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
+				chains
+			}),
 			new SafeConnector({chains, options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}}),
 			new IFrameEthereumConnector({chains, options: {}}),
 			new InjectedConnector({chains}),
@@ -72,6 +75,7 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 						icons: [(process.env.WALLETCONNECT_PROJECT_ICON as string) || '']
 					},
 					qrModalOptions: {
+						enableExplorer: true,
 						explorerRecommendedWalletIds: [
 							'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
 							'225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f',

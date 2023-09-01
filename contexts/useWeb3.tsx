@@ -2,6 +2,8 @@ import	React, {createContext, useCallback, useContext, useMemo, useState} from '
 import assert from 'assert';
 import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
+import {EthereumClient} from '@web3modal/ethereum';
+import {Web3Modal} from '@web3modal/react';
 import {ModalLogin} from '@yearn-finance/web-lib/components/ModalLogin';
 import {deepMerge} from '@yearn-finance/web-lib/contexts/utils';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
@@ -221,12 +223,19 @@ export const Web3ContextApp = ({children, supportedChains, options}: {
 		return getConfig({chains, publicClient, webSocketPublicClient});
 	}, [supportedChains]);
 
+	const ethereumClient = useMemo((): EthereumClient => new EthereumClient(config, supportedChains), [config, supportedChains]);
+
 	return (
-		<WagmiConfig config={config}>
-			<Web3ContextAppWrapper options={options}>
-				{children}
-			</Web3ContextAppWrapper>
-		</WagmiConfig>
+		<>
+			<WagmiConfig config={config}>
+				<Web3ContextAppWrapper options={options}>
+					{children}
+				</Web3ContextAppWrapper>
+			</WagmiConfig>
+			<Web3Modal
+				projectId={process.env.WALLETCONNECT_PROJECT_ID as string}
+				ethereumClient={ethereumClient} />
+		</>
 	);
 };
 
