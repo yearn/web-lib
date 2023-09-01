@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "0.20.149",
+  "version": "0.30.0",
   "files": [
     "."
   ],
