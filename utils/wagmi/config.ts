@@ -63,7 +63,26 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 			new LedgerConnector({chains, options: {}}),
 			new WalletConnectConnector({
 				chains,
-				options: {projectId: process.env.WALLETCONNECT_PROJECT_ID as string}
+				options: {
+					projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
+					metadata: {
+						name: (process.env.WALLETCONNECT_PROJECT_NAME as string) || '',
+						description: (process.env.WALLETCONNECT_PROJECT_DESCRIPTION as string) || '',
+						url: (process.env.WALLETCONNECT_PROJECT_URL as string) || '',
+						icons: [(process.env.WALLETCONNECT_PROJECT_ICON as string) || '']
+					},
+					qrModalOptions: {
+						explorerRecommendedWalletIds: [
+							'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
+							'225affb176778569276e484e1b92637ad061b01e13a048b35a9d280c3b58970f',
+							'1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369',
+							'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18',
+							'bc949c5d968ae81310268bf9193f9c9fb7bb4e1283e1284af8f2bd4992535fd6',
+							'4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
+							'a9751f17a3292f2d1493927f0555603d69e9a3fcbcdf5626f01b49afa21ced91'
+						]
+					}
+				}
 			}),
 			new CoinbaseWalletConnector({
 				chains,
