@@ -58,7 +58,13 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 			new IFrameEthereumConnector({chains, options: {}}),
 			new InjectedConnector({chains}),
 			new MetaMaskConnector({chains}),
-			new LedgerConnector({chains, options: {}}),
+			new LedgerConnector({
+				chains,
+				options: {
+					projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
+					walletConnectVersion: 2
+				}
+			}),
 			new WalletConnectConnector({
 				chains,
 				options: {

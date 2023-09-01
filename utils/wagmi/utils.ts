@@ -183,7 +183,7 @@ export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key:
 		wrappedToken: wrappedChainTokens[extendedChain.id]
 	};
 	extendedChain.defaultRPC = process.env.JSON_RPC_URL?.[extendedChain.id] || extendedChain?.rpcUrls?.public?.http?.[0] || '';
-	extendedChain.defaultBlockExplorer = extendedChain.blockExplorers?.[0]?.url || extendedChain.blockExplorers?.default.url || 'https://etherscan.io';
+	extendedChain.defaultBlockExplorer = extendedChain.blockExplorers?.etherscan?.url || extendedChain.blockExplorers?.default.url || 'https://etherscan.io';
 	acc[extendedChain.id] = extendedChain;
 	return acc;
 }, {});
