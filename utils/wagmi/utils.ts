@@ -2,7 +2,7 @@ import assert from 'assert';
 import {createPublicClient, http} from 'viem';
 import * as wagmiChains from '@wagmi/chains';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
-import {ARB_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
+import {ARB_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '@yearn-finance/web-lib/utils/constants';
 import {isEth} from '@yearn-finance/web-lib/utils/isEth';
 import {isTAddress} from '@yearn-finance/web-lib/utils/isTAddress';
 import {localhost} from '@yearn-finance/web-lib/utils/wagmi/networks';
@@ -29,6 +29,10 @@ const partnerContractAddress: {[key: number]: TChainContract} = {
 	250: {
 		address: toAddress('0x086865B2983320b36C42E48086DaDc786c9Ac73B'),
 		blockCreated: 40499061
+	},
+	8453: {
+		address: toAddress('0xD0F08E42A40569fF83D28AA783a5b6537462667c'),
+		blockCreated: 3350506
 	},
 	42161: {
 		address: toAddress('0x0e5b46E4b2a05fd53F5a4cD974eb98a9a613bcb7'),
@@ -121,7 +125,7 @@ const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
 		coinSymbol: 'ETH'
 	},
 	8453: {
-		address: OPT_WETH_TOKEN_ADDRESS,
+		address: BASE_WETH_TOKEN_ADDRESS,
 		decimals: 18,
 		symbol: 'wETH',
 		name: 'Wrapped Ether',
