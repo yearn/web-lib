@@ -5,12 +5,14 @@ import IconNetworkArbitrum from '@yearn-finance/web-lib/icons/IconNetworkArbitru
 import IconNetworkEthereum from '@yearn-finance/web-lib/icons/IconNetworkEthereum';
 import IconNetworkFantom from '@yearn-finance/web-lib/icons/IconNetworkFantom';
 import IconNetworkOptimism from '@yearn-finance/web-lib/icons/IconNetworkOptimism';
+import IconNetworkBase from '@yearn-finance/web-lib/icons/IconNetworkBase';
 
 function DropdownExample(): React.ReactElement {
 	const	options = [
 		{icon: <IconNetworkEthereum />, label: 'Ethereum', value: 1},
 		{icon: <IconNetworkOptimism />, label: 'Optimism', value: 10},
 		{icon: <IconNetworkFantom />, label: 'Fantom', value: 250},
+		{icon: <IconNetworkBase />, label: 'Base', value: 8453},
 		{icon: <IconNetworkArbitrum />, label: 'Arbitrum', value: 42161},
 		{label: 'No Icon', value: 123}
 	];
