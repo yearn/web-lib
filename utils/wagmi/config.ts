@@ -9,7 +9,6 @@ import {infuraProvider} from 'wagmi/providers/infura';
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {publicProvider} from 'wagmi/providers/public';
 import {noopStorage} from '@wagmi/core';
-import {w3mConnectors} from '@web3modal/ethereum';
 import {getNetwork} from '@yearn-finance/web-lib/utils/wagmi/utils';
 import {InjectedConnector} from '@yearn-finance/web-lib/utils/web3/injectedConnector';
 import {IFrameEthereumConnector} from '@yearn-finance/web-lib/utils/web3/ledgerConnector';
@@ -55,10 +54,6 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 		publicClient,
 		webSocketPublicClient,
 		connectors: [
-			...w3mConnectors({
-				projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
-				chains
-			}),
 			new SafeConnector({chains, options: {allowedDomains: [/gnosis-safe.io/, /app.safe.global/]}}),
 			new IFrameEthereumConnector({chains, options: {}}),
 			new InjectedConnector({chains}),
@@ -74,6 +69,7 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 						url: (process.env.WALLETCONNECT_PROJECT_URL as string) || '',
 						icons: [(process.env.WALLETCONNECT_PROJECT_ICON as string) || '']
 					},
+					relayUrl: 'wss://relay.walletconnect.com',
 					qrModalOptions: {
 						enableExplorer: true,
 						explorerRecommendedWalletIds: [
