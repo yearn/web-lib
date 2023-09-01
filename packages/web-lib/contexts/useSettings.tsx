@@ -32,7 +32,7 @@ const	defaultNetworks = {
 		apiURI: `${defaultSettings.apiBaseURI}/v1/chains/10`,
 		explorerBaseURI: 'https://optimistic.etherscan.io',
 		lensOracleAddress: toAddress('0xB082d9f4734c535D9d80536F7E87a6f4F471bF65'),
-		partnerContractAddress: toAddress(zeroAddress)
+		partnerContractAddress: toAddress('0x7E08735690028cdF3D81e7165493F1C34065AbA2')
 	},
 	250: {
 		rpcURI: getRPC(250),
@@ -44,6 +44,16 @@ const	defaultNetworks = {
 		lensOracleAddress: toAddress('0x57AA88A0810dfe3f9b71a9b179Dd8bF5F956C46A'),
 		partnerContractAddress: toAddress('0x086865B2983320b36C42E48086DaDc786c9Ac73B')
 	},
+	8453: {
+		rpcURI: getRPC(8453),
+		graphURI: '',
+		yDaemonURI: `${defaultSettings.yDaemonBaseURI}/8453`,
+		metaURI: `${defaultSettings.metaBaseURI}/api/8453`,
+		apiURI: `${defaultSettings.apiBaseURI}/v1/chains/8453`,
+		explorerBaseURI: 'https://basescan.org',
+		lensOracleAddress: toAddress('0xE0F3D78DB7bC111996864A32d22AB0F59Ca5Fa86'),
+		partnerContractAddress: toAddress('0xD0F08E42A40569fF83D28AA783a5b6537462667c')
+	},
 	42161: {
 		rpcURI: getRPC(42161),
 		graphURI: 'https://api.thegraph.com/subgraphs/name/yearn/yearn-vaults-v2-arbitrum',
@@ -52,7 +62,7 @@ const	defaultNetworks = {
 		apiURI: `${defaultSettings.apiBaseURI}/v1/chains/42161`,
 		explorerBaseURI: 'https://arbiscan.io',
 		lensOracleAddress: toAddress('0x043518AB266485dC085a1DB095B8d9C2Fc78E9b9'),
-		partnerContractAddress: toAddress(zeroAddress)
+		partnerContractAddress: toAddress('0x0e5b46E4b2a05fd53F5a4cD974eb98a9a613bcb7')
 	},
 	1337: {
 		rpcURI: getRPC(1337),
