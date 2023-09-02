@@ -85,6 +85,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": ">= 8.0.0",
     "eslint-plugin-tailwindcss": ">= 3.6.2",
-    "eslint-plugin-unused-imports": ">= 2.0.0"
+    "eslint-plugin-unused-imports": ">= 2.0.0",
+    "@rainbow-me/rainbowkit": "^1.0.10"
   }
 }

@@ -1,12 +1,15 @@
 import React from 'react';
 
-import {SettingsContextApp} from './useSettings.js';
-import {UIContextApp} from './useUI.js';
-import {Web3ContextApp} from './useWeb3.js';
+import {SettingsContextApp} from './useSettings';
+import {UIContextApp} from './useUI';
+import {Web3ContextApp} from './useWeb3';
+import {RainbowKitProvider} from '@rainbow-me/rainbowkit';
 
 import type {ReactElement} from 'react';
 import type {Chain} from 'viem';
 import type {TSettingsBase,TUIOptions, TWeb3Options} from '../types/contexts.js';
+
+import '@rainbow-me/rainbowkit/styles.css';
 
 function	WithYearn({children, supportedChains, options}: {
 	children: ReactElement
@@ -20,10 +23,10 @@ function	WithYearn({children, supportedChains, options}: {
 	return (
 		<UIContextApp options={options?.ui}>
 			<SettingsContextApp baseOptions={options?.baseSettings}>
-				<Web3ContextApp
-					supportedChains={supportedChains}
-					options={options?.web3}>
+				<Web3ContextApp supportedChains={supportedChains} options={options?.web3}>
+				<RainbowKitProvider chains={supportedChains}>
 					{children}
+					</RainbowKitProvider>
 				</Web3ContextApp>
 			</SettingsContextApp>
 		</UIContextApp>
