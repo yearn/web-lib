@@ -44,7 +44,6 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 		appName:(process.env.WALLETCONNECT_PROJECT_NAME as string) || '',
 		projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
 		chains
-<<<<<<< HEAD
 	});
 	const projectId = process.env.WALLETCONNECT_PROJECT_ID as string;
 	const rainbowConnector = connectorsForWallets([
@@ -57,15 +56,6 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 			]
 		}
 	]);
-=======
-	})
-	const wagmiConfig = createConfig({
-		autoConnect: true,
-		connectors: rainbowConnector,
-		publicClient
-	}) as any
-
->>>>>>> 41a09f9 (feat: bump)
 
 	const config = createConfig({
 		storage: createStorage({
@@ -83,7 +73,5 @@ export function getConfig({chains, publicClient, webSocketPublicClient}: {
 		]
 	});
 
-	config;
-
-	return wagmiConfig;
+	return config;
 }
