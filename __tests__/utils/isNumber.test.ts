@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {isNumber} from './isNumber';
+
+import { isNumber } from "util";
 
 describe('isNumber', (): void => {
 	it('should return true if the value is a number', (): void => {

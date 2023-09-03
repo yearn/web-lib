@@ -1,4 +1,4 @@
-import { ETH_TOKEN_ADDRESS, isEth } from "..";
+import { ETH_TOKEN_ADDRESS, isEth } from "../../src";
 
 describe('isEth function', (): void => {
 	it('returns true for ETH_TOKEN_ADDRESS', (): void => {
