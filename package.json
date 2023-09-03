@@ -1,9 +1,11 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
-  "files": ["."],
+  "files": [
+    "."
+  ],
   "type": "module",
   "engines": {
     "node": ">=14"
@@ -13,8 +15,8 @@
     "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o dist/build.css --minify",
     "exportNextStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o dist/build.css --minify",
     "prebuild": "rm -rf build",
-    "build": "bump && tsc",
-    "buildNoBump": "tsc",
+    "build": "bump && tsc --outDir dist --jsx react",
+    "buildNoBump": "tsc --outDir dist --jsx react",
     "postbuild": "sh ./src/scripts/postbuild.sh && npm run exportStyle && npm run exportNextStyle",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
