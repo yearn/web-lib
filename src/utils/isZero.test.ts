@@ -1,4 +1,4 @@
-import {isZero} from '../../src/utils/isZero';
+import {isZero} from './isZero';
 
 describe('isZero function', (): void => {
 	test('returns false when no argument given', (): void => {

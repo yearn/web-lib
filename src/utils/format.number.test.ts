@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {amount,
-	amountV2,
-	assertValidNumber,
-	defaultOptions,
-	formatLocalAmount,
-	formatNumberOver10K} from './format.number';
+
+import {amount, amountV2, assertValidNumber, defaultOptions, formatLocalAmount, formatNumberOver10K} from './format.number';
 
 describe('format.number', (): void => {
 	describe('amount()', (): void => {

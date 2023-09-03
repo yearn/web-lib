@@ -7,7 +7,7 @@ import {DAY,
 	toSeconds,
 	toTime,
 	toWeeks,
-	WEEK} from '../../src/utils/time';
+	WEEK} from './time';
 
 import type {TMilliseconds} from '../../src/utils/time';
 

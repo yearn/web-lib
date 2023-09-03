@@ -1,4 +1,4 @@
-import {cl} from '../../src/utils/cl';
+import {cl} from './cl';
 
 describe('cl', (): void => {
 	it('returns an empty string when no arguments are passed', (): void => {

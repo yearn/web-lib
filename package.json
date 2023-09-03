@@ -9,7 +9,7 @@
   ],
   "type": "module",
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "scripts": {
     "dev": "tsc --watch",
