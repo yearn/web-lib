@@ -270,21 +270,6 @@ label[aria-invalid="true"] {
 	border-radius: var(--default-rounded);
 }
 
-/* -- ModalLogin.tsx ---------------------------------------------------- */
-.yearn--modalLogin-wrapper {
-}
-.yearn--modalLogin-card {
-	@apply flex flex-col justify-center items-center p-6 text-center transition-colors cursor-pointer bg-neutral-0 hover:bg-neutral-100;
-
-	border-radius: var(--default-rounded);
-	& > div > svg {@apply w-12 h-12;}
-	& > b {@apply mt-2 text-lg text-neutral-700;}
-	& > p {@apply text-neutral-500;}
-}
-.yearn--modalLogin {
-	@apply grid grid-cols-1 md:grid-cols-2 bg-neutral-0;
-}
-
 /* -- ModalMobileMenu.tsx ---------------------------------------------------- */
 .yearn--modalMobileMenu-content {
 	@apply relative flex w-full flex-col items-center justify-center space-y-1 pt-4;
