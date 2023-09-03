@@ -4,8 +4,8 @@
 import {createWalletClient, custom, toHex} from 'viem';
 import {ChainNotConfiguredError, Connector, ConnectorNotFoundError} from '@wagmi/core';
 
-import {toAddress} from '../address';
-import {IFrameEthereumProvider} from './connectors.eip1193.ledger';
+import {toAddress} from '../address.js';
+import {IFrameEthereumProvider} from './connectors.eip1193.ledger.js';
 
 import type {ProviderRpcError, RpcError} from 'viem';
 import type {Chain, WalletClient} from '@wagmi/core';

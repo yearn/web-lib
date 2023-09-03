@@ -1,8 +1,8 @@
 import {zeroAddress} from 'viem';
 
-import {toAddress} from './address';
+import {toAddress} from './address.js';
 
-import type {TAddress} from '../types';
+import type {TAddress} from '../types/index.js';
 
 type TUnknowValueType = {
 	error: Error;

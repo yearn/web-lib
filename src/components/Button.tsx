@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react';
 
-import {IconLoader} from '../icons/IconLoader';
+import {IconLoader} from '../icons/IconLoader.js';
 
 import type {ForwardedRef, ReactElement, ReactNode} from 'react';
 

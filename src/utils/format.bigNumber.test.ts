@@ -1,4 +1,4 @@
-import {formatBigNumberOver10K, toNormalizedBN} from './format.bigNumber';
+import {formatBigNumberOver10K, toNormalizedBN} from './format.bigNumber.js';
 
 describe('format.bigNumber', (): void => {
 	describe('toNormalizedBN()', (): void => {

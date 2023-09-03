@@ -7,9 +7,9 @@ import {DAY,
 	toSeconds,
 	toTime,
 	toWeeks,
-	WEEK} from './time';
+	WEEK} from './time.js';
 
-import type {TMilliseconds} from '../../src/utils/time';
+import type {TMilliseconds} from '../../src/utils/time.js';
 
 describe('timeUtils', (): void => {
 	test('toTime', (): void => {

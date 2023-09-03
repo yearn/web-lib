@@ -1,6 +1,6 @@
-import {handleInputChangeEventValue} from './handleInputChangeEventValue';
+import {handleInputChangeEventValue} from './handleInputChangeEventValue.js';
 
-import type {TNormalizedBN} from '../format.bigNumber';
+import type {TNormalizedBN} from '../format.bigNumber.js';
 
 describe('handleInputChangeEventValue', (): void => {
 	it('returns correct normalized and raw values for input with 0 decimals', (): void => {

@@ -1,4 +1,4 @@
-import {formatCounterValue, formatCounterValueRaw} from './format.value';
+import {formatCounterValue, formatCounterValueRaw} from './format.value.js';
 
 describe('counterValue and counterValueRaw', (): void => {
 	test('returns $0,00 and empty string when amount or price are missing', (): void => {

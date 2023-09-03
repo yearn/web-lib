@@ -1,7 +1,7 @@
 import type	{ReactNode}	from 'react';
 import type {Connector} from 'wagmi';
-import type {TPartnersInfo} from '../utils/partners';
-import type {TAddress} from '.';
+import type {TPartnersInfo} from '../utils/partners.js';
+import type {TAddress} from './index.js';
 
 export type TSettingsBase = {
 	yDaemonBaseURI: string,

@@ -1,5 +1,5 @@
-import {ETH_TOKEN_ADDRESS} from './constants';
-import {isEth} from './isEth';
+import {ETH_TOKEN_ADDRESS} from './constants.js';
+import {isEth} from './isEth.js';
 
 describe('isEth function', (): void => {
 	it('returns true for ETH_TOKEN_ADDRESS', (): void => {

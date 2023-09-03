@@ -1,10 +1,10 @@
 import React, {cloneElement, useCallback} from 'react';
 
-import {useWeb3} from '../contexts/useWeb3';
-import {useInjectedWallet} from '../hooks/useInjectedWallet';
-import {IconWalletWalletConnect} from '../icons/IconWalletWalletConnect';
-import {Modal} from './Modal';
-import {yToast} from './yToast';
+import {useWeb3} from '../contexts/useWeb3.js';
+import {useInjectedWallet} from '../hooks/useInjectedWallet.js';
+import {IconWalletWalletConnect} from '../icons/IconWalletWalletConnect.js';
+import {Modal} from './Modal.js';
+import {yToast} from './yToast.js';
 
 import type {ReactElement} from 'react';
 

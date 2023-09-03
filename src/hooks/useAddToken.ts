@@ -1,5 +1,5 @@
-import {yToast} from '../components/yToast';
-import {useDismissToasts} from './useDismissToasts';
+import {yToast} from '../components/yToast.js';
+import {useDismissToasts} from './useDismissToasts.js';
 
 declare let window: unknown;
 

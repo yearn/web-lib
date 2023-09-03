@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {IconAlertWarning} from '../icons/IconAlertWarning';
-import {IconCross} from '../icons/IconCross';
-import {cl} from '../utils/cl';
+import {IconAlertWarning} from '../icons/IconAlertWarning.js';
+import {IconCross} from '../icons/IconCross.js';
+import {cl} from '../utils/cl.js';
 
 import type {ReactElement} from 'react';
 

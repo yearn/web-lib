@@ -4,13 +4,13 @@ import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
 import {useIsMounted} from '@react-hookz/web';
 
-import {useWeb3} from '../contexts/useWeb3';
-import {toSafeChainID} from '../hooks/useChainID';
-import {IconChevronBottom} from '../icons/IconChevronBottom';
-import {IconWallet} from '../icons/IconWallet';
-import {truncateHex} from '../utils/address';
-import {cl} from '../utils/cl';
-import {Button} from './Button';
+import {useWeb3} from '../contexts/useWeb3.js';
+import {toSafeChainID} from '../hooks/useChainID.js';
+import {IconChevronBottom} from '../icons/IconChevronBottom.js';
+import {IconWallet} from '../icons/IconWallet.js';
+import {truncateHex} from '../utils/address.js';
+import {cl} from '../utils/cl.js';
+import {Button} from './Button.js';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 import type {Chain} from 'wagmi';

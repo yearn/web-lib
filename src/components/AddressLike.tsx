@@ -1,11 +1,11 @@
 import React from 'react';
 import {useEnsName} from 'wagmi';
 
-import {cl} from '../utils/cl';
-import {copyToClipboard} from '../utils/helpers';
+import {cl} from '../utils/cl.js';
+import {copyToClipboard} from '../utils/helpers.js';
 
 import type {ReactElement} from 'react';
-import type {TAddress} from '../types';
+import type {TAddress} from '../types/index.js';
 
 export function AddressLike({address}: {address: TAddress}): ReactElement {
 	const {data: ensHandle, isSuccess} = useEnsName({address, chainId: 1});

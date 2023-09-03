@@ -10,8 +10,8 @@ import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {publicProvider} from 'wagmi/providers/public';
 import {InjectedConnector, noopStorage} from '@wagmi/core';
 
-import {IFrameEthereumConnector} from '../web3/ledgerConnector';
-import {getNetwork} from './utils';
+import {IFrameEthereumConnector} from '../web3/ledgerConnector.js';
+import {getNetwork} from './utils.js';
 
 import type {FallbackTransport} from 'viem';
 import type {Chain, ChainProviderFn, Config, PublicClient, WebSocketPublicClient} from 'wagmi';

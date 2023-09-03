@@ -1,10 +1,10 @@
 import	React, {createContext, useCallback, useContext, useMemo} from 'react';
 
-import {useLocalStorage} from '../hooks/useLocalStorage';
-import {performBatchedUpdates} from '../utils/performBatchedUpdates';
-import {deepMerge} from './utils';
+import {useLocalStorage} from '../hooks/useLocalStorage.js';
+import {performBatchedUpdates} from '../utils/performBatchedUpdates.js';
+import {deepMerge} from './utils.js';
 
-import type {TSettingsBase,TSettingsContext, TSettingsContextApp} from '../types/contexts';
+import type {TSettingsBase,TSettingsContext, TSettingsContextApp} from '../types/contexts.js';
 
 
 const	defaultSettings = {

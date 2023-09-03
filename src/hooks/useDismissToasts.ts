@@ -1,4 +1,4 @@
-import {yToast} from '../components/yToast';
+import {yToast} from '../components/yToast.js';
 
 type TUseDismissToasts = {
 	dismissAllToasts: () => void;

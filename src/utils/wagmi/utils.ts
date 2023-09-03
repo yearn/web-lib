@@ -1,15 +1,15 @@
 import assert from 'assert';
 import {createPublicClient, http} from 'viem';
-import * as wagmiChains from '@wagmi/chains';
+import * as wagmiChains from '@wagmi/core/chains';
 
-import {toAddress} from '../address';
-import {ARB_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '../constants';
-import {isEth} from '../isEth';
-import {isTAddress} from '../isTAddress';
-import {localhost} from './networks';
+import {toAddress} from '../address.js';
+import {ARB_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '../constants.js';
+import {isEth} from '../isEth.js';
+import {isTAddress} from '../isTAddress.js';
+import {localhost} from './networks.js';
 
 import type {Chain, PublicClient} from 'viem';
-import type {TAddress} from '../../types';
+import type {TAddress} from '../../types/index.js';
 
 export type TChainContract = {
 	address: TAddress
@@ -168,14 +168,12 @@ export type TExtendedChain = Chain & {
 	}
 }
 
-export const indexedWagmiChains = Object.values(wagmiChains).reduce((acc: {[key: number]: TExtendedChain}, chain: Chain): {[key: number]: TExtendedChain} => {
-	if (!chain) {
-		return acc;
-	}
-	if (typeof chain !== 'object' || !chain.id) {
-		return acc;
-	}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isChain = (chain: wagmiChains.Chain | any): chain is wagmiChains.Chain => {
+	return chain.id !== undefined;
+};
 
+export const indexedWagmiChains = Object.values(wagmiChains).filter(isChain).reduce((acc: {[key: number]: TExtendedChain}, chain: Chain): {[key: number]: TExtendedChain} => {
 	let extendedChain = chain as TExtendedChain;
 	if (extendedChain.id === 1337) {
 		extendedChain = localhost as unknown as TExtendedChain;

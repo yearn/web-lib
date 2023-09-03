@@ -1,6 +1,6 @@
 import {z} from 'zod';
 
-import {addressSchema} from './addressSchema';
+import {addressSchema} from './addressSchema.js';
 
 export const yDaemonPriceSchema = z.string();
 

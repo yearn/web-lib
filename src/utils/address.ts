@@ -1,8 +1,8 @@
 import {getAddress, isAddress, zeroAddress as wZeroAddress} from 'viem';
 
-import {isTAddress} from './isTAddress';
+import {isTAddress} from './isTAddress.js';
 
-import type {TAddress, TAddressLike, TAddressYearn, TDict} from '../types';
+import type {TAddress, TAddressLike, TAddressYearn, TDict} from '../types/index.js';
 
 
 export const zeroAddress = wZeroAddress as TAddress;

@@ -1,10 +1,10 @@
 import React from 'react';
 import {toast as toastMaster, useToasterStore} from 'react-hot-toast';
 
-import {IconAlertCritical} from '../icons/IconAlertCritical';
-import {IconAlertError} from '../icons/IconAlertError';
-import {IconAlertWarning} from '../icons/IconAlertWarning';
-import {IconCheckmark} from '../icons/IconCheckmark';
+import {IconAlertCritical} from '../icons/IconAlertCritical.js';
+import {IconAlertError} from '../icons/IconAlertError.js';
+import {IconAlertWarning} from '../icons/IconAlertWarning.js';
+import {IconCheckmark} from '../icons/IconCheckmark.js';
 
 import type {ReactElement} from 'react';
 import type {ToastOptions} from 'react-hot-toast';

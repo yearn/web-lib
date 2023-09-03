@@ -1,17 +1,17 @@
-import toast from 'react-hot-toast';
+import {toast} from 'react-hot-toast';
 import assert from 'assert';
 import {BaseError} from 'viem';
 import {prepareWriteContract, waitForTransaction, writeContract} from '@wagmi/core';
 
-import {toBigInt} from '../format.bigNumber';
-import {defaultTxStatus} from '../web3/transaction';
-import {assertAddress} from './utils';
+import {toBigInt} from '../format.bigNumber.js';
+import {defaultTxStatus} from '../web3/transaction.js';
+import {assertAddress} from './utils.js';
 
 import type {Abi, SimulateContractParameters} from 'viem';
 import type {Connector} from 'wagmi';
 import type {GetWalletClientResult, WalletClient} from '@wagmi/core';
-import type {TAddress} from '../../types';
-import type {TTxResponse} from '../web3/transaction';
+import type {TAddress} from '../../types/index.js';
+import type {TTxResponse} from '../web3/transaction.js';
 
 export type TWagmiProviderContract = {
 	walletClient: GetWalletClientResult,

@@ -3,12 +3,12 @@ import {toast, ToastBar, Toaster} from 'react-hot-toast';
 // eslint-disable-next-line import/no-named-as-default
 import NProgress from 'nprogress';
 
-import {IconCross} from '../icons/IconCross';
-import {deepMerge} from './utils';
+import {IconCross} from '../icons/IconCross.js';
+import {deepMerge} from './utils.js';
 
 import type {ReactElement} from 'react';
 import type {Toast} from 'react-hot-toast';
-import type {TUIContext,TUIOptions} from '../types/contexts';
+import type {TUIContext,TUIOptions} from '../types/contexts.js';
 
 const	defaultOptions: TUIOptions = {
 	shouldUseDefaultToaster: true

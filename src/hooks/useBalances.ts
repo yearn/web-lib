@@ -2,24 +2,24 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {erc20ABI, useChainId} from 'wagmi';
 import {deserialize, multicall, serialize} from '@wagmi/core';
 
-import {useUI} from '../contexts/useUI';
-import {useWeb3} from '../contexts/useWeb3';
-import {AGGREGATE3_ABI} from '../utils/abi/aggregate.abi';
-import {isZeroAddress,toAddress} from '../utils/address';
-import {MULTICALL3_ADDRESS} from '../utils/constants';
-import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '../utils/decoder';
-import {toBigInt, toNormalizedValue} from '../utils/format.bigNumber';
-import {isEth} from '../utils/isEth';
-import {isZero} from '../utils/isZero';
-import {performBatchedUpdates} from '../utils/performBatchedUpdates';
-import {getNetwork} from '../utils/wagmi/utils';
+import {useUI} from '../contexts/useUI.js';
+import {useWeb3} from '../contexts/useWeb3.js';
+import {AGGREGATE3_ABI} from '../utils/abi/aggregate.abi.js';
+import {isZeroAddress,toAddress} from '../utils/address.js';
+import {MULTICALL3_ADDRESS} from '../utils/constants.js';
+import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '../utils/decoder.js';
+import {toBigInt, toNormalizedValue} from '../utils/format.bigNumber.js';
+import {isEth} from '../utils/isEth.js';
+import {isZero} from '../utils/isZero.js';
+import {performBatchedUpdates} from '../utils/performBatchedUpdates.js';
+import {getNetwork} from '../utils/wagmi/utils.js';
 
 import type {DependencyList} from 'react';
 import type {ContractFunctionConfig} from 'viem';
 import type {Connector} from 'wagmi';
-import type {TAddress, TDict, TNDict} from '../types';
-import type {TBalanceData, TDefaultStatus} from '../types/hooks';
-import type {TYDaemonPrices} from '../utils/schemas/yDaemonPricesSchema';
+import type {TBalanceData, TDefaultStatus} from '../types/hooks.js';
+import type {TAddress, TDict, TNDict} from '../types/index.js';
+import type {TYDaemonPrices} from '../utils/schemas/yDaemonPricesSchema.js';
 
 /* 🔵 - Yearn Finance **********************************************************
  ** Request, Response and helpers for the useBalances hook.

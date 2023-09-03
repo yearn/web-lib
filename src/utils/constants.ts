@@ -1,4 +1,4 @@
-import {toAddress} from './address';
+import {toAddress} from './address.js';
 
 export const MULTICALL3_ADDRESS = toAddress('0xcA11bde05977b3631167028862bE2a173976CA11');
 

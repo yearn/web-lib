@@ -1,5 +1,5 @@
-import {formatToNormalizedValue, toBigInt} from './format.bigNumber';
-import {isZero} from './isZero';
+import {formatToNormalizedValue, toBigInt} from './format.bigNumber.js';
+import {isZero} from './isZero.js';
 
 type TAmountOptions = {
 	minimumFractionDigits?: number,

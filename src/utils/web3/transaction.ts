@@ -1,6 +1,6 @@
 import {waitForTransaction, writeContract} from '@wagmi/core';
 
-import {yToast} from '../../components/yToast';
+import {yToast} from '../../components/yToast.js';
 
 import type React from 'react';
 import type {BaseError, TransactionReceipt} from 'viem';

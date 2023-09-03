@@ -1,4 +1,4 @@
-import {yToast} from '../components/yToast';
+import {yToast} from '../components/yToast.js';
 
 /* 🔵 - Yearn Finance ******************************************************
 ** Yearn Meta uses some markdown for some rich content. Instead of using

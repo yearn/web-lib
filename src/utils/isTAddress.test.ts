@@ -1,4 +1,4 @@
-import {isTAddress} from './isTAddress';
+import {isTAddress} from './isTAddress.js';
 
 describe('isTAddress', (): void => {
 	it('should return true for a valid TAddress', (): void => {
