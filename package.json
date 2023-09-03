@@ -1,10 +1,10 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.0",
-  "main": "./build/index.js",
-  "types": "./build/index.d.js",
+  "version": "3.0.3",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.js",
   "files": [
-    "build/*",
+    "dist/*",
     "src"
   ],
   "type": "module",
@@ -13,8 +13,8 @@
   },
   "scripts": {
     "dev": "tsc --watch",
-    "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o build/build.css --minify",
-    "exportNextStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o build/build.css --minify",
+    "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o dist/build.css --minify",
+    "exportNextStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o dist/build.css --minify",
     "prebuild": "rm -rf build",
     "build": "bump && tsc",
     "buildNoBump": "tsc",
