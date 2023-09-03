@@ -1,9 +1,12 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.6",
+  "version": "3.0.5",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
-  "files": ["."],
+  "files": [
+    "dist/*",
+    "src"
+  ],
   "type": "module",
   "engines": {
     "node": ">=14"
