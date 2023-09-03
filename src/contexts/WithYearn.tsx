@@ -9,8 +9,6 @@ import type {ReactElement} from 'react';
 import type {Chain} from 'viem';
 import type {TSettingsBase,TUIOptions, TWeb3Options} from '../types/contexts.js';
 
-import '@rainbow-me/rainbowkit/styles.css';
-
 function	WithYearn({children, supportedChains, options}: {
 	children: ReactElement
 	supportedChains: Chain[],
