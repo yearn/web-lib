@@ -1,8 +1,10 @@
 import	React, {createContext, useCallback, useContext, useMemo} from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { TSettingsContext, TSettingsContextApp, TSettingsBase } from '../types/contexts';
-import { performBatchedUpdates } from '../utils/performBatchedUpdates';
-import { deepMerge } from './utils';
+
+import {useLocalStorage} from '../hooks/useLocalStorage';
+import {performBatchedUpdates} from '../utils/performBatchedUpdates';
+import {deepMerge} from './utils';
+
+import type {TSettingsBase,TSettingsContext, TSettingsContextApp} from '../types/contexts';
 
 
 const	defaultSettings = {
@@ -40,7 +42,7 @@ export const SettingsContextApp = ({
 		performBatchedUpdates((): void => {
 			set_baseSettings(newSettings);
 		});
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, []);
 
 	/* 💙 - Yearn Finance *********************************************************************
 	**	Render the SettingContext with it's parameters.

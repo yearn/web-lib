@@ -1,4 +1,6 @@
-import { TNormalizedBN, parseUnits } from "../format.bigNumber";
+import {parseUnits} from '../format.bigNumber';
+
+import type {TNormalizedBN} from '../format.bigNumber';
 
 export function handleInputChangeEventValue(value: string, decimals?: number): TNormalizedBN {
 	if (value === '') {

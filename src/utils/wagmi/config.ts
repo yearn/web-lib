@@ -10,10 +10,11 @@ import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {publicProvider} from 'wagmi/providers/public';
 import {InjectedConnector, noopStorage} from '@wagmi/core';
 
+import {IFrameEthereumConnector} from '../web3/ledgerConnector';
+import {getNetwork} from './utils';
+
 import type {FallbackTransport} from 'viem';
 import type {Chain, ChainProviderFn, Config, PublicClient, WebSocketPublicClient} from 'wagmi';
-import { getNetwork } from './utils';
-import { IFrameEthereumConnector } from '../web3/ledgerConnector';
 
 export function getSupportedProviders<TChain extends Chain = Chain>(): ChainProviderFn<TChain>[] {
 	const supportedProviders = [

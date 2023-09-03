@@ -1,24 +1,25 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { erc20ABI, useChainId } from "wagmi";
-import { deserialize, multicall, serialize } from "@wagmi/core";
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {erc20ABI, useChainId} from 'wagmi';
+import {deserialize, multicall, serialize} from '@wagmi/core';
 
-import type { DependencyList } from "react";
-import type { ContractFunctionConfig } from "viem";
-import type { Connector } from "wagmi";
-import { useUI } from "../contexts/useUI";
-import { useWeb3 } from "../contexts/useWeb3";
-import { TDict, TAddress, TNDict } from "../types";
-import { TBalanceData, TDefaultStatus } from "../types/hooks";
-import { AGGREGATE3_ABI } from "../utils/abi/aggregate.abi";
-import { toAddress, isZeroAddress } from "../utils/address";
-import { MULTICALL3_ADDRESS } from "../utils/constants";
-import { decodeAsBigInt, decodeAsNumber, decodeAsString } from "../utils/decoder";
-import { toBigInt, toNormalizedValue } from "../utils/format.bigNumber";
-import { isEth } from "../utils/isEth";
-import { isZero } from "../utils/isZero";
-import { performBatchedUpdates } from "../utils/performBatchedUpdates";
-import { TYDaemonPrices } from "../utils/schemas/yDaemonPricesSchema";
-import { getNetwork } from "../utils/wagmi/utils";
+import {useUI} from '../contexts/useUI';
+import {useWeb3} from '../contexts/useWeb3';
+import {AGGREGATE3_ABI} from '../utils/abi/aggregate.abi';
+import {isZeroAddress,toAddress} from '../utils/address';
+import {MULTICALL3_ADDRESS} from '../utils/constants';
+import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '../utils/decoder';
+import {toBigInt, toNormalizedValue} from '../utils/format.bigNumber';
+import {isEth} from '../utils/isEth';
+import {isZero} from '../utils/isZero';
+import {performBatchedUpdates} from '../utils/performBatchedUpdates';
+import {getNetwork} from '../utils/wagmi/utils';
+
+import type {DependencyList} from 'react';
+import type {ContractFunctionConfig} from 'viem';
+import type {Connector} from 'wagmi';
+import type {TAddress, TDict, TNDict} from '../types';
+import type {TBalanceData, TDefaultStatus} from '../types/hooks';
+import type {TYDaemonPrices} from '../utils/schemas/yDaemonPricesSchema';
 
 /* 🔵 - Yearn Finance **********************************************************
  ** Request, Response and helpers for the useBalances hook.
@@ -43,7 +44,7 @@ export type TUseBalancesRes = {
 	update: () => Promise<TDict<TBalanceData>>;
 	updateSome: (token: TUseBalancesTokens[]) => Promise<TDict<TBalanceData>>;
 	error?: Error;
-	status: "error" | "loading" | "success" | "unknown";
+	status: 'error' | 'loading' | 'success' | 'unknown';
 	nonce: number;
 } & TDefaultStatus;
 
@@ -62,7 +63,7 @@ const defaultStatus = {
 	isSuccess: false,
 	isError: false,
 	isFetched: false,
-	isRefetching: false,
+	isRefetching: false
 };
 
 async function performCall(
@@ -74,7 +75,7 @@ async function performCall(
 	const _data: TDict<TBalanceData> = {};
 	const results = await multicall({
 		contracts: calls as never[],
-		chainId: chainID,
+		chainId: chainID
 	});
 
 	let rIndex = 0;
@@ -83,14 +84,14 @@ async function performCall(
 			token,
 			decimals: injectedDecimals,
 			name: injectedName,
-			symbol: injectedSymbol,
+			symbol: injectedSymbol
 		} = element;
 		const balanceOf = decodeAsBigInt(results[rIndex++]);
 		const decimals =
 			decodeAsNumber(results[rIndex++]) || injectedDecimals || 18;
 		const rawPrice = toBigInt(prices?.[toAddress(token)]);
-		let symbol = decodeAsString(results[rIndex++]) || injectedSymbol || "";
-		let name = decodeAsString(results[rIndex++]) || injectedName || "";
+		let symbol = decodeAsString(results[rIndex++]) || injectedSymbol || '';
+		let name = decodeAsString(results[rIndex++]) || injectedName || '';
 		if (isEth(token)) {
 			const nativeTokenWrapper =
 				getNetwork(chainID)?.contracts?.wrappedToken;
@@ -110,7 +111,7 @@ async function performCall(
 			normalizedPrice: toNormalizedValue(rawPrice, 6),
 			normalizedValue:
 				toNormalizedValue(balanceOf, decimals) *
-				toNormalizedValue(rawPrice, 6),
+				toNormalizedValue(rawPrice, 6)
 		};
 	}
 	return [_data, undefined];
@@ -126,50 +127,50 @@ async function getBalances(
 	const calls: ContractFunctionConfig[] = [];
 
 	for (const element of tokens) {
-		const { token } = element;
+		const {token} = element;
 		const ownerAddress = address;
 		if (isEth(token)) {
 			const nativeTokenWrapper =
 				getNetwork(chainID)?.contracts?.wrappedToken;
 			if (!nativeTokenWrapper) {
 				console.error(
-					"No native token wrapper found for chainID",
+					'No native token wrapper found for chainID',
 					chainID
 				);
 				continue;
 			}
 			const multicall3Contract = {
 				address: MULTICALL3_ADDRESS,
-				abi: AGGREGATE3_ABI,
+				abi: AGGREGATE3_ABI
 			};
 			const baseContract = {
 				address: nativeTokenWrapper.address,
-				abi: erc20ABI,
+				abi: erc20ABI
 			};
 			calls.push({
 				...multicall3Contract,
-				functionName: "getEthBalance",
-				args: [ownerAddress],
+				functionName: 'getEthBalance',
+				args: [ownerAddress]
 			});
-			calls.push({ ...baseContract, functionName: "decimals" });
-			calls.push({ ...baseContract, functionName: "symbol" });
-			calls.push({ ...baseContract, functionName: "name" });
+			calls.push({...baseContract, functionName: 'decimals'});
+			calls.push({...baseContract, functionName: 'symbol'});
+			calls.push({...baseContract, functionName: 'name'});
 		} else {
-			const baseContract = { address: toAddress(token), abi: erc20ABI };
+			const baseContract = {address: toAddress(token), abi: erc20ABI};
 			calls.push({
 				...baseContract,
-				functionName: "balanceOf",
-				args: [ownerAddress],
+				functionName: 'balanceOf',
+				args: [ownerAddress]
 			});
-			calls.push({ ...baseContract, functionName: "decimals" });
-			calls.push({ ...baseContract, functionName: "symbol" });
-			calls.push({ ...baseContract, functionName: "name" });
+			calls.push({...baseContract, functionName: 'decimals'});
+			calls.push({...baseContract, functionName: 'symbol'});
+			calls.push({...baseContract, functionName: 'name'});
 		}
 	}
 
 	try {
 		const [callResult] = await performCall(chainID, calls, tokens, prices);
-		result = { ...result, ...callResult };
+		result = {...result, ...callResult};
 		return [result, undefined];
 	} catch (_error) {
 		console.error(_error);
@@ -181,15 +182,15 @@ async function getBalances(
  ** This hook can be used to fetch balance information for any ERC20 tokens.
  **************************************************************************/
 export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
-	const { address: web3Address, isActive, provider } = useWeb3();
+	const {address: web3Address, isActive, provider} = useWeb3();
 	const chainID = useChainId();
-	const { onLoadStart, onLoadDone } = useUI();
+	const {onLoadStart, onLoadDone} = useUI();
 	const [nonce, set_nonce] = useState(0);
 	const [status, set_status] = useState<TDefaultStatus>(defaultStatus);
 	const [error, set_error] = useState<Error | undefined>(undefined);
 	const [balances, set_balances] = useState<TNDict<TDict<TBalanceData>>>({});
 	const data = useRef<TNDict<TDataRef>>({
-		1: { nonce: 0, address: toAddress(), balances: {} },
+		1: {nonce: 0, address: toAddress(), balances: {}}
 	});
 	const stringifiedTokens = useMemo(
 		(): string => serialize(props?.tokens || []),
@@ -205,7 +206,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				data.current[chainID] = {
 					address: toAddress(web3Address),
 					balances: {},
-					nonce: 0,
+					nonce: 0
 				};
 			}
 			data.current[chainID].address = toAddress(web3Address);
@@ -214,7 +215,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				element.raw = element.raw || 0n;
 				data.current[chainID].balances[address] = {
 					...data.current[chainID].balances[address],
-					...element,
+					...element
 				};
 			}
 			data.current[chainID].nonce += 1;
@@ -225,8 +226,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 						...b,
 						[chainID]: {
 							...(b[chainID] || {}),
-							...data.current[chainID].balances,
-						},
+							...data.current[chainID].balances
+						}
 					})
 				);
 				set_nonce((n): number => n + 1);
@@ -248,7 +249,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		}
 		const tokenList = deserialize(stringifiedTokens) || [];
 		const tokens = tokenList.filter(
-			({ token }: TUseBalancesTokens): boolean => !isZeroAddress(token)
+			({token}: TUseBalancesTokens): boolean => !isZeroAddress(token)
 		);
 		if (isZero(tokens.length)) {
 			return {};
@@ -257,7 +258,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			...defaultStatus,
 			isLoading: true,
 			isFetching: true,
-			isRefetching: defaultStatus.isFetched,
+			isRefetching: defaultStatus.isFetched
 		});
 		onLoadStart();
 
@@ -279,7 +280,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				data.current[chainID] = {
 					address: toAddress(web3Address as string),
 					balances: {},
-					nonce: 0,
+					nonce: 0
 				};
 			}
 			data.current[chainID].address = toAddress(web3Address as string);
@@ -287,7 +288,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			for (const [address, element] of Object.entries(newRawData)) {
 				data.current[chainID].balances[address] = {
 					...data.current[chainID].balances[address],
-					...element,
+					...element
 				};
 			}
 			data.current[chainID].nonce += 1;
@@ -298,8 +299,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 						...b,
 						[chainID]: {
 							...(b[chainID] || {}),
-							...data.current[chainID].balances,
-						},
+							...data.current[chainID].balances
+						}
 					})
 				);
 				set_nonce((n): number => n + 1);
@@ -307,7 +308,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				set_status({
 					...defaultStatus,
 					isSuccess: true,
-					isFetched: true,
+					isFetched: true
 				});
 			});
 		}
@@ -320,7 +321,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		provider,
 		stringifiedTokens,
 		web3Address,
-		chainID,
+		chainID
 	]);
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -336,11 +337,11 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				...defaultStatus,
 				isLoading: true,
 				isFetching: true,
-				isRefetching: defaultStatus.isFetched,
+				isRefetching: defaultStatus.isFetched
 			});
 			onLoadStart();
 			const tokens = tokenList.filter(
-				({ token }: TUseBalancesTokens): boolean =>
+				({token}: TUseBalancesTokens): boolean =>
 					!isZeroAddress(token)
 			);
 			const chunks = [];
@@ -362,7 +363,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					data.current[chainID] = {
 						address: toAddress(web3Address as string),
 						balances: {},
-						nonce: 0,
+						nonce: 0
 					};
 				}
 				data.current[chainID].address = toAddress(
@@ -373,7 +374,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					tokensAdded[address] = element;
 					data.current[chainID].balances[address] = {
 						...data.current[chainID].balances[address],
-						...element,
+						...element
 					};
 				}
 				data.current[chainID].nonce += 1;
@@ -384,8 +385,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 							...b,
 							[chainID]: {
 								...(b[chainID] || {}),
-								...data.current[chainID].balances,
-							},
+								...data.current[chainID].balances
+							}
 						})
 					);
 					set_nonce((n): number => n + 1);
@@ -393,7 +394,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					set_status({
 						...defaultStatus,
 						isSuccess: true,
-						isFetched: true,
+						isFetched: true
 					});
 				});
 			}
@@ -421,7 +422,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 						normalizedPrice: toNormalizedValue(rawPrice, 6),
 						normalizedValue:
 							(_rawData[chainID]?.[tokenAddress] || 0)
-								.normalized * toNormalizedValue(rawPrice, 6),
+								.normalized * toNormalizedValue(rawPrice, 6)
 					};
 				}
 			}
@@ -438,7 +439,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			...defaultStatus,
 			isLoading: true,
 			isFetching: true,
-			isRefetching: defaultStatus.isFetched,
+			isRefetching: defaultStatus.isFetched
 		});
 		onLoadStart();
 
@@ -460,7 +461,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		}
 		await Promise.all(allPromises);
 		onLoadDone();
-		set_status({ ...defaultStatus, isSuccess: true, isFetched: true });
+		set_status({...defaultStatus, isSuccess: true, isFetched: true});
 	}, [
 		stringifiedTokens,
 		isActive,
@@ -469,7 +470,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		onLoadStart,
 		chainID,
 		updateBalancesCall,
-		onLoadDone,
+		onLoadDone
 	]);
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -495,12 +496,12 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			isFetched: status.isFetched,
 			isRefetching: status.isRefetching,
 			status: status.isError
-				? "error"
+				? 'error'
 				: status.isLoading || status.isFetching
-				? "loading"
-				: status.isSuccess
-				? "success"
-				: "unknown",
+					? 'loading'
+					: status.isSuccess
+						? 'success'
+						: 'unknown'
 		}),
 		[
 			assignPrices,
@@ -515,7 +516,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			status.isFetching,
 			status.isLoading,
 			status.isRefetching,
-			status.isSuccess,
+			status.isSuccess
 		]
 	);
 

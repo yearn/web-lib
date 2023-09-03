@@ -143,7 +143,6 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 
 	useEffect((): void => {
 		set_storedValue(readValue());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleStorageChange = useCallback(

@@ -7,8 +7,7 @@ module.exports = {
 	'extends': [
 		'eslint:recommended',
 		'plugin:tailwindcss/recommended',
-		'plugin:@typescript-eslint/recommended',
-		'next/core-web-vitals'
+		'plugin:@typescript-eslint/recommended'
 	],
 	'parser': '@typescript-eslint/parser',
 	'parserOptions': {

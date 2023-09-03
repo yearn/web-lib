@@ -1,4 +1,4 @@
-import { formatAmount } from "./format.number";
+import {formatAmount} from './format.number';
 
 export function	counterValue(amount: number | string, price: number): string {
 	if (!amount || !price) {

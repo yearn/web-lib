@@ -3,15 +3,16 @@ import assert from 'assert';
 import {useConnect, useNetwork} from 'wagmi';
 import {Dialog, Transition} from '@headlessui/react';
 
+import {useWeb3} from '../contexts/useWeb3';
+import {useInjectedWallet} from '../hooks/useInjectedWallet';
+import {IconWalletWalletConnect} from '../icons/IconWalletWalletConnect';
+import {truncateHex} from '../utils/address';
+import {yToast} from './yToast';
+
 import type {ReactElement, ReactNode} from 'react';
 import type {Chain} from 'wagmi';
 import type {TNetwork} from './Header';
-import { useWeb3 } from '../contexts/useWeb3';
-import { useInjectedWallet } from '../hooks/useInjectedWallet';
-import { IconWalletWalletConnect } from '../icons/IconWalletWalletConnect';
-import { truncateHex } from '../utils/address';
-import { TModal } from './Modal';
-import { yToast } from './yToast';
+import type {TModal} from './Modal';
 
 type	TModalMobileMenu = {
 	isOpen: boolean

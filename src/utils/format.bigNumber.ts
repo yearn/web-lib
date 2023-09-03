@@ -1,7 +1,7 @@
 import {formatUnits, parseUnits as vParseUnits} from 'viem';
 
 import {MAX_UINT_256} from './constants';
-import { formatAmount } from './format.number';
+import {formatAmount} from './format.number';
 
 export type TNumberish = bigint | number | string | `${number}` //wagmi weird type
 export type	TNormalizedBN = {

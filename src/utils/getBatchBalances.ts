@@ -1,17 +1,18 @@
 import {serialize} from 'wagmi';
 import {erc20ABI} from '@wagmi/core';
 
+import {toAddress} from './address';
+import {MULTICALL3_ADDRESS} from './constants';
+import {decodeAsBigInt, decodeAsNumber, decodeAsString} from './decoder';
+import {toNormalizedValue} from './format.bigNumber';
+import {isEth} from './isEth';
+import {AGGREGATE3_ABI} from './abi/aggregate.abi';
+import {getClient, getNetwork} from './wagmi/utils';
+
 import type {NextApiRequest, NextApiResponse} from 'next';
-import { toAddress } from './address';
-import { TUseBalancesTokens } from '../hooks/useBalances';
-import { TDict } from '../types';
-import { TBalanceData } from '../types/hooks';
-import { AGGREGATE3_ABI } from './abi/aggregate.abi';
-import { MULTICALL3_ADDRESS } from './constants';
-import { decodeAsBigInt, decodeAsNumber, decodeAsString } from './decoder';
-import { toNormalizedValue } from './format.bigNumber';
-import { isEth } from './isEth';
-import { getClient, getNetwork } from './wagmi/utils';
+import type {TUseBalancesTokens} from '../hooks/useBalances';
+import type {TDict} from '../types';
+import type {TBalanceData} from '../types/hooks';
 
 type TPerformCall = {
 	chainID: number,

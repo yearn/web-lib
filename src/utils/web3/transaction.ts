@@ -1,10 +1,11 @@
 import {waitForTransaction, writeContract} from '@wagmi/core';
 
+import {yToast} from '../../components/yToast';
+
 import type React from 'react';
 import type {BaseError, TransactionReceipt} from 'viem';
 import type {Connector} from 'wagmi';
 import type {PrepareWriteContractResult} from '@wagmi/core';
-import { yToast } from '../../components/yToast';
 
 const timeout = 3000;
 const defaultTxStatus = {none: true, pending: false, success: false, error: false};
@@ -108,4 +109,6 @@ async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse
 	}
 }
 
-export { defaultTxStatus, handleTx as handleTx2, Transaction };
+export {
+	defaultTxStatus, handleTx as handleTx2, Transaction
+};

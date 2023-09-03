@@ -1,11 +1,12 @@
 import React from 'react';
 
+import {SettingsContextApp} from './useSettings';
+import {UIContextApp} from './useUI';
+import {Web3ContextApp} from './useWeb3';
+
 import type {ReactElement} from 'react';
 import type {Chain} from 'viem';
-import { TUIOptions, TWeb3Options, TSettingsBase } from '../types/contexts';
-import { SettingsContextApp } from './useSettings';
-import { UIContextApp } from './useUI';
-import { Web3ContextApp } from './useWeb3';
+import type {TSettingsBase,TUIOptions, TWeb3Options} from '../types/contexts';
 
 function	WithYearn({children, supportedChains, options}: {
 	children: ReactElement

@@ -1,12 +1,13 @@
 import React from 'react';
 import {toast as toastMaster, useToasterStore} from 'react-hot-toast';
 
+import {IconAlertCritical} from '../icons/IconAlertCritical';
+import {IconAlertError} from '../icons/IconAlertError';
+import {IconAlertWarning} from '../icons/IconAlertWarning';
+import {IconCheckmark} from '../icons/IconCheckmark';
+
 import type {ReactElement} from 'react';
 import type {ToastOptions} from 'react-hot-toast';
-import { IconAlertCritical } from '../icons/IconAlertCritical';
-import { IconAlertError } from '../icons/IconAlertError';
-import { IconAlertWarning } from '../icons/IconAlertWarning';
-import { IconCheckmark } from '../icons/IconCheckmark';
 
 type TCTA = {
 	label: string;

@@ -2,13 +2,14 @@ import assert from 'assert';
 import {createPublicClient, http} from 'viem';
 import * as wagmiChains from '@wagmi/chains';
 
+import {toAddress} from '../address';
+import {ARB_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '../constants';
+import {isEth} from '../isEth';
+import {isTAddress} from '../isTAddress';
+import {localhost} from './networks';
+
 import type {Chain, PublicClient} from 'viem';
-import { TAddress } from '../../types';
-import { toAddress } from '../address';
-import { isEth } from '../isEth';
-import { isTAddress } from '../isTAddress';
-import { localhost } from './networks';
-import { ARB_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS } from '../constants';
+import type {TAddress} from '../../types';
 
 export type TChainContract = {
 	address: TAddress

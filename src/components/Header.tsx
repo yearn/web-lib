@@ -4,15 +4,16 @@ import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
 import {useIsMounted} from '@react-hookz/web';
 
+import {useWeb3} from '../contexts/useWeb3';
+import {toSafeChainID} from '../hooks/useChainID';
+import {IconChevronBottom} from '../icons/IconChevronBottom';
+import {IconWallet} from '../icons/IconWallet';
+import {truncateHex} from '../utils/address';
+import {cl} from '../utils/cl';
+import {Button} from './Button';
+
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 import type {Chain} from 'wagmi';
-import { useWeb3 } from '../contexts/useWeb3';
-import { toSafeChainID } from '../hooks/useChainID';
-import { IconChevronBottom } from '../icons/IconChevronBottom';
-import { IconWallet } from '../icons/IconWallet';
-import { truncateHex } from '../utils/address';
-import { cl } from '../utils/cl';
-import { Button } from './Button';
 
 const Link = (props: (DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) & {tag: ReactElement}): ReactElement => {
 	const {tag, ...rest} = props;

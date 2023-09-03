@@ -1,7 +1,8 @@
 import React, {forwardRef} from 'react';
 
+import {IconLoader} from '../icons/IconLoader';
+
 import type {ForwardedRef, ReactElement, ReactNode} from 'react';
-import { IconLoader } from '../icons/IconLoader';
 
 export type TButtonVariant = 'filled' | 'outlined' | 'light' | 'inherit' | string;
 

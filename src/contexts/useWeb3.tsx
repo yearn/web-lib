@@ -5,18 +5,18 @@ import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 import {EthereumClient} from '@web3modal/ethereum';
 import {Web3Modal} from '@web3modal/react';
 
+import {ModalLogin} from '../components/ModalLogin';
+import {toAddress} from '../utils/address';
+import {isIframe} from '../utils/helpers';
 import {getConfig, getSupportedProviders} from '../utils/wagmi/config';
 import {configureChains} from '../utils/wagmi/configChain.tmp';
+import {deepMerge} from './utils';
 
 import type {ReactElement} from 'react';
 import type {BaseError, FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {Chain, ConnectResult} from '@wagmi/core';
-import { ModalLogin } from '../components/ModalLogin';
-import { TWeb3Context, TWeb3Options } from '../types/contexts';
-import { toAddress } from '../utils/address';
-import { isIframe } from '../utils/helpers';
-import { deepMerge } from './utils';
+import type {TWeb3Context, TWeb3Options} from '../types/contexts';
 
 const defaultState = {
 	address: undefined,

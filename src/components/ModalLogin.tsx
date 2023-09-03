@@ -1,11 +1,12 @@
 import React, {cloneElement, useCallback} from 'react';
 
+import {useWeb3} from '../contexts/useWeb3';
+import {useInjectedWallet} from '../hooks/useInjectedWallet';
+import {IconWalletWalletConnect} from '../icons/IconWalletWalletConnect';
+import {Modal} from './Modal';
+import {yToast} from './yToast';
+
 import type {ReactElement} from 'react';
-import { useWeb3 } from '../contexts/useWeb3';
-import { useInjectedWallet } from '../hooks/useInjectedWallet';
-import { IconWalletWalletConnect } from '../icons/IconWalletWalletConnect';
-import { Modal } from './Modal';
-import { yToast } from './yToast';
 
 export type	TModalLogin = {
 	isOpen: boolean,
@@ -21,6 +22,7 @@ function ModalLogin(props: TModalLogin): ReactElement {
 	const onInjectedConnect = useCallback((): void => {
 		onConnect(
 			detectedWalletProvider.type,
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(error: { message: any; }): string => toast({content: error?.message ?? 'Impossible to connect wallet', type: 'error'}),
 			(): void => onClose()
 		);

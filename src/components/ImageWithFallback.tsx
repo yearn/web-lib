@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import Image from 'next/image';
 
+import {performBatchedUpdates} from '../utils/performBatchedUpdates';
+
 import type {ImageProps} from 'next/image';
 import type {CSSProperties, ReactElement} from 'react';
-import { performBatchedUpdates } from '../utils/performBatchedUpdates';
 
 function ImageWithFallback(props: ImageProps): ReactElement {
 	const {alt, src, ...rest} = props;
