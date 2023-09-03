@@ -8,9 +8,9 @@ import type {TSettingsBase,TSettingsContext, TSettingsContextApp} from '../types
 
 
 const	defaultSettings = {
-	yDaemonBaseURI: 'https://ydaemon.yearn.finance',
-	metaBaseURI: 'https://meta.yearn.finance',
-	apiBaseURI: 'https://api.yearn.finance'
+	yDaemonBaseURI: 'https://ydaemon.yearn.fi',
+	metaBaseURI: 'https://meta.yearn.fi',
+	apiBaseURI: 'https://api.yearn.fi'
 };
 
 const	SettingsContext = createContext<TSettingsContext>({
@@ -28,9 +28,9 @@ export const SettingsContextApp = ({
 	baseOptions = defaultSettings
 }: TSettingsContextApp): React.ReactElement => {
 	const	[baseSettings, set_baseSettings] = useLocalStorage(
-		'yearnSettingsBase_0.0.1',
+		'yearnSettingsBase_0.0.2',
 		deepMerge(defaultSettings, baseOptions) as TSettingsBase,
-		{currentVersion: 1, shouldMigratePreviousVersion: true}
+		{currentVersion: 2, shouldMigratePreviousVersion: true}
 	);
 
 	/* 💙 - Yearn Finance *********************************************************************
