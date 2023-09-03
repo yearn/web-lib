@@ -3,6 +3,7 @@ import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
 import {useIsMounted} from '@react-hookz/web';
+import {useConnectModal, useAccountModal, useChainModal} from '@rainbow-me/rainbowkit';
 
 import {useWeb3} from '../contexts/useWeb3.js';
 import {toSafeChainID} from '../hooks/useChainID.js';
@@ -169,7 +170,10 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 }
 
 function WalletSelector(): ReactElement {
-	const {options, isActive, address, ens, lensProtocolHandle, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
+	const {openConnectModal} = useConnectModal();
+	const {openAccountModal} = useAccountModal();
+	const {openChainModal} = useChainModal();
+	const {isActive, address, ens, lensProtocolHandle} = useWeb3();
 	const [walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
 	const isMounted = useIsMounted();
 
@@ -194,13 +198,13 @@ function WalletSelector(): ReactElement {
 		<>
 			<div
 				onClick={(): void => {
-					if (isActive) {
-						onDesactivate();
-					} else if (!isActive && address) {
-						onSwitchChain(options?.defaultChainID || 1);
-					} else {
-						openLoginModal();
-					}
+				if (isActive) {
+					openAccountModal?.();
+				} else if (!isActive && address) {
+					openChainModal?.();
+				} else {
+					openConnectModal?.();
+				}
 				}}>
 				<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
 					{walletIdentity ? walletIdentity : (
@@ -215,13 +219,13 @@ function WalletSelector(): ReactElement {
 			</div>
 			<div
 				onClick={(): void => {
-					if (isActive) {
-						onDesactivate();
-					} else if (!isActive && address) {
-						onSwitchChain(options?.defaultChainID || 1);
-					} else {
-						openLoginModal();
-					}
+				if (isActive) {
+					openAccountModal?.();
+				} else if (!isActive && address) {
+					openChainModal?.();
+				} else {
+					openConnectModal?.();
+				}
 				}}
 				className={cl('fixed inset-x-0 bottom-0 z-[87] border-t border-neutral-900 bg-neutral-0 md:hidden', walletIdentity ? 'hidden pointer-events-none' : '')}>
 				<div className={'flex flex-col items-center justify-center pb-6 pt-4 text-center'}>
