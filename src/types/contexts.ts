@@ -44,6 +44,8 @@ export type TWeb3Context = {
 	isDisconnected: boolean,
 	isActive: boolean
 	isConnecting: boolean,
+	isWalletSafe: boolean,
+	isWalletLedger: boolean,
 	hasProvider: boolean,
 	provider?: Connector,
 	currentPartner?: TPartnersInfo,
