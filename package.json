@@ -1,5 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
+  "version": "3.0.5",
   "main": "./build/index.js",
   "types": "./build/index.d.js",
   "files": [
@@ -12,12 +13,12 @@
   },
   "scripts": {
     "dev": "tsc --watch",
-    "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i style.css -o build/build.css --minify && sed -i -e 's/rem/em/g' build/build.css",
-    "exportNextStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i style.css -o build/build.css --minify && sed -i -e 's/rem/em/g' build/build.css",
+    "exportStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o build/build.css --minify",
+    "exportNextStyle": "npx tailwindcss --postcss -c ./tailwind.config.cjs -i src/style.css -o build/build.css --minify",
     "prebuild": "rm -rf build",
     "build": "bump && tsc",
     "buildNoBump": "tsc",
-    "postbuild": "sh ./scripts/postbuild.sh && npm run exportStyle && npm run exportNextStyle",
+    "postbuild": "sh ./src/scripts/postbuild.sh && npm run exportStyle && npm run exportNextStyle",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
