@@ -2,3 +2,9 @@ dist
 node_modules
 postcss.config.js
 __tests__
+.eslintrc.cjs
+jest.config.cjs
+postcss.config.cjs
+tailwind.config.cjs
+tailwind.plugin.cjs
+tailwind.theme.cjs
