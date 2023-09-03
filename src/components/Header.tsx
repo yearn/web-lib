@@ -2,8 +2,8 @@ import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react
 import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
+import {useAccountModal, useChainModal,useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
-import {useConnectModal, useAccountModal, useChainModal} from '@rainbow-me/rainbowkit';
 
 import {useWeb3} from '../contexts/useWeb3.js';
 import {toSafeChainID} from '../hooks/useChainID.js';
@@ -198,13 +198,13 @@ function WalletSelector(): ReactElement {
 		<>
 			<div
 				onClick={(): void => {
-				if (isActive) {
-					openAccountModal?.();
-				} else if (!isActive && address) {
-					openChainModal?.();
-				} else {
-					openConnectModal?.();
-				}
+					if (isActive) {
+						openAccountModal?.();
+					} else if (!isActive && address) {
+						openChainModal?.();
+					} else {
+						openConnectModal?.();
+					}
 				}}>
 				<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
 					{walletIdentity ? walletIdentity : (
@@ -219,13 +219,13 @@ function WalletSelector(): ReactElement {
 			</div>
 			<div
 				onClick={(): void => {
-				if (isActive) {
-					openAccountModal?.();
-				} else if (!isActive && address) {
-					openChainModal?.();
-				} else {
-					openConnectModal?.();
-				}
+					if (isActive) {
+						openAccountModal?.();
+					} else if (!isActive && address) {
+						openChainModal?.();
+					} else {
+						openConnectModal?.();
+					}
 				}}
 				className={cl('fixed inset-x-0 bottom-0 z-[87] border-t border-neutral-900 bg-neutral-0 md:hidden', walletIdentity ? 'hidden pointer-events-none' : '')}>
 				<div className={'flex flex-col items-center justify-center pb-6 pt-4 text-center'}>
