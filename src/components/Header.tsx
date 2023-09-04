@@ -173,7 +173,7 @@ function WalletSelector(): ReactElement {
 	const {openConnectModal} = useConnectModal();
 	const {openAccountModal} = useAccountModal();
 	const {openChainModal} = useChainModal();
-	const {isActive, address, ens, lensProtocolHandle} = useWeb3();
+	const {isActive, address, ens, lensProtocolHandle, openLoginModal} = useWeb3();
 	const [walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
 	const isMounted = useIsMounted();
 
@@ -203,7 +203,7 @@ function WalletSelector(): ReactElement {
 					} else if (!isActive && address) {
 						openChainModal?.();
 					} else {
-						openConnectModal?.();
+						openLoginModal();
 					}
 				}}>
 				<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>

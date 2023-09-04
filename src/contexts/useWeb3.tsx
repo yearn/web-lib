@@ -1,23 +1,21 @@
 import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import assert from 'assert';
 import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
-import {RainbowKitProvider,useConnectModal} from '@rainbow-me/rainbowkit';
+import {RainbowKitAuthenticationProvider, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
-import {EthereumClient} from '@web3modal/ethereum';
-import {Web3Modal} from '@web3modal/react';
 
-import {toast} from '../components/yToast';
-import {toAddress} from '../utils/address';
-import {isIframe} from '../utils/helpers';
-import {getConfig, getSupportedProviders} from '../utils/wagmi/config';
-import {configureChains} from '../utils/wagmi/configChain.tmp';
-import {deepMerge} from './utils';
+import {toast} from '../components/yToast.js';
+import {toAddress} from '../utils/address.js';
+import {isIframe} from '../utils/helpers.js';
+import {getConfig, getSupportedProviders} from '../utils/wagmi/config.js';
+import {configureChains} from '../utils/wagmi/configChain.tmp.js';
+import {deepMerge} from './utils.js';
 
 import type {ReactElement} from 'react';
 import type {FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {Chain} from '@wagmi/core';
-import type {TWeb3Context, TWeb3Options} from '../types/contexts';
+import type {TWeb3Context, TWeb3Options} from '../types/contexts.js';
 
 const defaultState = {
 	address: undefined,
@@ -154,21 +152,14 @@ export const Web3ContextApp = ({children, supportedChains, options}: {
 		return getConfig({chains, publicClient, webSocketPublicClient});
 	}, [supportedChains]);
 
-	const ethereumClient = useMemo((): EthereumClient => new EthereumClient(config, supportedChains), [config, supportedChains]);
-
 	return (
-		<>
-			<WagmiConfig config={config}>
-				<RainbowKitProvider chains={supportedChains}>
-					<Web3ContextAppWrapper options={options}>
-						{children}
-					</Web3ContextAppWrapper>
-				</RainbowKitProvider>
-			</WagmiConfig>
-			<Web3Modal
-				projectId={process.env.WALLETCONNECT_PROJECT_ID as string}
-				ethereumClient={ethereumClient} />
-		</>
+		<WagmiConfig config={config}>
+			<RainbowKitAuthenticationProvider chains={supportedChains}>
+				<Web3ContextAppWrapper options={options}>
+					{children}
+				</Web3ContextAppWrapper>
+			</RainbowKitAuthenticationProvider>
+		</WagmiConfig>
 	);
 };
 

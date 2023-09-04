@@ -7,8 +7,8 @@ import {connectorsForWallets,getDefaultWallets} from '@rainbow-me/rainbowkit';
 import {ledgerWallet, safeWallet} from '@rainbow-me/rainbowkit/wallets';
 import {noopStorage} from '@wagmi/core';
 
-import {getNetwork} from '../wagmi/utils';
-import {IFrameEthereumConnector} from '../web3/ledgerConnector';
+import {getNetwork} from '../wagmi/utils.js';
+import {IFrameEthereumConnector} from '../web3/ledgerConnector.js';
 
 import type {FallbackTransport} from 'viem';
 import type {Chain, ChainProviderFn, Config, PublicClient, WebSocketPublicClient} from 'wagmi';
