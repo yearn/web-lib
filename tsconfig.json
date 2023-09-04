@@ -9,7 +9,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"jsx": "react",
-		"lib": ["DOM", "DOM.Iterable", "ES2020"],
+		"lib": ["DOM", "DOM.Iterable", "ES2020", "ESNext"],
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"noFallthroughCasesInSwitch": true,

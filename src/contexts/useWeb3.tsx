@@ -1,7 +1,7 @@
 import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import assert from 'assert';
 import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
-import {RainbowKitProvider, useConnectModal} from '@rainbow-me/rainbowkit';
+import * as _RainbowKitProvider from '@rainbow-me/rainbowkit';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 
 import {toast} from '../components/yToast.js';
@@ -16,6 +16,9 @@ import type {FallbackTransport} from 'viem';
 import type {Config, PublicClient, WebSocketPublicClient} from 'wagmi';
 import type {Chain} from '@wagmi/core';
 import type {TWeb3Context, TWeb3Options} from '../types/contexts.js';
+
+const {useConnectModal} = _RainbowKitProvider;
+const {RainbowKitProvider} = (_RainbowKitProvider as any);
 
 const defaultState = {
 	address: undefined,
