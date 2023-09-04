@@ -1,7 +1,7 @@
 import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import assert from 'assert';
 import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
-import {RainbowKitAuthenticationProvider, useConnectModal} from '@rainbow-me/rainbowkit';
+import {RainbowKitProvider, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
 
 import {toast} from '../components/yToast.js';
@@ -154,11 +154,11 @@ export const Web3ContextApp = ({children, supportedChains, options}: {
 
 	return (
 		<WagmiConfig config={config}>
-			<RainbowKitAuthenticationProvider chains={supportedChains}>
+			<RainbowKitProvider chains={supportedChains}>
 				<Web3ContextAppWrapper options={options}>
 					{children}
 				</Web3ContextAppWrapper>
-			</RainbowKitAuthenticationProvider>
+			</RainbowKitProvider>
 		</WagmiConfig>
 	);
 };
