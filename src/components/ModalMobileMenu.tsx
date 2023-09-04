@@ -5,9 +5,7 @@ import {Dialog, Transition} from '@headlessui/react';
 
 import {useWeb3} from '../contexts/useWeb3.js';
 import {useInjectedWallet} from '../hooks/useInjectedWallet.js';
-import {IconWalletWalletConnect} from '../icons/IconWalletWalletConnect.js';
 import {truncateHex} from '../utils/address.js';
-import {yToast} from './yToast.js';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {Chain} from 'wagmi';
@@ -73,7 +71,6 @@ export function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const {chain} = useNetwork();
 	const [walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const detectedWalletProvider = useInjectedWallet();
-	const {toast} = yToast();
 	const {connectors} = useConnect();
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
@@ -111,28 +108,10 @@ export function	ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 			return (
 				<div className={'grid grid-cols-2 gap-2 p-2'}>
 					<div
-						onClick={(): void => {
-							onConnect(
-								detectedWalletProvider.type,
-								(): string => toast({content: 'Impossible to connect to your wallet', type: 'error'}),
-								(): void => undefined
-							);
-						}}
+						onClick={onConnect}
 						className={'yearn--modalMobileMenu-walletCard'}>
 						<div>{cloneElement(detectedWalletProvider.icon, {style: {width: 40, height: 40}})}</div>
 						<b className={'mt-4 text-sm text-neutral-500'}>{detectedWalletProvider.name}</b>
-					</div>
-					<div
-						onClick={(): void => {
-							onConnect(
-								'WALLET_CONNECT',
-								(): string => toast({content: 'Impossible to connect to your wallet', type: 'error'}),
-								(): void => undefined
-							);
-						}}
-						className={'yearn--modalMobileMenu-walletCard'}>
-						<IconWalletWalletConnect style={{width: 40, height: 40}} />
-						<b className={'mt-4 text-sm text-neutral-500'}>{'Wallet Connect'}</b>
 					</div>
 				</div>
 			);

@@ -20,9 +20,7 @@ function	WithYearn({children, supportedChains, options}: {
 	return (
 		<UIContextApp options={options?.ui}>
 			<SettingsContextApp baseOptions={options?.baseSettings}>
-				<Web3ContextApp
-					supportedChains={supportedChains}
-					options={options?.web3}>
+				<Web3ContextApp supportedChains={supportedChains} options={options?.web3}>
 					{children}
 				</Web3ContextApp>
 			</SettingsContextApp>

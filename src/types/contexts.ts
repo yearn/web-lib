@@ -44,13 +44,14 @@ export type TWeb3Context = {
 	isDisconnected: boolean,
 	isActive: boolean
 	isConnecting: boolean,
+	isWalletSafe: boolean,
+	isWalletLedger: boolean,
 	hasProvider: boolean,
 	provider?: Connector,
 	currentPartner?: TPartnersInfo,
-	onConnect: (p: string, e?: ((error: Error) => void) | undefined, s?: (() => void) | undefined) => Promise<void>,
+	onConnect: () => Promise<void>,
 	onSwitchChain: (newChainID: number) => void,
 	openLoginModal: () => void,
 	onDesactivate: () => void,
-	options?: TWeb3Options,
-	walletType: string,
+	options?: TWeb3Options
 }

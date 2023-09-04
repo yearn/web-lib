@@ -2,6 +2,7 @@ import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react
 import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
+import {useAccountModal, useChainModal,useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
 
 import {useWeb3} from '../contexts/useWeb3.js';
@@ -169,7 +170,10 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 }
 
 function WalletSelector(): ReactElement {
-	const {options, isActive, address, ens, lensProtocolHandle, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
+	const {openConnectModal} = useConnectModal();
+	const {openAccountModal} = useAccountModal();
+	const {openChainModal} = useChainModal();
+	const {isActive, address, ens, lensProtocolHandle, openLoginModal} = useWeb3();
 	const [walletIdentity, set_walletIdentity] = useState<string | undefined>(undefined);
 	const isMounted = useIsMounted();
 
@@ -195,9 +199,9 @@ function WalletSelector(): ReactElement {
 			<div
 				onClick={(): void => {
 					if (isActive) {
-						onDesactivate();
+						openAccountModal?.();
 					} else if (!isActive && address) {
-						onSwitchChain(options?.defaultChainID || 1);
+						openChainModal?.();
 					} else {
 						openLoginModal();
 					}
@@ -216,11 +220,11 @@ function WalletSelector(): ReactElement {
 			<div
 				onClick={(): void => {
 					if (isActive) {
-						onDesactivate();
+						openAccountModal?.();
 					} else if (!isActive && address) {
-						onSwitchChain(options?.defaultChainID || 1);
+						openChainModal?.();
 					} else {
-						openLoginModal();
+						openConnectModal?.();
 					}
 				}}
 				className={cl('fixed inset-x-0 bottom-0 z-[87] border-t border-neutral-900 bg-neutral-0 md:hidden', walletIdentity ? 'hidden pointer-events-none' : '')}>
