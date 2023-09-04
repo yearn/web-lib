@@ -18,7 +18,8 @@ import type {Chain} from '@wagmi/core';
 import type {TWeb3Context, TWeb3Options} from '../types/contexts.js';
 
 const {useConnectModal} = _RainbowKitProvider;
-const {RainbowKitProvider} = (_RainbowKitProvider as any);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const {RainbowKitProvider} = _RainbowKitProvider as any;
 
 const defaultState = {
 	address: undefined,
