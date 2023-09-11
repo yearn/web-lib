@@ -248,6 +248,7 @@ export type THeader = {
 	nav: TMenu[],
 	supportedNetworks?: number[],
 	currentPathName: string,
+	showNetworkSelector: boolean,
 	onOpenMenuMobile: () => void
 }
 
@@ -258,6 +259,7 @@ export function Header({
 	nav,
 	currentPathName,
 	supportedNetworks,
+	showNetworkSelector = true,
 	onOpenMenuMobile
 }: THeader): ReactElement {
 	return (
@@ -289,7 +291,7 @@ export function Header({
 				</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
-				<NetworkSelector networks={supportedNetworks || []} />
+				{showNetworkSelector ? <NetworkSelector networks={supportedNetworks || []} /> : null}
 				<WalletSelector />
 				{extra}
 			</div>
