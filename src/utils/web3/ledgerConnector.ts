@@ -122,7 +122,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 			account: toAddress(account),
 			chain,
 			transport: custom(provider)
-		});
+		}) as WalletClient;
 	}
 
 	async isAuthorized() {
