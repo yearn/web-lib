@@ -24,7 +24,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0-0",
     "@headlessui/react": "^1.7.17",
-    "@rainbow-me/rainbowkit": "^1.0.10",
+    "@rainbow-me/rainbowkit": "^1.0.11",
     "@react-hookz/web": "^23.1.0",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.9",
@@ -77,7 +77,7 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "@rainbow-me/rainbowkit": "^1.0.10",
+    "@rainbow-me/rainbowkit": "^1.0.11",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "@wagmi/core": "1.4.1",
