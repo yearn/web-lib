@@ -2,7 +2,7 @@ import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react
 import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
-import {useAccountModal, useChainModal,useConnectModal} from '@rainbow-me/rainbowkit';
+import {useAccountModal, useChainModal, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
 
 import {useWeb3} from '../contexts/useWeb3.js';
@@ -37,7 +37,7 @@ function Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 					key={option.path}
 					target={option.target}
 					href={option.path}>
-					<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : '' }`}>
+					<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : ''}`}>
 						{option.label}
 					</p>
 				</Link>
