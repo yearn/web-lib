@@ -70,6 +70,7 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const publicClient = usePublicClient();
 	const {connectors} = useConnect();
 	const safeChainID = toSafeChainID(publicClient?.chain.id, Number(process.env.BASE_CHAINID));
+	const [selectedChainID, set_selectedChainID] = useState(1);
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
@@ -86,8 +87,8 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	}, [connectors, networks]);
 
 	const	currentNetwork = useMemo((): TNetwork | undefined => (
-		supportedNetworks.find((network): boolean => network.value === safeChainID)
-	), [safeChainID, supportedNetworks]);
+		supportedNetworks.find((network): boolean => network.value === selectedChainID)
+	), [selectedChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
 		if (publicClient?.chain.id === 1337) {
@@ -107,7 +108,11 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: unknown): void => onSwitchChain((value as {value: number}).value)}>
+				onChange={(value: unknown): void => {
+					const chainID = (value as {value: number}).value;
+					set_selectedChainID(chainID);
+					onSwitchChain(chainID);
+				}}>
 				{({open}): ReactElement => (
 					<>
 						<Listbox.Button
