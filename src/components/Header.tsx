@@ -67,6 +67,7 @@ function NetworkButton({label, isDisabled, onClick}: {
 export type TNetwork = {value: number, label: string};
 function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const {onSwitchChain} = useWeb3();
+	const {onSwitchChain, isActive} = useWeb3();
 	const publicClient = usePublicClient();
 	const {connectors} = useConnect();
 	const safeChainID = toSafeChainID(publicClient?.chain.id, Number(process.env.BASE_CHAINID));
@@ -86,9 +87,10 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 		);
 	}, [connectors, networks]);
 
-	const	currentNetwork = useMemo((): TNetwork | undefined => (
-		supportedNetworks.find((network): boolean => network.value === selectedChainID)
-	), [selectedChainID, supportedNetworks]);
+	const currentNetwork = useMemo((): TNetwork | undefined => {
+		const currentChainID = isActive ? safeChainID : selectedChainID;
+		return supportedNetworks.find((network): boolean => network.value === currentChainID);
+	}, [safeChainID, selectedChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
 		if (publicClient?.chain.id === 1337) {
