@@ -11,10 +11,10 @@ export const localhost = {
 		symbol: 'ETH'
 	},
 	rpcUrls: {
-		// default: {http: ['http://localhost:8545', 'http://0.0.0.0:8545']},
-		// public: {http: ['http://localhost:8545', 'http://0.0.0.0:8545']}
-		default: {http: ['http://168.119.147.211:4200']},
-		public: {http: ['http://168.119.147.211:4200']}
+		default: {http: ['http://localhost:8545', 'http://0.0.0.0:8545']},
+		public: {http: ['http://localhost:8545', 'http://0.0.0.0:8545']}
+		// default: {http: ['http://168.119.147.211:4200']},
+		// public: {http: ['http://168.119.147.211:4200']}
 	},
 	contracts: {
 		ensRegistry: {
