@@ -2,7 +2,7 @@ import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react
 import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
-import {useAccountModal, useChainModal,useConnectModal} from '@rainbow-me/rainbowkit';
+import {useAccountModal, useChainModal, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
 
 import {useWeb3} from '../contexts/useWeb3.js';
@@ -37,7 +37,7 @@ function Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactEl
 					key={option.path}
 					target={option.target}
 					href={option.path}>
-					<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : '' }`}>
+					<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : ''}`}>
 						{option.label}
 					</p>
 				</Link>
@@ -67,9 +67,11 @@ function NetworkButton({label, isDisabled, onClick}: {
 export type TNetwork = {value: number, label: string};
 function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const {onSwitchChain} = useWeb3();
+	const {onSwitchChain, isActive} = useWeb3();
 	const publicClient = usePublicClient();
 	const {connectors} = useConnect();
 	const safeChainID = toSafeChainID(publicClient?.chain.id, Number(process.env.BASE_CHAINID));
+	const [selectedChainID, set_selectedChainID] = useState(1);
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
@@ -85,9 +87,10 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 		);
 	}, [connectors, networks]);
 
-	const	currentNetwork = useMemo((): TNetwork | undefined => (
-		supportedNetworks.find((network): boolean => network.value === safeChainID)
-	), [safeChainID, supportedNetworks]);
+	const currentNetwork = useMemo((): TNetwork | undefined => {
+		const currentChainID = isActive ? safeChainID : selectedChainID;
+		return supportedNetworks.find((network): boolean => network.value === currentChainID);
+	}, [safeChainID, selectedChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
 		if (publicClient?.chain.id === 1337) {
@@ -107,7 +110,11 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 		<div className={'relative z-50 mr-4'}>
 			<Listbox
 				value={safeChainID}
-				onChange={(value: unknown): void => onSwitchChain((value as {value: number}).value)}>
+				onChange={(value: unknown): void => {
+					const chainID = (value as {value: number}).value;
+					set_selectedChainID(chainID);
+					onSwitchChain(chainID);
+				}}>
 				{({open}): ReactElement => (
 					<>
 						<Listbox.Button
