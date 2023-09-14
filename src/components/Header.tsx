@@ -66,7 +66,6 @@ function NetworkButton({label, isDisabled, onClick}: {
 
 export type TNetwork = {value: number, label: string};
 function NetworkSelector({networks}: {networks: number[]}): ReactElement {
-	const {onSwitchChain} = useWeb3();
 	const {onSwitchChain, isActive} = useWeb3();
 	const publicClient = usePublicClient();
 	const {connectors} = useConnect();
