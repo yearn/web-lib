@@ -3,7 +3,7 @@ import {createPublicClient, http} from 'viem';
 import * as wagmiChains from '@wagmi/core/chains';
 
 import {toAddress} from '../address.js';
-import {ARB_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '../constants.js';
+import {ARB_WETH_TOKEN_ADDRESS, BASE_WETH_TOKEN_ADDRESS, OPT_WETH_TOKEN_ADDRESS, WETH_TOKEN_ADDRESS, WFTM_TOKEN_ADDRESS, WMATIC_TOKEN_ADDRESS, ZAP_ETH_WETH_CONTRACT, ZAP_ETH_WETH_OPT_CONTRACT, ZAP_FTM_WFTM_CONTRACT, ZERO_ADDRESS} from '../constants.js';
 import {isEth} from '../isEth.js';
 import {isTAddress} from '../isTAddress.js';
 import {localhost} from './networks.js';
@@ -102,7 +102,7 @@ const wrappedChainTokens: {[key: number]: TWrappedChainToken} = {
 		coinSymbol: 'ETH'
 	},
 	137: {
-		address: toAddress('0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'),
+		address: WMATIC_TOKEN_ADDRESS,
 		decimals: 18,
 		symbol: 'wMatic',
 		name: 'Wrapped Matic',

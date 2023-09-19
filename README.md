@@ -82,6 +82,7 @@ Ensure your env are set. Here is the list of the stuff to set:
 WEB_SOCKET_URL: {
 	1: process.env.WS_URL_MAINNET,
 	10: process.env.WS_URL_OPTIMISM,
+	137: process.env.WS_URL_POLYGON,
 	250: process.env.WS_URL_FANTOM,
 	8453: process.env.WS_URL_BASE,
 	42161: process.env.WS_URL_ARBITRUM
@@ -89,6 +90,7 @@ WEB_SOCKET_URL: {
 JSON_RPC_URL: {
 	1: process.env.RPC_URL_MAINNET,
 	10: process.env.RPC_URL_OPTIMISM,
+	137: process.env.RPC_URL_POLYGON,
 	250: process.env.RPC_URL_FANTOM,
 	8453: process.env.RPC_URL_BASE,
 	42161: process.env.RPC_URL_ARBITRUM
