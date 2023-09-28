@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.39",
+  "version": "3.0.41",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
   "files": [
@@ -22,14 +22,14 @@
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "dependencies": {
-    "@babel/core": "^7.22.17",
+    "@babel/core": "^7.22.20",
     "@headlessui/react": "^1.7.17",
     "@rainbow-me/rainbowkit": "^1.0.11",
     "@react-hookz/web": "^23.1.0",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.10",
     "@wagmi/chains": "1.8.0",
-    "@wagmi/core": "^1.4.2",
+    "@wagmi/core": "1.4.1",
     "@web3modal/ethereum": "^2.7.1",
     "@web3modal/react": "^2.7.1",
     "autoprefixer": "^10.4.15",
@@ -50,8 +50,8 @@
     "sharp": "^0.32.5",
     "tailwindcss": "^3.3.3",
     "tsup": "^7.2.0",
-    "viem": "^1.10.14",
-    "wagmi": "^1.4.2",
+    "viem": "1.10.14",
+    "wagmi": "1.4.1",
     "zod": "^3.22.2"
   },
   "devDependencies": {
