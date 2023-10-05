@@ -2,7 +2,7 @@ import	React, {createContext, useCallback, useContext, useMemo, useState} from '
 import assert from 'assert';
 import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
 import * as _RainbowKitProvider from '@rainbow-me/rainbowkit';
-import {useIsMounted, useUpdateEffect} from '@react-hookz/web';
+import {useIsMounted, useMountEffect, useUpdateEffect} from '@react-hookz/web';
 
 import {toast} from '../components/yToast.js';
 import {toAddress} from '../utils/address.js';
@@ -71,6 +71,16 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	useUpdateEffect((): void => {
 		set_currentChainID(chain?.id);
 	}, [chain]);
+
+	useMountEffect(async (): Promise<void> => {
+		if (isIframe()) {
+			const ledgerConnector = connectors.find((c): boolean => c.id === 'ledgerLive');
+			if (ledgerConnector) {
+				await connectAsync({connector: ledgerConnector, chainId: chain?.id || 1});
+				return;
+			}
+		}
+	});
 
 	const onConnect = useCallback(async (): Promise<void> => {
 		const ledgerConnector = connectors.find((c): boolean => c.id === 'ledgerLive');
