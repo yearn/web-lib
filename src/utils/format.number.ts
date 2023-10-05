@@ -161,13 +161,17 @@ export function formatLocalAmount(
 	** "decimals" number of decimals
 	**********************************************************************************************/
 	if (amount < 0.01) {
-		if (amount > 0.00000001) {
-			return formatCurrencyWithPrecision({amount, maxFractionDigits: 8, intlOptions, locale, symbol});
+		if (isPercent) {
+			return formatCurrencyWithPrecision({amount, maxFractionDigits: 2, intlOptions, locale, symbol});
 		}
-		if (amount > 0.000000000001) {
+		if (amount <= 0.000000000001) {
 			return formatCurrencyWithPrecision({amount, maxFractionDigits: 12, intlOptions, locale, symbol});
 		}
+		if (amount <= 0.00000001) {
+			return formatCurrencyWithPrecision({amount, maxFractionDigits: 8, intlOptions, locale, symbol});
+		}
 		return formatCurrencyWithPrecision({amount, maxFractionDigits: decimals, intlOptions, locale, symbol});
+
 	}
 	return (
 		new Intl.NumberFormat([locale, 'en-US'], intlOptions)
@@ -218,13 +222,13 @@ export function	amount(amount: number | string, minimumFractionDigits = 2, maxim
 		amount = 0;
 	}
 	let formattedAmount = new Intl.NumberFormat([locale, 'en-US'], {minimumFractionDigits, maximumFractionDigits}).format(amount);
-	
+
 	if (displayDigits > 0 && formattedAmount.length > displayDigits) {
 		const leftSide = formattedAmount.slice(0, Math.ceil(displayDigits / 2));
 		const rightSide = formattedAmount.slice(-Math.floor(displayDigits / 2));
 		formattedAmount = `${leftSide}...${rightSide}`;
 	}
-	
+
 	return formattedAmount;
 }
 
