@@ -1296,7 +1296,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@rainbow-me/rainbowkit@^1.1.0":
+"@rainbow-me/rainbowkit@^1.0.11":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-1.1.0.tgz#ad55597ae43903d2f075e777ac6397537f6f2f53"
   integrity sha512-kSMsEDZY4nWC9ITSh5Fj6QmcDZCWrIrpHJrW6+VeuU7wMVtBmzuCegMi3SMqqvQtgBktfgooflTELv/2I4wuvQ==
