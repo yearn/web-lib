@@ -47,7 +47,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "@types/jest": "^29.5.4",
     "@types/node": "^20.5.7",
     "@types/nprogress": "^0.2.0",
