@@ -181,7 +181,7 @@ async function getBalances(
  ** This hook can be used to fetch balance information for any ERC20 tokens.
  **************************************************************************/
 export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
-	const {address: web3Address, isActive, provider} = useWeb3();
+	const {address: web3Address, isActive} = useWeb3();
 	const chainID = useChainId();
 	const {onLoadStart, onLoadDone} = useUI();
 	const [nonce, set_nonce] = useState(0);
@@ -241,7 +241,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	 ** send in a worker.
 	 **************************************************************************/
 	const onUpdate = useCallback(async (): Promise<TDict<TBalanceData>> => {
-		if (!web3Address || !provider) {
+		if (!web3Address || !isActive) {
 			return {};
 		}
 		const tokenList = deserialize(stringifiedTokens) || [];
@@ -313,7 +313,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	}, [
 		onLoadDone,
 		onLoadStart,
-		provider,
+		isActive,
 		stringifiedTokens,
 		web3Address,
 		chainID
