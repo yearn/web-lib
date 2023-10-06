@@ -11,7 +11,6 @@ import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '../utils/decoder.j
 import {toBigInt, toNormalizedValue} from '../utils/format.bigNumber.js';
 import {isEth} from '../utils/isEth.js';
 import {isZero} from '../utils/isZero.js';
-import {performBatchedUpdates} from '../utils/performBatchedUpdates.js';
 import {getNetwork} from '../utils/wagmi/utils.js';
 
 import type {DependencyList} from 'react';
@@ -220,18 +219,16 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			}
 			data.current[chainID].nonce += 1;
 
-			performBatchedUpdates((): void => {
-				set_balances(
-					(b): TNDict<TDict<TBalanceData>> => ({
-						...b,
-						[chainID]: {
-							...(b[chainID] || {}),
-							...data.current[chainID].balances
-						}
-					})
-				);
-				set_nonce((n): number => n + 1);
-			});
+			set_balances(
+				(b): TNDict<TDict<TBalanceData>> => ({
+					...b,
+					[chainID]: {
+						...(b[chainID] || {}),
+						...data.current[chainID].balances
+					}
+				})
+			);
+			set_nonce((n): number => n + 1);
 			return data.current[chainID].balances;
 		},
 		[web3Address]
@@ -293,23 +290,21 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			}
 			data.current[chainID].nonce += 1;
 
-			performBatchedUpdates((): void => {
-				set_balances(
-					(b): TNDict<TDict<TBalanceData>> => ({
-						...b,
-						[chainID]: {
-							...(b[chainID] || {}),
-							...data.current[chainID].balances
-						}
-					})
-				);
-				set_nonce((n): number => n + 1);
-				set_error(err as Error);
-				set_status({
-					...defaultStatus,
-					isSuccess: true,
-					isFetched: true
-				});
+			set_balances(
+				(b): TNDict<TDict<TBalanceData>> => ({
+					...b,
+					[chainID]: {
+						...(b[chainID] || {}),
+						...data.current[chainID].balances
+					}
+				})
+			);
+			set_nonce((n): number => n + 1);
+			set_error(err as Error);
+			set_status({
+				...defaultStatus,
+				isSuccess: true,
+				isFetched: true
 			});
 		}
 		onLoadDone();
@@ -379,23 +374,21 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				}
 				data.current[chainID].nonce += 1;
 
-				performBatchedUpdates((): void => {
-					set_balances(
-						(b): TNDict<TDict<TBalanceData>> => ({
-							...b,
-							[chainID]: {
-								...(b[chainID] || {}),
-								...data.current[chainID].balances
-							}
-						})
-					);
-					set_nonce((n): number => n + 1);
-					set_error(err as Error);
-					set_status({
-						...defaultStatus,
-						isSuccess: true,
-						isFetched: true
-					});
+				set_balances(
+					(b): TNDict<TDict<TBalanceData>> => ({
+						...b,
+						[chainID]: {
+							...(b[chainID] || {}),
+							...data.current[chainID].balances
+						}
+					})
+				);
+				set_nonce((n): number => n + 1);
+				set_error(err as Error);
+				set_status({
+					...defaultStatus,
+					isSuccess: true,
+					isFetched: true
 				});
 			}
 			onLoadDone();
@@ -404,35 +397,30 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		[onLoadDone, onLoadStart, web3Address, chainID]
 	);
 
-	const assignPrices = useCallback(
-		(
-			_rawData: TNDict<TDict<TBalanceData>>
-		): TNDict<TDict<TBalanceData>> => {
-			for (const chainIDStr of Object.keys(_rawData)) {
-				const chainID = Number(chainIDStr);
-				for (const address of Object.keys(_rawData[chainID])) {
-					const tokenAddress = toAddress(address);
-					const rawPrice = toBigInt(props?.prices?.[tokenAddress]);
-					if (!_rawData[chainID]) {
-						_rawData[chainID] = {};
-					}
-					_rawData[chainID][tokenAddress] = {
-						..._rawData[chainID][tokenAddress],
-						rawPrice,
-						normalizedPrice: toNormalizedValue(rawPrice, 6),
-						normalizedValue:
+	const assignPrices = useCallback((_rawData: TNDict<TDict<TBalanceData>>): TNDict<TDict<TBalanceData>> => {
+		for (const chainIDStr of Object.keys(_rawData)) {
+			const chainID = Number(chainIDStr);
+			for (const address of Object.keys(_rawData[chainID])) {
+				const tokenAddress = toAddress(address);
+				const rawPrice = toBigInt(props?.prices?.[tokenAddress]);
+				if (!_rawData[chainID]) {
+					_rawData[chainID] = {};
+				}
+				_rawData[chainID][tokenAddress] = {
+					..._rawData[chainID][tokenAddress],
+					rawPrice,
+					normalizedPrice: toNormalizedValue(rawPrice, 6),
+					normalizedValue:
 							(_rawData[chainID]?.[tokenAddress] || 0)
 								.normalized * toNormalizedValue(rawPrice, 6)
-					};
-				}
+				};
 			}
-			return _rawData;
-		},
-		[props?.prices]
-	);
+		}
+		return _rawData;
+	}, [props?.prices]);
 
 	const asyncUseEffect = useCallback(async (): Promise<void> => {
-		if (!isActive || !web3Address || !provider) {
+		if (!isActive || !web3Address) {
 			return;
 		}
 		set_status({
@@ -466,12 +454,13 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		stringifiedTokens,
 		isActive,
 		web3Address,
-		provider,
-		onLoadStart,
 		chainID,
 		updateBalancesCall,
+		onLoadStart,
 		onLoadDone
 	]);
+
+	const withPrice = useMemo((): TDict<TBalanceData> => assignPrices(balances || {})?.[chainID] || {}, [assignPrices, balances, chainID]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	 ** Everytime the stringifiedTokens change, we need to update the balances.
@@ -484,7 +473,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 
 	const contextValue = useMemo(
 		(): TUseBalancesRes => ({
-			data: assignPrices(balances || {})?.[chainID] || {},
+			data: withPrice,
 			nonce,
 			update: onUpdate,
 			updateSome: onUpdateSome,
@@ -504,9 +493,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 						: 'unknown'
 		}),
 		[
-			assignPrices,
-			balances,
-			chainID,
 			error,
 			nonce,
 			onUpdate,
@@ -516,7 +502,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			status.isFetching,
 			status.isLoading,
 			status.isRefetching,
-			status.isSuccess
+			status.isSuccess,
+			withPrice
 		]
 	);
 
