@@ -164,14 +164,13 @@ export function formatLocalAmount(
 		if (isPercent) {
 			return formatCurrencyWithPrecision({amount, maxFractionDigits: 2, intlOptions, locale, symbol});
 		}
-		if (amount <= 0.000000000001) {
-			return formatCurrencyWithPrecision({amount, maxFractionDigits: 12, intlOptions, locale, symbol});
-		}
-		if (amount <= 0.00000001) {
+		if (amount > 0.00000001) {
 			return formatCurrencyWithPrecision({amount, maxFractionDigits: 8, intlOptions, locale, symbol});
 		}
+		if (amount > 0.000000000001) {
+			return formatCurrencyWithPrecision({amount, maxFractionDigits: 12, intlOptions, locale, symbol});
+		}
 		return formatCurrencyWithPrecision({amount, maxFractionDigits: decimals, intlOptions, locale, symbol});
-
 	}
 	return (
 		new Intl.NumberFormat([locale, 'en-US'], intlOptions)
