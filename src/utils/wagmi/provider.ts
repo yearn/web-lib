@@ -1,7 +1,7 @@
 import {toast} from 'react-hot-toast';
 import assert from 'assert';
 import {BaseError} from 'viem';
-import {prepareWriteContract, waitForTransaction, writeContract} from '@wagmi/core';
+import {prepareWriteContract, switchNetwork, waitForTransaction, writeContract} from '@wagmi/core';
 
 import {toBigInt} from '../format.bigNumber.js';
 import {defaultTxStatus} from '../web3/transaction.js';
@@ -55,10 +55,19 @@ export async function handleTx<
 	props: TPrepareWriteContractConfig<TAbi, TFunctionName>
 ): Promise<TTxResponse> {
 	args.statusHandler?.({...defaultTxStatus, pending: true});
-	const wagmiProvider = await toWagmiProvider(args.connector);
+	let wagmiProvider = await toWagmiProvider(args.connector);
 
+	/* 🔵 - Yearn.Fi ***************************************************************************
+	** First, make sure we are using the correct chainID.
+	******************************************************************************************/
+	if (wagmiProvider.chainId !== args.chainID) {
+		await switchNetwork({chainId: args.chainID});
+	}
+
+	wagmiProvider = await toWagmiProvider(args.connector);
 	assertAddress(props.address, 'contractAddress');
 	assertAddress(wagmiProvider.address, 'userAddress');
+	assert(wagmiProvider.chainId === args.chainID, 'ChainID mismatch');
 	try {
 		const config = await prepareWriteContract({
 			...wagmiProvider,
