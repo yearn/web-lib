@@ -32,6 +32,7 @@ export async function toWagmiProvider(connector: Connector | undefined): Promise
 }
 
 export type TWriteTransaction = {
+	chainID: number;
 	connector: Connector | undefined;
 	contractAddress: TAddress | undefined;
 	statusHandler?: (status: typeof defaultTxStatus) => void;
