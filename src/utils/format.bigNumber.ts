@@ -51,17 +51,17 @@ export function	bigNumberAsAmount(
 	}${symbolWithPrefix}`);
 }
 
-export	const	toNormalizedValue = (v: bigint, d?: number): number => {
+export const toNormalizedValue = (v: bigint, d?: number): number => {
 	return Number(formatUnits(v, d ?? 18));
 };
 
-export const	toNormalizedAmount = (v: bigint, d?: number): string => {
+export const toNormalizedAmount = (v: bigint, d?: number): string => {
 	return formatAmount(toNormalizedValue(v, d ?? 18), 6, 6);
 };
 
-export const	toNormalizedBN = (value: TNumberish, decimals?: number): TNormalizedBN => ({
+export const toNormalizedBN = (value: TNumberish, decimals?: number): TNormalizedBN => ({
 	raw: toBigInt(value),
-	normalized: toNormalizedValue(toBigInt(value), decimals ?? 18)
+	normalized: formatUnits(toBigInt(value), decimals ?? 18)
 });
 
 export function	parseUnits(value: TNumberish, decimals = 18): bigint {
