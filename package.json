@@ -22,7 +22,7 @@
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
   },
   "dependencies": {
-    "@babel/core": "^7.23.0",
+    "@babel/core": "^7.23.2",
     "@headlessui/react": "^1.7.17",
     "@rainbow-me/rainbowkit": "^1.1.1",
     "@react-hookz/web": "^23.1.0",
