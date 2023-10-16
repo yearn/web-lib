@@ -57,6 +57,13 @@ export async function handleTx<
 	args.statusHandler?.({...defaultTxStatus, pending: true});
 	let wagmiProvider = await toWagmiProvider(args.connector);
 
+	// Use debug mode
+	if ((window as any).web3.useForknetForMainnet) {
+		if (args.chainID === 1) {
+			args.chainID = 1337;
+		}
+	}
+
 	/* 🔵 - Yearn.Fi ***************************************************************************
 	** First, make sure we are using the correct chainID.
 	******************************************************************************************/
