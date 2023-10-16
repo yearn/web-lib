@@ -58,7 +58,7 @@ export async function handleTx<
 	let wagmiProvider = await toWagmiProvider(args.connector);
 
 	// Use debug mode
-	if ((window as any).web3.useForknetForMainnet) {
+	if ((window as any).ethereum.useForknetForMainnet) {
 		if (args.chainID === 1) {
 			args.chainID = 1337;
 		}
