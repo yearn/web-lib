@@ -61,7 +61,17 @@ export async function handleTx<
 	** First, make sure we are using the correct chainID.
 	******************************************************************************************/
 	if (wagmiProvider.chainId !== args.chainID) {
-		await switchNetwork({chainId: args.chainID});
+		try {
+			await switchNetwork({chainId: args.chainID});
+		} catch (error) {
+			if (!(error instanceof BaseError)) {
+				return ({isSuccessful: false, error});
+			}
+			toast.error(error.shortMessage);
+			args.statusHandler?.({...defaultTxStatus, error: true});
+			console.error(error);
+			return ({isSuccessful: false, error});
+		}
 	}
 
 	wagmiProvider = await toWagmiProvider(args.connector);
