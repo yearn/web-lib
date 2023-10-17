@@ -7,13 +7,12 @@ export function handleInputChangeEventValue(value: string, decimals?: number): T
 		return {raw: 0n, normalized: ''};
 	}
 
-	let		amount = value.replace(/,/g, '.').replace(/[^0-9.]/g, '');
-	const	amountParts = amount.split('.');
-
-	if (amountParts.length > 2) {
-		throw new Error(`Invalid amount: ${amount}`);
+	let amount = value.replace(/,/g, '.').replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+	if (amount.startsWith('.')) {
+		amount = '0' + amount;
 	}
 
+	const amountParts = amount.split('.');
 	if (amountParts.length === 2) {
 		amount = amountParts[0] + '.' + amountParts[1].slice(0, decimals);
 	}
