@@ -20,6 +20,13 @@ const	UI = createContext<TUIContext>({
 	onLoadDone: NProgress.done
 });
 
+export function onLoadStart(): void {
+	NProgress.start();
+}
+export function onLoadDone(): void {
+	NProgress.done();
+}
+
 export const UIContextApp = ({children, options = defaultOptions}: {
 	children: ReactElement,
 	options?: TUIOptions
