@@ -10,16 +10,11 @@ import {IFrameEthereumProvider} from './connectors.eip1193.ledger.js';
 import type {ProviderRpcError, RpcError} from 'viem';
 import type {Chain, WalletClient} from '@wagmi/core';
 
-type IFrameEthereumProviderOptions = ConstructorParameters<
-	typeof IFrameEthereumProvider
->[0];
+type IFrameEthereumProviderOptions = ConstructorParameters<typeof IFrameEthereumProvider>[0];
 
 function normalizeChainId(chainId: string | number | bigint) {
 	if (typeof chainId === 'string') {
-		return Number.parseInt(
-			chainId,
-			chainId.trim().substring(0, 2) === '0x' ? 16 : 10
-		);
+		return Number.parseInt(chainId, chainId.trim().substring(0, 2) === '0x' ? 16 : 10);
 	}
 	if (typeof chainId === 'bigint') {
 		return Number(chainId);
@@ -36,7 +31,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 
 	providerInstance?: IFrameEthereumProvider;
 
-	async connect({chainId}: { chainId?: number } = {}) {
+	async connect({chainId}: {chainId?: number} = {}) {
 		try {
 			const provider = await this.getProvider();
 			if (!provider) {
@@ -108,12 +103,9 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 		return this.providerInstance;
 	}
 
-	async getWalletClient({chainId}: { chainId?: number } = {}): Promise<WalletClient> {
-		const [provider, account] = await Promise.all([
-			this.getProvider(),
-			this.getAccount()
-		]);
-		const chain = this.chains.find((x) => x.id === chainId);
+	async getWalletClient({chainId}: {chainId?: number} = {}): Promise<WalletClient> {
+		const [provider, account] = await Promise.all([this.getProvider(), this.getAccount()]);
+		const chain = this.chains.find(x => x.id === chainId);
 		if (!provider) {
 			throw new Error('provider is required.');
 		}
@@ -150,7 +142,7 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 			await provider.send('wallet_switchEthereumChain', [{chainId: id}]);
 
 			return (
-				this.chains.find((x) => x.id === chainId) ?? {
+				this.chains.find(x => x.id === chainId) ?? {
 					id: chainId,
 					name: `Chain ${id}`,
 					network: `${id}`,
@@ -159,15 +151,20 @@ export class IFrameEthereumConnector extends Connector<IFrameEthereumProvider, I
 				}
 			);
 		} catch (error) {
-			const chain = this.chains.find((x) => x.id === chainId);
+			const chain = this.chains.find(x => x.id === chainId);
 			if (!chain) {
 				throw new ChainNotConfiguredError({chainId, connectorId: this.id});
 			}
 
 			// Indicates chain is not added to provider
-			if ((error as ProviderRpcError).code === 4902 || (error as {
-				data?: {originalError?: {code?: number}};
-			})?.data?.originalError?.code === 4902) {
+			if (
+				(error as ProviderRpcError).code === 4902 ||
+				(
+					error as {
+						data?: {originalError?: {code?: number}};
+					}
+				)?.data?.originalError?.code === 4902
+			) {
 				try {
 					await provider.send('wallet_addEthereumChain', [
 						{

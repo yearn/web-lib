@@ -11,7 +11,7 @@ import type {ToastOptions} from 'react-hot-toast';
 
 type TCTA = {
 	label: string;
-	onClick: () => void
+	onClick: () => void;
 };
 
 type TYToast = {
@@ -24,7 +24,11 @@ function buildMessage({content, cta}: Pick<TYToast, 'content' | 'cta'>): ReactEl
 	return (
 		<div className={'flex items-center gap-2'}>
 			{content}
-			<button className={'yearn--toast-button'} onClick={cta?.onClick}>{cta?.label}</button>
+			<button
+				className={'yearn--toast-button'}
+				onClick={cta?.onClick}>
+				{cta?.label}
+			</button>
 		</div>
 	);
 }
@@ -74,14 +78,14 @@ export function toast({content, type, cta, ...toastOptions}: TYToast): string {
 }
 
 export type TToastProps = {
-	toast: (props: TYToast) => string,
-	useToasterStore: typeof useToasterStore,
-	toastMaster: typeof toastMaster
-}
+	toast: (props: TYToast) => string;
+	useToasterStore: typeof useToasterStore;
+	toastMaster: typeof toastMaster;
+};
 export function yToast(): TToastProps {
-	return ({
+	return {
 		toast,
 		useToasterStore,
 		toastMaster
-	});
+	};
 }

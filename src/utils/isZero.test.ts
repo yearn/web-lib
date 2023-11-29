@@ -1,3 +1,5 @@
+import {describe, expect, test} from 'bun:test';
+
 import {isZero} from './isZero.js';
 
 describe('isZero function', (): void => {

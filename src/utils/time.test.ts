@@ -1,4 +1,7 @@
-import {DAY,
+import {describe, expect, test} from 'bun:test';
+
+import {
+	DAY,
 	fromWeeks,
 	getTimeUntil,
 	roundToWeek,
@@ -7,7 +10,8 @@ import {DAY,
 	toSeconds,
 	toTime,
 	toWeeks,
-	WEEK} from './time.js';
+	WEEK
+} from './time.js';
 
 import type {TMilliseconds} from '../../src/utils/time.js';
 
@@ -17,9 +21,7 @@ describe('timeUtils', (): void => {
 		expect(toTime('1000')).toBe(1000);
 		expect(toTime(undefined)).toBe(0);
 		expect(toTime('')).toBe(0);
-		expect((): TMilliseconds => toTime('invalid')).toThrowError(
-			'Invalid input: Cannot convert "invalid" to a number.'
-		);
+		expect((): TMilliseconds => toTime('invalid')).toThrow('Invalid input: Cannot convert "invalid" to a number.');
 	});
 
 	test('toMilliseconds', (): void => {

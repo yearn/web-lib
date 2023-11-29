@@ -16,55 +16,67 @@ import {Button} from './Button.js';
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
 import type {Chain} from 'wagmi';
 
-const Link = (props: (DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>) & {tag: ReactElement}): ReactElement => {
+const Link = (
+	props: DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {tag: ReactElement}
+): ReactElement => {
 	const {tag, ...rest} = props;
 	const Element = cloneElement(tag, rest);
 	return Element;
 };
 
-export type TMenu = {path: string, label: string | ReactElement, target?: string};
+export type TMenu = {path: string; label: string | ReactElement; target?: string};
 export type TNavbar = {
-	nav: TMenu[],
-	linkComponent?: ReactElement,
-	currentPathName: string
+	nav: TMenu[];
+	linkComponent?: ReactElement;
+	currentPathName: string;
 };
 function Navbar({nav, linkComponent = <a />, currentPathName}: TNavbar): ReactElement {
 	return (
 		<nav className={'yearn--nav'}>
-			{nav.map((option): ReactElement => (
-				<Link
-					tag={linkComponent}
-					key={option.path}
-					target={option.target}
-					href={option.path}>
-					<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : ''}`}>
-						{option.label}
-					</p>
-				</Link>
-			))}
+			{nav.map(
+				(option): ReactElement => (
+					<Link
+						tag={linkComponent}
+						key={option.path}
+						target={option.target}
+						href={option.path}>
+						<p className={`yearn--header-nav-item ${currentPathName === option.path ? 'active' : ''}`}>
+							{option.label}
+						</p>
+					</Link>
+				)
+			)}
 		</nav>
 	);
 }
 
-function NetworkButton({label, isDisabled, onClick}: {
-	label: string,
-	isDisabled?: boolean,
-	onClick?: () => void,
+function NetworkButton({
+	label,
+	isDisabled,
+	onClick
+}: {
+	label: string;
+	isDisabled?: boolean;
+	onClick?: () => void;
 }): ReactElement {
 	return (
 		<button
 			disabled={isDisabled}
 			onClick={onClick}
 			suppressHydrationWarning
-			className={'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'}>
-			<div suppressHydrationWarning className={'relative flex flex-row items-center'}>
+			className={
+				'yearn--header-nav-item mr-4 hidden !cursor-default flex-row items-center border-0 p-0 text-sm hover:!text-neutral-500 md:flex'
+			}>
+			<div
+				suppressHydrationWarning
+				className={'relative flex flex-row items-center'}>
 				{label}
 			</div>
 		</button>
 	);
 }
 
-export type TNetwork = {value: number, label: string};
+export type TNetwork = {value: number; label: string};
 function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const {onSwitchChain, isActive} = useWeb3();
 	const publicClient = usePublicClient();
@@ -73,17 +85,13 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const [selectedChainID, set_selectedChainID] = useState(1);
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
+		const injectedConnector = connectors.find((e): boolean => e.id.toLocaleLowerCase() === 'injected');
 		assert(injectedConnector, 'No injected connector found');
 		const chainsForInjected = injectedConnector.chains;
 
-		return (
-			chainsForInjected
-				.filter(({id}): boolean => id !== 1337 && ((networks.length > 0 && networks.includes(id)) || true))
-				.map((network: Chain): TNetwork => (
-					{value: network.id, label: network.name}
-				))
-		);
+		return chainsForInjected
+			.filter(({id}): boolean => id !== 1337 && ((networks.length > 0 && networks.includes(id)) || true))
+			.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
 	}, [connectors, networks]);
 
 	const currentNetwork = useMemo((): TNetwork | undefined => {
@@ -93,15 +101,26 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 
 	if (supportedNetworks.length === 1) {
 		if (publicClient?.chain.id === 1337) {
-			return <NetworkButton label={'Localhost'} isDisabled />;
+			return (
+				<NetworkButton
+					label={'Localhost'}
+					isDisabled
+				/>
+			);
 		}
 		if (currentNetwork?.value === supportedNetworks[0]?.value) {
-			return <NetworkButton label={supportedNetworks[0]?.label || 'Ethereum'} isDisabled />;
+			return (
+				<NetworkButton
+					label={supportedNetworks[0]?.label || 'Ethereum'}
+					isDisabled
+				/>
+			);
 		}
 		return (
 			<NetworkButton
 				label={'Invalid Network'}
-				onClick={(): void => onSwitchChain(supportedNetworks[0].value)} />
+				onClick={(): void => onSwitchChain(supportedNetworks[0].value)}
+			/>
 		);
 	}
 
@@ -118,13 +137,22 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 					<>
 						<Listbox.Button
 							suppressHydrationWarning
-							className={'yearn--header-nav-item flex flex-row items-center border-0 p-0 text-xs md:flex md:text-sm'}>
-							<div suppressHydrationWarning className={'relative flex flex-row items-center truncate whitespace-nowrap text-xs md:text-sm'}>
+							className={
+								'yearn--header-nav-item flex flex-row items-center border-0 p-0 text-xs md:flex md:text-sm'
+							}>
+							<div
+								suppressHydrationWarning
+								className={
+									'relative flex flex-row items-center truncate whitespace-nowrap text-xs md:text-sm'
+								}>
 								{currentNetwork?.label || 'Ethereum'}
 							</div>
 							<div className={'ml-1 md:ml-2'}>
 								<IconChevronBottom
-									className={`h-3 w-3 transition-transform md:h-5 md:w-4 ${open ? '-rotate-180' : 'rotate-0'}`} />
+									className={`h-3 w-3 transition-transform md:h-5 md:w-4 ${
+										open ? '-rotate-180' : 'rotate-0'
+									}`}
+								/>
 							</div>
 						</Listbox.Button>
 						<Transition
@@ -150,19 +178,29 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 									leave={'transition duration-75 ease-out'}
 									leaveFrom={'transform scale-100 opacity-100'}
 									leaveTo={'transform scale-95 opacity-0'}>
-									<Listbox.Options className={'absolute -inset-x-24 z-50 flex items-center justify-center pt-2 opacity-0 transition-opacity'}>
-										<div className={'text-xxs w-fit border border-neutral-300 bg-neutral-100 p-1 px-2 text-center text-neutral-900'}>
-											{supportedNetworks.map((network): ReactElement => (
-												<Listbox.Option key={network.value} value={network}>
-													{({active}): ReactElement => (
-														<div
-															data-active={active}
-															className={'yearn--listbox-menu-item text-sm'}>
-															{network?.label || 'Ethereum'}
-														</div>
-													)}
-												</Listbox.Option>
-											))}
+									<Listbox.Options
+										className={
+											'absolute -inset-x-24 z-50 flex items-center justify-center pt-2 opacity-0 transition-opacity'
+										}>
+										<div
+											className={
+												'text-xxs w-fit border border-neutral-300 bg-neutral-100 p-1 px-2 text-center text-neutral-900'
+											}>
+											{supportedNetworks.map(
+												(network): ReactElement => (
+													<Listbox.Option
+														key={network.value}
+														value={network}>
+														{({active}): ReactElement => (
+															<div
+																data-active={active}
+																className={'yearn--listbox-menu-item text-sm'}>
+																{network?.label || 'Ethereum'}
+															</div>
+														)}
+													</Listbox.Option>
+												)
+											)}
 										</div>
 									</Listbox.Options>
 								</Transition.Child>
@@ -212,11 +250,18 @@ function WalletSelector(): ReactElement {
 						openLoginModal();
 					}
 				}}>
-				<p suppressHydrationWarning className={'yearn--header-nav-item text-sm'}>
-					{walletIdentity ? walletIdentity : (
+				<p
+					suppressHydrationWarning
+					className={'yearn--header-nav-item text-sm'}>
+					{walletIdentity ? (
+						walletIdentity
+					) : (
 						<span>
 							<IconWallet className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
-							<span className={'relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal text-neutral-0 transition-all hover:bg-neutral-800 md:flex'}>
+							<span
+								className={
+									'relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal text-neutral-0 transition-all hover:bg-neutral-800 md:flex'
+								}>
 								{'Connect wallet'}
 							</span>
 						</span>
@@ -233,7 +278,10 @@ function WalletSelector(): ReactElement {
 						openConnectModal?.();
 					}
 				}}
-				className={cl('fixed inset-x-0 bottom-0 z-[87] border-t border-neutral-900 bg-neutral-0 md:hidden', walletIdentity ? 'hidden pointer-events-none' : '')}>
+				className={cl(
+					'fixed inset-x-0 bottom-0 z-[87] border-t border-neutral-900 bg-neutral-0 md:hidden',
+					walletIdentity ? 'hidden pointer-events-none' : ''
+				)}>
 				<div className={'flex flex-col items-center justify-center pb-6 pt-4 text-center'}>
 					{'You are not connected. Please connect to a wallet to continue.'}
 					<Button className={'mt-3 space-x-2'}>
@@ -241,22 +289,21 @@ function WalletSelector(): ReactElement {
 						<p>{'Connect wallet'}</p>
 					</Button>
 				</div>
-
 			</div>
 		</>
 	);
 }
 
 export type THeader = {
-	logo: ReactElement,
-	extra?: ReactElement,
-	linkComponent?: ReactElement,
-	nav: TMenu[],
-	supportedNetworks?: number[],
-	currentPathName: string,
-	showNetworkSelector: boolean,
-	onOpenMenuMobile: () => void
-}
+	logo: ReactElement;
+	extra?: ReactElement;
+	linkComponent?: ReactElement;
+	nav: TMenu[];
+	supportedNetworks?: number[];
+	currentPathName: string;
+	showNetworkSelector: boolean;
+	onOpenMenuMobile: () => void;
+};
 
 export function Header({
 	logo,
@@ -273,7 +320,8 @@ export function Header({
 			<Navbar
 				linkComponent={linkComponent}
 				currentPathName={currentPathName}
-				nav={nav} />
+				nav={nav}
+			/>
 			<div className={'flex w-1/3 md:hidden'}>
 				<button onClick={onOpenMenuMobile}>
 					<span className={'sr-only'}>{'Open menu'}</span>
@@ -284,17 +332,35 @@ export function Header({
 						viewBox={'0 0 24 24'}
 						fill={'none'}
 						xmlns={'http://www.w3.org/2000/svg'}>
-						<path d={'M2 2C1.44772 2 1 2.44772 1 3C1 3.55228 1.44772 4 2 4H22C22.5523 4 23 3.55228 23 3C23 2.44772 22.5523 2 22 2H2Z'} fill={'currentcolor'}/>
-						<path d={'M2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10H14C14.5523 10 15 9.55228 15 9C15 8.44772 14.5523 8 14 8H2Z'} fill={'currentcolor'}/>
-						<path d={'M1 15C1 14.4477 1.44772 14 2 14H22C22.5523 14 23 14.4477 23 15C23 15.5523 22.5523 16 22 16H2C1.44772 16 1 15.5523 1 15Z'} fill={'currentcolor'}/>
-						<path d={'M2 20C1.44772 20 1 20.4477 1 21C1 21.5523 1.44772 22 2 22H14C14.5523 22 15 21.5523 15 21C15 20.4477 14.5523 20 14 20H2Z'} fill={'currentcolor'}/>
+						<path
+							d={
+								'M2 2C1.44772 2 1 2.44772 1 3C1 3.55228 1.44772 4 2 4H22C22.5523 4 23 3.55228 23 3C23 2.44772 22.5523 2 22 2H2Z'
+							}
+							fill={'currentcolor'}
+						/>
+						<path
+							d={
+								'M2 8C1.44772 8 1 8.44772 1 9C1 9.55228 1.44772 10 2 10H14C14.5523 10 15 9.55228 15 9C15 8.44772 14.5523 8 14 8H2Z'
+							}
+							fill={'currentcolor'}
+						/>
+						<path
+							d={
+								'M1 15C1 14.4477 1.44772 14 2 14H22C22.5523 14 23 14.4477 23 15C23 15.5523 22.5523 16 22 16H2C1.44772 16 1 15.5523 1 15Z'
+							}
+							fill={'currentcolor'}
+						/>
+						<path
+							d={
+								'M2 20C1.44772 20 1 20.4477 1 21C1 21.5523 1.44772 22 2 22H14C14.5523 22 15 21.5523 15 21C15 20.4477 14.5523 20 14 20H2Z'
+							}
+							fill={'currentcolor'}
+						/>
 					</svg>
 				</button>
 			</div>
 			<div className={'flex w-1/3 justify-center'}>
-				<div className={'relative h-8 w-8'}>
-					{logo}
-				</div>
+				<div className={'relative h-8 w-8'}>{logo}</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
 				{showNetworkSelector ? <NetworkSelector networks={supportedNetworks || []} /> : null}

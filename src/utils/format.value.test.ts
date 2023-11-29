@@ -1,3 +1,5 @@
+import {describe, expect, test} from 'bun:test';
+
 import {formatCounterValue, formatCounterValueRaw} from './format.value.js';
 
 describe('counterValue and counterValueRaw', (): void => {

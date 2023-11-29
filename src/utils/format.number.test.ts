@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import {amount, amountV2, assertValidNumber, defaultOptions, formatLocalAmount, formatNumberOver10K} from './format.number.js';
+import {beforeAll, describe, expect, it} from 'bun:test';
+
+import {
+	amount,
+	amountV2,
+	assertValidNumber,
+	defaultOptions,
+	formatLocalAmount,
+	formatNumberOver10K
+} from './format.number.js';
 
 describe('format.number', (): void => {
 	describe('amount()', (): void => {
@@ -39,15 +48,11 @@ describe('format.number', (): void => {
 		});
 
 		it('should not apply ellipsis if displayDigits is larger than the formatted amount length', (): void => {
-			expect(amount(121234567834.56, 2, 2, 20)).toBe(
-				'121 234 567 834,56'
-			);
+			expect(amount(121234567834.56, 2, 2, 20)).toBe('121 234 567 834,56');
 		});
 
 		it('should not apply ellipsis if displayDigits is not provided', (): void => {
-			expect(amount(1234123456756789, 0, 0)).toBe(
-				'1 234 123 456 756 789'
-			);
+			expect(amount(1234123456756789, 0, 0)).toBe('1 234 123 456 756 789');
 		});
 
 		it('should handle non-numeric input as 0', (): void => {
@@ -145,163 +150,64 @@ describe('format.number', (): void => {
 
 	describe('formatLocalAmount', (): void => {
 		it('Currency symbol should be displayed', (): void => {
-			expect(
-				formatLocalAmount(1234.5678, 2, '$', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'1 234,57 $');
-
-		}
-		);
+			expect(formatLocalAmount(1234.5678, 2, '$', defaultOptions).normalize('NFKC')).toBe('1 234,57 $');
+		});
 
 		it('Currency symbol should be displayed', (): void => {
-			expect(
-				formatLocalAmount(1234.5678, 2, '$', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'1 234,57 $');
-
-		}
-		);
+			expect(formatLocalAmount(1234.5678, 2, '$', defaultOptions).normalize('NFKC')).toBe('1 234,57 $');
+		});
 
 		it('USD currency symbol should be displayed', (): void => {
-			expect(
-				formatLocalAmount(
-					1234.5678,
-					2,
-					'USD',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'1 234,57 $');
-
-		}
-		);
+			expect(formatLocalAmount(1234.5678, 2, 'USD', defaultOptions).normalize('NFKC')).toBe('1 234,57 $');
+		});
 
 		it('DAI currency symbol should be displayed', (): void => {
-			expect(
-				formatLocalAmount(
-					1234.5678,
-					2,
-					'DAI',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'1 234,57 DAI');
-
-		}
-		);
+			expect(formatLocalAmount(1234.5678, 2, 'DAI', defaultOptions).normalize('NFKC')).toBe('1 234,57 DAI');
+		});
 
 		it('Percent symbol should be displayed', (): void => {
-			expect(
-				formatLocalAmount(
-					0.123,
-					2,
-					'PERCENT',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'12,30 %');
-
-		}
-		);
+			expect(formatLocalAmount(0.123, 2, 'PERCENT', defaultOptions).normalize('NFKC')).toBe('12,30 %');
+		});
 		it('Empty symbol should not affect formatting', (): void => {
-			expect(
-				formatLocalAmount(1234.5678, 2, '', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'1 234,57');
+			expect(formatLocalAmount(1234.5678, 2, '', defaultOptions).normalize('NFKC')).toBe('1 234,57');
 		});
 		it('Empty symbol should not affect formatting', (): void => {
 			expect(
 				formatLocalAmount(1234.5678, 2, '', {
 					shouldDisplaySymbol: false
-				}).normalize('NFKC')).toBe(
-				'1 234,568');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('1 234,568');
+		});
 		it('Amount should be formatted in short notation', (): void => {
-			expect(
-				formatLocalAmount(12345.6789, 2, '$', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'12,35 k $');
-
-		}
-		);
+			expect(formatLocalAmount(12345.6789, 2, '$', defaultOptions).normalize('NFKC')).toBe('12,35 k $');
+		});
 		it('Amount should be formatted in short notation', (): void => {
-			expect(
-				formatLocalAmount(
-					12345678.9,
-					2,
-					'USD',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'12,35 M $');
-
-		}
-		);
+			expect(formatLocalAmount(12345678.9, 2, 'USD', defaultOptions).normalize('NFKC')).toBe('12,35 M $');
+		});
 		it('Amount should be formatted with the specified number of decimals', (): void => {
-			expect(
-				formatLocalAmount(0.00000123, 8, '$', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'0,00000123 $');
-
-		}
-		);
+			expect(formatLocalAmount(0.00000123, 8, '$', defaultOptions).normalize('NFKC')).toBe('0,00000123 $');
+		});
 		it('Amount should be formatted with the specified number of decimals', (): void => {
-			expect(
-				formatLocalAmount(
-					0.00000000123,
-					12,
-					'USD',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'0,00000000123 $');
-
-		}
-		);
+			expect(formatLocalAmount(0.00000000123, 12, 'USD', defaultOptions).normalize('NFKC')).toBe(
+				'0,00000000123 $'
+			);
+		});
 		it('Amount above 0.01 should be formatted as is', (): void => {
-			expect(
-				formatLocalAmount(0.01, 2, 'USD', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'0,01 $');
-
-		}
-		);
+			expect(formatLocalAmount(0.01, 2, 'USD', defaultOptions).normalize('NFKC')).toBe('0,01 $');
+		});
 		it('Amount above 0.01 should be formatted as is', (): void => {
-			expect(
-				formatLocalAmount(0.001, 2, 'OPT', defaultOptions).normalize(
-					'NFKC'
-				)).toBe(
-				'0,001 OPT');
-
-		}
-		);
+			expect(formatLocalAmount(0.001, 2, 'OPT', defaultOptions).normalize('NFKC')).toBe('0,001 OPT');
+		});
 		it('Amount should be formatted with the specified number of decimals', (): void => {
-			expect(
-				formatLocalAmount(
-					0.000000000000123,
-					18,
-					'YFI',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'0,000000000000123 YFI');
-
-		}
-		);
+			expect(formatLocalAmount(0.000000000000123, 18, 'YFI', defaultOptions).normalize('NFKC')).toBe(
+				'0,000000000000123 YFI'
+			);
+		});
 		it("Amount should be 0,00 YFI when it's too small", (): void => {
-			expect(
-				formatLocalAmount(
-					0.000000000000000000123,
-					18,
-					'YFI',
-					defaultOptions
-				).normalize('NFKC')).toBe(
-				'0,00 YFI');
-
-		}
-		);
+			expect(formatLocalAmount(0.000000000000000000123, 18, 'YFI', defaultOptions).normalize('NFKC')).toBe(
+				'0,00 YFI'
+			);
+		});
 	});
 
 	describe('is ok for amountV2', (): void => {
@@ -312,11 +218,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: '$',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'1 234,57 $');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('1 234,57 $');
+		});
 		it('Formatted amount with decimal places and USD currency symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -324,11 +228,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'USD',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'1 234,57 $');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('1 234,57 $');
+		});
 		it('Formatted amount with decimal places and EUR currency symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -336,11 +238,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'DAI',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'1 234,57 DAI');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('1 234,57 DAI');
+		});
 		it('Formatted amount with decimal places and no currency symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -348,11 +248,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'USD',
 					options: {shouldDisplaySymbol: false}
-				}).normalize('NFKC')).toBe(
-				'1 234,57');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('1 234,57');
+		});
 		it('Formatted amount with decimal places and percent symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -360,11 +258,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'PERCENT',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'> 500,00 %');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('> 500,00 %');
+		});
 		it('Formatted amount with decimal places and no percent symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -372,11 +268,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'PERCENT',
 					options: {shouldDisplaySymbol: false}
-				}).normalize('NFKC')).toBe(
-				'1 234,57');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('1 234,57');
+		});
 		it('Formatted zero amount with no symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -384,11 +278,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: '',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'0,00');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('0,00');
+		});
 		it('Formatted infinity amount should be returned', (): void => {
 			expect(
 				amountV2({
@@ -396,18 +288,16 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: '$',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'∞');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('∞');
+		});
 		it('Formatted BigInt amount with unit should be returned', (): void => {
 			expect(
-				amountV2({value: BigInt(123456789), decimals: 2, symbol: '$', options: defaultOptions}).normalize('NFKC')).toBe(
-				'1,23 M $');
-
-		}
-		);
+				amountV2({value: BigInt(123456789), decimals: 2, symbol: '$', options: defaultOptions}).normalize(
+					'NFKC'
+				)
+			).toBe('1,23 M $');
+		});
 		it('Formatted NaN amount should return infinity', (): void => {
 			expect(
 				amountV2({
@@ -415,11 +305,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: '$',
 					options: defaultOptions
-				}).normalize('NFKC')).toBe(
-				'0,00 $');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('0,00 $');
+		});
 		it('Formatted small amount with decimal places and no percent symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -427,11 +315,9 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'PERCENT',
 					options: {shouldDisplaySymbol: false}
-				}).normalize('NFKC')).toBe(
-				'0,000000001235');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('0,000000001235');
+		});
 		it('Format small amount to 0,00 and no percent symbol should be returned', (): void => {
 			expect(
 				amountV2({
@@ -439,10 +325,8 @@ describe('format.number', (): void => {
 					decimals: 2,
 					symbol: 'PERCENT',
 					options: {shouldDisplaySymbol: false}
-				}).normalize('NFKC')).toBe(
-				'0,00');
-
-		}
-		);
+				}).normalize('NFKC')
+			).toBe('0,00');
+		});
 	});
 });

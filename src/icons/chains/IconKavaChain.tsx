@@ -2,7 +2,7 @@ import React from 'react';
 
 import type {ReactElement} from 'react';
 
-export function	IconKavaChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
+export function IconKavaChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
 	return (
 		<svg
 			width={32}
@@ -30,7 +30,10 @@ export function	IconKavaChain(props: React.SVGProps<SVGSVGElement>): ReactElemen
 			</g>
 			<defs>
 				<clipPath id={'clip0_621_285361'}>
-					<path fill={'#fff'} d={'M0 0H32V32H0z'} />
+					<path
+						fill={'#fff'}
+						d={'M0 0H32V32H0z'}
+					/>
 				</clipPath>
 			</defs>
 		</svg>

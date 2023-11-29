@@ -1,7 +1,6 @@
 import request from 'graphql-request';
 import axios from 'axios';
 
-
 export async function curveFetcher<T>(url: string): Promise<T> {
 	return axios.get(url).then((res): T => res.data?.data);
 }

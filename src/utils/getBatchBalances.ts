@@ -15,16 +15,12 @@ import type {TBalanceData} from '../types/hooks.js';
 import type {TDict} from '../types/index.js';
 
 type TPerformCall = {
-	chainID: number,
-	address: string,
-	tokens: TUseBalancesTokens[]
-}
+	chainID: number;
+	address: string;
+	tokens: TUseBalancesTokens[];
+};
 
-export async function getBatchBalances({
-	chainID,
-	address,
-	tokens
-}: TPerformCall): Promise<TDict<TBalanceData>> {
+export async function getBatchBalances({chainID, address, tokens}: TPerformCall): Promise<TDict<TBalanceData>> {
 	const data: TDict<TBalanceData> = {};
 	const chunks = [];
 	for (let i = 0; i < tokens.length; i += 1_000) {
@@ -67,7 +63,8 @@ export async function getBatchBalances({
 				const {token, decimals: injectedDecimals, name: injectedName, symbol: injectedSymbol} = element;
 				const balanceOf = decodeAsBigInt(results[rIndex++]);
 				const decimalsIndex = results[rIndex++];
-				const decimals = decodeAsNumber(decimalsIndex) || Number(decodeAsBigInt(decimalsIndex)) || injectedDecimals || 18;
+				const decimals =
+					decodeAsNumber(decimalsIndex) || Number(decodeAsBigInt(decimalsIndex)) || injectedDecimals || 18;
 				let symbol = decodeAsString(results[rIndex++]) || injectedSymbol || '';
 				let name = decodeAsString(results[rIndex++]) || injectedName || '';
 
@@ -99,10 +96,13 @@ export async function getBatchBalances({
 }
 
 export function isArrayOfUseBalancesTokens(value: unknown): value is TUseBalancesTokens[] {
-	return Array.isArray(value) && value.every(({token}): boolean => !!token && typeof token === 'string');
+	return (
+		Array.isArray(value) &&
+		(value as TUseBalancesTokens[]).every(({token}): boolean => Boolean(!!token && typeof token === 'string'))
+	);
 }
 
-export type TGetBatchBalancesResp = {balances: string, chainID: number};
+export type TGetBatchBalancesResp = {balances: string; chainID: number};
 
 export async function handler(req: NextApiRequest, res: NextApiResponse<TGetBatchBalancesResp>): Promise<void> {
 	const chainID = Number(req.body.chainID);

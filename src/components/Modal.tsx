@@ -9,12 +9,14 @@ export type TModal = {
 	children: ReactNode;
 } & React.ComponentPropsWithoutRef<'div'>;
 
-function	Modal(props: TModal): ReactElement {
+function Modal(props: TModal): ReactElement {
 	const {isOpen, onClose, className = '', children} = props;
 	const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
-		<Transition.Root show={isOpen} as={Fragment}>
+		<Transition.Root
+			show={isOpen}
+			as={Fragment}>
 			<Dialog
 				as={'div'}
 				className={'fixed inset-0 isolate overflow-y-auto'}
@@ -33,7 +35,9 @@ function	Modal(props: TModal): ReactElement {
 						<Dialog.Overlay className={`${className} yearn--modal-overlay`} />
 					</Transition.Child>
 
-					<span className={'hidden sm:inline-block sm:h-screen sm:align-middle'} aria-hidden={'true'}>
+					<span
+						className={'hidden sm:inline-block sm:h-screen sm:align-middle'}
+						aria-hidden={'true'}>
 						&#8203;
 					</span>
 					<Transition.Child
@@ -44,7 +48,9 @@ function	Modal(props: TModal): ReactElement {
 						leave={'ease-in duration-200'}
 						leaveFrom={'opacity-100 translate-y-0 sm:scale-100'}
 						leaveTo={'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'}>
-						<div ref={ref} className={`${className} yearn--modal`}>
+						<div
+							ref={ref}
+							className={`${className} yearn--modal`}>
 							{children}
 						</div>
 					</Transition.Child>

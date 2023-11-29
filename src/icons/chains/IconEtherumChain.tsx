@@ -2,7 +2,7 @@ import React from 'react';
 
 import type {ReactElement} from 'react';
 
-export function	IconEtherumChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
+export function IconEtherumChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
 	return (
 		<svg
 			width={32}
@@ -31,13 +31,18 @@ export function	IconEtherumChain(props: React.SVGProps<SVGSVGElement>): ReactEle
 					fill={'#fff'}
 					fillOpacity={'0.602'}
 					fillRule={'evenodd'}
-					d={'M16.5 4v8.872l7.498 3.35L16.5 4zm0 17.972V28l7.503-10.381-7.503 4.353zm0-1.396L9 16.224l7.5-3.35v7.704z'}
+					d={
+						'M16.5 4v8.872l7.498 3.35L16.5 4zm0 17.972V28l7.503-10.381-7.503 4.353zm0-1.396L9 16.224l7.5-3.35v7.704z'
+					}
 					clipRule={'evenodd'}
 				/>
 			</g>
 			<defs>
 				<clipPath id={'clip0_621_285293'}>
-					<path fill={'#fff'} d={'M0 0H32V32H0z'} />
+					<path
+						fill={'#fff'}
+						d={'M0 0H32V32H0z'}
+					/>
 				</clipPath>
 			</defs>
 		</svg>

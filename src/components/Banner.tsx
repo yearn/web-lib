@@ -9,7 +9,7 @@ import type {ReactElement} from 'react';
 type TBannerProps = {
 	content: string;
 	type: 'error' | 'warning' | 'success' | 'info';
-	onClose: () => void
+	onClose: () => void;
 };
 
 export function Banner({content, type, onClose}: TBannerProps): ReactElement {

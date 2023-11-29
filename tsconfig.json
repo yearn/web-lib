@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"rootDir": "./src",
+		"rootDir": ".",
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"alwaysStrict": true,
@@ -10,6 +10,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"jsx": "react",
 		"lib": ["DOM", "DOM.Iterable", "ES2020", "ESNext"],
+		"types": ["bun-types"],
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"noFallthroughCasesInSwitch": true,
@@ -26,16 +27,31 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"target": "ES2020",
-		"sourceMap": true
+		"sourceMap": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
 	},
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.tsx",
-	],
-	"exclude": [
-		"node_modules/",
-		"dist/",
-		"__tests__/**/*",
 		".eslintrc.cjs",
-	]
+		"**/*.css",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.d.tsx",
+		"public",
+		"public/manifest.json",
+		"postcss.config.cjs",
+		"tailwind.config.cjs",
+		"next.config.js",
+		"theme.config.js",
+		".eslintrc.js",
+		".next/types/**/*.ts",
+		"stylelint.config.cjs",
+		"commitlint.config.cjs"
+	],
+	"exclude": ["node_modules/", "dist/", "__tests__/**/*"]
 }

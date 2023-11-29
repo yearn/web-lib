@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import {describe, expect, it} from 'bun:test';
+
 import {isNumber} from './isNumber.js';
 
 describe('isNumber', (): void => {

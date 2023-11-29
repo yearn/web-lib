@@ -2,7 +2,7 @@ import React from 'react';
 
 import type {ReactElement} from 'react';
 
-export function	IconBaseChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
+export function IconBaseChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
 	return (
 		<svg
 			width={32}
@@ -18,12 +18,17 @@ export function	IconBaseChain(props: React.SVGProps<SVGSVGElement>): ReactElemen
 				/>
 				<path
 					fill={'#fff'}
-					d={'M15.977 29C23.17 29 29 23.18 29 16S23.17 3 15.977 3C9.154 3 3.557 8.24 3 14.907h17.213v2.186H3C3.556 23.761 9.154 29 15.977 29z'}
+					d={
+						'M15.977 29C23.17 29 29 23.18 29 16S23.17 3 15.977 3C9.154 3 3.557 8.24 3 14.907h17.213v2.186H3C3.556 23.761 9.154 29 15.977 29z'
+					}
 				/>
 			</g>
 			<defs>
 				<clipPath id={'clip0_621_285370'}>
-					<path fill={'#fff'} d={'M0 0H32V32H0z'} />
+					<path
+						fill={'#fff'}
+						d={'M0 0H32V32H0z'}
+					/>
 				</clipPath>
 			</defs>
 		</svg>

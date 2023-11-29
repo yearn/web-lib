@@ -13,21 +13,21 @@ const errorTxStatus = {none: false, pending: false, success: false, error: true}
 const pendingTxStatus = {none: false, pending: true, success: false, error: false};
 const successTxStatus = {none: false, pending: false, success: true, error: false};
 
-export type	TTxStatus = {
-	none: boolean,
-	pending: boolean,
-	success: boolean,
-	error: boolean,
-	errorMessage?: string
-}
+export type TTxStatus = {
+	none: boolean;
+	pending: boolean;
+	success: boolean;
+	error: boolean;
+	errorMessage?: string;
+};
 export type TBaseError = {
-	name?: string,
-	message: string,
-}
+	name?: string;
+	message: string;
+};
 export type TTxResponse = {
-	isSuccessful: boolean,
-	receipt?: TransactionReceipt,
-	error?: BaseError | unknown
+	isSuccessful: boolean;
+	receipt?: TransactionReceipt;
+	error?: BaseError | unknown;
 };
 
 class Transaction {
@@ -83,14 +83,14 @@ class Transaction {
 				}
 				this.onStatus(successTxStatus);
 				setTimeout((): void => this.onStatus(defaultTxStatus), timeout);
-				return ({isSuccessful, receipt});
+				return {isSuccessful, receipt};
 			}
 			this.onHandleError((error as TBaseError)?.message || 'Transaction failed');
-			return ({isSuccessful: false});
-		} catch(error) {
+			return {isSuccessful: false};
+		} catch (error) {
 			const err = error as BaseError;
 			this.onHandleError(err?.shortMessage || err?.message || 'Transaction failed');
-			return ({isSuccessful: false});
+			return {isSuccessful: false};
 		}
 	}
 }
@@ -109,6 +109,4 @@ async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse
 	}
 }
 
-export {
-	defaultTxStatus, handleTx as handleTx2, Transaction
-};
+export {defaultTxStatus, handleTx as handleTx2, Transaction};

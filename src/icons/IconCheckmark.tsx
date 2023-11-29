@@ -1,8 +1,8 @@
-import	React	from	'react';
+import React from 'react';
 
 import type {ReactElement} from 'react';
 
-export function	IconCheckmark(props: React.SVGProps<SVGSVGElement>): ReactElement {
+export function IconCheckmark(props: React.SVGProps<SVGSVGElement>): ReactElement {
 	return (
 		<svg
 			width={24}
@@ -16,7 +16,8 @@ export function	IconCheckmark(props: React.SVGProps<SVGSVGElement>): ReactElemen
 				stroke={'currentcolor'}
 				strokeWidth={2}
 				strokeLinecap={'round'}
-				strokeLinejoin={'round'} />
+				strokeLinejoin={'round'}
+			/>
 		</svg>
 	);
 }

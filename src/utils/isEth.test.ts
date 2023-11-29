@@ -1,3 +1,5 @@
+import {describe, expect, it} from 'bun:test';
+
 import {ETH_TOKEN_ADDRESS} from './constants.js';
 import {isEth} from './isEth.js';
 

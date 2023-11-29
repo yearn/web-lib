@@ -14,6 +14,6 @@ export type VoidPromiseFunction = () => Promise<void>;
 
 // TAddress is used to represent a checksummed address
 export type TAddressYearn = '/^0x[0-9a-f]{40}$/i';
-export type	TAddressWagmi = `0x${string}`
+export type TAddressWagmi = `0x${string}`;
 export type TAddress = TAddressWagmi;
 export type TAddressLike = TAddressYearn | TAddressWagmi | string;

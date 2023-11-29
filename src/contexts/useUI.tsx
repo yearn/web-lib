@@ -8,13 +8,13 @@ import {deepMerge} from './utils.js';
 
 import type {ReactElement} from 'react';
 import type {Toast} from 'react-hot-toast';
-import type {TUIContext,TUIOptions} from '../types/contexts.js';
+import type {TUIContext, TUIOptions} from '../types/contexts.js';
 
-const	defaultOptions: TUIOptions = {
+const defaultOptions: TUIOptions = {
 	shouldUseDefaultToaster: true
 };
 
-const	UI = createContext<TUIContext>({
+const UI = createContext<TUIContext>({
 	toast,
 	onLoadStart: NProgress.start,
 	onLoadDone: NProgress.done
@@ -27,14 +27,17 @@ export function onLoadDone(): void {
 	NProgress.done();
 }
 
-export const UIContextApp = ({children, options = defaultOptions}: {
-	children: ReactElement,
-	options?: TUIOptions
+export const UIContextApp = ({
+	children,
+	options = defaultOptions
+}: {
+	children: ReactElement;
+	options?: TUIOptions;
 }): ReactElement => {
 	const uiOptions = deepMerge(defaultOptions, options) as TUIOptions;
 	const nsRefCount = useRef(0);
 
-	function	renderToaster(): ReactElement {
+	function renderToaster(): ReactElement {
 		if (uiOptions.shouldUseDefaultToaster) {
 			return (
 				<Toaster
@@ -52,7 +55,9 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 						className: 'yearn--toast-options'
 					}}>
 					{(t: Toast): ReactElement => (
-						<ToastBar toast={t} position={'bottom-center'}>
+						<ToastBar
+							toast={t}
+							position={'bottom-center'}>
 							{({icon, message}): ReactElement => (
 								<>
 									{icon}
@@ -62,7 +67,8 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 											width={16}
 											height={16}
 											onClick={(): void => toast.dismiss(t.id)}
-											className={'mr-3 cursor-pointer'} />
+											className={'mr-3 cursor-pointer'}
+										/>
 									) : null}
 								</>
 							)}
@@ -74,7 +80,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		return <Fragment />;
 	}
 
-	const	onLoadStart = useCallback((): void => {
+	const onLoadStart = useCallback((): void => {
 		if (nsRefCount.current === 0) {
 			NProgress.start();
 		}
@@ -82,7 +88,7 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 		nsRefCount.current += 1;
 	}, []);
 
-	const	onLoadDone = useCallback((): void => {
+	const onLoadDone = useCallback((): void => {
 		if (nsRefCount.current === 0) {
 			NProgress.done();
 			return;
@@ -94,14 +100,17 @@ export const UIContextApp = ({children, options = defaultOptions}: {
 	}, []);
 
 	/* 💙 - Yearn Finance *********************************************************************
-	**	Render the UIContext with it's parameters.
-	**	The parameters will be accessible to the children via the useUI hook.
-	******************************************************************************************/
-	const	contextValue = useMemo((): TUIContext => ({
-		toast,
-		onLoadStart,
-		onLoadDone
-	}), [onLoadStart, onLoadDone]);
+	 **	Render the UIContext with it's parameters.
+	 **	The parameters will be accessible to the children via the useUI hook.
+	 ******************************************************************************************/
+	const contextValue = useMemo(
+		(): TUIContext => ({
+			toast,
+			onLoadStart,
+			onLoadDone
+		}),
+		[onLoadStart, onLoadDone]
+	);
 
 	return (
 		<UI.Provider value={contextValue}>

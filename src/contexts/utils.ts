@@ -24,6 +24,6 @@ export function deepMerge(target: unknown, source: unknown): unknown {
 	return target;
 }
 
-const isObject = (input: unknown): input is { [key: string]: unknown } => {
+const isObject = (input: unknown): input is {[key: string]: unknown} => {
 	return typeof input === 'object' && input !== null && !Array.isArray(input);
 };

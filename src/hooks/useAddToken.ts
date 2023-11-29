@@ -8,25 +8,26 @@ type TWatchAssetOptions = {
 	symbol: string; // A ticker symbol or shorthand, up to 11 characters
 	decimals: number; // The number of token decimals
 	image: string; // A string url of the token logo
-}
+};
 
 export function useAddToken(): (options: TWatchAssetOptions) => void {
 	const {toast} = yToast();
 	const {dismissAllToasts} = useDismissToasts();
 
 	return (options: TWatchAssetOptions): void => {
-
-		(window as {
-			ethereum: {
-				request: (args: {
-					method: 'wallet_watchAsset',
-					params: {
-						type: 'ERC20',
-						options: TWatchAssetOptions
-					}
-				}) => Promise<boolean>
+		(
+			window as {
+				ethereum: {
+					request: (args: {
+						method: 'wallet_watchAsset';
+						params: {
+							type: 'ERC20';
+							options: TWatchAssetOptions;
+						};
+					}) => Promise<boolean>;
+				};
 			}
-		}).ethereum
+		).ethereum
 			.request({
 				method: 'wallet_watchAsset',
 				params: {

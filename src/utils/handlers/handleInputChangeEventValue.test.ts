@@ -1,3 +1,5 @@
+import {describe, expect, it} from 'bun:test';
+
 import {handleInputChangeEventValue} from './handleInputChangeEventValue.js';
 
 import type {TNormalizedBN} from '../format.bigNumber.js';

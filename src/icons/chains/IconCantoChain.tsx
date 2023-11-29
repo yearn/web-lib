@@ -2,7 +2,7 @@ import React from 'react';
 
 import type {ReactElement} from 'react';
 
-export function	IconCantoChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
+export function IconCantoChain(props: React.SVGProps<SVGSVGElement>): ReactElement {
 	return (
 		<svg
 			width={32}
@@ -19,13 +19,18 @@ export function	IconCantoChain(props: React.SVGProps<SVGSVGElement>): ReactEleme
 				<path
 					fill={'#000'}
 					fillRule={'evenodd'}
-					d={'M25 6v20H10.375v-3.53H7V9.53h3.375V6H25zM13.187 9.53h8.438v3.529h-8.438v-3.53zm8.438 10h-8.438v-6.471H9.812v6.47h3.375v3.53h8.438v-3.53z'}
+					d={
+						'M25 6v20H10.375v-3.53H7V9.53h3.375V6H25zM13.187 9.53h8.438v3.529h-8.438v-3.53zm8.438 10h-8.438v-6.471H9.812v6.47h3.375v3.53h8.438v-3.53z'
+					}
 					clipRule={'evenodd'}
 				/>
 			</g>
 			<defs>
 				<clipPath id={'clip0_621_285364'}>
-					<path fill={'#fff'} d={'M0 0H32V32H0z'} />
+					<path
+						fill={'#fff'}
+						d={'M0 0H32V32H0z'}
+					/>
 				</clipPath>
 			</defs>
 		</svg>

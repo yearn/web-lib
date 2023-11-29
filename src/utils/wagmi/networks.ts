@@ -1,4 +1,3 @@
-
 import type {Chain} from 'wagmi';
 
 export const localhost = {

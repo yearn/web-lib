@@ -5,7 +5,7 @@ import {deserialize, multicall, serialize} from '@wagmi/core';
 import {useUI} from '../contexts/useUI.js';
 import {useWeb3} from '../contexts/useWeb3.js';
 import {AGGREGATE3_ABI} from '../utils/abi/aggregate.abi.js';
-import {isZeroAddress,toAddress} from '../utils/address.js';
+import {isZeroAddress, toAddress} from '../utils/address.js';
 import {MULTICALL3_ADDRESS} from '../utils/constants.js';
 import {decodeAsBigInt, decodeAsNumber, decodeAsString} from '../utils/decoder.js';
 import {toBigInt, toNormalizedValue} from '../utils/format.bigNumber.js';
@@ -79,21 +79,14 @@ async function performCall(
 
 	let rIndex = 0;
 	for (const element of tokens) {
-		const {
-			token,
-			decimals: injectedDecimals,
-			name: injectedName,
-			symbol: injectedSymbol
-		} = element;
+		const {token, decimals: injectedDecimals, name: injectedName, symbol: injectedSymbol} = element;
 		const balanceOf = decodeAsBigInt(results[rIndex++]);
-		const decimals =
-			decodeAsNumber(results[rIndex++]) || injectedDecimals || 18;
+		const decimals = decodeAsNumber(results[rIndex++]) || injectedDecimals || 18;
 		const rawPrice = toBigInt(prices?.[toAddress(token)]);
 		let symbol = decodeAsString(results[rIndex++]) || injectedSymbol || '';
 		let name = decodeAsString(results[rIndex++]) || injectedName || '';
 		if (isEth(token)) {
-			const nativeTokenWrapper =
-				getNetwork(chainID)?.contracts?.wrappedToken;
+			const nativeTokenWrapper = getNetwork(chainID)?.contracts?.wrappedToken;
 			if (nativeTokenWrapper) {
 				symbol = nativeTokenWrapper.coinSymbol;
 				name = nativeTokenWrapper.coinName;
@@ -108,9 +101,7 @@ async function performCall(
 			rawPrice,
 			normalized: toNormalizedValue(balanceOf, decimals),
 			normalizedPrice: toNormalizedValue(rawPrice, 6),
-			normalizedValue:
-				toNormalizedValue(balanceOf, decimals) *
-				toNormalizedValue(rawPrice, 6)
+			normalizedValue: toNormalizedValue(balanceOf, decimals) * toNormalizedValue(rawPrice, 6)
 		};
 	}
 	return [_data, undefined];
@@ -129,13 +120,9 @@ async function getBalances(
 		const {token} = element;
 		const ownerAddress = address;
 		if (isEth(token)) {
-			const nativeTokenWrapper =
-				getNetwork(chainID)?.contracts?.wrappedToken;
+			const nativeTokenWrapper = getNetwork(chainID)?.contracts?.wrappedToken;
 			if (!nativeTokenWrapper) {
-				console.error(
-					'No native token wrapper found for chainID',
-					chainID
-				);
+				console.error('No native token wrapper found for chainID', chainID);
 				continue;
 			}
 			const multicall3Contract = {
@@ -191,16 +178,10 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const data = useRef<TNDict<TDataRef>>({
 		1: {nonce: 0, address: toAddress(), balances: {}}
 	});
-	const stringifiedTokens = useMemo(
-		(): string => serialize(props?.tokens || []),
-		[props?.tokens]
-	);
+	const stringifiedTokens = useMemo((): string => serialize(props?.tokens || []), [props?.tokens]);
 
 	const updateBalancesCall = useCallback(
-		(
-			chainID: number,
-			newRawData: TDict<TBalanceData>
-		): TDict<TBalanceData> => {
+		(chainID: number, newRawData: TDict<TBalanceData>): TDict<TBalanceData> => {
 			if (toAddress(web3Address) !== data?.current?.[chainID]?.address) {
 				data.current[chainID] = {
 					address: toAddress(web3Address),
@@ -245,9 +226,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			return {};
 		}
 		const tokenList = deserialize(stringifiedTokens) || [];
-		const tokens = tokenList.filter(
-			({token}: TUseBalancesTokens): boolean => !isZeroAddress(token)
-		);
+		const tokens = tokenList.filter(({token}: TUseBalancesTokens): boolean => !isZeroAddress(token));
 		if (isZero(tokens.length)) {
 			return {};
 		}
@@ -265,15 +244,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		}
 
 		for (const chunkTokens of chunks) {
-			const [newRawData, err] = await getBalances(
-				chainID || 1,
-				web3Address,
-				chunkTokens
-			);
-			if (
-				toAddress(web3Address as string) !==
-				data?.current?.[chainID]?.address
-			) {
+			const [newRawData, err] = await getBalances(chainID || 1, web3Address, chunkTokens);
+			if (toAddress(web3Address as string) !== data?.current?.[chainID]?.address) {
 				data.current[chainID] = {
 					address: toAddress(web3Address as string),
 					balances: {},
@@ -310,14 +282,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		onLoadDone();
 
 		return data.current[chainID].balances;
-	}, [
-		onLoadDone,
-		onLoadStart,
-		isActive,
-		stringifiedTokens,
-		web3Address,
-		chainID
-	]);
+	}, [onLoadDone, onLoadStart, isActive, stringifiedTokens, web3Address, chainID]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	 ** onUpdateSome takes a list of tokens and fetches the balances for each
@@ -325,9 +290,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	 ** issue as it should only be used for a little list of tokens.
 	 **************************************************************************/
 	const onUpdateSome = useCallback(
-		async (
-			tokenList: TUseBalancesTokens[]
-		): Promise<TDict<TBalanceData>> => {
+		async (tokenList: TUseBalancesTokens[]): Promise<TDict<TBalanceData>> => {
 			set_status({
 				...defaultStatus,
 				isLoading: true,
@@ -335,10 +298,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				isRefetching: defaultStatus.isFetched
 			});
 			onLoadStart();
-			const tokens = tokenList.filter(
-				({token}: TUseBalancesTokens): boolean =>
-					!isZeroAddress(token)
-			);
+			const tokens = tokenList.filter(({token}: TUseBalancesTokens): boolean => !isZeroAddress(token));
 			const chunks = [];
 			for (let i = 0; i < tokens.length; i += 2_000) {
 				chunks.push(tokens.slice(i, i + 2_000));
@@ -351,19 +311,14 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					toAddress(web3Address as string),
 					chunkTokens
 				);
-				if (
-					toAddress(web3Address as string) !==
-					data?.current?.[chainID]?.address
-				) {
+				if (toAddress(web3Address as string) !== data?.current?.[chainID]?.address) {
 					data.current[chainID] = {
 						address: toAddress(web3Address as string),
 						balances: {},
 						nonce: 0
 					};
 				}
-				data.current[chainID].address = toAddress(
-					web3Address as string
-				);
+				data.current[chainID].address = toAddress(web3Address as string);
 
 				for (const [address, element] of Object.entries(newRawData)) {
 					tokensAdded[address] = element;
@@ -397,27 +352,29 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		[onLoadDone, onLoadStart, web3Address, chainID]
 	);
 
-	const assignPrices = useCallback((_rawData: TNDict<TDict<TBalanceData>>): TNDict<TDict<TBalanceData>> => {
-		for (const chainIDStr of Object.keys(_rawData)) {
-			const chainID = Number(chainIDStr);
-			for (const address of Object.keys(_rawData[chainID])) {
-				const tokenAddress = toAddress(address);
-				const rawPrice = toBigInt(props?.prices?.[tokenAddress]);
-				if (!_rawData[chainID]) {
-					_rawData[chainID] = {};
+	const assignPrices = useCallback(
+		(_rawData: TNDict<TDict<TBalanceData>>): TNDict<TDict<TBalanceData>> => {
+			for (const chainIDStr of Object.keys(_rawData)) {
+				const chainID = Number(chainIDStr);
+				for (const address of Object.keys(_rawData[chainID])) {
+					const tokenAddress = toAddress(address);
+					const rawPrice = toBigInt(props?.prices?.[tokenAddress]);
+					if (!_rawData[chainID]) {
+						_rawData[chainID] = {};
+					}
+					_rawData[chainID][tokenAddress] = {
+						..._rawData[chainID][tokenAddress],
+						rawPrice,
+						normalizedPrice: toNormalizedValue(rawPrice, 6),
+						normalizedValue:
+							(_rawData[chainID]?.[tokenAddress] || 0).normalized * toNormalizedValue(rawPrice, 6)
+					};
 				}
-				_rawData[chainID][tokenAddress] = {
-					..._rawData[chainID][tokenAddress],
-					rawPrice,
-					normalizedPrice: toNormalizedValue(rawPrice, 6),
-					normalizedValue:
-							(_rawData[chainID]?.[tokenAddress] || 0)
-								.normalized * toNormalizedValue(rawPrice, 6)
-				};
 			}
-		}
-		return _rawData;
-	}, [props?.prices]);
+			return _rawData;
+		},
+		[props?.prices]
+	);
 
 	const asyncUseEffect = useCallback(async (): Promise<void> => {
 		if (!isActive || !web3Address) {
@@ -431,7 +388,7 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		});
 		onLoadStart();
 
-		const tokens = JSON.parse(stringifiedTokens) || [];
+		const tokens = JSON.parse(stringifiedTokens) as TUseBalancesTokens[];
 		const chunks = [];
 		for (let i = 0; i < tokens.length; i += 100) {
 			chunks.push(tokens.slice(i, i + 100));
@@ -439,28 +396,21 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 		const allPromises = [];
 		for (const chunkTokens of chunks) {
 			allPromises.push(
-				getBalances(chainID || 1, web3Address, chunkTokens).then(
-					async ([newRawData, err]): Promise<void> => {
-						updateBalancesCall(chainID || 1, newRawData);
-						set_error(err);
-					}
-				)
+				getBalances(chainID || 1, web3Address, chunkTokens).then(async ([newRawData, err]): Promise<void> => {
+					updateBalancesCall(chainID || 1, newRawData);
+					set_error(err);
+				})
 			);
 		}
 		await Promise.all(allPromises);
 		onLoadDone();
 		set_status({...defaultStatus, isSuccess: true, isFetched: true});
-	}, [
-		stringifiedTokens,
-		isActive,
-		web3Address,
-		chainID,
-		updateBalancesCall,
-		onLoadStart,
-		onLoadDone
-	]);
+	}, [stringifiedTokens, isActive, web3Address, chainID, updateBalancesCall, onLoadStart, onLoadDone]);
 
-	const withPrice = useMemo((): TDict<TBalanceData> => assignPrices(balances || {})?.[chainID] || {}, [assignPrices, balances, chainID]);
+	const withPrice = useMemo(
+		(): TDict<TBalanceData> => assignPrices(balances || {})?.[chainID] || {},
+		[assignPrices, balances, chainID]
+	);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	 ** Everytime the stringifiedTokens change, we need to update the balances.
@@ -487,10 +437,10 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			status: status.isError
 				? 'error'
 				: status.isLoading || status.isFetching
-					? 'loading'
-					: status.isSuccess
-						? 'success'
-						: 'unknown'
+				  ? 'loading'
+				  : status.isSuccess
+				    ? 'success'
+				    : 'unknown'
 		}),
 		[
 			error,

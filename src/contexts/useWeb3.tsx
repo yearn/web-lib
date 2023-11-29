@@ -1,6 +1,16 @@
-import	React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
+import React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import assert from 'assert';
-import {useAccount, useConnect, useDisconnect, useEnsName, useNetwork, usePublicClient, useSwitchNetwork, useWalletClient, WagmiConfig} from 'wagmi';
+import {
+	useAccount,
+	useConnect,
+	useDisconnect,
+	useEnsName,
+	useNetwork,
+	usePublicClient,
+	useSwitchNetwork,
+	useWalletClient,
+	WagmiConfig
+} from 'wagmi';
 import * as _RainbowKitProvider from '@rainbow-me/rainbowkit';
 import {useIsMounted, useMountEffect, useUpdateEffect} from '@react-hookz/web';
 
@@ -46,7 +56,13 @@ const defaultOptions = {
 };
 
 const Web3Context = createContext<TWeb3Context>(defaultState);
-export const Web3ContextAppWrapper = ({children, options}: {children: ReactElement, options?: TWeb3Options}): ReactElement => {
+export const Web3ContextAppWrapper = ({
+	children,
+	options
+}: {
+	children: ReactElement;
+	options?: TWeb3Options;
+}): ReactElement => {
 	const {address, isConnecting, isConnected, isDisconnected, connector} = useAccount();
 	const {connectors, connectAsync} = useConnect();
 	const {disconnect} = useDisconnect();
@@ -61,7 +77,7 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 	const {openConnectModal} = useConnectModal();
 
 	const supportedChainsID = useMemo((): number[] => {
-		const injectedConnector = connectors.find((e): boolean => (e.id).toLocaleLowerCase() === 'injected');
+		const injectedConnector = connectors.find((e): boolean => e.id.toLocaleLowerCase() === 'injected');
 		assert(injectedConnector, 'No injected connector found');
 		const chainsForInjected = injectedConnector.chains;
 		const noTestnet = chainsForInjected.filter(({id}): boolean => id !== 1337);
@@ -100,15 +116,18 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		disconnect();
 	}, [disconnect]);
 
-	const	onSwitchChain = useCallback((newChainID: number): void => {
-		set_currentChainID(newChainID);
-		if (isConnected) {
-			if (!switchNetwork) {
-				console.error(new Error('Switch network function is not defined'));
+	const onSwitchChain = useCallback(
+		(newChainID: number): void => {
+			set_currentChainID(newChainID);
+			if (isConnected) {
+				if (!switchNetwork) {
+					console.error(new Error('Switch network function is not defined'));
+				}
+				switchNetwork?.(newChainID);
 			}
-			switchNetwork?.(newChainID);
-		}
-	}, [switchNetwork, isConnected]);
+		},
+		[switchNetwork, isConnected]
+	);
 
 	const openLoginModal = useCallback(async (): Promise<void> => {
 		const ledgerConnector = connectors.find((c): boolean => c.id === 'ledgerLive');
@@ -131,9 +150,10 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		ens: ensName || '',
 		isActive: isConnected && [...supportedChainsID, 1337].includes(chain?.id || -1) && isMounted(),
 		isWalletSafe: connector?.id === 'safe' || (connector as any)?._wallets?.[0]?.id === 'safe',
-		isWalletLedger: (
-			connector?.id === 'ledger' || (connector as any)?._wallets?.[0]?.id === 'ledger' || connector?.id === 'ledgerLive'
-		),
+		isWalletLedger:
+			connector?.id === 'ledger' ||
+			(connector as any)?._wallets?.[0]?.id === 'ledger' ||
+			connector?.id === 'ledgerLive',
 		lensProtocolHandle: '',
 		hasProvider: !!(walletClient || publicClient),
 		provider: connector,
@@ -145,33 +165,27 @@ export const Web3ContextAppWrapper = ({children, options}: {children: ReactEleme
 		options: web3Options
 	};
 
-	return (
-		<Web3Context.Provider value={contextValue}>
-			{children}
-		</Web3Context.Provider>
-	);
+	return <Web3Context.Provider value={contextValue}>{children}</Web3Context.Provider>;
 };
 
-export const Web3ContextApp = ({children, supportedChains, options}: {
-	children: ReactElement,
-	supportedChains: Chain[],
-	options?: TWeb3Options
+export const Web3ContextApp = ({
+	children,
+	supportedChains,
+	options
+}: {
+	children: ReactElement;
+	supportedChains: Chain[];
+	options?: TWeb3Options;
 }): ReactElement => {
-
 	const config = useMemo((): Config<PublicClient<FallbackTransport>, WebSocketPublicClient<FallbackTransport>> => {
-		const {chains, publicClient, webSocketPublicClient} = configureChains(
-			supportedChains,
-			getSupportedProviders()
-		);
+		const {chains, publicClient, webSocketPublicClient} = configureChains(supportedChains, getSupportedProviders());
 		return getConfig({chains, publicClient, webSocketPublicClient});
 	}, [supportedChains]);
 
 	return (
 		<WagmiConfig config={config}>
 			<RainbowKitProvider chains={supportedChains}>
-				<Web3ContextAppWrapper options={options}>
-					{children}
-				</Web3ContextAppWrapper>
+				<Web3ContextAppWrapper options={options}>{children}</Web3ContextAppWrapper>
 			</RainbowKitProvider>
 		</WagmiConfig>
 	);

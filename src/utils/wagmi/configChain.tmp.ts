@@ -6,23 +6,18 @@
 
 import {createPublicClient, fallback, http, webSocket} from 'viem';
 
-import type {FallbackTransport,
-	FallbackTransportConfig,
-	PublicClientConfig} from 'viem';
+import type {FallbackTransport, FallbackTransportConfig, PublicClientConfig} from 'viem';
 import type {Chain, ChainProviderFn, PublicClient, WebSocketPublicClient} from 'wagmi';
 
 type RpcUrls = {
-	http: readonly string[]
-	webSocket?: readonly string[]
-}
+	http: readonly string[];
+	webSocket?: readonly string[];
+};
 
-export type ConfigureChainsConfig = Pick<
-FallbackTransportConfig,
-'rank' | 'retryCount' | 'retryDelay'
-> &
-Pick<PublicClientConfig, 'batch' | 'pollingInterval'> & {
-	stallTimeout?: number
-}
+export type ConfigureChainsConfig = Pick<FallbackTransportConfig, 'rank' | 'retryCount' | 'retryDelay'> &
+	Pick<PublicClientConfig, 'batch' | 'pollingInterval'> & {
+		stallTimeout?: number;
+	};
 
 export function configureChains<TChain extends Chain = Chain>(
 	defaultChains: TChain[],
@@ -42,10 +37,10 @@ export function configureChains<TChain extends Chain = Chain>(
 
 	let chains: TChain[] = [];
 	const httpUrls: {
-		[chainId: number]: RpcUrls['http']
+		[chainId: number]: RpcUrls['http'];
 	} = {};
 	const wsUrls: {
-		[chainId: number]: RpcUrls['webSocket']
+		[chainId: number]: RpcUrls['webSocket'];
 	} = {};
 
 	for (const chain of defaultChains) {
@@ -64,15 +59,9 @@ export function configureChains<TChain extends Chain = Chain>(
 			if (!chains.some(({id}) => id === chain.id)) {
 				chains = [...chains, apiConfig.chain];
 			}
-			httpUrls[chain.id] = [
-				...(httpUrls[chain.id] || []),
-				...apiConfig.rpcUrls.http
-			];
+			httpUrls[chain.id] = [...(httpUrls[chain.id] || []), ...apiConfig.rpcUrls.http];
 			if (apiConfig.rpcUrls.webSocket) {
-				wsUrls[chain.id] = [
-					...(wsUrls[chain.id] || []),
-					...apiConfig.rpcUrls.webSocket
-				];
+				wsUrls[chain.id] = [...(wsUrls[chain.id] || []), ...apiConfig.rpcUrls.webSocket];
 			}
 		}
 
@@ -91,9 +80,8 @@ export function configureChains<TChain extends Chain = Chain>(
 
 	return {
 		chains,
-		publicClient: ({chainId}: { chainId?: number }) => {
-			const activeChain = (chains.find((x) => x.id === chainId) ??
-			defaultChains[0]) as TChain;
+		publicClient: ({chainId}: {chainId?: number}) => {
+			const activeChain = (chains.find(x => x.id === chainId) ?? defaultChains[0]) as TChain;
 			const chainHttpUrls = httpUrls[activeChain.id];
 
 			if (!chainHttpUrls || !chainHttpUrls[0]) {
@@ -109,7 +97,7 @@ export function configureChains<TChain extends Chain = Chain>(
 						let headers = {};
 						if (urlAsNodeURL.username && urlAsNodeURL.password) {
 							headers = {
-								'Authorization': `Basic ${btoa(urlAsNodeURL.username + ':' + urlAsNodeURL.password)}`
+								Authorization: `Basic ${btoa(urlAsNodeURL.username + ':' + urlAsNodeURL.password)}`
 							};
 							url = urlAsNodeURL.href.replace(`${urlAsNodeURL.username}:${urlAsNodeURL.password}@`, '');
 						}
@@ -124,9 +112,8 @@ export function configureChains<TChain extends Chain = Chain>(
 				chains
 			}) as PublicClient<FallbackTransport>;
 		},
-		webSocketPublicClient: ({chainId}: { chainId?: number }) => {
-			const activeChain = (chains.find((x) => x.id === chainId) ??
-			defaultChains[0]) as TChain;
+		webSocketPublicClient: ({chainId}: {chainId?: number}) => {
+			const activeChain = (chains.find(x => x.id === chainId) ?? defaultChains[0]) as TChain;
 			const chainWsUrls = wsUrls[activeChain.id];
 
 			if (!chainWsUrls || !chainWsUrls[0]) {

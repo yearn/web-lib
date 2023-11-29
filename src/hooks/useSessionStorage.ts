@@ -6,11 +6,11 @@ import type {Dispatch, RefObject, SetStateAction} from 'react';
 declare global {
 	// eslint-disable-next-line
 	interface WindowEventMap {
-		'session-storage': CustomEvent
+		'session-storage': CustomEvent;
 	}
 }
 
-type TSetValue<T> = Dispatch<SetStateAction<T>>
+type TSetValue<T> = Dispatch<SetStateAction<T>>;
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -31,27 +31,24 @@ function useEventListener<TK extends keyof WindowEventMap>(
 	eventName: TK,
 	handler: (event: WindowEventMap[TK]) => void,
 	element?: undefined,
-	options?: boolean | AddEventListenerOptions,
-): void
+	options?: boolean | AddEventListenerOptions
+): void;
 
 // Element Event based useEventListener interface
-function useEventListener<
-	TK extends keyof HTMLElementEventMap,
-	T extends HTMLElement = HTMLDivElement
->(
+function useEventListener<TK extends keyof HTMLElementEventMap, T extends HTMLElement = HTMLDivElement>(
 	eventName: TK,
 	handler: (event: HTMLElementEventMap[TK]) => void,
 	element: RefObject<T>,
-	options?: boolean | AddEventListenerOptions,
-): void
+	options?: boolean | AddEventListenerOptions
+): void;
 
 // Document Event based useEventListener interface
 function useEventListener<TK extends keyof DocumentEventMap>(
 	eventName: TK,
 	handler: (event: DocumentEventMap[TK]) => void,
 	element: RefObject<Document>,
-	options?: boolean | AddEventListenerOptions,
-): void
+	options?: boolean | AddEventListenerOptions
+): void;
 
 function useEventListener<
 	TKW extends keyof WindowEventMap,
@@ -59,9 +56,7 @@ function useEventListener<
 	T extends HTMLElement | void = void
 >(
 	eventName: TKW | TKH,
-	handler: (
-		event: WindowEventMap[TKW] | HTMLElementEventMap[TKH] | Event,
-	) => void,
+	handler: (event: WindowEventMap[TKW] | HTMLElementEventMap[TKH] | Event) => void,
 	element?: RefObject<T>,
 	options?: boolean | AddEventListenerOptions
 ): void {
@@ -75,7 +70,7 @@ function useEventListener<
 	useEffect((): void | VoidFunction => {
 		// Define the listening target
 		const targetElement: T | Window = element?.current || window;
-		if (!(targetElement?.addEventListener)) {
+		if (!targetElement?.addEventListener) {
 			return;
 		}
 
@@ -90,7 +85,6 @@ function useEventListener<
 		};
 	}, [eventName, element, options]);
 }
-
 
 function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 	// Get from session storage then
@@ -119,9 +113,7 @@ function useSessionStorage<T>(key: string, initialValue: T): [T, TSetValue<T>] {
 	const assignValue: TSetValue<T> = useEventCallback((value: unknown): void => {
 		// Prevent build error "window is undefined" but keeps working
 		if (typeof window == 'undefined') {
-			console.warn(
-				`Tried setting sessionStorage key “${key}” even though environment is not a client`
-			);
+			console.warn(`Tried setting sessionStorage key “${key}” even though environment is not a client`);
 		}
 
 		try {

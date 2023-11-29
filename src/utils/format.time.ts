@@ -6,26 +6,26 @@ extend(relativeTime);
 extend(dayjsDuration);
 
 /* 🔵 - Yearn Finance ******************************************************
-** Bunch of function using the power of the browsers and standard functions
-** to correctly format date
-**************************************************************************/
-export function	date(value: number, withDate = true, separator = '/'): string {
-	let		locale = 'fr-FR';
-	if (typeof(navigator) !== 'undefined') {
+ ** Bunch of function using the power of the browsers and standard functions
+ ** to correctly format date
+ **************************************************************************/
+export function date(value: number, withDate = true, separator = '/'): string {
+	let locale = 'fr-FR';
+	if (typeof navigator !== 'undefined') {
 		locale = navigator.language || 'fr-FR';
 	}
 
-	let	formatedDate = new Intl.DateTimeFormat([locale, 'en-US'], {
+	let formatedDate = new Intl.DateTimeFormat([locale, 'en-US'], {
 		dateStyle: 'short',
 		timeStyle: 'short',
 		hourCycle: 'h24'
 	}).format(value);
 	if (!withDate) {
-		formatedDate = (new Intl.DateTimeFormat([locale, 'en-US'], {
+		formatedDate = new Intl.DateTimeFormat([locale, 'en-US'], {
 			year: 'numeric',
 			month: 'numeric',
 			day: 'numeric'
-		}).format(value));
+		}).format(value);
 	}
 	if (separator !== '/') {
 		formatedDate = formatedDate.replace(/\//g, separator);
@@ -33,11 +33,11 @@ export function	date(value: number, withDate = true, separator = '/'): string {
 	return formatedDate;
 }
 
-export function	since(value: number): string {
+export function since(value: number): string {
 	return dayjs(value).from(dayjs());
 }
 
-export function	duration(value: number, withSuffix?: boolean): string {
+export function duration(value: number, withSuffix?: boolean): string {
 	return dayjs.duration(value, 'milliseconds').humanize(withSuffix);
 }
 
