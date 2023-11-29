@@ -59,7 +59,7 @@
     "stylelint": "^15.11.0",
     "stylelint-config-standard": "^34.0.0",
     "tailwindcss": "^3.3.5",
-    "viem": "1.10.9",
+    "viem": "1.19.9",
     "wagmi": "1.4.1",
     "zod": "^3.22.4"
   },
@@ -105,7 +105,7 @@
     "eslint-plugin-unused-imports": ">= 2.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "viem": "1.10.9",
+    "viem": "1.19.9",
     "wagmi": "1.4.1"
   }
 }
