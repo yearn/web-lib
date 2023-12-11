@@ -1,6 +1,7 @@
 import React, {createContext, useCallback, useContext, useMemo, useState} from 'react';
 import assert from 'assert';
 import {
+	configureChains,
 	useAccount,
 	useConnect,
 	useDisconnect,
@@ -18,7 +19,6 @@ import {toast} from '../components/yToast.js';
 import {toAddress} from '../utils/address.js';
 import {isIframe} from '../utils/helpers.js';
 import {getConfig, getSupportedProviders} from '../utils/wagmi/config.js';
-import {configureChains} from '../utils/wagmi/configChain.tmp.js';
 import {deepMerge} from './utils.js';
 
 import type {ReactElement} from 'react';

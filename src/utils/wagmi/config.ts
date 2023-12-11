@@ -16,11 +16,26 @@ import type {Chain, ChainProviderFn, Config, PublicClient, WebSocketPublicClient
 export function getSupportedProviders<TChain extends Chain = Chain>(): ChainProviderFn<TChain>[] {
 	const supportedProviders = [
 		jsonRpcProvider({
-			rpc: (chain): {http: string} => {
+			rpc: (chain): {http: string; webSocket?: string} => {
 				if (!getNetwork(chain.id)) {
 					return {http: ''};
 				}
-				return {http: getNetwork(chain.id).defaultRPC};
+
+				let wsURI = getNetwork(chain.id).defaultRPC;
+				if (wsURI.startsWith('nd-')) {
+					wsURI = wsURI.replace('nd-', 'ws-nd-');
+				}
+				if (wsURI.startsWith('infura.io')) {
+					wsURI = wsURI.replace('v3', 'ws/v3');
+				}
+				if (wsURI.startsWith('chainstack.com')) {
+					wsURI = 'ws' + wsURI;
+				}
+
+				return {
+					http: getNetwork(chain.id).defaultRPC,
+					webSocket: wsURI
+				};
 			}
 		}),
 		publicProvider()
