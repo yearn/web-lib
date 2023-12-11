@@ -79,6 +79,9 @@ export async function handleTx<TAbi extends Abi | readonly unknown[], TFunctionN
 		}
 	}
 
+	/* 🔵 - Yearn.Fi ***************************************************************************
+	 ** Prepare the write contract.
+	 ******************************************************************************************/
 	wagmiProvider = await toWagmiProvider(args.connector);
 	assertAddress(props.address, 'contractAddress');
 	assertAddress(wagmiProvider.address, 'userAddress');
