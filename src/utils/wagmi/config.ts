@@ -4,7 +4,7 @@ import {infuraProvider} from 'wagmi/providers/infura';
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
 import {publicProvider} from 'wagmi/providers/public';
 import {connectorsForWallets, getDefaultWallets} from '@rainbow-me/rainbowkit';
-import {ledgerWallet, safeWallet} from '@rainbow-me/rainbowkit/wallets';
+import {safeWallet} from '@rainbow-me/rainbowkit/wallets';
 import {noopStorage} from '@wagmi/core';
 
 import {getNetwork} from '../wagmi/utils.js';
@@ -68,12 +68,11 @@ export function getConfig({
 		projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
 		chains
 	});
-	const projectId = process.env.WALLETCONNECT_PROJECT_ID as string;
 	const rainbowConnector = connectorsForWallets([
 		...rainbowWallets,
 		{
 			groupName: 'Others',
-			wallets: [safeWallet({chains}), ledgerWallet({projectId, chains})]
+			wallets: [safeWallet({chains})]
 		}
 	]);
 
