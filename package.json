@@ -25,7 +25,7 @@
     "export": "tsc && next build && next export -o ipfs"
   },
   "dependencies": {
-    "@babel/core": "^7.23.5",
+    "@babel/core": "^7.23.7",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@headlessui/react": "^1.7.17",
