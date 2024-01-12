@@ -19,8 +19,8 @@ import type {ContractFunctionConfig} from 'viem';
 import type {Connector} from 'wagmi';
 import type {TAddress, TDict, TNDict} from '@yearn-finance/web-lib/types';
 import type {TDefaultStatus} from '@yearn-finance/web-lib/types/hooks';
+import type {TChainTokens, TToken} from '../types';
 import type {TYDaemonPricesChain} from '../utils/schemas/yDaemonPricesSchema';
-import type {TChainTokens, TToken} from '../utils/types';
 
 /* 🔵 - Yearn Finance **********************************************************
  ** Request, Response and helpers for the useBalances hook.
