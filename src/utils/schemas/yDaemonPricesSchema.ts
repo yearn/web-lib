@@ -1,6 +1,5 @@
 import {z} from 'zod';
-
-import {addressSchema} from './addressSchema.js';
+import {addressSchema} from '@yearn-finance/web-lib/utils/schemas/addressSchema';
 
 export const yDaemonPriceSchema = z.string();
 export const yDaemonPricesSchema = z.record(addressSchema, yDaemonPriceSchema);
