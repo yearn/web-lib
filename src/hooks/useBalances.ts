@@ -437,10 +437,10 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			status: status.isError
 				? 'error'
 				: status.isLoading || status.isFetching
-				  ? 'loading'
-				  : status.isSuccess
-				    ? 'success'
-				    : 'unknown'
+					? 'loading'
+					: status.isSuccess
+						? 'success'
+						: 'unknown'
 		}),
 		[
 			error,

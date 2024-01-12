@@ -25,8 +25,7 @@
 		"strict": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
-		"strictPropertyInitialization": true,
-		"noEmit": true
+		"strictPropertyInitialization": true
 	},
 	"include": ["src"],
 	"exclude": ["**/node_modules", "**/dist", "**/.turbo"]
