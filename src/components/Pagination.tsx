@@ -1,4 +1,4 @@
-import ReactPaginate from 'react-paginate/index.js';
+import Paginate from 'react-paginate';
 
 import {IconPaginationArrow} from '../icons/IconPaginationArrow.js';
 
@@ -11,6 +11,7 @@ type TProps = {
 	onPageChange: (selectedItem: {selected: number}) => void;
 };
 
+const ReactPaginate = Paginate as any;
 export function Pagination(props: TProps): ReactElement {
 	const {
 		range: [from, to],
