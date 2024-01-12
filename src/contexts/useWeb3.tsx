@@ -1,5 +1,4 @@
 import {createContext, useCallback, useContext, useMemo, useState} from 'react';
-import assert from 'assert';
 import {
 	configureChains,
 	useAccount,
@@ -17,6 +16,7 @@ import {useIsMounted, useMountEffect, useUpdateEffect} from '@react-hookz/web';
 
 import {toast} from '../components/yToast.js';
 import {toAddress} from '../utils/address.js';
+import {assert} from '../utils/assert.js';
 import {isIframe} from '../utils/helpers.js';
 import {getConfig, getSupportedProviders} from '../utils/wagmi/config.js';
 import {deepMerge} from './utils.js';

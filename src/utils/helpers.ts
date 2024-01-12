@@ -1,4 +1,7 @@
 import {yToast} from '../components/yToast.js';
+import {toNormalizedBN} from './format.bigNumber.js';
+
+import type {TSortDirection} from '../types/index.js';
 
 /* 🔵 - Yearn Finance ******************************************************
  ** Yearn Meta uses some markdown for some rich content. Instead of using
@@ -56,3 +59,25 @@ export function isIframe(): boolean {
 	}
 	return false;
 }
+
+/* 🔵 - Yearn Finance ******************************************************
+ ** Framer Motion animation constants
+ **************************************************************************/
+export const motionTransition = {duration: 0.4, ease: 'easeInOut'};
+export const motionVariants = {
+	initial: {y: -80, opacity: 0, motionTransition},
+	enter: {y: 0, opacity: 1, motionTransition},
+	exit: {y: -80, opacity: 0, motionTransition}
+};
+
+/* 🔵 - Yearn Finance ******************************************************
+ ** Helper function to sort elements based on the type of the element.
+ **************************************************************************/
+export const stringSort = ({a, b, sortDirection}: {a: string; b: string; sortDirection: TSortDirection}): number =>
+	sortDirection === 'desc' ? a.localeCompare(b) : b.localeCompare(a);
+
+export const numberSort = ({a, b, sortDirection}: {a?: number; b?: number; sortDirection: TSortDirection}): number =>
+	sortDirection === 'desc' ? (b ?? 0) - (a ?? 0) : (a ?? 0) - (b ?? 0);
+
+export const bigNumberSort = ({a, b, sortDirection}: {a: bigint; b: bigint; sortDirection: TSortDirection}): number =>
+	Number(toNormalizedBN(sortDirection === 'desc' ? b - a : a - b).normalized);

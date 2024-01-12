@@ -1,5 +1,4 @@
 import {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
-import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';
 import {useAccountModal, useChainModal, useConnectModal} from '@rainbow-me/rainbowkit';
@@ -10,6 +9,7 @@ import {toSafeChainID} from '../hooks/useChainID.js';
 import {IconChevronBottom} from '../icons/IconChevronBottom.js';
 import {IconWallet} from '../icons/IconWallet.js';
 import {truncateHex} from '../utils/address.js';
+import {assert} from '../utils/assert.js';
 import {cl} from '../utils/cl.js';
 import {Button} from './Button.js';
 

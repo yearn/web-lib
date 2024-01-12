@@ -1,8 +1,8 @@
 import {toast} from 'react-hot-toast';
-import assert from 'assert';
 import {BaseError} from 'viem';
 import {prepareWriteContract, switchNetwork, waitForTransaction, writeContract} from '@wagmi/core';
 
+import {assert} from '../assert.js';
 import {toBigInt} from '../format.bigNumber.js';
 import {defaultTxStatus} from '../web3/transaction.js';
 import {assertAddress} from './utils.js';

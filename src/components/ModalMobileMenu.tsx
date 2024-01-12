@@ -1,11 +1,11 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
-import assert from 'assert';
 import {useConnect, useNetwork} from 'wagmi';
 import {Dialog, Transition} from '@headlessui/react';
 
 import {useWeb3} from '../contexts/useWeb3.js';
 import {useInjectedWallet} from '../hooks/useInjectedWallet.js';
 import {truncateHex} from '../utils/address.js';
+import {assert} from '../utils/assert.js';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {Chain} from 'wagmi';

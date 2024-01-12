@@ -1,8 +1,8 @@
-import assert from 'assert';
 import {createPublicClient, http} from 'viem';
 import * as wagmiChains from 'viem/chains';
 
-import {toAddress} from '../address.js';
+import {toAddress} from '../address';
+import {assert} from '../assert';
 import {
 	ARB_WETH_TOKEN_ADDRESS,
 	BASE_WETH_TOKEN_ADDRESS,
@@ -13,13 +13,13 @@ import {
 	ZAP_ETH_WETH_OPT_CONTRACT,
 	ZAP_FTM_WFTM_CONTRACT,
 	ZERO_ADDRESS
-} from '../constants.js';
-import {isEth} from '../isEth.js';
-import {isTAddress} from '../isTAddress.js';
-import {localhost} from './networks.js';
+} from '../constants';
+import {isEth} from '../isEth';
+import {isTAddress} from '../isTAddress';
+import {localhost} from './networks';
 
 import type {Chain, PublicClient} from 'viem';
-import type {TAddress, TNDict} from '../../types/index.js';
+import type {TAddress, TNDict} from '../../types/index';
 
 export type TChainContract = {
 	address: TAddress;
