@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.98",
+  "version": "3.0.99",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
   "files": [
@@ -41,7 +41,7 @@
     "lint-staged": "^15.2.0",
     "next": "^14.0.4",
     "next-seo": "^6.4.0",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.0",
     "react-hot-toast": "2.4.1",
     "react-paginate": "^8.2.0",
     "sass": "^1.69.7",
