@@ -1,7 +1,6 @@
 import React, {createContext, useCallback, useContext, useMemo} from 'react';
 
 import {useLocalStorage} from '../hooks/useLocalStorage.js';
-import {performBatchedUpdates} from '../utils/performBatchedUpdates.js';
 import {deepMerge} from './utils.js';
 
 import type {TSettingsBase, TSettingsContext, TSettingsContextApp} from '../types/contexts.js';
@@ -38,9 +37,7 @@ export const SettingsContextApp = ({
 	 **	be added. Networks settings are updated accordingly.
 	 ******************************************************************************************/
 	const onUpdateBaseSettings = useCallback((newSettings: TSettingsBase): void => {
-		performBatchedUpdates((): void => {
-			set_baseSettings(newSettings);
-		});
+		set_baseSettings(newSettings);
 	}, []);
 
 	/* 💙 - Yearn Finance *********************************************************************
