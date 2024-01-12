@@ -1,4 +1,3 @@
-import React from 'react';
 import {toast as toastMaster, useToasterStore} from 'react-hot-toast';
 
 import {IconAlertCritical} from '../icons/IconAlertCritical.js';

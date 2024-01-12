@@ -1,4 +1,4 @@
-import React, {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
+import {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
 import assert from 'assert';
 import {useConnect, usePublicClient} from 'wagmi';
 import {Listbox, Transition} from '@headlessui/react';

@@ -8,7 +8,7 @@ import type {Connector} from 'wagmi';
 import type {PrepareWriteContractResult} from '@wagmi/core';
 
 const timeout = 3000;
-const defaultTxStatus = {none: true, pending: false, success: false, error: false};
+export const defaultTxStatus = {none: true, pending: false, success: false, error: false};
 const errorTxStatus = {none: false, pending: false, success: false, error: true};
 const pendingTxStatus = {none: false, pending: true, success: false, error: false};
 const successTxStatus = {none: false, pending: false, success: true, error: false};
@@ -30,7 +30,7 @@ export type TTxResponse = {
 	error?: BaseError | unknown;
 };
 
-class Transaction {
+export class Transaction {
 	provider: Connector;
 	onStatus: React.Dispatch<React.SetStateAction<TTxStatus>>;
 	options?: {shouldIgnoreSuccessTxStatusChange: boolean};
@@ -95,7 +95,7 @@ class Transaction {
 	}
 }
 
-async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse> {
+export async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse> {
 	try {
 		const {hash} = await writeContract(config.request);
 		const receipt = await waitForTransaction({
@@ -108,5 +108,3 @@ async function handleTx(config: PrepareWriteContractResult): Promise<TTxResponse
 		return {isSuccessful: false, error: error};
 	}
 }
-
-export {defaultTxStatus, handleTx as handleTx2, Transaction};

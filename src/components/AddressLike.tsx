@@ -1,4 +1,3 @@
-import React from 'react';
 import {useEnsName} from 'wagmi';
 
 import {cl} from '../utils/cl.js';

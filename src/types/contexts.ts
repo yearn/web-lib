@@ -1,6 +1,5 @@
 import type {ReactNode} from 'react';
 import type {Connector} from 'wagmi';
-import type {TPartnersInfo} from '../utils/partners.js';
 import type {TAddress} from './index.js';
 
 export type TSettingsBase = {
@@ -48,7 +47,6 @@ export type TWeb3Context = {
 	isWalletLedger: boolean;
 	hasProvider: boolean;
 	provider?: Connector;
-	currentPartner?: TPartnersInfo;
 	onConnect: () => Promise<void>;
 	onSwitchChain: (newChainID: number) => void;
 	openLoginModal: () => void;

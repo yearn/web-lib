@@ -1,4 +1,4 @@
-import React, {createContext, Fragment, useCallback, useContext, useMemo, useRef} from 'react';
+import {createContext, Fragment, useCallback, useContext, useMemo, useRef} from 'react';
 import {toast, ToastBar, Toaster} from 'react-hot-toast';
 // eslint-disable-next-line import/no-named-as-default
 import NProgress from 'nprogress';

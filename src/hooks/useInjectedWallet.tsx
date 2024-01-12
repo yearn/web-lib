@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import {useMemo} from 'react';
 
 import {IconWalletCoinbase} from '../icons/IconWalletCoinbase.js';
 import {IconWalletFrame} from '../icons/IconWalletFrame.js';

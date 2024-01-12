@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {SettingsContextApp} from './useSettings.js';
 import {UIContextApp} from './useUI.js';
 import {Web3ContextApp} from './useWeb3.js';
