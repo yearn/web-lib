@@ -1,4 +1,4 @@
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from 'react-paginate/index.js';
 
 import {IconPaginationArrow} from '../icons/IconPaginationArrow.js';
 
