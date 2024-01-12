@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import Image from 'next/image.js';
+import {Image} from 'next/dist/client/image-component';
 import {useUpdateEffect} from '@react-hookz/web';
 
 import {cl} from '../utils/cl.js';

@@ -198,9 +198,6 @@ function initIndexedWagmiChains(): TNDict<TExtendedChain> {
 				zapEthContract: zapEthContractAddress[extendedChain.id],
 				wrappedToken: wrappedChainTokens[extendedChain.id]
 			};
-			if (!process.env.JSON_RPC_URL?.[extendedChain.id]) {
-				console.warn(`Chain ${extendedChain.name} (${extendedChain.id}) does not have a default RPC URL set.`);
-			}
 			extendedChain.defaultRPC =
 				process.env.JSON_RPC_URL?.[extendedChain.id] || extendedChain?.rpcUrls?.public?.http?.[0] || '';
 			extendedChain.defaultBlockExplorer =
