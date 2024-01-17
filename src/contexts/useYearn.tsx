@@ -69,7 +69,7 @@ const YearnContext = createContext<TYearnContext>({
 });
 
 export const YearnContextApp = memo(function YearnContextApp({children}: {children: ReactElement}): ReactElement {
-	const {refresh} = useWallet();
+	const {onRefresh} = useWallet();
 	const {value: maxLoss, set: set_maxLoss} = useLocalStorageValue<bigint>('yearn.fi/max-loss', {
 		defaultValue: DEFAULT_MAX_LOSS,
 		parse: (str: string, fallback: bigint): bigint => (str ? deserialize(str) : fallback),
@@ -104,8 +104,9 @@ export const YearnContextApp = memo(function YearnContextApp({children}: {childr
 				}
 			}
 		}
-		refresh(tokensToRefresh);
-	}, [tokens, refresh]);
+
+		onRefresh(tokensToRefresh);
+	}, [tokens, onRefresh]);
 
 	return (
 		<YearnContext.Provider
