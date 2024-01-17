@@ -5,6 +5,7 @@ import {useDeepCompareMemo} from '@react-hookz/web';
 import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonTokensChainSchema} from '../utils/schemas/yDaemonTokensSchema';
 
+import type {TNDict} from '@builtbymom/web3/types';
 import type {TYDaemonTokens, TYDaemonTokensChain} from '../utils/schemas/yDaemonTokensSchema';
 
 function useYearnTokens(): TYDaemonTokens {
@@ -18,14 +19,15 @@ function useYearnTokens(): TYDaemonTokens {
 		if (!tokens) {
 			return {};
 		}
-		const _tokens: TYDaemonTokens = {};
-		for (const [chainID, tokensData] of Object.entries(tokens)) {
+		const _tokens: TNDict<TYDaemonTokens> = {};
+		for (const [chainIDStr, tokensData] of Object.entries(tokens)) {
 			for (const [tokenAddress, token] of Object.entries(tokensData)) {
+				const chainID = Number(chainIDStr);
 				if (token) {
-					_tokens[toAddress(tokenAddress)] = {
-						...token,
-						chainID: Number(chainID)
-					};
+					if (_tokens[chainID] === undefined) {
+						_tokens[chainID] = {};
+					}
+					_tokens[chainID][toAddress(tokenAddress)] = {...token, chainID};
 				}
 			}
 		}
