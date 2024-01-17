@@ -1,4 +1,4 @@
-import {createContext, memo, useEffect} from 'react';
+import {createContext, memo, useContext, useEffect} from 'react';
 import {deserialize, serialize} from 'wagmi';
 import useWallet from '@builtbymom/web3/contexts/useWallet';
 import {toAddress} from '@builtbymom/web3/utils';
@@ -132,3 +132,5 @@ export const YearnContextApp = memo(function YearnContextApp({children}: {childr
 		</YearnContext.Provider>
 	);
 });
+
+export const useYearn = (): TYearnContext => useContext(YearnContext);
