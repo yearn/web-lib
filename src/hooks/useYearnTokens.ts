@@ -19,10 +19,13 @@ function useYearnTokens(): TYDaemonTokens {
 			return {};
 		}
 		const _tokens: TYDaemonTokens = {};
-		for (const [, tokensData] of Object.entries(tokens)) {
+		for (const [chainID, tokensData] of Object.entries(tokens)) {
 			for (const [tokenAddress, token] of Object.entries(tokensData)) {
 				if (token) {
-					_tokens[toAddress(tokenAddress)] = token;
+					_tokens[toAddress(tokenAddress)] = {
+						...token,
+						chainID: Number(chainID)
+					};
 				}
 			}
 		}

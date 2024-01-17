@@ -1,5 +1,6 @@
-import {createContext, memo, useContext} from 'react';
+import {createContext, memo, useContext, useEffect} from 'react';
 import {deserialize, serialize} from 'wagmi';
+import useWallet from '@builtbymom/web3/contexts/useWallet';
 import {useLocalStorageValue} from '@react-hookz/web';
 import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
@@ -67,6 +68,7 @@ const YearnContext = createContext<TYearnContext>({
 });
 
 export const YearnContextApp = memo(function YearnContextApp({children}: {children: ReactElement}): ReactElement {
+	const {refresh} = useWallet();
 	const {value: maxLoss, set: set_maxLoss} = useLocalStorageValue<bigint>('yearn.fi/max-loss', {
 		defaultValue: DEFAULT_MAX_LOSS,
 		parse: (str: string, fallback: bigint): bigint => (str ? deserialize(str) : fallback),
@@ -89,6 +91,13 @@ export const YearnContextApp = memo(function YearnContextApp({children}: {childr
 	const tokens = useYearnTokens();
 	const earned = useYearnEarned();
 	const {vaults, vaultsMigrations, vaultsRetired, isLoading, mutate} = useYearnVaults();
+
+	useEffect(() => {
+		const tokensToRefresh = Object.values(tokens).map(token => {
+			return {token: toAddress(token?.address)};
+		});
+		refresh(tokensToRefresh);
+	}, [tokens, refresh]);
 
 	return (
 		<YearnContext.Provider
