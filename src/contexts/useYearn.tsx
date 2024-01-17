@@ -1,8 +1,8 @@
 import {createContext, memo, useContext, useEffect} from 'react';
 import {deserialize, serialize} from 'wagmi';
 import useWallet from '@builtbymom/web3/contexts/useWallet';
+import {toAddress} from '@builtbymom/web3/utils';
 import {useLocalStorageValue} from '@react-hookz/web';
-import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
 import {useYearnEarned} from '../hooks/useYearnEarned';
 import {useYearnPrices} from '../hooks/useYearnPrices';
@@ -12,7 +12,7 @@ import {Solver} from '../utils/schemas/yDaemonTokenListBalances';
 
 import type {ReactElement} from 'react';
 import type {KeyedMutator} from 'swr';
-import type {TAddress, TDict} from '@yearn-finance/web-lib/types';
+import type {TAddress, TDict} from '@builtbymom/web3/types';
 import type {TYDaemonEarned} from '../utils/schemas/yDaemonEarnedSchema';
 import type {TYDaemonPricesChain} from '../utils/schemas/yDaemonPricesSchema';
 import type {TSolver} from '../utils/schemas/yDaemonTokenListBalances';
@@ -93,9 +93,11 @@ export const YearnContextApp = memo(function YearnContextApp({children}: {childr
 	const {vaults, vaultsMigrations, vaultsRetired, isLoading, mutate} = useYearnVaults();
 
 	useEffect(() => {
-		const tokensToRefresh = Object.values(tokens).map(token => {
-			return {token: toAddress(token?.address)};
-		});
+		const tokensToRefresh = Object.values(tokens as TYDaemonTokens)
+			.filter(token => token !== undefined)
+			.map(token => {
+				return {address: toAddress(token?.address), chainID: Number(token?.chainID)};
+			});
 		refresh(tokensToRefresh);
 	}, [tokens, refresh]);
 

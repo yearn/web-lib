@@ -1,7 +1,7 @@
+import {useFetch} from '@builtbymom/web3/hooks/useFetch';
+import {toAddress} from '@builtbymom/web3/utils';
 import {useDeepCompareMemo} from '@react-hookz/web';
-import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
-import {useFetch} from '../hooks/useFetch';
 import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonTokensChainSchema} from '../utils/schemas/yDaemonTokensSchema';
 

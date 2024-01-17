@@ -1,8 +1,8 @@
 import {createPublicClient, http} from 'viem';
 import * as wagmiChains from 'viem/chains';
+import {toAddress} from '@builtbymom/web3/utils';
+import {localhost} from '@builtbymom/web3/utils/wagmi/networks';
 
-import {toAddress} from '../address';
-import {assert} from '../assert';
 import {
 	ARB_WETH_TOKEN_ADDRESS,
 	BASE_WETH_TOKEN_ADDRESS,
@@ -11,15 +11,11 @@ import {
 	WFTM_TOKEN_ADDRESS,
 	ZAP_ETH_WETH_CONTRACT,
 	ZAP_ETH_WETH_OPT_CONTRACT,
-	ZAP_FTM_WFTM_CONTRACT,
-	ZERO_ADDRESS
+	ZAP_FTM_WFTM_CONTRACT
 } from '../constants';
-import {isEth} from '../isEth';
-import {isTAddress} from '../isTAddress';
-import {localhost} from './networks';
 
 import type {Chain, PublicClient} from 'viem';
-import type {TAddress, TNDict} from '../../types/index';
+import type {TAddress, TNDict} from '@builtbymom/web3/types';
 
 export type TChainContract = {
 	address: TAddress;
@@ -236,11 +232,4 @@ export function getClient(chainID: number): PublicClient {
 		});
 	}
 	return createPublicClient({chain: indexedWagmiChains[chainID], transport: http(url)});
-}
-
-export function assertAddress(addr: string | TAddress | undefined, name?: string): asserts addr is TAddress {
-	assert(addr, `${name || 'Address'} is not set`);
-	assert(isTAddress(addr), `${name || 'Address'} provided is invalid`);
-	assert(toAddress(addr) !== ZERO_ADDRESS, `${name || 'Address'} is 0x0`);
-	assert(!isEth(addr), `${name || 'Address'} is 0xE`);
 }

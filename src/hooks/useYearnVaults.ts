@@ -1,12 +1,12 @@
+import {useFetch} from '@builtbymom/web3/hooks/useFetch';
+import {toAddress} from '@builtbymom/web3/utils';
 import {useDeepCompareMemo} from '@react-hookz/web';
-import {toAddress} from '@yearn-finance/web-lib/utils/address';
 
-import {useFetch} from '../hooks/useFetch';
 import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonVaultsSchema} from '../utils/schemas/yDaemonVaultsSchemas';
 
 import type {KeyedMutator} from 'swr';
-import type {TDict} from '@yearn-finance/web-lib/types';
+import type {TDict} from '@builtbymom/web3/types';
 import type {TYDaemonVault, TYDaemonVaults} from '../utils/schemas/yDaemonVaultsSchemas';
 
 function useYearnVaults(): {

@@ -1,6 +1,5 @@
 import {z} from 'zod';
-
-import {addressSchema} from './addressSchema.js';
+import {addressSchema} from '@builtbymom/web3/types';
 
 export const yDaemonGaugeRewardSchema = z.object({
 	amount: z.string(),

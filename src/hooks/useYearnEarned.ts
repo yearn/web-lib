@@ -1,7 +1,7 @@
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
+import {useFetch} from '@builtbymom/web3/hooks/useFetch';
 import {useDeepCompareMemo} from '@react-hookz/web';
 
-import {useFetch} from '../hooks/useFetch';
 import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonEarnedSchema} from '../utils/schemas/yDaemonEarnedSchema';
 

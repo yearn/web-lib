@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import {addressSchema} from '@yearn-finance/web-lib/utils/schemas/addressSchema';
+import {addressSchema} from '@builtbymom/web3/types';
 
 export const yDaemonPriceSchema = z.string();
 export const yDaemonPricesSchema = z.record(addressSchema, yDaemonPriceSchema);

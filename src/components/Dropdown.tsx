@@ -1,9 +1,9 @@
 import {Fragment, useState} from 'react';
+import {cl} from '@builtbymom/web3/utils/cl.js';
 import {Combobox, Transition} from '@headlessui/react';
 import {useThrottledState} from '@react-hookz/web';
 
 import {IconChevron} from '../icons/IconChevron.js';
-import {cl} from '../utils/cl.js';
 import {ImageWithFallback} from './ImageWithFallback.js';
 
 import type {ReactElement} from 'react';

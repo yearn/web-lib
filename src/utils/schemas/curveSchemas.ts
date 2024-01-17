@@ -1,6 +1,5 @@
 import {z} from 'zod';
-
-import {toAddress} from '../address.js';
+import {toAddress} from '@builtbymom/web3/utils';
 
 export const curveWeeklyFeesSchema = z.object({
 	success: z.boolean().optional(),

@@ -1,8 +1,6 @@
 import {z} from 'zod';
-
-import {toAddress} from '../address.js';
-import {toBigInt} from '../format.bigNumber.js';
-import {addressSchema} from './addressSchema.js';
+import {addressSchema} from '@builtbymom/web3/types';
+import {toAddress, toBigInt} from '@builtbymom/web3/utils';
 
 const yDaemonVaultStrategySchema = z.object({
 	address: addressSchema,

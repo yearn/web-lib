@@ -1,6 +1,6 @@
+import {useFetch} from '@builtbymom/web3/hooks/useFetch';
 import {useDeepCompareMemo} from '@react-hookz/web';
 
-import {useFetch} from '../hooks/useFetch';
 import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonPricesChainSchema} from '../utils/schemas/yDaemonPricesSchema';
 

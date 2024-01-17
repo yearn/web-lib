@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import {Image} from 'next/dist/client/image-component';
+import {cl} from '@builtbymom/web3/utils';
 import {useUpdateEffect} from '@react-hookz/web';
-
-import {cl} from '../utils/cl.js';
 
 import type {ImageProps} from 'next/image.js';
 import type {CSSProperties, ReactElement} from 'react';

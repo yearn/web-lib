@@ -1,7 +1,7 @@
 import {Renderable} from './Renderable.js';
 
 import type {ReactElement} from 'react';
-import type {TNormalizedBN} from '../utils/format.bigNumber.js';
+import type {TNormalizedBN} from '@builtbymom/web3/types/mixed.js';
 
 type TAmountInputProps = {
 	amount: TNormalizedBN;

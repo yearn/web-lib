@@ -1,8 +1,7 @@
 import {z} from 'zod';
+import {addressSchema} from '@builtbymom/web3/types';
 
-import {addressSchema} from './addressSchema.js';
-
-import type {TDict, TNDict} from '../../types/index.js';
+import type {TDict, TNDict} from '@builtbymom/web3/types';
 
 const SOLVER = [
 	'Vanilla',

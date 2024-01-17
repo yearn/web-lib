@@ -1,16 +1,16 @@
 import {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
 import {useConnect, usePublicClient} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
+import {toSafeChainID} from '@builtbymom/web3/hooks/useChainID.js';
+import {assert} from '@builtbymom/web3/utils/assert.js';
+import {cl} from '@builtbymom/web3/utils/cl.js';
+import {truncateHex} from '@builtbymom/web3/utils/tools.address.js';
 import {Listbox, Transition} from '@headlessui/react';
 import {useAccountModal, useChainModal, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
 
-import {toSafeChainID} from '../hooks/useChainID.js';
 import {IconChevronBottom} from '../icons/IconChevronBottom.js';
 import {IconWallet} from '../icons/IconWallet.js';
-import {truncateHex} from '../utils/address.js';
-import {assert} from '../utils/assert.js';
-import {cl} from '../utils/cl.js';
 import {Button} from './Button.js';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
