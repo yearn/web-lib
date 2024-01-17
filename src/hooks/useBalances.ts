@@ -1,9 +1,8 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {erc20ABI, useChainId} from 'wagmi';
+import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {deserialize, multicall, serialize} from '@wagmi/core';
 
-import {useUI} from '../contexts/useUI.js';
-import {useWeb3} from '../contexts/useWeb3.js';
 import {AGGREGATE3_ABI} from '../utils/abi/aggregate.abi.js';
 import {isZeroAddress, toAddress} from '../utils/address.js';
 import {MULTICALL3_ADDRESS} from '../utils/constants.js';
@@ -170,7 +169,6 @@ async function getBalances(
 export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const {address: web3Address, isActive} = useWeb3();
 	const chainID = useChainId();
-	const {onLoadStart, onLoadDone} = useUI();
 	const [nonce, set_nonce] = useState(0);
 	const [status, set_status] = useState<TDefaultStatus>(defaultStatus);
 	const [error, set_error] = useState<Error | undefined>(undefined);
@@ -236,7 +234,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			isFetching: true,
 			isRefetching: defaultStatus.isFetched
 		});
-		onLoadStart();
 
 		const chunks = [];
 		for (let i = 0; i < tokens.length; i += 5_000) {
@@ -279,10 +276,9 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				isFetched: true
 			});
 		}
-		onLoadDone();
 
 		return data.current[chainID].balances;
-	}, [onLoadDone, onLoadStart, isActive, stringifiedTokens, web3Address, chainID]);
+	}, [isActive, stringifiedTokens, web3Address, chainID]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	 ** onUpdateSome takes a list of tokens and fetches the balances for each
@@ -297,7 +293,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				isFetching: true,
 				isRefetching: defaultStatus.isFetched
 			});
-			onLoadStart();
 			const tokens = tokenList.filter(({token}: TUseBalancesTokens): boolean => !isZeroAddress(token));
 			const chunks = [];
 			for (let i = 0; i < tokens.length; i += 2_000) {
@@ -346,10 +341,9 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 					isFetched: true
 				});
 			}
-			onLoadDone();
 			return tokensAdded;
 		},
-		[onLoadDone, onLoadStart, web3Address, chainID]
+		[web3Address, chainID]
 	);
 
 	const assignPrices = useCallback(
@@ -386,7 +380,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			isFetching: true,
 			isRefetching: defaultStatus.isFetched
 		});
-		onLoadStart();
 
 		const tokens = JSON.parse(stringifiedTokens) as TUseBalancesTokens[];
 		const chunks = [];
@@ -403,9 +396,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			);
 		}
 		await Promise.all(allPromises);
-		onLoadDone();
 		set_status({...defaultStatus, isSuccess: true, isFetched: true});
-	}, [stringifiedTokens, isActive, web3Address, chainID, updateBalancesCall, onLoadStart, onLoadDone]);
+	}, [stringifiedTokens, isActive, web3Address, chainID, updateBalancesCall]);
 
 	const withPrice = useMemo(
 		(): TDict<TBalanceData> => assignPrices(balances || {})?.[chainID] || {},

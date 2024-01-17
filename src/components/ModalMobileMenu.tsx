@@ -1,8 +1,8 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
 import {useConnect, useNetwork} from 'wagmi';
+import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {Dialog, Transition} from '@headlessui/react';
 
-import {useWeb3} from '../contexts/useWeb3.js';
 import {useInjectedWallet} from '../hooks/useInjectedWallet.js';
 import {truncateHex} from '../utils/address.js';
 import {assert} from '../utils/assert.js';

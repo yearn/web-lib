@@ -1,6 +1,5 @@
 import {useMemo} from 'react';
-
-import {useWeb3} from '../contexts/useWeb3.js';
+import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 
 export type TUseChainIDRes = {
 	chainID: number;

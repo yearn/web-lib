@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.112",
+  "version": "3.0.114",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
   "files": [
@@ -25,6 +25,7 @@
     "export": "tsc && next build && next export -o ipfs"
   },
   "dependencies": {
+    "@builtbymom/web3": "^0.0.11",
     "@headlessui/react": "^1.7.18",
     "@rainbow-me/rainbowkit": "^1.3.0",
     "@react-hookz/web": "^24.0.2",
@@ -93,8 +94,8 @@
   },
   "peerDependencies": {
     "@rainbow-me/rainbowkit": "1.3.0",
-    "graphql-request": "^6.1.0",
     "@wagmi/core": "1.4.1",
+    "graphql-request": "^6.1.0",
     "next": "14.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

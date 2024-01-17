@@ -1,10 +1,10 @@
 import {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
 import {useConnect, usePublicClient} from 'wagmi';
+import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {Listbox, Transition} from '@headlessui/react';
 import {useAccountModal, useChainModal, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
 
-import {useWeb3} from '../contexts/useWeb3.js';
 import {toSafeChainID} from '../hooks/useChainID.js';
 import {IconChevronBottom} from '../icons/IconChevronBottom.js';
 import {IconWallet} from '../icons/IconWallet.js';

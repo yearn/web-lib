@@ -1,9 +1,8 @@
 import {useCallback, useMemo, useRef, useState} from 'react';
 import {erc20ABI, useChainId} from 'wagmi';
+import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {deserialize, multicall, serialize} from '@wagmi/core';
 
-import {useUI} from '../contexts/useUI';
-import {useWeb3} from '../contexts/useWeb3';
 import {AGGREGATE3_ABI} from '../utils/abi/aggregate.abi';
 import {isZeroAddress, toAddress} from '../utils/address';
 import {MULTICALL3_ADDRESS} from '../utils/constants';
@@ -159,7 +158,6 @@ async function getBalances(
 export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 	const {address: userAddress} = useWeb3();
 	const chainID = useChainId();
-	const {onLoadStart, onLoadDone} = useUI();
 	const [status, set_status] = useState<TDefaultStatus>(defaultStatus);
 	const [error, set_error] = useState<Error | undefined>(undefined);
 	const [balances, set_balances] = useState<TChainTokens>({});
@@ -223,7 +221,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			isFetching: true,
 			isRefetching: defaultStatus.isFetched
 		});
-		onLoadStart();
 
 		const tokensPerChainID: TNDict<TUseBalancesTokens[]> = {};
 		for (const token of tokens) {
@@ -283,10 +280,9 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			);
 			set_status({...defaultStatus, isSuccess: true, isFetched: true});
 		}
-		onLoadDone();
 
 		return updated;
-	}, [onLoadDone, onLoadStart, stringifiedTokens, userAddress]);
+	}, [stringifiedTokens, userAddress]);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	 ** onUpdateSome takes a list of tokens and fetches the balances for each
@@ -301,7 +297,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				isFetching: true,
 				isRefetching: defaultStatus.isFetched
 			});
-			onLoadStart();
 			const tokens = tokenList.filter(({address}: TUseBalancesTokens): boolean => !isZeroAddress(address));
 			const tokensPerChainID: TNDict<TUseBalancesTokens[]> = {};
 			for (const token of tokens) {
@@ -361,10 +356,9 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 				})
 			);
 			set_status({...defaultStatus, isSuccess: true, isFetched: true});
-			onLoadDone();
 			return updated;
 		},
-		[onLoadDone, onLoadStart, userAddress, chainID]
+		[userAddress, chainID]
 	);
 
 	const assignPrices = useCallback(
@@ -407,7 +401,6 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			isFetching: true,
 			isRefetching: defaultStatus.isFetched
 		});
-		onLoadStart();
 
 		const tokens = (JSON.parse(stringifiedTokens) || []) as TUseBalancesTokens[];
 		const tokensPerChainID: TNDict<TUseBalancesTokens[]> = {};
@@ -435,9 +428,8 @@ export function useBalances(props?: TUseBalancesReq): TUseBalancesRes {
 			}
 			await Promise.all(allPromises);
 		}
-		onLoadDone();
 		set_status({...defaultStatus, isSuccess: true, isFetched: true});
-	}, [stringifiedTokens, userAddress, onLoadStart, updateBalancesCall, onLoadDone]);
+	}, [stringifiedTokens, userAddress, updateBalancesCall]);
 
 	const contextValue = useMemo(
 		(): TUseBalancesRes => ({
