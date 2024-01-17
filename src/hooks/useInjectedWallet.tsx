@@ -1,12 +1,12 @@
 import {useMemo} from 'react';
 
-import {IconWalletCoinbase} from '../icons/IconWalletCoinbase.js';
-import {IconWalletFrame} from '../icons/IconWalletFrame.js';
-import {IconWalletLedger} from '../icons/IconWalletLedger.js';
-import {IconWalletMetamask} from '../icons/IconWalletMetamask.js';
-import {IconWalletOKX} from '../icons/IconWalletOKX.js';
-import {IconWalletPhantom} from '../icons/IconWalletPhantom.js';
-import {IconWalletTrustWallet} from '../icons/IconWalletTrustWallet.js';
+import {IconWalletCoinbase} from '../icons/IconWalletCoinbase';
+import {IconWalletFrame} from '../icons/IconWalletFrame';
+import {IconWalletLedger} from '../icons/IconWalletLedger';
+import {IconWalletMetamask} from '../icons/IconWalletMetamask';
+import {IconWalletOKX} from '../icons/IconWalletOKX';
+import {IconWalletPhantom} from '../icons/IconWalletPhantom';
+import {IconWalletTrustWallet} from '../icons/IconWalletTrustWallet';
 
 import type {ReactElement} from 'react';
 

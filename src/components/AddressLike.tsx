@@ -1,10 +1,10 @@
 import {useEnsName} from 'wagmi';
-import {cl} from '@builtbymom/web3/utils/cl.js';
+import {cl} from '@builtbymom/web3/utils/cl';
 
-import {copyToClipboard} from '../utils/helpers.js';
+import {copyToClipboard} from '../utils/helpers';
 
 import type {ReactElement} from 'react';
-import type {TAddress} from '@builtbymom/web3/types/address.js';
+import type {TAddress} from '@builtbymom/web3/types/address';
 
 export function AddressLike({address}: {address: TAddress}): ReactElement {
 	const {data: ensHandle, isSuccess} = useEnsName({address, chainId: 1});

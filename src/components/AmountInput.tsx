@@ -1,7 +1,7 @@
-import {Renderable} from './Renderable.js';
+import {Renderable} from './Renderable';
 
 import type {ReactElement} from 'react';
-import type {TNormalizedBN} from '@builtbymom/web3/types/mixed.js';
+import type {TNormalizedBN} from '@builtbymom/web3/types/mixed';
 
 type TAmountInputProps = {
 	amount: TNormalizedBN;

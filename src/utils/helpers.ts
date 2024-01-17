@@ -1,8 +1,8 @@
 import {toNormalizedBN} from '@builtbymom/web3/utils';
 
-import {yToast} from '../components/yToast.js';
+import {yToast} from '../components/yToast';
 
-import type {TSortDirection} from '@builtbymom/web3/types/mixed.js';
+import type {TSortDirection} from '@builtbymom/web3/types/mixed';
 /* 🔵 - Yearn Finance ******************************************************
  ** Yearn Meta uses some markdown for some rich content. Instead of using
  ** a md parser and add some heavy dependencies, just use regex to replace

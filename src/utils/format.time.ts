@@ -1,6 +1,6 @@
 import dayjs, {extend} from 'dayjs';
-import dayjsDuration from 'dayjs/plugin/duration.js';
-import relativeTime from 'dayjs/plugin/relativeTime.js';
+import dayjsDuration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 extend(relativeTime);
 extend(dayjsDuration);

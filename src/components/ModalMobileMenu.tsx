@@ -1,16 +1,16 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
 import {useConnect, useNetwork} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
-import {assert} from '@builtbymom/web3/utils/assert.js';
-import {truncateHex} from '@builtbymom/web3/utils/tools.address.js';
+import {assert} from '@builtbymom/web3/utils';
+import {truncateHex} from '@builtbymom/web3/utils/tools.address';
 import {Dialog, Transition} from '@headlessui/react';
 
-import {useInjectedWallet} from '../hooks/useInjectedWallet.js';
+import {useInjectedWallet} from '../hooks/useInjectedWallet';
 
 import type {ReactElement, ReactNode} from 'react';
 import type {Chain} from 'wagmi';
-import type {TNetwork} from './Header.js';
-import type {TModal} from './Modal.js';
+import type {TNetwork} from './Header';
+import type {TModal} from './Modal';
 
 type TModalMobileMenu = {
 	isOpen: boolean;
