@@ -2,6 +2,7 @@ import {toNormalizedBN} from '@builtbymom/web3/utils';
 
 import {yToast} from '../components/yToast';
 
+import type {TAddress} from '@builtbymom/web3/types';
 import type {TSortDirection} from '@builtbymom/web3/types/mixed';
 /* 🔵 - Yearn Finance ******************************************************
  ** Yearn Meta uses some markdown for some rich content. Instead of using
@@ -81,3 +82,12 @@ export const numberSort = ({a, b, sortDirection}: {a?: number; b?: number; sortD
 
 export const bigNumberSort = ({a, b, sortDirection}: {a: bigint; b: bigint; sortDirection: TSortDirection}): number =>
 	Number(toNormalizedBN(sortDirection === 'desc' ? b - a : a - b).normalized);
+
+
+/* 🔵 - Yearn Finance ******************************************************
+** allowanceKey is used to access the unique allowance key matching one
+** token with one spender
+**************************************************************************/
+export function allowanceKey(chainID: number, token: TAddress, spender: TAddress, owner: TAddress): string {
+	return `${chainID}_${token}_${spender}_${owner}`;
+}
