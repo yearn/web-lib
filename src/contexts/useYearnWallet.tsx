@@ -1,8 +1,8 @@
-import {createContext, memo, useCallback, useContext, useEffect, useMemo, useState} from 'react';
+import {createContext, memo, useCallback, useContext, useMemo, useState} from 'react';
 import {useBalances} from '@builtbymom/web3/hooks/useBalances.multichains';
 import {toAddress, toNormalizedBN} from '@builtbymom/web3/utils';
 import {useDeepCompareMemo} from '@react-hookz/web';
-import {onLoadDone, onLoadStart} from '@yearn-finance/web-lib/contexts/useUI';
+
 import {
 	CRV_TOKEN_ADDRESS,
 	CVXCRV_TOKEN_ADDRESS,
@@ -13,8 +13,7 @@ import {
 	YCRV_TOKEN_ADDRESS,
 	YVBOOST_TOKEN_ADDRESS,
 	YVECRV_TOKEN_ADDRESS
-} from '@yearn-finance/web-lib/utils/constants';
-
+} from '../utils/constants';
 import {useYearn} from './useYearn';
 
 import type {ReactElement} from 'react';
@@ -193,14 +192,6 @@ function useYearnBalances({shouldUseForknetBalances}: {shouldUseForknetBalances:
 		},
 		[onUpdate, onUpdateSome]
 	);
-
-	useEffect((): void => {
-		if (isLoading) {
-			onLoadStart();
-		} else {
-			onLoadDone();
-		}
-	}, [isLoading]);
 
 	return {tokens, isLoading, onRefresh};
 }

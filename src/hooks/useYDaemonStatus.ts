@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import {baseFetcher} from '@yearn-finance/web-lib/utils/fetchers';
+import {baseFetcher} from '@builtbymom/web3/utils';
 
 import {useYDaemonBaseURI} from './useYDaemonBaseURI';
 
