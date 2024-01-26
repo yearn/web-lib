@@ -76,6 +76,7 @@ export const yDaemonVaultSchema = z.object({
 		.or(z.literal('Balancer'))
 		.or(z.literal('Stablecoin'))
 		.or(z.literal('Velodrome'))
+		.or(z.literal('Prisma'))
 		.or(z.literal('Boosted'))
 		.or(z.literal('Aerodrome'))
 		.default('Volatile')
