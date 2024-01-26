@@ -1,14 +1,14 @@
 import {createContext, memo, useContext, useEffect} from 'react';
 import {deserialize, serialize} from 'wagmi';
-import useWallet from '@builtbymom/web3/contexts/useWallet';
 import {toAddress} from '@builtbymom/web3/utils';
 import {useLocalStorageValue} from '@react-hookz/web';
 
-import {useYearnEarned} from '../hooks/useYearnEarned';
-import {useYearnPrices} from '../hooks/useYearnPrices';
-import {useYearnTokens} from '../hooks/useYearnTokens';
-import {useYearnVaults} from '../hooks/useYearnVaults';
+import {useFetchYearnEarnedForUser} from '../hooks/useFetchYearnEarnedForUser';
+import {useFetchYearnPrices} from '../hooks/useFetchYearnPrices';
+import {useFetchYearnTokens} from '../hooks/useFetchYearnTokens';
+import {useFetchYearnVaults} from '../hooks/useFetchYearnVaults';
 import {Solver} from '../utils/schemas/yDaemonTokenListBalances';
+import {useYearnWallet} from './useYearnWallet';
 
 import type {ReactElement} from 'react';
 import type {KeyedMutator} from 'swr';
@@ -69,7 +69,7 @@ const YearnContext = createContext<TYearnContext>({
 });
 
 export const YearnContextApp = memo(function YearnContextApp({children}: {children: ReactElement}): ReactElement {
-	const {onRefresh} = useWallet();
+	const {onRefresh} = useYearnWallet();
 	const {value: maxLoss, set: set_maxLoss} = useLocalStorageValue<bigint>('yearn.fi/max-loss', {
 		defaultValue: DEFAULT_MAX_LOSS,
 		parse: (str: string, fallback: bigint): bigint => (str ? deserialize(str) : fallback),
@@ -88,10 +88,10 @@ export const YearnContextApp = memo(function YearnContextApp({children}: {childr
 		}
 	);
 
-	const prices = useYearnPrices();
-	const tokens = useYearnTokens();
-	const earned = useYearnEarned();
-	const {vaults, vaultsMigrations, vaultsRetired, isLoading, mutate} = useYearnVaults();
+	const prices = useFetchYearnPrices();
+	const tokens = useFetchYearnTokens();
+	const earned = useFetchYearnEarnedForUser();
+	const {vaults, vaultsMigrations, vaultsRetired, isLoading, mutate} = useFetchYearnVaults();
 
 	useEffect(() => {
 		const tokensToRefresh: TUseBalancesTokens[] = [];

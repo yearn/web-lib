@@ -2,14 +2,22 @@ import {useFetch} from '@builtbymom/web3/hooks/useFetch';
 import {toAddress} from '@builtbymom/web3/utils';
 import {useDeepCompareMemo} from '@react-hookz/web';
 
-import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonVaultsSchema} from '../utils/schemas/yDaemonVaultsSchemas';
+import {useYDaemonBaseURI} from './useYDaemonBaseURI';
 
 import type {KeyedMutator} from 'swr';
 import type {TDict} from '@builtbymom/web3/types';
 import type {TYDaemonVault, TYDaemonVaults} from '../utils/schemas/yDaemonVaultsSchemas';
 
-function useYearnVaults(): {
+/******************************************************************************
+ ** The useFetchYearnVaults hook is used to fetch the vaults from the yDaemon
+ ** API.
+ ** It will fetch 3 kinds of vaults:
+ ** - The active vaults
+ ** - The vaults that are in the migration process
+ ** - The retired vaults
+ *****************************************************************************/
+function useFetchYearnVaults(): {
 	vaults: TDict<TYDaemonVault>;
 	vaultsMigrations: TDict<TYDaemonVault>;
 	vaultsRetired: TDict<TYDaemonVault>;
@@ -91,4 +99,4 @@ function useYearnVaults(): {
 	};
 }
 
-export {useYearnVaults};
+export {useFetchYearnVaults};

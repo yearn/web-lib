@@ -1,12 +1,17 @@
 import {useFetch} from '@builtbymom/web3/hooks/useFetch';
 import {useDeepCompareMemo} from '@react-hookz/web';
 
-import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonPricesChainSchema} from '../utils/schemas/yDaemonPricesSchema';
+import {useYDaemonBaseURI} from './useYDaemonBaseURI';
 
 import type {TYDaemonPricesChain} from '../utils/schemas/yDaemonPricesSchema';
 
-function useYearnPrices(): TYDaemonPricesChain {
+/******************************************************************************
+ ** The useFetchYearnPrices hook is used to fetch the prices of the tokens from
+ ** the yDaemon API. It returns an object with the prices of the tokens,
+ ** splitted by chain.
+ *****************************************************************************/
+function useFetchYearnPrices(): TYDaemonPricesChain {
 	const {yDaemonBaseUri: yDaemonBaseUriWithoutChain} = useYDaemonBaseURI();
 	const {data: prices} = useFetch<TYDaemonPricesChain>({
 		endpoint: `${yDaemonBaseUriWithoutChain}/prices/all`,
@@ -23,4 +28,4 @@ function useYearnPrices(): TYDaemonPricesChain {
 	return pricesUpdated;
 }
 
-export {useYearnPrices};
+export {useFetchYearnPrices};

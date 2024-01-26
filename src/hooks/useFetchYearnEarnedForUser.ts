@@ -2,12 +2,17 @@ import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {useFetch} from '@builtbymom/web3/hooks/useFetch';
 import {useDeepCompareMemo} from '@react-hookz/web';
 
-import {useYDaemonBaseURI} from '../hooks/useYDaemonBaseURI';
 import {yDaemonEarnedSchema} from '../utils/schemas/yDaemonEarnedSchema';
+import {useYDaemonBaseURI} from './useYDaemonBaseURI';
 
 import type {TYDaemonEarned} from '../utils/schemas/yDaemonEarnedSchema';
 
-function useYearnEarned(): TYDaemonEarned {
+/******************************************************************************
+ ** The useFetchYearnEarnedForUser hook is used to fetch an estimate of the
+ ** amount earned by the user. This estimate is calculated by the yDaemon API
+ ** based on the events emitted by the yearn contracts catched by the subgraph.
+ *****************************************************************************/
+function useFetchYearnEarnedForUser(): TYDaemonEarned {
 	const {address} = useWeb3();
 	const {yDaemonBaseUri: yDaemonBaseUriWithoutChain} = useYDaemonBaseURI();
 
@@ -34,4 +39,4 @@ function useYearnEarned(): TYDaemonEarned {
 	return memorizedEarned;
 }
 
-export {useYearnEarned};
+export {useFetchYearnEarnedForUser};
