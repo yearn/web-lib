@@ -388,10 +388,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@builtbymom/web3@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@builtbymom/web3/-/web3-0.0.20.tgz#5685e11f2b3a90c0a5d7b06692aaa9d500792fc5"
-  integrity sha512-no59LxzMChgZZd6XnJuh69go3PtD/3k1dTQ7KX3dpYhXZxLX2LdaDqnPVMsXmz6IovMpjAmKrkCEqEN6jlPRmA==
+"@builtbymom/web3@^0.0.33":
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/@builtbymom/web3/-/web3-0.0.33.tgz#b0c109d6322420976fc14bd7cea97d59798c6a17"
+  integrity sha512-BgYbyMrEf7w3lSnCsjDtqfEn7oUjcW+hyrvPrEWsJ3HHoTNwKpq+Mh5jnT07zsHZX9u6rvRpJbZv+AifXHpQGQ==
   dependencies:
     "@rainbow-me/rainbowkit" "^1.3.0"
     "@react-hookz/web" "^24.0.2"
@@ -3505,16 +3505,7 @@ bump@^0.2.5:
   resolved "https://registry.yarnpkg.com/bump/-/bump-0.2.5.tgz#16d5567b75e77ea6597a805c10294c578495b47b"
   integrity sha512-d4CZYvcP317+twjo7PhGd+EptYjvw83itgaxbJtJnHE64qH29qMtqAQ5vb3x3Su7WuaPjow88GBgp0FDBxbm8w==
 
-bun-types@^1.0.22:
-  version "1.0.22"
-  resolved "https://registry.yarnpkg.com/bun-types/-/bun-types-1.0.22.tgz#b329f2dd8fa5933c24ac161aa4b41f8e95c0bdd6"
-  integrity sha512-JxmXAx6cXb37+rMsn30WRXlz9lbPFR9rQE78hNSoy5wJ8m/nUktkmHpo7xZb/YKDds23ifxWLjDtyni9MeXLgw==
-  dependencies:
-    "@types/node" "*"
-    "@types/ws" "*"
-    undici-types "^5.26.4"
-
-bun-types@^1.0.25:
+bun-types@^1.0.22, bun-types@^1.0.25:
   version "1.0.25"
   resolved "https://registry.yarnpkg.com/bun-types/-/bun-types-1.0.25.tgz#ef38ac40e9c9e2db188061474081426934a464a7"
   integrity sha512-9lxeUR/OJsvlZH4GOWteiAdx7ikrSxCUX7Rr0JJux+DrR3LejouVLxIZnTeQ3UPAZovvSgKivWeHPJ2wlo7/Kg==
