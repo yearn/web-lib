@@ -4,7 +4,6 @@ import {motion} from 'framer-motion';
 import {cl} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
 
-import {LogoYearn} from '../icons/LogoYearn';
 import {V3Logo} from '../icons/V3Logo';
 import {APPS} from './YearnApps';
 
@@ -45,22 +44,10 @@ function Logo(): ReactElement {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [typeof window]);
 
-	const pathname = useMemo(() => {
-		if (typeof window === 'undefined') {
-			return '/';
-		}
-		return window.location.pathname;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof window]);
-
-	const isYearnFi = useMemo(() => {
-		return currentHost === 'yearn.fi' || currentHost.includes('localhost:');
-	}, [currentHost]);
-
 	return (
 		<>
 			{Object.values(APPS).map(({name, host, icon}): ReactElement => {
-				const shouldAnimate = currentHost.includes(host) || (isYearnFi && pathname.includes(host));
+				const shouldAnimate = currentHost.includes(host);
 				return (
 					<MotionDiv
 						key={name}
@@ -70,15 +57,6 @@ function Logo(): ReactElement {
 					</MotionDiv>
 				);
 			})}
-			<MotionDiv
-				name={'yearn'}
-				animate={isYearnFi && pathname === '/' ? 'enter' : 'exit'}>
-				<LogoYearn
-					className={'size-8'}
-					back={'text-primary'}
-					front={'text-neutral-900'}
-				/>
-			</MotionDiv>
 		</>
 	);
 }
