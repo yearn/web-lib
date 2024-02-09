@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import {LogoYearn} from '../icons/LogoYearn';
 import {VEYFI_DYFI_ADDRESS, YCRV_TOKEN_ADDRESS} from '../utils/constants';
 import {ImageWithFallback} from './ImageWithFallback';
@@ -22,7 +20,7 @@ export const APPS = {
 		href: 'https://juiced.yearn.fi',
 		host: 'juiced.yearn.fi',
 		icon: (
-			<Image
+			<ImageWithFallback
 				className={'size-8'}
 				src={'/juiced.png'}
 				width={64}

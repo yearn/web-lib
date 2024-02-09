@@ -1,4 +1,5 @@
 import {cloneElement, useMemo, useState} from 'react';
+import Link from 'next/link';
 import {cl} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
 
@@ -48,10 +49,10 @@ export function LogoPopover(props: {logo: ReactElement}): ReactElement {
 					)}
 				/>
 				<Popover.Button className={'z-20 -mt-4 flex items-center'}>
-					<a href={'/'}>
+					<Link href={'/'}>
 						<span className={'sr-only'}>{'Back to home'}</span>
 						{props.logo}
-					</a>
+					</Link>
 				</Popover.Button>
 
 				<Transition.Root show={isShowing}>
@@ -79,7 +80,8 @@ export function LogoPopover(props: {logo: ReactElement}): ReactElement {
 											.filter(({name}): boolean => name !== 'V3 Vaults')
 											.map(({name, href, icon}): ReactElement => {
 												return (
-													<a
+													<Link
+														prefetch={false}
 														key={name}
 														href={href}
 														onClick={(): void => set_isShowing(false)}>
@@ -96,12 +98,13 @@ export function LogoPopover(props: {logo: ReactElement}): ReactElement {
 																<b className={'text-base'}>{name}</b>
 															</div>
 														</div>
-													</a>
+													</Link>
 												);
 											})}
 									</div>
 									<div className={'col-span-2 grid grid-cols-2 gap-2 md:grid-cols-3'}>
-										<a
+										<Link
+											prefetch={false}
 											key={APPS.V3.name}
 											href={APPS.V3.href}
 											className={'col-span-3 row-span-2'}
@@ -124,7 +127,7 @@ export function LogoPopover(props: {logo: ReactElement}): ReactElement {
 													</div>
 												</div>
 											</div>
-										</a>
+										</Link>
 									</div>
 								</div>
 							</div>
