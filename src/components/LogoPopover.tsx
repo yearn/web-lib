@@ -76,11 +76,9 @@ export function LogoPopover(): ReactElement {
 
 	const currentApp = useMemo(() => {
 		return Object.values(APPS).find(({host}): boolean => {
-			return currentHost.includes(host);
+			return host.includes(currentHost);
 		});
 	}, [currentHost]);
-
-	console.log(currentApp, currentHost);
 
 	return (
 		<>
