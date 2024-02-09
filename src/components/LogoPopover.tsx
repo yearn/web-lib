@@ -1,6 +1,5 @@
 import {cloneElement, useMemo, useState} from 'react';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
 import {motion} from 'framer-motion';
 import {cl} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
@@ -38,13 +37,19 @@ function MotionDiv({animate, name, children}: TMotionDiv): ReactElement {
 }
 
 function Logo(): ReactElement {
-	const {pathname} = useRouter();
-
 	const currentHost = useMemo(() => {
 		if (typeof window === 'undefined') {
 			return 'yearn.fi';
 		}
 		return window.location.host;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window]);
+
+	const pathname = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return '/';
+		}
+		return window.location.pathname;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [typeof window]);
 
@@ -80,12 +85,27 @@ function Logo(): ReactElement {
 
 export function LogoPopover(): ReactElement {
 	const [isShowing, set_isShowing] = useState(false);
-	const router = useRouter();
+
+	const currentHost = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return 'yearn.fi';
+		}
+		return window.location.host;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window]);
+
+	const isYearnFi = useMemo(() => {
+		return currentHost === 'yearn.fi' || currentHost.includes('localhost:');
+	}, [currentHost]);
 
 	const currentApp = useMemo(() => {
-		const pageURI = router.pathname.toLowerCase();
-		return Object.values(APPS).find(({host}): boolean => pageURI.includes(host)) || APPS.Vaults;
-	}, [router]);
+		return Object.values(APPS).find(({host}): boolean => {
+			if (isYearnFi) {
+				return window.location.pathname.includes(host);
+			}
+			return currentHost.includes(host);
+		});
+	}, [currentHost, isYearnFi]);
 
 	return (
 		<>
