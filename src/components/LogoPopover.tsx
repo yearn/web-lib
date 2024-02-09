@@ -1,14 +1,89 @@
 import {cloneElement, useMemo, useState} from 'react';
 import Link from 'next/link';
+import {motion} from 'framer-motion';
 import {cl} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
 
+import {LogoYearn} from '../icons/LogoYearn';
 import {V3Logo} from '../icons/V3Logo';
 import {APPS} from './YearnApps';
 
+import type {AnimationProps} from 'framer-motion';
 import type {ReactElement} from 'react';
 
-export function LogoPopover(props: {logo: ReactElement}): ReactElement {
+type TMotionDiv = {
+	animate: AnimationProps['animate'];
+	name: string;
+	children: ReactElement;
+};
+
+const transition = {duration: 0.4, ease: 'easeInOut'};
+const variants = {
+	initial: {y: -80, opacity: 0, transition},
+	enter: {y: 0, opacity: 1, transition},
+	exit: {y: -80, opacity: 0, transition}
+};
+function MotionDiv({animate, name, children}: TMotionDiv): ReactElement {
+	return (
+		<motion.div
+			key={name}
+			initial={'initial'}
+			animate={animate}
+			variants={variants}
+			className={'absolute cursor-pointer'}>
+			{children}
+		</motion.div>
+	);
+}
+
+function Logo(): ReactElement {
+	const currentHost = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return 'yearn.fi';
+		}
+		return window.location.host;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window]);
+
+	const pathname = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return '/';
+		}
+		return window.location.pathname;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window]);
+
+	const isYearnFi = useMemo(() => {
+		return currentHost === 'yearn.fi' || currentHost.includes('localhost:');
+	}, [currentHost]);
+
+	return (
+		<>
+			{Object.values(APPS).map(({name, host, icon}): ReactElement => {
+				const shouldAnimate = currentHost.includes(host) || (isYearnFi && pathname.includes(host));
+				return (
+					<MotionDiv
+						key={name}
+						name={name}
+						animate={shouldAnimate ? 'enter' : 'exit'}>
+						{icon}
+					</MotionDiv>
+				);
+			})}
+			<MotionDiv
+				name={'yearn'}
+				animate={isYearnFi && pathname === '/' ? 'enter' : 'exit'}>
+				<LogoYearn
+					className={'size-8'}
+					back={'text-primary'}
+					front={'text-neutral-900'}
+				/>
+			</MotionDiv>
+		</>
+	);
+}
+
+export function LogoPopover(): ReactElement {
 	const [isShowing, set_isShowing] = useState(false);
 
 	const currentHost = useMemo(() => {
@@ -51,7 +126,7 @@ export function LogoPopover(props: {logo: ReactElement}): ReactElement {
 				<Popover.Button className={'z-20 -mt-4 flex items-center'}>
 					<Link href={'/'}>
 						<span className={'sr-only'}>{'Back to home'}</span>
-						{props.logo}
+						<Logo />
 					</Link>
 				</Popover.Button>
 
