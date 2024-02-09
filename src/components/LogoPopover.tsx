@@ -5,6 +5,7 @@ import {motion} from 'framer-motion';
 import {cl} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
 
+import {LogoYearn} from '../icons/LogoYearn';
 import {V3Logo} from '../icons/V3Logo';
 import {APPS} from './YearnApps';
 
@@ -50,6 +51,15 @@ function Logo(): ReactElement {
 					</MotionDiv>
 				);
 			})}
+			<MotionDiv
+				name={'yearn'}
+				animate={pathname === '/' ? 'enter' : 'exit'}>
+				<LogoYearn
+					className={'size-8'}
+					back={'text-primary'}
+					front={'text-neutral-900'}
+				/>
+			</MotionDiv>
 		</>
 	);
 }
@@ -76,7 +86,7 @@ export function LogoPopover(): ReactElement {
 						!isShowing ? 'opacity-0 pointer-events-none' : 'opacity-0 pointer-events-auto'
 					)}
 				/>
-				<Popover.Button className={'z-20 flex items-center'}>
+				<Popover.Button className={'z-20 -mt-4 flex items-center'}>
 					<Link href={'/'}>
 						<span className={'sr-only'}>{'Back to home'}</span>
 						<Logo />
