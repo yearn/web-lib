@@ -72,21 +72,11 @@ export function LogoPopover(): ReactElement {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [typeof window]);
 
-	const isYearnFi = useMemo(() => {
-		return currentHost === 'yearn.fi' || currentHost.includes('localhost:');
-	}, [currentHost]);
-
 	const currentApp = useMemo(() => {
 		return Object.values(APPS).find(({host}): boolean => {
-			if (isYearnFi) {
-				if (typeof window === 'undefined') {
-					return false;
-				}
-				return window.location.pathname.includes(host);
-			}
 			return currentHost.includes(host);
 		});
-	}, [currentHost, isYearnFi]);
+	}, [currentHost]);
 
 	return (
 		<>
