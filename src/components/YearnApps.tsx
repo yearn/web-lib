@@ -1,3 +1,4 @@
+import {LogoJuiced} from '../icons/LogoJuiced';
 import {LogoYearn} from '../icons/LogoYearn';
 import {VEYFI_DYFI_ADDRESS, YCRV_TOKEN_ADDRESS} from '../utils/constants';
 import {ImageWithFallback} from './ImageWithFallback';
@@ -19,17 +20,7 @@ export const APPS = {
 		name: 'Juiced Vaults',
 		href: 'https://juiced.yearn.fi',
 		host: 'juiced.yearn.fi',
-		icon: (
-			<ImageWithFallback
-				className={'size-8'}
-				src={'/juiced.png'}
-				width={64}
-				height={64}
-				alt={'juiced'}
-				loading={'eager'}
-				priority
-			/>
-		)
+		icon: <LogoJuiced className={'size-8'} />
 	},
 	Vaults: {
 		name: 'Vaults',
