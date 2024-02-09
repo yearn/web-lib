@@ -141,10 +141,8 @@ export function LogoPopover(): ReactElement {
 														<div
 															onClick={(): void => set_isShowing(false)}
 															className={cl(
-																'flex cursor-pointer border flex-col items-center justify-center transition-colors p-4',
-																currentApp?.name !== 'V3 Vaults'
-																	? 'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-[#0C0C0C] hover:dark:bg-[#3d3d3d80]'
-																	: 'bg-[#000520] hover:bg-[#33374d80] border-[#151C40]'
+																'flex cursor-pointer flex-col items-center justify-center transition-colors p-4 rounded',
+																'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-neutral-0 hover:dark:bg-neutral-0/80'
 															)}>
 															<div>{cloneElement(icon, {className: 'w-8 h-8'})}</div>
 															<div className={'pt-2 text-center'}>
