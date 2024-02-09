@@ -123,9 +123,9 @@ export function LogoPopover(): ReactElement {
 							<div className={'overflow-hidden pt-4 shadow-xl'}>
 								<div
 									className={cl(
-										'relative grid grid-cols-2 gap-2 border p-6 md:grid-cols-5',
-										currentApp?.name === 'V3'
-											? 'bg-[#000520] border-neutral-200/60 rounded-sm'
+										'relative grid grid-cols-2 gap-2 border p-6 md:grid-cols-5 rounded',
+										currentApp?.name === 'V3 Vaults'
+											? 'bg-[#000520] border-neutral-200/60'
 											: 'bg-[#F4F4F4] dark:bg-[#282828] border-transparent'
 									)}>
 									<div className={'col-span-3 grid grid-cols-2 gap-2 md:grid-cols-3'}>
@@ -142,7 +142,7 @@ export function LogoPopover(): ReactElement {
 															onClick={(): void => set_isShowing(false)}
 															className={cl(
 																'flex cursor-pointer flex-col items-center justify-center transition-colors p-4 rounded',
-																'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-neutral-0 hover:dark:bg-neutral-0/80'
+																'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-neutral-0 hover:dark:bg-neutral-100/80'
 															)}>
 															<div>{cloneElement(icon, {className: 'w-8 h-8'})}</div>
 															<div className={'pt-2 text-center'}>
@@ -162,7 +162,7 @@ export function LogoPopover(): ReactElement {
 											onClick={(): void => set_isShowing(false)}>
 											<div
 												className={cl(
-													'relative flex h-full w-full cursor-pointer flex-col items-center justify-center transition-all rounded-sm p-4',
+													'relative flex h-full w-full cursor-pointer flex-col items-center justify-center transition-all rounded p-4',
 													'bg-[#010A3B] hover:brightness-125'
 												)}>
 												<div className={'z-10 flex w-full flex-col items-center'}>
