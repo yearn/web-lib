@@ -4,6 +4,7 @@ import {motion} from 'framer-motion';
 import {cl} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
 
+import {useIsMounted} from '../hooks/useIsMounted';
 import {V3Logo} from '../icons/V3Logo';
 import {APPS} from './YearnApps';
 
@@ -63,14 +64,15 @@ function Logo(): ReactElement {
 
 export function LogoPopover(): ReactElement {
 	const [isShowing, set_isShowing] = useState(false);
+	const isMounted = useIsMounted();
 
 	const currentHost = useMemo(() => {
 		if (typeof window === 'undefined') {
-			return 'yearn.fi';
+			return '';
 		}
 		return window.location.host;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof window]);
+	}, [typeof window, isMounted]);
 
 	const currentApp = useMemo(() => {
 		return Object.values(APPS).find(({host}): boolean => {
