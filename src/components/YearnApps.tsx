@@ -25,7 +25,7 @@ export const APPS = {
 	Vaults: {
 		name: 'Vaults',
 		href: 'https://yearn.fi/vaults',
-		host: 'yearn.fi',
+		host: 'localhost:',
 		icon: (
 			<LogoYearn
 				className={'size-8'}
