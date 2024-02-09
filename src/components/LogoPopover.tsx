@@ -80,6 +80,8 @@ export function LogoPopover(): ReactElement {
 		});
 	}, [currentHost]);
 
+	console.log(currentApp, currentHost);
+
 	return (
 		<>
 			<Popover
