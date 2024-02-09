@@ -1,6 +1,7 @@
 import {createContext, memo, useCallback, useContext, useMemo, useState} from 'react';
+import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {useBalances} from '@builtbymom/web3/hooks/useBalances.multichains';
-import {toAddress, toNormalizedBN} from '@builtbymom/web3/utils';
+import {isZeroAddress, toAddress, toNormalizedBN, zeroNormalizedBN} from '@builtbymom/web3/utils';
 import {useDeepCompareMemo} from '@react-hookz/web';
 
 import {
@@ -44,15 +45,15 @@ const defaultToken: TYToken = {
 	chainID: 1,
 	value: 0,
 	stakingValue: 0,
-	price: toNormalizedBN(0),
-	balance: toNormalizedBN(0),
+	price: zeroNormalizedBN,
+	balance: zeroNormalizedBN,
 	supportedZaps: []
 };
 
 const defaultProps = {
 	getToken: (): TYToken => defaultToken,
-	getBalance: (): TNormalizedBN => toNormalizedBN(0),
-	getPrice: (): TNormalizedBN => toNormalizedBN(0),
+	getBalance: (): TNormalizedBN => zeroNormalizedBN,
+	getPrice: (): TNormalizedBN => zeroNormalizedBN,
 	balances: {},
 	cumulatedValueInV2Vaults: 0,
 	cumulatedValueInV3Vaults: 0,
@@ -206,6 +207,7 @@ export const YearnWalletContextApp = memo(function YearnWalletContextApp({
 }: {
 	children: ReactElement;
 }): ReactElement {
+	const {address: userAddress} = useWeb3();
 	const {vaults, prices, vaultsMigrations} = useYearn();
 	const [shouldUseForknetBalances, set_shouldUseForknetBalances] = useState<boolean>(false);
 	const {tokens, isLoading, onRefresh} = useYearnBalances({shouldUseForknetBalances});
@@ -241,15 +243,20 @@ export const YearnWalletContextApp = memo(function YearnWalletContextApp({
 		[tokens]
 	);
 	const getBalance = useCallback(
-		({address, chainID}: TTokenAndChain): TNormalizedBN =>
-			tokens?.[chainID || 1]?.[address]?.balance || toNormalizedBN(0),
-		[tokens]
+		({address, chainID}: TTokenAndChain): TNormalizedBN => {
+			if (isZeroAddress(userAddress)) {
+				return zeroNormalizedBN;
+			}
+			return tokens?.[chainID || 1]?.[address]?.balance || zeroNormalizedBN;
+		},
+		[tokens, userAddress]
 	);
+
 	const getPrice = useCallback(
 		({address, chainID}: TTokenAndChain): TNormalizedBN => {
 			const price = tokens?.[chainID || 1]?.[address]?.price;
 			if (!price) {
-				return toNormalizedBN(prices?.[chainID]?.[address] || 0, 6) || toNormalizedBN(0);
+				return toNormalizedBN(prices?.[chainID]?.[address] || 0, 6) || zeroNormalizedBN;
 			}
 			return price;
 		},
