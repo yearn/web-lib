@@ -40,20 +40,34 @@ function MotionDiv({animate, name, children}: TMotionDiv): ReactElement {
 function Logo(): ReactElement {
 	const {pathname} = useRouter();
 
+	const currentHost = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return 'yearn.fi';
+		}
+		return window.location.host;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window]);
+
+	const isYearnFi = useMemo(() => {
+		return currentHost === 'yearn.fi' || currentHost.includes('localhost:');
+	}, [currentHost]);
+
 	return (
 		<>
-			{Object.values(APPS).map(({name, pathCheck, icon}): ReactElement => {
+			{Object.values(APPS).map(({name, host, icon}): ReactElement => {
+				const shouldAnimate = currentHost.includes(host) || (isYearnFi && pathname.includes(host));
 				return (
 					<MotionDiv
+						key={name}
 						name={name}
-						animate={pathname.includes(pathCheck) ? 'enter' : 'exit'}>
+						animate={shouldAnimate ? 'enter' : 'exit'}>
 						{icon}
 					</MotionDiv>
 				);
 			})}
 			<MotionDiv
 				name={'yearn'}
-				animate={pathname === '/' ? 'enter' : 'exit'}>
+				animate={isYearnFi && pathname === '/' ? 'enter' : 'exit'}>
 				<LogoYearn
 					className={'size-8'}
 					back={'text-primary'}
@@ -70,7 +84,7 @@ export function LogoPopover(): ReactElement {
 
 	const currentApp = useMemo(() => {
 		const pageURI = router.pathname.toLowerCase();
-		return Object.values(APPS).find(({pathCheck}): boolean => pageURI.includes(pathCheck)) || APPS.Vaults;
+		return Object.values(APPS).find(({host}): boolean => pageURI.includes(host)) || APPS.Vaults;
 	}, [router]);
 
 	return (

@@ -8,7 +8,7 @@ export const APPS = {
 	V3: {
 		name: 'V3 Vaults',
 		href: 'https://yearn.fi/v3',
-		pathCheck: 'yearn.fi/v3',
+		host: 'v3',
 		icon: (
 			<LogoYearn
 				className={'size-8'}
@@ -20,7 +20,7 @@ export const APPS = {
 	Juiced: {
 		name: 'Juiced Vaults',
 		href: 'https://juiced.yearn.fi',
-		pathCheck: 'juiced.yearn.fi',
+		host: 'juiced.yearn.fi',
 		icon: (
 			<Image
 				className={'size-8'}
@@ -36,7 +36,7 @@ export const APPS = {
 	Vaults: {
 		name: 'Vaults',
 		href: 'https://yearn.fi/vaults',
-		pathCheck: 'yearn.fi/vaults',
+		host: 'vaults',
 		icon: (
 			<LogoYearn
 				className={'size-8'}
@@ -48,7 +48,7 @@ export const APPS = {
 	yCRV: {
 		name: 'yCRV',
 		href: 'https://ycrv.yearn.fi',
-		pathCheck: 'ycrv.yearn.fi',
+		host: 'ycrv.yearn.fi',
 		icon: (
 			<ImageWithFallback
 				alt={'yCRV'}
@@ -64,7 +64,7 @@ export const APPS = {
 	veYFI: {
 		name: 'veYFI',
 		href: 'https://veyfi.yearn.fi',
-		pathCheck: 'veyfi.yearn.fi',
+		host: 'veyfi.yearn.fi',
 		icon: (
 			<ImageWithFallback
 				alt={'veYFI'}
@@ -80,7 +80,7 @@ export const APPS = {
 	yETH: {
 		name: 'yETH',
 		href: 'https://yeth.yearn.fi',
-		pathCheck: 'yeth.yearn.fi',
+		host: 'yeth.yearn.fi',
 		icon: (
 			<ImageWithFallback
 				alt={'yETH'}
@@ -96,7 +96,7 @@ export const APPS = {
 	yPrisma: {
 		name: 'yPrisma',
 		href: 'https://yprisma.yearn.fi',
-		pathCheck: 'yprisma.yearn.fi',
+		host: 'yprisma.yearn.fi',
 		icon: (
 			<ImageWithFallback
 				priority
@@ -111,7 +111,7 @@ export const APPS = {
 	yBribe: {
 		name: 'yBribe',
 		href: 'https://ybribe.yearn.fi',
-		pathCheck: 'ybribe.yearn.fi',
+		host: 'ybribe.yearn.fi',
 		icon: (
 			<LogoYearn
 				className={'size-8'}
@@ -123,7 +123,7 @@ export const APPS = {
 	yFactory: {
 		name: 'yFactory',
 		href: 'https://factory.yearn.fi',
-		pathCheck: 'factory.yearn.fi',
+		host: 'factory.yearn.fi',
 		icon: (
 			<LogoYearn
 				className={'size-8'}
