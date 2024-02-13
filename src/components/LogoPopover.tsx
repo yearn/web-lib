@@ -1,11 +1,12 @@
 import {cloneElement, useMemo, useState} from 'react';
 import Link from 'next/link';
 import {motion} from 'framer-motion';
-import {cl} from '@builtbymom/web3/utils';
+import {cl, toAddress} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
 
 import {useIsMounted} from '../hooks/useIsMounted';
 import {V3Logo} from '../icons/V3Logo';
+import {ImageWithFallback} from './ImageWithFallback';
 import {APPS} from './YearnApps';
 
 import type {AnimationProps} from 'framer-motion';
@@ -45,6 +46,27 @@ function Logo(): ReactElement {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [typeof window]);
 
+	const vaultPageData = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return {
+				isVaultPage: false,
+				chainID: '',
+				vaultAddress: ''
+			};
+		}
+
+		const isVaultPage =
+			typeof window !== 'undefined' &&
+			window.location.pathname.startsWith('/vaults/') &&
+			window.location.pathname.split('/').length === 4;
+		return {
+			isVaultPage,
+			chainID: isVaultPage && window.location.pathname.split('/')[2],
+			vaultAddress: isVaultPage && window.location.pathname.split('/')[3]
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window]);
+
 	return (
 		<>
 			{Object.values(APPS).map(({name, host, icon}): ReactElement => {
@@ -53,11 +75,26 @@ function Logo(): ReactElement {
 					<MotionDiv
 						key={name}
 						name={name}
-						animate={shouldAnimate ? 'enter' : 'exit'}>
+						animate={shouldAnimate && !vaultPageData.isVaultPage ? 'enter' : 'exit'}>
 						{icon}
 					</MotionDiv>
 				);
 			})}
+			<MotionDiv
+				key={'Vaults'}
+				name={'Vaults'}
+				animate={vaultPageData.isVaultPage ? 'enter' : 'exit'}>
+				<ImageWithFallback
+					src={`https://assets.smold.app/api/token/${vaultPageData.chainID}/${toAddress(
+						vaultPageData.vaultAddress || ''
+					)}/logo-128.png`}
+					alt={''}
+					smWidth={48}
+					smHeight={48}
+					width={72}
+					height={72}
+				/>
+			</MotionDiv>
 		</>
 	);
 }
