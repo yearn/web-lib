@@ -93,7 +93,7 @@ export function LogoPopover(): ReactElement {
 						!isShowing ? 'opacity-0 pointer-events-none' : 'opacity-0 pointer-events-auto'
 					)}
 				/>
-				<Popover.Button className={'z-20 -mt-4 flex items-center'}>
+				<Popover.Button className={'z-20 -mt-4 flex w-8 items-center'}>
 					<Link href={'/'}>
 						<span className={'sr-only'}>{'Back to home'}</span>
 						<Logo />
