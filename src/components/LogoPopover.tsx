@@ -75,6 +75,12 @@ function Logo(): ReactElement {
 					</MotionDiv>
 				);
 			})}
+			<MotionDiv
+				key={'Vaults'}
+				name={'Vaults'}
+				animate={isVaultPage ? 'enter' : 'exit'}>
+				<div className={'size-16 opacity-0'} />
+			</MotionDiv>
 		</>
 	);
 }
@@ -110,7 +116,7 @@ export function LogoPopover(): ReactElement {
 						!isShowing ? 'opacity-0 pointer-events-none' : 'opacity-0 pointer-events-auto'
 					)}
 				/>
-				<Popover.Button className={'z-20 -mt-4 flex w-8 items-center'}>
+				<Popover.Button className={'z-20 -mt-4 flex size-8 items-center'}>
 					<Link href={'/'}>
 						<span className={'sr-only'}>{'Back to home'}</span>
 						<Logo />
