@@ -1,5 +1,8 @@
+'use client';
+
 import {cloneElement, useMemo, useState} from 'react';
 import Link from 'next/link';
+import {usePathname} from 'next/navigation';
 import {motion} from 'framer-motion';
 import {cl, toAddress} from '@builtbymom/web3/utils';
 import {Popover, Transition} from '@headlessui/react';
@@ -38,13 +41,14 @@ function MotionDiv({animate, name, children}: TMotionDiv): ReactElement {
 }
 
 function Logo(): ReactElement {
+	const pathname = usePathname();
 	const currentHost = useMemo(() => {
 		if (typeof window === 'undefined') {
 			return 'yearn.fi';
 		}
 		return window.location.host;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof window]);
+	}, [typeof window, pathname]);
 
 	const vaultPageData = useMemo(() => {
 		if (typeof window === 'undefined') {
@@ -65,7 +69,7 @@ function Logo(): ReactElement {
 			vaultAddress: isVaultPage && window.location.pathname.split('/')[3]
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof window]);
+	}, [typeof window, pathname]);
 
 	return (
 		<>
@@ -88,6 +92,7 @@ function Logo(): ReactElement {
 					src={`https://assets.smold.app/api/token/${vaultPageData.chainID}/${toAddress(
 						vaultPageData.vaultAddress || ''
 					)}/logo-128.png`}
+					className={'-ml-9'}
 					alt={''}
 					smWidth={48}
 					smHeight={48}
@@ -173,7 +178,11 @@ export function LogoPopover(): ReactElement {
 																'flex cursor-pointer flex-col items-center justify-center transition-colors p-4 rounded',
 																'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-neutral-0 hover:dark:bg-neutral-0/60'
 															)}>
-															<div>{cloneElement(icon, {className: 'w-8 h-8'})}</div>
+															<div>
+																{cloneElement(icon, {
+																	className: 'w-8 h-8 min-w-8 max-w-8 min-h-8 max-h-8'
+																})}
+															</div>
 															<div className={'pt-2 text-center'}>
 																<b className={'text-base'}>{name}</b>
 															</div>
