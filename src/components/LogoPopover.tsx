@@ -39,29 +39,7 @@ function MotionDiv({animate, name, children}: TMotionDiv): ReactElement {
 	);
 }
 
-function Logo(): ReactElement {
-	const pathname = usePathname();
-	const currentHost = useMemo(() => {
-		if (typeof window === 'undefined') {
-			return 'yearn.fi';
-		}
-		return window.location.host;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof window, pathname]);
-
-	const isVaultPage = useMemo(() => {
-		if (typeof window === 'undefined') {
-			return false;
-		}
-
-		const isVaultPage =
-			typeof window !== 'undefined' &&
-			window.location.pathname.startsWith('/vaults/') &&
-			window.location.pathname.split('/').length === 4;
-		return isVaultPage;
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [typeof window, pathname]);
-
+function Logo({currentHost, isVaultPage}: {currentHost: string; isVaultPage: boolean}): ReactElement {
 	return (
 		<>
 			{Object.values(APPS).map(({name, host, icon}): ReactElement => {
@@ -88,6 +66,7 @@ function Logo(): ReactElement {
 export function LogoPopover(): ReactElement {
 	const [isShowing, set_isShowing] = useState(false);
 	const isMounted = useIsMounted();
+	const pathname = usePathname();
 
 	const currentHost = useMemo(() => {
 		if (typeof window === 'undefined') {
@@ -103,6 +82,19 @@ export function LogoPopover(): ReactElement {
 		});
 	}, [currentHost]);
 
+	const isVaultPage = useMemo(() => {
+		if (typeof window === 'undefined') {
+			return false;
+		}
+
+		const isVaultPage =
+			typeof window !== 'undefined' &&
+			window.location.pathname.startsWith('/vaults/') &&
+			window.location.pathname.split('/').length === 4;
+		return isVaultPage;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [typeof window, pathname]);
+
 	return (
 		<>
 			<Popover
@@ -116,10 +108,13 @@ export function LogoPopover(): ReactElement {
 						!isShowing ? 'opacity-0 pointer-events-none' : 'opacity-0 pointer-events-auto'
 					)}
 				/>
-				<Popover.Button className={'z-20 -mt-4 flex size-8 items-center'}>
+				<Popover.Button className={'z-20 flex size-8'}>
 					<Link href={'/'}>
 						<span className={'sr-only'}>{'Back to home'}</span>
-						<Logo />
+						<Logo
+							currentHost={currentHost}
+							isVaultPage={isVaultPage}
+						/>
 					</Link>
 				</Popover.Button>
 
@@ -135,7 +130,7 @@ export function LogoPopover(): ReactElement {
 						className={'relative z-[9999999]'}>
 						<Popover.Panel
 							className={'absolute left-1/2 z-20 w-80 -translate-x-1/2 px-4 pt-6 sm:px-0 md:w-[800px]'}>
-							<div className={'overflow-hidden pt-4 shadow-xl'}>
+							<div className={cl('overflow-hidden shadow-xl', isVaultPage ? 'pt-4' : 'pt-0')}>
 								<div
 									className={cl(
 										'relative grid grid-cols-2 gap-2 border p-6 md:grid-cols-5 rounded',
