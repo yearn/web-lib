@@ -100,10 +100,7 @@ export const yDaemonVaultSchema = z.object({
 			.object({
 				performance: z.number().default(0).catch(0),
 				withdrawal: z.number().default(0).catch(0),
-				management: z.number().default(0).catch(0),
-				keepCRV: z.number().default(0).catch(0),
-				keepVelo: z.number().default(0).catch(0),
-				cvxKeepCRV: z.number().default(0).catch(0)
+				management: z.number().default(0).catch(0)
 			})
 			.default({}),
 		extra: z
@@ -131,7 +128,10 @@ export const yDaemonVaultSchema = z.object({
 						cvxAPR: z.number().default(0).catch(0),
 						rewardsAPR: z.number().default(0).catch(0),
 						v3OracleCurrentAPR: z.number().default(0).catch(0),
-						v3OracleStratRatioAPR: z.number().default(0).catch(0)
+						v3OracleStratRatioAPR: z.number().default(0).catch(0),
+						keepCRV: z.number().default(0).catch(0),
+						keepVelo: z.number().default(0).catch(0),
+						cvxKeepCRV: z.number().default(0).catch(0)
 					})
 					.default({})
 			})
