@@ -160,7 +160,12 @@ export function LogoPopover(): ReactElement {
 																})}
 															</div>
 															<div className={'pt-2 text-center'}>
-																<b className={'text-base'}>{name}</b>
+																<b
+																	className={
+																		'text-base text-neutral-900 dark:text-neutral-0'
+																	}>
+																	{name}
+																</b>
 															</div>
 														</div>
 													</Link>
@@ -177,7 +182,7 @@ export function LogoPopover(): ReactElement {
 											<div
 												className={cl(
 													'relative flex h-full w-full cursor-pointer flex-col items-center justify-center transition-all rounded p-4',
-													'bg-[#010A3B] hover:brightness-125'
+													'bg-[#EBEBEB] hover:bg-[#c3c3c380] dark:bg-[#010A3B] hover:dark:brightness-125'
 												)}>
 												<div className={'z-10 flex w-full flex-col items-center'}>
 													<V3Logo className={'h-20'} />
