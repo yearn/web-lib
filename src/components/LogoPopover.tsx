@@ -152,7 +152,7 @@ export function LogoPopover(): ReactElement {
 															onClick={(): void => set_isShowing(false)}
 															className={cl(
 																'flex cursor-pointer flex-col items-center justify-center transition-colors p-4 rounded',
-																'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-neutral-0 hover:dark:bg-neutral-0/60'
+																'bg-[#EBEBEB] border-transparent hover:bg-[#c3c3c380] dark:bg-[#010A3B] hover:dark:bg-neutral-0'
 															)}>
 															<div>
 																{cloneElement(icon, {
@@ -160,10 +160,7 @@ export function LogoPopover(): ReactElement {
 																})}
 															</div>
 															<div className={'pt-2 text-center'}>
-																<b
-																	className={
-																		'text-base text-neutral-0 dark:text-neutral-900'
-																	}>
+																<b className={'text-base text-black dark:text-white'}>
 																	{name}
 																</b>
 															</div>
