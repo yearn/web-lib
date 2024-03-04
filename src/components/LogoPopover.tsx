@@ -76,12 +76,6 @@ export function LogoPopover(): ReactElement {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [typeof window, isMounted]);
 
-	const currentApp = useMemo(() => {
-		return Object.values(APPS).find(({host}): boolean => {
-			return host.includes(currentHost);
-		});
-	}, [currentHost]);
-
 	const isVaultPage = useMemo(() => {
 		if (typeof window === 'undefined') {
 			return false;
@@ -134,9 +128,7 @@ export function LogoPopover(): ReactElement {
 								<div
 									className={cl(
 										'relative grid grid-cols-2 gap-2 border p-6 md:grid-cols-5 rounded',
-										currentApp?.name === 'V3 Vaults'
-											? 'bg-[#000520] border-neutral-200/60'
-											: 'bg-[#F4F4F4] dark:bg-neutral-100 border-transparent'
+										'bg-[#F4F4F4] dark:bg-neutral-100 border-transparent'
 									)}>
 									<div className={'col-span-3 grid grid-cols-2 gap-2 md:grid-cols-3'}>
 										{[...Object.values(APPS)]
