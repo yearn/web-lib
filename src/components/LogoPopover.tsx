@@ -162,7 +162,7 @@ export function LogoPopover(): ReactElement {
 															<div className={'pt-2 text-center'}>
 																<b
 																	className={
-																		'text-base text-neutral-900 dark:text-neutral-0'
+																		'text-base text-neutral-0 dark:text-neutral-900'
 																	}>
 																	{name}
 																</b>
