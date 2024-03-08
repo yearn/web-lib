@@ -1,14 +1,14 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
-import {useConnect, useNetwork} from 'wagmi';
+import {useAccount, useConnect} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
-import {assert} from '@builtbymom/web3/utils';
 import {truncateHex} from '@builtbymom/web3/utils/tools.address';
+import {retrieveConfig} from '@builtbymom/web3/utils/wagmi';
 import {Dialog, Transition} from '@headlessui/react';
 
 import {useInjectedWallet} from '../hooks/useInjectedWallet';
 
 import type {ReactElement, ReactNode} from 'react';
-import type {Chain} from 'wagmi';
+import type {Chain} from 'viem';
 import type {TNetwork} from './Header';
 import type {TModal} from './Modal';
 
@@ -75,17 +75,16 @@ function Modal(props: TModal): ReactElement {
 export function ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const {isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
 	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect} = useWeb3();
-	const {chain} = useNetwork();
+	const {chain} = useAccount();
 	const [walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const detectedWalletProvider = useInjectedWallet();
 	const {connectors} = useConnect();
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const injectedConnector = connectors.find((e): boolean => e.id.toLocaleLowerCase() === 'injected');
-		assert(injectedConnector, 'No injected connector found');
-		const chainsForInjected = injectedConnector.chains;
-		const noTestnet = chainsForInjected.filter(({id}): boolean => id !== 1337);
-		return noTestnet.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
+		connectors; //Hard trigger re-render when connectors change
+		const config = retrieveConfig();
+		const noFork = config.chains.filter(({id}): boolean => id !== 1337);
+		return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
 	}, [connectors]);
 
 	useEffect((): void => {

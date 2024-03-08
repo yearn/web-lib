@@ -2,9 +2,9 @@ import {cloneElement, Fragment, useEffect, useMemo, useState} from 'react';
 import {useConnect, usePublicClient} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {toSafeChainID} from '@builtbymom/web3/hooks/useChainID';
-import {assert} from '@builtbymom/web3/utils';
 import {cl} from '@builtbymom/web3/utils/cl';
 import {truncateHex} from '@builtbymom/web3/utils/tools.address';
+import {retrieveConfig} from '@builtbymom/web3/utils/wagmi';
 import {Listbox, Transition} from '@headlessui/react';
 import {useAccountModal, useChainModal, useConnectModal} from '@rainbow-me/rainbowkit';
 import {useIsMounted} from '@react-hookz/web';
@@ -14,7 +14,7 @@ import {IconWallet} from '../icons/IconWallet';
 import {Button} from './Button';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
-import type {Chain} from 'wagmi';
+import type {Chain} from 'viem';
 
 const Link = (
 	props: DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {tag: ReactElement}
@@ -81,15 +81,14 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const {onSwitchChain, isActive} = useWeb3();
 	const publicClient = usePublicClient();
 	const {connectors} = useConnect();
-	const safeChainID = toSafeChainID(publicClient?.chain.id, Number(process.env.BASE_CHAINID));
+	const safeChainID = toSafeChainID(Number(publicClient?.chain.id), Number(process.env.BASE_CHAINID));
 	const [selectedChainID, set_selectedChainID] = useState(1);
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
-		const injectedConnector = connectors.find((e): boolean => e.id.toLocaleLowerCase() === 'injected');
-		assert(injectedConnector, 'No injected connector found');
-		const chainsForInjected = injectedConnector.chains;
-
-		return chainsForInjected
+		connectors; //Hard trigger re-render when connectors change
+		const config = retrieveConfig();
+		const noFork = config.chains.filter(({id}): boolean => id !== 1337);
+		return noFork
 			.filter(({id}): boolean => id !== 1337 && ((networks.length > 0 && networks.includes(id)) || true))
 			.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
 	}, [connectors, networks]);
@@ -97,7 +96,7 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 	const currentNetwork = useMemo((): TNetwork | undefined => {
 		const currentChainID = isActive ? safeChainID : selectedChainID;
 		return supportedNetworks.find((network): boolean => network.value === currentChainID);
-	}, [safeChainID, selectedChainID, supportedNetworks]);
+	}, [isActive, safeChainID, selectedChainID, supportedNetworks]);
 
 	if (supportedNetworks.length === 1) {
 		if (publicClient?.chain.id === 1337) {
@@ -149,7 +148,7 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 							</div>
 							<div className={'ml-1 md:ml-2'}>
 								<IconChevronBottom
-									className={`h-3 w-3 transition-transform md:h-5 md:w-4 ${
+									className={`size-3 transition-transform md:h-5 md:w-4${
 										open ? '-rotate-180' : 'rotate-0'
 									}`}
 								/>
@@ -257,7 +256,7 @@ function WalletSelector(): ReactElement {
 						walletIdentity
 					) : (
 						<span>
-							<IconWallet className={'yearn--header-nav-item mt-0.5 block h-4 w-4 md:hidden'} />
+							<IconWallet className={'yearn--header-nav-item mt-0.5 block size-4 md:hidden'} />
 							<span
 								className={
 									'relative hidden h-8 cursor-pointer items-center justify-center border border-transparent bg-neutral-900 px-2 text-xs font-normal text-neutral-0 transition-all hover:bg-neutral-800 md:flex'
@@ -285,7 +284,7 @@ function WalletSelector(): ReactElement {
 				<div className={'flex flex-col items-center justify-center pb-6 pt-4 text-center'}>
 					{'You are not connected. Please connect to a wallet to continue.'}
 					<Button className={'mt-3 space-x-2'}>
-						<IconWallet className={'h-4 w-4'} />
+						<IconWallet className={'size-4'} />
 						<p>{'Connect wallet'}</p>
 					</Button>
 				</div>
@@ -360,7 +359,7 @@ export function Header({
 				</button>
 			</div>
 			<div className={'flex w-1/3 justify-center'}>
-				<div className={'relative h-8 w-8'}>{logo}</div>
+				<div className={'relative size-8'}>{logo}</div>
 			</div>
 			<div className={'flex w-1/3 items-center justify-end'}>
 				{showNetworkSelector ? <NetworkSelector networks={supportedNetworks || []} /> : null}
