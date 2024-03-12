@@ -161,7 +161,9 @@ export const yDaemonVaultSchema = z.object({
 		contract: addressSchema
 	}),
 	info: z.object({
-		sourceURL: z.string().optional().default('').catch('')
+		sourceURL: z.string().optional().default('').catch(''),
+		riskLevel: z.number().optional().default(-1).catch(-1),
+		uiNotice: z.string().optional().default('').catch('')
 	})
 });
 
