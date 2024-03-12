@@ -2,7 +2,7 @@ import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} fro
 import {useAccount, useConnect} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {truncateHex} from '@builtbymom/web3/utils/tools.address';
-import {retrieveConfig} from '@builtbymom/web3/utils/wagmi';
+import {getConfig, retrieveConfig} from '@builtbymom/web3/utils/wagmi';
 import {Dialog, Transition} from '@headlessui/react';
 
 import {useInjectedWallet} from '../hooks/useInjectedWallet';
@@ -18,6 +18,7 @@ type TModalMobileMenu = {
 	shouldUseNetworks: boolean;
 	onClose: () => void;
 	children: ReactNode;
+	supportedNetworks: Chain[];
 };
 
 function Modal(props: TModal): ReactElement {
@@ -82,10 +83,16 @@ export function ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 
 	const supportedNetworks = useMemo((): TNetwork[] => {
 		connectors; //Hard trigger re-render when connectors change
-		const config = retrieveConfig();
-		const noFork = config.chains.filter(({id}): boolean => id !== 1337);
-		return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
-	}, [connectors]);
+		try {
+			const config = retrieveConfig();
+			const noFork = config.chains.filter(({id}): boolean => id !== 1337);
+			return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
+		} catch (error) {
+			const config = getConfig({chains: props.supportedNetworks});
+			const noFork = config.chains.filter(({id}): boolean => id !== 1337);
+			return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
+		}
+	}, [connectors, props.supportedNetworks]);
 
 	useEffect((): void => {
 		if (!isActive && address) {
