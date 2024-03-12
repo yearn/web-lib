@@ -202,20 +202,18 @@ function useYearnBalances({shouldUseForknetBalances}: {shouldUseForknetBalances:
  ** interact with our app, aka mostly the balances and the token prices.
  ******************************************************************************/
 const YearnWalletContext = createContext<TWalletContext>(defaultProps);
-export const YearnWalletContextApp = memo(function YearnWalletContextApp({
-	children
-}: {
+export const YearnWalletContextApp = memo(function YearnWalletContextApp(props: {
 	children: ReactElement;
 }): ReactElement {
 	const {address: userAddress} = useWeb3();
 	const {vaults, prices, vaultsMigrations} = useYearn();
 	const [shouldUseForknetBalances, set_shouldUseForknetBalances] = useState<boolean>(false);
-	const {tokens, isLoading, onRefresh} = useYearnBalances({shouldUseForknetBalances});
+	const {tokens: balances, isLoading: isLoadingBalances, onRefresh} = useYearnBalances({shouldUseForknetBalances});
 
 	const [cumulatedValueInV2Vaults, cumulatedValueInV3Vaults] = useMemo((): [number, number] => {
 		let cumulatedValueInV2Vaults = 0;
 		let cumulatedValueInV3Vaults = 0;
-		for (const [, perChain] of Object.entries(tokens)) {
+		for (const [, perChain] of Object.entries(balances)) {
 			for (const [tokenAddress, tokenData] of Object.entries(perChain)) {
 				if (tokenData.value + tokenData.stakingValue === 0) {
 					continue;
@@ -236,31 +234,31 @@ export const YearnWalletContextApp = memo(function YearnWalletContextApp({
 			}
 		}
 		return [cumulatedValueInV2Vaults, cumulatedValueInV3Vaults];
-	}, [vaults, vaultsMigrations, tokens]);
+	}, [vaults, vaultsMigrations, balances]);
 
 	const getToken = useCallback(
-		({address, chainID}: TTokenAndChain): TYToken => tokens?.[chainID || 1]?.[address] || defaultToken,
-		[tokens]
+		({address, chainID}: TTokenAndChain): TYToken => balances?.[chainID || 1]?.[address] || defaultToken,
+		[balances]
 	);
 	const getBalance = useCallback(
 		({address, chainID}: TTokenAndChain): TNormalizedBN => {
 			if (isZeroAddress(userAddress)) {
 				return zeroNormalizedBN;
 			}
-			return tokens?.[chainID || 1]?.[address]?.balance || zeroNormalizedBN;
+			return balances?.[chainID || 1]?.[address]?.balance || zeroNormalizedBN;
 		},
-		[tokens, userAddress]
+		[balances, userAddress]
 	);
 
 	const getPrice = useCallback(
 		({address, chainID}: TTokenAndChain): TNormalizedBN => {
-			const price = tokens?.[chainID || 1]?.[address]?.price;
+			const price = balances?.[chainID || 1]?.[address]?.price;
 			if (!price) {
 				return toNormalizedBN(prices?.[chainID]?.[address] || 0, 6) || zeroNormalizedBN;
 			}
 			return price;
 		},
-		[prices, tokens]
+		[prices, balances]
 	);
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -271,10 +269,10 @@ export const YearnWalletContextApp = memo(function YearnWalletContextApp({
 			getToken,
 			getBalance,
 			getPrice,
-			balances: tokens,
+			balances: balances,
 			cumulatedValueInV2Vaults,
 			cumulatedValueInV3Vaults,
-			isLoading: isLoading || false,
+			isLoading: isLoadingBalances || false,
 			shouldUseForknetBalances,
 			onRefresh,
 			triggerForknetBalances: (): void =>
@@ -291,16 +289,16 @@ export const YearnWalletContextApp = memo(function YearnWalletContextApp({
 			getToken,
 			getBalance,
 			getPrice,
-			tokens,
+			balances,
 			cumulatedValueInV2Vaults,
 			cumulatedValueInV3Vaults,
-			isLoading,
+			isLoadingBalances,
 			shouldUseForknetBalances,
 			onRefresh
 		]
 	);
 
-	return <YearnWalletContext.Provider value={contextValue}>{children}</YearnWalletContext.Provider>;
+	return <YearnWalletContext.Provider value={contextValue}>{props.children}</YearnWalletContext.Provider>;
 });
 
 export const useYearnWallet = (): TWalletContext => useContext(YearnWalletContext);
