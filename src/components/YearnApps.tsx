@@ -97,18 +97,6 @@ export const APPS = {
 			/>
 		)
 	},
-	yBribe: {
-		name: 'yBribe',
-		href: 'https://ybribe.yearn.fi',
-		host: 'ybribe.yearn.fi',
-		icon: (
-			<LogoYearn
-				className={'size-8'}
-				back={'text-neutral-900'}
-				front={'text-neutral-0'}
-			/>
-		)
-	},
 	yFactory: {
 		name: 'yFactory',
 		href: 'https://factory.yearn.fi',
