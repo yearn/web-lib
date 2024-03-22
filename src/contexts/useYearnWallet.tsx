@@ -45,7 +45,6 @@ const defaultToken: TYToken = {
 	chainID: 1,
 	value: 0,
 	stakingValue: 0,
-	price: zeroNormalizedBN,
 	balance: zeroNormalizedBN,
 	supportedZaps: []
 };
@@ -169,9 +168,8 @@ function useYearnBalances({shouldUseForknetBalances}: {shouldUseForknetBalances:
 	isLoading: boolean;
 	onRefresh: (tokenToUpdate?: TUseBalancesTokens[]) => Promise<TYChainTokens>;
 } {
-	const {prices} = useYearn();
 	const allTokens = useYearnTokens({shouldUseForknetBalances});
-	const {data: tokensRaw, onUpdate, onUpdateSome, isLoading} = useBalances({tokens: allTokens, prices});
+	const {data: tokensRaw, onUpdate, onUpdateSome, isLoading} = useBalances({tokens: allTokens});
 
 	const tokens = useDeepCompareMemo((): TYChainTokens => {
 		const _tokens = {...tokensRaw};
@@ -252,13 +250,9 @@ export const YearnWalletContextApp = memo(function YearnWalletContextApp(props: 
 
 	const getPrice = useCallback(
 		({address, chainID}: TTokenAndChain): TNormalizedBN => {
-			const price = balances?.[chainID || 1]?.[address]?.price;
-			if (!price) {
-				return toNormalizedBN(prices?.[chainID]?.[address] || 0, 6) || zeroNormalizedBN;
-			}
-			return price;
+			return toNormalizedBN(prices?.[chainID]?.[address] || 0, 6) || zeroNormalizedBN;
 		},
-		[prices, balances]
+		[prices]
 	);
 
 	/* 🔵 - Yearn Finance ******************************************************

@@ -88,7 +88,7 @@ export function ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 			const noFork = config.chains.filter(({id}): boolean => id !== 1337);
 			return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
 		} catch (error) {
-			const config = getConfig({chains: props.supportedNetworks});
+			const config = getConfig({chains: props.supportedNetworks as any[]});
 			const noFork = config.chains.filter(({id}): boolean => id !== 1337);
 			return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
 		}
