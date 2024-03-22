@@ -32,7 +32,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@total-typescript/ts-reset": "^0.5.1",
     "@wagmi/chains": "1.8.0",
-    "@wagmi/core": "^2.6.5",
+    "@wagmi/core": "^2.6.9",
     "bun-types": "^1.0.30",
     "dayjs": "^1.11.10",
     "ethers": "5.7.2",
