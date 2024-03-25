@@ -46,7 +46,7 @@
     "react-hot-toast": "2.4.1",
     "react-paginate": "^8.2.0",
     "sass": "^1.71.1",
-    "stylelint": "^16.2.1",
+    "stylelint": "^16.3.0",
     "swr": "^2.2.5",
     "tailwindcss": "^3.4.1",
     "viem": "^2.7.22",
