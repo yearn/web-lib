@@ -17,7 +17,7 @@ import type {TYDaemonVault, TYDaemonVaults} from '../utils/schemas/yDaemonVaults
  ** - The vaults that are in the migration process
  ** - The retired vaults
  *****************************************************************************/
-function useFetchYearnVaults(): {
+function useFetchYearnVaults(chainIDs?: number[] | undefined): {
 	vaults: TDict<TYDaemonVault>;
 	vaultsMigrations: TDict<TYDaemonVault>;
 	vaultsRetired: TDict<TYDaemonVault>;
@@ -38,7 +38,7 @@ function useFetchYearnVaults(): {
 			strategiesDetails: 'withDetails',
 			strategiesRisk: 'withRisk',
 			strategiesCondition: 'inQueue',
-			chainIDs: [1, 10, 137, 250, 8453, 42161].join(','),
+			chainIDs: chainIDs ? chainIDs.join(',') : [1, 10, 137, 250, 8453, 42161].join(','),
 			limit: '2500'
 		})}`,
 		schema: yDaemonVaultsSchema
@@ -46,6 +46,7 @@ function useFetchYearnVaults(): {
 
 	const {data: vaultsMigrations} = useFetch<TYDaemonVaults>({
 		endpoint: `${yDaemonBaseUriWithoutChain}/vaults?${new URLSearchParams({
+			chainIDs: chainIDs ? chainIDs.join(',') : [1, 10, 137, 250, 8453, 42161].join(','),
 			migratable: 'nodust'
 		})}`,
 		schema: yDaemonVaultsSchema

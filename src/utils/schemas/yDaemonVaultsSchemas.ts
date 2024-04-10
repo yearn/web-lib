@@ -145,15 +145,18 @@ export const yDaemonVaultSchema = z.object({
 	staking: z
 		.object({
 			address: addressSchema,
-			available: z.boolean().default(false).catch(false)
+			available: z.boolean().default(false).catch(false),
+			source: z.string().default('').catch('')
 		})
 		.default({
 			address: toAddress(''),
-			available: false
+			available: false,
+			source: ''
 		})
 		.catch({
 			address: toAddress(''),
-			available: false
+			available: false,
+			source: ''
 		}),
 	migration: z.object({
 		available: z.boolean(),
