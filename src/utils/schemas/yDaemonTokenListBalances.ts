@@ -9,9 +9,9 @@ const SOLVER = [
 	'ChainCoin',
 	'InternalMigration',
 	'OptimismBooster',
+	'GaugeStakingBooster',
 	'Cowswap',
 	'Portals',
-	'Wido',
 	'None'
 ] as const;
 
