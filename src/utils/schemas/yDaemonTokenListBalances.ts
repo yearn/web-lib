@@ -10,6 +10,7 @@ const SOLVER = [
 	'InternalMigration',
 	'OptimismBooster',
 	'GaugeStakingBooster',
+	'JuicedStakingBooster',
 	'Cowswap',
 	'Portals',
 	'None'
