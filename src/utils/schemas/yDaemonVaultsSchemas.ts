@@ -1,6 +1,7 @@
+import {zeroAddress} from 'viem';
 import {z} from 'zod';
 import {addressSchema} from '@builtbymom/web3/types';
-import {toAddress, toBigInt} from '@builtbymom/web3/utils';
+import {toBigInt} from '@builtbymom/web3/utils';
 
 const yDaemonVaultStrategySchema = z.object({
 	address: addressSchema,
@@ -139,34 +140,35 @@ export const yDaemonVaultSchema = z.object({
 			.default({})
 	}),
 	featuringScore: z.number().default(0).catch(0),
-	retired: z.boolean().default(false).catch(false),
-	boosted: z.boolean().default(false).catch(false),
 	strategies: z.array(yDaemonVaultStrategySchema).nullable().default([]),
 	staking: z
 		.object({
-			address: addressSchema,
+			address: addressSchema.default(zeroAddress).catch(zeroAddress),
 			available: z.boolean().default(false).catch(false),
 			source: z.string().default('').catch('')
 		})
 		.default({
-			address: toAddress(''),
+			address: zeroAddress,
 			available: false,
 			source: ''
 		})
 		.catch({
-			address: toAddress(''),
+			address: zeroAddress,
 			available: false,
 			source: ''
 		}),
 	migration: z.object({
 		available: z.boolean(),
-		address: addressSchema,
-		contract: addressSchema
+		address: addressSchema.default(zeroAddress).catch(zeroAddress),
+		contract: addressSchema.default(zeroAddress).catch(zeroAddress)
 	}),
 	info: z.object({
 		sourceURL: z.string().optional().default('').catch(''),
 		riskLevel: z.number().optional().default(-1).catch(-1),
-		uiNotice: z.string().optional().default('').catch('')
+		uiNotice: z.string().optional().default('').catch(''),
+		isRetired: z.boolean().default(false).catch(false),
+		isBoosted: z.boolean().default(false).catch(false),
+		isHightlighted: z.boolean().default(false).catch(false)
 	})
 });
 
