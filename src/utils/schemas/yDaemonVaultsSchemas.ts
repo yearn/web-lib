@@ -73,13 +73,17 @@ export const yDaemonVaultSchema = z.object({
 	description: z.string().default('').catch(''),
 	category: z
 		.literal('Curve')
+		.or(z.literal('Stablecoin'))
+		.or(z.literal('Aerodrome'))
 		.or(z.literal('Volatile'))
 		.or(z.literal('Balancer'))
-		.or(z.literal('Stablecoin'))
 		.or(z.literal('Velodrome'))
 		.or(z.literal('Prisma'))
+		.or(z.literal('Gamma'))
+		.or(z.literal('Pendle'))
+		.or(z.literal('Prisma'))
 		.or(z.literal('Boosted'))
-		.or(z.literal('Aerodrome'))
+		.or(z.string().min(1))
 		.default('Volatile')
 		.catch('Volatile'),
 	decimals: z.number(),
