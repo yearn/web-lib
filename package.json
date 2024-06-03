@@ -35,7 +35,7 @@
     "@wagmi/core": "^2.6.5",
     "bun-types": "^1.0.30",
     "dayjs": "^1.11.10",
-    "ethers": "5.7.2",
+    "ethers": "6.11.1",
     "eventemitter3": "^5.0.1",
     "framer-motion": "^11.0.8",
     "graphql": "^16.8.1",
