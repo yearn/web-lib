@@ -1,5 +1,5 @@
 import React, {Fragment, useRef} from 'react';
-import {Dialog, Transition} from '@headlessui/react';
+import {Dialog, Transition, TransitionChild} from '@headlessui/react';
 
 import type {ReactElement, ReactNode} from 'react';
 
@@ -14,7 +14,7 @@ function Modal(props: TModal): ReactElement {
 	const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
-		<Transition.Root
+		<Transition
 			show={isOpen}
 			as={Fragment}>
 			<Dialog
@@ -24,7 +24,7 @@ function Modal(props: TModal): ReactElement {
 				initialFocus={ref}
 				onClose={onClose}>
 				<div className={`${className} yearn--modal-wrapper`}>
-					<Transition.Child
+					<TransitionChild
 						as={Fragment}
 						enter={'ease-out duration-300'}
 						enterFrom={'opacity-0'}
@@ -32,15 +32,15 @@ function Modal(props: TModal): ReactElement {
 						leave={'ease-in duration-200'}
 						leaveFrom={'opacity-100'}
 						leaveTo={'opacity-0'}>
-						<Dialog.Overlay className={`${className} yearn--modal-overlay`} />
-					</Transition.Child>
+						<div className={`${className} yearn--modal-overlay`} />
+					</TransitionChild>
 
 					<span
 						className={'hidden sm:inline-block sm:h-screen sm:align-middle'}
 						aria-hidden={'true'}>
 						&#8203;
 					</span>
-					<Transition.Child
+					<TransitionChild
 						as={Fragment}
 						enter={'ease-out duration-300'}
 						enterFrom={'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'}
@@ -53,10 +53,10 @@ function Modal(props: TModal): ReactElement {
 							className={`${className} yearn--modal`}>
 							{children}
 						</div>
-					</Transition.Child>
+					</TransitionChild>
 				</div>
 			</Dialog>
-		</Transition.Root>
+		</Transition>
 	);
 }
 

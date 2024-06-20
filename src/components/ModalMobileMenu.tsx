@@ -3,7 +3,7 @@ import {useAccount, useConnect} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {truncateHex} from '@builtbymom/web3/utils/tools.address';
 import {getConfig, retrieveConfig} from '@builtbymom/web3/utils/wagmi';
-import {Dialog, Transition} from '@headlessui/react';
+import {Dialog, Transition, TransitionChild} from '@headlessui/react';
 
 import {useInjectedWallet} from '../hooks/useInjectedWallet';
 
@@ -26,7 +26,7 @@ function Modal(props: TModal): ReactElement {
 	const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	return (
-		<Transition.Root
+		<Transition
 			show={isOpen}
 			as={Fragment}>
 			<Dialog
@@ -37,7 +37,7 @@ function Modal(props: TModal): ReactElement {
 				onClose={onClose}>
 				<div
 					className={`${className} relative flex min-h-screen items-end justify-end px-0 pb-0 pt-4 text-center sm:block sm:p-0`}>
-					<Transition.Child
+					<TransitionChild
 						as={Fragment}
 						enter={'ease-out duration-300'}
 						enterFrom={'opacity-0'}
@@ -45,15 +45,15 @@ function Modal(props: TModal): ReactElement {
 						leave={'ease-in duration-200'}
 						leaveFrom={'opacity-100'}
 						leaveTo={'opacity-0'}>
-						<Dialog.Overlay className={`${className} yearn--modal-overlay`} />
-					</Transition.Child>
+						<div className={`${className} yearn--modal-overlay`} />
+					</TransitionChild>
 
 					<span
 						className={'hidden sm:inline-block sm:h-screen sm:align-bottom'}
 						aria-hidden={'true'}>
 						&#8203;
 					</span>
-					<Transition.Child
+					<TransitionChild
 						as={Fragment}
 						enter={'ease-out duration-200'}
 						enterFrom={'opacity-0 translate-y-full'}
@@ -66,10 +66,10 @@ function Modal(props: TModal): ReactElement {
 							className={`${className} yearn--modal fixed bottom-0`}>
 							{children}
 						</div>
-					</Transition.Child>
+					</TransitionChild>
 				</div>
 			</Dialog>
-		</Transition.Root>
+		</Transition>
 	);
 }
 
