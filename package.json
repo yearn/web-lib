@@ -1,6 +1,6 @@
 {
   "name": "@yearn-finance/web-lib",
-  "version": "3.0.86",
+  "version": "3.0.88",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
   "files": [
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.24.7",
+    "@builtbymom/web3": "^0.0.122",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@headlessui/react": "^2.0.4",
@@ -45,11 +46,13 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "ethers": "5.7.2",
     "eventemitter3": "^5.0.1",
+    "framer-motion": "^11.2.11",
     "graphql": "^16.8.2",
     "graphql-request": "^7.0.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "next": "^14.2.4",
+    "next-seo": "^6.5.0",
     "nprogress": "^0.2.0",
     "prettier": "^3.3.2",
     "react-hot-toast": "2.4.1",

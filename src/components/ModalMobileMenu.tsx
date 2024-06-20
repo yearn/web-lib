@@ -1,5 +1,5 @@
 import React, {cloneElement, Fragment, useEffect, useMemo, useRef, useState} from 'react';
-import {useAccount, useConnect} from 'wagmi';
+import {useConnect} from 'wagmi';
 import {useWeb3} from '@builtbymom/web3/contexts/useWeb3';
 import {truncateHex} from '@builtbymom/web3/utils/tools.address';
 import {getConfig, retrieveConfig} from '@builtbymom/web3/utils/wagmi';
@@ -75,8 +75,7 @@ function Modal(props: TModal): ReactElement {
 
 export function ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 	const {isOpen, onClose, shouldUseWallets = true, shouldUseNetworks = true, children} = props;
-	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect} = useWeb3();
-	const {chain} = useAccount();
+	const {onSwitchChain, isActive, address, ens, lensProtocolHandle, onDesactivate, onConnect, chainID} = useWeb3();
 	const [walletIdentity, set_walletIdentity] = useState('Connect a wallet');
 	const detectedWalletProvider = useInjectedWallet();
 	const {connectors} = useConnect();
@@ -86,11 +85,11 @@ export function ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 		try {
 			const config = retrieveConfig();
 			const noFork = config.chains.filter(({id}): boolean => id !== 1337);
-			return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
+			return noFork.map((network): TNetwork => ({value: network.id, label: network.name}));
 		} catch (error) {
 			const config = getConfig({chains: props.supportedNetworks as any[]});
 			const noFork = config.chains.filter(({id}): boolean => id !== 1337);
-			return noFork.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
+			return noFork.map((network): TNetwork => ({value: network.id, label: network.name}));
 		}
 	}, [connectors, props.supportedNetworks]);
 
@@ -154,7 +153,7 @@ export function ModalMobileMenu(props: TModalMobileMenu): ReactElement {
 									className={'yearn--select-no-arrow yearn--select-reset !pr-6 text-sm'}>
 									{supportedNetworks.map((network): ReactElement => {
 										const label = network.label || `Unknown chain (${network.value})`;
-										const selectedID = chain?.id || 1;
+										const selectedID = chainID || 1;
 										const isSelected = selectedID === network.value;
 										return (
 											<option

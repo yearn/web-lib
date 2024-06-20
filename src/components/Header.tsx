@@ -14,7 +14,6 @@ import {IconWallet} from '../icons/IconWallet';
 import {Button} from './Button';
 
 import type {AnchorHTMLAttributes, DetailedHTMLProps, ReactElement} from 'react';
-import type {Chain} from 'viem';
 
 const Link = (
 	props: DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {tag: ReactElement}
@@ -90,7 +89,7 @@ function NetworkSelector({networks}: {networks: number[]}): ReactElement {
 		const noFork = config.chains.filter(({id}): boolean => id !== 1337);
 		return noFork
 			.filter(({id}): boolean => id !== 1337 && ((networks.length > 0 && networks.includes(id)) || true))
-			.map((network: Chain): TNetwork => ({value: network.id, label: network.name}));
+			.map((network): TNetwork => ({value: network.id, label: network.name}));
 	}, [connectors, networks]);
 
 	const currentNetwork = useMemo((): TNetwork | undefined => {
