@@ -11,6 +11,7 @@ const SOLVER = [
 	'OptimismBooster',
 	'GaugeStakingBooster',
 	'JuicedStakingBooster',
+	'V3StakingBooster',
 	'Cowswap',
 	'Portals',
 	'None'

@@ -149,17 +149,34 @@ export const yDaemonVaultSchema = z.object({
 		.object({
 			address: addressSchema.default(zeroAddress).catch(zeroAddress),
 			available: z.boolean().default(false).catch(false),
-			source: z.string().default('').catch('')
+			source: z.string().default('').catch(''),
+			rewards: z
+				.array(
+					z.object({
+						address: addressSchema,
+						name: z.string(),
+						symbol: z.string(),
+						decimals: z.number(),
+						price: z.number(),
+						isFinished: z.boolean(),
+						apr: z.number().nullable(),
+						perWeek: z.number()
+					})
+				)
+				.nullable()
+				.default([])
 		})
 		.default({
 			address: zeroAddress,
 			available: false,
-			source: ''
+			source: '',
+			rewards: []
 		})
 		.catch({
 			address: zeroAddress,
 			available: false,
-			source: ''
+			source: '',
+			rewards: []
 		}),
 	migration: z.object({
 		available: z.boolean(),
