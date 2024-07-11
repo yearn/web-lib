@@ -58,6 +58,9 @@ function useFetchYearnVaults(chainIDs?: number[] | undefined): {
 	});
 
 	const vaultsObject = useDeepCompareMemo((): TDict<TYDaemonVault> => {
+		if (!vaults) {
+			return {};
+		}
 		const _vaultsObject = (vaults || []).reduce((acc: TDict<TYDaemonVault>, vault): TDict<TYDaemonVault> => {
 			if (!vault.migration.available) {
 				acc[toAddress(vault.address)] = vault;
@@ -68,6 +71,9 @@ function useFetchYearnVaults(chainIDs?: number[] | undefined): {
 	}, [vaults]);
 
 	const vaultsMigrationsObject = useDeepCompareMemo((): TDict<TYDaemonVault> => {
+		if (!vaultsMigrations) {
+			return {};
+		}
 		const _migratableVaultsObject = (vaultsMigrations || []).reduce(
 			(acc: TDict<TYDaemonVault>, vault): TDict<TYDaemonVault> => {
 				if (toAddress(vault.address) !== toAddress(vault.migration.address)) {
