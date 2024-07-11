@@ -81,6 +81,9 @@ function useFetchYearnVaults(chainIDs?: number[] | undefined): {
 	}, [vaultsMigrations]);
 
 	const vaultsRetiredObject = useDeepCompareMemo((): TDict<TYDaemonVault> => {
+		if (!vaultsRetired) {
+			return {};
+		}
 		const _retiredVaultsObject = (vaultsRetired || []).reduce(
 			(acc: TDict<TYDaemonVault>, vault): TDict<TYDaemonVault> => {
 				acc[toAddress(vault.address)] = vault;
