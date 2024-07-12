@@ -1,6 +1,6 @@
 import type {ReactElement} from 'react';
 import type {TAddress, TDict, TNDict, TToken} from '@builtbymom/web3/types';
-import type {TSolver, TSupportedZaps} from '../utils/schemas/yDaemonTokenListBalances';
+import type {TSolver} from '../utils/schemas/yDaemonTokenListBalances';
 
 export type TDropdownOption = {
 	label: string;
@@ -66,7 +66,6 @@ export type TMessariGraphData = {
 };
 
 export type TYToken = TToken & {
-	supportedZaps: TSupportedZaps[];
 	stakingValue: number;
 };
 export type TYChainTokens = TNDict<TDict<TYToken>>;

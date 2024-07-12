@@ -45,8 +45,7 @@ const defaultToken: TYToken = {
 	chainID: 1,
 	value: 0,
 	stakingValue: 0,
-	balance: zeroNormalizedBN,
-	supportedZaps: []
+	balance: zeroNormalizedBN
 };
 
 const defaultProps = {
