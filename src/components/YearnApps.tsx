@@ -1,3 +1,4 @@
+import {LogoGimme} from '../icons/LogoGimme';
 import {LogoJuiced} from '../icons/LogoJuiced';
 import {LogoYearn} from '../icons/LogoYearn';
 import {VEYFI_DYFI_ADDRESS, YCRV_TOKEN_ADDRESS} from '../utils/constants';
@@ -21,6 +22,12 @@ export const APPS = {
 		href: 'https://juiced.yearn.fi',
 		host: 'juiced.yearn.fi',
 		icon: <LogoJuiced className={'size-8'} />
+	},
+	Gimme: {
+		name: 'GIMME',
+		href: 'https://gimme.mom',
+		host: 'gimme.mom',
+		icon: <LogoGimme className={'size-8'} />
 	},
 	Vaults: {
 		name: 'Vaults',
