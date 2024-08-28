@@ -186,6 +186,7 @@ export const yDaemonVaultSchema = z.object({
 	info: z.object({
 		sourceURL: z.string().optional().default('').catch(''),
 		riskLevel: z.number().optional().default(-1).catch(-1),
+		riskScore: z.array(z.number()).optional().default([]).catch([]),
 		uiNotice: z.string().optional().default('').catch(''),
 		isRetired: z.boolean().default(false).catch(false),
 		isBoosted: z.boolean().default(false).catch(false),
