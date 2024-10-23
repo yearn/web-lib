@@ -159,6 +159,7 @@ export const yDaemonVaultSchema = z.object({
 						decimals: z.number(),
 						price: z.number(),
 						isFinished: z.boolean(),
+						finishedAt: z.number(),
 						apr: z.number().nullable(),
 						perWeek: z.number()
 					})
