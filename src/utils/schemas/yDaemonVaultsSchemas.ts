@@ -121,6 +121,13 @@ export const yDaemonVaultSchema = z.object({
 				inception: z.number().default(0).catch(0)
 			})
 			.default({}),
+		pricePerShare: z
+			.object({
+				today: z.number().default(0).catch(0),
+				weekAgo: z.number().default(0).catch(0),
+				monthAgo: z.number().default(0).catch(0)
+			})
+			.default({}),
 		forwardAPR: z
 			.object({
 				type: z.string().default('unknown').catch('unknown'),
